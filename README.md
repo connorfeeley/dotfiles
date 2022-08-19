@@ -241,6 +241,11 @@ Generally in order of recency.
 
 ## Errata
 
+### Import from Derivation
+
+Using the `nur` requires allowing import-from-derivation.
+Add `allow-import-from-derivation = true` to `~/.config/nix/nix.conf`.
+
 ### kitty terminal custom icons
 
 kitty's FAQ page shows a small collection of high-quality alternative icons designed by some kitty fans.
