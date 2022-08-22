@@ -8,6 +8,10 @@
   homeManagerPackage = inputs.home-manager.packages.${system}.default;
 in {
   environment.systemPackages = [homeManagerPackage];
+
+  # TODO: right location for this?
+  home-manager.backupFileExtension = "backup";
+
   home-manager.sharedModules = [
     {
       programs.home-manager.enable = true;
