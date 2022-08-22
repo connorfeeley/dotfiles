@@ -6,11 +6,4 @@ let
 in
   with hosts;
     [yubiGpg]
-    ++ hierophant.keys
-    ++ hierophant.users.hierophant.keys
-    ++ boschic.users.cfeeley.keys
-    ++ hodgepodge.users.cfeeley.keys
-    ++ tsone.users.cdom.keys
-    ++ aerattum.users.blink.keys
-    ++ aerattum.users.workingcopy.keys
-    ++ brakhage.users.blink.keys
+    ++ workstation.keys
