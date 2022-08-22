@@ -5,7 +5,8 @@
   workstation =
     (with (collective.profiles); [
       fonts.common
-      fonts.pragmatapro
+      # FIXME(cfeeley): delete fully?
+      # fonts.pragmatapro
       networking.common
       networking.ssh-host
       networking.tailscale
