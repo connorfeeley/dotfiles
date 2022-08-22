@@ -35,7 +35,7 @@ in {
     sops
   ];
 
-  users.groups.secrets.members = ["root" "cdom" "cfeeley" "xtallos"];
+  users.groups.secrets.members = ["root" "cfeeley" ];
 
   age.secrets = lib.mkMerge [
     (mkEspansoMatchesSecret "personal")
