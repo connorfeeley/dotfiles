@@ -19,8 +19,6 @@ in
 
     qt.enable = true;
 
-    programs.zathura.enable = true;
-
     # TODO
     # xdg.desktopEntries = ...
     # xdg.mime = ...
