@@ -25,6 +25,7 @@
     cachix
     editorconfig-checker
     nixUnstable
+    nixos-rebuild
     rage
     shellcheck
     shfmt
@@ -89,6 +90,18 @@ in {
         command = ''
           ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/age-key.sec
           ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
+        '';
+      }
+      {
+        category = "ci";
+        name = "flake-ci";
+        help = "Show, check, then build the flake";
+        command = let
+          rebuild = if pkgs.stdenv.isLinux then "nixos-rebuild" else "darwin-rebuild";
+        in ''
+          ${nixUnstable}/bin/nix flake show --print-build-logs && \
+            ${nixUnstable}/bin/nix flake check --print-build-logs && \
+            ${rebuild} build --flake .#$HOSTNAME --print-build-logs
         '';
       }
     ]
