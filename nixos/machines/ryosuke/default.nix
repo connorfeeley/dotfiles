@@ -79,11 +79,11 @@ in {
   ### === users ================================================================
 
   dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cdom";
+  dotfield.guardian.username = "cfeeley";
 
   users.mutableUsers = false;
   users.users.root.initialHashedPassword = "$6$0H8NbKLF5uDD.rvG$S46H2N8W0wKiRRCZOlE5QXBxZCd9CEU0rRi5kZdLMfvcMaYGMC9OEojjAW9i/3c6vRktxQnSUwv4xIZlOOjlB/";
-  users.users.cdom = {
+  users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
     initialHashedPassword = "$6$XTIAlt33Lwfe309d$Zbthi9TYLdnxxKawGXzzX2QawlWkssJkYwP5NsxVb4430IRWz6TEtQfGdp5A9If5kRgj3BS2aacRsFxprfyKy.";
@@ -93,7 +93,7 @@ in {
         "wheel"
         "video"
         "audio"
-        "seadome"
+        "cfeeley"
         "secrets"
       ]
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
@@ -107,7 +107,7 @@ in {
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "cdom";
+  services.xserver.displayManager.autoLogin.user = "cfeeley";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -118,7 +118,7 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  home-manager.users.cdom = hmArgs: {imports = with hmArgs.roles; workstation;};
+  home-manager.users.cfeeley = hmArgs: {imports = with hmArgs.roles; workstation;};
 
   programs.htop.enable = true;
 }

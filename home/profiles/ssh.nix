@@ -22,7 +22,7 @@ in {
     matchBlocks = {
       "tsone" = {
         host = tsone.ipv4.address;
-        user = "cdom";
+        user = "cfeeley";
       };
 
       "hierophant" = {

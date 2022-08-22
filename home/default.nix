@@ -28,18 +28,18 @@ in {
   importables = {inherit peers profiles roles;};
 
   users = {
-    "cdom@prod-www.klein.temple.edu" = hmArgs: {
+    "cfeeley@prod-www.klein.temple.edu" = hmArgs: {
       imports = with hmArgs.roles;
         developer ++ remote;
-      home.username = hmArgs.lib.mkForce "cdom";
-      home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
+      home.username = hmArgs.lib.mkForce "cfeeley";
+      home.homeDirectory = hmArgs.lib.mkForce "/home/cfeeley";
     };
 
-    "cdom@dev.klein.temple.edu" = hmArgs: {
+    "cfeeley@dev.klein.temple.edu" = hmArgs: {
       imports = with hmArgs.roles;
         developer ++ remote;
-      home.username = hmArgs.lib.mkForce "cdom";
-      home.homeDirectory = hmArgs.lib.mkForce "/home/cdom";
+      home.username = hmArgs.lib.mkForce "cfeeley";
+      home.homeDirectory = hmArgs.lib.mkForce "/home/cfeeley";
     };
   };
 }

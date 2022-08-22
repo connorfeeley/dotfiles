@@ -29,7 +29,7 @@
     hashedPassword = "$6$uCcWeO4zLGaoG/QC$c/YTM4ASYrg4IBr8MD0.XziuvBFR4r/4HwpxS/5/gFbZLk2p9QQ69NrR.fGC58iYut54HSbvbVMBLSkiJ5But0";
     extraGroups = [
       "wheel"
-      "seadome"
+      "cfeeley"
       "secrets"
       "video"
       "networkmanager"
