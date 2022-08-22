@@ -60,9 +60,9 @@ case.
 Details to follow.
 
 I intend for this to be my primary and semi-portable personal computer and
-perhaps transitioning `boschic` to a new Face as home server.
+perhaps transitioning `workstation` to a new Face as home server.
 
-### `boschic`
+### `workstation`
 
 A three-faced beast lurking in the shadows of my living room.
 
@@ -137,7 +137,7 @@ Face should only be summoned after invoking the Ten Windows.
 
 #### Face Two: Home Theater PC
 
-Boschic is connected to a ViewSonic "4K" projector pointed at a ceiling-mounted
+Workstation is connected to a ViewSonic "4K" projector pointed at a ceiling-mounted
 100in. screen.
 
 While the Plex Media Player experience on NixOS is... manageable... I suspect that the situation may be deteriorating:

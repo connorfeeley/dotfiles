@@ -28,7 +28,7 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBzpSe7IG82Fl/djgmhclz1QPtduts0JOm9
 
 ## === HIEROPHANT ===
 [hierophant]
-network = "seadome"
+network = "cfeeley"
 keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5ffhsQSZ3DsVddNzfsahN84SFnDWn9erSXiKbVioWy hierophant.loop.garden",
   # FIXME: add rsa key
@@ -43,42 +43,41 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwOUQFOaTPMtYG4VWrgHF772sf4MhmK5Rv
 age = "age18ngk35h7qycc9kzjc4fy788nvnvlce8gvjahkvkkjxlahd5r54vqhmq9y2"
 
 
-## === RYOSUKE ===
+## === WORKSTATION ===
 
-[ryosuke]
+[workstation]
 network = "home"
-tailscale = ""
+tailscale = "100.79.154.16"
 keys = [
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIc3QGVaIcWs+IzEwRBB2Q6Hyejsj9nR4KENwzvzCVg4 root@ryosuke",
-  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQClKW9iYfEeRRGQgBKhERLP3ngOJOEwXtovHMcYAcO5wIjr0D05b8x01ICVYJgQblyoqVbeS70ykUEUkmlwsDM3056CIDgvvQIvDbMGOYCEx1deajRqDKXLcRzEuRSbSs8JuutdaQxtfcHq6HpiZ0NQVeUxgxmnQV0+d6LgA77TpuBFgJK8Nc7jA7fOD+4g0PEiVy3qO2SXVfo7DMpZVey3HSDdFmjM/TczswK9p+OqsL8F5PyE40ErqgOpdakRt/MTT+TWK0y2HgM6Oql+zJ7fY8bT561Cv2Qt7rcYtIYCZd+GOCoD0WdQ9om/8TzrxGOxg3xt4LOk3Czoa6BCNbqHAZdKmtgDfuDvGCzyaXAAQiKhahhv/D0rflGJpNQWJw4KcP2Lt19NSBf70Zgod1FX5PlcGZXof2VZrmRsEu4eEz0aNobwfW/OVILIY/d5N+d42FN4ZW0oqEwPv+ULgaUbil/afPiClf+YMIuyDp3tbbXCVy1p3R8oDwm5SnkgjOasQi5UkwSA3dXSHsiGJS+n17rVg39tLDz0Q8+JH71yZJLn3smN+2WT/uCYXXkkt6ws21AKiFRjL/OaQmpGBlJpzRn4cX7EamTKIsdoZdm6l1BeYE+4a6PQtAtVaKqoWi8YEB+7snWPGfOEFrT/dgXzv0MzDup5uTUy8QCbWcDSYQ== root@ryosuke",
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBqVrQHdMGPKud9TYS3EtqTXLpalTD2+9M+7LfFl6Bv4 root@workstation",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCj009h5RovaCwxxpHfzKWCFBropvJIOKmHjs3EhrEWyFzzQb0TpKYgsrEV8P+x7xQRGpV/Lf1Qgdl5pwbj1LVs2YS2HbktYLp/MP6D/2o7qH+HcRUKag3aTHgvfStGHRCb+RP7aVUtnnnrY9pDfiLpRluCI9X6rksIlomjAP0PSEkTxVp9HL2IccEsyxxt/foNlogJ+P1MIBD+Ae92CN5YGg+BrahMOZiGCrBVSipKE6KlFUhLY4ZEODm0Sr4c18IhemDkKoqRywoBXIOHcJdnbbLFAi3xTxOZuru1XbOwoOKNMLHDkwGPdfrCACni4AtDN4FblFxHO9b6R9GW4aZgRDWIwR0nEw8IL1rv9gqiBiZ3L2A8kXUChRv4PexvT8Z7nLNksZ4hIJWmfWhpnRqCCtBRECVL2Pg0WTDUcJTjwnoNrB893uzlAnpgR1PR+LbW6RvPkN3Qkot6bQ18KugsWx6+Tpa5+vfrWZ8Fan4xHfq2FdKW6KAI3YkF3vf47d0= root@workstation",
 ]
-age = "age1s2wwls2ltcjqsrlsrh4sn7q5u7xkdu6q7dtr3mk8z9mqmfh0kyvs5qx3ax"
+age = "age1s0ckz3rka4zuutd00cn4px4yrkrq992cpejtvljsdvn5u25pkylqkfsrd0"
 
-[ryosuke.ipv4]
-address = "192.168.1.217"
+[workstation.ipv4]
+address = "192.168.0.165"
 
-[ryosuke.users.cdom]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+h4ovqnQQKAr9S4nMGJ4NmRq1klpC9APdDMRiHOI9d cdom@ryosuke"]
-age = "age1fpjz2x5vlrtqr5hqy4mgmq6xf3uh3epalwek0shur574rm4hngks97taru"
-
-
-## === BOSCHIC ===
-
-[boschic]
-network = "home"
-tailscale = "100.112.94.38"
-keys = [
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILieF9RIyF4rnqOyse7+3RMYQGH8IrBkTOuMb3O4oDXU root@boschic",
-  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC55brzXJiHpeY6ivYPshjG664jx87m7qLLv6ur8r5i9eWjQK9MIW4OB4Bfc4LKjNNSgeZ9Exs9L2V5ci3hFsBUUiANUuKNWrplO8CjHmAYndo1fQ+NlOqwTug+NOIjAjc4tZ2QxO1QLxBrRieF7UTBm52C4v3fIingi38UYGQje9JedFdxhuUWQW4a+VBpjYX7r6QjSd3+yO29u97fi9HxK54aVCW41ylsAOp75ty6HYoOi4cuqsZipFm+u4lTxj9XtEyernVX0dqIJLuKSB1WnZNeTe3U41+VeZG8H5eEiChJGbfWaAXRjYLiU15Akz/PVDXmkD19F7oqeqsU0VkaUi2y3vpADlMEi4jXaLsaX0xNkGvUyTLGr1TKBBlEDspr4ptN5EyvAzUFOwSAyEnsfjL9QaLs4kNgiJjzMYXr8w7CHfXgI7tw3ERryOS9FpfCo92KqHMkkQ8psqI/DOvxREY+uCeU4VPuiXLH2Q9w0TJuN3MC6V6cr3qiaMTZwaM6dLRb9FGHTk2XycP+EgJywM3zsc2MPijb4B9PXWlUIi20mnEQTVsGhiN738QwVTAWIlAPk4GnWcJLtrdRaOXUyEe/HAWks6vXeMAduKM1vF8MzgHKz4QJVsbcaPrOxAnS9i70UeA0qNjn3n9d2C9cATJEVS9OD2GoTbkMWWQ5uw== root@boschic",
-]
-age = "age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl"
-
-[boschic.ipv4]
-address = "192.168.1.214"
-
-[boschic.users.cfeeley]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx cfeeley@boschic.loop.garden"]
+[workstation.users.cfeeley]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCVmAx+FNqurkG9eQ7icgqS1tOzy1JyL+spWMr477mU cfeeley@cfeeley-workstation"]
 age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
+
+
+## === MACBOOK-PRO ===
+
+[MacBook-Pro]
+network = "home"
+tailscale = "100.66.73.38"
+keys = [
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBxw8UnnH5Cizu7p9r4PFGDe/azUrdC0qA3K9GtWtvf/+l4dy044X3mI+hHVigTbxDH5viYcTiH6Lk+SHl2uZuX6fkzTBaFoonEJrKeCRS25TTMmas9g7D/maDoENEF1X0acs5Ffk3CAqKlOeynGPnj4M1ovUM8wyg1lsfZXA+LVr9GLLziiZSxVBBjG341hfVP3LFijj8qIAoDnBPrlLBjrrCsHXZa1QxjjyQADC5Ty7wgqLZqhfEEmkSdUEdkEt1lW4wzJzNXM/7F+iBmLTTp2KcUTPP2kyCU8YR+QvOMafB7ufmRoMf2ERjQtCwSJCYfEot3DBOvdgL0lFBTW4T /home/cfeeley/.ssh/id_rsa",
+]
+# age = "age1s0ckz3rka4zuutd00cn4px4yrkrq992cpejtvljsdvn5u25pkylqkfsrd0"
+
+[MacBook-Pro.ipv4]
+address = "192.168.0.175"
+
+[MacBook-Pro.users.cfeeley]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBu7vxj2IpJ5R4SL/TCbonZmAM6aFlruqc4z5zwBjyxo cfeeley@Connors-MacBook-Pro.local"]
+# age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
 
 ## === HODGEPODGE ===
@@ -96,7 +95,7 @@ age = "age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w"
 address = "192.168.1.174"
 
 [hodgepodge.users.cfeeley]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo cfeeley@hodgepodge.loop.garden"]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCVmAx+FNqurkG9eQ7icgqS1tOzy1JyL+spWMr477mU cfeeley@cfeeley-workstation"]
 
 
 ## === SYNOXYN ===
@@ -115,7 +114,7 @@ address = "192.168.1.197"
 # note: on aerattum, an iphone, "users" are "apps"
 
 [aerattum]
-network = "seadome"
+network = "cfeeley"
 
 [aerattum.users.blink]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG2HrKDL60obU2mEkV1pM1xHQeTHc+czioQDTqu0gP37 blink@aerattum"]
@@ -133,4 +132,4 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBWeCycDkYAqyXcgGOiy8cgnKDy8QL6F8l
 ## === INSTALLER: GRAPHICAL ===
 
 [bootstrap-graphical]
-network = "seadome"
+network = "cfeeley"

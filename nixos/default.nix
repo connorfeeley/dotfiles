@@ -23,7 +23,7 @@ in {
         login.gdm
       ]);
 
-    boschic.modules =
+    workstation.modules =
       (with roles; graphical ++ tangible ++ webdev ++ workstation)
       ++ (with profiles; [
         boot.refind

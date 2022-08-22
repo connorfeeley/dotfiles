@@ -2,7 +2,7 @@
 domain = "home.arpa"
 
 [home.ipv4]
-address = "192.168.1.1"
+address = "192.168.0.1"
 prefixLength = 24
 
 [local]
@@ -17,8 +17,8 @@ domain = "cube.garden"
 [ouroboros]
 domain = "loop.garden"
 
-[seadome]
-domain = "seadome.net"
+[cfeeley]
+domain = "cfeeley.org"
 
 [tusecurewireless]
 domain = "temple.edu"
