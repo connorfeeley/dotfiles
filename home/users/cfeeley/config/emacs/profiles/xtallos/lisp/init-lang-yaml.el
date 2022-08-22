@@ -9,7 +9,7 @@
 ;;
 ;; Created: 22 Jul 2022
 ;;
-;; URL: https://github.com/montchr/dotfield/tree/main/users/seadoom/config/emacs/profiles/xtallos
+;; URL: https://github.com/montchr/dotfield/tree/main/users/cfeeley/config/emacs/profiles/xtallos
 ;;
 ;; License: GPLv3
 ;;

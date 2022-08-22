@@ -41,7 +41,7 @@ in {
       # user?
       # default = "/persist/vm/${config.system.name}/data";
       # FIXME: hardcoded user path, yuck
-      default = "/home/seadoom/.local/share/vms/${config.system.name}/data";
+      default = "/home/cfeeley/.local/share/vms/${config.system.name}/data";
       description = "Directory on the host machine where the VM's data will live.";
     };
 

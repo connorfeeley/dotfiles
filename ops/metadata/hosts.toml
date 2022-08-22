@@ -76,8 +76,8 @@ age = "age1wes6w27jntng7t0fl2scuz8l0s556e4m3x3q8qfczgah90kyfs3shuqvvl"
 [boschic.ipv4]
 address = "192.168.1.214"
 
-[boschic.users.seadoom]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx seadoom@boschic.loop.garden"]
+[boschic.users.cfeeley]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaZWAdHI5JfTzuXCNOTs8ebMjThMzhxS8uI28KB3uTx cfeeley@boschic.loop.garden"]
 age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
 
@@ -95,8 +95,8 @@ age = "age1saydygdkg49p6g34ylds3m666x0nsr2f8clwcggsn9essqdkfqjsq9a25w"
 [hodgepodge.ipv4]
 address = "192.168.1.174"
 
-[hodgepodge.users.seadoom]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo seadoom@hodgepodge.loop.garden"]
+[hodgepodge.users.cfeeley]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+iDtB1+DXl89xmlHz6irAYfI2dm4ubinsH3apMeFeo cfeeley@hodgepodge.loop.garden"]
 
 
 ## === SYNOXYN ===

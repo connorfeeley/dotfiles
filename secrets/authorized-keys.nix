@@ -8,8 +8,8 @@ in
     [yubiGpg]
     ++ hierophant.keys
     ++ hierophant.users.hierophant.keys
-    ++ boschic.users.seadoom.keys
-    ++ hodgepodge.users.seadoom.keys
+    ++ boschic.users.cfeeley.keys
+    ++ hodgepodge.users.cfeeley.keys
     ++ tsone.users.cdom.keys
     ++ aerattum.users.blink.keys
     ++ aerattum.users.workingcopy.keys

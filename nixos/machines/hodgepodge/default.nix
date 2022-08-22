@@ -22,7 +22,7 @@
   hardware.facetimehd.enable = true;
 
   users.mutableUsers = false;
-  users.users.seadoom = {
+  users.users.cfeeley = {
     isNormalUser = true;
     uid = 1000;
     initialHashedPassword = "$6$uCcWeO4zLGaoG/QC$c/YTM4ASYrg4IBr8MD0.XziuvBFR4r/4HwpxS/5/gFbZLk2p9QQ69NrR.fGC58iYut54HSbvbVMBLSkiJ5But0";
@@ -38,7 +38,7 @@
     shell = pkgs.zsh;
   };
 
-  home-manager.users.seadoom = hmArgs: {
+  home-manager.users.cfeeley = hmArgs: {
     imports = with hmArgs.roles; workstation;
 
     home.packages = with pkgs; [

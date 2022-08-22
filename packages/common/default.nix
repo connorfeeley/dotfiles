@@ -6,7 +6,7 @@ final: prev: {
   dotfield-config = final.stdenv.mkDerivation {
     name = "dotfield-config";
     # FIXME: what the...
-    src = final.gitignoreSource ../../home/users/seadoom/config;
+    src = final.gitignoreSource ../../home/users/cfeeley/config;
     installPhase = ''
       mkdir -p $out
       cp -R * $out/

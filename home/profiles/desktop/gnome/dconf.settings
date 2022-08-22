@@ -1,5 +1,5 @@
 [org/gnome/Disks]
-image-dir-uri='file:///home/seadoom/Documents'
+image-dir-uri='file:///home/cfeeley/Documents'
 
 [org/gnome/baobab/ui]
 window-size=(960, 600)
