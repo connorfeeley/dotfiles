@@ -1,10 +1,11 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  self,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, self
+, ...
+}:
+let
+  inherit (config.lib) dotfield;
   inherit (pkgs.stdenv) buildPlatform hostPlatform;
   inherit (config.xdg) configHome;
   inherit (config.lib.dag) entryAfter;
@@ -13,7 +14,12 @@ moduleArgs @ {
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
   emacsDir = "${configHome}/emacs";
-in {
+
+  # FIXME: this is gross
+  configDir = ../../.;
+  e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${configDir}/config/emacs/e");
+in
+{
   home.sessionVariables = {
     EMACSDIR = emacsDir;
 
@@ -32,7 +38,7 @@ in {
     LSP_USE_PLISTS = "true";
   };
 
-  home.sessionPath = ["${configHome}/emacs/bin" "$PATH"];
+  home.sessionPath = [ "${configHome}/emacs/bin" "$PATH" ];
 
   ## Doom Bootloader.
   #: <https://github.com/doomemacs/doomemacs/commit/5b6b204bcbcf69d541c49ca55a2d5c3604f04dad>
@@ -43,17 +49,19 @@ in {
   #   mkOutOfStoreSymlink "${profilesPath}/xtallos";
 
   # FIXME: use doom profile loader once issues are fixed upstream
-  xdg.configFile."doom".source =
-    mkOutOfStoreSymlink "${profilesPath}/doom";
+  # xdg.configFile."doom".source =
+  #   mkOutOfStoreSymlink "${profilesPath}/doom";
 
   # Install Doom imperatively to make use of its CLI.
   # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
   # due to the number of oddities it introduces.
-  home.activation.installDoomEmacs = let
-    git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
-  in
-    entryAfter ["writeBoundary"] ''
+  home.activation.installDoomEmacs =
+    let
+      git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
+    in
+    entryAfter [ "writeBoundary" ] ''
       if [[ ! -f "${emacsDir}/README.md" ]]; then
+        [[ ! -d "${emacsDir}" ]] && mkdir "${emacsDir}"
         cd ${emacsDir}
         ${git} init --initial-branch master
         ${git} remote add origin ${doomRepoUrl}
@@ -64,43 +72,71 @@ in {
 
   programs.emacs = {
     enable = true;
-    package =
-      if (hostPlatform.isDarwin && buildPlatform.isMacOS)
-      then (pkgs.emacsPlusNativeComp or pkgs.emacsNativeComp)
-      else if (moduleArgs.osConfig.services.xserver.enable or false)
-      then pkgs.emacsPgtkNativeComp
-      else pkgs.emacsNativeComp;
-    extraPackages = epkgs: with epkgs; [vterm];
+    package = pkgs.emacsPgtkNativeComp;
+    # TODO: revisit if this is required for darwin
+    # if (hostPlatform.isDarwin && buildPlatform.isMacOS)
+    # then (pkgs.emacsPlusNativeComp or pkgs.emacsNativeComp)
+    # else if (moduleArgs.osConfig.services.xserver.enable or false)
+    # then pkgs.emacsPgtkNativeComp
+    # else pkgs.emacsNativeComp;
+    extraPackages = epkgs: with epkgs; [
+      vterm
+      pdf-tools
+      tree-sitter
+      tree-sitter-langs
+      tsc
+    ];
   };
 
   services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
     # Doom will take care of running the server.
     enable = lib.mkDefault false;
     defaultEditor = lib.mkForce true;
-    socketActivation.enable = true;
+    socketActivation.enable = false;
   };
 
   home.packages = with pkgs; [
+    # Emacsclient wrapper
+    e-wrapper
+
     ediff-tool
     gnutls
-    (ripgrep.override {withPCRE2 = true;})
+    (ripgrep.override { withPCRE2 = true; })
 
     fd # faster projectile indexing
     imagemagick # for image-dired
     zstd # for undo-fu-session/undo-tree compression
 
+    figlet # prettier block comments
+
     #: org
     graphviz
 
+    # :lang latex & :lang org (latex previews)
+    texlive.combined.scheme-medium
+    # :tools magit
+    gitAndTools.delta
+    # :lang nix
+    nixpkgs-fmt
+
+    # Fonts
+    emacs-all-the-icons-fonts
+
+    # For emacs-everywhere
+    xorg.xwininfo
+    xdotool
+    xclip
+
     # FIXME: sqlite binary unusable in org-roam and forge even after supplying
     # them... so we let these packages compile the binary...
-    gcc
+    stdenv.cc
     sqlite
 
     editorconfig-core-c
 
     ##: === writing ===
 
+    # :checkers spell
     (aspellWithDicts (ds:
       with ds; [
         en
@@ -131,8 +167,10 @@ in {
     #: nix
     rnix-lsp
     #: php
+    # FIXME(darwin): broken
     nodePackages.intelephense
     #: ruby
+    # FIXME(darwin): broken
     rubyPackages.solargraph
     #: sh
     nodePackages.bash-language-server
@@ -147,4 +185,14 @@ in {
     #: vimrc
     nodePackages.vim-language-server
   ];
+
+  # Configure aspell
+  xdg.configFile."aspell/aspell.conf" = {
+    text = ''
+      master en_US
+      extra-dicts en-computers.rws
+      add-extra-dicts en_US-science.rws
+    '';
+    executable = false;
+  };
 }
