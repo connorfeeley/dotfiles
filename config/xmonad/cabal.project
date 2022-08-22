@@ -1,0 +1,6 @@
+packages: ./*.cabal
+
+package xmonad-config
+        documentation: True
+        haddock-hoogle: True
+        haddock-all: True

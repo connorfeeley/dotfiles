@@ -56,6 +56,9 @@
     nur.url = "github:nix-community/NUR";
     rnix-lsp.url = "github:nix-community/rnix-lsp";
 
+    xmonad-config.url = "path:config/xmonad";
+    xmobar-config.url = "path:config/xmobar";
+
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;
