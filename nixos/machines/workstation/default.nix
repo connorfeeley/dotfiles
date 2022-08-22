@@ -19,8 +19,8 @@ in {
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 15;
-  boot.initrd.supportedFilesystems = ["btrfs"];
-  boot.supportedFilesystems = ["btrfs"];
+  boot.initrd.supportedFilesystems = ["ext4" "btrfs"];
+  boot.supportedFilesystems = ["ext4" "btrfs"];
 
   virtualisation.vmVariant = {
     virtualisation.graphics = false;
@@ -64,15 +64,15 @@ in {
   ### === users ================================================================
 
   dotfield.guardian.enable = true;
-  dotfield.guardian.username = "seadoom";
+  dotfield.guardian.username = "cfeeley";
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword = "$6$HshRirQmQu.nxnwE$6eUWz9pN3T9F4KZVBpz7KfvZhLAFRGRHkm1YFsIqpQUSHBw8Lfh6G6PBLbHp9/XUxiIz0MZQaxRqQvHMIn/hW0";
-  users.users.seadoom = {
+  users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
-    hashedPassword = "$6$ARl/PHPTN16/aGSi$oCAM1JsVDKWuhogrV/9TwNOxN2.tFaN3SlpG6tB0wvKNksuzFp8CHd2Z6AQSPq35DsLfJprw4DdYy/CzEweON.";
+    initialHashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     extraGroups =
       [
@@ -80,7 +80,7 @@ in {
         "video"
         "audio"
         "networkmanager"
-        "seadome"
+        "cfeeley"
         "secrets"
       ]
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
@@ -89,21 +89,11 @@ in {
       ++ (lib.optional config.virtualisation.podman.enable "podman")
       ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
       ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
-    shell = pkgs.fish;
-  };
-  users.users.zortflower = {
-    uid = 1001;
-    isNormalUser = true;
-    hashedPassword = "$6$vKXBAWMIBgK2lqZM$px7zUItEknMtXUriGTHwS6S2zmmyvZTVfk6vD4mcLIQNS4nBalfLkT4spjeoEI1ock.0Dk9.qKR8Wlze3GDJ40";
-    extraGroups = [
-      "video"
-      "networkmanager"
-    ];
+    shell = pkgs.zsh;
   };
 
   home-manager.users = {
-    seadoom = hmArgs: {imports = with hmArgs.roles; workstation;};
-    zortflower = hmArgs: {imports = with hmArgs.roles; graphical;};
+    cfeeley = hmArgs: {imports = with hmArgs.roles; workstation;};
   };
 
   programs.htop.enable = true;
