@@ -12,9 +12,10 @@
     else pkgs.firefox;
 in {
   services.xserver.enable = true;
-  services.xserver.layout = "us";
+  services.xserver.layout = "dvorak";
   # FIXME: propagate to GNOME settings
-  services.xserver.xkbOptions = "caps:ctrl_modifier";
+  services.xserver.xkbOptions = "caps:ctrl_modifier,ctrl:swap_lalt_lctl";
+  services.xserver.exportConfiguration = true;
 
   # TODO: might only be available on master?
   # programs._1password-gui.enable = true;
