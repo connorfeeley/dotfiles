@@ -24,12 +24,12 @@ in {
 
     # FIXME: move this back to a module -- guardian
     whoami = rec {
-      firstName = "Chris";
-      lastName = "Montgomery";
+      firstName = "Connor";
+      lastName = "Feeley";
       fullName = "${firstName} ${lastName}";
-      email = "chris@cdom.io";
-      githubUserName = "montchr";
-      pgpPublicKey = "0x135EEDD0F71934F3";
+      email = "connor@cfeeley.org";
+      githubUserName = "connor.feeley";
+      pgpPublicKey = "0x77CB2390C53B4E5B";
     };
 
     emacs = rec {
