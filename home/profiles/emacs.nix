@@ -7,6 +7,7 @@ moduleArgs @ { config
 let
   inherit (config.lib) dotfield;
   inherit (pkgs.stdenv) buildPlatform hostPlatform;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config.xdg) configHome;
   inherit (config.lib.dag) entryAfter;
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -122,11 +123,6 @@ in
     # Fonts
     emacs-all-the-icons-fonts
 
-    # For emacs-everywhere
-    xorg.xwininfo
-    xdotool
-    xclip
-
     # FIXME: sqlite binary unusable in org-roam and forge even after supplying
     # them... so we let these packages compile the binary...
     stdenv.cc
@@ -184,7 +180,12 @@ in
     nodePackages.yaml-language-server
     #: vimrc
     nodePackages.vim-language-server
-  ];
+  ] ++ (lib.optionals isLinux [
+    # For emacs-everywhere
+    xorg.xwininfo
+    xdotool
+    xclip
+  ]);
 
   # Configure aspell
   xdg.configFile."aspell/aspell.conf" = {
