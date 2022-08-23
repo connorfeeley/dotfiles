@@ -31,6 +31,20 @@ in {
 
   system.stateVersion = "21.11";
 
+  ### === timezone ============================================================
+
+  time = {
+    timeZone = "America/Toronto";
+    hardwareClockInLocalTime = true;
+  };
+  environment.sessionVariables.TZ = "${config.time.timeZone}";
+  location = {
+    provider = "manual";
+    latitude = 43.70011;
+    longitude = -79.4163;
+  };
+  environment.etc.timezone.source = "${pkgs.tzdata}/share/zoneinfo/${config.time.timeZone}";
+
   ### === networking ===========================================================
 
   networking = lib.mkIf (!config.nixos-vm.enable) (
