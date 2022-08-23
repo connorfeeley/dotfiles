@@ -240,6 +240,20 @@
           autoRollback = true;
           magicRollback = true;
         };
+        cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
+          hostname = ipv4.address;
+          sshUser = "cfeeley";
+          fastConnection = true;
+          autoRollback = true;
+          magicRollback = true;
+          # profilesOrder = [ "system" "cfeeley" ];
+          profilesOrder = [ "cfeeley" ];
+          profiles.cfeeley = {
+            user = "cfeeley";
+            path = deploy.lib.x86_64-linux.activate.home-manager
+              self.homeConfigurationsPortable.x86_64-linux."cfeeley@cfeeley-laptop";
+          };
+        };
       };
     })
     // (eachSystem darwinSystems (system: {

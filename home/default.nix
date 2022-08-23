@@ -28,14 +28,7 @@ in {
   importables = {inherit peers profiles roles;};
 
   users = {
-    "cfeeley@prod-www.klein.temple.edu" = hmArgs: {
-      imports = with hmArgs.roles;
-        developer ++ remote;
-      home.username = hmArgs.lib.mkForce "cfeeley";
-      home.homeDirectory = hmArgs.lib.mkForce "/home/cfeeley";
-    };
-
-    "cfeeley@dev.klein.temple.edu" = hmArgs: {
+    "cfeeley@cfeeley-laptop" = hmArgs: {
       imports = with hmArgs.roles;
         developer ++ remote;
       home.username = hmArgs.lib.mkForce "cfeeley";
