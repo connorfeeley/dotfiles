@@ -38,7 +38,7 @@
 
   webdev = with profiles; [
     virtualisation.libvirtd
-    virtualisation.podman
+    virtualisation.docker
     virtualisation.vagrant
     virtualisation.virtualbox
   ];

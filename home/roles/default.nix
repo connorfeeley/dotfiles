@@ -9,6 +9,7 @@ with profiles; let
     shells.zsh
     shells.fish
     ssh
+    virtualisation.docker
   ];
 
   graphical = [
