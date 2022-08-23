@@ -37,6 +37,11 @@ in
         # 10 hour cache timeout
         defaultCacheTtl = 36000;
         defaultCacheTtlSsh = 36000;
+
+        extraConfig = ''
+          allow-emacs-pinentry
+          allow-loopback-pinentry
+        '';
       };
 
       programs.gpg = {
