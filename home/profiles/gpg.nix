@@ -29,6 +29,14 @@ in
         enable = true;
         enableSshSupport = true;
         sshKeys = [pgpPublicKey];
+
+        enableExtraSocket = true;
+
+        enableZshIntegration = true;
+
+        # 10 hour cache timeout
+        defaultCacheTtl = 36000;
+        defaultCacheTtlSsh = 36000;
       };
 
       programs.gpg = {
