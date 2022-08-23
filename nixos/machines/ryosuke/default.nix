@@ -36,9 +36,6 @@ in {
 
   system.stateVersion = "22.05";
 
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
