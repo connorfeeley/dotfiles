@@ -10,6 +10,8 @@
       secrets
     ])
     ++ (with profiles; [
+      distributed-build
+
       emacs
       gui
       system-defaults

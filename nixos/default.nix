@@ -28,9 +28,13 @@ in {
       ++ (with profiles; [
         boot.systemd-boot
         hardware.amd
+        nvidia
+
         login.sddm
         # login.greetd
-        nvidia
+
+        builder
+
         virtualisation.vm-variant
         workstations.flatpak
       ]);
