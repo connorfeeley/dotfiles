@@ -7,7 +7,7 @@
   # nixConfig.extra-trusted-public-keys = "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
-    nixpkgs.follows = "nixos-stable";
+    nixpkgs.follows = "nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
@@ -165,6 +165,7 @@
       nixpkgs-wayland.overlay
       nur.overlay
       nvfetcher.overlay
+      firefox-darwin.overlay
     ];
   in
     (digga.lib.mkFlake {
@@ -174,7 +175,12 @@
         supportedSystems
         ;
 
-      channelsConfig.allowUnfree = true;
+      channelsConfig = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+
+        allowBroken = true;
+      };
 
       channels = {
         nixos-stable = {

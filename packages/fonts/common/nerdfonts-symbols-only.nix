@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/ryanoasis/nerd-fonts/releases/download/2.2.0-RC/NerdFontsSymbolsOnly.zip";
-    hash = "sha256-dEB0hwl9tCb4jfQ8frh79IUH44rY8cMzi6HIMWNEWu8=";
+    hash = "sha256-tuNRQx2gtp6ewNie0hogty/kBwkuRjfG9AyjXTe/rkw=";
   };
 
   nativeBuildInputs = [unzip];

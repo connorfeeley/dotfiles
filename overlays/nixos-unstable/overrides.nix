@@ -4,5 +4,6 @@ channels: final: prev: {
   inherit
     (channels.nixos-stable)
     zathura
+    wally-cli
     ;
 }

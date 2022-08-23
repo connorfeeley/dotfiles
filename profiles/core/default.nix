@@ -19,19 +19,6 @@ in {
   # TODO: can this be merged with the 'dotfield' lib?
   lib.our = self.lib;
 
-  # Set time zone.
-  time = {
-    timeZone = "America/Toronto";
-    hardwareClockInLocalTime = true;
-  };
-  environment.sessionVariables.TZ = "${config.time.timeZone}";
-  location = {
-    provider = "manual";
-    latitude = 43.70011;
-    longitude = -79.4163;
-  };
-  environment.etc.timezone.source = "${pkgs.tzdata}/share/zoneinfo/${config.time.timeZone}";
-
   environment.variables = {
     DOTFIELD_DIR = dotfield.fsPath;
     EDITOR = "vim";

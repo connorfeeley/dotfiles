@@ -1,15 +1,25 @@
 {
   config,
-  pkgs,
   lib,
-  suites,
+  pkgs,
   profiles,
-  hmUsers,
+  suites,
+  inputs,
+  primaryUser,
+  collective,
   ...
-}: {
-  imports =
-    (with suites; workstation)
-    ++ (with profiles; [users.cfeeley]);
+}: let
+  inherit (collective) peers;
+  inherit (config.networking) hostName;
+in {
+  ### === users ================================================================
+
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "cfeeley";
+
+  home-manager.users = {
+    cfeeley = hmArgs: {imports = with hmArgs.roles; workstation;};
+  };
 
   networking.hostName = "MacBook-Pro";
 

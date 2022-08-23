@@ -32,7 +32,6 @@ in {
 
     gc = {
       automatic = true;
-      dates = "weekly";
     };
 
     extraOptions = ''

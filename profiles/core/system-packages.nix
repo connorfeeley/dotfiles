@@ -45,7 +45,6 @@ in {
     ## === Network ===
 
     curl
-    dnsutils
     nmap
     wget
     whois
