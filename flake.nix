@@ -166,6 +166,9 @@
       nur.overlay
       nvfetcher.overlay
       firefox-darwin.overlay
+
+      xmonad-config.overlay
+      xmobar-config.overlay
     ];
   in
     (digga.lib.mkFlake {
