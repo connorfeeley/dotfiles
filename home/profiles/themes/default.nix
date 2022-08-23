@@ -11,7 +11,7 @@
   theme =
     if envTheme != ""
     then envTheme
-    else "black-metal-khold";
+    else "synth-midnight-dark";
 in {
   colorscheme = inputs.nix-colors.colorSchemes.${theme};
 
