@@ -108,6 +108,8 @@
     nur,
     nvfetcher,
     sops-nix,
+    xmonad-config,
+    xmobar-config,
     ...
   } @ inputs: let
     inherit
