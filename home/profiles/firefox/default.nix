@@ -146,7 +146,7 @@ in {
     enable = true;
     package =
       if isDarwin
-      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
+      then pkgs.firefox-bin # from nixpkgs-firefox-darwin
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
       else
         pkgs.firefox-wayland.override {
@@ -195,6 +195,14 @@ in {
       temporary-containers
       tridactyl
       ublock-origin
+
+      bitwarden
+      consent-o-matic
+      sponsorblock
+      sidebery
+      vimium
+      https-everywhere
+      privacy-badger
 
       ##: Themes {{
 

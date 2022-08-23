@@ -50,6 +50,7 @@
     ##: --- sources ------------------------------------------------------------
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -92,6 +93,7 @@
     deploy,
     digga,
     emacs-overlay,
+    firefox-darwin,
     flake-utils,
     gitignore,
     home-manager,
