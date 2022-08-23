@@ -22,6 +22,9 @@ in {
   boot.initrd.supportedFilesystems = ["ext4" "btrfs"];
   boot.supportedFilesystems = ["ext4" "btrfs"];
 
+  # Mount /tmp as tmpfs
+  boot.tmpOnTmpfs = true;
+
   virtualisation.vmVariant = {
     virtualisation.graphics = false;
   };
