@@ -11,7 +11,6 @@
 let
   inherit (collective) peers;
   inherit (config.networking) hostName;
-  # hostKeys = (lib.our.peers.getHost hostName).keys;
   host = peers.hosts.${hostName};
 in
 {
