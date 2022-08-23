@@ -10,7 +10,7 @@ lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
     server.enable = true;
     settings = {
       main = {
-        font = "Iosevka Term:size=13";
+        font = "Iosevka Extended:size=13";
         dpi-aware = true;
       };
       cursor.blink = true;

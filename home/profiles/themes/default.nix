@@ -17,7 +17,7 @@ in {
 
   theme.font = {
     mono = {
-      family = "Iosevka Xtal";
+      family = "Iosevka Extended";
       size = 13;
     };
     sans = {
