@@ -233,7 +233,7 @@
       homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        tsone = with (collective.peers.hosts.tsone); {
+        workstation = with (collective.peers.hosts.workstation); {
           hostname = ipv4.address;
           sshUser = "root";
           fastConnection = true;
