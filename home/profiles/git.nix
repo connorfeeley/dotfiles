@@ -18,6 +18,13 @@
     config.programs.gpg.enable
     && config.services.gpg-agent.enable
     && "" != pgpPublicKey;
+
+  git-gpg-privacy = with pkgs; writeShellScriptBin "git-gpg-privacy" ''
+    # Epoch for today at 00:00:00
+    EPOCH_TODAY="$(date --date=$(date --iso-8601=date) +'%s')"
+
+    ${gnupg}/bin/gpg2 --faked-system-time "$EPOCH_TODAY!" --no-emit-version $@
+  '';
 in {
   home.packages = with pkgs; [
     ediff-tool
@@ -43,6 +50,10 @@ in {
         | cut -c 1-12,41- \
         | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
     '')
+
+    # Privacy
+    gitAndTools.git-privacy
+    git-gpg-privacy
   ];
 
   programs.git = {
