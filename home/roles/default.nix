@@ -14,7 +14,9 @@ with profiles; let
   graphical = [
     desktop.common
     desktop.gnome
+    desktop.xmonad
     firefox
+    chromium
     foot
     keyboard
     kitty
