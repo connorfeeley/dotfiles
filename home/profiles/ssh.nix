@@ -5,7 +5,7 @@ moduleArgs @ {
   peers,
   ...
 }: let
-  inherit (peers.hosts) hierophant tsone;
+  inherit (peers.hosts) workstation MacBook-Pro cfeeley-laptop;
   identityFileName = "id_rsa_yk.pub";
   identityFile = "~/.ssh/${identityFileName}";
 in {
@@ -20,13 +20,8 @@ in {
     includes = ["~/.config/ssh/config.local"];
 
     matchBlocks = {
-      "tsone" = {
-        host = tsone.ipv4.address;
-        user = "cfeeley";
-      };
-
-      "hierophant" = {
-        host = hierophant.ipv4.address;
+      "cfeeley-laptop" = {
+        host = cfeeley-laptop.ipv4.address;
       };
 
       "github.com" = {
@@ -51,7 +46,7 @@ in {
         extraOptions = {
           AddKeysToAgent = "yes";
           ChallengeResponseAuthentication = "no";
-          PasswordAuthentication = "no";
+          PasswordAuthentication = "yes";
           StrictHostKeyChecking = "ask";
           VerifyHostKeyDNS = "yes";
           VisualHostKey = "yes";
