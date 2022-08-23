@@ -84,7 +84,7 @@
 in {
   home.packages = with pkgs; [
     isync
-    mu
+    # mu
   ];
 
   programs.mbsync.enable = true;

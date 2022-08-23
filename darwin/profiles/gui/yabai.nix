@@ -154,7 +154,7 @@
 
   # Get the store path to a yabai script by shortname.
   getScript = n: "${builtins.getAttr n scripts}/bin/yabai-${n}";
-in {
+in lib.mkIf false {
   environment.systemPackages =
     map
     (key: builtins.getAttr key scripts)

@@ -41,7 +41,7 @@ with profiles; let
 
   trusted = [
     gpg
-    mail
+    # mail
     promnesia
     secrets.one-password
     secrets.password-store

@@ -37,10 +37,10 @@ in {
 
   users.groups.secrets.members = ["root" "cfeeley" ];
 
-  age.secrets = lib.mkMerge [
-    (mkEspansoMatchesSecret "personal")
-    # (mkEspansoMatchesSecret "work")
-  ];
+  # age.secrets = lib.mkMerge [
+  #   (mkEspansoMatchesSecret "personal")
+  #   # (mkEspansoMatchesSecret "work")
+  # ];
 
   sops.defaultSopsFile = ../secrets/global.secrets.yaml;
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
