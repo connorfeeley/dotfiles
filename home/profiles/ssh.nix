@@ -21,7 +21,8 @@ in {
 
     matchBlocks = {
       "cfeeley-laptop" = {
-        host = cfeeley-laptop.ipv4.address;
+        hostname = cfeeley-laptop.ipv4.address;
+        user = "cfeeley";
       };
 
       "github.com" = {
