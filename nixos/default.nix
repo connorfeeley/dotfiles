@@ -26,9 +26,9 @@ in {
     workstation.modules =
       (with roles; graphical ++ tangible ++ webdev ++ workstation)
       ++ (with profiles; [
-        boot.refind
+        boot.systemd-boot
         hardware.amd
-        login.gdm
+        login.sddm
         # login.greetd
         nvidia
         virtualisation.vm-variant
