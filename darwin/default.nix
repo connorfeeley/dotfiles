@@ -16,7 +16,7 @@ in {
 
   imports = [(importHosts ./machines)];
 
-  hosts.cdotmp = {
+  hosts.MacBook-Pro = {
     system = x86_64-darwin;
   };
 

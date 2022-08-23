@@ -1,17 +1,32 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   imports = [
     # FIXME
-    # ./security/pam.nix
+    ./security/pam.nix
   ];
+
+  # Symlink Nix applications to '~/Applications/Nix Apps'
+  # https://github.com/nix-community/home-manager/issues/1341#issuecomment-1190875080
+  # https://github.com/LnL7/nix-darwin/pull/487
+  # FIXME: ~/Applications must be created manually first
+  system.activationScripts.applications.text = pkgs.lib.mkForce (
+    ''
+      echo "setting up ~/Applications..." >&2
+      rm -rf ~/Applications/Nix\ Apps
+      mkdir -p ~/Applications/Nix\ Apps
+      for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
+        src="$(/usr/bin/stat -f%Y "$app")"
+        cp -r "$src" ~/Applications/Nix\ Apps
+      done
+    ''
+  );
 
   # https://github.com/LnL7/nix-darwin/pull/228
   # TODO: errors on activation!
-  # security.pam.enableSudoTouchIdAuth = true;
+  security.pam.enableSudoTouchIdAuth = true;
 
   # TODO: why disabled? caused an error?
   # system.defaults.".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
@@ -29,17 +44,17 @@
 
   system.defaults.NSGlobalDomain = {
     # Whether light/dark modes are toggled automatically.
-    AppleInterfaceStyleSwitchesAutomatically = false;
+    AppleInterfaceStyleSwitchesAutomatically = true;
     AppleFontSmoothing = 0;
     AppleKeyboardUIMode = 3;
-    AppleMeasurementUnits = "Inches";
-    AppleMetricUnits = 0;
-    ApplePressAndHoldEnabled = false;
+    AppleMeasurementUnits = "Centimeters";
+    AppleMetricUnits = 1;
+    ApplePressAndHoldEnabled = false; # '= true' breaks key repeat!
     AppleShowAllExtensions = true;
     AppleShowScrollBars = "Automatic";
-    AppleTemperatureUnit = "Fahrenheit";
-    InitialKeyRepeat = 10;
-    KeyRepeat = 2;
+    AppleTemperatureUnit = "Celsius";
+    InitialKeyRepeat = 15;
+    KeyRepeat = 3;
     NSAutomaticCapitalizationEnabled = false;
     NSAutomaticDashSubstitutionEnabled = false;
     NSAutomaticPeriodSubstitutionEnabled = false;
@@ -75,7 +90,7 @@
     # Enable spring loading (expose) for directories.
     "com.apple.springing.enabled" = true;
     # Disable "Natural" scrolling direction.
-    "com.apple.swipescrolldirection" = false;
+    "com.apple.swipescrolldirection" = true;
     # Whether to enable trackpad secondary click.
     "com.apple.trackpad.enableSecondaryClick" = true;
     # Configures the trackpad tracking speed (0 to 3). The default is "1".
@@ -83,6 +98,9 @@
     # Configures the trackpad corner click behavior. Mode 1 enables right click.
     # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.trackpad.trackpadCornerClickBehavior
     "com.apple.trackpad.trackpadCornerClickBehavior" = null;
+
+    AppleEnableMouseSwipeNavigateWithScrolls = true;
+    AppleEnableSwipeNavigateWithScrolls = true;
   };
 
   # Prevent incessant nagging when opening downloaded apps.
@@ -112,11 +130,11 @@
     minimize-to-application = true;
     mouse-over-hilite-stack = true;
     mru-spaces = false;
-    orientation = "left";
+    orientation = "bottom";
     show-process-indicators = true;
     show-recents = false;
     showhidden = true;
-    static-only = true;
+    static-only = false;
     tilesize = 32;
   };
 
@@ -125,7 +143,10 @@
     # Whether to display icons on the desktop.
     CreateDesktop = false;
     FXEnableExtensionChangeWarning = false;
+    FXPreferredViewStyle = "Nlsv";
     QuitMenuItem = false;
+    ShowPathbar = true;
+    ShowStatusBar = true;
     _FXShowPosixPathInTitle = false;
   };
 
@@ -140,7 +161,7 @@
     SHOWFULLNAME = false;
     ShutDownDisabled = false;
     ShutDownDisabledWhileLoggedIn = false;
-    SleepDisabled = true;
+    SleepDisabled = false;
   };
 
   # The filesystem path to which screencaptures should be written.
@@ -165,6 +186,7 @@
 
   system.keyboard = {
     enableKeyMapping = true;
-    remapCapsLockToControl = true;
+    remapCapsLockToControl = false;
   };
+  fonts.fontDir.enable = true;
 }

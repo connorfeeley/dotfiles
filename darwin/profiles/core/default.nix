@@ -45,10 +45,38 @@ in {
 
   homebrew = {
     enable = true;
+    # enable = false;
     autoUpdate = true;
     global.noLock = true;
-  };
+    global.brewfile = true;
+    cleanup = "zap";
 
+    brews = [ ];
+    casks = [
+      "docker"
+
+      "karabiner-elements"
+
+      "google-chrome"
+      "microsoft-edge"
+
+      "microsoft-teams"
+      "microsoft-outlook"
+
+      "bitwarden"
+
+      "nordvpn"
+      "private-internet-access"
+
+      "vlc"
+      "xquartz"
+      "lulu"
+      "stats"
+      "steam"
+      "spotify"
+      "deluge"
+    ];
+  };
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion
   # $ darwin-rebuild changelog

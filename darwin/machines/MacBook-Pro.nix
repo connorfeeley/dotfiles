@@ -9,16 +9,16 @@
 }: {
   imports =
     (with suites; workstation)
-    ++ (with profiles; [users.chris]);
+    ++ (with profiles; [users.cfeeley]);
 
-  networking.hostName = "tmpln";
+  networking.hostName = "MacBook-Pro";
 
   # FIXME: verify
   # $ networksetup -listallnetworkservices
   networking.knownNetworkServices = [
-    "Bluetooth PAN"
-    "Thunderbolt Bridge"
-    "USB 10/100/1000 LAN"
     "Wi-Fi"
+    "iPhone USB"
+    "Thunderbolt Bridge"
+    "Tailscale Tunnel"
   ];
 }
