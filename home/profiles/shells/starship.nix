@@ -122,7 +122,7 @@ in
 
     # Must be disabled for emacs-vterm integration to work.
     # Integration is handled manually in zsh.initExtra.
-    enableZshIntegration = true;
+    enableZshIntegration = false;
     enableBashIntegration = false;
 
     settings = {
