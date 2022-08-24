@@ -127,6 +127,16 @@ in {
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
+        ##: Shorthands {{
+        url."https://github.com/" = {
+          insteadOf = "gh:";
+          pushInsteadOf = "github:";
+        };
+        url."git@git.sr.ht:" = {
+          insteadOf = "srht:";
+          pushInsteadOf = "srht:";
+        };
+        ##: }}
         ##: Remotes {{
         fetch.recurseSubmodules = true;
         push.default = "current";
