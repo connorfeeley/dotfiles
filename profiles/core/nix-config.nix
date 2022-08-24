@@ -36,6 +36,7 @@ in {
 
     extraOptions = ''
       warn-dirty = false
+      allow-import-from-derivation = true
     '';
 
     # FUP Options {{
