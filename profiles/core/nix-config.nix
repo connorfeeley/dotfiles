@@ -37,6 +37,7 @@ in {
     extraOptions = ''
       warn-dirty = false
       allow-import-from-derivation = true
+      experimental-features = repl-flake
     '';
 
     # FUP Options {{
