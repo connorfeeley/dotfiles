@@ -118,7 +118,7 @@ in {
 
     extraConfig = lib.mkMerge [
       {
-        init.defaultBranch = "main";
+        init.defaultBranch = "master";
         github.user = githubUserName;
 
         # Environment variables will not be expanded -- this requires a path.
