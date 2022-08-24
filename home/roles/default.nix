@@ -49,6 +49,7 @@ with profiles; let
     secrets.one-password
     secrets.password-store
     yubikey
+    work
   ];
 
   webdev = [

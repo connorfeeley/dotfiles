@@ -3,10 +3,13 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (pkgs.nur.repos.rycee) firefox-addons;
-in {
-  programs.firefox.extensions = with firefox-addons; [
-    lastpass-password-manager
+}:
+{
+  home.packages = with pkgs; [
+    pwrbar   # control Kasa WiFi powerbar
+    picocom  # minicom without the cruft
+    remmina  # RDP/VNC client
+
+    dtc      # device tree compiler
   ];
 }
