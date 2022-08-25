@@ -8,6 +8,7 @@ channels: final: prev: {
     kitty
     nerdfonts
     python3Packages
+    statix
     ;
 
   inherit
