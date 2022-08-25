@@ -17,6 +17,8 @@ in {
   services.xserver.xkbOptions = "caps:ctrl_modifier,ctrl:swap_lalt_lctl";
   services.xserver.exportConfiguration = true;
 
+  console.useXkbConfig = true;
+
   # TODO: might only be available on master?
   # programs._1password-gui.enable = true;
   # programs._1password.enable = true;
