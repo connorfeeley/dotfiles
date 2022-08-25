@@ -77,6 +77,11 @@
       inputs.master.follows = "nixpkgs-trunk";
     };
 
+    ttc-subway-font = {
+      url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ##: --- other --------------------------------------------------------------
 
     flake-compat = {
@@ -110,6 +115,7 @@
     sops-nix,
     xmonad-config,
     xmobar-config,
+    ttc-subway-font,
     ...
   } @ inputs: let
     inherit
@@ -171,6 +177,7 @@
 
       xmonad-config.overlay
       xmobar-config.overlay
+      ttc-subway-font.overlay
     ];
   in
     (digga.lib.mkFlake {

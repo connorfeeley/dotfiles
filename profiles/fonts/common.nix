@@ -23,6 +23,8 @@ in {
         jost
         public-sans
 
+        ttc-subway
+
         # FIXME: doesn't exist... yet...
         # (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         nerdfonts-symbols-only
