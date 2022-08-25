@@ -30,10 +30,17 @@ in {
         # identitiesOnly = true;
         user = "git";
         extraOptions = {
-          "MACs" = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com";
+          # "MACs" = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com";
         };
         extraOptions = {
           ControlMaster = "no";
+        };
+      };
+
+      "10.*.*.*" = {
+        extraOptions = {
+          KexAlgorithms = "+diffie-hellman-group1-sha1";
+          HostKeyAlgorithms = "+ssh-rsa";
         };
       };
 
@@ -45,6 +52,10 @@ in {
         serverAliveCountMax = 2;
 
         extraOptions = {
+          ControlMaster = "auto";
+          ControlPath = "~/.ssh/%r@%h:%p.sock";
+          ControlPersist = "yes";
+
           AddKeysToAgent = "yes";
           ChallengeResponseAuthentication = "no";
           PasswordAuthentication = "yes";
@@ -52,10 +63,12 @@ in {
           VerifyHostKeyDNS = "yes";
           VisualHostKey = "yes";
 
-          Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
-          HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
-          KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
-          MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
+          KexAlgorithms = "+diffie-hellman-group1-sha1";
+          HostKeyAlgorithms = "+ssh-rsa";
+          # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
+          # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
+          # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
+          # MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
         };
       };
     };
