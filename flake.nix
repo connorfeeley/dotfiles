@@ -82,6 +82,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-nil.url = "github:oxalica/nil";
+
     ##: --- other --------------------------------------------------------------
 
     flake-compat = {
@@ -116,6 +118,7 @@
     xmonad-config,
     xmobar-config,
     ttc-subway-font,
+    nix-nil,
     ...
   } @ inputs: let
     inherit
@@ -178,6 +181,9 @@
       xmonad-config.overlay
       xmobar-config.overlay
       ttc-subway-font.overlay
+      (final: prev: {
+        nix-nil = nix-nil.packages.${prev.system}.default;
+      })
     ];
   in
     (digga.lib.mkFlake {

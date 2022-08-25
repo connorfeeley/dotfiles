@@ -162,6 +162,7 @@ in
     nodePackages.unified-language-server
     #: nix
     rnix-lsp
+    nix-nil
     #: php
     # FIXME(darwin): broken
     nodePackages.intelephense
