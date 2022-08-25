@@ -30,6 +30,7 @@
     shfmt
     shellcheck
     yamllint
+    statix
 
     ## === Media Tools ===
 
