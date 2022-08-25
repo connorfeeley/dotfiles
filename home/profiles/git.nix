@@ -34,6 +34,7 @@ in {
     gitAndTools.hub
     gitAndTools.gh
     gitAndTools.tig
+    gitAndTools.git-crypt
 
     # Identify the largest files in a git repo's history.
     #
