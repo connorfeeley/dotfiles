@@ -14,9 +14,6 @@ in {
     ../../lib/system
     ./nix-config.nix
     ./system-packages.nix
-
-    inputs.nix-ld.nixosModules.nix-ld
-    inputs.envfs.nixosModules.envfs
   ];
 
   # TODO: can this be merged with the 'dotfield' lib?

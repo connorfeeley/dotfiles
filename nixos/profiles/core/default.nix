@@ -15,6 +15,11 @@ moduleArgs @ {
   # FIXME: is this accurate?
   nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in {
+  imports = [
+    inputs.nix-ld.nixosModules.nix-ld
+    inputs.envfs.nixosModules.envfs
+  ];
+
   nix = {
     settings = {
       auto-optimise-store = true;
