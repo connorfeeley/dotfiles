@@ -44,6 +44,15 @@ in {
         };
       }
       {
+        name = "zsh-vi-mode";
+        src = pkgs.fetchFromGitHub {
+          owner = "jeffreytse";
+          repo = "zsh-vi-mode";
+          rev = "v0.8.5";
+          sha256 = "1wgkqy89qp1kkg64brm42rx3apsfhmpada57vci0lwib3lg2mrhh";
+        };
+      }
+      {
         name = "fast-syntax-highlighting";
         src = pkgs.fetchFromGitHub {
           owner = "zdharma-continuum";
@@ -124,21 +133,7 @@ in {
       compdef _directories md
     '';
 
-    initExtra =
-      let
-        zsh-vi-mode = pkgs.fetchFromGitHub {
-          owner = "jeffreytse";
-          repo = "zsh-vi-mode";
-          rev = "v0.8.5";
-          sha256 = "1wgkqy89qp1kkg64brm42rx3apsfhmpada57vci0lwib3lg2mrhh";
-        };
-      in
-      ''
-      if [[ $TERM != "dumb" && -z $INSIDE_EMACS ]]; then
-        echo "Loading zsh-vi-mode"
-        source ${zsh-vi-mode}/zsh-vi-mode.plugin.zsh
-      fi
-
+    initExtra = ''
       source $DOTFIELD_DIR/lib/color.sh
       source ${pkgs.dotfield-config}/zsh/functions.zsh
       source ${pkgs.dotfield-config}/zsh/options.zsh
