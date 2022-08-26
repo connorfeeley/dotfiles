@@ -82,7 +82,7 @@
     # Apple menu > System Preferences > Sound Make a feedback sound when
     # the system volume changed. This setting accepts the integers 0 or
     # 1. Defaults to 1.
-    "com.apple.sound.beep.feedback" = 0;
+    "com.apple.sound.beep.feedback" = 1;
     # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.NSGlobalDomain.com.apple.sound.beep.volume
     # "com.apple.sound.beep.volume" = null;
     # Set the spring loading delay for directories. The default is the float `1.0`.
@@ -135,7 +135,7 @@
     show-recents = false;
     showhidden = true;
     static-only = false;
-    tilesize = 32;
+    tilesize = 64;
   };
 
   system.defaults.finder = {
@@ -153,7 +153,7 @@
   system.defaults.loginwindow = {
     DisableConsoleAccess = false;
     GuestEnabled = false;
-    # Text to be shown on the login window. Default "\\U03bb".
+    # Text to be shown on the login window. Default "\\U03bb" (lambda).
     # LoginwindowText = null;
     PowerOffDisabledWhileLoggedIn = false;
     RestartDisabled = false;
@@ -181,7 +181,7 @@
     # For force touch: 0 for light clicking, 1 for medium, 2 for firm. The default is 1.
     SecondClickThreshold = 1;
     TrackpadRightClick = true;
-    TrackpadThreeFingerDrag = true;
+    TrackpadThreeFingerDrag = false;
   };
 
   system.keyboard = {
