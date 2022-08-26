@@ -90,6 +90,21 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+
+    ##: --- FHS compat ---------------------------------------------------------
+    nix-ld = {
+      url = "github:Mic92/nix-ld/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    envfs = {
+      url = "github:Mic92/envfs";
+      # url = "github:wentasah/envfs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -119,6 +134,9 @@
     xmobar-config,
     ttc-subway-font,
     nix-nil,
+    nix-ld,
+    nix-alien,
+    envfs,
     ...
   } @ inputs: let
     inherit
