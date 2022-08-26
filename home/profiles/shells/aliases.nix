@@ -22,10 +22,6 @@
 
   tree = "exa --tree";
 
-  # IP addresses
-  ip = "dig +short myip.opendns.com @resolver1.opendns.com";
-  localip = "ipconfig getifaddr en1";
-
   # Flush DNS cache
   flushdns = "dscacheutil -flushcache";
 }
