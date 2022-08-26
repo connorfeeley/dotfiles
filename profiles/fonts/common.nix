@@ -1,12 +1,11 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
+in {
   environment.systemPackages = with pkgs; [
     (lib.mkIf isLinux font-manager)
   ];
@@ -45,15 +44,5 @@ in
       ++ (lib.optionals isMacOS [
         sf-pro
       ]);
-    fontconfig = {
-      enable = true;
-      localConf = ''
-        <!-- use a less horrible font substition for pdfs such as https://www.bkent.net/Doc/mdarchiv.pdf -->
-        <match target="font">
-          <test qual="any" name="family"><string>Toronto Subway</string></test>
-          <test name="slant" compare="more_eq"><int>100</int></test>
-        </match>
-      '';
-    };
   };
 }
