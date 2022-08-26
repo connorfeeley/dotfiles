@@ -75,6 +75,14 @@ in {
           }
         ];
       };
+      interfaces.eth1 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.88.50";
+            inherit (net.ipv4) prefixLength;
+          }
+        ];
+      };
     }
   );
 
