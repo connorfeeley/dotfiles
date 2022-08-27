@@ -3,6 +3,7 @@ moduleArgs @ {
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (config.lib.dotfield) fsPath;
