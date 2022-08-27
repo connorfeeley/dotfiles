@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+if [[ "$INSIDE_EMACS" = vterm* ]]; then
     # For sending magic vterm escape sequences
     vterm_printf(){
         if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then

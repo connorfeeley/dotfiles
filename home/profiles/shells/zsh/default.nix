@@ -124,7 +124,7 @@ in {
       #   source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       # fi
 
-      if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS == "vterm") ]]; then
+      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == vterm* ) ]]; then
         eval "$(/etc/profiles/per-user/cfeeley/bin/starship init zsh)"
       fi
     '';
