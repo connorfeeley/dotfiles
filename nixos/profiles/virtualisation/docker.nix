@@ -8,6 +8,7 @@
 in {
   virtualisation.docker = {
     enable = true;
+    enableNvidia = true;
   };
 
   services.dockerRegistry.storagePath = "/mnt/ssd/docker";
