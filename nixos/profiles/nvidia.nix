@@ -28,4 +28,6 @@ in {
 
   hardware.opengl.enable = true;
   hardware.opengl.extraPackages = with pkgs; [vaapiVdpau];
+
+  environment.systemPackages = with pkgs; [ cudatoolkit nvtop xorg.xhost xorg.xinit ];
 }
