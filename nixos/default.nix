@@ -30,7 +30,7 @@ in {
         hardware.amd
         nvidia
 
-        login.sddm
+        login.gdm
         # login.greetd
 
         builder

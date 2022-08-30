@@ -198,6 +198,7 @@
 
       xmonad-config.overlay
       xmobar-config.overlay
+
       ttc-subway-font.overlay
       (final: prev: {
         nix-nil = nix-nil.packages.${prev.system}.default;
