@@ -11,6 +11,7 @@ collective @ {peers, ...}: {self, ...}: let
     direnv
     navi
     nnn
+    barrier
     ranger
     secrets.common
     tealdeer
