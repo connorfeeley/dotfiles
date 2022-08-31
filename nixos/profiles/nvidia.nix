@@ -21,6 +21,8 @@ in {
   services.xserver.videoDrivers = ["nvidia"];
 
   # Required for Wayland?
+  # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
+  #       'nvidia.modesetting.enable'.
   hardware.nvidia.modesetting.enable = true;
 
   # Prevent display corruption upon wake from a suspended or hibernated state.
