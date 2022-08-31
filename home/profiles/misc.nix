@@ -15,6 +15,12 @@
     hyperfine
     universal-ctags
 
+    ## === Local Development ===
+    nix-tree
+    nix-du
+    nix-top
+    zgrviewer
+
     ## === Data and Documents ===
 
     tidy-viewer # Pretty-print CSV files
