@@ -15,7 +15,9 @@
     hyperfine
     universal-ctags
 
-    ## === Local Development ===
+    ## === Nix Development ===
+    fup-repl
+
     nix-tree
     nix-du
     nix-top
