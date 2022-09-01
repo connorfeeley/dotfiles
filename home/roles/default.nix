@@ -5,7 +5,6 @@ with profiles; let
     direnv
     emacs
     git
-    python
     shells.zsh
     shells.fish
     ssh
