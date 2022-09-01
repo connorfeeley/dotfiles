@@ -177,6 +177,7 @@ in
     nodePackages.js-beautify
     nodePackages.stylelint
     nodePackages.vscode-html-languageserver-bin
+    html-tidy
     #: yaml
     nodePackages.yaml-language-server
     #: vimrc
