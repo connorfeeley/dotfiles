@@ -148,6 +148,8 @@ in
     #: terraform
     terraform
     terraform-ls
+    #: HTML/CSS/JSON/ESLint
+    nodePackages.vscode-langservers-extracted
     #: css
     nodePackages.vscode-css-languageserver-bin
     #: js
