@@ -107,9 +107,10 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 0,
+        "lastModified": 1661882940,
         "narHash": "sha256-4LaVFnV22WrOA0aolqqk9dXrM8crikcrLQt29G18F7M=",
         "path": "/nix/store/mrkbz5xhbd5yxixsn50cz574lwpl93dk-source",
+        "rev": "80cec5115aae74accc4ccfb9f84306d7863f0632",
         "type": "path"
       },
       "original": {
