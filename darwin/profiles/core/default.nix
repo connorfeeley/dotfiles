@@ -22,7 +22,7 @@ in {
   environment.darwinConfig = "${dotfield.fsPath}/lib/compat/darwin";
 
   # Administrative users on Darwin systems are part of the admin group by default.
-  nix.trustedUsers = ["@admin" "@wheel"];
+  nix.settings.trusted-users = ["@admin" "@wheel"];
 
   environment.systemPackages = with pkgs; [
     #  Swiss Army Knife for macOS
@@ -41,7 +41,7 @@ in {
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
   services.nix-daemon.enable = true;
-  users.nix.configureBuildUsers = true;
+  nix.configureBuildUsers = true;
 
   homebrew = {
     enable = true;
