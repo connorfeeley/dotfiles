@@ -18,6 +18,7 @@
 
     agenix.url = "github:montchr/agenix/darwin-support";
     darwin.url = "github:LnL7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
     deploy.url = "github:serokell/deploy-rs";
     flake-utils.url = "github:numtide/flake-utils";
     prefmanager.url = "github:malob/prefmanager";
@@ -28,6 +29,7 @@
     digga.url = "github:divnix/digga/home-manager-22.11";
     digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.nixpkgs.follows = "nixpkgs";
+    digga.inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       # url = "github:montchr/home-manager/trunk";
