@@ -25,6 +25,8 @@ in {
   nix.settings.trusted-users = ["@admin" "@wheel"];
 
   environment.systemPackages = with pkgs; [
+    coreutils
+
     #  Swiss Army Knife for macOS
     # => https://github.com/rgcr/m-cli
     m-cli
