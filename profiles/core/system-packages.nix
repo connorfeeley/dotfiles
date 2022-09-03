@@ -76,6 +76,7 @@ in {
     manix # nix documentation search
     nix-diff # Explain why two Nix derivations differ
     nix-tree # Interactively browse dependency graphs of Nix derivations.
+    nix-doc # manix's cousin, nix documentation + a repl plugin
     nvfetcher-bin # Generate nix sources expression for the latest version of packages
   ];
 }
