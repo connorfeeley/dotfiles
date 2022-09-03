@@ -32,7 +32,7 @@ in {
     history.extended = true;
     history.ignoreDups = true;
 
-    plugins = with pkgs; [
+    plugins = [
       {
         # will source zsh-autosuggestions.plugin.zsh
         name = "zsh-autosuggestions";
