@@ -52,6 +52,8 @@ in {
         serverAliveCountMax = 2;
 
         extraOptions = {
+          Compression = "yes";
+
           ControlMaster = "auto";
           ControlPath = "~/.ssh/%r@%h:%p.sock";
           ControlPersist = "yes";
