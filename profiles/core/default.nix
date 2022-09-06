@@ -21,7 +21,7 @@ in {
 
   environment.variables = {
     DOTFIELD_DIR = dotfield.fsPath;
-    EDITOR = "vim";
+    EDITOR = "e";
     KERNEL_NAME =
       if pkgs.stdenv.hostPlatform.isDarwin
       then "darwin"
