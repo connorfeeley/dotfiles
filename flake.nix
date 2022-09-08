@@ -85,6 +85,12 @@
 
     nix-nil.url = "github:oxalica/nil";
 
+    # Nicely preconfigured vim
+    wiltaylor-neovim = {
+      url = "github:wiltaylor/neovim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ##: --- other --------------------------------------------------------------
 
     flake-compat = {
@@ -133,6 +139,7 @@
     sops-nix,
     xmonad-config,
     xmobar-config,
+    wiltaylor-neovim,
     ttc-subway-font,
     nix-nil,
     nix-ld,
@@ -203,6 +210,7 @@
       ttc-subway-font.overlay
       (final: prev: {
         nix-nil = nix-nil.packages.${prev.system}.default;
+        wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;
       })
     ];
   in
