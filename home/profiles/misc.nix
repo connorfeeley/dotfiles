@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
     ncdu
+    iperf3
 
     ## === Local Development ===
 
