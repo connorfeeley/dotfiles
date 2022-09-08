@@ -102,8 +102,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     envfs = {
-      url = "github:Mic92/envfs";
-      # url = "github:wentasah/envfs";
+      # url = "github:Mic92/envfs";
+      url = "github:wentasah/envfs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
