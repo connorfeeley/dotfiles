@@ -65,6 +65,7 @@ in {
           VerifyHostKeyDNS = "yes";
           VisualHostKey = "yes";
 
+          PubkeyAcceptedKeyTypes = "+ssh-rsa";
           KexAlgorithms = "+diffie-hellman-group1-sha1";
           HostKeyAlgorithms = "+ssh-rsa";
           # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
