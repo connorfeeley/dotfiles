@@ -73,7 +73,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsPgtkNativeComp;
+    package = pkgs.emacsPgtkNativeComp.override { withXwidgets = true; };
     # TODO: revisit if this is required for darwin
     # if (hostPlatform.isDarwin && buildPlatform.isMacOS)
     # then (pkgs.emacsPlusNativeComp or pkgs.emacsNativeComp)
