@@ -49,8 +49,7 @@ in {
     enable = true;
     # enable = false;
     autoUpdate = true;
-    global.noLock = true;
-    global.brewfile = true;
+    global.lockfiles = true;
     cleanup = "zap";
 
     brews = [ ];
