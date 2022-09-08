@@ -97,6 +97,13 @@ in
   };
 
   home.packages = with pkgs; [
+    # XWidgets webkit
+    webkitgtk
+    glib
+    gtk3
+    glib-networking
+    gsettings-desktop-schemas
+
     # Emacsclient wrapper
     e-wrapper
 
