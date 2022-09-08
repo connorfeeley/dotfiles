@@ -57,7 +57,11 @@
     nix-colors.url = "github:Misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nur.url = "github:nix-community/NUR";
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
+
+    rnix-lsp = {
+      url = "github:nix-community/rnix-lsp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     xmonad-config.url = "path:config/xmonad";
     xmobar-config.url = "path:config/xmobar";
@@ -83,12 +87,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-nil.url = "github:oxalica/nil";
+    nix-nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Nicely preconfigured vim
     wiltaylor-neovim = {
       url = "github:wiltaylor/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rnix-lsp.follows = "rnix-lsp";
     };
 
     ##: --- other --------------------------------------------------------------
