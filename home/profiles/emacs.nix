@@ -120,6 +120,9 @@ in
     # :lang nix
     nixpkgs-fmt
 
+    # Treemacs
+    python3
+
     # Fonts
     emacs-all-the-icons-fonts
 

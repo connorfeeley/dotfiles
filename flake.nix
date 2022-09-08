@@ -29,7 +29,7 @@
     digga.url = "github:divnix/digga/home-manager-22.11";
     digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.nixpkgs.follows = "nixpkgs";
-    digga.inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
+    digga.inputs.darwin.follows = "darwin";
 
     home-manager = {
       # url = "github:montchr/home-manager/trunk";
@@ -102,8 +102,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     envfs = {
-      url = "github:Mic92/envfs";
-      # url = "github:wentasah/envfs";
+      # url = "github:Mic92/envfs";
+      url = "github:wentasah/envfs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

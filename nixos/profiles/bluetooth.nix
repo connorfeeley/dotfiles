@@ -7,6 +7,8 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 
+  services.blueman.enable = true;
+
   # Fix: bluetooth suspend causes short sounds to be missed (ex: notifications).
   # Configure wireplumber not to suspend bluetooth devices.
   environment.etc = {
