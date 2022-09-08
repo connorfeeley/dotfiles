@@ -31,7 +31,7 @@ config p =
             , Run $ ComX "cat" ["/tmp/clock-status"] "" "clock-status" 60
             , Run
               $ Network
-                "enp38s0"
+                "eth0"
                 (barTheme
                    [ "--template"
                    , "TX: <tx> KB/s| RX: <rx> KB/s"
