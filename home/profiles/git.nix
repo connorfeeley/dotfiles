@@ -110,11 +110,13 @@ in {
       "*.bak"
 
       # Credentials and Sensitive Info
-      ".env"
       ".direnv"
       ".scratch"
       "*localrc"
       "*.local"
+
+      # Direnv
+      ".envrc"
     ];
 
     extraConfig = lib.mkMerge [
