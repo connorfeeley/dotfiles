@@ -38,6 +38,8 @@ in {
       warn-dirty = false
       allow-import-from-derivation = true
       experimental-features = repl-flake
+
+      plugin-files = ${pkgs.nix-doc}/lib/libnix_doc_plugin.so
     '';
 
     # FUP Options {{

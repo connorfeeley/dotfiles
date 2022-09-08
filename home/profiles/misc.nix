@@ -18,6 +18,8 @@
     ## === Nix Development ===
     fup-repl
 
+    nixfmt
+
     nix-tree
     nix-du
     nix-top
