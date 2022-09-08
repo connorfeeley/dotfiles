@@ -105,7 +105,10 @@ in
     (ripgrep.override { withPCRE2 = true; })
 
     fd # faster projectile indexing
-    imagemagick # for image-dired
+    imagemagick # for image-dired and emacs-gif-screencast
+    scrot
+    gifsicle
+    peek
     zstd # for undo-fu-session/undo-tree compression
 
     figlet # prettier block comments
