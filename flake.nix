@@ -72,6 +72,11 @@
       url = "gitlab:doronbehar/nix-xilinx";
     };
 
+    nix-json-progress = {
+      url = "github:dramforever/nix-json-progress";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nickel = {
       url = "github:tweag/nickel";
       inputs.nixpkgs.follows = "nixpkgs";
