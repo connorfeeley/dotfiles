@@ -6,13 +6,6 @@
 
 {
   home.packages = with pkgs; [
-    # Via nix-xilinx
-    vivado
-    vitis
-    xilinx-shell
-
-    xilinx-bootgen
-    jtag-remote-server
   ];
 
   # FIXME: not portable; workstation machine only

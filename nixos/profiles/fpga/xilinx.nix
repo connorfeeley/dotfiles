@@ -6,6 +6,17 @@
 }:
 
 {
+  environment.systemPackages = with pkgs; [
+    # Via nix-xilinx
+    vivado
+    vitis
+    xilinx-shell
+
+    # Via nixpkgs
+    xilinx-bootgen
+    jtag-remote-server
+  ];
+
   services.udev.extraRules =
     let ddc-rules = ''
       SUBSYSTEM=="i2c-dev", ACTION=="add",\
