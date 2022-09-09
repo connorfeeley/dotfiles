@@ -12,13 +12,14 @@
     if (lib.versionOlder nvBeta.version nvStable.version)
     then nvStable
     else nvBeta;
-in {
+in
+{
   nixpkgs.config.allowUnfree = lib.mkForce true;
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
   hardware.nvidia.package = nvLatest;
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Required for Wayland?
   # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
@@ -28,8 +29,15 @@ in {
   # Prevent display corruption upon wake from a suspended or hibernated state.
   hardware.nvidia.powerManagement.enable = true;
 
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = with pkgs; [vaapiVdpau];
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [ vaapiVdpau ];
+    driSupport32Bit = true;
+  };
+
+  virtualisation.docker = {
+    enableNvidia = true;
+  };
 
   environment.systemPackages = with pkgs; [ nvtop xorg.xhost xorg.xinit ];
 }
