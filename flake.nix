@@ -111,6 +111,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-work = {
+      url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
+    };
+
     nix-nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -173,6 +177,7 @@
     xmobar-config,
     wiltaylor-neovim,
     ttc-subway-font,
+    nixpkgs-work,
     nickel,
     comma,
     nix-xilinx,
@@ -247,6 +252,9 @@
       ttc-subway-font.overlay
 
       nix-xilinx.overlay
+
+      # nixpkgs-work.overlay
+
       (final: prev: {
         nix-nil = nix-nil.packages.${prev.system}.default;
         wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;
