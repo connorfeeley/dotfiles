@@ -105,6 +105,7 @@ in {
         "video"
         "audio"
         "networkmanager"
+        "dialout"
         "cfeeley"
         "secrets"
       ]
