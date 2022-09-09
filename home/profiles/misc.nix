@@ -10,6 +10,7 @@
     ## === Uncategorized Packages ===
     ncdu
     iperf3
+    nickel
 
     ## === Local Development ===
 

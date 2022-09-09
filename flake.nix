@@ -58,6 +58,11 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nur.url = "github:nix-community/NUR";
 
+    nickel = {
+      url = "github:tweag/nickel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     rnix-lsp = {
       url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -149,6 +154,7 @@
     xmobar-config,
     wiltaylor-neovim,
     ttc-subway-font,
+    nickel,
     nix-nil,
     nix-ld,
     nix-alien,
