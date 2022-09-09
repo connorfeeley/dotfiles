@@ -58,6 +58,11 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nur.url = "github:nix-community/NUR";
 
+    deadnix = {
+      url = "github:astro/deadnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     comma = {
       url = "github:nix-community/comma";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -161,6 +166,7 @@
     ttc-subway-font,
     nickel,
     comma,
+    deadnix,
     nix-nil,
     nix-ld,
     nix-alien,

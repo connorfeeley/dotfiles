@@ -12,6 +12,7 @@
     iperf3
     nickel
     comma
+    deadnix
 
     ## === Local Development ===
 
