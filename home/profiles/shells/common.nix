@@ -14,7 +14,17 @@
     // (import ./aliases.nix);
 
   fdBin = "${pkgs.fd}/bin/fd";
-in {
+
+  rsc = pkgs.symlinkJoin {
+    name = "rsc";
+    paths = [ pkgs.rsync ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      makeWrapper ${pkgs.rsync}/bin/rsync $out/bin/rsc --add-flags "-rav --progress"
+    '';
+  };
+in
+{
   imports = [
     ./fzf.nix
     ./starship.nix
@@ -24,6 +34,7 @@ in {
     (pkgs.writeShellScriptBin "md" ''
       [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1"
     '')
+    rsc
   ];
 
   programs.bash = {
