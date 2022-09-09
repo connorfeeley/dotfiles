@@ -58,6 +58,10 @@ with profiles; let
     development.wordpress
   ];
 
+  fpgadev = [
+    development.xilinx
+  ];
+
   roles = {
     inherit
       developer
@@ -73,7 +77,8 @@ with profiles; let
       ++ graphical
       ++ personalised
       ++ trusted
-      ++ webdev;
+      ++ webdev
+      ++ fpgadev;
   };
 in
   roles
