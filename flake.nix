@@ -171,6 +171,7 @@
     nickel,
     comma,
     nix-xilinx,
+    nix-json-progress,
     deadnix,
     nix-nil,
     nix-ld,
@@ -244,6 +245,7 @@
       (final: prev: {
         nix-nil = nix-nil.packages.${prev.system}.default;
         wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;
+        nix-json-progress = nix-json-progress.packages.${prev.system}.nix-json-progress;
       })
     ];
   in

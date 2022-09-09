@@ -34,6 +34,13 @@ in
     (pkgs.writeShellScriptBin "md" ''
       [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1"
     '')
+
+    pkgs.nix-json-progress
+    (pkgs.writeShellScriptBin "fnix" ''
+      #set -euo
+        nix build --log-format internal-json $@ |& ${pkgs.nix-json-progress}/bin/nix-json-progress
+    '')
+
     rsc
   ];
 
