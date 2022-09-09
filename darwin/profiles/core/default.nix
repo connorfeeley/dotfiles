@@ -48,9 +48,9 @@ in {
   homebrew = {
     enable = true;
     # enable = false;
-    autoUpdate = true;
+    onActivation.upgrade = true;
+    onActivation.cleanup = "zap";
     global.lockfiles = true;
-    cleanup = "zap";
 
     brews = [ ];
     casks = [
