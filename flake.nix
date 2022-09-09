@@ -58,6 +58,11 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nur.url = "github:nix-community/NUR";
 
+    comma = {
+      url = "github:nix-community/comma";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nickel = {
       url = "github:tweag/nickel";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -155,6 +160,7 @@
     wiltaylor-neovim,
     ttc-subway-font,
     nickel,
+    comma,
     nix-nil,
     nix-ld,
     nix-alien,

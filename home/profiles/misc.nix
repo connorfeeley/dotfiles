@@ -11,6 +11,7 @@
     ncdu
     iperf3
     nickel
+    comma
 
     ## === Local Development ===
 
