@@ -11,7 +11,7 @@
 let
   inherit (collective) peers;
   inherit (config.networking) hostName;
-  # hostKeys = (lib.our.peers.getHost hostName).keys;
+  hostKeys = (lib.our.peers.getHost "MacBook-Pro").keys;
   host = peers.hosts.${hostName};
 in
 lib.mkMerge [
@@ -23,24 +23,22 @@ lib.mkMerge [
     };
   }
 
-  (lib.mkIf (!config.serveStore.enable) {
-    # Serve nix store
+  {
     nix = {
       distributedBuilds = true;
       buildMachines = [
         {
-          # FIXME
-          hostName = "workstation";
-          systems = [ "x86_64-linux" ];
+          hostName = "MacBook-Pro";
+          systems = [ "aarch64-darwin" "x86_64-darwin" ];
           sshUser = config.user.name;
           # Base64-encoded ed25519 public host key
-          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
-          # "12 desktop cores times two (versus times 1 for a laptop)" seems like
+          publicHostKey = lib.head hostKeys;
+          # "8 laptop cores times 1.5 (versus times 1 for an x64 laptop)" seems like
           # a reasonable relative speed factor.
-          speedFactor = 12 * 2;
+          speedFactor = 8 * 1.5;
           supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         }
       ];
     };
-  })
+  }
 ]
