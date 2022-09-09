@@ -22,14 +22,14 @@
   };
   fish-fifc = {
     pname = "fish-fifc";
-    version = "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca";
+    version = "adff5966739667d4c13d6388372e40f821571208";
     src = fetchgit {
       url = "https://github.com/gazorby/fifc";
-      rev = "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca";
+      rev = "adff5966739667d4c13d6388372e40f821571208";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-NIEyWkO+IVSv0NQz/otwPF5NdwheCz+HTs7YJGBdgJU=";
+      sha256 = "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=";
     };
   };
   fish-replay = {
@@ -45,14 +45,14 @@
   };
   fzf-scripts = {
     pname = "fzf-scripts";
-    version = "7cf2925b0194f0ad116b84e8f45d8f01a87c774f";
+    version = "15156e3cb56c715464a2421e6f4e4356a26ac975";
     src = fetchgit {
       url = "https://github.com/DanielFGray/fzf-scripts";
-      rev = "7cf2925b0194f0ad116b84e8f45d8f01a87c774f";
+      rev = "15156e3cb56c715464a2421e6f4e4356a26ac975";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=";
+      sha256 = "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=";
     };
   };
   hug = {
@@ -104,5 +104,17 @@
       fetchSubmodules = false;
       sha256 = "sha256-/YUoGPVTbmegr8cmjhtHnG1jiwIjen91sUWjgK3T8GQ=";
     });
+  };
+  ssh-cmc = {
+    pname = "ssh-cmc";
+    version = "0a0344d0ac5aec43a32f47aae2a42acf79ff6381";
+    src = fetchgit {
+      url = "https://github.com/TimidRobot/cmc";
+      rev = "0a0344d0ac5aec43a32f47aae2a42acf79ff6381";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-FvtS6yusDtFlpbN7iM5VPOAFVGrnIW39phcgkkkNboc=";
+    };
   };
 }

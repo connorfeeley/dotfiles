@@ -8,6 +8,10 @@ fetch.git = "https://github.com/DinkDonk/kitty-icon.git"
 src.github = "roots/trellis-cli"
 fetch.github = "roots/trellis-cli"
 
+[ssh-cmc]
+src.git = "https://github.com/TimidRobot/cmc"
+fetch.git = "https://github.com/TimidRobot/cmc"
+
 ##: --- fish shell ---
 
 [fish-autopair]

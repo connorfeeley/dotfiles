@@ -43,12 +43,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca",
-            "sha256": "sha256-NIEyWkO+IVSv0NQz/otwPF5NdwheCz+HTs7YJGBdgJU=",
+            "rev": "adff5966739667d4c13d6388372e40f821571208",
+            "sha256": "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=",
             "type": "git",
             "url": "https://github.com/gazorby/fifc"
         },
-        "version": "c9d4b5d120ee276d9ca9aff2522e584b3c4296ca"
+        "version": "adff5966739667d4c13d6388372e40f821571208"
     },
     "fish-replay": {
         "cargoLocks": null,
@@ -80,12 +80,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f",
-            "sha256": "sha256-wGCbc9jF0kS2EKLIDPkR8kokE65wGDt+RptBeJvBrnc=",
+            "rev": "15156e3cb56c715464a2421e6f4e4356a26ac975",
+            "sha256": "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=",
             "type": "git",
             "url": "https://github.com/DanielFGray/fzf-scripts"
         },
-        "version": "7cf2925b0194f0ad116b84e8f45d8f01a87c774f"
+        "version": "15156e3cb56c715464a2421e6f4e4356a26ac975"
     },
     "hug": {
         "cargoLocks": null,
@@ -170,5 +170,23 @@
             "type": "github"
         },
         "version": "v1.7.0"
+    },
+    "ssh-cmc": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ssh-cmc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "0a0344d0ac5aec43a32f47aae2a42acf79ff6381",
+            "sha256": "sha256-FvtS6yusDtFlpbN7iM5VPOAFVGrnIW39phcgkkkNboc=",
+            "type": "git",
+            "url": "https://github.com/TimidRobot/cmc"
+        },
+        "version": "0a0344d0ac5aec43a32f47aae2a42acf79ff6381"
     }
 }
