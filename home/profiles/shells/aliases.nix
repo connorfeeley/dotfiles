@@ -27,5 +27,5 @@
 
   mkcd = "mkdir -p $1 && cd $1";
 
-  nix-stray-roots = ''nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory)'';
+  nix-stray-roots = ''nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory)"'';
 }
