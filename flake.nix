@@ -68,6 +68,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-xilinx = {
+      url = "gitlab:doronbehar/nix-xilinx";
+    };
+
     nickel = {
       url = "github:tweag/nickel";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -166,6 +170,7 @@
     ttc-subway-font,
     nickel,
     comma,
+    nix-xilinx,
     deadnix,
     nix-nil,
     nix-ld,
@@ -234,6 +239,8 @@
       xmobar-config.overlay
 
       ttc-subway-font.overlay
+
+      nix-xilinx.overlay
       (final: prev: {
         nix-nil = nix-nil.packages.${prev.system}.default;
         wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;
