@@ -31,7 +31,7 @@ in {
     };
 
     gc = {
-      automatic = true;
+      automatic = false;
     };
 
     extraOptions = ''
