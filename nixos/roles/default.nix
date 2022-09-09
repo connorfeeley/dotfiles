@@ -43,6 +43,10 @@
     virtualisation.virtualbox
   ];
 
+  fpgadev = with profiles; [
+    fpga.xilinx
+  ];
+
   workstation =
     (with collective.profiles; [
       networking.ssh-host
@@ -58,6 +62,7 @@ in {
     server
     tangible
     webdev
+    fpgadev
     workstation
     ;
 }

@@ -24,7 +24,7 @@ in {
       ]);
 
     workstation.modules =
-      (with roles; graphical ++ tangible ++ webdev ++ workstation)
+      (with roles; graphical ++ tangible ++ webdev ++ fpgadev ++ workstation)
       ++ (with profiles; [
         boot.systemd-boot
         hardware.amd
