@@ -6,6 +6,7 @@
   ...
 }: let
   inherit (lib.dotfield.whoami) githubUserName;
+  inherit (pkgs.stdenv) isLinux;
 
   envInit = import ./env-init.sh.nix;
 
@@ -35,14 +36,14 @@ in
       [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1"
     '')
 
+    rsc
+  ] ++ (lib.optionals isLinux [
     pkgs.nix-json-progress
     (pkgs.writeShellScriptBin "fnix" ''
       #set -euo
         nix build --log-format internal-json $@ |& ${pkgs.nix-json-progress}/bin/nix-json-progress
     '')
-
-    rsc
-  ];
+  ]);
 
   programs.bash = {
     inherit shellAliases;
