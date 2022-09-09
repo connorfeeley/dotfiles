@@ -24,4 +24,6 @@
 
   # Flush DNS cache
   flushdns = "dscacheutil -flushcache";
+
+  mkcd = "mkdir -p $1 && cd $1";
 }
