@@ -8,6 +8,8 @@
   home.packages = with pkgs; [
     vivado
     vitis
+    xilinx-bootgen
+    jtag-remote-server
   ];
 
   # FIXME: not portable; workstation machine only
