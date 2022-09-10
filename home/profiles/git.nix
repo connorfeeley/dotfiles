@@ -132,7 +132,7 @@ in {
 
         ##: Shorthands {{
         url."https://github.com/" = {
-          insteadOf = "gh:";
+          insteadOf = "github:";
           pushInsteadOf = "github:";
         };
         url."git@git.sr.ht:" = {
