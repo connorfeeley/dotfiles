@@ -137,6 +137,7 @@ in
         "line_break"
         "python"
         "character"
+        "hostname"
       ];
 
       character = {
@@ -146,9 +147,6 @@ in
       };
 
       directory.style = "blue";
-
-      # Right prompt definition
-      right_format = mkPrompt "$" [ "hostname" ];
 
       command_timeout = 5000;
       add_newline = false;
