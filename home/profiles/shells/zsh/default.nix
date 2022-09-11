@@ -97,26 +97,16 @@ in {
           sha256 = "147rwiqn5xs0vx7pkqvl1480s7fv7f5879cq6k42pn74jawzhspm";
         };
       }
-      #####################
-      # {
-      #   name = "";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "";
-      #     repo = "";
-      #     rev = "";
-      #     sha256 = "";
-      #   };
-      # }
-      # {
-      #   name = "enhancd";
-      #   file = "init.sh";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "b4b4r07";
-      #     repo = "enhancd";
-      #     rev = "v2.2.1";
-      #     sha256 = "0iqa9j09fwm6nj5rpip87x3hnvbbz9w9ajgm6wkrd5fls8fn8i5g";
-      #   };
-      # }
+      {
+        # will source zsh-autosuggestions.plugin.zsh
+        name = "zlong_alert";
+        src = pkgs.fetchFromGitHub {
+          owner = "kevinywlui";
+          repo = "zlong_alert.zsh";
+          rev = "v0.2.1";
+          sha256 = "sha256-9LhGuv6yJ+XOj8t40ejXhqlcjNYUdyla6f4sVb/Q+b0=";
+        };
+      }
     ];
 
     initExtraFirst = ''

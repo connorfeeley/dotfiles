@@ -19,6 +19,15 @@ let
   # FIXME: this is gross
   configDir = ../../.;
   e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${configDir}/config/emacs/e");
+
+  doom-corfu = pkgs.fetchgit {
+    url = "https://git.sr.ht/~gagbo/doom-config";
+    rev = "583648e00f2b6e23c6b99e41ed896cd76bf6eaf0";
+    sha256 = "sha256-O7HochHdpJVviP4ioN5uco+AoBAWwghPDDMBe4umK0I=";
+
+    fetchSubmodules = false;
+    sparseCheckout = "modules/completion/corfu";
+  };
 in
 {
   home.sessionVariables = {
@@ -40,6 +49,9 @@ in
   };
 
   home.sessionPath = [ "${configHome}/emacs/bin" "$PATH" ];
+
+  xdg.configFile."doom/modules/completion/corfu".source =
+    mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
 
   ## Doom Bootloader.
   #: <https://github.com/doomemacs/doomemacs/commit/5b6b204bcbcf69d541c49ca55a2d5c3604f04dad>

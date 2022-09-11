@@ -13,6 +13,7 @@
     nickel
     comma
     deadnix
+    nethogs
 
     ## === Local Development ===
 
