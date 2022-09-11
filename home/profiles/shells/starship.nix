@@ -137,7 +137,6 @@ in
         "line_break"
         "python"
         "character"
-        "hostname"
       ];
 
       character = {
