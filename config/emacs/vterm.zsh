@@ -52,7 +52,7 @@ if [[ "$INSIDE_EMACS" = vterm* ]]; then
     # - Searches for <file_name_to_search>'
     # find_file
     # - Opens dired in current directory
-    find_file() {
+    vim() {
         vterm_cmd find-file "$(realpath "${@:-.}")"
     }
     # Usage:
