@@ -52,6 +52,9 @@ in {
     onActivation.cleanup = "zap";
     global.lockfiles = true;
 
+    masApps = {
+      "Microsoft Remote Desktop" = 1295203466;
+    };
     brews = [ ];
     casks = [
       "docker"
