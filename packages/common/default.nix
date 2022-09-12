@@ -9,7 +9,7 @@ final: prev: {
     };
   };
 
-  svls = final.callPackage ./svls { };
+  svls = final.callPackage ./svls.nix { };
 
   ##: dotfield internals -------------------------------------------------------
 

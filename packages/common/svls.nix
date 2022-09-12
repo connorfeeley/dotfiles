@@ -1,25 +1,25 @@
-{
-, lib
-, buildRustPackage
+{ lib
+, rustPlatform
+, fetchFromGitHub
 }:
 
-buildRustPackage rec {
-  pname = "ripgrep";
-  version = "12.1.1";
+rustPlatform.buildRustPackage rec {
+  pname = "svls";
+  version = "v0.2.5";
 
   src = fetchFromGitHub {
-    owner = "BurntSushi";
+    owner = "dalance";
     repo = pname;
     rev = version;
-    sha256 = "1hqps7l5qrjh9f914r5i6kmcz6f1yb951nv4lby0cjnp5l253kps";
+    sha256 = "sha256-SeVLQ05vPywSOnOEhJhQXYhdptmIhvYbbf9SX5eVzik=";
   };
 
-  cargoSha256 = "03wf9r2csi6jpa7v5sw5lpxkrk4wfzwmzx7k3991q3bdjzcwnnwp";
+  cargoSha256 = "sha256-CFT/Oex5kIyqg/rTDdYkE1QrG6zG+S+TPOZo6KJHkhI=";
 
   meta = with lib; {
-    description = "A fast line-oriented regex search tool, similar to ag and ack";
-    homepage = "https://github.com/BurntSushi/ripgrep";
-    license = licenses.unlicense;
-    maintainers = [ maintainers.tailhook ];
+    description = "SystemVerilog language server";
+    homepage = "https://github.com/dalance/svls";
+    license = licenses.mit;
+    maintainers = [ maintainers.cfeeley ];
   };
 }
