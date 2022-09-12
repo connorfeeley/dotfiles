@@ -9,6 +9,8 @@ final: prev: {
     };
   };
 
+  svls = final.callPackage ./svls { };
+
   ##: dotfield internals -------------------------------------------------------
 
   dotfield-config = final.stdenv.mkDerivation {
