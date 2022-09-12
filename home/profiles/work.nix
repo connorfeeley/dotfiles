@@ -14,5 +14,6 @@ in {
     dtc      # device tree compiler
   ] ++ lib.optionals isLinux (with pkgs; [
     remmina  # RDP/VNC client
+    freerdp
   ]);
 }

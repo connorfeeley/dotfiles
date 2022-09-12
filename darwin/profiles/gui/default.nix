@@ -26,6 +26,8 @@
   homebrew.brews = [
     # This provides a GUI, despite it not being a cask.
     "pinentry-mac"
+
+    "freerdp"
   ];
 
   homebrew.casks = [
