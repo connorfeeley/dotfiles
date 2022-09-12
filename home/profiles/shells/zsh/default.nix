@@ -115,7 +115,7 @@ in {
       # fi
 
       if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == vterm* ) ]]; then
-        eval "$(/etc/profiles/per-user/cfeeley/bin/starship init zsh)"
+        eval "$(${pkgs.starship}/bin/starship init zsh)"
       fi
     '';
 
