@@ -38,6 +38,9 @@ in
 
     rsc
 
+    # Highlight stderr in red
+    pkgs.stderred
+
     pkgs.nix-json-progress
     (pkgs.writeShellApplication {
       name = "fnix";
