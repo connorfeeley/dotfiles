@@ -6,4 +6,8 @@ channels: final: prev: {
     zathura
     wally-cli
     ;
+
+  inherit (channels.nixos-stable-21-11)
+    sourcetrail
+    ;
 }

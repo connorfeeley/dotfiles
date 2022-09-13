@@ -14,6 +14,7 @@
     comma
     deadnix
     nethogs
+    sourcetrail
 
     ## === Local Development ===
 
