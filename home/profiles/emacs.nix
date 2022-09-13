@@ -202,6 +202,7 @@ in
     nodePackages.yaml-language-server
     #: fpga
     verible
+    verilator
     svlangserver
     svls
     svlint
