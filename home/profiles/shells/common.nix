@@ -31,25 +31,37 @@ in
     ./starship.nix
   ];
 
-  home.packages = [
-    (pkgs.writeShellScriptBin "md" ''
-      [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1"
-    '')
-
-    rsc
-
-    # Highlight stderr in red
-    pkgs.stderred
-
-    pkgs.nix-json-progress
-    (pkgs.writeShellApplication {
-      name = "fnix";
-      runtimeInputs = with pkgs; [ nix nix-json-progress ];
-      text = ''
-        nix --log-format internal-json "$@" |& ${pkgs.nix-json-progress}/bin/nix-json-progress
+  home.packages =
+    let
+      md = pkgs.writeShellScriptBin "md" ''
+        [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1"
       '';
-    })
-  ];
+
+      stderred-wrapper = pkgs.writeShellApplication {
+        name = "stderred";
+        runtimeInputs = with pkgs; [ stderred ];
+        text = ''
+          # Export LD_PRELOAD with stderred hooks
+          export LD_PRELOAD="${pkgs.stderred}/lib/libstderred.so''${LD_PRELOAD:+:$LD_PRELOAD}"
+
+          # Run command
+          "$@"
+        '';
+      };
+      fnix = pkgs.writeShellApplication {
+        name = "fnix";
+        runtimeInputs = with pkgs; [ nix nix-json-progress ];
+        text = ''
+          nix --log-format internal-json "$@" |& ${pkgs.nix-json-progress}/bin/nix-json-progress
+        '';
+      };
+    in
+    [
+      md
+      rsc
+      stderred-wrapper # Highlight stderr in red
+      fnix
+    ];
 
   programs.bash = {
     inherit shellAliases;
