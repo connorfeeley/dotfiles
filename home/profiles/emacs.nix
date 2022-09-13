@@ -200,6 +200,11 @@ in
     html-tidy
     #: yaml
     nodePackages.yaml-language-server
+    #: fpga
+    verible
+    svlangserver
+    svls
+    svlint
     #: vimrc
     nodePackages.vim-language-server
   ] ++ (lib.optionals isLinux [
