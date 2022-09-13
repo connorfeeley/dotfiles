@@ -8,26 +8,26 @@
   # most don't belong on a server, etc.
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
-    ncdu
-    iperf3
-    nickel
     comma
-    deadnix
+    hyperfine
+
+    ## === Networking Tools ===
+    iperf3
     nethogs
-    sourcetrail
 
     ## === Local Development ===
 
     act # Run GitHub Actions locally
     asciinema
     circleci-cli
-    hyperfine
     universal-ctags
+    just # Just a command runner
+    sourcetrail # Rest in peace sourcetrail, the best C++ exploration tool ever to live.
 
     ## === Nix Development ===
     fup-repl
 
-    nixfmt
+    nickel
 
     nix-tree
     nix-du
@@ -50,6 +50,8 @@
     shellcheck
     yamllint
     statix
+    deadnix
+    nixfmt
 
     ## === Media Tools ===
 

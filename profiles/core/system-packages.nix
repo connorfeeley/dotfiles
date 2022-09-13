@@ -53,6 +53,7 @@ in {
 
     chafa #    <- "terminal graphics for the 21st century"
     dua #      <- quick disk usage
+    ncdu #     <- dua with more ncurses
     file
     glow #     <- a markdown cli renderer (by charmbracelet)
     hexyl #    <- a command-line hex viewer
