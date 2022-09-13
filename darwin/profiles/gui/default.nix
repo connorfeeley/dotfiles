@@ -31,6 +31,7 @@
   ];
 
   homebrew.casks = [
+    "utm"
     # "1password-cli"
     # "adobe-acrobat-reader"
     # "alfred"
