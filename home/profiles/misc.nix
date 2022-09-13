@@ -22,7 +22,6 @@
     circleci-cli
     universal-ctags
     just # Just a command runner
-    sourcetrail # Rest in peace sourcetrail, the best C++ exploration tool ever to live.
 
     ## === Nix Development ===
     fup-repl
@@ -62,7 +61,9 @@
     ## === Data Sync ===
 
     rclone
-  ];
+  ] ++ (lib.optionals pkgs.stdenv.isLinux [
+    sourcetrail # Rest in peace sourcetrail, the best C++ exploration tool ever to live.
+  ]);
 
   # TODO: check these out
   # services.etebase = {};
