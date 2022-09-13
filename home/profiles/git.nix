@@ -69,8 +69,10 @@ in {
       signByDefault = true;
     };
 
+    difftastic.enable = true;
+
     delta = {
-      enable = true;
+      enable = false;
       options = {
         line-numbers = true;
         navigate = true;
