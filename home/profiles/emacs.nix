@@ -200,12 +200,6 @@ in
     html-tidy
     #: yaml
     nodePackages.yaml-language-server
-    #: fpga
-    verible
-    verilator
-    svlangserver
-    svls
-    svlint
     #: vimrc
     nodePackages.vim-language-server
   ] ++ (lib.optionals isLinux [
@@ -213,6 +207,12 @@ in
     xorg.xwininfo
     xdotool
     xclip
+    #: fpga (bazel builds fail on darwin)
+    verible
+    verilator
+    svlangserver
+    svls
+    svlint
   ]);
 
   # Configure aspell
