@@ -85,13 +85,9 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsPgtkNativeComp;
-    # TODO: revisit if this is required for darwin
-    # if (hostPlatform.isDarwin && buildPlatform.isMacOS)
-    # then (pkgs.emacsPlusNativeComp or pkgs.emacsNativeComp)
-    # else if (moduleArgs.osConfig.services.xserver.enable or false)
-    # then pkgs.emacsPgtkNativeComp
-    # else pkgs.emacsNativeComp;
+    package = if pkgs.stdenv.isLinux then pkgs.emacsPgtkNativeComp.override {
+      withXwidgets = true;
+    } else pkgs.emacsPgtkNativeComp;
     extraPackages = epkgs: with epkgs; [
       vterm
       pdf-tools
