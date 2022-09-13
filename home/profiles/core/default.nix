@@ -13,7 +13,6 @@ in {
     du-dust #   <- Like du but more intuitive.
     entr #      <- Run arbitrary commands when files change
     lnav #      <- Log file navigator
-    btop #      <- Resource monitor
     # FIXME: marked as broken
     # procs #     <- A modern replacement for ps.
 
@@ -56,6 +55,14 @@ in {
         ".vimrc.local:VimL"
         "vimrc:VimL"
       ];
+    };
+  };
+
+  programs.btop = {
+    enable = true;
+    settings = {
+      vim_keys = true;
+      io_mode = true;
     };
   };
 
