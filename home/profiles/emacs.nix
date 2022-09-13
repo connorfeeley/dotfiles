@@ -202,6 +202,12 @@ in
     #: vimrc
     nodePackages.vim-language-server
   ] ++ (lib.optionals isLinux [
+    # XWidgets WebKit
+    webkitgtk
+    glib
+    gtk3
+    glib-networking
+    gsettings-desktop-schemas
     # For emacs-everywhere
     xorg.xwininfo
     xdotool
