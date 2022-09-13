@@ -30,12 +30,9 @@ lib.mkMerge [
         {
           hostName = "MacBook-Pro";
           systems = [ "aarch64-darwin" "x86_64-darwin" ];
-          sshUser = config.user.name;
-          # Base64-encoded ed25519 public host key
-          publicHostKey = lib.head hostKeys;
-          # "8 laptop cores times 1.5 (versus times 1 for an x64 laptop)" seems like
-          # a reasonable relative speed factor.
-          speedFactor = 8 * 1.5;
+          sshUser = config.dotfield.guardian.username;
+          # "8 laptop cores times 1" seems like a reasonable relative speed factor.
+          speedFactor = 8;
           supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         }
       ];
