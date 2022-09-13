@@ -73,7 +73,8 @@
     };
 
     nix-json-progress = {
-      url = "github:dramforever/nix-json-progress";
+      # TODO: upstream to github:dramforever/nix-json-progress
+      url = "github:connorfeeley/nix-json-progress/feature/darwin-architecture-support";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

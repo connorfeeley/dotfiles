@@ -2682,15 +2682,16 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1659693096,
-        "narHash": "sha256-U2gvUcD2f9QtaaUzBWYG5bfvDL0fU2RT90hY+UZgwaI=",
-        "owner": "dramforever",
+        "lastModified": 1663035308,
+        "narHash": "sha256-3hOp9gARKyBVsxZ9U4VVbum64ymNek2KtWJLviDIwXU=",
+        "owner": "connorfeeley",
         "repo": "nix-json-progress",
-        "rev": "28403ed6dfb36c97f22a0151ca98af09abb40acd",
+        "rev": "7e8d5184764b566f8234e9ee1dcf8dfe6f9d8893",
         "type": "github"
       },
       "original": {
-        "owner": "dramforever",
+        "owner": "connorfeeley",
+        "ref": "feature/darwin-architecture-support",
         "repo": "nix-json-progress",
         "type": "github"
       }

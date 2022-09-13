@@ -37,16 +37,16 @@ in
     '')
 
     rsc
-  ] ++ (lib.optionals isLinux [
+
     pkgs.nix-json-progress
     (pkgs.writeShellApplication {
       name = "fnix";
-      runtimeInputs = with pkgs; [ nix ];
+      runtimeInputs = with pkgs; [ nix nix-json-progress ];
       text = ''
         nix --log-format internal-json "$@" |& ${pkgs.nix-json-progress}/bin/nix-json-progress
       '';
     })
-  ]);
+  ];
 
   programs.bash = {
     inherit shellAliases;
