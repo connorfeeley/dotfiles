@@ -93,7 +93,6 @@ in
       pdf-tools
       tree-sitter
       tree-sitter-langs
-      tree-sitter-grammars.tree-sitter-comment
       tsc
     ];
   };
@@ -144,6 +143,9 @@ in
     sqlite
 
     editorconfig-core-c
+
+    # Comment highling, namely for Doxygen in C++
+    tree-sitter-grammars.tree-sitter-comment
 
     ##: === writing ===
 
