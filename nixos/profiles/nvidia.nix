@@ -39,5 +39,5 @@ in
     enableNvidia = true;
   };
 
-  environment.systemPackages = with pkgs; [ nvtop xorg.xhost xorg.xinit ];
+  environment.systemPackages = with pkgs; [ nvtop xorg.xhost xorg.xinit ddcutil ];
 }
