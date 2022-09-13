@@ -51,6 +51,8 @@
 
     ##: --- sources ------------------------------------------------------------
 
+    mach-nix.url = "github:DavHau/mach-nix/refs/tags/3.5.0";
+
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     gitignore.url = "github:hercules-ci/gitignore.nix";
@@ -158,6 +160,7 @@
     darwin,
     deploy,
     digga,
+    mach-nix,
     emacs-overlay,
     firefox-darwin,
     flake-utils,

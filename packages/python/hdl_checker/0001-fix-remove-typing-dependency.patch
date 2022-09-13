@@ -1,0 +1,24 @@
+From e4c1685ae0837f0f90a2463b110f3b5a96d35e92 Mon Sep 17 00:00:00 2001
+From: Connor Feeley <cfeeley@cfeeley.org>
+Date: Mon, 12 Sep 2022 00:00:00 -0400
+Subject: [PATCH] fix: remove typing dependency
+
+---
+ setup.py | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 4730e16..f0c4af0 100755
+--- a/setup.py
++++ b/setup.py
+@@ -63,7 +63,6 @@ setuptools.setup(
+                                      'requests>=2.20.0',
+                                      'six>=1.10.0',
+                                      'tabulate>=0.8.5',
+-                                     'typing>=3.7.4',
+                                      'waitress>=0.9.0', ],
+     cmdclass                      = versioneer.get_cmdclass(),
+     entry_points                  = {
+-- 
+2.37.2
+
