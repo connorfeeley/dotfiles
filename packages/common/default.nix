@@ -17,8 +17,8 @@ final: prev: {
     runtimeInputs = with final; [ nodejs-14_x svlangserver-unwrapped ];
   };
 
-  svls = final.callPackage ./svls.nix { };
-  svlint = final.callPackage ./svlint { };
+  svls-local = throw "use svls from nixpkgs; this is the flake-local derivation";
+  svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";
 
   ##: dotfield internals -------------------------------------------------------
 

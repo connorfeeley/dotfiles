@@ -19,21 +19,21 @@
 }:
 
 rustPlatform.buildRustPackage rec {
-  pname = "svls";
-  version = "v0.2.5";
+  pname = "svlint";
+  version = "v0.5.6";
 
   src = fetchFromGitHub {
     owner = "dalance";
     repo = pname;
     rev = version;
-    sha256 = "sha256-SeVLQ05vPywSOnOEhJhQXYhdptmIhvYbbf9SX5eVzik=";
+    sha256 = "sha256-CAyFW+jTOLCQuHIYjdp9vujLIIjL2FXlCLsQiUyJ22o=";
   };
 
-  cargoSha256 = "sha256-CFT/Oex5kIyqg/rTDdYkE1QrG6zG+S+TPOZo6KJHkhI=";
+  cargoSha256 = "";
 
   meta = with lib; {
-    description = "SystemVerilog language server";
-    homepage = "https://github.com/dalance/svls";
+    description = "SystemVerilog linter";
+    homepage = "https://github.com/dalance/svlint";
     license = licenses.mit;
     maintainers = [ maintainers.cfeeley ];
   };
