@@ -70,6 +70,7 @@ with profiles; let
       remote
       trusted
       webdev
+      fpgadev
       ;
 
     workstation =
