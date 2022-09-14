@@ -13,12 +13,12 @@ in {
     du-dust #   <- Like du but more intuitive.
     entr #      <- Run arbitrary commands when files change
     lnav #      <- Log file navigator
-    # FIXME: marked as broken
-    # procs #     <- A modern replacement for ps.
+    glances #   <- System resource usage viewer
+    drill #     <- Like dig
+    procs #     <- A modern replacement for ps.
 
     ## === `bat` and friends ===
     # A cat(1) clone with wings.
-
     bat
 
     # Bash scripts that integrate bat with various command line tools.
