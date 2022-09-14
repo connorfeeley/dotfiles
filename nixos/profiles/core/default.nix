@@ -53,6 +53,7 @@ in {
     sysstat
     usbutils
     utillinux
+    smem
   ];
 
   programs.git.enable = true;
