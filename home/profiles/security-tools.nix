@@ -40,9 +40,11 @@
     theharvester
 
     ## === Passwords ===
-    hashcat
-    hashcat-utils
     thc-hydra
     john
-  ];
+  ] ++ (lib.optionals pkgs.stdenv.isLinux [
+    ## === Passwords ===
+    hashcat
+    hashcat-utils
+  ]);
 }
