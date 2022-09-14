@@ -62,6 +62,10 @@ with profiles; let
     development.xilinx
   ];
 
+  security = [
+    security-tools
+  ];
+
   roles = {
     inherit
       developer
@@ -71,6 +75,7 @@ with profiles; let
       trusted
       webdev
       fpgadev
+      security
       ;
 
     workstation =
@@ -79,7 +84,8 @@ with profiles; let
       ++ personalised
       ++ trusted
       ++ webdev
-      ++ fpgadev;
+      ++ fpgadev
+      ++ security;
   };
 in
   roles
