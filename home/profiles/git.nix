@@ -74,7 +74,9 @@ in {
     delta = {
       enable = false;
       options = {
-        line-numbers = true;
+        # Breaks magit-delta when enabled
+        line-numbers = false;
+
         navigate = true;
         keep-plus-minus-markers = true;
       };
