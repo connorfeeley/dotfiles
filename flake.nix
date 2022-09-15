@@ -91,8 +91,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xmonad-config.url = "path:config/xmonad";
-    xmobar-config.url = "path:config/xmobar";
+    xmonad-config = {
+      url = "path:config/xmonad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    xmobar-config = {
+      url = "path:config/xmobar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
