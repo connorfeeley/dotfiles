@@ -143,6 +143,10 @@ in {
           insteadOf = "srht:";
           pushInsteadOf = "srht:";
         };
+        url."git@srvvirgitlab.rossvideo.com:" = {
+          insteadOf = "srvvirgitlab:";
+          pushInsteadOf = "srvvirgitlab:";
+        };
         ##: }}
         ##: Remotes {{
         fetch.recurseSubmodules = true;
