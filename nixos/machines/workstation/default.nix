@@ -59,7 +59,7 @@ in {
 
       firewall = {
         enable = true;
-        # allowedTCPPorts = [80 443];
+        allowedTCPPorts = [ 2049 ]; # 2049: NFS
       };
 
       defaultGateway = {
@@ -85,6 +85,18 @@ in {
       };
     }
   );
+
+  ### === NFS share ============================================================
+  fileSystems."/mnt/export/cfeeley" = {
+    device = "/home/cfeeley";
+    options = [ "bind" ];
+  };
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /mnt/export         100.66.73.0/24(rw,fsid=0,no_subtree_check,all_squash,anonuid=0,anongid=100)
+    /mnt/export/cfeeley 100.66.73.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=0,anongid=100)
+  '';
 
   ### === users ================================================================
 
