@@ -8,7 +8,7 @@ config p =
      p) { position = TopSize L 100 60
         , sepChar = "&" -- delineator between plugin names and straight text
         , alignSep = "}{" -- separator between left-right alignment
-        , template = "&enp38s0&      |      &diskio& } &multicoretemp& | &multicpu& | &memory& | GPU: &gputemp&°C { &disku& &swap&"
+        , template = "&eth0&      |      &diskio& } &multicoretemp& | &multicpu& | &memory& | GPU: &gputemp&°C { &disku& &swap&"
         , commands =
             [ Run $ XPropertyLog "_XMONAD_LOG_TOP"
               -- free disk space monitor
