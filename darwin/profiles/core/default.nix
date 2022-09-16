@@ -53,6 +53,7 @@ in {
     global.lockfiles = true;
 
     masApps = {
+      "Tailscale" = 1475387142;
       "Microsoft Remote Desktop" = 1295203466;
     };
     brews = [ ];
