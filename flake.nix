@@ -285,7 +285,7 @@
         allowUnfree = true;
         allowUnsupportedSystem = true;
 
-        allowBroken = true;
+        allowBroken = false;
       };
 
       channels = {
