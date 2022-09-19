@@ -13,4 +13,5 @@
   services.openssh.extraConfig = ''
     StreamLocalBindUnlink yes
   '';
+  programs.mosh.enable = true;
 }
