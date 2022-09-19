@@ -7,9 +7,7 @@
 {
   home.packages = with pkgs; [
     ## === Reverse Engineering ===
-    (binwalk.override { visualizationSupport = true; })
-    radare2
-    radare2-cutter
+    (binwalk.override { visualizationSupport = pkgs.stdenv.isLinux; })
 
     ## === Crypto-Stego ===
     ccrypt
@@ -24,17 +22,24 @@
     arping
     nmap
     ncrack
-    aircrack-ng
     wpscan
     tcpreplay
     tcpdump
     wireshark
+    sslsplit
+  ] ++ (lib.optionals pkgs.stdenv.isLinux [
+    ## === Reverse Engineering ===
+    (binwalk.override { visualizationSupport = true; })
+    radare2
+    radare2-cutter
+
+    ## === Networking ===
+    aircrack-ng
+    mitmproxy
     proxychains
     udptunnel
     macchanger
-    mitmproxy
     spike # Network protocol fuzzer
-    sslsplit
 
     ## === Information Gathering ===
     theharvester
@@ -42,8 +47,6 @@
     ## === Passwords ===
     thc-hydra
     john
-  ] ++ (lib.optionals pkgs.stdenv.isLinux [
-    ## === Passwords ===
     hashcat
     hashcat-utils
   ]);
