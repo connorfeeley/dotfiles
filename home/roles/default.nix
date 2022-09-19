@@ -44,7 +44,8 @@ with profiles; let
   trusted = [
     gpg
     # mail
-    promnesia
+    # FIXME(darwin): broken
+    # promnesia
     secrets.one-password
     secrets.password-store
     yubikey
