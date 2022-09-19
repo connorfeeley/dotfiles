@@ -10,6 +10,7 @@
     ## === Uncategorized Packages ===
     comma
     hyperfine
+    mosh
 
     ## === Networking Tools ===
     iperf3
