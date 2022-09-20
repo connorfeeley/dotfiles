@@ -7,7 +7,7 @@ moduleArgs @ { config
 let
   inherit (config.lib) dotfield;
   inherit (pkgs.stdenv) buildPlatform hostPlatform;
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin isAarch64;
   inherit (config.xdg) configHome;
   inherit (config.lib.dag) entryAfter;
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -85,9 +85,19 @@ in
 
   programs.emacs = {
     enable = true;
-    package = if pkgs.stdenv.isLinux then pkgs.emacsPgtkNativeComp.override {
-      withXwidgets = true;
-    } else pkgs.emacsPgtkNativeComp;
+    # package = pkgs.emacs;
+    package =
+      let
+        # x86_64-linux: emacsPgtkNativeComp
+        # aarch-linux: emacsNativeComp
+        # aarch-darwin: emacsPgtkNativeComp
+        pkg = if (isLinux && !isAarch64)
+              then pkgs.emacsPgtkNativeComp
+              else pkgs.emacsNativeComp;
+      in
+      pkg.override {
+        withXwidgets = pkgs.stdenv.isLinux;
+      };
     extraPackages = epkgs: with epkgs; [
       vterm
       pdf-tools
