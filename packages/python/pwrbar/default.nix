@@ -34,7 +34,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Helper script for Kasa WiFi power bar";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
     maintainers = [ ];
   };
 }

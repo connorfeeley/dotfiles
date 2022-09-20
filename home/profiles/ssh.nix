@@ -6,7 +6,7 @@ moduleArgs @ {
   ...
 }: let
   inherit (peers.hosts) workstation MacBook-Pro cfeeley-laptop;
-  identityFileName = "id_rsa_yk.pub";
+  identityFileName = "id_ed25519.pub";
   identityFile = "~/.ssh/${identityFileName}";
 in {
   home.file.".ssh/${identityFileName}".source = ../../secrets/ssh-yubikey.pub;

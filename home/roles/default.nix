@@ -1,7 +1,6 @@
 {profiles}:
 with profiles; let
   developer = [
-    dhall
     direnv
     emacs
     git
