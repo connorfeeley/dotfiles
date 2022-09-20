@@ -136,4 +136,6 @@ in {
 
   programs.htop.enable = true;
   programs.steam.enable = true;
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

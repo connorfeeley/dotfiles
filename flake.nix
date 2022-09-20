@@ -214,12 +214,16 @@
     inherit
       (flake-utils.lib.system)
       x86_64-linux
-      aarch64-darwin
+      aarch64-linux
+
       x86_64-darwin
+      aarch64-darwin
       ;
 
     supportedSystems = [
       x86_64-linux
+      aarch64-linux
+
       x86_64-darwin
 
       # FIXME: Something in this flake's chain of dependencies triggers a build
@@ -352,13 +356,25 @@
           autoRollback = true;
           magicRollback = true;
         };
+        debian-vm = with (collective.peers.hosts.debian-vm); {
+          hostname = "debian-vm";
+          sshUser = "cfeeley";
+          fastConnection = true;
+          autoRollback = true;
+          magicRollback = true;
+          profilesOrder = [ "cfeeley" ];
+          profiles.cfeeley = {
+            user = "cfeeley";
+            path = deploy.lib.aarch64-linux.activate.home-manager
+              self.homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm";
+          };
+        };
         cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
           hostname = ipv4.address;
           sshUser = "cfeeley";
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;
-          # profilesOrder = [ "system" "cfeeley" ];
           profilesOrder = [ "cfeeley" ];
           profiles.cfeeley = {
             user = "cfeeley";
