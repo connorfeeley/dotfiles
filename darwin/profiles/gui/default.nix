@@ -13,10 +13,6 @@
     gtk-mac-integration
   ];
 
-  environment.variables = {
-    TERMINFO_DIRS = "/Applications/kitty.app/Contents/Resources/kitty/terminfo";
-  };
-
   homebrew.taps = [
     "FelixKratz/formulae"
     "homebrew/cask"
