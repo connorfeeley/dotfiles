@@ -23,6 +23,7 @@
     nmap
     ncrack
     wpscan
+    socat
     tcpreplay
     tcpdump
     wireshark
