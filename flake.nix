@@ -348,14 +348,14 @@
 
       homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
-      deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-        workstation = with (collective.peers.hosts.workstation); {
-          hostname = ipv4.address;
-          sshUser = "root";
-          fastConnection = true;
-          autoRollback = true;
-          magicRollback = true;
-        };
+      deploy.nodes = digga.lib.mkDeployNodes { } {
+        # workstation = with (collective.peers.hosts.workstation); {
+        #   hostname = "workstation";
+        #   sshUser = "cfeeley";
+        #   fastConnection = true;
+        #   autoRollback = true;
+        #   magicRollback = true;
+        # };
         debian-vm = with (collective.peers.hosts.debian-vm); {
           hostname = "debian-vm";
           sshUser = "cfeeley";
