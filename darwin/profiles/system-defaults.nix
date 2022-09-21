@@ -131,6 +131,8 @@
     showhidden = true;
     static-only = false;
     tilesize = 64;
+    # Disable bottom right corner hot action
+    wvous-br-corner = 1;
   };
 
   system.defaults.finder = {
