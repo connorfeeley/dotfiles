@@ -3,10 +3,7 @@
 , pkgs
 , ...
 }: {
-  imports = [
-    # FIXME
-    ./security/pam.nix
-  ];
+  imports = [ ];
 
   # Symlink Nix applications to '~/Applications/Nix Apps'
   # https://github.com/nix-community/home-manager/issues/1341#issuecomment-1190875080
@@ -24,8 +21,6 @@
     ''
   );
 
-  # https://github.com/LnL7/nix-darwin/pull/228
-  # TODO: errors on activation!
   security.pam.enableSudoTouchIdAuth = true;
 
   # TODO: why disabled? caused an error?
