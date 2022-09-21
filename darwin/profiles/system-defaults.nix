@@ -134,7 +134,7 @@
   };
 
   system.defaults.finder = {
-    AppleShowAllExtensions = true;
+    AppleShowAllExtensions = false;
     # Whether to display icons on the desktop.
     CreateDesktop = false;
     FXEnableExtensionChangeWarning = false;
