@@ -23,6 +23,7 @@
     circleci-cli
     universal-ctags
     just # Just a command runner
+    tokei # Fancy wordcount for programmers
 
     ## === Nix Development ===
     fup-repl
