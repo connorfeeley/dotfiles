@@ -71,6 +71,10 @@ in {
           # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
           # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
           # MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
+
+          # Put John Nagle on a timeout. Har har, get it?
+          # (disable Nagle algorithm)
+          NoDelay = "yes" ;
         };
       };
     };
