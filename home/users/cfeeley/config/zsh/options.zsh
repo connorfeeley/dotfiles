@@ -1,7 +1,11 @@
 ###: GENERAL ===================================================================
 
+# Use bash-style word selections (don't kill entire path; only path components separated by '/')
+autoload -U select-word-style
+select-word-style bash
+
 # Treat these characters as part of a word.
-# WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
+WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
 
 # ls et al.
 # AUTO_LS_COMMANDS="exa --oneline"
