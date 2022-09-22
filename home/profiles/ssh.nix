@@ -74,7 +74,8 @@ in {
 
           # Put John Nagle on a timeout. Har har, get it?
           # (disable Nagle algorithm)
-          NoDelay = "yes" ;
+          # FIXME: This may not even be an actual configuration option.
+          # NoDelay = "yes" ;
         };
       };
     };
