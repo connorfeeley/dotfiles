@@ -96,7 +96,7 @@ in
               else pkgs.emacsNativeComp;
       in
       pkg.override {
-        withXwidgets = pkgs.stdenv.isLinux;
+        withXwidgets = (isLinux && !isAarch64);
       };
     extraPackages = epkgs: with epkgs; [
       vterm
