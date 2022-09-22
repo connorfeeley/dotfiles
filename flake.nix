@@ -10,8 +10,7 @@
     nixpkgs.follows = "nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-stable-21-11.url = "github:NixOS/nixpkgs/nixos-21.11";
-    # FIXME(darwin): nvfetcher dependency pycurl broken on darwin; waiting for fix to hit nixos-unstable
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     nixlib.url = "github:nix-community/nixpkgs.lib";
