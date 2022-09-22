@@ -3,11 +3,14 @@
 , pkgs
 , ...
 }:
-
-{
+let
+    inherit (pkgs.stdenv) isLinux;
+    inherit (pkgs.stdenv) isDarwin;
+    inherit (pkgs.stdenv) isAarch64;
+in {
   home.packages = with pkgs; [
     ## === Reverse Engineering ===
-    (binwalk.override { visualizationSupport = pkgs.stdenv.isLinux; })
+    (binwalk.override { visualizationSupport = isLinux; })
 
     ## === Crypto-Stego ===
     ccrypt
@@ -28,9 +31,8 @@
     tcpdump
     wireshark
     sslsplit
-  ] ++ (lib.optionals pkgs.stdenv.isLinux [
+  ] ++ (lib.optionals (isLinux && !isAarch64) [
     ## === Reverse Engineering ===
-    (binwalk.override { visualizationSupport = true; })
     radare2
     radare2-cutter
 
