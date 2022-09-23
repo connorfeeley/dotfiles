@@ -14,13 +14,14 @@ let
   inherit (config.lib.dotfield.emacs) profilesBase profilesPath;
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
+  doomRepoRev = "e9ef904eeef28c31ca07055f0cce8c5eafeb4179";
+
   emacsDir = "${configHome}/emacs";
 
   # FIXME: this is gross
   configDir = ../../.;
   e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${configDir}/config/emacs/e");
 
-  doom-emacs-rev = "e9ef904eeef28c31ca07055f0cce8c5eafeb4179";
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
     rev = "583648e00f2b6e23c6b99e41ed896cd76bf6eaf0";
@@ -85,7 +86,7 @@ in
 
       # Checkout pinned SHA
       git -C ${emacsDir} fetch
-      git -C ${emacsDir} checkout ${doom-emacs-rev}
+      git -C ${emacsDir} checkout ${doomRepoRev}
     '';
 
   programs.emacs = {
@@ -132,11 +133,13 @@ in
     gifsicle
     peek
     zstd # for undo-fu-session/undo-tree compression
+    feh
 
     figlet # prettier block comments
 
     #: org
     graphviz
+    gnuplot
 
     # :lang latex & :lang org (latex previews)
     texlive.combined.scheme-medium
