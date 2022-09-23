@@ -4,7 +4,7 @@
   socket,
 }: {
   font_family = "Iosevka Extended";
-  font_size = lib.mkDefault "20";
+  font_size = lib.mkDefault "16";
   adjust_line_height = "110%";
   # TODO: why?
   box_drawing_scale = "0.001, 1, 1.5, 2";
