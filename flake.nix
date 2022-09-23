@@ -121,9 +121,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-work = {
-      url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
-    };
+    nixpkgs-work.url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
 
     nix-nil = {
       url = "github:oxalica/nil";
@@ -269,12 +267,15 @@
 
       nix-xilinx.overlay
 
-      # nixpkgs-work.overlay
+      nixpkgs-work.overlays.default
 
       (final: prev: {
         nix-nil = nix-nil.packages.${prev.system}.default;
         wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;
         nix-json-progress = nix-json-progress.packages.${prev.system}.nix-json-progress;
+
+        dashboard = nixpkgs-work.packages.${prev.system}.dashboard;
+        zeuspack = nixpkgs-work.packages.${prev.system}.zeuspack;
       })
     ];
   in
