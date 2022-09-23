@@ -9,8 +9,8 @@
   gmailAccount = {
     name,
     domain,
-    realName ? "chris montgomery",
-    username ? "chris",
+    realName ? "Connor Feeley",
+    username ? "connor.feeley",
     ...
   }: let
     address = "${username}@${domain}";
@@ -104,7 +104,7 @@ in {
         gmailAccount
         {
           name = "personal";
-          domain = "cdom.io";
+          domain = "cfeeley.org";
         }
         // {
           primary = lib.mkDefault true;

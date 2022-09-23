@@ -42,7 +42,7 @@ with profiles; let
 
   trusted = [
     gpg
-    # mail
+    mail
     # FIXME(darwin): broken
     # promnesia
     secrets.one-password
