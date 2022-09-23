@@ -91,13 +91,12 @@ in
         # x86_64-linux: emacsPgtkNativeComp
         # aarch-linux: emacsNativeComp
         # aarch-darwin: emacsPgtkNativeComp
-        pkg = if (isLinux && !isAarch64)
-              then pkgs.emacsPgtkNativeComp
-              else pkgs.emacsNativeComp;
+        pkg =
+          if (isLinux && !isAarch64)
+          then pkgs.emacsPgtkNativeComp
+          else pkgs.emacsNativeComp;
       in
-      pkg.override {
-        withXwidgets = (isLinux && !isAarch64);
-      };
+      pkg;
     extraPackages = epkgs: with epkgs; [
       vterm
       pdf-tools
@@ -211,7 +210,7 @@ in
     nodePackages.yaml-language-server
     #: vimrc
     nodePackages.vim-language-server
-  ] ++ (lib.optionals isLinux [
+  ] ++ (lib.optionals (isLinux && !isAarch64) [
     # XWidgets WebKit
     webkitgtk
     glib
