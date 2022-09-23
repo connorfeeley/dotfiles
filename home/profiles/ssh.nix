@@ -9,8 +9,6 @@ moduleArgs @ {
   identityFileName = "id_ed25519.pub";
   identityFile = "~/.ssh/${identityFileName}";
 in {
-  home.file.".ssh/${identityFileName}".source = ../../secrets/ssh-yubikey.pub;
-
   programs.ssh = {
     enable = true;
     forwardAgent = false;
