@@ -54,7 +54,10 @@
 
     mach-nix.url = "github:DavHau/mach-nix/refs/tags/3.5.0";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      # inputs.nixpkgs.follows = "nixos-stable";
+    };
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
