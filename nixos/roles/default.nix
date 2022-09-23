@@ -40,7 +40,7 @@
     virtualisation.libvirtd
     virtualisation.docker
     virtualisation.vagrant
-    virtualisation.virtualbox
+    # virtualisation.virtualbox
   ];
 
   fpgadev = with profiles; [
