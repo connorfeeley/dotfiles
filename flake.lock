@@ -4728,6 +4728,9 @@
         "nixpkgs": [
           "nixos-unstable"
         ],
+        "nixpkgs-22-05": [
+          "nixos-stable"
+        ],
         "nixpkgs-darwin-stable": "nixpkgs-darwin-stable",
         "nixpkgs-trunk": "nixpkgs-trunk",
         "nixpkgs-wayland": "nixpkgs-wayland",
