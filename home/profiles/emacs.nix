@@ -20,7 +20,7 @@ let
   configDir = ../../.;
   e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${configDir}/config/emacs/e");
 
-  doom-emacs-rev = "c44bc81a05f3758ceaa28921dd9c830b9c571e61";
+  doom-emacs-rev = "e9ef904eeef28c31ca07055f0cce8c5eafeb4179";
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
     rev = "583648e00f2b6e23c6b99e41ed896cd76bf6eaf0";
