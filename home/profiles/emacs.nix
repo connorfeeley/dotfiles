@@ -20,6 +20,7 @@ let
   configDir = ../../.;
   e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${configDir}/config/emacs/e");
 
+  doom-emacs-rev = "c44bc81a05f3758ceaa28921dd9c830b9c571e61";
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
     rev = "583648e00f2b6e23c6b99e41ed896cd76bf6eaf0";
@@ -78,9 +79,13 @@ in
         cd ${emacsDir}
         ${git} init --initial-branch master
         ${git} remote add origin ${doomRepoUrl}
-        ${git} fetch --depth=1 origin master
+        ${git} fetch origin master
         ${git} reset --hard origin/master
       fi
+
+      # Checkout pinned SHA
+      git -C ${emacsDir} fetch
+      git -C ${emacsDir} checkout ${doom-emacs-rev}
     '';
 
   programs.emacs = {
