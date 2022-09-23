@@ -3,11 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (pkgs.stdenv) isLinux;
-  inherit (pkgs.stdenv) isAarch64;
-in {
+}: {
   # FIXME: most of these should NOT be considered part of "core"
   # most don't belong on a server, etc.
   home.packages = with pkgs; [
@@ -67,8 +63,8 @@ in {
     ## === Data Sync ===
 
     rclone
+  ] ++ (lib.optionals pkgs.stdenv.isLinux [
     sourcetrail # Rest in peace sourcetrail, the best C++ exploration tool ever to live.
-  ] ++ (lib.optionals (isLinux && !isAarch64) [
   ]);
 
   # TODO: check these out

@@ -120,6 +120,7 @@ in {
     '';
 
     initExtraBeforeCompInit = ''
+      compdef _directories md
     '';
 
     initExtra = ''

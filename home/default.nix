@@ -30,13 +30,13 @@ in {
   users = {
     "cfeeley@debian-vm" = hmArgs: {
       imports = with hmArgs.roles;
-        developer ++ remote ++ workstation-small;
+        developer ++ remote;
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/home/cfeeley";
     };
     "cfeeley@cfeeley-laptop" = hmArgs: {
       imports = with hmArgs.roles;
-        developer ++ remote ++ workstation-small;
+        developer ++ remote;
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/home/cfeeley";
     };

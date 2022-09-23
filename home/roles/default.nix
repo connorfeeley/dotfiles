@@ -11,6 +11,9 @@ with profiles; let
   ];
 
   graphical = [
+    desktop.common
+    desktop.gnome
+    desktop.xmonad
     firefox
     chromium
     foot
@@ -21,13 +24,8 @@ with profiles; let
     themes
   ];
 
-  graphical-desktop = [
-    desktop.common
-    desktop.gnome
-    desktop.xmonad
-  ];
-
   personalised = [
+    apple-music
     espanso
     misc
     newsboat
@@ -88,13 +86,6 @@ with profiles; let
       ++ webdev
       ++ fpgadev
       ++ security;
-
-    workstation-small =
-      developer
-      ++ personalised
-      ++ trusted
-      ++ webdev
-      ++ fpgadev;
   };
 in
   roles
