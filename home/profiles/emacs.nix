@@ -92,17 +92,7 @@ in
   programs.emacs = {
     enable = true;
     # package = pkgs.emacs;
-    package =
-      let
-        # x86_64-linux: emacsPgtkNativeComp
-        # aarch-linux: emacsNativeComp
-        # aarch-darwin: emacsPgtkNativeComp
-        pkg =
-          if (isLinux && !isAarch64)
-          then pkgs.emacsPgtkNativeComp
-          else pkgs.emacsNativeComp;
-      in
-      pkg;
+    package = pkgs.emacsPgtkNativeComp;
     extraPackages = epkgs: with epkgs; [
       vterm
       pdf-tools
