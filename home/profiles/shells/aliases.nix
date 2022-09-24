@@ -30,4 +30,6 @@
   nix-stray-roots = ''nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory)"'';
 
   rsc = "rsync -rav --progress";
+
+  rl = "readlink -f";
 }
