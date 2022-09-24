@@ -11,6 +11,7 @@
     comma
     hyperfine
     mosh
+    iotop
 
     ## === Networking Tools ===
     iperf3
