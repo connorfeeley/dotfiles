@@ -7,7 +7,7 @@ moduleArgs @ { config
 }:
 let
   inherit (inputs) base16-kitty nix-colors;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux isAarch64;
   inherit (config.lib.dotfield.features) hasTwm hasPragPro;
 
   socket = "unix:/tmp/kitty-socket";
@@ -79,14 +79,17 @@ lib.mkMerge [
 
     programs.kitty = {
       enable = true;
-      settings = settings // colors;
+      settings = settings // colors // {
+        font_size = if (isDarwin && isAarch64)
+        then "12" #
+        else "16";
+      };
       keybindings = {
         "kitty_mod+n" = "new_os_window_with_cwd";
         "ctrl+alt+enter" = "launch --cwd=current --location=neighbor";
       };
       font = {
         name = "Iosevka Extended";
-        size = 20;
       };
       extraConfig = ''
         ${lib.optionalString hasPragPro pragmataProExtras}
