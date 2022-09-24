@@ -15,15 +15,6 @@
     // (import ./aliases.nix);
 
   fdBin = "${pkgs.fd}/bin/fd";
-
-  rsc = pkgs.symlinkJoin {
-    name = "rsc";
-    paths = [ pkgs.rsync ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      makeWrapper ${pkgs.rsync}/bin/rsync $out/bin/rsc --add-flags "-rav --progress"
-    '';
-  };
 in
 {
   imports = [
@@ -58,7 +49,6 @@ in
     in
     [
       md
-      rsc
       stderred-wrapper # Highlight stderr in red
       fnix
     ];
