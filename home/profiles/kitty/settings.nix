@@ -33,6 +33,7 @@
   draw_minimal_borders = true;
   hide_window_decorations = hasTwm;
   confirm_os_window_close = "0";
+  enabled_layouts = "tall:bias=50;full_size=1;mirrored=false";
   #: }}}
 
   #: Tab bar {{{
@@ -40,7 +41,7 @@
   tab_bar_style = "fade";
   active_tab_font_style = "bold";
   inactive_tab_font_style = "normal";
-  tab_activity_symbol = "";
+  tab_activity_symbol = "߹";
   #: }}}
 
   #: Advanced {{{
@@ -58,5 +59,5 @@
   # Prevent input latency.
   sync_to_monitor = false;
 
-  enable_audio_bell = false;
+  enable_audio_bell = true;
 }
