@@ -57,7 +57,7 @@ lib.mkMerge [
   (lib.mkIf isDarwin {
     # Handled by the Homebrew module
     # This populates a dummy package to satisfy the requirement
-    programs.kitty.package = pkgs.runCommand "kitty-0.0.0" { } "mkdir $out";
+    # programs.kitty.package = pkgs.runCommand "kitty-0.0.0" { } "mkdir $out";
 
     programs.kitty.darwinLaunchOptions = [
       "--single-instance"
