@@ -8,5 +8,7 @@
   homebrew.brews = [
     # :lang org (macOS only)
     "pngpaste"
+
+    "coreutils"
   ];
 }
