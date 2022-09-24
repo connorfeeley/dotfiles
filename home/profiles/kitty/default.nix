@@ -85,8 +85,20 @@ lib.mkMerge [
         else "16";
       };
       keybindings = {
+        # kitty_mod: ctrl+shift / command
         "kitty_mod+n" = "new_os_window_with_cwd";
         "ctrl+alt+enter" = "launch --cwd=current --location=neighbor";
+        # Default: create new split
+        # "kitty_mod+enter" = "new_window_with_cwd";
+
+        # Vim-style window navigation
+        "kitty_mod+left" = "neighboring_window left";
+        "kitty_mod+right" = "neighboring_window right";
+        "kitty_mod+down" = "neighboring_window down";
+        "kitty_mod+up" = "neighboring_window up";
+
+        # Change layouts
+        "kitty_mod+l" = "next_layout";
       };
       font = {
         name = "Iosevka Extended";
