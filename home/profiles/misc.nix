@@ -12,6 +12,7 @@
     hyperfine
     mosh
     iotop
+    smartmontools
 
     ## === Networking Tools ===
     iperf3
