@@ -12,5 +12,5 @@
   services.gnome.chrome-gnome-shell.enable = true;
 
   services.gnome.sushi.enable = true;
-  programs.gnupg.agent.pinentryFlavor = "gnome3";
+  # programs.gnupg.agent.pinentryFlavor = "gnome3";
 }

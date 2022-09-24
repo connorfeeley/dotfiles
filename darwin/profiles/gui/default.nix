@@ -23,6 +23,10 @@
     # This provides a GUI, despite it not being a cask.
     "pinentry-mac"
 
+    # Interesting project; however the password is not stored in the
+    # secure enclave, which is a dealbreaker for me 😕.
+    # "pinentry-touchid"
+
     "freerdp"
   ];
 

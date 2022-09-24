@@ -189,7 +189,7 @@ in {
       pinentryFlavor = mkOption {
         type = types.nullOr (types.enum pkgs.pinentry.flavors);
         example = "gnome3";
-        default = "gtk2";
+        default = "emacs";
         description = ''
           Which pinentry interface to use. If not
           <literal>null</literal>, it sets
