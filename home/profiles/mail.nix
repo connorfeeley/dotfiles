@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 
   gmailAccount = {
     name,
@@ -88,14 +88,21 @@ in {
   ];
 
   programs.mbsync.enable = true;
-  programs.mu.enable = true;
+  programs.mu.enable = isLinux;
   programs.msmtp.enable = true;
-  services.mbsync = lib.mkIf (!isDarwin) {
-    enable = false;
-    frequency = "*:0/5";
+  services.mbsync = lib.mkIf isLinux {
+    enable = true;
+    frequency = "*:0/5"; # 5 minutes
     # TODO: might need to be told about password store dir
     postExec = "${pkgs.mu}/bin/mu index";
   };
+  # FIXME(darwin): doesn't work well.
+  # services.mbsync-darwin = lib.mkIf isDarwin {
+  #   enable = true;
+  #   startInterval = 300; # 5 minutes
+  #   # TODO: might need to be told about password store dir
+  #   postExec = "${pkgs.mu}/bin/mu index";
+  # };
 
   accounts.email = {
     maildirBasePath = "Mail";
