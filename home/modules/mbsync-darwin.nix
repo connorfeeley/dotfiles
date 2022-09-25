@@ -9,16 +9,18 @@
 with lib;
 
 let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-  cfg = config.services.mbsync;
+  cfg = config.services.mbsync-darwin;
 
   mbsyncOptions = [ "--all" ] ++ optional (cfg.verbose) "--verbose"
-                  ++ optional (cfg.configFile != "")
-                    "--config ${cfg.configFile}";
+    ++ optional (cfg.configFile != "")
+    "--config ${cfg.configFile}";
 
-in {
+in
+{
 
-  options.services.mbsync = {
+  options.services.mbsync-darwin = {
     enable = mkEnableOption "mbsync";
 
     package = mkOption {
@@ -64,17 +66,21 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-
-    launchd.user.agents.mbsync = {
-      script = ''
-        ${cfg.package}/bin/mbsync ${concatStringsSep " " mbsyncOptions}
-        ${optionalString (cfg.postExec != "") cfg.postExec}
-      '';
-
-      serviceConfig.KeepAlive     = false;
-      serviceConfig.RunAtLoad     = true;
-      serviceConfig.StartInterval = cfg.startInterval;
+  config = mkIf (isDarwin && cfg.enable) {
+    launchd.agents.mbsync = {
+      enable = true;
+      config = {
+        Program = "${cfg.package}/bin/mbsync";
+        ProgramArguments =
+          [
+            "${concatStringsSep " " mbsyncOptions}"
+            (mkIf cfg.verbose "--verbose")
+            "${optionalString (cfg.postExec != "") cfg.postExec}"
+          ];
+        RunAtLoad = true;
+        KeepAlive = false;
+        StartInterval = cfg.startInterval;
+      };
     };
   };
 }
