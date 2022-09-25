@@ -1,6 +1,4 @@
 final: prev: {
-  __dontExport = true;
-
   # nvfetcher sources
   sources = prev.callPackage ./_sources/generated.nix {};
 
