@@ -13,6 +13,7 @@
 in {
   environment.systemPackages = with pkgs; [
     dotfieldScript
+    hlissner-hey
 
     ## === Essentials ===
 
