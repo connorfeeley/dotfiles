@@ -392,10 +392,5 @@
         builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v {})
         (flattenTree (rakeLeaves ./darwin/packages));
     }))
-    # // (eachSystem digga.lib.defaultSystems (system: {
-    #     packages =
-    #       builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v {})
-    #       (flattenTree (rakeLeaves ./packages));
-    #   }))
   ;
 }

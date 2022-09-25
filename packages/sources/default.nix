@@ -1,6 +1,6 @@
 final: prev: {
   # nvfetcher sources
-  sources = prev.callPackage ./_sources/generated.nix {};
+  sources = prev.callPackage ./_sources/generated.nix { };
 
   ediff-tool = final.stdenv.mkDerivation rec {
     name = "ediff-tool";
@@ -11,7 +11,7 @@ final: prev: {
     '';
   };
 
-  git-submodule-rewrite = final.stdenv.mkDerivation rec {
+  git-submodule-rewrite = final.stdenv.mkDerivation {
     name = "git-submodule-rewrite";
     src = final.gitignoreSource ./git-submodule-rewrite;
     installPhase = ''
@@ -19,4 +19,6 @@ final: prev: {
       cp bin/* $out/bin/
     '';
   };
+
+  hlissner-hey = final.callPackage ./hlissner-hey.nix { };
 }

@@ -3,6 +3,7 @@ result
 
 # nvfetcher
 packages/sources/_sources/.shake*
+packages/sources/_sources/hlissner-hey*
 
 # Emacs
 custom.el
