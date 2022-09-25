@@ -87,6 +87,27 @@
         },
         "version": "15156e3cb56c715464a2421e6f4e4356a26ac975"
     },
+    "hlissner-hey": {
+        "cargoLocks": null,
+        "extract": {
+            "bin/hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/bin/hey",
+            "config/zsh/completions/_hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/config/zsh/completions/_hey"
+        },
+        "name": "hlissner-hey",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "089f1a9da9018df9e5fc200c2d7bef70f4546026",
+            "sha256": "sha256-uKMuJnCINAJWdEapZeTaenBptJN+rIrh5Ml+9J7Gr+4=",
+            "type": "git",
+            "url": "https://github.com/hlissner/dotfiles"
+        },
+        "version": "089f1a9da9018df9e5fc200c2d7bef70f4546026"
+    },
     "hug": {
         "cargoLocks": null,
         "extract": null,

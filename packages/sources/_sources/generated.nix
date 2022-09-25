@@ -55,6 +55,20 @@
       sha256 = "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=";
     };
   };
+  hlissner-hey = {
+    pname = "hlissner-hey";
+    version = "089f1a9da9018df9e5fc200c2d7bef70f4546026";
+    src = fetchgit {
+      url = "https://github.com/hlissner/dotfiles";
+      rev = "089f1a9da9018df9e5fc200c2d7bef70f4546026";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-uKMuJnCINAJWdEapZeTaenBptJN+rIrh5Ml+9J7Gr+4=";
+    };
+    "bin/hey" = builtins.readFile ./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/bin/hey;
+    "config/zsh/completions/_hey" = builtins.readFile ./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/config/zsh/completions/_hey;
+  };
   hug = {
     pname = "hug";
     version = "2.6.1";

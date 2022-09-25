@@ -12,6 +12,11 @@ fetch.github = "roots/trellis-cli"
 src.git = "https://github.com/TimidRobot/cmc"
 fetch.git = "https://github.com/TimidRobot/cmc"
 
+[hlissner-hey]
+src.git = "https://github.com/hlissner/dotfiles"
+fetch.git = "https://github.com/hlissner/dotfiles"
+extract = [ "bin/hey", "config/zsh/completions/_hey" ]
+
 ##: --- fish shell ---
 
 [fish-autopair]
