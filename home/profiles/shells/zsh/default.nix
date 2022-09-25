@@ -120,6 +120,8 @@ in {
     '';
 
     initExtraBeforeCompInit = ''
+      # # Init completion manually
+      # autoload compinit; compinit -u
     '';
 
     initExtra = ''
