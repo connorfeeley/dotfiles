@@ -34,10 +34,8 @@
     digga.inputs.darwin.follows = "darwin";
 
     home-manager = {
-      # url = "github:montchr/home-manager/trunk";
-      # url = "github:nix-community/home-manager/release-22.05";
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-dram = {
@@ -57,7 +55,7 @@
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
-      # inputs.nixpkgs.follows = "nixos-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     gitignore.url = "github:hercules-ci/gitignore.nix";
@@ -117,7 +115,7 @@
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       # Packages are built against this channel.
-      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ttc-subway-font = {
