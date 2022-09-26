@@ -17,6 +17,7 @@
     ddrescue
     exiv2
     pdf-parser
+    bingrep # Greps through binaries from various OSs and architectures, and colors them.
 
     ## === Networking ===
     arping
@@ -28,6 +29,7 @@
     tcpdump
     wireshark
     sslsplit
+    rustscan
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     ## === Reverse Engineering ===
     (binwalk.override { visualizationSupport = true; })

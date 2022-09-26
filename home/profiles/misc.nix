@@ -11,12 +11,18 @@
     comma
     hyperfine
     mosh
+    barrier
+
+    ## === System Tools ===
     iotop
     smartmontools
+    diskonaut # Terminal visual disk space navigator
 
     ## === Networking Tools ===
     iperf3
-    nethogs
+    bandwhich # Terminal bandwidth utilization tool
+    # FIXME: not packaged
+    # trippy # A network diagnostic tool
 
     ## === Local Development ===
 
@@ -63,10 +69,13 @@
     youtube-dl
 
     ## === Data Sync ===
-
     rclone
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     sourcetrail # Rest in peace sourcetrail, the best C++ exploration tool ever to live.
+    kmon
+    systeroid # A more powerful alternative to sysctl(8) with a terminal user interface
+    procs
+    sysz
   ]);
 
   # TODO: check these out
