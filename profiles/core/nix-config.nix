@@ -9,6 +9,7 @@
     "https://dotfield.cachix.org"
     "https://nix-community.cachix.org"
     "https://nixpkgs-wayland.cachix.org"
+    "https://cache.iog.io"
   ];
   trusted-substituters = substituters;
 in {
@@ -27,6 +28,7 @@ in {
         "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
       ];
     };
 
