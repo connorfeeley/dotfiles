@@ -94,8 +94,7 @@
     };
 
     xmonad-config = {
-      url = "path:config/xmonad";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://git.sr.ht/~cfeeley/xmonad-config";
     };
     xmobar-config = {
       url = "path:config/xmobar";
@@ -262,7 +261,6 @@
       nvfetcher.overlay
       firefox-darwin.overlay
 
-      xmonad-config.overlay
       xmobar-config.overlay
 
       ttc-subway-font.overlay
@@ -272,6 +270,8 @@
       nixpkgs-work.overlays.default
 
       (final: prev: {
+        xmonad-config = xmonad-config.packages.${prev.system}.xmonad-config;
+
         nix-nil = nix-nil.packages.${prev.system}.default;
         wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;
         nix-json-progress = nix-json-progress.packages.${prev.system}.nix-json-progress;
