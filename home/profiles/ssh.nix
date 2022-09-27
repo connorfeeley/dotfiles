@@ -14,11 +14,21 @@ in {
     forwardAgent = false;
     serverAliveInterval = 300;
     serverAliveCountMax = 2;
-    compression = true;
+    compression = false; # Slow
+    controlPersist = "10m";
+    controlMaster = "auto";
 
     includes = ["~/.config/ssh/config.local"];
 
     matchBlocks = {
+      "worstation" = {
+        forwardX11 = true;
+        forwardX11Trusted = true;
+        compression = false;
+        extraConfig = ''
+          RemoteForward /run/user/1000/gnupg/S.gpg-agent /Users/cfeeley/.gnupg/S.gpg-agent.extra
+        '';
+      };
       "cfeeley-laptop" = {
         hostname = cfeeley-laptop.ipv4.address;
         user = "cfeeley";
