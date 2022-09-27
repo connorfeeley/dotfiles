@@ -25,9 +25,9 @@ in {
         forwardX11 = true;
         forwardX11Trusted = true;
         compression = false;
-        extraConfig = ''
-          RemoteForward /run/user/1000/gnupg/S.gpg-agent /Users/cfeeley/.gnupg/S.gpg-agent.extra
-        '';
+        extraOptions = {
+          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/cfeeley/.gnupg/S.gpg-agent.extra";
+        };
       };
       "cfeeley-laptop" = {
         hostname = cfeeley-laptop.ipv4.address;
