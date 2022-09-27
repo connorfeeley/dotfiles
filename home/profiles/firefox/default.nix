@@ -186,6 +186,7 @@ in {
       reddit-enhancement-suite
       reduxdevtools
       # TODO: set default preferences for this and others? is that possible?
+      tampermonkey
       refined-github
       return-youtube-dislikes
       sidebery
