@@ -92,7 +92,7 @@ in
   programs.emacs = {
     enable = true;
     # package = pkgs.emacs;
-    package = pkgs.emacsPgtkNativeComp;
+    package = pkgs.emacsNativeComp;
     extraPackages = epkgs: with epkgs; [
       vterm
       pdf-tools
