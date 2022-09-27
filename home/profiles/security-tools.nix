@@ -46,7 +46,6 @@
 
     ## === Information Gathering ===
     theharvester
-    poppler # pdf rendering
     poppler_utils # pdf rendering tools
 
     ## === Passwords ===
