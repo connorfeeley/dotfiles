@@ -11,7 +11,6 @@
     comma
     hyperfine
     mosh
-    barrier
 
     ## === System Tools ===
     iotop
@@ -76,6 +75,7 @@
     systeroid # A more powerful alternative to sysctl(8) with a terminal user interface
     procs # pspspspsps
     sysz  # fzf-style systemd TUI
+    barrier # Ironically broken on aarch64-darwin; install with brew instead
   ]);
 
   # TODO: check these out
