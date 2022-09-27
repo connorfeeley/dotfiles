@@ -72,10 +72,10 @@
     rclone
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     sourcetrail # Rest in peace sourcetrail, the best C++ exploration tool ever to live.
-    kmon
+    kmon # Kernel manager and activity monitor
     systeroid # A more powerful alternative to sysctl(8) with a terminal user interface
-    procs
-    sysz
+    procs # pspspspsps
+    sysz  # fzf-style systemd TUI
   ]);
 
   # TODO: check these out
