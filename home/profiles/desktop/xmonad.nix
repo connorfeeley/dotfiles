@@ -17,7 +17,7 @@ in
       nlSupport = true;
     })
 
-    haskellPackages.xmonad-config
+    xmonad-config
     haskellPackages.xmobar-config
 
     redshift
@@ -43,9 +43,19 @@ in
     x11.enable = true;
   };
 
+  xdg.configFile = {
+    "plasma-workspace/env/set_window_manager.sh" = {
+      executable = true;
+      text = ''
+        export KDEWM="${pkgs.xmonad-config}/bin/xmonad"
+      '';
+    };
+  };
+  programs.xmobar = {
+    enable = true;
+  };
   xsession = {
     initExtra = ''
-      xsetroot -solid black
       x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbport 5900 -shared -safer -display :1
     '';
     enable = true;
@@ -53,47 +63,20 @@ in
       enable = true;
       enableContribAndExtras = true;
       extraPackages = haskellPackages: with haskellPackages; [
-        xmonad-config
+        pkgs.xmonad-config
         xmobar-config
       ];
-      # config = pkgs.writeText "xmonad.hs" ''
-      #   import XMonad
-      #   import XMonad.Util.EZConfig (additionalKeys)
-      #   import Control.Monad (when)
-      #   import Text.Printf (printf)
-      #   import System.Posix.Process (executeFile)
-      #   import System.Info (arch,os)
-      #   import System.Environment (getArgs)
-      #   import System.FilePath ((</>))
-      #   compiledConfig = printf "xmonad-%s-%s" arch os
-      #   myConfig = defaultConfig
-      #     { modMask = mod4Mask -- Use Super instead of Alt
-      #     , terminal = "urxvt" }
-      #     `additionalKeys`
-      #     [ ( (mod4Mask,xK_r), compileRestart True)
-      #     , ( (mod4Mask,xK_q), restart "xmonad" True ) ]
-      #   compileRestart resume = do
-      #     dirs  <- asks directories
-      #     whenX (recompile dirs True) $ do
-      #       when resume writeStateToFile
-      #       catchIO
-      #           ( do
-      #               args <- getArgs
-      #               executeFile (cacheDir dirs </> compiledConfig) False args Nothing
-      #           )
-      #   main = getDirectories >>= launch myConfig
-      # '';
     };
   };
 
   services = {
     redshift = {
-      enable = true;
+      enable = false;
       latitude = 43.70011;
       longitude = -79.4163;
     };
     dunst = {
-      enable = true;
+      enable = false;
       settings = {
         global = {
           font = "Iosevka Extended 22";
@@ -350,8 +333,5 @@ in
       #
       # vim: ft=cfg
     };
-  };
-  programs.xmobar = {
-    enable = true;
   };
 })

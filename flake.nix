@@ -270,7 +270,8 @@
       nixpkgs-work.overlays.default
 
       (final: prev: {
-        xmonad-config = xmonad-config.packages.${prev.system}.xmonad-config;
+        xmonad-config = xmonad-config.packages.${prev.system}.default;
+        xmonad = xmonad-config.packages.${prev.system}.default;
 
         nix-nil = nix-nil.packages.${prev.system}.default;
         wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;

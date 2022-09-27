@@ -30,6 +30,7 @@ in {
         hardware.amd
         nvidia
 
+        gnome-desktop
         login.gdm
         # login.greetd
 
