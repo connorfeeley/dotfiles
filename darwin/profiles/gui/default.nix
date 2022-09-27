@@ -32,6 +32,7 @@
 
   homebrew.casks = [
     "utm-beta"
+    "barrier"
     # "1password-cli"
     # "adobe-acrobat-reader"
     # "alfred"
