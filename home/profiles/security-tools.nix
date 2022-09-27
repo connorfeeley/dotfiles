@@ -17,8 +17,6 @@
     ddrescue
     exiv2
     pdf-parser
-    poppler # pdf rendering
-    poppler_utils # pdf rendering tools
     bingrep # Greps through binaries from various OSs and architectures, and colors them.
 
     ## === Networking ===
@@ -48,6 +46,8 @@
 
     ## === Information Gathering ===
     theharvester
+    poppler # pdf rendering
+    poppler_utils # pdf rendering tools
 
     ## === Passwords ===
     thc-hydra

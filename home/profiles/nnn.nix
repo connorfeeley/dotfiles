@@ -37,7 +37,6 @@ moduleArgs @ {
       ffmpeg
       ffmpegthumbnailer
       fontpreview
-      poppler # pdf rendering
       viu
       w3m # text-mode web browser
     ]);
