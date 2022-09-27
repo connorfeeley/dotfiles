@@ -4752,11 +4752,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1661385091,
-        "narHash": "sha256-vznxl/QYSZDxqgTl/qvRZYAa/ucTyYOPZbGesokiB2I=",
+        "lastModified": 1664251200,
+        "narHash": "sha256-2P2K0y8UbrR8a7bSYWXYAftvP/4NAFu7+Ps+IxlLz04=",
         "ref": "refs/heads/master",
-        "rev": "c0d64921a5288936a97864a7323d5d22acb71af4",
-        "revCount": 4,
+        "rev": "377608da52e0a7eafb3456e1980bcad582a991d1",
+        "revCount": 6,
         "type": "git",
         "url": "ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"
       },
