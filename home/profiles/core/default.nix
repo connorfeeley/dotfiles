@@ -64,6 +64,7 @@ in {
     settings = {
       vim_keys = true;
       io_mode = true;
+      proc_per_core = true;
     };
   };
 
