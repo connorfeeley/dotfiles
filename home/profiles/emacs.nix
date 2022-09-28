@@ -134,6 +134,9 @@ in
     graphviz
     gnuplot
 
+    #: parinfer
+    parinfer-rust
+
     # :lang latex & :lang org (latex previews)
     texlive.combined.scheme-medium
     # :tools magit
