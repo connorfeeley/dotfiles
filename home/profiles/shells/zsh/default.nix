@@ -27,10 +27,17 @@ in {
     enableSyntaxHighlighting = true;
     enableAutosuggestions = true;
 
-    history.path = "${config.xdg.dataHome}/zsh/history";
-    history.expireDuplicatesFirst = true;
-    history.extended = true;
-    history.ignoreDups = true;
+    history = {
+      path = "${config.xdg.dataHome}/zsh/history";
+      expireDuplicatesFirst = false;
+      extended = true; # Save timestamps
+      ignoreDups = false; # Always insert into history
+      ignoreSpace = true; # Prepend command with a space to skip history insertion
+
+      # Infinite history
+      save = 1000000000;
+      size = 1000000000;
+    };
 
     plugins = [
       {
