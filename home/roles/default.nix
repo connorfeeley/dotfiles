@@ -14,6 +14,7 @@ with profiles; let
     desktop.common
     # desktop.gnome
     desktop.xmonad
+    desktop.gui
     firefox
     chromium
     foot
