@@ -28,6 +28,8 @@
     # "pinentry-touchid"
 
     "freerdp"
+
+    "alerter" # like notify-send but for darwin
   ];
 
   homebrew.casks = [
