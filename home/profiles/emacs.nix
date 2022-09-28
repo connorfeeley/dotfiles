@@ -33,13 +33,15 @@ let
 in
 {
   home.sessionVariables = {
-    EMACSDIR = emacsDir;
+    # NOTE: trailing slash is
+    EMACSDIR = emacsDir + "/";
 
     # "default" profile
     # FIXME: profiles seem broken, see doom issue tracker
     # DOOMPROFILE = "doom";
 
-    DOOMDIR = "${configHome}/doom";
+    # NOTE: trailing slash is 
+    DOOMDIR = "${configHome}/doom/";
 
     # local state :: built files, dependencies, etc.
     # TODO: may no longer be necessary with doom profiles. re-evaluated.
