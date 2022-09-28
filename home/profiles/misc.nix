@@ -78,6 +78,8 @@
     barrier # Ironically broken on aarch64-darwin; install with brew instead
   ]);
 
+  fonts.fontconfig.enable = true;
+
   # TODO: check these out
   # services.etebase = {};
   # services.etebase.sync = {};

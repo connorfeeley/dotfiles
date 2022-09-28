@@ -12,6 +12,37 @@ in {
 
   fonts = {
     fontDir.enable = true;
+    fontconfig = {
+      localConf = ''
+    <!-- Artificial oblique for fonts without an italic or oblique version -->
+    <match target="font" >
+        <!-- check to see if the font is roman -->
+        <test name="slant" >
+            <const>roman</const>
+        </test>
+        <!-- check to see if the pattern requested non-roman -->
+        <test target="pattern" compare="not_eq" name="slant" >
+            <const>roman</const>
+        </test>
+        <!-- multiply the matrix to slant the font -->
+        <edit mode="assign" name="matrix" >
+            <times>
+                <name>matrix</name>
+                <matrix>
+                    <double>1</double>
+                    <double>0.2</double>
+                    <double>0</double>
+                    <double>1</double>
+                </matrix>
+            </times>
+        </edit>
+        <!-- pretend the font is oblique now -->
+        <edit mode="assign" name="slant" >
+            <const>oblique</const>
+        </edit>
+    </match>
+      '';
+    };
     fonts = with pkgs;
       [
         b612
