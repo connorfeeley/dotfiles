@@ -103,7 +103,7 @@ in {
         src = pkgs.fetchFromGitHub {
           owner = "kevinywlui";
           repo = "zlong_alert.zsh";
-          rev = "v0.2.1";
+          rev = "f651ba8fff4ed7326354c2d85d29367fecdc6c2e";
           sha256 = "sha256-9LhGuv6yJ+XOj8t40ejXhqlcjNYUdyla6f4sVb/Q+b0=";
         };
       }
