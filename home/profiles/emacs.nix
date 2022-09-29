@@ -14,7 +14,7 @@ let
   inherit (config.lib.dotfield.emacs) profilesBase profilesPath;
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  doomRepoRev = "e9ef904eeef28c31ca07055f0cce8c5eafeb4179";
+  doomRepoRev = "d362490d45f588167ab69b00e7c57bde58670ad1";
 
   emacsDir = "${configHome}/emacs";
 
@@ -88,7 +88,7 @@ in
 
       # Checkout pinned SHA
       git -C ${emacsDir} fetch
-      git -C ${emacsDir} checkout ${doomRepoRev}
+      git -C ${emacsDir} reset --hard ${doomRepoRev}
     '';
 
   programs.emacs = {
