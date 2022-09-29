@@ -56,6 +56,7 @@ in {
       "Tailscale" = 1475387142;
       "Microsoft Remote Desktop" = 1295203466;
       "Xcode" = 497799835;
+      "Amphetamine" = 937984704;
     };
     brews = [ ];
     casks = [
