@@ -139,8 +139,11 @@ moduleArgs @ {
 in {
   xdg.configFile."tridactyl".source = ./tridactyl;
 
-  programs.buku.enable = true;
-  programs.buku.enableBrowserIntegration = true;
+  programs.buku = {
+    enable = true;
+    enableTui = true;
+    enableBrowserIntegration = true;
+  };
 
   programs.firefox = {
     enable = true;

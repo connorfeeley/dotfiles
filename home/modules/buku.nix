@@ -11,6 +11,7 @@ in {
   options = {
     programs.buku = {
       enable = lib.mkEnableOption "Whether to enable the module for the Buku bookmaking tool.";
+      enableTui = lib.mkEnableOption "Whether to enable 'bukut' TUI.";
       enableBrowserIntegration = lib.mkEnableOption "Whether to enable the Bukubrow native messaging host for browsers.";
     };
   };
@@ -19,6 +20,9 @@ in {
     {
       home.packages = [pkgs.buku];
     }
+    (lib.mkIf cfg.enableTui {
+      home.packages = [pkgs.bukut];
+    })
     (lib.mkIf cfg.enableBrowserIntegration {
       home.packages = [pkgs.bukubrow];
     })
