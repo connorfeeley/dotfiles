@@ -70,4 +70,9 @@ in
     "Thunderbolt Bridge"
     "Tailscale Tunnel"
   ];
+
+  programs.amphetamine = {
+    enable = true;
+    withEnhancer = true;
+  };
 }

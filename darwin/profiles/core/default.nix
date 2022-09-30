@@ -32,7 +32,6 @@ in {
     m-cli
     mas
     terminal-notifier
-    amphetamine-enhancer
 
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
@@ -56,7 +55,6 @@ in {
       "Tailscale" = 1475387142;
       "Microsoft Remote Desktop" = 1295203466;
       "Xcode" = 497799835;
-      "Amphetamine" = 937984704;
     };
     brews = [ ];
     casks = [
