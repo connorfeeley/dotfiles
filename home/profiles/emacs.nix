@@ -101,6 +101,7 @@ in
       tree-sitter
       tree-sitter-langs
       tsc
+      parinfer-rust-mode
     ];
   };
 
