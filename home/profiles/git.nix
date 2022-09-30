@@ -32,7 +32,6 @@ in {
     git-cliff
     git-submodule-rewrite
     gitAndTools.hub
-    gitAndTools.gh
     gitAndTools.tig
     gitAndTools.git-crypt
 
@@ -190,9 +189,6 @@ in {
       })
     ];
   };
-
-  programs.gh.enable = true;
-  programs.gh.settings.git_protocol = "ssh";
 
   xdg.configFile."git/templates".source = "${pkgs.dotfield-config}/git/templates";
 }
