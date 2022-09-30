@@ -3,16 +3,12 @@ let
   # TODO: break this out into a common function
   # Source: https://discourse.nixos.org/t/feedback-darwin-installapplication/11324
   installApplication =
-    { app ? name, description, homepage, license, maintainers, name, sha256, url, version, postInstall ? "", ... }:
-    let
-      appEscaped = lib.escapeShellArg app;
-    in
+    { app ? "./", description, homepage, license, maintainers, name, sha256, url, version, postInstall ? "", ... }:
     stdenvNoCC.mkDerivation {
       inherit name version;
 
       nativeBuildInputs = [ undmg unzip ];
 
-      sourceRoot = appEscaped;
       src = fetchurl {
         inherit url sha256;
       };
@@ -22,8 +18,8 @@ let
 
       installPhase = ''
         set -x
-        mkdir -p "$out/Applications/${appEscaped}"
-        mv * "$out/Applications/${appEscaped}"
+        mkdir -p "$out/Applications/${app}"
+        mv * "$out/Applications/${app}"
       '' + postInstall;
 
       meta = with lib; {
@@ -37,7 +33,7 @@ let
 in
 installApplication {
   name = "Amphetamine Enhancer";
-  app = "Amphetamine\\\\ Enhancer.dmg";
+  app = "./";
   version = "1.0";
 
   url = "https://github.com/x74353/Amphetamine-Enhancer/raw/master/Releases/Current/Amphetamine%20Enhancer.dmg";
