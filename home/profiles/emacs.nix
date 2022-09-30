@@ -139,6 +139,8 @@ in
 
     #: parinfer
     parinfer-rust
+    # emacs == vim... at least as far as the required parinfer library package is concerned
+    vimPlugins.parinfer-rust
 
     # :lang latex & :lang org (latex previews)
     texlive.combined.scheme-medium
