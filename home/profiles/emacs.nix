@@ -14,7 +14,7 @@ let
   inherit (config.lib.dotfield.emacs) profilesBase profilesPath;
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  doomRepoRev = "d362490d45f588167ab69b00e7c57bde58670ad1";
+  doomRepoRev = "285b460c80e455fabaf036f0eb48575637586a46";
 
   emacsDir = "${configHome}/emacs";
 
