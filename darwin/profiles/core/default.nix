@@ -32,6 +32,7 @@ in {
     m-cli
     mas
     terminal-notifier
+    amphetamine-enhancer
 
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
@@ -47,7 +48,6 @@ in {
 
   homebrew = {
     enable = true;
-    # enable = false;
     onActivation.upgrade = true;
     onActivation.cleanup = "zap";
     global.lockfiles = true;

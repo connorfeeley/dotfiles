@@ -270,6 +270,8 @@
       nixpkgs-work.overlays.default
 
       (final: prev: {
+        amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
+
         xmonad-config = xmonad-config.packages.${prev.system}.default;
         xmonad = xmonad-config.packages.${prev.system}.default;
 
@@ -315,7 +317,9 @@
           overlays =
             overlays
             ++ [
-              (final: prev: {yabai = self.packages.${final.system}.yabai;})
+              (final: prev: {
+                amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
+              })
             ];
         };
         nixos-unstable = {
