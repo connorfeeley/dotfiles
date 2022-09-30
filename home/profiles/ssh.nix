@@ -22,7 +22,6 @@ in {
 
     matchBlocks = {
       "worstation" = {
-        forwardX11 = true;
         forwardX11Trusted = true;
         compression = false;
         extraOptions = {
