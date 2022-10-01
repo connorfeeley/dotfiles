@@ -14,7 +14,6 @@ let
       };
 
       phases = [ "unpackPhase" "installPhase" ];
-      preUnpack = "set -x; ls -al";
 
       installPhase = ''
         set -x
@@ -33,7 +32,7 @@ let
 in
 installApplication {
   name = "Amphetamine Enhancer";
-  app = "./";
+  app = "./Amphetamine Enhancer.app";
   version = "1.0";
 
   url = "https://github.com/x74353/Amphetamine-Enhancer/raw/master/Releases/Current/Amphetamine%20Enhancer.dmg";
@@ -43,4 +42,5 @@ installApplication {
   homepage = "https://github.com/x74353/Amphetamine-Enhancer";
   license = "mit";
   maintainers = [ lib.maintainers.cfeeley ];
+  broken = true; # FIXME: installPhase really, really hates spaces in ${app}
 }
