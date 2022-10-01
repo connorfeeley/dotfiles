@@ -56,7 +56,7 @@ in {
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;
-        serverAliveInterval = 300;
+        serverAliveInterval = 4;
         serverAliveCountMax = 2;
 
         extraOptions = {
