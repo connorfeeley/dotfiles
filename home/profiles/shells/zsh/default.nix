@@ -120,10 +120,6 @@ in {
       # if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
       #   source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       # fi
-
-      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == vterm* ) ]]; then
-        eval "$(${pkgs.starship}/bin/starship init zsh)"
-      fi
     '';
 
     initExtraBeforeCompInit = ''
@@ -136,6 +132,10 @@ in {
       source ${pkgs.dotfield-config}/zsh/functions.zsh
       source ${pkgs.dotfield-config}/zsh/options.zsh
       source $DOTFIELD_DIR/config/emacs/vterm.zsh
+
+      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == "vterm,tramp*" ) ]]; then
+        eval "$(${pkgs.starship}/bin/starship init zsh)"
+      fi
     '';
 
     sessionVariables = {
