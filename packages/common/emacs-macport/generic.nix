@@ -129,7 +129,7 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
         "(defcustom native-comp-driver-options '(${backendPath})"
     ''))
 
-    (lib.optionalString (withMacport && !srcRepo) ''
+    (lib.optionalString (withMacport) ''
       cp -r ${macportPatches}/. .
       chmod -R +w .
       patch -p1 < patch-mac
@@ -144,8 +144,8 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
   ];
 
   nativeBuildInputs = [ pkg-config makeWrapper ]
-    ++ lib.optionals (srcRepo || withMacport) [ autoreconfHook texinfo ]
-    ++ lib.optionals srcRepo [ autoreconfHook texinfo ]
+    ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
+    ++ lib.optionals srcRepo [ autoreconfHook ]
     ++ lib.optional (withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
   buildInputs =
@@ -205,6 +205,8 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
   installTargets = [ "tags" "install" ];
 
   postInstall = ''
+    set -x
+
     mkdir -p $out/share/emacs/site-lisp
     cp ${siteStart} $out/share/emacs/site-lisp/site-start.el
 
@@ -221,7 +223,7 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
       cp $srcdir/TAGS $dstdir
       echo '((nil . ((tags-file-name . "TAGS"))))' > $dstdir/.dir-locals.el
     done
-  '' + lib.optionalString (withNS || withMacport) ''
+  '' + lib.optionalString withNS ''
     mkdir -p $out/Applications
     mv nextstep/Emacs.app $out/Applications
   '' + lib.optionalString (nativeComp && (withNS || withMacport)) ''
