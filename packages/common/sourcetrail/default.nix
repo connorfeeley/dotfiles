@@ -51,10 +51,10 @@ in stdenv.mkDerivation rec {
   version = "2020.2.43";
 
   src = fetchFromGitHub {
-    owner = "CoatiSoftware";
+    owner = "petermost";
     repo = "Sourcetrail";
-    rev = version;
-    sha256 = "0jp9y86xzkcxikc1cn4f6gqgg6zdssck08677ldagw25p1zadvzw";
+    rev = "37b6d60e6e5ecb4b93d2660d2f718a1d8f8bed77";
+    sha256 = "sha256-hNcqrrQFU+bxz4zp3Whh/zxvmeUZQvlaZkagvA4ywg4=";
   };
 
   patches = let

@@ -20,8 +20,14 @@ final: prev: {
   svls-local = throw "use svls from nixpkgs; this is the flake-local derivation";
   svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";
 
-  sourcetrail = final.lib.recurseIntoAttrs (final.callPackage ./sourcetrail {});
-
+  sourcetrail = let
+    llvmPackages = final.llvmPackages_10;
+  in final.libsForQt5.callPackage ./sourcetrail {
+    stdenv = if final.stdenv.cc.isClang then llvmPackages.stdenv else final.stdenv;
+    jdk = final.jdk8;
+    pythonPackages = final.python3Packages;
+    inherit llvmPackages;
+  };
   ##: dotfield internals -------------------------------------------------------
 
   dotfield-config = final.stdenv.mkDerivation {
