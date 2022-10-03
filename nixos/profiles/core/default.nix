@@ -52,7 +52,7 @@ in {
     pciutils
     sysstat
     usbutils
-    utillinux
+    util-linux
     smem
   ];
 
