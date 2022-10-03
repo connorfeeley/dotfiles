@@ -221,7 +221,7 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
       cp $srcdir/TAGS $dstdir
       echo '((nil . ((tags-file-name . "TAGS"))))' > $dstdir/.dir-locals.el
     done
-  '' + lib.optionalString withNS ''
+  '' + lib.optionalString (withNS || withMacport) ''
     mkdir -p $out/Applications
     mv nextstep/Emacs.app $out/Applications
   '' + lib.optionalString (nativeComp && (withNS || withMacport)) ''
