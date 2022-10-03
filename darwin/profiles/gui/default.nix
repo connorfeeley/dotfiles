@@ -33,6 +33,7 @@
   ];
 
   homebrew.casks = [
+    "microsoft-teams"
     "utm-beta"
     "barrier"
     "hiddenbar"
