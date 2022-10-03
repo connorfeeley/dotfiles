@@ -34,7 +34,7 @@
     ## === Reverse Engineering ===
     (binwalk.override { visualizationSupport = true; })
     radare2
-    radare2-cutter
+    cutter
 
     ## === Networking ===
     aircrack-ng
