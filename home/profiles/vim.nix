@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [
-    # Wil Taylor's neovim configuration
-    jordanisaacs-neovim
-  ];
+  home.packages = [ ];
+
+  # pta2022's neovim flake
+  programs.nixvim.enable = true;
 }

@@ -1,5 +1,5 @@
 collective @ {peers, ...}: {self, ...}: let
-  inherit (self.inputs) digga nix-colors;
+  inherit (self.inputs) digga nix-colors pta2002-neovim;
   inherit (digga.lib) importExportableModules rakeLeaves;
 
   homeModules = importExportableModules ./modules;
@@ -22,6 +22,7 @@ in {
     defaultProfiles
     ++ [
       nix-colors.homeManagerModule
+      pta2002-neovim.homeManagerModules.nixvim
       (_: {imports = [../lib/home];})
     ];
 

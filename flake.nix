@@ -130,10 +130,9 @@
     };
 
     # Nicely preconfigured vim
-    jordanisaacs-neovim = {
-      url = "github:jordanisaacs/neovim-flake";
+    pta2002-neovim = {
+      url = "github:pta2002/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rnix-lsp.follows = "rnix-lsp";
     };
 
     ##: --- other --------------------------------------------------------------
@@ -186,7 +185,7 @@
     sops-nix,
     xmonad-config,
     xmobar-config,
-    jordanisaacs-neovim,
+    pta2002-neovim,
     ttc-subway-font,
     nixpkgs-work,
     nickel,
@@ -276,7 +275,6 @@
         xmonad = xmonad-config.packages.${prev.system}.default;
 
         nix-nil = nix-nil.packages.${prev.system}.default;
-        jordanisaacs-neovim = jordanisaacs-neovim.packages.${prev.system}.default;
         nix-json-progress = nix-json-progress.packages.${prev.system}.nix-json-progress;
 
         dashboard = nixpkgs-work.packages.${prev.system}.dashboard;
