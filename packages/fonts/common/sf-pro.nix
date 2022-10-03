@@ -31,6 +31,5 @@ stdenv.mkDerivation {
       supports over 150 languages across Latin, Greek, and Cyrillic scripts.
     '';
     platforms = platforms.all;
-    licence = licences.unfree;
   };
 }

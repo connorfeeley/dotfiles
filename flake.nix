@@ -130,8 +130,8 @@
     };
 
     # Nicely preconfigured vim
-    wiltaylor-neovim = {
-      url = "github:wiltaylor/neovim-flake";
+    jordanisaacs-neovim = {
+      url = "github:jordanisaacs/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rnix-lsp.follows = "rnix-lsp";
     };
@@ -186,7 +186,7 @@
     sops-nix,
     xmonad-config,
     xmobar-config,
-    wiltaylor-neovim,
+    jordanisaacs-neovim,
     ttc-subway-font,
     nixpkgs-work,
     nickel,
@@ -276,7 +276,7 @@
         xmonad = xmonad-config.packages.${prev.system}.default;
 
         nix-nil = nix-nil.packages.${prev.system}.default;
-        wiltaylor-neovim = wiltaylor-neovim.packages.${prev.system}.neovimWT;
+        jordanisaacs-neovim = jordanisaacs-neovim.packages.${prev.system}.default;
         nix-json-progress = nix-json-progress.packages.${prev.system}.nix-json-progress;
 
         dashboard = nixpkgs-work.packages.${prev.system}.dashboard;
