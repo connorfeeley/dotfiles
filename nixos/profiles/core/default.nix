@@ -54,6 +54,7 @@ in {
     usbutils
     util-linux
     smem
+    nethogs
   ];
 
   programs.git.enable = true;
