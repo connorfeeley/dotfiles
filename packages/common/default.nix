@@ -20,7 +20,7 @@ final: prev: {
   svls-local = throw "use svls from nixpkgs; this is the flake-local derivation";
   svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";
 
-  emacsMacport = final.callPackage ./emacs-macport/macport.nix {
+  emacs28Macport = final.callPackage ./emacs-macport/macport.nix {
     withMacport = true;
     gconf = null;
     inherit (final.darwin.apple_sdk.frameworks)
