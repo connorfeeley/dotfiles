@@ -136,6 +136,11 @@ in {
       if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == "vterm,tramp*" ) ]]; then
         eval "$(${pkgs.starship}/bin/starship init zsh)"
       fi
+
+      # MacOS only: XQuartz
+      if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
+        export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
+      fi
     '';
 
     sessionVariables = {
