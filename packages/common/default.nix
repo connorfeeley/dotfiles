@@ -20,6 +20,13 @@ final: prev: {
   svls-local = throw "use svls from nixpkgs; this is the flake-local derivation";
   svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";
 
+  emacsMacport = final.callPackage ./emacs-macport {
+    inherit (final.darwin.apple_sdk.frameworks)
+      AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit
+      ImageCaptureCore GSS ImageIO;
+    stdenv = if final.stdenv.cc.isClang then final.llvmPackages_6.stdenv else final.stdenv;
+  };
+
   ##: dotfield internals -------------------------------------------------------
 
   dotfield-config = final.stdenv.mkDerivation {
