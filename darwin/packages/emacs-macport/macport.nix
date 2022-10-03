@@ -10,36 +10,41 @@
 }:
 { stdenv, llvmPackages_6, lib, fetchurl, fetchpatch, ncurses, xlibsWrapper, libXaw, libXpm
 , Xaw3d, libXcursor,  pkg-config, gettext, libXft, dbus, libpng, libjpeg, giflib
-, libtiff, librsvg, gconf, libxml2, imagemagick, gnutls, libselinux
+, libtiff, librsvg, libwebp, gconf, libxml2, imagemagick, gnutls, libselinux
 , alsa-lib, cairo, acl, gpm, m17n_lib, libotf
-, sigtool, jansson, harfbuzz, sqlite
-, dontRecurseIntoAttrs ,emacsPackagesFor
+, sigtool, jansson, harfbuzz, sqlite, nixosTests
+, recurseIntoAttrs, emacsPackagesFor
 , libgccjit, targetPlatform, makeWrapper # native-comp params
+, fetchFromSavannah
 
   # macOS dependencies for NS and macPort
 , AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore, WebKit
 , ImageCaptureCore, GSS, ImageIO # These may be optional
 
 , systemd ? null
-, withX ? !stdenv.isDarwin
+, withX ? !stdenv.isDarwin && !withPgtk
 , withNS ? stdenv.isDarwin && !withMacport
 , withMacport ? macportPatches != null
 , withGTK2 ? false, gtk2-x11 ? null
-, withGTK3 ? true, gtk3-x11 ? null, gsettings-desktop-schemas ? null
+, withGTK3 ? withPgtk, gtk3-x11 ? null, gsettings-desktop-schemas ? null
 , withXwidgets ? false, webkitgtk ? null, wrapGAppsHook ? null, glib-networking ? null
 , withMotif ? false, motif ? null
 , withSQLite3 ? false
 , withCsrc ? true
-, srcRepo ? false, autoreconfHook ? null, texinfo ? null
+, withWebP ? false
+, srcRepo ? true, autoreconfHook ? null, texinfo ? null
 , siteStart ? ./site-start.el
-, nativeComp ? false
-, withPgtk ? false
-, withXinput2 ? false
+, nativeComp ? true
+, withAthena ? false
+, withToolkitScrollBars ? true
+, withPgtk ? false, gtk3 ? null
+, withXinput2 ? withX && lib.versionAtLeast version "29"
 , withImageMagick ? lib.versionOlder version "27" && (withX || withNS)
 , toolkit ? (
   if withGTK2 then "gtk2"
   else if withGTK3 then "gtk3"
   else if withMotif then "motif"
+  else if withAthena then "athena"
   else "lucid")
 }:
 
@@ -50,9 +55,10 @@ assert withNS -> stdenv.isDarwin;
 assert withMacport -> !withNS;
 assert withMacport -> macportPatches != null || srcRepo;
 assert (withGTK2 && !withNS && !withMacport) -> withX;
-assert (withGTK3 && !withNS && !withMacport) -> withX;
-assert withGTK2 -> !withGTK3 && gtk2-x11 != null;
-assert withGTK3 -> !withGTK2 && gtk3-x11 != null;
+assert (withGTK3 && !withNS && !withMacport) -> withX || withPgtk;
+assert withGTK2 -> !withGTK3 && gtk2-x11 != null && !withPgtk;
+assert withGTK3 -> !withGTK2 && ((gtk3-x11 != null) || withPgtk);
+assert withPgtk -> withGTK3 && !withX && gtk3 != null;
 assert withXwidgets -> withGTK3 && webkitgtk != null;
 
 
@@ -60,12 +66,14 @@ let emacs = (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
   NATIVE_FULL_AOT = "1";
   LIBRARY_PATH = "${lib.getLib stdenv.cc.libc}/lib";
 } // {
-  inherit pname version;
+  pname = pname + lib.optionalString ( !withX && !withNS && !withGTK2 && !withGTK3 ) "-nox";
+  inherit version;
 
   patches = patches fetchpatch;
 
-  src = fetchurl {
-    url = "mirror://gnu/emacs/${name}.tar.xz";
+  src = fetchFromSavannah {
+    repo = "emacs";
+    rev = version;
     inherit sha256;
   };
 
@@ -136,8 +144,8 @@ let emacs = (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
   ];
 
   nativeBuildInputs = [ pkg-config makeWrapper ]
-    ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
-    ++ lib.optionals srcRepo [ autoreconfHook ]
+    ++ lib.optionals (srcRepo || withMacport) [ autoreconfHook texinfo ]
+    ++ lib.optionals srcRepo [ autoreconfHook texinfo ]
     ++ lib.optional (withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
   buildInputs =
@@ -150,9 +158,12 @@ let emacs = (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
     ++ lib.optionals withImageMagick [ imagemagick ]
     ++ lib.optionals (stdenv.isLinux && withX) [ m17n_lib libotf ]
     ++ lib.optional (withX && withGTK2) gtk2-x11
-    ++ lib.optionals (withX && withGTK3) [ gtk3-x11 gsettings-desktop-schemas ]
+    ++ lib.optional (withX && withGTK3) gtk3-x11
+    ++ lib.optional withGTK3 gsettings-desktop-schemas
+    ++ lib.optional withPgtk gtk3
     ++ lib.optional (withX && withMotif) motif
     ++ lib.optional withSQLite3 sqlite
+    ++ lib.optional withWebP libwebp
     ++ lib.optionals (withX && withXwidgets) [ webkitgtk glib-networking ]
     ++ lib.optionals withNS [ AppKit GSS ImageIO ]
     ++ lib.optionals withMacport [
@@ -188,6 +199,7 @@ let emacs = (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
     ++ lib.optional withImageMagick "--with-imagemagick"
     ++ lib.optional withPgtk "--with-pgtk"
     ++ lib.optional withXinput2 "--with-xinput2"
+    ++ lib.optional (!withToolkitScrollBars) "--without-toolkit-scroll-bars"
   ;
 
   installTargets = [ "tags" "install" ];
@@ -229,19 +241,15 @@ let emacs = (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
       -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
   '';
 
-  postFixup = lib.concatStringsSep "\n" [
-
-    (lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
-      patchelf --set-rpath \
-        "$(patchelf --print-rpath "$out/bin/emacs"):${lib.makeLibraryPath [ libXcursor ]}" \
-        "$out/bin/emacs"
+  postFixup = lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
+      patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
       patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
-    '')
-  ];
+  '';
 
   passthru = {
     inherit nativeComp;
-    pkgs = dontRecurseIntoAttrs (emacsPackagesFor emacs);
+    pkgs = recurseIntoAttrs (emacsPackagesFor emacs);
+    tests = { inherit (nixosTests) emacs-daemon; };
   };
 
   meta = with lib; {
