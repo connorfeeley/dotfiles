@@ -133,7 +133,7 @@ in {
       source ${pkgs.dotfield-config}/zsh/options.zsh
       source $DOTFIELD_DIR/config/emacs/vterm.zsh
 
-      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == "vterm,tramp*" ) ]]; then
+      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == vterm* ) ]]; then
         eval "$(${pkgs.starship}/bin/starship init zsh)"
       fi
 
