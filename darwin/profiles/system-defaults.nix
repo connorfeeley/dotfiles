@@ -37,6 +37,26 @@
     ServerDescription = config.networking.hostName;
   };
 
+  system.defaults.ActivityMonitor = {
+    # 0: Application Icon; 2: Network Usage; 3: Disk Activity; 5: CPU Usage; 6: CPU History
+    IconType = 6;
+    # Open the main window when opening Activity Monitor. Default is true.
+    OpenMainWindow = true;
+    # Change which processes to show
+    #  100: All Processes
+    #  101: All Processes, Hierarchally
+    #  102: My Processes
+    #  103: System Processes
+    #  104: Other User Processes
+    #  105: Active Processes
+    #  106: Inactive Processes
+    #  107: Windowed Processes
+    ShowCategory = 102;
+    # Which column to sort the main activity page by
+    SortColumn = "CPUUsage";
+    SortDirection = 0; # 0: Descending; 1: Ascending
+  };
+
   system.defaults.NSGlobalDomain = {
     # Whether light/dark modes are toggled automatically.
     AppleInterfaceStyleSwitchesAutomatically = true;
@@ -45,7 +65,7 @@
     AppleMeasurementUnits = "Centimeters";
     AppleMetricUnits = 1;
     ApplePressAndHoldEnabled = false; # '= true' breaks key repeat!
-    AppleShowAllExtensions = true;
+    AppleShowAllExtensions = false;
     AppleShowScrollBars = "Automatic";
     AppleTemperatureUnit = "Celsius";
     InitialKeyRepeat = 15;
@@ -100,8 +120,8 @@
 
   # Prevent incessant nagging when opening downloaded apps.
   system.defaults.LaunchServices.LSQuarantine = false;
-  # Keep macOS up to date.
-  system.defaults.SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+  # macOS updates frequently nuke Nix, requiring a partial reinstall.
+  system.defaults.SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
 
   # Firewall
   system.defaults.alf = {
@@ -136,12 +156,12 @@
   };
 
   system.defaults.finder = {
-    AppleShowAllExtensions = false;
+    AppleShowAllExtensions = true;
     # Whether to display icons on the desktop.
     CreateDesktop = false;
     FXEnableExtensionChangeWarning = false;
     FXPreferredViewStyle = "Nlsv";
-    QuitMenuItem = false;
+    QuitMenuItem = true;
     ShowPathbar = true;
     ShowStatusBar = true;
     _FXShowPosixPathInTitle = false;
