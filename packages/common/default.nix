@@ -20,6 +20,8 @@ final: prev: {
   svls-local = throw "use svls from nixpkgs; this is the flake-local derivation";
   svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";
 
+  sourcetrail = final.lib.recurseIntoAttrs (final.callPackage ./sourcetrail {});
+
   ##: dotfield internals -------------------------------------------------------
 
   dotfield-config = final.stdenv.mkDerivation {
