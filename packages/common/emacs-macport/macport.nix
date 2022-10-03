@@ -13,6 +13,6 @@ in import ./generic.nix (rec {
   inherit macportVersion;
   macportPatches = builtins.fetchTarball {
     url = "ftp://ftp.math.s.chiba-u.ac.jp/emacs/emacs-${version}-mac-${macportVersion}.tar.gz";
-    sha256 = "10gyynz8wblz6r6dkk12m98kjbsmdwcbrhxpmsjylmdqmjxhlj4m";
+    sha256 = "03z9wrpqqmdpx3y3q73ybpjpilrmrhcykwv5ac7yrhfn2rh6lj7i";
   };
 })
