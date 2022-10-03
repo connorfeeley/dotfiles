@@ -8,7 +8,7 @@
   , macportVersion ? null
   , macportPatches ? null
 }:
-{ stdenv, llvmPackages_6, lib, fetchurl, fetchpatch, ncurses, xlibsWrapper, libXaw, libXpm
+{ stdenv, llvmPackages_11, lib, fetchurl, fetchpatch, ncurses, xlibsWrapper, libXaw, libXpm
 , Xaw3d, libXcursor,  pkg-config, gettext, libXft, dbus, libpng, libjpeg, giflib
 , libtiff, librsvg, libwebp, gconf, libxml2, imagemagick, gnutls, libselinux
 , alsa-lib, cairo, acl, gpm, m17n_lib, libotf
@@ -62,7 +62,7 @@ assert withPgtk -> withGTK3 && !withX && gtk3 != null;
 assert withXwidgets -> withGTK3 && webkitgtk != null;
 
 
-let emacs = (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation (lib.optionalAttrs nativeComp {
+let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivation (lib.optionalAttrs nativeComp {
   NATIVE_FULL_AOT = "1";
   LIBRARY_PATH = "${lib.getLib stdenv.cc.libc}/lib";
 } // {
