@@ -21,7 +21,7 @@ final: prev: {
   svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";
 
   sourcetrail = let
-    llvmPackages = final.llvmPackages_10;
+    llvmPackages = final.llvmPackages_13;
   in final.libsForQt5.callPackage ./sourcetrail {
     stdenv = if final.stdenv.cc.isClang then llvmPackages.stdenv else final.stdenv;
     jdk = final.jdk8;
