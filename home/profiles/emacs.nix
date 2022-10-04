@@ -214,8 +214,6 @@ in
     rubyPackages.solargraph
     #: sh
     nodePackages.bash-language-server
-    #: cmake
-    cmake-language-server
     #: toml
     taplo-lsp
     #: web-mode
