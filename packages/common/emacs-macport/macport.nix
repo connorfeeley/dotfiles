@@ -1,8 +1,8 @@
 let
-  macportVersion = "9.0";
+  macportVersion = "9.1";
 in import ./generic.nix (rec {
-  version = "28.1";
-  sha256 = "sha256-D33wnlxhx0LyG9WZaQDj2II3tG0HcJdZTC4dSA3lrgY=";
+  version = "28.2";
+  sha256 = "sha256-4oSLcUDR0MOEt53QOiZSVU8kPJ67GwugmBxdX3F15Ag=";
   patches = fetchpatch: [
     # (fetchpatch {
     #   name = "fix-aarch64-darwin-triplet.patch";
@@ -13,6 +13,6 @@ in import ./generic.nix (rec {
   inherit macportVersion;
   macportPatches = builtins.fetchTarball {
     url = "ftp://ftp.math.s.chiba-u.ac.jp/emacs/emacs-${version}-mac-${macportVersion}.tar.gz";
-    sha256 = "03z9wrpqqmdpx3y3q73ybpjpilrmrhcykwv5ac7yrhfn2rh6lj7i";
+    sha256 = "0cxrqc8a55fsr3rjw68krndb778m8yq55934fqgz04imcr3yjydf";
   };
 })
