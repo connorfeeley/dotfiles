@@ -133,6 +133,9 @@ in
 
     figlet # prettier block comments
 
+    #: vterm
+    cmake
+
     #: org
     graphviz
     gnuplot
