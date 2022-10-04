@@ -93,8 +93,9 @@ in
 
   programs.emacs = {
     enable = true;
-    # package = pkgs.emacs;
-    package = pkgs.emacsNativeComp;
+    package = with pkgs; if isDarwin
+                         then emacs28Macport
+                         else emacsNativeComp;
     extraPackages = epkgs: with epkgs; [
       vterm
       pdf-tools
