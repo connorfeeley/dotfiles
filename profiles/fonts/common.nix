@@ -23,6 +23,10 @@ in {
         jost
         public-sans
 
+        noto-fonts
+        noto-fonts-cjk
+        noto-fonts-emoji
+
         ttc-subway
 
         # FIXME: doesn't exist... yet...
