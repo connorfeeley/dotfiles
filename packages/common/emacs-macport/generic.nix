@@ -18,8 +18,12 @@
 , fetchFromSavannah
 
   # macOS dependencies for NS and macPort
-, AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore, WebKit
+# , AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore, WebKit, UniformTypeIdentifiers, fixDarwinDylibNames, Libsystem, MacOSX-SDK, objc4
+# , ImageCaptureCore, GSS, ImageIO # These may be optional
+
+, AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore, WebKit, Security, UniformTypeIdentifiers, fixDarwinDylibNames
 , ImageCaptureCore, GSS, ImageIO # These may be optional
+, autoconf, automake
 
 , systemd ? null
 , withX ? !stdenv.isDarwin && !withPgtk
@@ -62,7 +66,7 @@ assert withPgtk -> withGTK3 && !withX && gtk3 != null;
 assert withXwidgets -> withGTK3 && webkitgtk != null;
 
 
-let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivation (lib.optionalAttrs nativeComp {
+let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalAttrs nativeComp {
   NATIVE_FULL_AOT = "1";
   LIBRARY_PATH = "${lib.getLib stdenv.cc.libc}/lib";
 } // {
@@ -71,15 +75,19 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
 
   patches = patches fetchpatch;
 
-  src = fetchFromSavannah {
-    repo = "emacs";
-    rev = version;
+  # src = fetchFromSavannah {
+  #   repo = "emacs";
+  #   rev = version;
+  #   inherit sha256;
+  # };
+  src = fetchurl {
+    url = "mirror://gnu/emacs/${name}.tar.xz";
     inherit sha256;
   };
 
   enableParallelBuilding = true;
 
-  postPatch = lib.concatStringsSep "\n" [
+  prePatch = lib.concatStringsSep "\n" [
     (lib.optionalString srcRepo ''
       rm -fr .git
     '')
@@ -130,6 +138,7 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
     ''))
 
     (lib.optionalString (withMacport) ''
+      export CC="clang -fobjc-arc"
       cp -r ${macportPatches}/. .
       chmod -R +w .
       patch -p1 < patch-mac
@@ -142,14 +151,51 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
 
     ""
   ];
+  commonImpureHostDeps = [
+    "/bin/sh"
+    "/usr/lib/libSystem.B.dylib"
+    "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
+    "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
+  ];
+  # This is unfortunate, but we need to use the same compiler as Xcode,
+  # but Xcode doesn't provide a way to configure the compiler.
+  preConfigure = ''
+    CC=/usr/bin/clang
 
+    DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
+    configureFlagsArray+=(
+      --with-developer-dir="$DEV_DIR"
+      LDFLAGS="-L${ncurses}/lib"
+      CPPFLAGS="-isystem ${ncurses.dev}/include"
+      CFLAGS="-Wno-error=implicit-function-declaration"
+    )
+  ''
+  # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
+  # passes arguments to ld that it meant for clang.
+  + ''
+    unset LD
+  ''
+  # When building with nix-daemon, we need to pass -derivedDataPath or else it tries to use
+  # a folder rooted in /var/empty and fails. Unfortunately we can't just pass -derivedDataPath
+  # by itself as this flag requires the use of -scheme or -xctestrun (not sure why), but MacVim
+  # by default just runs `xcodebuild -project src/MacVim/MacVim.xcodeproj`, relying on the default
+  # behavior to build the first target in the project. Experimentally, there seems to be a scheme
+  # called MacVim, so we'll explicitly select that. We also need to specify the configuration too
+  # as the scheme seems to have the wrong default.
+  + ''
+    configureFlagsArray+=(
+      XCODEFLAGS="-scheme MacVim -derivedDataPath $NIX_BUILD_TOP/derivedData"
+      --with-xcodecfg="Release"
+    )
+  ''
+  ;
   nativeBuildInputs = [ pkg-config makeWrapper ]
-    ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
+    ++ lib.optionals (srcRepo || withMacport) [ pkg-config autoconf automake fixDarwinDylibNames ]
     ++ lib.optionals srcRepo [ autoreconfHook ]
     ++ lib.optional (withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
   buildInputs =
-    [ ncurses gconf libxml2 gnutls gettext jansson harfbuzz.dev ]
+    [ ncurses gconf libxml2 gnutls gettext jansson texinfo harfbuzz.dev ]
     ++ lib.optionals stdenv.isLinux [ dbus libselinux systemd alsa-lib acl gpm ]
     ++ lib.optionals withX
       [ xlibsWrapper libXaw Xaw3d libXpm libpng libjpeg giflib libtiff libXft
@@ -167,14 +213,16 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
     ++ lib.optionals (withX && withXwidgets) [ webkitgtk glib-networking ]
     ++ lib.optionals withNS [ AppKit GSS ImageIO ]
     ++ lib.optionals withMacport [
-      AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit
-      # TODO are these optional?
-      ImageCaptureCore GSS ImageIO
+      # AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit UniformTypeIdentifiers Libsystem MacOSX-SDK objc4
+      # # TODO are these optional?
+      # ImageCaptureCore GSS ImageIO
+      AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit Security UniformTypeIdentifiers
+      ImageCaptureCore GSS ImageIO   # may be optional
     ]
     ++ lib.optionals stdenv.isDarwin [ sigtool ]
     ++ lib.optionals nativeComp [ libgccjit ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = [ "all" ];
 
   configureFlags = [
     "--disable-build-details" # for a (more) reproducible build
@@ -242,6 +290,8 @@ let emacs = (if withMacport then llvmPackages_11.stdenv else stdenv).mkDerivatio
       --eval "(add-to-list 'native-comp-eln-load-path \"$out/share/emacs/native-lisp\")" \
       -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
   '';
+
+  separateDebugInfo = true;
 
   postFixup = lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
       patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs

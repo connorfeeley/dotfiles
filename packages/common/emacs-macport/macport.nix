@@ -2,7 +2,7 @@ let
   macportVersion = "9.1";
 in import ./generic.nix (rec {
   version = "28.2";
-  sha256 = "sha256-4oSLcUDR0MOEt53QOiZSVU8kPJ67GwugmBxdX3F15Ag=";
+  sha256 = "sha256-7iEYIjPvMjLcl7SGry2G4UBC27ZbvFNd9WLDqFgjJIg=";
   patches = fetchpatch: [
     # (fetchpatch {
     #   name = "emacs-mac-title-bar-9.0.patch";

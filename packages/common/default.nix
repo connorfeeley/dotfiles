@@ -24,7 +24,7 @@ final: prev: {
     withMacport = true;
     gconf = null;
     inherit (final.darwin.apple_sdk.frameworks)
-      AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit
+      AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit Security UniformTypeIdentifiers
       ImageCaptureCore GSS ImageIO;
     inherit (final.darwin) sigtool;
   };
