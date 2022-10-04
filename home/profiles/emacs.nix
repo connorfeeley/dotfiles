@@ -40,7 +40,7 @@ in
     # FIXME: profiles seem broken, see doom issue tracker
     # DOOMPROFILE = "doom";
 
-    # NOTE: trailing slash is 
+    # NOTE: trailing slash is
     DOOMDIR = "${configHome}/doom/";
 
     # local state :: built files, dependencies, etc.
@@ -94,7 +94,7 @@ in
   programs.emacs = {
     enable = true;
     package = with pkgs; if isDarwin
-                         then emacs28Macport
+                         then emacs28Macport # emacs28Macport with native compilation from this repo
                          else emacsNativeComp;
     extraPackages = epkgs: with epkgs; [
       vterm
