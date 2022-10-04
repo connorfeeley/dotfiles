@@ -150,16 +150,30 @@ let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalA
 
     ""
   ];
+
+  # TODO: unsure if this is required at all; the host's global clang is used for CC
   commonImpureHostDeps = [
     "/bin/sh"
     "/usr/lib/libSystem.B.dylib"
     "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
     "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
   ];
+
+  # Mark derivation impure: must have 'sandbox = relaxed' set in nix.conf or 'nixConfig.sandbox = "relaxed"' in flake.nix
+  __noChroot = withMacport;
+
   # This is unfortunate, but we need to use the same compiler as Xcode,
   # but Xcode doesn't provide a way to configure the compiler.
   preConfigure = ''
     CC=/usr/bin/clang
+
+    DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
+    configureFlagsArray+=(
+      --with-developer-dir="$DEV_DIR"
+      LDFLAGS="-L${libgccjit}/lib"
+      CPPFLAGS="-isystem ${libgccjit}/include"
+      CFLAGS="-Wno-error=implicit-function-declaration"
+    )
   ''
   ;
   nativeBuildInputs = [ pkg-config makeWrapper ]
