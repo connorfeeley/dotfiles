@@ -40,7 +40,7 @@ in
     # FIXME: profiles seem broken, see doom issue tracker
     # DOOMPROFILE = "doom";
 
-    # NOTE: trailing slash is 
+    # NOTE: trailing slash is
     DOOMDIR = "${configHome}/doom/";
 
     # local state :: built files, dependencies, etc.
@@ -52,7 +52,9 @@ in
     LSP_USE_PLISTS = "true";
   };
 
-  home.sessionPath = [ "${configHome}/emacs/bin" "$PATH" ];
+  home.sessionPath = [
+    "${configHome}/emacs/bin"
+  ];
 
   xdg.configFile."doom/modules/completion/corfu".source =
     mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
@@ -93,8 +95,9 @@ in
 
   programs.emacs = {
     enable = true;
-    # package = pkgs.emacs;
-    package = pkgs.emacsNativeComp;
+    package = with pkgs; if isDarwin
+                         then emacs28Macport # emacs28Macport with native compilation from this repo
+                         else emacsNativeComp;
     extraPackages = epkgs: with epkgs; [
       vterm
       pdf-tools
@@ -132,6 +135,9 @@ in
     feh
 
     figlet # prettier block comments
+
+    #: vterm
+    cmake
 
     #: org
     graphviz
