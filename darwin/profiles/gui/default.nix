@@ -36,6 +36,7 @@
     "utm-beta" # QEMU GUI with virtualisation support
     "barrier" # Poor man's KVM
     "swiftbar" # Tweak the menu bar
+    "hiddenbar" # Hide/toggle menu bar icon visibility
     "rectangle" # Resize windows with keyboard shortcuts and snap areas
     # "1password-cli"
     # "adobe-acrobat-reader"
