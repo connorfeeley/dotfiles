@@ -55,6 +55,7 @@ in {
     util-linux
     smem
     nethogs
+    sshfs
   ];
 
   programs.git.enable = true;
