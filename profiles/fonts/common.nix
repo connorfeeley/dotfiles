@@ -17,6 +17,7 @@ in {
         b612
         barlow
         emacs-all-the-icons-fonts
+        symbola
         fira
         ibm-plex
         inter
