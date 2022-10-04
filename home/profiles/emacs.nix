@@ -52,7 +52,10 @@ in
     LSP_USE_PLISTS = "true";
   };
 
-  home.sessionPath = [ "${configHome}/emacs/bin" "$PATH" ];
+  home.sessionPath = [
+    "${configHome}/emacs/bin"
+    "$HOME/Applications/Home\ Manager\ Apps/Emacs.app/Contents/MacOS"
+  ];
 
   xdg.configFile."doom/modules/completion/corfu".source =
     mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
