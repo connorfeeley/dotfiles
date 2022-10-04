@@ -32,7 +32,6 @@ with profiles; let
     newsboat
     obs-studio
     spotify
-    sync
     zotero
   ];
 
