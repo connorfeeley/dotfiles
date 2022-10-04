@@ -138,7 +138,6 @@ let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalA
     ''))
 
     (lib.optionalString (withMacport) ''
-      export CC="clang -fobjc-arc"
       cp -r ${macportPatches}/. .
       chmod -R +w .
       patch -p1 < patch-mac
@@ -161,32 +160,6 @@ let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalA
   # but Xcode doesn't provide a way to configure the compiler.
   preConfigure = ''
     CC=/usr/bin/clang
-
-    DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
-    configureFlagsArray+=(
-      --with-developer-dir="$DEV_DIR"
-      LDFLAGS="-L${ncurses}/lib"
-      CPPFLAGS="-isystem ${ncurses.dev}/include"
-      CFLAGS="-Wno-error=implicit-function-declaration"
-    )
-  ''
-  # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
-  # passes arguments to ld that it meant for clang.
-  + ''
-    unset LD
-  ''
-  # When building with nix-daemon, we need to pass -derivedDataPath or else it tries to use
-  # a folder rooted in /var/empty and fails. Unfortunately we can't just pass -derivedDataPath
-  # by itself as this flag requires the use of -scheme or -xctestrun (not sure why), but MacVim
-  # by default just runs `xcodebuild -project src/MacVim/MacVim.xcodeproj`, relying on the default
-  # behavior to build the first target in the project. Experimentally, there seems to be a scheme
-  # called MacVim, so we'll explicitly select that. We also need to specify the configuration too
-  # as the scheme seems to have the wrong default.
-  + ''
-    configureFlagsArray+=(
-      XCODEFLAGS="-scheme MacVim -derivedDataPath $NIX_BUILD_TOP/derivedData"
-      --with-xcodecfg="Release"
-    )
   ''
   ;
   nativeBuildInputs = [ pkg-config makeWrapper ]
