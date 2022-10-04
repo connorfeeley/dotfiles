@@ -53,8 +53,6 @@ in {
 
     masApps = {
       "Tailscale" = 1475387142;
-      "Microsoft Remote Desktop" = 1295203466;
-      "Xcode" = 497799835;
     };
     brews = [ ];
   };
