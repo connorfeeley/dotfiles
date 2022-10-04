@@ -54,7 +54,6 @@ in
 
   home.sessionPath = [
     "${configHome}/emacs/bin"
-    "$HOME/Applications/Home\ Manager\ Apps/Emacs.app/Contents/MacOS"
   ];
 
   xdg.configFile."doom/modules/completion/corfu".source =
