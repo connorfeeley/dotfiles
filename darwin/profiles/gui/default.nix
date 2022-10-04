@@ -33,8 +33,10 @@
   ];
 
   homebrew.casks = [
-    "utm-beta"
-    "barrier"
+    "utm-beta" # QEMU GUI with virtualisation support
+    "barrier" # Poor man's KVM
+    "swiftbar" # Tweak the menu bar
+    "rectangle" # Resize windows with keyboard shortcuts and snap areas
     # "1password-cli"
     # "adobe-acrobat-reader"
     # "alfred"
