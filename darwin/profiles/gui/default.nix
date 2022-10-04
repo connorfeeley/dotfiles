@@ -38,6 +38,29 @@
     "swiftbar" # Tweak the menu bar
     "hiddenbar" # Hide/toggle menu bar icon visibility
     "rectangle" # Resize windows with keyboard shortcuts and snap areas
+
+    "docker"
+
+    "karabiner-elements"
+
+    "google-chrome"
+    "microsoft-edge"
+
+    "microsoft-teams"
+    "microsoft-outlook"
+
+    "bitwarden"
+
+    "nordvpn"
+    "private-internet-access"
+
+    "vlc"
+    "xquartz"
+    "lulu"
+    "stats"
+    "steam"
+    "spotify"
+    "deluge"
     # "1password-cli"
     # "adobe-acrobat-reader"
     # "alfred"
