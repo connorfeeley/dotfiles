@@ -116,6 +116,9 @@ in
   };
 
   home.packages = with pkgs; [
+    hunspell
+    python3Packages.pylatexenc
+
     # Emacsclient wrapper
     e-wrapper
 
