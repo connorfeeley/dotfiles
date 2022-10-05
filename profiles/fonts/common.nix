@@ -23,6 +23,9 @@ in {
         inter
         jost
         public-sans
+        julia-mono
+        merriweather
+        alegreya
 
         noto-fonts
         noto-fonts-cjk
