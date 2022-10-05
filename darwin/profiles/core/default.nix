@@ -24,6 +24,9 @@ in {
   # Administrative users on Darwin systems are part of the admin group by default.
   nix.settings.trusted-users = ["@admin" "@wheel"];
 
+
+  programs.zsh.enable = true;
+
   environment.systemPackages = with pkgs; [
     coreutils
 
