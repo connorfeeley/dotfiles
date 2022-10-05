@@ -11,6 +11,9 @@
 
   environment.systemPackages = with pkgs; [
     gtk-mac-integration
+
+    # Appease 'doom doctor'
+    fontconfig
   ];
 
   homebrew.taps = [
