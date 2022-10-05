@@ -22,6 +22,7 @@
     darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     deploy.url = "github:serokell/deploy-rs";
+    deploy.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     prefmanager.url = "github:malob/prefmanager";
     nixos-generators.url = "github:nix-community/nixos-generators";
@@ -29,9 +30,10 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     digga.url = "github:divnix/digga/home-manager-22.11";
-    digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.nixpkgs.follows = "nixpkgs";
+    digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.darwin.follows = "darwin";
+    digga.inputs.deploy.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -58,6 +60,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -66,6 +69,7 @@
     deadnix = {
       url = "github:astro/deadnix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.fenix.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     comma = {
@@ -362,19 +366,21 @@
         #   autoRollback = true;
         #   magicRollback = true;
         # };
-        debian-vm = with (collective.peers.hosts.debian-vm); {
-          hostname = "debian-vm";
-          sshUser = "cfeeley";
-          fastConnection = true;
-          autoRollback = true;
-          magicRollback = true;
-          profilesOrder = [ "cfeeley" ];
-          profiles.cfeeley = {
-            user = "cfeeley";
-            path = deploy.lib.aarch64-linux.activate.home-manager
-              self.homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm";
-          };
-        };
+        # FIXME(darwin) throws:
+        # error: 'runCommandNoCC' has been renamed to/replaced by 'runCommand'
+        # debian-vm = with (collective.peers.hosts.debian-vm); {
+        #   hostname = "debian-vm";
+        #   sshUser = "cfeeley";
+        #   fastConnection = true;
+        #   autoRollback = true;
+        #   magicRollback = true;
+        #   profilesOrder = [ "cfeeley" ];
+        #   profiles.cfeeley = {
+        #     user = "cfeeley";
+        #     path = deploy.lib.aarch64-linux.activate.home-manager
+        #       self.homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm";
+        #   };
+        # };
         cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
           hostname = ipv4.address;
           sshUser = "cfeeley";
