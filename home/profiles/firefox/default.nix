@@ -208,6 +208,8 @@ in {
       https-everywhere
       privacy-badger
 
+      auto-tab-discard
+
       ##: Themes {{
 
       # TODO: add this to upstream repo
