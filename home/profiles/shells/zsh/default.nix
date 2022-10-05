@@ -121,18 +121,18 @@ in {
       #   source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       # fi
 
+      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == vterm* ) ]]; then
+        eval "$(${pkgs.starship}/bin/starship init zsh)"
+      fi
+
       # Escape codes we don't want
       if [[ "$TERM" == "dumb" ]]; then
           unset zle_bracketed_paste
       fi
 
       # Reset the prompt for remote TRAMP shells.
-      if [ "''${INSIDE_EMACS/*tramp*/tramp}" == "tramp" ] ; then
+      if [[ "''${INSIDE_EMACS/*tramp*/tramp}" == "tramp" ]]; then
         PS1="[\u@\h \w]$ "
-      fi
-
-      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || $INSIDE_EMACS == vterm* ) ]]; then
-        eval "$(${pkgs.starship}/bin/starship init zsh)"
       fi
     '';
 
