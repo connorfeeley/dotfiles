@@ -31,240 +31,244 @@ let
     sparseCheckout = "modules/completion/corfu";
   };
 in
-{
-  home.sessionVariables = {
-    # NOTE: trailing slash is
-    EMACSDIR = emacsDir + "/";
+lib.mkMerge [
+  {
+    home.sessionVariables = {
+      # NOTE: trailing slash is
+      EMACSDIR = emacsDir + "/";
 
-    # "default" profile
-    # FIXME: profiles seem broken, see doom issue tracker
-    # DOOMPROFILE = "doom";
+      # "default" profile
+      # FIXME: profiles seem broken, see doom issue tracker
+      # DOOMPROFILE = "doom";
 
-    # NOTE: trailing slash is
-    DOOMDIR = "${configHome}/doom/";
+      # NOTE: trailing slash is
+      DOOMDIR = "${configHome}/doom/";
 
-    # local state :: built files, dependencies, etc.
-    # TODO: may no longer be necessary with doom profiles. re-evaluated.
-    # DOOMLOCALDIR = doomStateDir;
+      # local state :: built files, dependencies, etc.
+      # TODO: may no longer be necessary with doom profiles. re-evaluated.
+      # DOOMLOCALDIR = doomStateDir;
 
-    # lsp: use plists instead of hashtables for performance improvement
-    # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
-    LSP_USE_PLISTS = "true";
-  };
+      # lsp: use plists instead of hashtables for performance improvement
+      # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
+      LSP_USE_PLISTS = "true";
+    };
 
-  home.sessionPath = [
-    "${configHome}/emacs/bin"
-  ];
-
-  xdg.configFile."doom/modules/completion/corfu".source =
-    mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
-
-  ## Doom Bootloader.
-  #: <https://github.com/doomemacs/doomemacs/commit/5b6b204bcbcf69d541c49ca55a2d5c3604f04dad>
-  # FIXME: profiles seem broken
-  # xdg.configFile."emacs/profiles/doom".source =
-  #   mkOutOfStoreSymlink "${profilesPath}/doom";
-  # xdg.configFile."emacs/profiles/xtallos".source =
-  #   mkOutOfStoreSymlink "${profilesPath}/xtallos";
-
-  # FIXME: use doom profile loader once issues are fixed upstream
-  # xdg.configFile."doom".source =
-  #   mkOutOfStoreSymlink "${profilesPath}/doom";
-
-  # Install Doom imperatively to make use of its CLI.
-  # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
-  # due to the number of oddities it introduces.
-  home.activation.installDoomEmacs =
-    let
-      git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
-    in
-    entryAfter [ "writeBoundary" ] ''
-      if [[ ! -f "${emacsDir}/README.md" ]]; then
-        [[ ! -d "${emacsDir}" ]] && mkdir "${emacsDir}"
-        cd ${emacsDir}
-        ${git} init --initial-branch master
-        ${git} remote add origin ${doomRepoUrl}
-        ${git} fetch origin master
-        ${git} reset --hard origin/master
-      fi
-
-      # Checkout pinned SHA
-      git -C ${emacsDir} fetch
-      git -C ${emacsDir} reset --hard ${doomRepoRev}
-    '';
-
-  programs.emacs = {
-    enable = true;
-    package = with pkgs; if isDarwin
-                         then emacs28Macport # emacs28Macport with native compilation from this repo
-                         else emacsNativeComp;
-    extraPackages = epkgs: with epkgs; [
-      vterm
-      pdf-tools
-      tree-sitter
-      tree-sitter-langs
-      tsc
-      parinfer-rust-mode
+    home.sessionPath = [
+      "${configHome}/emacs/bin"
     ];
-  };
 
-  services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
-    # Doom will take care of running the server.
-    enable = lib.mkDefault false;
-    defaultEditor = lib.mkForce true;
-    socketActivation.enable = false;
-  };
+    xdg.configFile."doom/modules/completion/corfu".source =
+      mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
 
-  # Register org-protocol as a handler for 'org-protocol://' links
-  xdg.desktopEntries.org-protocol = {
-    name = "org-protocol";
-    exec = "emacsclient %u";
-    comment = "Org protocol";
-    genericName = "org-protocol";
-    type = "Application";
-    mimeType = [ "x-scheme-handler/org-protocol" ];
-    noDisplay = true; # Register handler, but don't add application to menus
-  };
+    ## Doom Bootloader.
+    #: <https://github.com/doomemacs/doomemacs/commit/5b6b204bcbcf69d541c49ca55a2d5c3604f04dad>
+    # FIXME: profiles seem broken
+    # xdg.configFile."emacs/profiles/doom".source =
+    #   mkOutOfStoreSymlink "${profilesPath}/doom";
+    # xdg.configFile."emacs/profiles/xtallos".source =
+    #   mkOutOfStoreSymlink "${profilesPath}/xtallos";
 
-  home.packages = with pkgs; [
-    hunspell
-    python3Packages.pylatexenc
+    # FIXME: use doom profile loader once issues are fixed upstream
+    # xdg.configFile."doom".source =
+    #   mkOutOfStoreSymlink "${profilesPath}/doom";
 
-    # Emacsclient wrapper
-    e-wrapper
+    # Install Doom imperatively to make use of its CLI.
+    # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
+    # due to the number of oddities it introduces.
+    home.activation.installDoomEmacs =
+      let
+        git = "$DRY_RUN_CMD ${pkgs.git}/bin/git";
+      in
+      entryAfter [ "writeBoundary" ] ''
+        if [[ ! -f "${emacsDir}/README.md" ]]; then
+          [[ ! -d "${emacsDir}" ]] && mkdir "${emacsDir}"
+          cd ${emacsDir}
+          ${git} init --initial-branch master
+          ${git} remote add origin ${doomRepoUrl}
+          ${git} fetch origin master
+          ${git} reset --hard origin/master
+        fi
 
-    # GPG-agent pinentry
-    pinentry-emacs
+        # Checkout pinned SHA
+        git -C ${emacsDir} fetch
+        git -C ${emacsDir} reset --hard ${doomRepoRev}
+      '';
 
-    ediff-tool
-    gnutls
-    (ripgrep.override { withPCRE2 = true; })
+    programs.emacs = {
+      enable = true;
+      package = with pkgs; if isDarwin
+      then emacs28Macport # emacs28Macport with native compilation from this repo
+      else emacsNativeComp;
+      extraPackages = epkgs: with epkgs; [
+        vterm
+        pdf-tools
+        tree-sitter
+        tree-sitter-langs
+        tsc
+        parinfer-rust-mode
+      ];
+    };
 
-    fd # faster projectile indexing
-    imagemagick # for image-dired and emacs-gif-screencast
-    scrot
-    gifsicle
-    peek
-    zstd # for undo-fu-session/undo-tree compression
-    feh
+    services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
+      # Doom will take care of running the server.
+      enable = lib.mkDefault false;
+      defaultEditor = lib.mkForce true;
+      socketActivation.enable = false;
+    };
 
-    figlet # prettier block comments
+    home.packages = with pkgs; [
+      hunspell
+      python3Packages.pylatexenc
 
-    #: vterm
-    cmake
+      # Emacsclient wrapper
+      e-wrapper
 
-    #: org
-    graphviz
-    gnuplot
+      # GPG-agent pinentry
+      pinentry-emacs
 
-    #: parinfer
-    parinfer-rust
-    # emacs == vim... at least as far as the required parinfer library package is concerned
-    vimPlugins.parinfer-rust
+      ediff-tool
+      gnutls
+      (ripgrep.override { withPCRE2 = true; })
 
-    # :lang latex & :lang org (latex previews)
-    texlive.combined.scheme-medium
-    # :tools magit
-    gitAndTools.delta
-    # :lang nix
-    nixpkgs-fmt
+      fd # faster projectile indexing
+      imagemagick # for image-dired and emacs-gif-screencast
+      scrot
+      gifsicle
+      peek
+      zstd # for undo-fu-session/undo-tree compression
+      feh
 
-    # Treemacs
-    python3
+      figlet # prettier block comments
 
-    # Fonts
-    emacs-all-the-icons-fonts
+      #: vterm
+      cmake
 
-    # FIXME: sqlite binary unusable in org-roam and forge even after supplying
-    # them... so we let these packages compile the binary...
-    stdenv.cc
-    sqlite
+      #: org
+      graphviz
+      gnuplot
 
-    editorconfig-core-c
+      #: parinfer
+      parinfer-rust
+      # emacs == vim... at least as far as the required parinfer library package is concerned
+      vimPlugins.parinfer-rust
 
-    # Comment highling, namely for Doxygen in C++
-    tree-sitter-grammars.tree-sitter-comment
+      # :lang latex & :lang org (latex previews)
+      texlive.combined.scheme-medium
+      # :tools magit
+      gitAndTools.delta
+      # :lang nix
+      nixpkgs-fmt
 
-    ##: === writing ===
+      # Treemacs
+      python3
 
-    # :checkers spell
-    (aspellWithDicts (ds:
-      with ds; [
-        en
-        en-computers
-        en-science
-      ]))
-    languagetool
+      # Fonts
+      emacs-all-the-icons-fonts
 
-    ##: === lang/lsp ===
+      # FIXME: sqlite binary unusable in org-roam and forge even after supplying
+      # them... so we let these packages compile the binary...
+      stdenv.cc
+      sqlite
 
-    #: docker
-    nodePackages.dockerfile-language-server-nodejs
-    #: terraform
-    terraform
-    terraform-ls
-    #: HTML/CSS/JSON/ESLint
-    nodePackages.vscode-langservers-extracted
-    #: css
-    nodePackages.vscode-css-languageserver-bin
-    #: js
-    nodePackages.eslint
-    nodePackages.typescript-language-server
-    #: json
-    nodePackages.vscode-json-languageserver
-    #: ledger
-    # FIXME: marked as broken upstream
-    # ledger
-    #: markdown
-    nodePackages.unified-language-server
-    #: nix
-    rnix-lsp
-    nix-nil
-    #: php
-    # FIXME(darwin): broken
-    nodePackages.intelephense
-    #: ruby
-    # FIXME(darwin): broken
-    rubyPackages.solargraph
-    #: sh
-    nodePackages.bash-language-server
-    #: toml
-    taplo-lsp
-    #: web-mode
-    nodePackages.js-beautify
-    nodePackages.stylelint
-    nodePackages.vscode-html-languageserver-bin
-    html-tidy
-    #: yaml
-    nodePackages.yaml-language-server
-    #: vimrc
-    nodePackages.vim-language-server
-  ] ++ (lib.optionals (isLinux && !isAarch64) [
-    # XWidgets WebKit
-    webkitgtk
-    glib
-    gtk3
-    glib-networking
-    gsettings-desktop-schemas
-    # For emacs-everywhere
-    xorg.xwininfo
-    xdotool
-    xclip
-    #: fpga (bazel builds fail on darwin)
-    verible
-    verilator
-    svlangserver
-    svls
-    svlint
-  ]);
+      editorconfig-core-c
 
-  # Configure aspell
-  xdg.configFile."aspell/aspell.conf" = {
-    text = ''
-      master en_US
-      extra-dicts en-computers.rws
-      add-extra-dicts en_US-science.rws
-    '';
-    executable = false;
-  };
-}
+      # Comment highling, namely for Doxygen in C++
+      tree-sitter-grammars.tree-sitter-comment
+
+      ##: === writing ===
+
+      # :checkers spell
+      (aspellWithDicts (ds:
+        with ds; [
+          en
+          en-computers
+          en-science
+        ]))
+      languagetool
+
+      ##: === lang/lsp ===
+
+      #: docker
+      nodePackages.dockerfile-language-server-nodejs
+      #: terraform
+      terraform
+      terraform-ls
+      #: HTML/CSS/JSON/ESLint
+      nodePackages.vscode-langservers-extracted
+      #: css
+      nodePackages.vscode-css-languageserver-bin
+      #: js
+      nodePackages.eslint
+      nodePackages.typescript-language-server
+      #: json
+      nodePackages.vscode-json-languageserver
+      #: ledger
+      # FIXME: marked as broken upstream
+      # ledger
+      #: markdown
+      nodePackages.unified-language-server
+      #: nix
+      rnix-lsp
+      nix-nil
+      #: php
+      # FIXME(darwin): broken
+      nodePackages.intelephense
+      #: ruby
+      # FIXME(darwin): broken
+      rubyPackages.solargraph
+      #: sh
+      nodePackages.bash-language-server
+      #: toml
+      taplo-lsp
+      #: web-mode
+      nodePackages.js-beautify
+      nodePackages.stylelint
+      nodePackages.vscode-html-languageserver-bin
+      html-tidy
+      #: yaml
+      nodePackages.yaml-language-server
+      #: vimrc
+      nodePackages.vim-language-server
+    ] ++ (lib.optionals (isLinux && !isAarch64) [
+      # XWidgets WebKit
+      webkitgtk
+      glib
+      gtk3
+      glib-networking
+      gsettings-desktop-schemas
+      # For emacs-everywhere
+      xorg.xwininfo
+      xdotool
+      xclip
+      #: fpga (bazel builds fail on darwin)
+      verible
+      verilator
+      svlangserver
+      svls
+      svlint
+    ]);
+
+    # Configure aspell
+    xdg.configFile."aspell/aspell.conf" = {
+      text = ''
+        master en_US
+        extra-dicts en-computers.rws
+        add-extra-dicts en_US-science.rws
+      '';
+      executable = false;
+    };
+  }
+  (lib.mkIf isLinux
+    {
+      # Register org-protocol as a handler for 'org-protocol://' links
+      xdg.desktopEntries.org-protocol = {
+        name = "org-protocol";
+        exec = "emacsclient %u";
+        comment = "Org protocol";
+        genericName = "org-protocol";
+        type = "Application";
+        mimeType = [ "x-scheme-handler/org-protocol" ];
+        noDisplay = true; # Register handler, but don't add application to menus
+      };
+    })
+]
