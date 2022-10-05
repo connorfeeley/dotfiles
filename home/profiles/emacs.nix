@@ -115,6 +115,17 @@ in
     socketActivation.enable = false;
   };
 
+  # Register org-protocol as a handler for 'org-protocol://' links
+  xdg.desktopEntries.org-protocol = {
+    name = "org-protocol";
+    exec = "emacsclient %u";
+    comment = "Org protocol";
+    genericName = "org-protocol";
+    type = "Application";
+    mimeType = [ "x-scheme-handler/org-protocol" ];
+    noDisplay = true; # Register handler, but don't add application to menus
+  };
+
   home.packages = with pkgs; [
     hunspell
     python3Packages.pylatexenc
