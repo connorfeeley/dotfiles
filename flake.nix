@@ -29,11 +29,13 @@
     nvfetcher.url = "github:berberman/nvfetcher";
     sops-nix.url = "github:Mic92/sops-nix";
 
-    digga.url = "github:divnix/digga/home-manager-22.11";
-    digga.inputs.nixpkgs.follows = "nixpkgs";
-    digga.inputs.home-manager.follows = "home-manager";
-    digga.inputs.darwin.follows = "darwin";
-    digga.inputs.deploy.inputs.nixpkgs.follows = "nixpkgs";
+    digga = {
+      url = "github:divnix/digga/home-manager-22.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.darwin.follows = "darwin";
+      inputs.deploy.inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
