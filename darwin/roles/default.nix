@@ -12,8 +12,9 @@
     ++ (with profiles; [
       distributed-build
 
-      emacs
       gui
+      emacs
+      development
       system-defaults
     ]);
 in {
