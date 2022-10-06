@@ -400,8 +400,31 @@
     })
     // (eachSystem darwinSystems (system: {
       packages =
-        builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v {})
-        (flattenTree (rakeLeaves ./darwin/packages));
-    }))
-  ;
+        let
+          # nixpkgs set used for flake's 'packages' output
+          flakepkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              self.overlays."nixos-unstable/emacs28Macport"
+            ];
+          };
+          # emacs-mac v28.2 with native compilation enabled;
+          emacs28Macport = flakepkgs.emacs28Macport;
+          # emacs-mac v28.2 with native compilation disabled;
+          # - Intended primarily as a quick way to verify that the package builds
+          # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
+          emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override {nativeComp = false;};
+        in
+        (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
+          (flattenTree (rakeLeaves ./darwin/packages)))
+        // {
+          inherit
+            # NOTE: both emacs28Macport variants are impure
+            # Tested with XCode CLT version: 14.0.0.0.1.1661618636
+            emacs28Macport
+            emacs28Macport-noNativeComp
+          ;
+        }
+      ;
+    }));
 }
