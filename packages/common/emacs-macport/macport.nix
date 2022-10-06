@@ -1,20 +1,13 @@
+# NOTE: derivation is impure
+# Tested with XCode CLT version: 14.0.0.0.1.1661618636
+
 let
   macportVersion = "9.1";
 in import ./generic.nix (rec {
+  pname = "emacsMacport";
   version = "28.2";
   sha256 = "sha256-7iEYIjPvMjLcl7SGry2G4UBC27ZbvFNd9WLDqFgjJIg=";
-  patches = fetchpatch: [
-    # (fetchpatch {
-    #   name = "emacs-mac-title-bar-9.0.patch";
-    #   url = "https://raw.githubusercontent.com/railwaycat/homebrew-emacsmacport/master/patches/emacs-mac-title-bar-9.0.patch";
-    #   sha256 = "12y6rzd97bn2wy39zx5d2dshs6cblz6ds58kjfvlnx7p5flrswac";
-    # })
-    # (fetchpatch {
-    #   name = "fix-aarch64-darwin-triplet.patch";
-    #   url = "https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=a88f63500e475f842e5fbdd9abba4ce122cdb082";
-    #   sha256 = "sha256-RF9b5PojFUAjh2TDUW4+HaWveV30Spy1iAXhaWf1ZVg=";
-    # })
-  ];
+  patches = fetchpatch: [ ];
   inherit macportVersion;
   macportPatches = builtins.fetchTarball {
     url = "ftp://ftp.math.s.chiba-u.ac.jp/emacs/emacs-${version}-mac-${macportVersion}.tar.gz";
