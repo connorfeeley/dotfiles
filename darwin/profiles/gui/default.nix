@@ -11,9 +11,8 @@
 
   environment.systemPackages = with pkgs; [
     gtk-mac-integration
-
-    # Appease 'doom doctor'
-    fontconfig
+    fontconfig # appease 'doom doctor'
+    dockutil # command line utility for managing macOS dock items
   ];
 
   homebrew.taps = [
