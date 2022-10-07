@@ -26,6 +26,7 @@ in {
         compression = false;
         extraOptions = {
           RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/cfeeley/.gnupg/S.gpg-agent.extra";
+          SendEnv = "DISPLAY INSIDE_EMACS";
         };
       };
       "cfeeley-laptop" = {
