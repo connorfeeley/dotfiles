@@ -117,7 +117,7 @@ in {
       # AND :
       # - We are not in emacs
       # - We are not in an emacs vterm over TRAMP
-      echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
+      # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
       if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
         eval "$(${pkgs.starship}/bin/starship init zsh)"
       fi
