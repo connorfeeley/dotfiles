@@ -21,7 +21,7 @@ in {
     includes = ["~/.config/ssh/config.local"];
 
     matchBlocks = {
-      "worstation" = {
+      "workstation" = {
         forwardX11Trusted = true;
         compression = false;
         extraOptions = {
