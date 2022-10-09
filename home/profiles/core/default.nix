@@ -80,7 +80,6 @@ in {
   programs.nix-index.enable = true;
   programs.pandoc.enable = true;
   programs.tealdeer.enable = true;
-  programs.zoxide.enable = true;
 
   home.extraOutputsToInstall = ["/share/zsh"];
 

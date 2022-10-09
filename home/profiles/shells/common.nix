@@ -53,15 +53,13 @@ in
       fnix
     ];
 
-  programs.bash = {
-    inherit shellAliases;
-
+  programs.bashmount = {
     enable = true;
-    bashrcExtra = envInit;
-    # profileExtra = "";
+  };
 
-    sessionVariables = {
-      BASH_COMPLETION_USER_FILE = "${config.xdg.dataHome}/bash/completion";
-    };
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
   };
 }
