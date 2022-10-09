@@ -106,6 +106,7 @@ lib.mkMerge [
         tree-sitter-langs
         tsc
         parinfer-rust-mode
+        eterm-256colors
       ];
     };
 
