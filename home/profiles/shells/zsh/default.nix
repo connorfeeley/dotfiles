@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  envExtra = import ../env-init.sh.nix;
   shellAliases =
     (import ../abbrs.nix)
     // (import ../aliases.nix);
@@ -17,7 +16,6 @@ in {
 
   programs.zsh = {
     inherit
-      envExtra
       shellAliases
       ;
 
@@ -113,19 +111,11 @@ in {
       #   source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       # fi
 
-      # Init starship when:
-      # - TERM is not dumb (which it is over TRAMP)
-      # AND :
-      # - We are not in emacs
-      # - We are not in an emacs vterm over TRAMP
-      # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
-      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
-        eval "$(${pkgs.starship}/bin/starship init zsh)"
-      fi
-
-      # Escape codes we don't want
       if [[ "$TERM" == "dumb" ]]; then
           unset zle_bracketed_paste
+          unset zle
+          PS1='$ '
+          return
       fi
     '';
 
@@ -139,17 +129,28 @@ in {
       source ${pkgs.dotfield-config}/zsh/functions.zsh
       source ${pkgs.dotfield-config}/zsh/options.zsh
 
+
+      # Init starship when:
+      # - TERM is not dumb (which it is over TRAMP)
+      # AND :
+      # - We are not in emacs
+      # - We are not in an emacs vterm over TRAMP
+      # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
+      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
+        eval "$(${pkgs.starship}/bin/starship init zsh)"
+      fi
+
+      # Source vterm-specific configuration
+      source $DOTFIELD_DIR/config/emacs/vterm.zsh
+
+      # bind  DEL to delete-char  make `vterm-send-delete` delete char
+      bindkey "\e[3~" delete-char
+
       # MacOS only: XQuartz
       if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
         export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
       fi
 
-      # Enable zsh-vi-mode outside of emacs; otherwise source vterm-specific configuration
-      if [[ -z $INSIDE_EMACS ]]; then
-        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-      else
-        source $DOTFIELD_DIR/config/emacs/vterm.zsh
-      fi
     '';
 
     sessionVariables = {
