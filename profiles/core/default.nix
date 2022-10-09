@@ -42,7 +42,7 @@ in {
   };
 
   environment.shells = with pkgs; [
-    bash
+    bashInteractive
     fish
     zsh
   ];

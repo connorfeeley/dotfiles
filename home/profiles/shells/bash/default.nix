@@ -11,7 +11,7 @@ in {
   imports = [../common.nix];
 
   home.packages = with pkgs; [
-    bash
+    bashInteractive
   ];
 
   programs.starship.enableBashIntegration = false;
