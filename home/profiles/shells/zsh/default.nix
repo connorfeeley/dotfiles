@@ -14,6 +14,10 @@ in {
     zsh
   ];
 
+  # Must be disabled for emacs-vterm integration to work.
+  # Integration is handled manually in zsh.initExtra.
+  programs.starship.enableZshIntegration = false;
+
   programs.zsh = {
     inherit
       shellAliases
@@ -25,6 +29,8 @@ in {
     enableSyntaxHighlighting = true;
     enableAutosuggestions = true;
     enableVteIntegration = true;
+
+    defaultKeymap = "emacs"; # One of "emacs", "vicmd", "viins"
 
     history = {
       path = "${config.xdg.dataHome}/zsh/history";

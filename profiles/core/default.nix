@@ -42,7 +42,7 @@ in {
   };
 
   environment.shells = with pkgs; [
-    bashInteractive
+    bash
     fish
     zsh
   ];
@@ -55,6 +55,11 @@ in {
 
   programs.zsh = {
     enable = lib.mkDefault true;
+    enableCompletion = true;
+    enableBashCompletion = true;
+  };
+
+  programs.bash = {
     enableCompletion = true;
   };
 

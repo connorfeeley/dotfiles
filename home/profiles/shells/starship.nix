@@ -120,11 +120,6 @@ in
   programs.starship = {
     enable = true;
 
-    # Must be disabled for emacs-vterm integration to work.
-    # Integration is handled manually in zsh.initExtra.
-    enableZshIntegration = false;
-    enableBashIntegration = false;
-
     settings = {
       # Prompt definition
       format = mkPrompt "$" [
