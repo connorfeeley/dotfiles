@@ -14,7 +14,7 @@ in {
     bash
   ];
 
-  programs.starship.enableBashIntegration = true;
+  programs.starship.enableBashIntegration = false;
 
   programs.bash = {
     inherit
