@@ -143,6 +143,7 @@ lib.mkMerge [
       #: vterm
       libvterm
       cmake
+      gcc # required by libvterm
 
       #: org
       graphviz
