@@ -26,6 +26,7 @@ in {
     enableCompletion = true;
     enableSyntaxHighlighting = true;
     enableAutosuggestions = true;
+    enableVteIntegration = true;
 
     history = {
       path = "${config.xdg.dataHome}/zsh/history";
