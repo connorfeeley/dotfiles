@@ -25,6 +25,11 @@ in {
   nix.settings.trusted-users = ["@admin" "@wheel"];
 
 
+  programs.bash = {
+    enable = true;
+    enableCompletion = true;
+  };
+
   programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
