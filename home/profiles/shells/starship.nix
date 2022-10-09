@@ -100,19 +100,19 @@ let
     add_newline = false;
     line_break = { disabled = true; };
     character = {
-      success_symbol = "[π](bold gray)";
-      error_symbol = "[π](bold red)";
-      vicmd_symbol = "[V](bold green)";
+      success_symbol = "[π](gray)";
+      error_symbol = "[π](red)";
+      vicmd_symbol = "[V](green)";
     };
     directory = {
-      style = "bold green";
+      style = "green";
       truncation_length = 3;
       truncation_symbol = "…/";
       truncate_to_repo = true;
       read_only = " ";
     };
-    git_branch = { style = "bold purple"; };
-    git_status = { style = "bold purple"; };
+    git_branch = { style = "purple"; };
+    git_status = { style = "purple"; };
     package = { disabled = true; };
   };
 in
@@ -131,9 +131,9 @@ in
       ];
 
       character = {
-        success_symbol = "[λ](bold purple)";
-        error_symbol = "[!](bold red)";
-        vicmd_symbol = "[❮](bold white)";
+        success_symbol = "[λ](purple)";
+        error_symbol = "[!](red)";
+        vicmd_symbol = "[❮](white)";
       };
 
       directory.style = "blue";
