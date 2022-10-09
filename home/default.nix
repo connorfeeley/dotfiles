@@ -9,7 +9,6 @@ collective @ {peers, ...}: {self, ...}: let
   defaultProfiles = with profiles; [
     core
     direnv
-    navi
     nnn
     ranger
     secrets.common
