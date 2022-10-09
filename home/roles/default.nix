@@ -5,6 +5,7 @@ with profiles; let
     emacs
     git
     shells.zsh
+    shells.bash
     shells.fish
     ssh
     virtualisation.docker
