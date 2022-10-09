@@ -141,9 +141,7 @@ lib.mkMerge [
       figlet # prettier block comments
 
       #: vterm
-      libvterm
       cmake
-      gcc # required by libvterm
 
       #: org
       graphviz
