@@ -41,7 +41,7 @@ in {
       fi
 
       # Source vterm-specific configuration
-      source ${pkgs.emacsPackages.vterm}/etc/emacs-vterm-bash.sh
+      source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-bash.sh
 
       # MacOS only: XQuartz
       if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then

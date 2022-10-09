@@ -141,6 +141,7 @@ lib.mkMerge [
       figlet # prettier block comments
 
       #: vterm
+      libvterm
       cmake
 
       #: org
