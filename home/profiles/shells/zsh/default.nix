@@ -163,5 +163,10 @@ in {
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
       ZSH_DATA = "${config.xdg.dataHome}/zsh";
     };
+
+    # Don't source /etc/zprofile and /etc/zshrc
+    envExtra = ''
+      setopt no_global_rcs
+    '';
   };
 }
