@@ -35,6 +35,8 @@ in {
   boot.loader.systemd-boot.consoleMode = "auto";
   boot.cleanTmpDir = lib.mkDefault true;
 
+  environment.enableAllTerminfo = true;
+
   environment.shellAliases = {
     # Fix `nixos-option` for flake compatibility
     # FIXME: it's broken
