@@ -70,8 +70,7 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-    firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware";

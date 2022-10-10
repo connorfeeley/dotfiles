@@ -57,6 +57,7 @@
 
     "karabiner-elements"
 
+    "firefox"
     "google-chrome"
     "microsoft-edge"
 

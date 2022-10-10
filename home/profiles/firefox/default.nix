@@ -10,7 +10,28 @@ moduleArgs @ {
 
   themeFonts = config.theme.font;
 
+  cfg = config.programs.firefox;
+
+  hasGnomeShell = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable or false;
+
   isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
+
+  # via https://github.com/nix-community/home-manager/blob/e1f1160284198a68ea8c7fffbbb1436f99e46ef9/modules/programs/firefox.nix#L11-L20
+  mozillaConfigPath =
+    if isDarwin
+    then "Library/Application Support/Mozilla"
+    else ".mozilla";
+  firefoxConfigPath =
+    if isDarwin
+    then "Library/Application Support/Firefox"
+    else "${mozillaConfigPath}/firefox";
+  profilesPath =
+    if isDarwin
+    then "${firefoxConfigPath}/Profiles"
+    else firefoxConfigPath;
+
+  homeProfilePath = "${profilesPath}/${cfg.profiles.home.path}";
+  workProfilePath = "${profilesPath}/${cfg.profiles.work.path}";
 
   hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
   lepton = import ./lepton.nix;
@@ -149,7 +170,9 @@ in {
     enable = true;
     package =
       if isDarwin
-      then pkgs.firefox-bin # from nixpkgs-firefox-darwin
+      # Handled by the Homebrew module
+      # This populates a dummy package to satisfy the requirement
+      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
       else
         pkgs.firefox-wayland.override {
@@ -165,35 +188,17 @@ in {
 
     # TODO: add zotero connector addon -- not available in upstream nur repo
     extensions = with firefox-addons; [
-      onepassword-password-manager
-      a11ycss
-      add-custom-search-engine
       (lib.mkIf isBukuEnabled bukubrow)
-      copy-selection-as-markdown
       darkreader
-      display-_anchors
-      firefox-color
-      (lib.mkIf config.programs.browserpass.enable browserpass)
-      flagfox
-      mailvelope
-      multi-account-containers
-      octolinker
-      # FIXME: only use this if not using tridactyl (e.g. guest users on htpc)
-      # old-reddit-redirect
+      old-reddit-redirect
       org-capture
-      pinboard
-      # FIXME: needs configuration, probably
-      # promnesia
-      # protondb-for-steam
       react-devtools
       reddit-enhancement-suite
-      reduxdevtools
       # TODO: set default preferences for this and others? is that possible?
       tampermonkey
       refined-github
       return-youtube-dislikes
       sidebery
-      single-file
       sourcegraph
       tab-session-manager
       temporary-containers
@@ -206,7 +211,6 @@ in {
       sidebery
       vimium
       https-everywhere
-      privacy-badger
 
       auto-tab-discard
 
@@ -243,37 +247,6 @@ in {
 
       userContent = ''
         ${styles.lepton.userContent}
-        ${styles.dotfield.userContent}
-      '';
-    };
-
-    profiles.work = {
-      id = 1;
-
-      settings =
-        defaultSettings
-        // lepton.settings.required
-        // lepton.settings.theme.lepton
-        // {
-          "browser.startup.homepage" = "about:blank";
-          "browser.urlbar.placeholderName" = "Search";
-
-          # 0 = Accept all cookies by default
-          # 1 = Only accept from the originating site (block third-party cookies)
-          # 2 = Block all cookies by default
-          # 3 = Block cookies from unvisited sites
-          # 4 = New Cookie Jar policy (prevent storage access to trackers)
-          "network.cookie.cookieBehavior" = 0;
-
-          "privacy.trackingprotection.enabled" = false;
-        };
-
-      userChrome = ''
-        ${styles.lepton.userChrome}
-        ${styles.dotfield.userChrome}
-      '';
-
-      userContent = ''
         ${styles.dotfield.userContent}
       '';
     };
