@@ -21,7 +21,6 @@ with lib;
     # can be generated with: filter (drv: (builtins.tryEval (drv ? terminfo)).value) (attrValues pkgs)
     environment.systemPackages = mkIf config.environment.enableAllTerminfo (map (x: x.terminfo) (with pkgs; [
       alacritty
-      foot
       kitty
       mtm
       rxvt-unicode-unwrapped
@@ -38,22 +37,10 @@ with lib;
       source = "${config.system.path}/share/terminfo";
     };
 
-    environment.profileRelativeSessionVariables = {
-      TERMINFO_DIRS = [ "/share/terminfo" ];
-    };
-
     environment.extraInit = ''
 
       # reset TERM with new TERMINFO available (if any)
       export TERM=$TERM
     '';
-
-    security.sudo.extraConfig = ''
-
-      # Keep terminfo database for root and %wheel.
-      Defaults:root,%wheel env_keep+=TERMINFO_DIRS
-      Defaults:root,%wheel env_keep+=TERMINFO
-    '';
-
   };
 }
