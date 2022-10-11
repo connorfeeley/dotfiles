@@ -12,7 +12,7 @@ in {
   programs.ssh = {
     enable = true;
     forwardAgent = false;
-    serverAliveInterval = 300;
+    serverAliveInterval = 5;
     serverAliveCountMax = 2;
     compression = false; # Slow
     controlPersist = "10m";
