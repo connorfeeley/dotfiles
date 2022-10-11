@@ -146,8 +146,6 @@ in {
         # Vi keybindings
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       else
-        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-
         # Options we don't want in vterm
         unset zle_bracketed_paste
         unset zle
