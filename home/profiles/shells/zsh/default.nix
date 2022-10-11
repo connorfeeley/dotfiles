@@ -113,15 +113,21 @@ in {
     ];
 
     initExtraFirst = ''
-      # When TERM=dumb (such as when using TRAMP):
-      # - Unset problematic options
-      # - Use a dead-simple prompt
-      # - Don't source rest of zshrc (return early)
       if [[ "$TERM" == "dumb" ]]; then
-          unset zle_bracketed_paste
-          unset zle
-          PS1='$ '
-          return
+        unsetopt zle
+        unsetopt prompt_cr
+        unsetopt prompt_subst
+        unsetopt zle_bracketed_paste
+        if whence -w precmd >/dev/null; then
+            unfunction precmd
+        fi
+        if whence -w preexec >/dev/null; then
+            unfunction preexec
+        fi
+        unset RPROMPT
+        unset RPS1
+        PS1='$ '
+        return
       fi
     '';
 
