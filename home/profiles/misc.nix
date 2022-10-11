@@ -11,6 +11,7 @@
     comma
     hyperfine
     mosh
+    sd # Modern sed replacement
 
     ## === System Tools ===
     iotop
