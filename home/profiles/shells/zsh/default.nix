@@ -140,11 +140,22 @@ in {
       # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
       if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
         eval "$(${pkgs.starship}/bin/starship init zsh)"
+
+        # Vi keybindings
+        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      else
+        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+        # Options we don't want in vterm
+        unset zle_bracketed_paste
+        unset zle
+
+        # Emacs keybindings
+        bindkey -e
+
+        # # Source vterm-specific configuration
+        source $DOTFIELD_DIR/config/emacs/vterm.zsh
       fi
-
-      # Source vterm-specific configuration
-      source $DOTFIELD_DIR/config/emacs/vterm.zsh
-
       # bind  DEL to delete-char  make `vterm-send-delete` delete char
       bindkey "\e[3~" delete-char
 
