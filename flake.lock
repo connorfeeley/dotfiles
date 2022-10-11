@@ -260,9 +260,10 @@
         "utils": "utils_4"
       },
       "locked": {
-        "lastModified": 0,
+        "lastModified": 1659725433,
         "narHash": "sha256-1ZxuK67TL29YLw88vQ18Y2Y6iYg8Jb7I6/HVzmNB6nM=",
         "path": "/nix/store/mcj3alz7v2j75wfc12lvjl3lrzybyqb3-source",
+        "rev": "41f15759dd8b638e7b4f299730d94d5aa46ab7eb",
         "type": "path"
       },
       "original": {
