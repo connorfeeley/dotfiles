@@ -101,6 +101,15 @@ in {
         };
       }
       {
+        name = "mac-zsh-completions";
+        src = pkgs.fetchFromGitHub {
+          owner = "scriptingosx";
+          repo = "mac-zsh-completions";
+          rev = "303f25c8b30f3c7351a7bcaaf4b6f01818c3f1ad";
+          sha256 = "sha256-06mEWuZsfTLNKodqHGTxiakZf0MvWsvoSvnt2IW/Nkk=";
+        };
+      }
+      {
         # will source zsh-autosuggestions.plugin.zsh
         name = "zlong_alert";
         src = pkgs.fetchFromGitHub {
@@ -176,6 +185,8 @@ in {
     sessionVariables = {
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
       ZSH_DATA = "${config.xdg.dataHome}/zsh";
+
+      ZSH_AUTOSUGGEST_USE_ASYNC = 1;
     };
 
     # Don't source /etc/zprofile and /etc/zshrc
