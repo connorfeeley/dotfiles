@@ -140,7 +140,9 @@ in {
       # AND:
       # - We are not in emacs
       # - We are not in an emacs vterm over TRAMP
-      if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
+      # if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
+
+      if [[ $TERM != "dumb" && -z $INSIDE_EMACS ]]; then
         # Vi keybindings
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       else
