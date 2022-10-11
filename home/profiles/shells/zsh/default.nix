@@ -113,6 +113,10 @@ in {
     ];
 
     initExtraFirst = ''
+      # When TERM=dumb (such as when using TRAMP):
+      # - Unset problematic options
+      # - Use a dead-simple prompt
+      # - Don't source rest of zshrc (return early)
       if [[ "$TERM" == "dumb" ]]; then
           unset zle_bracketed_paste
           unset zle
@@ -122,25 +126,22 @@ in {
     '';
 
     initExtraBeforeCompInit = ''
-      # # Init completion manually
-      # autoload compinit; compinit -u
-    '';
-
-    initExtra = ''
       source $DOTFIELD_DIR/lib/color.sh
       source ${pkgs.dotfield-config}/zsh/functions.zsh
       source ${pkgs.dotfield-config}/zsh/options.zsh
+    '';
+
+    initExtra = ''
 
 
-      # Init starship when:
+      eval "$(${pkgs.starship}/bin/starship init zsh)"
+
+      # Use vi-mode when:
       # - TERM is not dumb (which it is over TRAMP)
-      # AND :
+      # AND:
       # - We are not in emacs
       # - We are not in an emacs vterm over TRAMP
-      # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
       if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
-        eval "$(${pkgs.starship}/bin/starship init zsh)"
-
         # Vi keybindings
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       else
@@ -156,6 +157,8 @@ in {
         # # Source vterm-specific configuration
         source $DOTFIELD_DIR/config/emacs/vterm.zsh
       fi
+      # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
+
       # bind  DEL to delete-char  make `vterm-send-delete` delete char
       bindkey "\e[3~" delete-char
 
@@ -163,7 +166,6 @@ in {
       if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
         export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
       fi
-
     '';
 
     sessionVariables = {
