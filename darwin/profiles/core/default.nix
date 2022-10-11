@@ -35,8 +35,6 @@ in {
   environment.enableAllTerminfo = true;
 
   environment.systemPackages = with pkgs; [
-    coreutils
-
     #  Swiss Army Knife for macOS
     # => https://github.com/rgcr/m-cli
     m-cli

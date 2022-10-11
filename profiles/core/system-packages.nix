@@ -21,7 +21,7 @@ in {
     bat
     binutils
     cacert
-    coreutils
+    coreutils-full
     exa
     fd
     findutils
