@@ -24,8 +24,8 @@ let
 
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
-    rev = "f9cbce9f84c69d55d3e7103b82e2c30cf101d62e";
-    sha256 = "sha256-HGOkuBMLK5Xc0wPe8a8PjQIxcdPm/P+8CVkXOW0t16g=";
+    rev = "f014747df1e95a524b3155dd9ff1e1acff857825";
+    sha256 = "sha256-rOKIlzvOkqNe89BLnTFj6IxKyGjMG407SLpgox/Vaig=";
 
     fetchSubmodules = false;
     sparseCheckout = "modules/completion/corfu";
