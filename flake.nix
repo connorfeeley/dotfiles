@@ -34,7 +34,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
       inputs.darwin.follows = "darwin";
-      inputs.deploy.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
