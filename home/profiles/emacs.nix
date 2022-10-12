@@ -97,8 +97,8 @@ lib.mkMerge [
     programs.emacs = {
       enable = true;
       package = with pkgs; if isDarwin
-      then emacs28Macport # emacs28Macport with native compilation from this repo
-      # then emacsNativeComp # emacs28Macport with native compilation from this repo
+      # then emacs28Macport # emacs28Macport with native compilation from this repo
+      then emacsNativeComp # emacs28Macport with native compilation from this repo
       else emacsNativeComp;
       extraPackages = epkgs: with epkgs; [
         vterm
