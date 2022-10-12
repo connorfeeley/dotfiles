@@ -68,6 +68,18 @@ in {
       key = pgpPublicKey;
       signByDefault = true;
     };
+    includes = [
+      {
+        condition = "gitdir:~/source/**";
+        contents = {
+          user.email = "git@cfeeley.org";
+          privacy = {
+            pattern = "hms";
+            replacements = true;
+          };
+        };
+      }
+    ];
 
     difftastic.enable = true;
 
