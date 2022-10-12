@@ -274,6 +274,8 @@
       nixpkgs-work.overlays.default
 
       (final: prev: {
+        emacs-plus = self.packages.${final.system}.emacs-plus;
+
         amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
 
         xmonad-config = xmonad-config.packages.${prev.system}.default;
