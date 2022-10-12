@@ -70,7 +70,6 @@ in {
 
         extraOptions = {
           ControlMaster = "auto";
-          ControlPath = "~/.ssh/%r@%h:%p.sock";
           ControlPersist = "yes";
 
           AddKeysToAgent = "yes";
