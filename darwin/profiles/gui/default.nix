@@ -10,6 +10,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    iterm2 # the king of macOS terminals; not kitty 😾
     gtk-mac-integration
     fontconfig # appease 'doom doctor'
     dockutil # command line utility for managing macOS dock items
