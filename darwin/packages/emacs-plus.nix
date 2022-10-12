@@ -3,6 +3,7 @@
 , lib
 , darwin
 , noTitlebar ? false
+, otherIcons ? false
 }:
 let
   emacsPlus = fetchFromGitHub {
@@ -30,8 +31,12 @@ emacsNativeComp.overrideAttrs (o: {
   # https://github.com/d12frosted/homebrew-emacs-plus#icons
   postPatch = ''
     ${o.postPatch}
+  '' +
+  (if otherIcons then
+  ''
     cp -f ${emacsPlus}/icons/nobu417-big-sur.icns nextstep/Cocoa/Emacs.base/Contents/Resources/Emacs.icns
-  '';
+  ''
+  else "");
 
   # https://github.com/siraben/nix-gccemacs-darwin/blob/f543cf1d30dc8afb895aaddfb73c92cb739874fe/emacs.nix#L27-L29
   postInstall =
