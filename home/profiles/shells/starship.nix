@@ -30,6 +30,10 @@ in
         error_symbol = "[!](bold red)";
         vicmd_symbol = "[❮](bold white)";
       };
+      cmd_duration = {
+        show_notifications = true;
+        notification_timeout = 15000;
+      };
 
       directory.style = "blue";
 
