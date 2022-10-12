@@ -1,6 +1,8 @@
 { emacsNativeComp
 , fetchFromGitHub
+, lib
 , darwin
+, noTitlebar ? false
 }:
 let
   emacsPlus = fetchFromGitHub {
@@ -21,10 +23,9 @@ emacsNativeComp.overrideAttrs (o: {
     o.configureFlags
     ++ [ "--with-cairo" "--with-harfbuzz" ];
 
-  patches = [
-    "${emacsPlus}/patches/emacs-28/no-titlebar.patch"
-    "${emacsPlus}/patches/emacs-28/fix-window-role.patch"
-  ];
+  patches =
+    lib.optionals noTitlebar [ "${emacsPlus}/patches/emacs-28/no-titlebar.patch" ] ++
+    [ "${emacsPlus}/patches/emacs-28/fix-window-role.patch" ];
 
   # https://github.com/d12frosted/homebrew-emacs-plus#icons
   postPatch = ''
