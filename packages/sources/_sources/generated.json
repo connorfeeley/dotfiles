@@ -1,6 +1,7 @@
 {
     "HPI": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "HPI",
         "passthru": null,
@@ -15,6 +16,7 @@
     },
     "fish-autopair": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "fish-autopair",
         "passthru": null,
@@ -34,6 +36,7 @@
     },
     "fish-fifc": {
         "cargoLocks": null,
+        "date": "2022-08-26",
         "extract": null,
         "name": "fish-fifc",
         "passthru": null,
@@ -52,6 +55,7 @@
     },
     "fish-replay": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "fish-replay",
         "passthru": null,
@@ -71,6 +75,7 @@
     },
     "fzf-scripts": {
         "cargoLocks": null,
+        "date": "2022-09-02",
         "extract": null,
         "name": "fzf-scripts",
         "passthru": null,
@@ -89,6 +94,7 @@
     },
     "hlissner-hey": {
         "cargoLocks": null,
+        "date": "2022-09-19",
         "extract": {
             "bin/hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/bin/hey",
             "config/zsh/completions/_hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/config/zsh/completions/_hey"
@@ -110,6 +116,7 @@
     },
     "hug": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "hug",
         "passthru": null,
@@ -124,6 +131,7 @@
     },
     "kitty-bortflower-icons": {
         "cargoLocks": null,
+        "date": "2022-08-01",
         "extract": null,
         "name": "kitty-bortflower-icons",
         "passthru": null,
@@ -142,6 +150,7 @@
     },
     "orgparse": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "orgparse",
         "passthru": null,
@@ -156,6 +165,7 @@
     },
     "promnesia": {
         "cargoLocks": null,
+        "date": "2022-06-08",
         "extract": null,
         "name": "promnesia",
         "passthru": null,
@@ -175,6 +185,7 @@
     },
     "roots-trellis-cli": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "roots-trellis-cli",
         "passthru": null,
@@ -194,7 +205,10 @@
     },
     "ssh-cmc": {
         "cargoLocks": null,
-        "extract": null,
+        "date": "2022-09-30",
+        "extract": {
+            "cmc": "./ssh-cmc-d5085c30d41ea1db96b1c119338fc6501fd09900/cmc"
+        },
         "name": "ssh-cmc",
         "passthru": null,
         "pinned": false,
@@ -203,11 +217,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0a0344d0ac5aec43a32f47aae2a42acf79ff6381",
-            "sha256": "sha256-FvtS6yusDtFlpbN7iM5VPOAFVGrnIW39phcgkkkNboc=",
+            "rev": "d5085c30d41ea1db96b1c119338fc6501fd09900",
+            "sha256": "sha256-onESIhNu+uNPXFA27Hu041Rhk+epXWfTjIdtN1U8Jpg=",
             "type": "git",
             "url": "https://github.com/TimidRobot/cmc"
         },
-        "version": "0a0344d0ac5aec43a32f47aae2a42acf79ff6381"
+        "version": "d5085c30d41ea1db96b1c119338fc6501fd09900"
     }
 }

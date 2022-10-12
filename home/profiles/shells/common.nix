@@ -51,6 +51,11 @@ in
       md
       stderred-wrapper # Highlight stderr in red
       fnix
+      (pkgs.writeShellApplication {
+        name = "cmc";
+        runtimeInputs = with pkgs; [ nix nix-json-progress ];
+        text = builtins.readFile "${pkgs.sources.ssh-cmc.src}/cmc";
+      })
     ];
 
   programs.bashmount = {

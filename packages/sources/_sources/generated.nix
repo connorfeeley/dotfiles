@@ -31,6 +31,7 @@
       leaveDotGit = false;
       sha256 = "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=";
     };
+    date = "2022-08-26";
   };
   fish-replay = {
     pname = "fish-replay";
@@ -54,6 +55,7 @@
       leaveDotGit = false;
       sha256 = "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=";
     };
+    date = "2022-09-02";
   };
   hlissner-hey = {
     pname = "hlissner-hey";
@@ -68,6 +70,7 @@
     };
     "bin/hey" = builtins.readFile ./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/bin/hey;
     "config/zsh/completions/_hey" = builtins.readFile ./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/config/zsh/completions/_hey;
+    date = "2022-09-19";
   };
   hug = {
     pname = "hug";
@@ -88,6 +91,7 @@
       leaveDotGit = false;
       sha256 = "sha256-Vy+iLGnysrJMSLfkaYq15pb/wG4kIbfsXRrPgSc3OFs=";
     };
+    date = "2022-08-01";
   };
   orgparse = {
     pname = "orgparse";
@@ -107,6 +111,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-GcLPJZQaHqPUGvcZMNlofwqTizh5/PywA4vY9N3Ih7s=";
     });
+    date = "2022-06-08";
   };
   roots-trellis-cli = {
     pname = "roots-trellis-cli";
@@ -121,14 +126,16 @@
   };
   ssh-cmc = {
     pname = "ssh-cmc";
-    version = "0a0344d0ac5aec43a32f47aae2a42acf79ff6381";
+    version = "d5085c30d41ea1db96b1c119338fc6501fd09900";
     src = fetchgit {
       url = "https://github.com/TimidRobot/cmc";
-      rev = "0a0344d0ac5aec43a32f47aae2a42acf79ff6381";
+      rev = "d5085c30d41ea1db96b1c119338fc6501fd09900";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-FvtS6yusDtFlpbN7iM5VPOAFVGrnIW39phcgkkkNboc=";
+      sha256 = "sha256-onESIhNu+uNPXFA27Hu041Rhk+epXWfTjIdtN1U8Jpg=";
     };
+    cmc = builtins.readFile ./ssh-cmc-d5085c30d41ea1db96b1c119338fc6501fd09900/cmc;
+    date = "2022-09-30";
   };
 }
