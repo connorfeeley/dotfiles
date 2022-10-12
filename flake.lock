@@ -402,11 +402,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1665470981,
-        "narHash": "sha256-ybKBuDqIq4ZDa1QQqkDVDYewUuxPGs3akEWuhEF2ltw=",
+        "lastModified": 1665556782,
+        "narHash": "sha256-AtKYsVrIsdOGGb+NxIoInvuCwm8wwlGYkVRfOmajCR8=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "0ba1e28f8810df02d9cd20e05b1957a782c7d9d1",
+        "rev": "c714456ad75740262d541ce0a3d8bd1a52e9effb",
         "type": "github"
       },
       "original": {

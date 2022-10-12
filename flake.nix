@@ -280,7 +280,6 @@
         xmonad-config = xmonad-config.packages.${prev.system}.default;
         xmonad = xmonad-config.packages.${prev.system}.default;
 
-        nix-nil = nix-nil.packages.${prev.system}.default;
         nix-json-progress = nix-json-progress.packages.${prev.system}.nix-json-progress;
 
         dashboard = nixpkgs-work.packages.${prev.system}.dashboard;

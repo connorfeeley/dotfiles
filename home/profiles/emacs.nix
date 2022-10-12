@@ -210,7 +210,7 @@ lib.mkMerge [
       nodePackages.unified-language-server
       #: nix
       rnix-lsp
-      nix-nil
+      nil # ('nix-nil' from source repo)
       #: php
       # FIXME(darwin): broken
       nodePackages.intelephense
