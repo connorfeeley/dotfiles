@@ -19,6 +19,7 @@
     "FelixKratz/formulae"
     "homebrew/cask"
     "homebrew/cask-versions"
+    "railwaycat/emacsmacport"
   ];
 
   homebrew.brews = [
@@ -35,6 +36,8 @@
   ];
 
   homebrew.casks = [
+    "emacs-mac"
+
     "utm-beta" # QEMU GUI with virtualisation support
     "barrier" # Poor man's KVM
     "swiftbar" # Tweak the menu bar
