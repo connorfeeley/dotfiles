@@ -97,9 +97,14 @@ lib.mkMerge [
     programs.emacs = {
       enable = true;
       package = with pkgs; if isDarwin
-      # then emacs28Macport  # emacs28Macport with native compilation from this repo
-      then emacs-plus        # emacs-plus with native compilation from this repo
-      # then emacsNativeComp # emacs28Macport with native compilation from this repo
+      # emacs28Macport with native compilation from this repo
+      # then emacs28Macport
+
+      # emacs-plus with native compilation from this repo
+      then emacs-plus.override { otherIcon = "gnu-head-icon"; }
+
+      # emacs28Macport with native compilation from this repo
+      # then emacsNativeComp
       else emacsNativeComp;
       extraPackages = epkgs: with epkgs; [
         vterm
