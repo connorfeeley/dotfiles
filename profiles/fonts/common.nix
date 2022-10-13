@@ -12,6 +12,7 @@ in {
 
   fonts = {
     fontDir.enable = true;
+    enableGhostscriptFonts = true;
     fonts = with pkgs;
       [
         b612
@@ -36,6 +37,14 @@ in {
         # FIXME: doesn't exist... yet...
         # (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         nerdfonts-symbols-only
+
+        font-awesome
+
+        fira-code
+        fira-code-symbols
+        open-sans
+        jetbrains-mono
+        siji
 
         iosevka-bin
       ]
