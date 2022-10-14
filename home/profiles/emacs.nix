@@ -34,14 +34,14 @@ in
 lib.mkMerge [
   {
     home.sessionVariables = {
-      # NOTE: trailing slash is
+      # NOTE: doom is picky about having the trailing slash
       EMACSDIR = emacsDir + "/";
 
       # "default" profile
       # FIXME: profiles seem broken, see doom issue tracker
       # DOOMPROFILE = "doom";
 
-      # NOTE: trailing slash is
+      # NOTE: doom is picky about having the trailing slash
       DOOMDIR = "${configHome}/doom/";
 
       # local state :: built files, dependencies, etc.
@@ -114,6 +114,7 @@ lib.mkMerge [
       extraPackages = epkgs: with epkgs; [
         vterm
         pdf-tools
+        org-pdftools
         tree-sitter
         tree-sitter-langs
         tsc
