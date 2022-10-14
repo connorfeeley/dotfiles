@@ -16,20 +16,27 @@
     dockutil # command line utility for managing macOS dock items
   ];
 
+  environment.variables = {
+    DOOMDIR = "$XDG_CONFIG_HOME/doom";
+    EMACSDIR = "$XDG_CONFIG_HOME/emacs";
+  };
+
   homebrew.taps = [
     "FelixKratz/formulae"
     "homebrew/cask"
     "homebrew/cask-versions"
     "railwaycat/emacsmacport"
+    "jorgelbg/tap"
   ];
 
   homebrew.brews = [
     # This provides a GUI, despite it not being a cask.
-    "pinentry-mac"
+    # NOTE: now using 'pinentry_mac' package
+    # "pinentry-mac"
 
     # Interesting project; however the password is not stored in the
     # secure enclave, which is a dealbreaker for me 😕.
-    "pinentry-touchid"
+    # "pinentry-touchid"
 
     "freerdp"
 

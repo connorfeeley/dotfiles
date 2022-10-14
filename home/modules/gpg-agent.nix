@@ -3,6 +3,7 @@
 with lib;
 
 let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   cfg = config.services.gpg-agent;
   gpgPkg = config.programs.gpg.package;
@@ -187,9 +188,9 @@ in {
       };
 
       pinentryFlavor = mkOption {
-        type = types.nullOr (types.enum pkgs.pinentry.flavors);
+        type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" ]));
         example = "gnome3";
-        default = "emacs";
+        default = if isDarwin then "mac" else "plasma";
         description = ''
           Which pinentry interface to use. If not
           <literal>null</literal>, it sets
@@ -234,9 +235,15 @@ in {
           "max-cache-ttl ${toString cfg.maxCacheTtl}"
           ++ optional (cfg.maxCacheTtlSsh != null)
           "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}"
-          ++ optional (cfg.pinentryFlavor != null)
-          "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry"
+          ++ optional (cfg.pinentryFlavor != null) (
+            if (isDarwin && cfg.pinentryFlavor == "mac")
+            then "pinentry-program ${pkgs.pinentry_mac}/bin/pinentry"
+            else "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
           ++ [ cfg.extraConfig ]);
+
+      home.packages = optionals (cfg.pinentryFlavor != null) (
+        if isDarwin then [ pkgs.pinentry_mac ]
+        else [ pkgs.pinentry.${cfg.pinentryFlavor} ]);
 
       programs.bash.initExtra = mkIf cfg.enableBashIntegration gpgInitStr;
       programs.zsh.initExtra = mkIf cfg.enableZshIntegration gpgInitStr;
