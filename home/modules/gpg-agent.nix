@@ -190,7 +190,7 @@ in {
       pinentryFlavor = mkOption {
         type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" ]));
         example = "gnome3";
-        default = if isDarwin then "mac" else "plasma";
+        default = if isDarwin then "mac" else "qt";
         description = ''
           Which pinentry interface to use. If not
           <literal>null</literal>, it sets
