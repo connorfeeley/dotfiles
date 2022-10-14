@@ -63,7 +63,7 @@ assert (withGTK3 && !withNS && !withMacport) -> withX || withPgtk;
 assert withGTK2 -> !withGTK3 && gtk2-x11 != null && !withPgtk;
 assert withGTK3 -> !withGTK2 && ((gtk3-x11 != null) || withPgtk);
 assert withPgtk -> withGTK3 && !withX && gtk3 != null;
-assert withXwidgets -> withGTK3 && webkitgtk != null;
+assert withXwidgets -> !withMacport || ( withGTK3 && webkitgtk ) != null;
 
 
 let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalAttrs nativeComp {

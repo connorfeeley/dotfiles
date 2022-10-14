@@ -96,16 +96,19 @@ lib.mkMerge [
 
     programs.emacs = {
       enable = true;
-      package = with pkgs; if isDarwin
-      # emacs28Macport with native compilation from this repo
-      # then emacs28Macport
-
-      # emacs-plus with native compilation from this repo
-      then emacs-plus.override { otherIcon = "gnu-head-icon"; }
-
-      # emacs28Macport with native compilation from this repo
-      # then emacsNativeComp
-      else emacsNativeComp;
+      package =
+        let emacs-pkg = with pkgs; if isDarwin
+        #: isDarwin: emacs-plus with native compilation from this repo
+        # then emacs-plus.override {
+        #   otherIcon = "gnu-head-icon";
+        # }
+        #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
+        then emacs28Macport
+        #: isLinux: emacs 28 with native compilation
+        else emacsNativeComp;
+        in emacs-pkg.override {
+          withXwidgets = true;
+        };
       extraPackages = epkgs: with epkgs; [
         vterm
         pdf-tools
