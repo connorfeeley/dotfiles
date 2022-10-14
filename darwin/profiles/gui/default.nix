@@ -29,7 +29,7 @@
 
     # Interesting project; however the password is not stored in the
     # secure enclave, which is a dealbreaker for me 😕.
-    # "pinentry-touchid"
+    "pinentry-touchid"
 
     "freerdp"
 
