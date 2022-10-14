@@ -383,6 +383,11 @@
         #       self.homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm";
         #   };
         # };
+
+        # Deploy to 'cfeeley-laptop':
+        # - Recommended: deploy .#cfeeley-laptop -- --print-build-logs
+        # If there are nix eval errors, then we can tell 'deploy' to skip the flake checks:
+        # - Not recommended: deploy --skip-checks .#cfeeley-laptop -- --print-build-logs
         cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
           hostname = ipv4.address;
           sshUser = "cfeeley";
