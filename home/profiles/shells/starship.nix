@@ -27,8 +27,7 @@ in
         vicmd_symbol = "[❮](bold white)";
       };
       cmd_duration = {
-        show_notifications = true;
-        notification_timeout = 15000;
+        show_notifications = false; # FIXME: Hangs starship when enabled
       };
 
       directory.style = "blue";
