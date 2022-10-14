@@ -40,6 +40,7 @@ in {
     m-cli
     mas
     terminal-notifier
+    darwin.trash
 
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
