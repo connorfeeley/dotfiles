@@ -104,10 +104,12 @@ lib.mkMerge [
         # }
         #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
         then emacs28Macport
-        #: isLinux: emacs 28 with native compilation
+        #: isLinux: emacs 28
         else emacsNativeComp;
         in emacs-pkg.override {
           withXwidgets = true;
+          withSQLite3 = true;
+          withWebP = true;
         };
       extraPackages = epkgs: with epkgs; [
         vterm
