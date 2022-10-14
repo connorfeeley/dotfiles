@@ -12,7 +12,6 @@ in {
 
   fonts = {
     fontDir.enable = true;
-    enableGhostscriptFonts = true;
     fonts = with pkgs;
       [
         b612
