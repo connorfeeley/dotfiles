@@ -14,6 +14,7 @@
     sd # Modern sed replacement
 
     ## === System Tools ===
+    procs # pspspspsps
     iotop
     smartmontools
     diskonaut # Terminal visual disk space navigator
@@ -74,7 +75,6 @@
     sourcetrail # Rest in peace sourcetrail, the best C++ exploration tool ever to live.
     kmon # Kernel manager and activity monitor
     systeroid # A more powerful alternative to sysctl(8) with a terminal user interface
-    procs # pspspspsps
     sysz  # fzf-style systemd TUI
     barrier # Ironically broken on aarch64-darwin; install with brew instead
   ]);
