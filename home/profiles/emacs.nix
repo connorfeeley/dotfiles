@@ -220,6 +220,11 @@ lib.mkMerge [
       # ledger
       #: markdown
       nodePackages.unified-language-server
+      #: python
+      pyright
+      #: C++
+      clang-tools
+      bear
       #: nix
       rnix-lsp
       nil # ('nix-nil' from source repo)
