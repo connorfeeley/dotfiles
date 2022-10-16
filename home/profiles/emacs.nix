@@ -136,9 +136,6 @@ lib.mkMerge [
       # Emacsclient wrapper
       e-wrapper
 
-      # GPG-agent pinentry
-      pinentry-emacs
-
       ediff-tool
       gnutls
       (ripgrep.override { withPCRE2 = true; })
