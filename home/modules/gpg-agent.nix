@@ -208,7 +208,7 @@ in {
       };
 
       enableBashIntegration = mkEnableOption "Bash integration" // {
-        default = true;
+        default = false;
       };
 
       enableZshIntegration = mkEnableOption "Zsh integration" // {
