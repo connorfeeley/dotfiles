@@ -8,7 +8,8 @@
     enable = true;
     nix-direnv.enable = true;
 
-    enableBashIntegration = true;
+    # Direnv activates in
+    enableBashIntegration = false;
   };
   xdg.configFile."direnv/direnvrc".source = "${pkgs.dotfield-config}/direnv/direnvrc";
 }
