@@ -24,6 +24,7 @@
 , AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore, WebKit, Security, UniformTypeIdentifiers, fixDarwinDylibNames
 , ImageCaptureCore, GSS, ImageIO # These may be optional
 , autoconf, automake
+, gmp, llvmPackages
 
 , systemd ? null
 , withX ? !stdenv.isDarwin && !withPgtk
@@ -151,14 +152,6 @@ let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalA
     ""
   ];
 
-  # TODO: unsure if this is required at all; the host's global clang is used for CC
-  commonImpureHostDeps = [
-    "/bin/sh"
-    "/usr/lib/libSystem.B.dylib"
-    "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
-    "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
-  ];
-
   # Mark derivation impure: must have 'sandbox = relaxed' set in nix.conf or 'nixConfig.sandbox = "relaxed"' in flake.nix
   __noChroot = withMacport;
 
@@ -167,23 +160,26 @@ let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalA
   preConfigure = ''
     CC=/usr/bin/clang
 
-    DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
     configureFlagsArray+=(
-      --with-developer-dir="$DEV_DIR"
       LDFLAGS="-L${libgccjit}/lib"
       CPPFLAGS="-isystem ${libgccjit}/include"
-      CFLAGS="-Wno-error=implicit-function-declaration"
     )
-  ''
-  ;
+  '';
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+    "-isystem ${libgccjit}/include"
+    "-fobjc-arc"
+  ];
+  CPPFLAGS = "-isystem ${libgccjit}/include";
+  NIX_LDFLAGS_COMPILE = [ "-L${libgccjit}/lib" ];
   nativeBuildInputs = [ pkg-config makeWrapper ]
     ++ lib.optionals (srcRepo || withMacport) [ pkg-config autoconf automake fixDarwinDylibNames ]
     ++ lib.optionals srcRepo [ autoreconfHook ]
     ++ lib.optional (withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
   buildInputs =
-    [ ncurses gconf libxml2 gnutls gettext jansson texinfo harfbuzz.dev ]
-    ++ lib.optionals stdenv.isLinux [ dbus libselinux systemd alsa-lib acl gpm ]
+    [ ncurses gconf libxml2 gnutls gettext jansson texinfo ]
+    ++ lib.optionals stdenv.isLinux [ dbus libselinux systemd alsa-lib acl gpm harfbuzz.dev ]
     ++ lib.optionals withX
       [ xlibsWrapper libXaw Xaw3d libXpm libpng libjpeg giflib libtiff libXft
         gconf cairo ]
@@ -205,6 +201,7 @@ let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalA
       # ImageCaptureCore GSS ImageIO
       AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit Security UniformTypeIdentifiers
       ImageCaptureCore GSS ImageIO   # may be optional
+      gmp.dev
     ]
     ++ lib.optionals stdenv.isDarwin [ sigtool ]
     ++ lib.optionals nativeComp [ libgccjit ];

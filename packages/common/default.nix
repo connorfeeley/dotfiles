@@ -20,13 +20,15 @@ final: prev: {
   svls-local = throw "use svls from nixpkgs; this is the flake-local derivation";
   svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";
 
-  emacs28Macport = final.callPackage ./emacs-macport/macport.nix {
+  emacs28Macport = final.darwin.apple_sdk_11_0.callPackage ./emacs-macport/macport.nix {
     withMacport = true;
     gconf = null;
-    inherit (final.darwin.apple_sdk.frameworks)
+    inherit (final.darwin.apple_sdk_11_0.frameworks)
       AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit Security UniformTypeIdentifiers
       ImageCaptureCore GSS ImageIO;
     inherit (final.darwin) sigtool;
+    inherit (final) gmp;
+    llvmPackages = final.llvmPackages_14;
   };
 
   ##: dotfield internals -------------------------------------------------------
