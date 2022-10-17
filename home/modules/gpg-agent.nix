@@ -235,10 +235,10 @@ in {
           "max-cache-ttl ${toString cfg.maxCacheTtl}"
           ++ optional (cfg.maxCacheTtlSsh != null)
           "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}"
-          ++ optional (cfg.pinentryFlavor != null) (
-            if (isDarwin && cfg.pinentryFlavor == "mac")
-            then "pinentry-program ${pkgs.pinentry_mac}/bin/pinentry"
-            else "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
+          ++ optional (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac")
+          "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry"
+          ++ optional (cfg.pinentryFlavor == "mac")
+          "pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac"
           ++ [ cfg.extraConfig ]);
 
       home.packages = optionals (cfg.pinentryFlavor != null) (
