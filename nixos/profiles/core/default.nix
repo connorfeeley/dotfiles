@@ -93,8 +93,18 @@ in {
     }
   ];
 
-  # Allow passwordless sudo within an SSH session.
-  security.pam.enableSSHAgentAuth = true;
+  security.pam = {
+    # Allow passwordless sudo within an SSH session.
+    enableSSHAgentAuth = true;
+
+    # Raise number of allowed open file descriptors
+    loginLimits = [{
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "8192"; # Default: 1024
+    }];
+  };
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 }
