@@ -71,12 +71,12 @@ in
 
   services = {
     redshift = {
-      enable = false;
+      enable = true;
       latitude = 43.70011;
       longitude = -79.4163;
     };
     dunst = {
-      enable = false;
+      enable = true;
       settings = {
         global = {
           font = "Iosevka Extended 22";
