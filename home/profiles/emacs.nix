@@ -104,8 +104,20 @@ lib.mkMerge [
         # }
         #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
         then emacs28Macport
-        #: isLinux: emacs 28
-        else emacsNativeComp;
+        #: isLinux: emacs 28 (w/ native comp)
+        else emacs.override {
+          inherit (pkgs)
+            # For withGTK3:
+            gtk3-x11
+            gsettings-desktop-schemas
+            # For withXwidgets:
+            webkitgtk
+            wrapGAppsHook
+            glib-networking
+          ;
+
+          withGTK3 = true;
+        };
         in emacs-pkg.override {
           withXwidgets = true;
           withSQLite3 = true;
