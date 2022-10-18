@@ -26,7 +26,7 @@
     # trippy # A network diagnostic tool
 
     ## === Local Development ===
-
+    reuse #: tool for compliance with the REUSE Initiative recommendations
     act # Run GitHub Actions locally
     asciinema
     circleci-cli
