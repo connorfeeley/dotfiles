@@ -2,10 +2,8 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
-}: let
-  inherit (config.lib) dotfield;
-in {
+}:
+lib.mkIf pkgs.stdenv.isDarwin {
   targets.darwin.search = "Google";
 }
