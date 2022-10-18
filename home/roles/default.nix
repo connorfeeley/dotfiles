@@ -66,6 +66,10 @@ with profiles; let
     darwin.search
   ];
 
+  hm-only = [
+    generic-linux
+  ];
+
   roles = {
     inherit
       developer
@@ -77,6 +81,7 @@ with profiles; let
       fpgadev
       security
       macos
+      hm-only
       ;
 
     workstation =
