@@ -155,7 +155,7 @@ in {
         pkgs.firefox-wayland.override {
           cfg = {
             # Gnome shell native connector
-            enableGnomeExtensions = moduleArgs.osConfig.services.gnome.chrome-gnome-shell.enable;
+            enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
             # Tridactyl native connector
             enableTridactylNative = true;
             # Buku bookmarking tool native connector
