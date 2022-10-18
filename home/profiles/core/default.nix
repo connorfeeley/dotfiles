@@ -125,4 +125,14 @@ in {
   };
 
   home.stateVersion = lib.mkForce "22.05";
+
+  programs.readline = {
+    enable = true;
+    includeSystemConfig = true;
+    bindings = { };
+    variables = {
+      editing-mode = "vi";
+      bell-style = "visible";
+    };
+  };
 }
