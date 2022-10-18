@@ -9,6 +9,7 @@ with profiles; let
     shells.fish
     ssh
     virtualisation.docker
+    nix-dram
   ];
 
   graphical = [
