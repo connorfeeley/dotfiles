@@ -47,7 +47,9 @@ in {
   programs.bat = {
     enable = true;
     config = {
-      theme = "base16-256";
+      # No line numbers or git indicators
+      style = "header";
+      theme = "TwoDark";
       map-syntax = [
         ".*ignore:Git Ignore"
         ".gitconfig.local:Git Config"
