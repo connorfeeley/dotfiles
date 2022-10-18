@@ -83,9 +83,11 @@ lib.mkMerge [
         font_size = if (isDarwin && isAarch64)
         then "12" #
         else "16";
+      } // lib.optionals isDarwin {
+        confirm_os_window_close = "1";
       };
       keybindings = {
-        # kitty_mod: ctrl+shift / command
+        # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos
         "kitty_mod+n" = "new_os_window_with_cwd";
         "ctrl+alt+enter" = "launch --cwd=current --location=neighbor";
         # Default: create new split
@@ -99,6 +101,11 @@ lib.mkMerge [
 
         # Change layouts
         "kitty_mod+l" = "next_layout";
+      } // lib.optionals isDarwin {
+        # Tried unbinding ⌘+w from close tab, but it doesn't seem to be taking.
+        # Enabled confirm_os_window_close on darwin as a stop-gap.
+        "ctrl+shift+w" = "no_op";
+        "kitty_mod+w" = "no_op";
       };
       font = {
         name = "Iosevka Extended";
