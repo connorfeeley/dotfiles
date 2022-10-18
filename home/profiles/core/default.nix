@@ -15,8 +15,6 @@ in {
     lnav #      <- Log file navigator
     glances #   <- System resource usage viewer
     drill #     <- Like dig
-    # FIXME: broken
-    # procs #     <- A modern replacement for ps.
 
     ## === `bat` and friends ===
     # A cat(1) clone with wings.
