@@ -65,13 +65,8 @@ in {
         addressFamily = "inet";
         forwardX11 = false;
         forwardX11Trusted = false;
-        serverAliveInterval = 300;
-        serverAliveCountMax = 2;
 
         extraOptions = {
-          ControlMaster = "auto";
-          ControlPersist = "yes";
-
           AddKeysToAgent = "yes";
           ChallengeResponseAuthentication = "no";
           PasswordAuthentication = "yes";
