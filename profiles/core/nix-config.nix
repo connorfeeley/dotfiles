@@ -21,7 +21,24 @@ in {
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       # FIXME: dangerous
       allowed-users = ["*"];
-      trusted-users = ["root" "@wheel" "@seadome"];
+      trusted-users = ["root" "@cfeeley"];
+
+      # Remote builders should fetch as many dependencies as possible,
+      # rather than waiting for the current host to upload them.
+      builders-use-substitutes = true; #: default: false
+
+      # Number of tail lines to print when a build fails
+      log-lines = 25; #: default: 10
+
+
+      # Automatically collect garbage if free space drops below 1GiB
+      min-free = 1024 * 1024 * 1024; #: default: -1
+      # Garbage collect up to 10GiB when min-free is triggered
+      max-free = 1024 * 1024 * 1024 * 10;
+
+      # Interesting!
+      # pre-build-hook = "";
+      # post-build-hook = "";
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
