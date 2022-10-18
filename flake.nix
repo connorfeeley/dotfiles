@@ -48,7 +48,9 @@
     };
 
     nix-dram = {
-      url = "github:dramforever/nix-dram";
+      # FIXME: remove when nix-dram supports nix 2.11
+      url = "github:pub-solar/nix-dram/rebase-nix-2.11.0";
+      # url = "github:dramforever/nix-dram";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
