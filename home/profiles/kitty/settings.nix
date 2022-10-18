@@ -47,6 +47,15 @@
   tab_activity_symbol = "߹";
   #: }}}
 
+  #: MacOS {{{
+  # Treat option as alt; however can't insert unicode characters with cmd+key.
+  macos_option_as_alt  = true;
+  # Save space by putting the title in the top menubar
+  # macos_show_window_title_in = "menubar";
+  # Hide the kitty window's title bar on macOS.
+  # macos_hide_titlebar = true;
+  #: }}}
+
   #: Advanced {{{
   allow_remote_control = true;
   listen_on = socket;
