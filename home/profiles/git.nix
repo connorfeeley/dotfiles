@@ -203,5 +203,10 @@ in {
     ];
   };
 
+  programs.gh = {
+    enable = true;
+    extensions = with pkgs; [ gh-dash ];
+  };
+
   xdg.configFile."git/templates".source = "${pkgs.dotfield-config}/git/templates";
 }
