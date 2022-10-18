@@ -81,10 +81,11 @@ lib.mkMerge [
       enable = true;
       settings = settings // colors // {
         font_size = if (isDarwin && isAarch64)
-        then "12" #
-        else "16";
-      } // lib.optionals isDarwin {
-        confirm_os_window_close = "1";
+                    then "12" #
+                    else "16";
+        confirm_os_window_close = if (isDarwin)
+                                  then "1"
+                                  else "0";
       };
       keybindings = {
         # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos
@@ -101,11 +102,6 @@ lib.mkMerge [
 
         # Change layouts
         "kitty_mod+l" = "next_layout";
-      } // lib.optionals isDarwin {
-        # Tried unbinding ⌘+w from close tab, but it doesn't seem to be taking.
-        # Enabled confirm_os_window_close on darwin as a stop-gap.
-        "ctrl+shift+w" = "no_op";
-        "kitty_mod+w" = "no_op";
       };
       font = {
         name = "Iosevka Extended";
@@ -114,7 +110,16 @@ lib.mkMerge [
         ${lib.optionalString hasPragPro pragmataProExtras}
       '';
     };
-
+  }
+  (lib.mkIf isDarwin {
+    programs.kitty.keybindings = {
+      # Tried unbinding ⌘+w from close tab, but it doesn't seem to be taking.
+      # Enabled confirm_os_window_close on darwin as a stop-gap.
+      "ctrl+shift+w" = "no_op";
+      "kitty_mod+w" = "no_op";
+    };
+  })
+  {
     xdg.configFile = {
       "kitty/base16-kitty".source = base16-kitty.outPath;
       "kitty/themes/dark.conf".text = mkTheme' "black-metal-khold";
