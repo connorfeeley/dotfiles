@@ -44,4 +44,8 @@ in {
 
   sops.defaultSopsFile = ../secrets/global.secrets.yaml;
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+
+  # sops.secrets.github-api-token = {
+  #   format = "yaml";
+  # };
 }
