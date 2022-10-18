@@ -7,6 +7,13 @@ moduleArgs @ {
   inherit (config.home) username;
   inherit (config.lib) dotfield;
 in {
+
+  # Include nix.conf.local (relative to nix.conf),
+  # but don't error out if it doesn't exist.
+  nix.extraOptions = ''
+    !include nix.conf.local
+  '';
+
   home.packages = with pkgs; [
     ## === Sysadmin ===
 
