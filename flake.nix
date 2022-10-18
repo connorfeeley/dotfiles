@@ -38,7 +38,9 @@
     prefmanager.url = "github:malob/prefmanager";
     nixos-generators.url = "github:nix-community/nixos-generators";
     nvfetcher.url = "github:berberman/nvfetcher";
-    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+    };
 
     digga = {
       url = "github:divnix/digga/home-manager-22.11";
