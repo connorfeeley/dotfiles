@@ -30,6 +30,12 @@
     wireshark
     sslsplit
     rustscan
+
+    ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
+    maigret
+    metabigor
+    socialscan #: CLI for querying username and email usage on online platforms
+    poppler_utils # pdf rendering tools
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     ## === Reverse Engineering ===
     (binwalk.override { visualizationSupport = true; })
@@ -46,14 +52,10 @@
 
     ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
     cloudbrute
-    maigret
-    metabigor
     p0f
     sn0int #: semi-automatic OSINT framework and package manager
     urlhunter #: a recon tool that allows searching on URLs that are exposed via shortener services
-    socialscan #: CLI for querying username and email usage on online platforms
     theharvester #: E-mails, subdomains and names harvester
-    poppler_utils # pdf rendering tools
 
     ## === Passwords ===
     thc-hydra
