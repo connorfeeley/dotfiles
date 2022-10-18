@@ -35,6 +35,15 @@ in {
     gitAndTools.tig
     gitAndTools.git-crypt
     gitAndTools.git-standup
+    gitAndTools.git-review #: tool to submit code to Gerrit
+    nodePackages.git-run #: 'gr': a tool for managing multiple git repositories (github:mixu/gr)
+
+    # gitAndTools.git-big-picture #: visualize Git repositories
+
+    # # Other potentially interesting packages:
+    # gitAndTools.git-machete #: github:VirtusLab/git-machete
+    # gitAndTools.gita #: github:nosarthur/gita
+    # gitAndTools.gitleaks #: github:zricethezav/gitleaks
 
     # Identify the largest files in a git repo's history.
     #
