@@ -21,7 +21,7 @@ in {
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       # FIXME: dangerous
       allowed-users = ["*"];
-      trusted-users = ["root" "@cfeeley"];
+      trusted-users = ["root" "cfeeley"];
 
       # Remote builders should fetch as many dependencies as possible,
       # rather than waiting for the current host to upload them.
