@@ -42,7 +42,7 @@ lib.mkMerge [
       # DOOMPROFILE = "doom";
 
       # NOTE: doom is picky about having the trailing slash
-      DOOMDIR = "${configHome}/doom/";
+      DOOMDIR = "${config.home.homeDirectory}/source/doom";
 
       # local state :: built files, dependencies, etc.
       # TODO: may no longer be necessary with doom profiles. re-evaluated.
