@@ -27,8 +27,6 @@ with profiles; let
   ];
 
   personalised = [
-    apple-music
-    espanso
     misc
     newsboat
     obs-studio
@@ -44,9 +42,6 @@ with profiles; let
   trusted = [
     gpg
     mail
-    # FIXME(darwin): broken
-    # promnesia
-    secrets.one-password
     secrets.password-store
     yubikey
     work
@@ -55,8 +50,6 @@ with profiles; let
   webdev = [
     aws
     nodejs
-    development.php
-    development.wordpress
   ];
 
   fpgadev = [
@@ -65,6 +58,12 @@ with profiles; let
 
   security = [
     security-tools
+  ];
+
+  macos = [
+    virtualisation.podman
+
+    darwin.search
   ];
 
   roles = {
@@ -77,6 +76,7 @@ with profiles; let
       webdev
       fpgadev
       security
+      macos
       ;
 
     workstation =
