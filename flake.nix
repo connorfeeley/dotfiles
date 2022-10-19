@@ -80,7 +80,6 @@
     deadnix = {
       url = "github:astro/deadnix/refs/tags/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.fenix.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     comma = {
