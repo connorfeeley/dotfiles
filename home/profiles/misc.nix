@@ -12,6 +12,7 @@
     hyperfine
     mosh
     sd # Modern sed replacement
+    libreoffice
 
     ## === System Tools ===
     procs # pspspspsps
