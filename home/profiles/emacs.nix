@@ -142,7 +142,6 @@ lib.mkMerge [
     };
 
     home.packages = with pkgs; [
-      hunspell
       python3Packages.pylatexenc
 
       # Emacsclient wrapper
@@ -200,12 +199,14 @@ lib.mkMerge [
       ##: === writing ===
 
       # :checkers spell
-      (aspellWithDicts (ds:
-        with ds; [
+      (aspellWithDicts (ds: with ds; [
           en
           en-computers
           en-science
-        ]))
+      ]))
+      (hunspellWithDicts (with hunspellDicts; [
+          hunspellDicts.en-ca-large
+      ]))
       languagetool
 
       ##: === lang/lsp ===
