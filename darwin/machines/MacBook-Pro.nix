@@ -18,6 +18,13 @@ in
   dotfield.guardian.enable = true;
   dotfield.guardian.username = "cfeeley";
 
+  # FIXME: revisit setting uid and gid to 1000 on MacOS
+  # Too scared to enable it right now...
+  # users.users.cfeeley = {
+  #   uid = 1000;
+  #   gid = 1000;
+  # };
+
   home-manager.users = {
     cfeeley = hmArgs: {
       imports = with hmArgs.roles; workstation ++ macos ;
