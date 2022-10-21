@@ -16,6 +16,7 @@ with profiles; let
     # desktop.gnome
     desktop.xmonad
     desktop.gui
+    desktop.word-processing
     firefox
     chromium
     foot
