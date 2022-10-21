@@ -41,6 +41,7 @@ in {
     mas
     terminal-notifier
     darwin.trash
+    darwin.lsusb # lsusb for MacOS
 
     # A tool for managing macOS defaults.
     # https://github.com/malob/prefmanager
