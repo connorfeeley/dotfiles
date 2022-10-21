@@ -90,8 +90,8 @@ lib.mkMerge [
         fi
 
         # Checkout pinned SHA
-        git -C ${emacsDir} fetch
-        git -C ${emacsDir} reset --hard ${doomRepoRev}
+        ${git} -C ${emacsDir} fetch
+        ${git} -C ${emacsDir} reset --hard ${doomRepoRev}
       '';
 
     programs.emacs = {
