@@ -36,6 +36,9 @@ in {
       # Garbage collect up to 10GiB when min-free is triggered
       max-free = 1024 * 1024 * 1024 * 10;
 
+      # Default commit message for 'nix flake update --commit-lock-file'
+      commit-lockfile-summary = "chore(flake): update lock";
+
       # Interesting!
       # pre-build-hook = "";
       # post-build-hook = "";
