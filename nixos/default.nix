@@ -39,34 +39,6 @@ in {
         virtualisation.vm-variant
         workstations.flatpak
       ]);
-
-    hodgepodge.modules =
-      (with roles; graphical ++ tangible ++ workstation)
-      ++ (with profiles; [
-        hidpi
-        login.gdm
-        office
-      ]);
-
-    hierophant.modules = with profiles; [
-      environments.hetzner-cloud
-      # TODO: remove, and use the suite or whatever
-      # networking.tailscale
-    ];
-
-    ryosuke.modules =
-      (with roles; graphical ++ tangible ++ webdev ++ workstation)
-      ++ (with profiles; [
-        boot.systemd-boot
-        hardware.amd
-        login.gdm
-        # login.greetd
-        # virtualisation.vm-variant
-      ]);
-
-    tsone.modules =
-      (with roles; server)
-      ++ (with profiles; [hardware.amd]);
   };
 
   hostDefaults = {
