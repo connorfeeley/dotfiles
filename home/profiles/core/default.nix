@@ -81,6 +81,10 @@ in {
   programs.pandoc.enable = true;
   programs.tealdeer.enable = true;
 
+  home.enableDebugInfo = true;
+  home.enableNixpkgsReleaseCheck = true;
+  manual.manpages.enable = true;
+
   home.extraOutputsToInstall = ["/share/zsh"];
 
   home.sessionVariables = {
