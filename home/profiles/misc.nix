@@ -35,8 +35,6 @@
     tokei # Fancy wordcount for programmers
 
     ## === Nix Development ===
-    fup-repl
-
     nickel
 
     nix-tree
