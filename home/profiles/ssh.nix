@@ -11,7 +11,7 @@ moduleArgs @ {
 in {
   programs.ssh = {
     enable = true;
-    forwardAgent = false;
+    forwardAgent = false; # SSH agent forwarding must be disabled to use gpg-agent forwarding
     serverAliveInterval = 5;
     serverAliveCountMax = 2;
     compression = false; # Slow
@@ -23,19 +23,19 @@ in {
     matchBlocks = {
       "workstation" = {
         forwardX11Trusted = true;
-        compression = false;
-        extraOptions = {
-          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/cfeeley/.gnupg/S.gpg-agent.extra";
-          SendEnv = "DISPLAY INSIDE_EMACS";
-        };
+        remoteForwards = [{
+          bind.address = "/run/user/1000/gnupg/S.gpg-agent";
+          host.address = "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
+        }];
+        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS";
       };
       "macbook-pro" = {
         forwardX11Trusted = true;
-        compression = false;
-        extraOptions = {
-          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/cfeeley/.gnupg/S.gpg-agent.extra";
-          SendEnv = "DISPLAY INSIDE_EMACS";
-        };
+        remoteForwards = [{
+          bind.address = "/Users/cfeeley/.gnupg/S.gpg-agent";
+          host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
+        }];
+        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS";
       };
       "cfeeley-laptop" = {
         hostname = cfeeley-laptop.ipv4.address;
