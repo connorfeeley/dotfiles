@@ -29,6 +29,7 @@ final: prev: {
     inherit (final.darwin) sigtool;
     inherit (final) gmp;
     llvmPackages = final.llvmPackages_14;
+    stdenv = final.impureUseNativeOptimizations final.darwin.apple_sdk_11_0.stdenv;
   };
 
   ##: dotfield internals -------------------------------------------------------
