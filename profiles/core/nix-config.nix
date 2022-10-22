@@ -23,6 +23,10 @@ in {
       allowed-users = ["*"];
       trusted-users = ["root" "cfeeley"];
 
+      # Prevent shells from being automatically garbage-collected
+      keep-outputs = true;
+      keep-derivations = true;
+
       # Remote builders should fetch as many dependencies as possible,
       # rather than waiting for the current host to upload them.
       builders-use-substitutes = true; #: default: false

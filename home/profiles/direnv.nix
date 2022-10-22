@@ -22,11 +22,5 @@
     };
   };
 
-  # Prevent shells from being garbage-collected
-  nix.settings = {
-    keep-outputs = true;
-    keep-derivations = true;
-  };
-
   xdg.configFile."direnv/direnvrc".source = "${pkgs.dotfield-config}/direnv/direnvrc";
 }
