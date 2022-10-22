@@ -12,6 +12,7 @@ in {
 
   home.packages = with pkgs; [
     zsh
+    pure-prompt
   ];
 
   # Must be disabled for emacs-vterm integration to work.
@@ -148,7 +149,14 @@ in {
       source ${pkgs.dotfield-config}/zsh/functions.zsh
       source ${pkgs.dotfield-config}/zsh/options.zsh
 
-      eval "$(${pkgs.starship}/bin/starship init zsh)"
+      ### Starship
+      # eval "$(${pkgs.starship}/bin/starship init zsh)"
+
+      ### Pure
+      autoload -U promptinit; promptinit
+	    PURE_PROMPT_SYMBOL="λ"
+	    prompt pure
+
 
       # Use vi-mode when:
       # - TERM is not dumb (which it is over TRAMP)
