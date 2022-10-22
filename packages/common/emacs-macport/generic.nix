@@ -161,6 +161,7 @@ let emacs = (if withMacport then stdenv else stdenv).mkDerivation (lib.optionalA
     CC=/usr/bin/clang
 
     configureFlagsArray+=(
+      # CFLAGS="-DMAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_11_0 -DMAC_OS_X_VERSION_MIN_REQUIRED=MAC_OS_X_VERSION_11_0"
       LDFLAGS="-L${libgccjit}/lib"
       CPPFLAGS="-isystem ${libgccjit}/include"
     )
