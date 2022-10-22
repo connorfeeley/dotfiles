@@ -1,7 +1,7 @@
 # https://github.com/numtide/treefmt/wiki
 
 [formatter.nix]
-command = "alejandra"
+command = "nixpkgs-fmt"
 includes = ["*.nix"]
 
 [formatter.prettier]
