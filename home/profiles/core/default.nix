@@ -73,6 +73,8 @@ in {
   programs.fish.enable = true;
   programs.zsh.enable = true;
 
+  nix.package = pkgs.nix;
+
   programs.bat = {
     enable = true;
     config = {
