@@ -60,6 +60,8 @@ in {
     sshfs
   ];
 
+  programs.bandwhich.enable = true;
+
   programs.git.enable = true;
   programs.git.config = {
     safe.directory = [

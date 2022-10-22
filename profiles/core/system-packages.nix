@@ -16,7 +16,6 @@ in {
     hlissner-hey
 
     ## === Essentials ===
-
     bashInteractive
     bat
     binutils
@@ -34,7 +33,6 @@ in {
     grc
     jq
     less
-    moreutils
     openssh
     openssl
     ripgrep
@@ -44,40 +42,9 @@ in {
     vim
 
     ## === Network ===
-
     curl
     nmap
     wget
     whois
-
-    ## === Files ===
-
-    chafa #    <- "terminal graphics for the 21st century"
-    dua #      <- quick disk usage
-    ncdu #     <- dua with more ncurses
-    file
-    glow #     <- a markdown cli renderer (by charmbracelet)
-    hexyl #    <- a command-line hex viewer
-    mediainfo
-    unzip
-
-    # I'm not a fan of broot's keybindings at all... they don't seem to fit any
-    # existing paradigm that I've encountered, and many of the defaults seem
-    # counterintuitive, undesirable, or inconvenient. Not that I expect
-    # everything to "just work", but this feels like a red flag. I'm leaving
-    # this here as a note to self because I keep re-installing it...
-    # broot #    <- like tree, but in rust
-
-    ## === Nix Helpers ===
-
-    # FIXME: most of these should be removed for servers / non-dev machines
-
-    alejandra # The Uncompromising Nix Code Formatter
-    cachix
-    fup-repl
-    manix # nix documentation search
-    nix-diff # Explain why two Nix derivations differ
-    nix-tree # Interactively browse dependency graphs of Nix derivations.
-    nvfetcher-bin # Generate nix sources expression for the latest version of packages
   ];
 }
