@@ -21,7 +21,7 @@
 
   inherit
     (packages)
-    alejandra
+    nixpkgs-fmt
     cachix
     editorconfig-checker
     nixUnstable
@@ -73,7 +73,7 @@ in {
         command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
       })
 
-      (formatter alejandra)
+      (formatter nixpkgs-fmt)
       (formatter prettier)
       (formatter shfmt)
 
