@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
     hyperfine   # <- Command-line benchmarking tool
-    chronologer # <- Visualize changes in benchmark timings over git history
+    # chronologer # <- Visualize changes in benchmark timings over git history
 
     ## === Local Development ===
     reuse #           <- Tool for licensing compliance
@@ -40,7 +40,7 @@
     yamllint
     statix
     deadnix
-    nixpkg-fmt
+    nixpkgs-fmt
     nixfmt
     alejandra
     cachix
