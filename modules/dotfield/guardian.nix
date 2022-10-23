@@ -6,7 +6,6 @@
   ...
 }: let
   inherit (lib.types) nullOr str submodule;
-  inherit (pkgs.lib.our) mkOpt mkOpt' mkBoolOpt;
 
   cfg = config.dotfield.guardian;
 in {
