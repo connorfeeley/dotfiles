@@ -53,6 +53,10 @@ in {
     (lib.optionalString config.programs.zsh.enable "/share/zsh")
   ];
 
+  time = {
+    timeZone = lib.mkDefault "America/Toronto";
+  };
+
   programs.zsh = {
     enable = lib.mkDefault true;
     enableCompletion = true;

@@ -34,7 +34,6 @@ in {
   ### === timezone ============================================================
 
   time = {
-    timeZone = "America/Toronto";
     hardwareClockInLocalTime = true;
   };
   environment.sessionVariables.TZ = "${config.time.timeZone}";
