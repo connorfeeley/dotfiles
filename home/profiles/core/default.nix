@@ -9,8 +9,9 @@ moduleArgs @ {
 in {
   home.packages = with pkgs; [
     ## === Helpful Utilities ===
-    comma #     <= Runs programs without installing them
-    tealdeer #  <- A very fast implementation of tldr in Rust.
+    comma #              <- Runs programs without installing them
+    tealdeer #           <- A very fast implementation of tldr in Rust.
+    nix-output-monitor # <- Pretty nix { build, shell, develop }
 
     ## === Moreutils ===
     # Includes, of note:
