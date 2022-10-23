@@ -12,11 +12,6 @@
   };
   outputs = { self, flake-utils, nixpkgs, xmonad, xmonad-contrib }:
   let
-    supportedSystems = with flake-utils.lib.system; [
-      x86_64-linux
-      aarch64-linux
-    ];
-
     overlay = (final: prev: {
       haskellPackages = prev.haskellPackages.override (old: {
         overrides = prev.lib.composeExtensions (old.overrides or (_: _: {})) (self: super: rec {
@@ -27,7 +22,7 @@
       });
     });
     overlays = [ overlay xmonad.overlay xmonad-contrib.overlay ];
-  in flake-utils.lib.eachSystem supportedSystems (system:
+  in flake-utils.lib.eachDefaultSystem (system:
   let pkgs = import nixpkgs { inherit system overlays; config.allowBroken = true; };
   in
   rec {

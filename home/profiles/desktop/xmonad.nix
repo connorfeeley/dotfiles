@@ -1,10 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.modules.desktop.xmonad;
-in
-(lib.mkIf pkgs.stdenv.isLinux {
+(lib.mkIf (!pkgs.stdenv.isDarwin) {
   home.packages = with pkgs; [
     dmenu
     haskellPackages.xmobar
@@ -17,8 +14,8 @@ in
       nlSupport = true;
     })
 
-    xmonad-config
-    haskellPackages.xmobar-config
+    # xmonad-config
+    # haskellPackages.xmobar-config
 
     redshift
     xorg.xbacklight
@@ -43,14 +40,14 @@ in
     x11.enable = true;
   };
 
-  xdg.configFile = {
-    "plasma-workspace/env/set_window_manager.sh" = {
-      executable = true;
-      text = ''
-        export KDEWM="${pkgs.xmonad-config}/bin/xmonad"
-      '';
-    };
-  };
+  # xdg.configFile = {
+  #   "plasma-workspace/env/set_window_manager.sh" = {
+  #     executable = true;
+  #     text = ''
+  #       export KDEWM="${pkgs.xmonad-config}/bin/xmonad"
+  #     '';
+  #   };
+  # };
   programs.xmobar = {
     enable = true;
   };
@@ -63,8 +60,8 @@ in
       enable = true;
       enableContribAndExtras = true;
       extraPackages = haskellPackages: with haskellPackages; [
-        pkgs.xmonad-config
-        xmobar-config
+        # pkgs.xmonad-config
+        # xmobar-config
       ];
     };
   };

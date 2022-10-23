@@ -286,13 +286,13 @@
 
         amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
 
-        xmonad-config = xmonad-config.packages.${prev.system}.default;
-        xmonad = xmonad-config.packages.${prev.system}.default;
+        xmonad-config = xmonad-config.packages.${final.system}.default;
+        xmonad = xmonad-config.packages.${final.system}.default;
 
-        nix-json-progress = nix-json-progress.packages.${prev.system}.nix-json-progress;
+        nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
 
-        dashboard = nixpkgs-work.packages.${prev.system}.dashboard;
-        zeuspack = nixpkgs-work.packages.${prev.system}.zeuspack;
+        dashboard = nixpkgs-work.packages.${final.system}.dashboard;
+        zeuspack = nixpkgs-work.packages.${final.system}.zeuspack;
       })
     ];
   in

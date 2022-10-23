@@ -43,9 +43,7 @@
     alejandra
     cachix
     treefmt
-  ] ++ (lib.optionals pkgs.stdenv.isLinux [
-    sourcetrail # <- Rest in peace sourcetrail, the best C++ exploration tool ever to live.
-  ]);
+  ];
 
   fonts.fontconfig.enable = true;
 }

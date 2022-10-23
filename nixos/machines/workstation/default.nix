@@ -133,7 +133,7 @@ in {
   };
 
   home-manager.users = {
-    cfeeley = hmArgs: {imports = with hmArgs.roles; workstation;};
+    cfeeley = hmArgs: {imports = with hmArgs.roles; workstation ++ linux;};
   };
 
   programs.htop.enable = true;

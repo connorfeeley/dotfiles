@@ -62,7 +62,8 @@ with profiles; let
   ];
 
   linux = [
-    nixos # xmonad
+    desktop.xmonad
+    nixos.development.tools
   ];
 
   macos = [

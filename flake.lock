@@ -3057,7 +3057,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-HHF/3+6PhUYZhsG3J91xGMuqdcHHNKJWhECBMvUR+ho=",
+        "narHash": "sha256-p2ENjdrx/iuck3UZcqPLaSS3/TnbRAmavKE5d1cCly0=",
         "path": "config/xmobar",
         "type": "path"
       },
