@@ -1,0 +1,47 @@
+* Table of Contents
+1. [[*Useful Commands][Useful Commands]]
+   1. [[#build-debian-vm][Build =debian-vm= system (inside VM)]]
+   2. [[#deploy-rs-build][=deploy-rs=: build =debian-vm= in QEMU]]
+
+* Useful Commands
+
+** Debug Nix Evaluation Errors
+
+*** On Linux
+
+#+begin_src shell :noeval
+nix --print-build-logs build ~/.config/dotfield#nixosConfigurations.workstation.config.system.build.toplevel --debugger --ignore-try
+#+end_src
+
+*** On Darwin
+
+#+begin_src shell :noeval
+nix --print-build-logs build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel --debugger --ignore-try
+#+end_src
+
+** Build =debian-vm= system (inside VM)
+#+begin_example
+fnix build ~/.config/dotfield#homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm".activationPackage --show-trace
+
+./result/bin/home-manager-generation
+#+end_example
+
+** =deploy-rs=: build =debian-vm= in QEMU
+#+begin_example
+deploy --skip-checks .#debian-vm -- --print-build-logs --show-trace
+#+end_example
+
+** Handy ~numtide/deveshell~ functions
+
+Credit: [[https://github.com/montchr/dotfield/blob/8a61b8fe37cc3d3186ac8728363d7977fea6ff6e/devShells/default.nix#L46][github:montchr/dotfield]]
+#+begin_src nix
+withCategory = category: attrset: attrset // { inherit category; };
+pkgWithCategory = category: package: { inherit package category; };
+#+end_src
+
+* Emacs Remote
+
+#+begin_src emacs-lisp
+(load "server")
+(unless (server-running-p) (server-start))
+#+end_src
