@@ -366,7 +366,10 @@
 
       devshell = ./shell;
 
-      homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
+      homeConfigurations = digga.lib.mergeAny
+        (digga.lib.mkHomeConfigurations self.darwinConfigurations)
+        (digga.lib.mkHomeConfigurations self.nixosConfigurations)
+      ;
 
       deploy.nodes = digga.lib.mkDeployNodes { } {
         # workstation = with (collective.peers.hosts.workstation); {

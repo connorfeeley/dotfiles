@@ -15,7 +15,6 @@ with profiles; let
   graphical = [
     desktop.common
     # desktop.gnome
-    desktop.xmonad
     desktop.gui
     desktop.word-processing
     firefox
@@ -62,6 +61,10 @@ with profiles; let
     security-tools
   ];
 
+  linux = [
+    nixos # xmonad
+  ];
+
   macos = [
     virtualisation.podman
 
@@ -78,6 +81,7 @@ with profiles; let
       webdev
       fpgadev
       security
+      linux
       macos
       ;
 

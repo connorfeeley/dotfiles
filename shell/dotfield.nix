@@ -72,6 +72,11 @@ in {
         help = "Check Nix parsing";
         command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
       })
+      (utils {
+        name = "watch-flake";
+        help = "Continuously check flake";
+        command = "fd . --extension=nix | entr -arc nix flake check";
+      })
 
       (formatter nixpkgs-fmt)
       (formatter prettier)

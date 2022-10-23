@@ -4,14 +4,13 @@
 , ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
+  inherit (pkgs.stdenv) isLinux isDarwin;
 
   # Libreoffice is broken on darwin; while libreoffice-bin is darwin-only.
   # Select the correct package depending on the host system.
   libreofficePackage = with pkgs;
-    if isLinux then libreoffice
-    else if isDarwin then libreoffice-bin #
-    else throw "Unsupported hostPlatform";
+    if isDarwin then libreoffice-bin
+    else libreoffice;
 in
 {
   home.packages = [ libreofficePackage ];

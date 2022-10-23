@@ -3104,11 +3104,11 @@
         "xmonad-contrib": "xmonad-contrib_2"
       },
       "locked": {
-        "lastModified": 1664251200,
-        "narHash": "sha256-QXZtgKNdJHHSa1NSmjeMb4NrCbgAAzH3REHmkcb786I=",
+        "lastModified": 1666573838,
+        "narHash": "sha256-d9AsnPSUGIFTxsl1ukD/WvKLER8ktp2kz7O+CbG8ocM=",
         "ref": "refs/heads/master",
-        "rev": "aa12b55450fea674908214dee0ffbf0154aeec8c",
-        "revCount": 15,
+        "rev": "3627b1ffe3c713b5e1ebcc72410466ab62f1ef8b",
+        "revCount": 17,
         "type": "git",
         "url": "https://git.sr.ht/~cfeeley/xmonad-config"
       },

@@ -7,7 +7,7 @@
   inherit (config.networking) hostName;
   hostNet =
     (lib.our.peers.getHost hostName).network
-    or (config.nixos-vm.peerConfig).network;
+    or (config.nixos-vm.peerConfig).network or null;
 in
   lib.mkMerge [
     {

@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.modules.desktop.xmonad;
 in
-(lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+(lib.mkIf pkgs.stdenv.isLinux {
   home.packages = with pkgs; [
     dmenu
     haskellPackages.xmobar

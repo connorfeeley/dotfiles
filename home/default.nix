@@ -27,18 +27,18 @@ in {
 
   importables = {inherit peers profiles roles;};
 
-  users = {
-    "cfeeley@debian-vm" = hmArgs: {
+  users = let
+    fieldOps = name: hmArgs: {
       imports = with hmArgs.roles;
         developer ++ remote;
-      home.username = hmArgs.lib.mkForce "cfeeley";
-      home.homeDirectory = hmArgs.lib.mkForce "/home/cfeeley";
+      home = rec {
+        username = hmArgs.lib.mkForce name;
+        homeDirectory = hmArgs.lib.mkForce "/home/${name}";
+        stateVersion = "22.05";
+      };
     };
-    "cfeeley@cfeeley-laptop" = hmArgs: {
-      imports = with hmArgs.roles;
-        developer ++ remote;
-      home.username = hmArgs.lib.mkForce "cfeeley";
-      home.homeDirectory = hmArgs.lib.mkForce "/home/cfeeley";
-    };
+  in {
+    "cfeeley@debian-vm" = fieldOps "cfeeley";
+    "cfeeley@cfeeley-laptop" = fieldOps "cfeeley";
   };
 }

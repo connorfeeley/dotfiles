@@ -3,8 +3,6 @@
 , pkgs
 , ...
 }: {
-  # FIXME: most of these should NOT be considered part of "core"
-  # most don't belong on a server, etc.
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
     hyperfine   # <- Command-line benchmarking tool
@@ -50,11 +48,4 @@
   ]);
 
   fonts.fontconfig.enable = true;
-
-  # TODO: check these out
-  # services.etebase = {};
-  # services.etebase.sync = {};
-  # services.flameshot = {};
-  # services.hound = ...
-  # programs.ncspot = {}; # spotify thingy
 }
