@@ -19,6 +19,24 @@ nix --print-build-logs build ~/.config/dotfield#nixosConfigurations.workstation.
 nix --print-build-logs build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel --debugger --ignore-try
 #+end_src
 
+** Fetch flake over ssh
+
+#+begin_src shell
+darwin-rebuild switch --print-build-logs --flake git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield
+#+end_src
+
+***  Build ~MacBook-Pro~ configuration
+
+#+begin_src shell
+nom build git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel
+#+end_src
+
+*** Run checks
+
+#+begin_src shell
+nix flake check git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield
+#+end_src
+
 ** Build =debian-vm= system (inside VM)
 #+begin_example
 fnix build ~/.config/dotfield#homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm".activationPackage --show-trace
