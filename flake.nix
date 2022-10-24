@@ -286,8 +286,10 @@
 
         amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
 
-        xmonad-config = xmonad-config.packages.${final.system}.default;
         xmonad = xmonad-config.packages.${final.system}.default;
+        xmonad-config = xmonad-config.packages.${final.system}.default;
+        xmobar = xmobar-config.defaultPackage.${final.system};
+        xmobar-config = xmobar-config.defaultPackage.${final.system};
 
         nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
 
