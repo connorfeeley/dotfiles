@@ -29,7 +29,7 @@ in {
     enableCompletion = true;
     enableSyntaxHighlighting = true;
     enableAutosuggestions = true;
-    enableVteIntegration = true;
+    enableVteIntegration = false;
 
     defaultKeymap = "emacs"; # One of "emacs", "vicmd", "viins"
 
