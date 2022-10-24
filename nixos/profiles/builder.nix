@@ -33,7 +33,7 @@ lib.mkMerge [
           sshUser = config.dotfield.guardian.username;
           # "8 laptop cores times 1" seems like a reasonable relative speed factor.
           speedFactor = 8;
-          supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+          supportedFeatures = [ ];
         }
       ];
     };
