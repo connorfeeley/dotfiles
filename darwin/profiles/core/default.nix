@@ -61,9 +61,7 @@ in {
     onActivation.cleanup = "zap";
     global.lockfiles = true;
 
-    masApps = {
-      "Tailscale" = 1475387142;
-    };
+    masApps = { };
     brews = [ ];
   };
   # Used for backwards compatibility, please read the changelog before changing.
