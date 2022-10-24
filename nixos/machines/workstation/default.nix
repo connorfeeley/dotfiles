@@ -136,6 +136,10 @@ in {
     cfeeley = hmArgs: {imports = with hmArgs.roles; workstation ++ linux;};
   };
 
+
+  # Ensure my xmonad and xmobar configs are available
+  environment.systemPackages = with pkgs; [ xmonad-config xmobar-config ];
+
   programs.htop.enable = true;
   programs.steam.enable = true;
 }
