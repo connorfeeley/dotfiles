@@ -5,7 +5,7 @@
 }:
 {
   services.tailscale = {
-    enable = true;
+    enable = false;
     magicDNS.enable = true;
     domain = "connorfeeley.github";
   };
