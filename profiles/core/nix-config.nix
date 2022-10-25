@@ -6,7 +6,6 @@
 }: let
   substituters = [
     "https://cache.nixos.org/"
-    "https://dotfield.cachix.org"
     "https://nix-community.cachix.org"
     "https://nixpkgs-wayland.cachix.org"
     "https://cache.iog.io"
