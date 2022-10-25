@@ -195,17 +195,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1666614183,
-        "narHash": "sha256-R5+bCtUquwSfQmRBbCYc6FT6xtCaAebh0KE187e8458=",
-        "owner": "LnL7",
+        "lastModified": 1666716841,
+        "narHash": "sha256-tDfZxtu2dfXe3snjeY6j1ic3DWLm154xD6nBbzN2OcE=",
+        "owner": "~cfeeley",
         "repo": "nix-darwin",
-        "rev": "0f90e1c34caedd0bf765ebe47b92dd1ceffafcc8",
-        "type": "github"
+        "rev": "77a0628e0c5b5723af0412cf52975f60f01e5812",
+        "type": "sourcehut"
       },
       "original": {
-        "owner": "LnL7",
+        "owner": "~cfeeley",
+        "ref": "ventura-font-workaround",
         "repo": "nix-darwin",
-        "type": "github"
+        "type": "sourcehut"
       }
     },
     "deadnix": {
