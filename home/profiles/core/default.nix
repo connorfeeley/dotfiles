@@ -66,6 +66,7 @@ in {
     bat-extras.prettybat #  <- Pretty-print source code and highlight it with bat.
 
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
+    psmisc #    <- Useful utilities that use the proc filesystem
     kmon      # <- Kernel manager and activity monitor
     systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
     sysz #      <- fzf-style systemd TUI
