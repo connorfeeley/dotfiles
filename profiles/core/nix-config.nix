@@ -27,6 +27,9 @@ in {
       keep-outputs = true;
       keep-derivations = true;
 
+      # The  number  of  seconds a downloaded tarball is considered fresh.
+      tarball-ttl = 3600 * 12;
+
       # Remote builders should fetch as many dependencies as possible,
       # rather than waiting for the current host to upload them.
       builders-use-substitutes = true; #: default: false
