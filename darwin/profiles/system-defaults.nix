@@ -32,6 +32,18 @@
   #   closeViewZoomFollowsFocus = true;
   # };
 
+  # Set arbitrary defaults
+  system.defaults.CustomUserPreferences = {
+    "com.apple.dock" = {
+      "slow-motion-allowed" = true;
+    };
+
+    # Don't litter. (disable .DS_Store file creation)
+    "com.apple.desktopservices" = {
+      "DSDontWriteNetworkStores" = true;
+    };
+  };
+
   system.defaults.smb = {
     NetBIOSName = config.networking.hostName;
     ServerDescription = config.networking.hostName;
@@ -134,8 +146,8 @@
 
   system.defaults.dock = {
     autohide = true;
-    autohide-delay = 0.0;
-    autohide-time-modifier = 0.0;
+    autohide-delay = 0.1;
+    autohide-time-modifier = 0.1;
     dashboard-in-overlay = false;
     enable-spring-load-actions-on-all-items = false;
     expose-animation-duration = 0.1;
