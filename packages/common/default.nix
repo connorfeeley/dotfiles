@@ -44,4 +44,21 @@ final: prev: {
   };
 
   ##: third-party scripts ------------------------------------------------------
+
+  # darwin-rebuild =
+  # let
+  #   extraPath = lib.makeBinPath [ config.nix.package pkgs.coreutils pkgs.jq pkgs.git ];
+  #   writeProgram = name: env: src:
+  #     pkgs.substituteAll ({
+  #       inherit name src;
+  #       dir = "bin";
+  #       isExecutable = true;
+  #     } // env);
+  # in writeProgram "darwin-rebuild"
+  #   {
+  #     inherit (config.system) profile;
+  #     inherit (stdenv) shell;
+  #     path = "${extraPath}:${config.environment.systemPath}";
+  #   }
+  #   ./darwin-rebuild.sh;
 }
