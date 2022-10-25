@@ -46,6 +46,7 @@ with profiles; let
     secrets.password-store
     yubikey
     work
+    sync
   ];
 
   webdev = [
