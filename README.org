@@ -37,6 +37,12 @@ nom build git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield#darwinCon
 nix flake check git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield
 #+end_src
 
+** Pretty build
+
+#+begin_src shell
+nom build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel
+#+end_src
+
 ** Build =debian-vm= system (inside VM)
 #+begin_example
 fnix build ~/.config/dotfield#homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm".activationPackage --show-trace
