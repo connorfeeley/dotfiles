@@ -74,6 +74,7 @@
     "steam"
     "spotify"
     "deluge"
+    "roku-remote-tool"
   ];
 
   homebrew.masApps = {
