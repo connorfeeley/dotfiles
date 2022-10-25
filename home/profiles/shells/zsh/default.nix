@@ -148,6 +148,18 @@ in {
       source ${pkgs.dotfield-config}/zsh/functions.zsh
       source ${pkgs.dotfield-config}/zsh/options.zsh
 
+      ### zsh-notify config
+      zstyle ':notify:*' error-title "Command failed"
+      zstyle ':notify:*' success-title "Command finished"
+      zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
+      zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
+      zstyle ':notify:*' command-complete-timeout 15
+      zstyle ':notify:*' app-name sh
+      zstyle ':notify:*' expire-time 2500
+      zstyle ':notify:*' blacklist-regex 'find|git'
+      zstyle ':notify:*' enable-on-ssh yes
+
+
       ### Starship
       # eval "$(${pkgs.starship}/bin/starship init zsh)"
 
