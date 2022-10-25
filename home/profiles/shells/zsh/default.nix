@@ -111,13 +111,12 @@ in {
         };
       }
       {
-        # will source zsh-autosuggestions.plugin.zsh
-        name = "zlong_alert";
+        name = "zsh-notify";
         src = pkgs.fetchFromGitHub {
-          owner = "kevinywlui";
-          repo = "zlong_alert.zsh";
-          rev = "d4635c099e158bb134f266d1b6e36c726586bfbd";
-          sha256 = "sha256-m0UJjSKtOC7LzQH9M2JmyVT5XkWMNvoZzrDW6LOvvFg=";
+          owner = "marzocchi";
+          repo = "zsh-notify";
+          rev = "4d43b452c1a30ad1c854eb72a1fafb9b73d871ab";
+          sha256 = "sha256-yVReDAcPVnwGo8dpjH1fSghQPdCYCIGfkUDD/WLW73k=";
         };
       }
     ];
