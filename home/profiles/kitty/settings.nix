@@ -52,6 +52,7 @@
   macos_option_as_alt  = true;
   # Save space by putting the title in the top menubar
   # macos_show_window_title_in = "menubar";
+  macos_menubar_title_max_length = 40;
   # Hide the kitty window's title bar on macOS.
   # macos_hide_titlebar = true;
   #: }}}
