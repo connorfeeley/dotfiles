@@ -77,12 +77,12 @@
   ];
 
   homebrew.masApps = {
-    Xcode = 497799835;
-    Keynote = 409183694;
-    Numbers = 409203825;
-    Pages = 409201541;
+    "Xcode" = 497799835;
+    "Keynote" = 409183694;
+    "Numbers" = 409203825;
+    "Pages" = 409201541;
 
-    Bitwarden = 1352778147; # MAS version can integrate w/ FF for biometrics
+    "Bitwarden" = 1352778147; # MAS version can integrate w/ FF for biometrics
 
     "Steam Link" = 1246969117;
   };
