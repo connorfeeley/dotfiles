@@ -47,16 +47,6 @@ in {
 
     plugins = [
       {
-        # will source zsh-autosuggestions.plugin.zsh
-        name = "zsh-autosuggestions";
-        src = pkgs.fetchFromGitHub {
-          owner = "junegunn";
-          repo = "fzf";
-          rev = "0.32.1";
-          sha256 = "194xz7jrjsl9i88gy9kr90sw9aif9iskwdnhbq85l48h86hlrm42";
-        };
-      }
-      {
         name = "fast-syntax-highlighting";
         src = pkgs.fetchFromGitHub {
           owner = "zdharma-continuum";
