@@ -12,7 +12,7 @@
 
   services.openssh.extraConfig = ''
     StreamLocalBindUnlink yes
-    AcceptEnv DISPLAY INSIDE_EMACS
+    AcceptEnv DISPLAY INSIDE_EMACS EMACS_VTERM_PATH
   '';
   programs.mosh.enable = true;
 }

@@ -36,6 +36,8 @@ in {
     interactiveShellInit = ''
       # "Required" by `fifc`
       # set -Ux fifc_editor $EDITOR
+
+      source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm.fish
     '';
   };
 }

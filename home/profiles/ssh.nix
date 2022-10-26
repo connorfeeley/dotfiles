@@ -27,7 +27,7 @@ in {
           bind.address = "/run/user/1000/gnupg/S.gpg-agent";
           host.address = "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
         }];
-        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS";
+        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
       };
       "macbook-pro" = {
         forwardX11Trusted = true;
@@ -35,7 +35,7 @@ in {
           bind.address = "/Users/cfeeley/.gnupg/S.gpg-agent";
           host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
         }];
-        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS";
+        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
       };
       "cfeeley-laptop" = {
         hostname = cfeeley-laptop.ipv4.address;

@@ -155,8 +155,9 @@ in {
 
       ### Pure
       autoload -U promptinit; promptinit
-	    PURE_PROMPT_SYMBOL="λ"
-	    prompt pure
+      prompt off
+      PURE_PROMPT_SYMBOL="λ"
+      prompt pure
 
 
       # Use vi-mode when:
@@ -170,9 +171,6 @@ in {
         # Vi keybindings
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       else
-        # Options we don't want in vterm
-        unset zle
-
         # # Source vterm-specific configuration
         source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-zsh.sh
         source $DOTFIELD_DIR/config/emacs/vterm.zsh
