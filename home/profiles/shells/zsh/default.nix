@@ -172,7 +172,7 @@ in {
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       else
         # # Source vterm-specific configuration
-        source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-zsh.sh
+        [[ -n $EMACS_VTERM_PATH ]] && [[ -f $EMACS_VTERM_PATH/etc/emacs-vterm-zsh.sh ]] && source $EMACS_VTERM_PATH/etc/emacs-vterm-zsh.sh
         source $DOTFIELD_DIR/config/emacs/vterm.zsh
       fi
       # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
