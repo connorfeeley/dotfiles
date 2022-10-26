@@ -1,0 +1,17 @@
+---
+image: nixos/unstable
+packages:
+  - nixos.nixUnstable
+  - nixos.nix-output-monitor
+environment:
+  NIX_CONFIG: 'experimental-features = nix-command flakes'
+tasks:
+  - show: |
+      cd source
+      nom develop . -c nix flake show
+  # - lint: |
+  #     cd source
+  #     nom develop . -c nix flake show
+  - check: |
+      cd source
+      nix flake check
