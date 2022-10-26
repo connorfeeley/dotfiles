@@ -209,12 +209,12 @@ lib.mkMerge [
 
       # :checkers spell
       (aspellWithDicts (ds: with ds; [
-          en
-          en-computers
-          en-science
+        en
+        en-computers
+        en-science
       ]))
       (hunspellWithDicts (with hunspellDicts; [
-          hunspellDicts.en-ca-large
+        hunspellDicts.en-ca-large
       ]))
       languagetool
 
