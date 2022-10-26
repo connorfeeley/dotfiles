@@ -30,6 +30,9 @@ in {
     ediff-tool
     exiftool # EXIF diff handler
     git-cliff
+    git-filter-repo # Replaces git-filter-branch
+    bfg-repo-cleaner # Like git-filter-repo
+    git-sizer # Analyze shape of repository
     git-submodule-rewrite
     gitAndTools.hub
     gitAndTools.tig
