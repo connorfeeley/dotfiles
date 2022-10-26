@@ -18,7 +18,7 @@ in
     fishPlugins.forgit
   ];
 
-  programs.starship.enableFishIntegration = false;
+  programs.starship.enableFishIntegration = true;
 
   programs.fish = {
     inherit
@@ -54,7 +54,7 @@ in
       # "Required" by `fifc`
       # set -Ux fifc_editor $EDITOR
 
-      source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm.fish
+      [[ -n $EMACS_VTERM_PATH ]] && [[ -f $EMACS_VTERM_PATH/etc/emacs-vterm-zsh.sh ]] && source $EMACS_VTERM_PATH/etc/emacs-vterm.fish
     '';
   };
 }
