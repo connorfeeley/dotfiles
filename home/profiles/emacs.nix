@@ -13,6 +13,37 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.lib.dotfield.emacs) profilesBase profilesPath;
 
+  emacsPackage =
+    let
+      emacs-pkg = with pkgs; if isDarwin
+      #: isDarwin: emacs-plus with native compilation from this repo
+      # then emacs-plus.override {
+      #   otherIcon = "gnu-head-icon";
+      # }
+      #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
+      then emacs28Macport
+      #: isLinux: emacs 28 (w/ native comp)
+      else
+        pkgs.emacs.override {
+          inherit (pkgs)
+            # For withGTK3:
+            gtk3-x11
+            gsettings-desktop-schemas
+            # For withXwidgets:
+            webkitgtk
+            wrapGAppsHook
+            glib-networking
+            ;
+
+          withGTK3 = true;
+        };
+    in
+    emacs-pkg.override {
+      withXwidgets = true;
+      withSQLite3 = true;
+      withWebP = true;
+    };
+
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
   doomRepoRev = "ceb985673ccd2be869bdde2ea4f41c84e9354f1e";
 
@@ -96,33 +127,7 @@ lib.mkMerge [
 
     programs.emacs = {
       enable = true;
-      package =
-        let emacs-pkg = with pkgs; if isDarwin
-        #: isDarwin: emacs-plus with native compilation from this repo
-        # then emacs-plus.override {
-        #   otherIcon = "gnu-head-icon";
-        # }
-        #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
-        then emacs28Macport
-        #: isLinux: emacs 28 (w/ native comp)
-        else emacs.override {
-          inherit (pkgs)
-            # For withGTK3:
-            gtk3-x11
-            gsettings-desktop-schemas
-            # For withXwidgets:
-            webkitgtk
-            wrapGAppsHook
-            glib-networking
-          ;
-
-          withGTK3 = true;
-        };
-        in emacs-pkg.override {
-          withXwidgets = true;
-          withSQLite3 = true;
-          withWebP = true;
-        };
+      package = emacsPackage;
       extraPackages = epkgs: with epkgs; [
         vterm
         pdf-tools
@@ -180,8 +185,10 @@ lib.mkMerge [
       # :lang nix
       nixpkgs-fmt
 
-      # pdf-tools
-      emacsPackages.pdf-tools
+      # :tools pdf
+      # Use with (package! pdf-tools :built-in 'prefer)
+      emacsPackage.pkgs.pdf-tools
+
       # Treemacs
       python3
 
