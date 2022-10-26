@@ -18,6 +18,8 @@ in
     fishPlugins.forgit
   ];
 
+  programs.starship.enableFishIntegration = false;
+
   programs.fish = {
     inherit
       # FIXME: watch out, some of these abbrs may have undesirable results when
@@ -36,6 +38,17 @@ in
       # "foreign-env" # <- import environment variables exported/modified in bash
       # "babelfish" #   <- translate bash scripts to fish
     ];
+
+    functions = {
+      __fish_command_not_found_handler = {
+        body = "__fish_default_command_not_found_handler $argv[1]";
+        onEvent = "fish_command_not_found";
+      };
+      vim = {
+        description = "Open a file in emacs (from vterm)";
+        body = ''vterm_cmd find-file "$(realpath "''${@:-.}")'';
+      };
+    };
 
     interactiveShellInit = ''
       # "Required" by `fifc`
