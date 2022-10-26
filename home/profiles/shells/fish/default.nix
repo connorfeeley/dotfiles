@@ -1,16 +1,17 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (builtins) map;
   inherit (config.lib.fish) mkPlugin;
 
   shellAbbrs = import ../abbrs.nix;
   shellAliases = import ../aliases.nix;
-in {
-  imports = [../common.nix];
+in
+{
+  imports = [ ../common.nix ];
 
   home.packages = with pkgs; [
     fishPlugins.done
