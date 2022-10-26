@@ -39,5 +39,8 @@
   # TODO: make a lot less ugly
   # Quick and dirty alias to pull system flake and doom, build and activate new system config, sync and build doom config
   nom-rebuild = let systemType = ''$([[ "$(uname)" == "Darwin" ]] && echo darwin || echo nixos)''; in
-    ''gr $DOTFIELD_DIR $DOOMDIR -- git pull --autostash --rebase && pushd $DOTFIELD_DIR && nom build $DOTFIELD_DIR#${systemType}Configurations.$(hostname).config.system.build.toplevel && sudo $DOTFIELD_DIR/result/activate && doom clean && doom sync && doom build -r && doom doctor --pager cat; popd'';
+    ''gr $DOTFIELD_DIR $DOOMDIR -- git pull --autostash --rebase && pushd $DOTFIELD_DIR && nom build $DOTFIELD_DIR#${systemType}Configurations.$(hostname).config.system.build.toplevel && sudo $DOTFIELD_DIR/result/activate && doom-rebuild-fast && popd'';
+
+  doom-rebuild = ''doom clean && doom sync -u && doom build -r && doom doctor --pager cat'';
+  doom-rebuild-fast = ''doom sync && doom build -r && doom doctor --pager cat'';
 }
