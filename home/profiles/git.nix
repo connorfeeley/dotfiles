@@ -186,6 +186,13 @@ in {
         feature.manyFiles = true;
         ##: }}
 
+        ##: Maintenance {{
+        maintenance = {
+          auto = true;
+          strategy = "incremental";
+        };
+        ##: }}
+
         ##: Diff/Merge Tools {{
         rerere.enabled = true;
         merge.conflictstyle = "diff3";
