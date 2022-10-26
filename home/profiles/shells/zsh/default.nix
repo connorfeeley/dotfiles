@@ -177,6 +177,9 @@ in {
       fi
       # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
 
+      # bind DEL to delete-char  make `vterm-send-delete` delete char (on darwin, at least)
+      bindkey "\e[3~" delete-char
+
       # MacOS only: XQuartz
       if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
         export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
