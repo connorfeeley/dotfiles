@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   programs.direnv = {
     enable = true;
@@ -14,7 +13,7 @@
       global.warn_timeout = "10s"; # Wait 10s before warning that about long-running instances
       whitelist = {
         # Implicitly allow any direnv configurations under these paths
-        prefix= [
+        prefix = [
           "$HOME/dev"
           "$XDG_CONFIG_HOME"
         ];
