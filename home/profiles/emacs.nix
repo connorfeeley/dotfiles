@@ -180,6 +180,8 @@ lib.mkMerge [
       # :lang nix
       nixpkgs-fmt
 
+      # pdf-tools
+      emacsPackages.pdf-tools
       # Treemacs
       python3
 
