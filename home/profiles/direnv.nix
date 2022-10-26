@@ -19,7 +19,6 @@
         ];
       };
     };
+    stdlib = builtins.readFile "${pkgs.dotfield-config}/direnv/direnvrc";
   };
-
-  xdg.configFile."direnv/direnvrc".source = "${pkgs.dotfield-config}/direnv/direnvrc";
 }
