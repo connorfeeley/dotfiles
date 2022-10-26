@@ -31,7 +31,10 @@ in
     fifc.enable = true;
 
     plugins = map mkPlugin [
-      "replay"
+      "replay" #        <- run bash commands replaying changes in fish
+      # "bass" #        <- use utilities written for bash in fish
+      # "foreign-env" # <- import environment variables exported/modified in bash
+      # "babelfish" #   <- translate bash scripts to fish
     ];
 
     interactiveShellInit = ''
