@@ -24,9 +24,7 @@
     };
 
     darwin = {
-      # FIXME: https://github.com/LnL7/nix-darwin/issues/485
-      # url = "github:LnL7/nix-darwin";
-      url = "sourcehut:~cfeeley/nix-darwin/ventura-font-workaround";
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
