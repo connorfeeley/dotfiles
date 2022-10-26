@@ -25,7 +25,7 @@ in
       # FIXME: watch out, some of these abbrs may have undesirable results when
       # expanded inline. needs review.
       shellAbbrs
-      shellAliases
+      # shellAliases
       ;
 
     enable = true;
@@ -54,7 +54,7 @@ in
       # "Required" by `fifc`
       # set -Ux fifc_editor $EDITOR
 
-      [[ -n $EMACS_VTERM_PATH ]] && [[ -f $EMACS_VTERM_PATH/etc/emacs-vterm-zsh.sh ]] && source $EMACS_VTERM_PATH/etc/emacs-vterm.fish
+      source $EMACS_VTERM_PATH/etc/emacs-vterm.fish
     '';
   };
 }
