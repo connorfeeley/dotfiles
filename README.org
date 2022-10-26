@@ -19,6 +19,12 @@ nix --print-build-logs build ~/.config/dotfield#nixosConfigurations.workstation.
 nix --print-build-logs build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel --debugger --ignore-try
 #+end_src
 
+** Change default shell
+
+#+begin_src shell :noeval
+sudo chsh -s /run/current-system/sw/bin/fish cfeeley
+#+end_src
+
 ** Fetch flake over ssh
 
 #+begin_src shell
