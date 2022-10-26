@@ -174,17 +174,11 @@ in {
         unset zle_bracketed_paste
         unset zle
 
-        # Emacs keybindings
-        bindkey -e
-
         # # Source vterm-specific configuration
         source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-zsh.sh
         source $DOTFIELD_DIR/config/emacs/vterm.zsh
       fi
       # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
-
-      # bind  DEL to delete-char  make `vterm-send-delete` delete char
-      bindkey "\e[3~" delete-char
 
       # MacOS only: XQuartz
       if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
