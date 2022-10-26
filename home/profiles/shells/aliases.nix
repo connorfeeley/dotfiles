@@ -32,4 +32,12 @@
   rsc = "rsync -rav --progress";
 
   rl = "readlink -f";
+
+  # Quick and dirty alias to push system flake and doom config
+  sys-push = "gr $DOTFIELD_DIR $DOOMDIR -- git push"; # TODO: make less ugly
+
+  # TODO: make a lot less ugly
+  # Quick and dirty alias to pull system flake and doom, build and activate new system config, sync and build doom config
+  nom-rebuild = let systemType = ''$([[ "$(uname)" == "Darwin" ]] && echo darwin || echo nixos)''; in
+    ''gr $DOTFIELD_DIR $DOOMDIR -- git pull && pushd $DOTFIELD_DIR && nom build $DOTFIELD_DIR#${systemType}Configurations.$(hostname).config.system.build.toplevel && sudo $DOTFIELD_DIR/result/activate && doom clean && doom sync && doom build -r && doom doctor --pager cat; popd'';
 }
