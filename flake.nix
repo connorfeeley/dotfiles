@@ -266,6 +266,7 @@
       nur.overlay
       nvfetcher.overlay
 
+      xmonad-config.overlay
       xmobar-config.overlay
 
       ttc-subway-font.overlay
@@ -279,8 +280,8 @@
 
         amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
 
-        xmonad-config = xmonad-config.packages.${final.system}.default;
-        xmonad = xmonad-config.packages.${final.system}.default;
+        xmonad = final.xmonad-config;
+        xmobar = final.xmobar-config;
 
         nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
 
