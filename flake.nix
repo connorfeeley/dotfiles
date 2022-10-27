@@ -180,7 +180,6 @@
     digga,
     mach-nix,
     emacs-overlay,
-    firefox-darwin,
     flake-utils,
     gitignore,
     home-manager,
@@ -271,7 +270,6 @@
       nixpkgs-wayland.overlay
       nur.overlay
       nvfetcher.overlay
-      firefox-darwin.overlay
 
       xmobar-config.overlay
 
