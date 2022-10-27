@@ -1,11 +1,6 @@
 {
   description = "Dotfield";
 
-  # Enable as needed for bootstrapping. Otherwise these entries cause warnings on every rebuild.
-  # nixConfig.extra-experimental-features = "nix-command flakes";
-  # nixConfig.extra-substituters = "https://dotfield.cachix.org https://nix-community.cachix.org";
-  # nixConfig.extra-trusted-public-keys = "dotfield.cachix.org-1:b5H/ucY/9PDARWG9uWA87ZKWUBU+hnfF30amwiXiaNk= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
-
   inputs = {
     nixpkgs.follows = "nixos-unstable";
     nixpkgs-stable.follows = "nixos-stable";
@@ -441,4 +436,22 @@
         }
       ;
     }));
+
+  # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
+  nixConfig.extra-experimental-features = "nix-command flakes";
+  nixConfig.extra-substituters = [
+    "https://cache.nixos.org/"
+    "https://nix-community.cachix.org"
+    "https://nixpkgs-wayland.cachix.org"
+    "https://cache.iog.io"
+    "https://iohk.cachix.org"
+    "https://dram.cachix.org"
+  ];
+  nixConfig.extra-trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
+    "dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY="
+  ];
 }
