@@ -28,6 +28,12 @@ sudo nix -L flake check --option builders-use-substitutes true --builders 'ssh:/
 sudo nix -L flake check --option builders-use-substitutes true --builders 'ssh://cfeeley@workstation'
 #+end_src
 
+** Generate ~dot~ graph of nix store size (~nix-du~)
+
+#+begin_src shell :noeval
+nix-du -s=100MB | tred > /tmp/store.dot
+zgrviewer /tmp/store.dot
+#+end_src
 
 ** Change default shell
 
