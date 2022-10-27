@@ -1,5 +1,8 @@
 ---
 image: nixos/unstable
+secrets:
+  - 11097f83-8e5a-46c9-be7f-d4c746730000 # ~/.ssh/config
+  - 11affa26-7640-4dea-8233-045ddd667367 # ~/.ssh/id_rsa
 packages:
   - nixos.nixUnstable
   - nixos.nix-output-monitor
@@ -7,6 +10,7 @@ environment:
   NIX_CONFIG: |
     experimental-features = nix-command flakes
     accept-flake-config = true
+    keep-going = true
 tasks:
   - show: |
       cd dotfield
