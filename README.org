@@ -18,6 +18,13 @@ nix --print-build-logs build ~/.config/dotfield#nixosConfigurations.workstation.
 #+begin_src shell :noeval
 nix --print-build-logs build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel --debugger --ignore-try
 #+end_src
+
+** ~NIX_REMOTE~ variable
+
+#+begin_src shell :noeval
+NIX_REMOTE=ssh-ng://macbook-pro nix build $DOTFIELD_DIR#darwinConfigurations.MacBook-Pro.config.system.build.toplevel
+#+end_src
+
 ** Check
 
 #+begin_src shell :noeval
