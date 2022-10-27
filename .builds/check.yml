@@ -4,14 +4,16 @@ packages:
   - nixos.nixUnstable
   - nixos.nix-output-monitor
 environment:
-  NIX_CONFIG: 'experimental-features = nix-command flakes'
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+    accept-flake-config = true
 tasks:
   - show: |
-      cd source
-      nom develop . -c nix flake show
-  # - lint: |
-  #     cd source
-  #     nom develop . -c nix flake show
+      cd dotfield
+      nix --print-build-logs flake show
+  - devshell: |
+      cd dotfield
+      nix --print-build-logs build .#devShell.x86_64-linux
   - check: |
-      cd source
-      nix flake check
+      cd dotfield
+      nix --print-build-logs flake check
