@@ -32,6 +32,7 @@
     ssh-to-age
     terraform
     treefmt
+    lefthook
     ;
 
   inherit (packages.nodePackages) prettier;
@@ -59,6 +60,7 @@ in {
       (dotfield inputs.deploy.packages.${pkgs.system}.deploy-rs)
       (dotfield terraform)
       (dotfield treefmt)
+      (dotfield lefthook)
 
       {
         category = "dotfield";
