@@ -6,21 +6,11 @@
   lib,
   ...
 }: let
-  # These packages are available only in the default `pkgs` via external
-  # overlays. We also need `system` to get the appropriate package set from the
-  # unstable channel.
   inherit
     (pkgs)
     agenix
     nvfetcher-bin
-    system
-    ;
-  inherit (pkgs.stdenv.buildPlatform) isLinux isi686;
-
-  packages = inputs.nixos-unstable.legacyPackages.${system};
-
-  inherit
-    (packages)
+    deploy-rs
     nixpkgs-fmt
     cachix
     editorconfig-checker
@@ -35,9 +25,11 @@
     lefthook
     ;
 
-  inherit (packages.nodePackages) prettier;
+  inherit (pkgs.nodePackages)
+    prettier
+    ;
 
-  nixos-generators = inputs.nixos-generators.defaultPackage.${pkgs.system};
+  inherit (pkgs.stdenv) isLinux;
 
   hooks = import ./hooks;
 
@@ -57,10 +49,11 @@ in {
   commands =
     [
       (dotfield nixUnstable)
-      (dotfield inputs.deploy.packages.${pkgs.system}.deploy-rs)
+      (dotfield deploy-rs)
       (dotfield terraform)
       (dotfield treefmt)
       (dotfield lefthook)
+      (dotfield cachix)
 
       {
         category = "dotfield";
@@ -111,7 +104,5 @@ in {
             ${rebuild} build --flake .#$HOSTNAME --print-build-logs
         '';
       }
-    ]
-    ++ lib.optional (!isi686) (dotfield cachix)
-    ++ lib.optional isLinux (dotfield nixos-generators);
+    ];
 }
