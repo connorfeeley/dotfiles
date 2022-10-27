@@ -78,4 +78,13 @@ in {
     useGlobalPkgs = true;
     useUserPackages = true;
   };
+
+  environment.enableDebugInfo = true;
+  # I want to include documentations for my own sanity, OK?
+  documentation = {
+    enable = true;
+    dev.enable = true;
+    nixos.enable = true;
+    man.generateCaches = true;
+  };
 }
