@@ -39,10 +39,9 @@ in {
     gitAndTools.tig
     gitAndTools.git-crypt
     gitAndTools.git-standup
-    gitAndTools.git-review #: tool to submit code to Gerrit
+    gitAndTools.git-review #: tool to submit code reviews to Gerrit
+    gitAndTools.git-big-picture #: visualize Git repositories
     nodePackages.git-run #: 'gr': a tool for managing multiple git repositories (github:mixu/gr)
-
-    # gitAndTools.git-big-picture #: visualize Git repositories
 
     # # Other potentially interesting packages:
     # gitAndTools.git-machete #: github:VirtusLab/git-machete
