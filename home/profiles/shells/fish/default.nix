@@ -30,7 +30,7 @@ in
 
     enable = true;
     autopair.enable = true;
-    fifc.enable = true;
+    fifc.enable = false;
 
     plugins = map mkPlugin [
       "replay" #        <- run bash commands replaying changes in fish
