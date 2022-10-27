@@ -46,7 +46,9 @@ in
       };
       vim = {
         description = "Open a file in emacs (from vterm)";
-        body = ''vterm_cmd find-file "$(realpath "''${@:-.}")'';
+        body = ''
+          vterm_cmd find-file $@
+        '';
       };
     };
 
