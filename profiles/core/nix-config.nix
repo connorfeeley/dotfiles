@@ -36,6 +36,11 @@ in {
       # Number of tail lines to print when a build fails
       log-lines = 25; #: default: 10
 
+      # Whether to use the flake evaluation cache
+      eval-cache = true;
+
+      # Ignore exceptions inside 'tryEval' calls when using --debugger
+      ignore-try = true;
 
       # Automatically collect garbage if free space drops below 1GiB
       min-free = 1024 * 1024 * 1024; #: default: -1
@@ -44,6 +49,9 @@ in {
 
       # Default commit message for 'nix flake update --commit-lock-file'
       commit-lockfile-summary = "chore(flake): update lock";
+
+      # How often (in seconds) to poll for locks
+      build-poll-interval = 1;
 
       # Interesting!
       # pre-build-hook = "";
