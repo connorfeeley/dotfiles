@@ -18,6 +18,16 @@ nix --print-build-logs build ~/.config/dotfield#nixosConfigurations.workstation.
 #+begin_src shell :noeval
 nix --print-build-logs build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel --debugger --ignore-try
 #+end_src
+** Check
+
+#+begin_src shell :noeval
+sudo nix -L flake check --option builders-use-substitutes true --builders 'ssh://cfeeley@macbook-pro'
+#+end_src
+
+#+begin_src shell :noeval
+sudo nix -L flake check --option builders-use-substitutes true --builders 'ssh://cfeeley@workstation'
+#+end_src
+
 
 ** Change default shell
 
