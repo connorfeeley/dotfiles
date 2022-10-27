@@ -9,6 +9,7 @@ with profiles; let
     shells.fish
     ssh
     development.tools
+    virtualisation.common
     virtualisation.docker
   ];
 
