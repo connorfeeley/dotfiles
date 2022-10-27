@@ -8,6 +8,7 @@
     nixos-stable-21-11.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-darwin.url = "nixos-unstable";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     nixlib.url = "github:nix-community/nixpkgs.lib";
 
@@ -103,10 +104,11 @@
 
     xmonad-config = {
       url = "git+https://git.sr.ht/~cfeeley/xmonad-config";
+      inputs.flake-utils.follows = "flake-utils";
     };
     xmobar-config = {
-      url = "path:config/xmobar";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://git.sr.ht/~cfeeley/xmobar-config";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     base16-kitty = {
@@ -266,9 +268,6 @@
       nur.overlay
       nvfetcher.overlay
 
-      xmonad-config.overlay
-      xmobar-config.overlay
-
       ttc-subway-font.overlay
 
       nix-xilinx.overlay
@@ -279,9 +278,6 @@
         emacs-plus = self.packages.${final.system}.emacs-plus;
 
         amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
-
-        xmonad = final.xmonad-config;
-        xmobar = final.xmobar-config;
 
         nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
 
@@ -313,7 +309,7 @@
             (digga.lib.importOverlays ./packages)
           ];
         };
-        nixpkgs-darwin-stable = {
+        nixpkgs-darwin = {
           imports = [
             (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/stable)
@@ -329,7 +325,15 @@
             ];
         };
         nixos-unstable = {
-          inherit overlays;
+          overlays = overlays ++ [
+            (final: prev: rec {
+              xmonad = xmonad-config;
+              xmobar = xmobar-config;
+              xmonad-config = inputs.xmonad-config.packages.${final.system}.default;
+              xmobar-config = inputs.xmobar-config.packages.${final.system}.default;
+            })
+          ];
+
           imports = [
             (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/nixos-unstable)

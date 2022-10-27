@@ -15,7 +15,7 @@ with lib;
     })
 
     xmonad-config
-    haskellPackages.xmobar-config
+    xmobar-config
 
     redshift
     xorg.xbacklight
@@ -61,7 +61,7 @@ with lib;
       enableContribAndExtras = true;
       extraPackages = haskellPackages: with haskellPackages; [
         pkgs.xmonad-config
-        xmobar-config
+        pkgs.xmobar-config
       ];
     };
   };

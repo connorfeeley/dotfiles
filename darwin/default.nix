@@ -24,7 +24,7 @@ in {
 
   hostDefaults = {
     system = aarch64-darwin;
-    channelName = "nixos-unstable";
+    channelName = "nixpkgs-darwin";
     imports = [collective.modules darwinModules];
     modules = [
       collective.profiles.core
