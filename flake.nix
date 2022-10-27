@@ -313,6 +313,7 @@
           imports = [
             (digga.lib.importOverlays ./overlays/common)
             (digga.lib.importOverlays ./overlays/stable)
+            (digga.lib.importOverlays ./overlays/nixpkgs-darwin)
             (digga.lib.importOverlays ./packages)
           ];
           # FIXME: some of these have no use on darwin (e.g. nixpkgs-wayland)
