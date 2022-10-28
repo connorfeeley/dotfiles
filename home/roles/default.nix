@@ -69,6 +69,8 @@ with profiles; let
   ];
 
   macos = [
+    virtualisation.podman
+
     darwin.search
   ];
 
