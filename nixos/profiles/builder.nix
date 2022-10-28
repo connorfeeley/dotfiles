@@ -18,8 +18,12 @@ lib.mkMerge [
   {
     # Serve nix store
     nix = {
-      sshServe.enable = true;
-      sshServe.keys = host.keys;
+      sshServe = {
+        enable = true;
+        protocol = "ssh-ng";
+        sshUser = config.dotfield.guardian.username;
+        keys = host.keys;
+      };
     };
   }
 
@@ -29,11 +33,12 @@ lib.mkMerge [
       buildMachines = [
         {
           hostName = "MacBook-Pro";
+          protocol = "ssh-ng";
           systems = [ "aarch64-darwin" "x86_64-darwin" ];
           sshUser = config.dotfield.guardian.username;
           # "8 laptop cores times 1" seems like a reasonable relative speed factor.
           speedFactor = 8;
-          supportedFeatures = [ ];
+          supportedFeatures = [ "big-parallel" "kvm" "nixos-test" "benchmark" ];
         }
       ];
     };
