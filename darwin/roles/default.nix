@@ -15,6 +15,7 @@
       gui
       emacs
       development
+      podman
       system-defaults
     ]);
 in {
