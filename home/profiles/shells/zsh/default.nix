@@ -28,7 +28,7 @@ in {
     dotDir = ".config/zsh";
     enableCompletion = true;
     enableSyntaxHighlighting = true;
-    enableAutosuggestions = true;
+    enableAutosuggestions = false;
     enableVteIntegration = false;
 
     defaultKeymap = "emacs"; # One of "emacs", "vicmd", "viins"
