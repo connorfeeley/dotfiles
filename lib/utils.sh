@@ -128,7 +128,7 @@ function str::upper {
 #   Modified string.
 #========================================
 function str::lstrip {
-  printf '%s\n' "${1##$2}"
+  printf '%s\n' "${1##"$2"}"
 }
 
 #========================================
@@ -146,7 +146,7 @@ function str::lstrip {
 #========================================
 function str::rstrip {
   # Usage: rstrip "string" "pattern"
-  printf '%s\n' "${1%%$2}"
+  printf '%s\n' "${1%%"$2"}"
 }
 
 # Sanitize a string, leaving only alphanumeric characters, periods, dashes, and
