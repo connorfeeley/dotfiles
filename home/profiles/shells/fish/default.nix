@@ -47,7 +47,7 @@ in
       vim = {
         description = "Open a file in emacs (from vterm)";
         body = ''
-          vterm_cmd find-file $@
+          vterm_cmd find-file $argv
         '';
       };
     };
