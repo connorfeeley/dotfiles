@@ -21,7 +21,6 @@ lib.mkMerge [
       sshServe = {
         enable = true;
         protocol = "ssh-ng";
-        sshUser = config.dotfield.guardian.username;
         keys = host.keys;
       };
     };

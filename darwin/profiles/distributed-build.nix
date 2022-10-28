@@ -14,17 +14,17 @@ let
   host = peers.hosts.${hostName};
 in
 lib.mkMerge [
-  {
-    # Serve nix store
-    nix = {
-      sshServe = {
-        enable = true;
-        protocol = "ssh-ng";
-        sshUser = config.dotfield.guardian.username;
-        keys = host.keys;
-      };
-    };
-  }
+  # {
+  #   # Serve nix store
+  #   nix = {
+  #     sshServe = {
+  #       enable = true;
+  #       protocol = "ssh-ng";
+  #       sshUser = config.dotfield.guardian.username;
+  #       keys = host.keys;
+  #     };
+  #   };
+  # }
 
   {
     nix = {
@@ -32,9 +32,7 @@ lib.mkMerge [
       buildMachines = [
         {
           hostName = "workstation";
-          protocol = "ssh-ng";
           systems = [ "x86_64-linux" "aarch64-linux" ];
-          sshUser = config.dotfield.guardian.username;
           # Base64-encoded ed25519 public host key
           publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
           # "12 desktop cores times two (versus times 1 for a laptop)" seems like
