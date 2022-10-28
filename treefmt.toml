@@ -31,7 +31,10 @@ shfmt -i 2 -s -w "$@"
     """
 ]
 includes = ["*.sh"]
-excludes = []
+excludes = [
+    "packages/common/rebuild.sh",
+    "shell/scripts/rebuild.sh",
+]
 
 [formatter.terraform]
 # Terraform fmt only takes one file at the time so we create a wrapper.
