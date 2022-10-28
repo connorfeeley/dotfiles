@@ -187,7 +187,7 @@ lib.mkMerge [
       # :lang cpp
       (clang-tools.override { llvmPackages = llvmPackages_latest; })
       llvmPackages_latest.lldb # includes lldb-vscode
-      vscode-extensions.ms-vscode.cpptools
+      # Linux only (see conditional appends below): vscode-extensions.ms-vscode.cpptools
       # :lang python
       python3Packages.debugpy
 
@@ -273,22 +273,27 @@ lib.mkMerge [
       #: vimrc
       nodePackages.vim-language-server
     ] ++ (lib.optionals (isLinux && !isAarch64) [
-      # XWidgets WebKit
-      webkitgtk
-      glib
-      gtk3
-      glib-networking
-      gsettings-desktop-schemas
-      # For emacs-everywhere
-      xorg.xwininfo
-      xdotool
-      xclip
+      #: lang cpp
+      vscode-extensions.ms-vscode.cpptools
+
       #: fpga (bazel builds fail on darwin)
       verible
       verilator
       svlangserver
       svls
       svlint
+
+      # XWidgets WebKit
+      webkitgtk
+      glib
+      gtk3
+      glib-networking
+      gsettings-desktop-schemas
+
+      # For emacs-everywhere
+      xorg.xwininfo
+      xdotool
+      xclip
     ]);
 
     # Configure aspell
