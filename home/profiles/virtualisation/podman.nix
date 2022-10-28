@@ -16,6 +16,10 @@ in
 lib.mkMerge [
   {
     home.packages = with pkgs; [ podman podman-compose ];
+
+    home.sessionVariables = {
+      DOCKER_HOST = "unix://$XDG_DATA_HOME/containers/podman/machine/podman-machine-default/podman.sock";
+    };
   }
 
   # Podman needs qemu, but the default machine isn't able to locate the right binaries by default.
