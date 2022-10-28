@@ -1,9 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
   nvStable = nvidiaPackages.stable;
@@ -39,5 +39,5 @@ in
     enableNvidia = true;
   };
 
-  environment.systemPackages = with pkgs; [ nvtop xorg.xhost xorg.xinit ddcutil ];
+  environment.systemPackages = with pkgs; [ nvtop ddcutil (with xorg; xhost xinit xeyes)];
 }
