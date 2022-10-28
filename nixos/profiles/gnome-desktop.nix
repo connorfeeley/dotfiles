@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  profiles,
-  ...
+{ config
+, lib
+, pkgs
+, profiles
+, ...
 }: {
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;

@@ -1,6 +1,6 @@
-{
-  lib,
-  peers,
+{ lib
+, peers
+,
 }:
 lib.makeExtensible (self: rec {
   # treesWithValue :: (String -> Any -> Bool) -> [String] -> AttrSet -> [String]

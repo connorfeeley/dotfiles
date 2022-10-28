@@ -1,12 +1,13 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.home) username;
   inherit (config.lib) dotfield;
-in {
+in
+{
   home.packages = with pkgs; [
     ## === Helpful Utilities ===
     comma #              <- Runs programs without installing them
@@ -48,8 +49,8 @@ in {
     diskonaut #     <- Terminal visual disk space navigator
 
     ## === Networking Tools ===
-    mosh      # <- SSH-like tool for unreliable connections
-    iperf3    # <- Test network bandwidth
+    mosh # <- SSH-like tool for unreliable connections
+    iperf3 # <- Test network bandwidth
     bandwhich # <- Not a sandwhich; see [nethogs] ( bandwidth utilization tool )
     # TODO: not packaged
     # trippy # A network diagnostic tool
@@ -67,7 +68,7 @@ in {
 
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     psmisc #    <- Useful utilities that use the proc filesystem
-    kmon      # <- Kernel manager and activity monitor
+    kmon # <- Kernel manager and activity monitor
     systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
     sysz #      <- fzf-style systemd TUI
   ]);
@@ -121,7 +122,7 @@ in {
   home.enableNixpkgsReleaseCheck = true;
   manual.manpages.enable = true;
 
-  home.extraOutputsToInstall = ["/share/zsh"];
+  home.extraOutputsToInstall = [ "/share/zsh" ];
 
   home.sessionVariables = {
     DOTFIELD_DIR = dotfield.fsPath;

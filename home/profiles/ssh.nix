@@ -1,14 +1,15 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  peers,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, peers
+, ...
+}:
+let
   inherit (peers.hosts) workstation MacBook-Pro cfeeley-laptop;
   identityFileName = "id_ed25519.pub";
   identityFile = "~/.ssh/${identityFileName}";
-in {
+in
+{
   programs.ssh = {
     enable = true;
     forwardAgent = false; # SSH agent forwarding must be disabled to use gpg-agent forwarding
@@ -18,7 +19,7 @@ in {
     controlPersist = "10m";
     controlMaster = "auto";
 
-    includes = ["~/.config/ssh/config.local"];
+    includes = [ "~/.config/ssh/config.local" ];
 
     matchBlocks = {
       "workstation" = {

@@ -1,4 +1,5 @@
-{...}: let
+{ ... }:
+let
   inherit (default.inputs.nixpkgs-stable) lib;
 
   default = (import ../.).defaultNix;
@@ -19,4 +20,4 @@
   # own creation? i'm not sure...
   hostname = builtins.getEnv "HOSTNAME";
 in
-  host
+host

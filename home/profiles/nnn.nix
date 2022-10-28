@@ -1,9 +1,9 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isMacOS;
 
   cfg = config.programs.nnn;
@@ -40,7 +40,8 @@ moduleArgs @ {
       viu
       w3m # text-mode web browser
     ]);
-in {
+in
+{
   programs.nnn = {
     enable = true;
     plugins.src = "${pkgs.nnn.src}/plugins";
@@ -56,7 +57,7 @@ in {
     # USE_PISTOL = lib.optionalString enablePreviews "1";
   };
 
-  programs.bash = {inherit shellAliases;};
-  programs.fish = {inherit shellAliases;};
-  programs.zsh = {inherit shellAliases;};
+  programs.bash = { inherit shellAliases; };
+  programs.fish = { inherit shellAliases; };
+  programs.zsh = { inherit shellAliases; };
 }

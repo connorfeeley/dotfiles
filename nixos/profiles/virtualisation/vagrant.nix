@@ -1,10 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
-  environment.systemPackages = with pkgs; [vagrant];
+  environment.systemPackages = with pkgs; [ vagrant ];
 
   # https://nixos.wiki/wiki/Vagrant#Using_NFS_mounts
   services.nfs.server.enable = true;

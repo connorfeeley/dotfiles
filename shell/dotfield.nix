@@ -1,11 +1,11 @@
 # TODO: add dhall utils
-{
-  pkgs,
-  extraModulesPath,
-  inputs,
-  lib,
-  ...
-}: let
+{ pkgs
+, extraModulesPath
+, inputs
+, lib
+, ...
+}:
+let
   inherit
     (pkgs)
     agenix
@@ -33,15 +33,16 @@
 
   hooks = import ./hooks;
 
-  withCategory = category: attrset: attrset // {inherit category;};
-  pkgWithCategory = category: package: {inherit package category;};
+  withCategory = category: attrset: attrset // { inherit category; };
+  pkgWithCategory = category: package: { inherit package category; };
 
   dotfield = pkgWithCategory "dotfield";
   linter = pkgWithCategory "linters";
   formatter = pkgWithCategory "formatters";
   utils = withCategory "utils";
   secrets = pkgWithCategory "secrets";
-in {
+in
+{
   _file = toString ./.;
 
   name = "Dotfield";
@@ -96,13 +97,15 @@ in {
         category = "ci";
         name = "flake-ci";
         help = "Show, check, then build the flake";
-        command = let
-          rebuild = if pkgs.stdenv.isLinux then "nixos-rebuild" else "darwin-rebuild";
-        in ''
-          ${nixUnstable}/bin/nix flake show --print-build-logs && \
-            ${nixUnstable}/bin/nix flake check --print-build-logs && \
-            ${rebuild} build --flake .#$HOSTNAME --print-build-logs
-        '';
+        command =
+          let
+            rebuild = if pkgs.stdenv.isLinux then "nixos-rebuild" else "darwin-rebuild";
+          in
+          ''
+            ${nixUnstable}/bin/nix flake show --print-build-logs && \
+              ${nixUnstable}/bin/nix flake check --print-build-logs && \
+              ${rebuild} build --flake .#$HOSTNAME --print-build-logs
+          '';
       }
     ];
 }

@@ -1,8 +1,8 @@
-{
-  buildGoModule,
-  go,
-  sources,
-  lib,
+{ buildGoModule
+, go
+, sources
+, lib
+,
 }:
 buildGoModule rec {
   inherit (sources.roots-trellis-cli) pname version src;
@@ -18,6 +18,6 @@ buildGoModule rec {
     description = "A CLI to manage Trellis projects";
     homepage = "https://github.com/roots/trellis-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [montchr];
+    maintainers = with maintainers; [ montchr ];
   };
 }

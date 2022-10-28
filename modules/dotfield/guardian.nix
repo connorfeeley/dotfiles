@@ -1,14 +1,15 @@
-{
-  options,
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ options
+, config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (lib.types) nullOr str submodule;
 
   cfg = config.dotfield.guardian;
-in {
+in
+{
   options.dotfield.guardian = {
     enable = lib.mkEnableOption "Whether to designate a guardian user for this system.";
     username = lib.mkOption {
@@ -26,6 +27,6 @@ in {
   };
   config = lib.mkIf cfg.enable {
     dotfield.guardian.user = lib.mkAliasDefinitions config.users.users.${cfg.username};
-    users.groups."wheel".members = [cfg.username];
+    users.groups."wheel".members = [ cfg.username ];
   };
 }

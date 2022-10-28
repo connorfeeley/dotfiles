@@ -1,13 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 with lib; let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   cfg = config.services.skhd;
-in {
+in
+{
   options = {
     services.skhd.enable = mkOption {
       type = types.bool;
@@ -60,7 +60,7 @@ in {
     (mkIf cfg.enable {
       # the skhd binary should be available to shells for keypress simulation
       # functionality, e.g. exiting out of modes after running a script.
-      home.packages = [cfg.package];
+      home.packages = [ cfg.package ];
 
       xdg.configFile."skhd/skhdrc" = {
         source =

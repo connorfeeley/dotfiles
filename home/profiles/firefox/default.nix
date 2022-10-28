@@ -1,10 +1,10 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
@@ -157,7 +157,8 @@ moduleArgs @ {
       '';
     };
   };
-in {
+in
+{
   xdg.configFile."tridactyl".source = ./tridactyl;
 
   programs.buku = {
@@ -172,7 +173,7 @@ in {
       if isDarwin
       # Handled by the Homebrew module
       # This populates a dummy package to satisfy the requirement
-      then pkgs.runCommand "firefox-0.0.0" {} "mkdir $out"
+      then pkgs.runCommand "firefox-0.0.0" { } "mkdir $out"
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
       else
         pkgs.firefox-wayland.override {

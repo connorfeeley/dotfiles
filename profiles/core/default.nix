@@ -1,19 +1,21 @@
-{
-  self,
-  config,
-  lib,
-  pkgs,
-  profiles,
-  inputs,
-  ...
-}: let
+{ self
+, config
+, lib
+, pkgs
+, profiles
+, inputs
+, ...
+}:
+let
   inherit (config.lib) dotfield;
 
   inherit (pkgs.stdenv) isDarwin;
 
-  nix-doc-path = if isDarwin then "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib"
-                             else "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
-in {
+  nix-doc-path =
+    if isDarwin then "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib"
+    else "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
+in
+{
   imports = [
     inputs.sops-nix.nixosModules.sops
     ../../lib/system

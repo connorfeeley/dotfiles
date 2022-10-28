@@ -1,9 +1,8 @@
-{
-  self,
-  inputs,
-  ...
+{ self
+, inputs
+, ...
 }: {
-  modules = [];
+  modules = [ ];
   exportedModules = [
     ./dotfield.nix
   ];

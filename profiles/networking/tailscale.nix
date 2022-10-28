@@ -1,22 +1,21 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   services.tailscale.enable = true;
 
-  networking.firewall.trustedInterfaces = [config.services.tailscale.interfaceName];
-  networking.firewall.allowedUDPPorts = [config.services.tailscale.port];
+  networking.firewall.trustedInterfaces = [ config.services.tailscale.interfaceName ];
+  networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.firewall.checkReversePath = "loose";
 
   # Authenticate on startup.
   # via https://discourse.nixos.org/t/solved-possible-to-automatically-authenticate-tailscale-after-every-rebuild-reboot/14296
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
-    after = ["network-pre.target" "tailscale.service"];
-    wants = ["network-pre.target" "tailscale.service"];
-    wantedBy = ["multi-user.target"];
+    after = [ "network-pre.target" "tailscale.service" ];
+    wants = [ "network-pre.target" "tailscale.service" ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "oneshot";
     script = with pkgs; ''
       echo "Waiting for tailscale.service start completion ..."

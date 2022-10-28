@@ -1,13 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
   cfg = config.programs.buku;
-in {
+in
+{
   options = {
     programs.buku = {
       enable = lib.mkEnableOption "Whether to enable the module for the Buku bookmaking tool.";
@@ -18,20 +19,20 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      home.packages = [pkgs.buku];
+      home.packages = [ pkgs.buku ];
     }
     (lib.mkIf cfg.enableTui {
-      home.packages = [pkgs.bukut];
+      home.packages = [ pkgs.bukut ];
     })
     (lib.mkIf cfg.enableBrowserIntegration {
-      home.packages = [pkgs.bukubrow];
+      home.packages = [ pkgs.bukubrow ];
     })
     (lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin && cfg.enableBrowserIntegration) {
       # Darwin cannot use wrapped applications like NixOS, so the native
       # messaging service must be installed imperatively.
       home.activation.ensureBukubrowHost =
-        lib.hm.dag.entryAfter ["writeBoundary"]
-        ((lib.optionalString config.programs.firefox.enable ''
+        lib.hm.dag.entryAfter [ "writeBoundary" ]
+          ((lib.optionalString config.programs.firefox.enable ''
             $DRY_RUN_CMD ${pkgs.bukubrow}/bin/bukubrow --install-firefox
           '')
           + (lib.optionalString config.programs.chromium.enable ''

@@ -1,10 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isLinux system;
 
   cfg = config.age;
@@ -26,7 +26,8 @@
       path = "${cfg.secretsDir}/espanso/${name}.yml";
     };
   };
-in {
+in
+{
   environment.variables."SOPS_AGE_KEY_FILE" = "$XDG_CONFIG_HOME/sops/age/keys";
 
   environment.systemPackages = with pkgs; [
@@ -35,7 +36,7 @@ in {
     sops
   ];
 
-  users.groups.secrets.members = ["root" "cfeeley" ];
+  users.groups.secrets.members = [ "root" "cfeeley" ];
 
   # age.secrets = lib.mkMerge [
   #   (mkEspansoMatchesSecret "personal")
@@ -43,7 +44,7 @@ in {
   # ];
 
   sops.defaultSopsFile = ../secrets/global.secrets.yaml;
-  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   # sops.secrets.github-api-token = {
   #   format = "yaml";

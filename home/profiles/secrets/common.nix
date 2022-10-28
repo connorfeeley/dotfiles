@@ -1,10 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.lib) dotfield;
-in {
+in
+{
   home.sessionVariables.AGENIX_ROOT = dotfield.fsPath;
 }

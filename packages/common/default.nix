@@ -1,5 +1,5 @@
 final: prev: {
-  kitty-helpers = final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix {});
+  kitty-helpers = final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix { });
 
   svlangserver-unwrapped = (final.callPackage ./svlangserver { }).package.override {
     src = builtins.fetchGit {
@@ -12,10 +12,10 @@ final: prev: {
 
   svlangserver =
     final.writeShellApplication {
-    name = "svlangserver";
-    text = with final; "exec ${svlangserver-unwrapped.nodejs}/bin/node ${svlangserver-unwrapped}/lib/node_modules/@imc-trading/svlangserver/bin/main.js";
-    runtimeInputs = with final; [ nodejs-14_x svlangserver-unwrapped ];
-  };
+      name = "svlangserver";
+      text = with final; "exec ${svlangserver-unwrapped.nodejs}/bin/node ${svlangserver-unwrapped}/lib/node_modules/@imc-trading/svlangserver/bin/main.js";
+      runtimeInputs = with final; [ nodejs-14_x svlangserver-unwrapped ];
+    };
 
   svls-local = throw "use svls from nixpkgs; this is the flake-local derivation";
   svlint-local = throw "use svlint from nixpkgs; this is the flake-local derivation";

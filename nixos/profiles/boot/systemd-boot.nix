@@ -1,10 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
-  imports = [./common.nix];
+  imports = [ ./common.nix ];
 
   boot.loader = {
     grub.enable = false;

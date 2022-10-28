@@ -80,12 +80,14 @@ lib.mkMerge [
     programs.kitty = {
       enable = true;
       settings = settings // colors // {
-        font_size = if (isDarwin && isAarch64)
-                    then "12" #
-                    else "16";
-        confirm_os_window_close = if (isDarwin)
-                                  then "1"
-                                  else "0";
+        font_size =
+          if (isDarwin && isAarch64)
+          then "12" #
+          else "16";
+        confirm_os_window_close =
+          if (isDarwin)
+          then "1"
+          else "0";
       };
       keybindings = {
         # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos

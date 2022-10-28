@@ -1,7 +1,7 @@
-{
-  lib,
-  hasTwm,
-  socket,
+{ lib
+, hasTwm
+, socket
+,
 }: {
   # ET (don't) phone home
   update_check_interval = 0;
@@ -49,7 +49,7 @@
 
   #: MacOS {{{
   # Treat option as alt; however can't insert unicode characters with cmd+key.
-  macos_option_as_alt  = true;
+  macos_option_as_alt = true;
   # Save space by putting the title in the top menubar
   # macos_show_window_title_in = "menubar";
   macos_menubar_title_max_length = 40;

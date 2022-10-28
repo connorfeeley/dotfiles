@@ -168,124 +168,125 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    agenix,
-    darwin,
-    deploy,
-    digga,
-    mach-nix,
-    emacs-overlay,
-    flake-utils,
-    gitignore,
-    home-manager,
-    nixlib,
-    nix-colors,
-    nix-dram,
-    nixos-generators,
-    nixos-hardware,
-    nixos-stable,
-    nixos-stable-21-11,
-    nixos-unstable,
-    nixpkgs-wayland,
-    nur,
-    nvfetcher,
-    sops-nix,
-    xmonad-config,
-    xmobar-config,
-    pta2002-neovim,
-    ttc-subway-font,
-    nixpkgs-work,
-    nickel,
-    comma,
-    nix-xilinx,
-    nix-json-progress,
-    deadnix,
-    nix-nil,
-    nix-ld,
-    nix-alien,
-    envfs,
-    ...
-  } @ inputs: let
-    inherit
-      (digga.lib)
-      flattenTree
-      importExportableModules
-      rakeLeaves
-      ;
-    inherit
-      (flake-utils.lib)
-      eachSystem
-      ;
-    inherit
-      (flake-utils.lib.system)
-      x86_64-linux
-      aarch64-linux
+  outputs =
+    { self
+    , nixpkgs
+    , agenix
+    , darwin
+    , deploy
+    , digga
+    , mach-nix
+    , emacs-overlay
+    , flake-utils
+    , gitignore
+    , home-manager
+    , nixlib
+    , nix-colors
+    , nix-dram
+    , nixos-generators
+    , nixos-hardware
+    , nixos-stable
+    , nixos-stable-21-11
+    , nixos-unstable
+    , nixpkgs-wayland
+    , nur
+    , nvfetcher
+    , sops-nix
+    , xmonad-config
+    , xmobar-config
+    , pta2002-neovim
+    , ttc-subway-font
+    , nixpkgs-work
+    , nickel
+    , comma
+    , nix-xilinx
+    , nix-json-progress
+    , deadnix
+    , nix-nil
+    , nix-ld
+    , nix-alien
+    , envfs
+    , ...
+    } @ inputs:
+    let
+      inherit
+        (digga.lib)
+        flattenTree
+        importExportableModules
+        rakeLeaves
+        ;
+      inherit
+        (flake-utils.lib)
+        eachSystem
+        ;
+      inherit
+        (flake-utils.lib.system)
+        x86_64-linux
+        aarch64-linux
 
-      x86_64-darwin
-      aarch64-darwin
-      ;
+        x86_64-darwin
+        aarch64-darwin
+        ;
 
-    supportedSystems = [
-      x86_64-linux
-      aarch64-linux
+      supportedSystems = [
+        x86_64-linux
+        aarch64-linux
 
-      x86_64-darwin
+        x86_64-darwin
 
-      # FIXME: Something in this flake's chain of dependencies triggers a build
-      # failure when `aarch64-darwin` is added to `supportedSystems`,
-      # specifically due to `pyopenssl`. Many python packages will not build on
-      # this system due to the broken `pyopenssl` dependency.
-      #
-      # As of 2022-08-20, it appears most of these issues have been fixed, but
-      # some packages have still caused errors:
-      #
-      # - promnesia
-      # - yubikey-manager and/or yubikey-personalization
-      #
-      # [Updated: 2022-08-20]
-      # https://github.com/NixOS/nixpkgs/issues/175875
-      # https://github.com/pyca/pyopenssl/issues/873
-      aarch64-darwin
-    ];
+        # FIXME: Something in this flake's chain of dependencies triggers a build
+        # failure when `aarch64-darwin` is added to `supportedSystems`,
+        # specifically due to `pyopenssl`. Many python packages will not build on
+        # this system due to the broken `pyopenssl` dependency.
+        #
+        # As of 2022-08-20, it appears most of these issues have been fixed, but
+        # some packages have still caused errors:
+        #
+        # - promnesia
+        # - yubikey-manager and/or yubikey-personalization
+        #
+        # [Updated: 2022-08-20]
+        # https://github.com/NixOS/nixpkgs/issues/175875
+        # https://github.com/pyca/pyopenssl/issues/873
+        aarch64-darwin
+      ];
 
-    darwinSystems = [x86_64-darwin aarch64-darwin];
+      darwinSystems = [ x86_64-darwin aarch64-darwin ];
 
-    collective = {
-      modules = importExportableModules ./modules;
-      peers = import ./ops/metadata/peers.nix;
-      profiles = rakeLeaves ./profiles;
-    };
+      collective = {
+        modules = importExportableModules ./modules;
+        peers = import ./ops/metadata/peers.nix;
+        profiles = rakeLeaves ./profiles;
+      };
 
-    # FIXME: split this to shared/nixos/darwin-specific
-    overlays = [
-      agenix.overlay
-      emacs-overlay.overlay
-      gitignore.overlay
-      nix-dram.overlay
-      nixpkgs-wayland.overlay
-      nur.overlay
-      nvfetcher.overlay
+      # FIXME: split this to shared/nixos/darwin-specific
+      overlays = [
+        agenix.overlay
+        emacs-overlay.overlay
+        gitignore.overlay
+        nix-dram.overlay
+        nixpkgs-wayland.overlay
+        nur.overlay
+        nvfetcher.overlay
 
-      ttc-subway-font.overlay
+        ttc-subway-font.overlay
 
-      nix-xilinx.overlay
+        nix-xilinx.overlay
 
-      nixpkgs-work.overlays.default
+        nixpkgs-work.overlays.default
 
-      (final: prev: {
-        emacs-plus = self.packages.${final.system}.emacs-plus;
+        (final: prev: {
+          emacs-plus = self.packages.${final.system}.emacs-plus;
 
-        amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
+          amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
 
-        nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
+          nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
 
-        dashboard = nixpkgs-work.packages.${final.system}.dashboard;
-        zeuspack = nixpkgs-work.packages.${final.system}.zeuspack;
-      })
-    ];
-  in
+          dashboard = nixpkgs-work.packages.${final.system}.dashboard;
+          zeuspack = nixpkgs-work.packages.${final.system}.zeuspack;
+        })
+      ];
+    in
     (digga.lib.mkFlake {
       inherit
         self
@@ -341,7 +342,7 @@
             (digga.lib.importOverlays ./packages)
           ];
         };
-        nixpkgs-trunk = {};
+        nixpkgs-trunk = { };
       };
 
       lib = import ./lib {
@@ -428,7 +429,7 @@
           # emacs-mac v28.2 with native compilation disabled;
           # - Intended primarily as a quick way to verify that the package builds
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
-          emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override {nativeComp = false;};
+          emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
         in
         (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
           (flattenTree (rakeLeaves ./darwin/packages)))
@@ -438,7 +439,7 @@
             # Tested with XCode CLT version: 14.0.0.0.1.1661618636
             emacs28Macport
             emacs28Macport-noNativeComp
-          ;
+            ;
         }
       ;
     }));

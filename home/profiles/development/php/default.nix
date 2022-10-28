@@ -1,11 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
+{ config
+, pkgs
+, lib
+, ...
+}:
+let
   inherit (config.lib) dotfield;
-in {
+in
+{
   home.packages = with pkgs; [
     php80
     php80Packages.composer

@@ -1,10 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
 
   cfg = config.services.yabai;
@@ -18,43 +18,49 @@
   };
 
   mkArgString = lib.generators.toKeyValue {
-    mkKeyValue = key: value: let
-      value' =
-        if lib.isBool value
-        then
-          (
-            if value
-            then "on"
-            else "off"
-          )
-        else builtins.toString value;
-    in "${key}='${value'}' \\";
+    mkKeyValue = key: value:
+      let
+        value' =
+          if lib.isBool value
+          then
+            (
+              if value
+              then "on"
+              else "off"
+            )
+          else builtins.toString value;
+      in
+      "${key}='${value'}' \\";
   };
 
-  mkRule = {app, ...} @ args: let
-    args' =
-      lib.filterAttrs
-      (n: _: ! builtins.elem n ["app"])
-      args;
-  in ''
-    yabai -m rule --add app='${app}' ${mkArgString args'}
-  '';
+  mkRule = { app, ... } @ args:
+    let
+      args' =
+        lib.filterAttrs
+          (n: _: ! builtins.elem n [ "app" ])
+          args;
+    in
+    ''
+      yabai -m rule --add app='${app}' ${mkArgString args'}
+    '';
 
-  mkSignal = {
-    event,
-    action,
-    ...
-  } @ args: let
-    args' =
-      lib.filterAttrs
-      (n: _: ! builtins.elem n ["event" "action"])
-      args;
-  in ''
-    yabai -m signal --add \
-      event='${event}' \
-      action='${action}' \
-      ${mkArgString args'}
-  '';
+  mkSignal =
+    { event
+    , action
+    , ...
+    } @ args:
+    let
+      args' =
+        lib.filterAttrs
+          (n: _: ! builtins.elem n [ "event" "action" ])
+          args;
+    in
+    ''
+      yabai -m signal --add \
+        event='${event}' \
+        action='${action}' \
+        ${mkArgString args'}
+    '';
 
   mkRules = rules: lib.strings.concatMapStringsSep "\n" (x: mkRule x) rules;
   mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
@@ -154,11 +160,12 @@
 
   # Get the store path to a yabai script by shortname.
   getScript = n: "${builtins.getAttr n scripts}/bin/yabai-${n}";
-in lib.mkIf false {
+in
+lib.mkIf false {
   environment.systemPackages =
     map
-    (key: builtins.getAttr key scripts)
-    (builtins.attrNames scripts);
+      (key: builtins.getAttr key scripts)
+      (builtins.attrNames scripts);
 
   environment.variables = {
     YABAI_PADDING_DEFAULT = defaults.padding;
@@ -223,119 +230,121 @@ in lib.mkIf false {
       window_shadow = "off";
     };
 
-    extraConfig = let
-      commonRules = {
-        manage = false;
-        sticky = false;
-      };
+    extraConfig =
+      let
+        commonRules = {
+          manage = false;
+          sticky = false;
+        };
 
-      rules = mkRules [
-        (commonRules // {app = "1Password";})
-        (commonRules // {app = "Affinity";})
-        (commonRules // {app = "Alfred Preferences";})
-        (commonRules // {app = "AppCleaner";})
-        (commonRules // {app = "Fanatastical Helper";})
-        (commonRules // {app = "Harvest";})
-        (commonRules // {app = "^LibreOffice";})
-        (commonRules // {app = "Stickies";})
-        (commonRules // {app = "^System Preferences$";})
+        rules = mkRules [
+          (commonRules // { app = "1Password"; })
+          (commonRules // { app = "Affinity"; })
+          (commonRules // { app = "Alfred Preferences"; })
+          (commonRules // { app = "AppCleaner"; })
+          (commonRules // { app = "Fanatastical Helper"; })
+          (commonRules // { app = "Harvest"; })
+          (commonRules // { app = "^LibreOffice"; })
+          (commonRules // { app = "Stickies"; })
+          (commonRules // { app = "^System Preferences$"; })
 
-        # Prevent tiny file copy dialogs from claiming a space partition.
-        (commonRules
-          // {
+          # Prevent tiny file copy dialogs from claiming a space partition.
+          (commonRules
+            // {
             app = "^Finder$";
             title = "Copy";
           })
 
-        {
-          app = "Microsoft Teams";
-          opacity = "1.0";
-        }
-        {
-          app = "zoom.us";
-          opacity = "1.0";
-        }
+          {
+            app = "Microsoft Teams";
+            opacity = "1.0";
+          }
+          {
+            app = "zoom.us";
+            opacity = "1.0";
+          }
 
-        ## Emacs
+          ## Emacs
 
-        {
-          app = "Emacs";
-          title = "doom-capture";
-          manage = false;
-          grid = "3:3:1:1:1:1";
-          label = "[Emacs]: Float and center the doom capture window";
-        }
-        {
-          app = "Emacs";
-          title = ".*Minibuf.*";
-          manage = false;
-          label = "[Emacs]: Float minibuffer";
-        }
-      ];
+          {
+            app = "Emacs";
+            title = "doom-capture";
+            manage = false;
+            grid = "3:3:1:1:1:1";
+            label = "[Emacs]: Float and center the doom capture window";
+          }
+          {
+            app = "Emacs";
+            title = ".*Minibuf.*";
+            manage = false;
+            label = "[Emacs]: Float minibuffer";
+          }
+        ];
 
-      signals = mkSignals [
-        {
-          event = "window_focused";
-          action = "yabai -m query --windows --window";
-          label = "log each focused window";
-        }
-      ];
-    in ''
-      # Set window padding to default value.
-      ${getScript "set-padding"}
+        signals = mkSignals [
+          {
+            event = "window_focused";
+            action = "yabai -m query --windows --window";
+            label = "log each focused window";
+          }
+        ];
+      in
+      ''
+        # Set window padding to default value.
+        ${getScript "set-padding"}
 
-      ###: NOTEBOOK WORKSPACES {{{
+        ###: NOTEBOOK WORKSPACES {{{
 
-        #: 'connect' :: slack, zoom, any others related to a current meeting
-        yabai -m space 1 --label 'connect'
-
-        #: 'browse' :: firefox for the machine's primary profile
-        yabai -m space 2 --label 'browse'
-
-        #: 'test' :: additional browser, other utils for testing current task
-        yabai -m space 3 --label 'test'
-
-        #: 'code' :: emacs, sometimes kitty
-        yabai -m space 4 --label 'code'
-
-        #: 'term' :: kitty
-        yabai -m space 5 --label 'term'
-
-        #: 'media' :: audio/video player, e.g. plexamp, spotify, youtube, vlc
-        yabai -m space 6 --label 'media'
-
-        #: 'browse-alt' :: additional firefox instance for secondary profile
-        yabai -m space 7 --label 'browse-alt'
-
-      ### }}}
-
-
-      ###: DESKTOP WORKSPACES {{{
-
-        ##: CENTER DISPLAY {{
-
+          #: 'connect' :: slack, zoom, any others related to a current meeting
           yabai -m space 1 --label 'connect'
+
+          #: 'browse' :: firefox for the machine's primary profile
           yabai -m space 2 --label 'browse'
-          yabai -m space 3 --label 'code'
 
-        ## }}
+          #: 'test' :: additional browser, other utils for testing current task
+          yabai -m space 3 --label 'test'
 
-        ##: RIGHT DISPLAY {{
+          #: 'code' :: emacs, sometimes kitty
+          yabai -m space 4 --label 'code'
 
-          yabai -m space 1 --label 'term'
+          #: 'term' :: kitty
+          yabai -m space 5 --label 'term'
 
-          #: 'chat' :: slack, irc, signal, etc.
-          yabai -m space 2 --label 'chat'
+          #: 'media' :: audio/video player, e.g. plexamp, spotify, youtube, vlc
+          yabai -m space 6 --label 'media'
 
-          yabai -m space 3 --label 'media'
-          yabai -m space 4 --label 'browse-alt'
+          #: 'browse-alt' :: additional firefox instance for secondary profile
+          yabai -m space 7 --label 'browse-alt'
 
-        ## }}
+        ### }}}
 
-      ### }}}
 
-      ${rules}
-      ${signals}
-    '';
+        ###: DESKTOP WORKSPACES {{{
+
+          ##: CENTER DISPLAY {{
+
+            yabai -m space 1 --label 'connect'
+            yabai -m space 2 --label 'browse'
+            yabai -m space 3 --label 'code'
+
+          ## }}
+
+          ##: RIGHT DISPLAY {{
+
+            yabai -m space 1 --label 'term'
+
+            #: 'chat' :: slack, irc, signal, etc.
+            yabai -m space 2 --label 'chat'
+
+            yabai -m space 3 --label 'media'
+            yabai -m space 4 --label 'browse-alt'
+
+          ## }}
+
+        ### }}}
+
+        ${rules}
+        ${signals}
+      '';
   };
 }

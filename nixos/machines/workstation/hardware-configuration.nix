@@ -1,14 +1,13 @@
 # FIXME: use device labels for interop
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-  boot.initrd.kernelModules = ["kvm-amd"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
   # LUKS-encrypted Linux boot
   boot.initrd.luks.devices.luksroot = {

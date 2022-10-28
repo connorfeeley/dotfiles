@@ -1,4 +1,5 @@
-collective: {inputs, ...}: let
+collective: { inputs, ... }:
+let
   inherit (inputs) agenix home-manager digga;
   inherit (inputs.flake-utils.lib.system) aarch64-darwin x86_64-darwin;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
@@ -8,13 +9,14 @@ collective: {inputs, ...}: let
 
   darwinModules = importExportableModules ./modules;
   profiles = rakeLeaves ./profiles;
-  roles = import ./roles {inherit collective profiles;};
+  roles = import ./roles { inherit collective profiles; };
 
-  importables = {inherit collective profiles roles primaryUser;};
-in {
+  importables = { inherit collective profiles roles primaryUser; };
+in
+{
   inherit importables;
 
-  imports = [(importHosts ./machines)];
+  imports = [ (importHosts ./machines) ];
 
   hosts.MacBook-Pro = {
     system = aarch64-darwin;
@@ -25,7 +27,7 @@ in {
   hostDefaults = {
     system = aarch64-darwin;
     channelName = "nixpkgs-darwin";
-    imports = [collective.modules darwinModules];
+    imports = [ collective.modules darwinModules ];
     modules = [
       collective.profiles.core
       profiles.core

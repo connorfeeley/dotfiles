@@ -1,21 +1,20 @@
-{
-  config,
-  lib,
-  pkgs,
-  profiles,
-  suites,
-  ...
+{ config
+, lib
+, pkgs
+, profiles
+, suites
+, ...
 }: {
   boot.loader.systemd-boot.enable = true;
 
   # Will be overridden by the bootstrapIso module.
-  fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
+  fileSystems."/" = { device = "/dev/disk/by-label/nixos"; };
 
   users.users.nixos = {
     password = "nixos";
     description = "default";
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
   };
 
   home-manager.users.nixos = hmArgs: {

@@ -1,7 +1,8 @@
-{
-  collective,
-  profiles,
-}: let
+{ collective
+, profiles
+,
+}:
+let
   workstation =
     (with (collective.profiles); [
       fonts.common
@@ -18,7 +19,8 @@
       podman
       system-defaults
     ]);
-in {
+in
+{
   inherit
     workstation
     ;

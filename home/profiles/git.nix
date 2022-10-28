@@ -1,10 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (lib) getAttr attrNames;
   inherit
     (config.lib.dotfield.whoami)
@@ -25,7 +25,8 @@
 
     ${gnupg}/bin/gpg2 --faked-system-time "$EPOCH_TODAY!" --no-emit-version $@
   '';
-in {
+in
+{
   home.packages = with pkgs; [
     ediff-tool
     exiftool # EXIF diff handler

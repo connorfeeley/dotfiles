@@ -1,10 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (lib.dotfield.whoami) githubUserName;
   inherit (pkgs.stdenv) isLinux;
 

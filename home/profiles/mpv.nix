@@ -1,12 +1,13 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.lib.dotfield.features) hasWayland;
   hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
-in {
+in
+{
   programs.mpv = {
     enable = true;
     config = lib.mkMerge [

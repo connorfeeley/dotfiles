@@ -1,4 +1,4 @@
-{profiles}:
+{ profiles }:
 with profiles; let
   developer = [
     direnv
@@ -98,4 +98,4 @@ with profiles; let
       ++ security;
   };
 in
-  roles
+roles

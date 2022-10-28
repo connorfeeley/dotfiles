@@ -1,11 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   services.pcscd.enable = true;
-  services.udev.packages = with pkgs; [yubikey-personalization];
+  services.udev.packages = with pkgs; [ yubikey-personalization ];
 
   # Use GnuPG's agent for SSH auth.
   programs.ssh.startAgent = false;

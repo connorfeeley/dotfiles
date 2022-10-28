@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   # imports = [./dconf.settings.nix];
   config = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {

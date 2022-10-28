@@ -1,12 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
 in {
-  homebrew.brews = ["sketchybar"];
+  homebrew.brews = [ "sketchybar" ];
 
   services.yabai.config.external_bar = "main:32:0";
 

@@ -1,16 +1,17 @@
-{
-  config,
-  lib,
-  pkgs,
-  profiles,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, profiles
+, ...
+}:
+let
   cfg = config.dotfield;
-in {
+in
+{
   imports = [
     ./guardian.nix
     # ./host.nix
   ];
 
-  config = {};
+  config = { };
 }

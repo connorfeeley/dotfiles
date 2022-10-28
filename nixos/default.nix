@@ -1,4 +1,5 @@
-collective: {inputs, ...}: let
+collective: { inputs, ... }:
+let
   inherit (inputs) agenix home-manager digga;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
@@ -8,13 +9,14 @@ collective: {inputs, ...}: let
 
   nixosModules = importExportableModules ./modules;
   profiles = rakeLeaves ./profiles;
-  roles = import ./roles {inherit collective profiles;};
+  roles = import ./roles { inherit collective profiles; };
 
-  importables = {inherit collective profiles roles primaryUser;};
-in {
+  importables = { inherit collective profiles roles primaryUser; };
+in
+{
   inherit importables;
 
-  imports = [(importHosts ./machines)];
+  imports = [ (importHosts ./machines) ];
 
   hosts = {
     bootstrap-graphical.modules =

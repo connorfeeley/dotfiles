@@ -10,7 +10,7 @@ let
 
   filterSystems =
     lib.filterAttrs
-    (system: _: lib.elem system ciSystems);
+      (system: _: lib.elem system ciSystems);
 
   recurseIntoAttrsRecursive = lib.mapAttrs (
     _: v:
@@ -21,15 +21,15 @@ let
 
   systemOutputs =
     lib.filterAttrs
-    (
-      name: set:
-        lib.isAttrs set
-        && lib.any
-        (system: set ? ${system} && name != "legacyPackages")
-        ciSystems
-    )
-    default.outputs;
+      (
+        name: set:
+          lib.isAttrs set
+          && lib.any
+            (system: set ? ${system} && name != "legacyPackages")
+            ciSystems
+      )
+      default.outputs;
 
   ciDrvs = lib.mapAttrs (_: system: filterSystems system) systemOutputs;
 in
-  (recurseIntoAttrsRecursive ciDrvs) // {shell = import ./shell.nix;}
+(recurseIntoAttrsRecursive ciDrvs) // { shell = import ./shell.nix; }

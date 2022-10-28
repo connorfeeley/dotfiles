@@ -1,9 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   substituters = [
     "https://cache.nixos.org/"
     "https://nix-community.cachix.org"
@@ -11,7 +11,8 @@
     "https://cache.iog.io"
   ];
   trusted-substituters = substituters;
-in {
+in
+{
   nix = {
     package = pkgs.nix;
     settings = {
@@ -19,8 +20,8 @@ in {
 
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       # FIXME: dangerous
-      allowed-users = ["*"];
-      trusted-users = ["root" "cfeeley"];
+      allowed-users = [ "*" ];
+      trusted-users = [ "root" "cfeeley" ];
 
       # Prevent shells from being automatically garbage-collected
       keep-outputs = true;

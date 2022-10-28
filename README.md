@@ -4,11 +4,9 @@
     1.  [Build `debian-vm` system (inside VM)](#build-debian-vm)
     2.  [`deploy-rs`: build `debian-vm` in QEMU](#deploy-rs-build)
 
-
 <a id="useful-commands"></a>
 
 # Useful Commands
-
 
 <a id="build-debian-vm"></a>
 
@@ -17,7 +15,6 @@
     fnix build ~/.config/dotfield#homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm".activationPackage --show-trace
 
     ./result/bin/home-manager-generation
-
 
 <a id="deploy-rs-build"></a>
 

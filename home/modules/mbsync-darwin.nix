@@ -81,31 +81,35 @@ in
         StartInterval = cfg.startInterval;
       };
     };
-    home.activation.runMuInitDarwin = let
-      maildirOption = genCmdMaildir config.accounts.email.maildirBasePath;
-      dbLocation = config.xdg.cacheHome + "/mu";
-  # Used to generate command line arguments that mu can operate with.
-  genCmdMaildir = path: "--maildir=" + path;
+    home.activation.runMuInitDarwin =
+      let
+        maildirOption = genCmdMaildir config.accounts.email.maildirBasePath;
+        dbLocation = config.xdg.cacheHome + "/mu";
+        # Used to generate command line arguments that mu can operate with.
+        genCmdMaildir = path: "--maildir=" + path;
 
-  # Takes the list of accounts with mu.enable = true, and generates a
-  # command-line flag for initializing the mu database.
-  myAddresses = let
-    # Set of email account sets where mu.enable = true.
-    muAccounts =
-      filter (a: a.mu.enable) (attrValues config.accounts.email.accounts);
-    addrs = map (a: a.address) muAccounts;
-    # Construct list of lists containing email aliases, and flatten
-    aliases = flatten (map (a: a.aliases) muAccounts);
-    # Prefix --my-address= to each account's address AND all defined aliases
-    addMyAddress = map (addr: "--my-address=" + addr) (addrs ++ aliases);
-  in concatStringsSep " " addMyAddress;
-    in hm.dag.entryAfter [ "writeBoundary" ] ''
-      # If the database directory exists, then `mu init` should NOT be run.
-      # In theory, mu is the only thing that creates that directory, and it is
-      # only created during the initial index.
-      if [[ ! -d "${dbLocation}" ]]; then
-        $DRY_RUN_CMD ${cfg.package}/bin/mbsync init ${maildirOption} ${myAddresses} $VERBOSE_ARG;
-      fi
-    '';
+        # Takes the list of accounts with mu.enable = true, and generates a
+        # command-line flag for initializing the mu database.
+        myAddresses =
+          let
+            # Set of email account sets where mu.enable = true.
+            muAccounts =
+              filter (a: a.mu.enable) (attrValues config.accounts.email.accounts);
+            addrs = map (a: a.address) muAccounts;
+            # Construct list of lists containing email aliases, and flatten
+            aliases = flatten (map (a: a.aliases) muAccounts);
+            # Prefix --my-address= to each account's address AND all defined aliases
+            addMyAddress = map (addr: "--my-address=" + addr) (addrs ++ aliases);
+          in
+          concatStringsSep " " addMyAddress;
+      in
+      hm.dag.entryAfter [ "writeBoundary" ] ''
+        # If the database directory exists, then `mu init` should NOT be run.
+        # In theory, mu is the only thing that creates that directory, and it is
+        # only created during the initial index.
+        if [[ ! -d "${dbLocation}" ]]; then
+          $DRY_RUN_CMD ${cfg.package}/bin/mbsync init ${maildirOption} ${myAddresses} $VERBOSE_ARG;
+        fi
+      '';
   };
 }

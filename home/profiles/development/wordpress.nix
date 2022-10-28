@@ -1,12 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  profiles,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, profiles
+, ...
+}:
+let
   gitCmd = "${pkgs.git}/bin/git";
-in {
+in
+{
   home.packages = with pkgs; [
     # FIXME: assumes a particular repo structure -- likely incompatible with trellis
     (writeShellScriptBin "wp-debug-display" ''

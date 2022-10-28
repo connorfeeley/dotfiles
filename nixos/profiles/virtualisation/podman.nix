@@ -1,14 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.dotfield) guardian;
-in {
+in
+{
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
   };
-  users.users.${guardian.username}.extraGroups = ["podman"];
+  users.users.${guardian.username}.extraGroups = [ "podman" ];
 }

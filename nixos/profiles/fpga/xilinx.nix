@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 
 {
@@ -18,13 +17,14 @@
   ];
 
   services.udev.extraRules =
-    let ddc-rules = ''
-      SUBSYSTEM=="i2c-dev", ACTION=="add",\
-        ATTR{name}=="NVIDIA i2c adapter*",\
-        TAG+="ddcci",\
-        TAG+="systemd",\
-        ENV{SYSTEMD_WANTS}+="ddcci@$kernel.service"
-    '';
+    let
+      ddc-rules = ''
+        SUBSYSTEM=="i2c-dev", ACTION=="add",\
+          ATTR{name}=="NVIDIA i2c adapter*",\
+          TAG+="ddcci",\
+          TAG+="systemd",\
+          ENV{SYSTEMD_WANTS}+="ddcci@$kernel.service"
+      '';
     in
     ''
       # For monitor brightness control

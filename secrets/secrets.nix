@@ -13,7 +13,8 @@ let
     ++ hodgepodge;
 
   allMachines = servers ++ workstations;
-in {
+in
+{
   "aws/aws-cdom-default.pem.age".publicKeys = workstations ++ trustedUsers;
   # "espanso/personal.yml.age".publicKeys = workstations ++ trustedUsers;
 

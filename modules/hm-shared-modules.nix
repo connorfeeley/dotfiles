@@ -1,13 +1,14 @@
-{
-  config,
-  inputs,
-  pkgs,
-  ...
-}: let
+{ config
+, inputs
+, pkgs
+, ...
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) system;
   homeManagerPackage = inputs.home-manager.packages.${system}.default;
-in {
-  environment.systemPackages = [homeManagerPackage];
+in
+{
+  environment.systemPackages = [ homeManagerPackage ];
 
   # TODO: right location for this?
   home-manager.backupFileExtension = "backup";

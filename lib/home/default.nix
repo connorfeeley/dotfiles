@@ -1,16 +1,17 @@
-moduleArgs @ {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+moduleArgs @ { config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.xdg) configHome dataHome stateHome;
   inherit (config.home) username;
 
-  sysLib = moduleArgs.osConfig.lib.dotfield or {};
+  sysLib = moduleArgs.osConfig.lib.dotfield or { };
 
   this = config.lib.dotfield;
-in {
+in
+{
   lib.dotfield = {
     fsPath = "${configHome}/dotfield";
     userConfigPath = "${this.fsPath}/home/users/${username}/config";

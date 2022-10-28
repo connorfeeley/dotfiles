@@ -1,40 +1,43 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (pkgs.lib.our) treesWithEnabledLeaf;
 
   /*
-  hasEnabledModule :: [String] -> AttrSet -> Bool
+    hasEnabledModule :: [String] -> AttrSet -> Bool
 
-  Whether any home-manager user on the system has enabled the module at
-  the given path.
+    Whether any home-manager user on the system has enabled the module at
+    the given path.
 
-  Example:
+    Example:
 
-  ```
-  {
+    ```
+    {
     home-manager.users = {
       foo = { programs.emacs.enable = true; };
       bar = { programs.neovim.enable = true; };
     };
     programs.emacs.enable = hasEnabledModule ["programs" "emacs"];
-  }
-  ```
+    }
+    ```
   */
-  hasEnabledModule = path: let
-    trees = treesWithEnabledLeaf (path ++ ["enable"]) config.home-manager.users;
-  in ((builtins.length trees) >= 1);
+  hasEnabledModule = path:
+    let
+      trees = treesWithEnabledLeaf (path ++ [ "enable" ]) config.home-manager.users;
+    in
+    ((builtins.length trees) >= 1);
 
   /*
-  hasWm :: String -> Bool
+    hasWm :: String -> Bool
 
-  Whether the given window manager is enabled by any user.
+    Whether the given window manager is enabled by any user.
   */
-  hasWm = name: hasEnabledModule ["wayland" "windowManager" name];
-in {
+  hasWm = name: hasEnabledModule [ "wayland" "windowManager" name ];
+in
+{
   lib.dotfield = {
     srcPath = toString ../../.;
     fsPath = "/etc/dotfield";
@@ -58,6 +61,6 @@ in {
           or (pkgs.stdenv.isLinux ? config.programs.sway.enable);
     };
 
-    home = {inherit hasEnabledModule hasWm;};
+    home = { inherit hasEnabledModule hasWm; };
   };
 }

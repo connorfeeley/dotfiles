@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   # FIXME: most of these should NOT be considered part of "core"
   # most don't belong on a server, etc.

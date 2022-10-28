@@ -1,8 +1,8 @@
-{
-  lib,
-  jq,
-  sources,
-  writeShellScriptBin,
+{ lib
+, jq
+, sources
+, writeShellScriptBin
+,
 }:
 lib.makeExtensible (self: {
   # FIXME: provide a better indication that there can be multiple kitty windows in

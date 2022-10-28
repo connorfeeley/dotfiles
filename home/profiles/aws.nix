@@ -1,10 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
-  home.packages = with pkgs; [awscli2];
+  home.packages = with pkgs; [ awscli2 ];
 
   # aws-cli does not work well with xdg base directories
   # https://github.com/aws/aws-sdk/issues/30#issuecomment-532208981

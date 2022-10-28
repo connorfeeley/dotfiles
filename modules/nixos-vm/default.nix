@@ -7,14 +7,14 @@
 ## Sources:
 #
 # https://github.com/Mic92/nixos-shell/blob/55de7d4d449ff30cdde8b8fe484a86eef477245e/share/modules/nixos-shell.nix
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  modulesPath,
-  ...
-}: let
+{ config
+, lib
+, options
+, pkgs
+, modulesPath
+, ...
+}:
+let
   inherit
     (builtins)
     getEnv
@@ -35,7 +35,8 @@
     ;
   cfg = config.nixos-vm;
   user = getEnv "USER";
-in {
+in
+{
   options.nixos-vm = {
     enable = mkEnableOption "Whether to enable VM-specific configuration.";
 
@@ -47,7 +48,7 @@ in {
 
     peerConfig = mkOption {
       type = attrsOf raw;
-      default = {};
+      default = { };
       description = "Override the virtual machine's peer ops configuration.";
     };
 

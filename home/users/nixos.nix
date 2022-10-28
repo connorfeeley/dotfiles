@@ -1,10 +1,10 @@
-{roles, ...}: {
+{ roles, ... }: {
   users.users.nixos = {
     password = "nixos";
     description = "default";
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
   };
 
-  home-manager.users.nixos = hmArgs: {imports = with hmArgs.roles; graphical;};
+  home-manager.users.nixos = hmArgs: { imports = with hmArgs.roles; graphical; };
 }

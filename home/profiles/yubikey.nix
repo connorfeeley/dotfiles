@@ -1,13 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (pkgs.stdenv) targetPlatform;
   inherit (inputs.flake-utils.lib.system) aarch64-darwin;
-in {
+in
+{
   # FIXME: fails on aarch64-darwin
   # https://github.com/NixOS/nixpkgs/issues/175875
   # https://github.com/pyca/pyopenssl/issues/873

@@ -31,7 +31,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You may read the license in full within the [COPYING](./COPYING) file included
@@ -179,9 +179,7 @@ Its excessive clunkiness is excacerbated by the sharp edges exposed on its
 sturdy sticker-laden plastic case over the years. The situation is more
 manageable now thanks to the globs of Sugru preventing any further bodily harm.
 
-
 ### Incubation
-
 
 #### "`tsone`" (working title)
 
@@ -217,7 +215,6 @@ From https://github.com/drduh/YubiKey-Guide#using-keys:
 export KEYID="0x135EEDD0F71934F3"
 gpg --recv $KEYID
 ```
-
 
 ## Vertebrae
 

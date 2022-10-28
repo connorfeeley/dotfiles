@@ -1,11 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
+{ config
+, lib
+, pkgs
+, modulesPath
+, ...
 }: {
-  disabledModules = ["virtualisation/parallels-guest.nix"];
+  disabledModules = [ "virtualisation/parallels-guest.nix" ];
 
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -19,7 +18,7 @@
 
   hardware.parallels = {
     enable = true;
-    package = config.boot.kernelPackages.callPackage ./prl-tools.nix {};
+    package = config.boot.kernelPackages.callPackage ./prl-tools.nix { };
   };
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

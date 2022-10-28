@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   virtualisation = {
     # N.B. If using the default SLiRP user networking, be aware that the guest's

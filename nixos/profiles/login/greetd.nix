@@ -3,12 +3,12 @@
 # FIXME: currently results in a quick flash of lightdm (the default login
 # manager on nixos) before attempting to boot into the initial session or
 # loading the default session
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.lib.dotfield.sys) hasNvidia;
   inherit (config.lib.dotfield.home) hasWm;
 
@@ -53,7 +53,8 @@
   steam-bigpicture = mkSession "steam-bigpicture" ''
     ${sway-kiosk "${pkgs.steam}/bin/steam -bigpicture"}
   '';
-in {
+in
+{
   environment.systemPackages = [
     pkgs.bashInteractive
     pkgs.fish

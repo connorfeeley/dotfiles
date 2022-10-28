@@ -1,11 +1,11 @@
-moduleArgs @ {
-  self,
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+moduleArgs @ { self
+, config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (config.lib.dotfield) fsPath;
 
   sshHostPath =
@@ -15,7 +15,8 @@ moduleArgs @ {
 
   # FIXME: is this accurate?
   nixosConfigPath = "${fsPath}/lib/compat/nixos";
-in {
+in
+{
   imports = [
     inputs.nix-ld.nixosModules.nix-ld
     inputs.envfs.nixosModules.envfs
@@ -25,10 +26,10 @@ in {
     settings = {
       auto-optimise-store = true;
       # TODO: is it really reasonable to set these all as defaults?
-      system-features = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+      system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     };
 
-    nixPath = ["nixos-config=${nixosConfigPath}"];
+    nixPath = [ "nixos-config=${nixosConfigPath}" ];
     optimise.automatic = true;
   };
 

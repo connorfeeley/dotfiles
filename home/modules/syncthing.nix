@@ -8,13 +8,14 @@ let
 
   cfg = config.services.syncthing;
 
-in {
+in
+{
   meta.maintainers = [ maintainers.rycee ];
-    # Use our local fork of these modules while still pending upstream changes.
-    # This is necessary in order to avoid tracking `nixpkgs-unstable` to appease hm.
-    disabledModules = [
-      "services/syncthing.nix"
-    ];
+  # Use our local fork of these modules while still pending upstream changes.
+  # This is necessary in order to avoid tracking `nixpkgs-unstable` to appease hm.
+  disabledModules = [
+    "services/syncthing.nix"
+  ];
 
 
   options = {
@@ -80,7 +81,7 @@ in {
             ExecStart =
               "${pkgs.syncthing}/bin/syncthing -no-browser -no-restart -logflags=0"
               + optionalString (cfg.extraOptions != [ ])
-              (" " + escapeShellArgs cfg.extraOptions);
+                (" " + escapeShellArgs cfg.extraOptions);
             Restart = "on-failure";
             SuccessExitStatus = [ 3 4 ];
             RestartForceExitStatus = [ 3 4 ];
@@ -101,33 +102,36 @@ in {
     })
 
     (mkIf (cfg.enable && isDarwin) {
-      launchd.agents.syncthing = let
-        logDir = if config.xdg.enable then
-          config.xdg.cacheHome
-        else
-          "${config.home.homeDirectory}/Library/Logs";
-      in {
-        enable = true;
-        config = {
-          ProgramArguments = [
-            "${pkgs.syncthing}/bin/syncthing"
-            "--no-browser"
-            "--no-restart"
-            "--logflags=0"
-          ] ++ (optionals (cfg.extraOptions != [ ])
-            (escapeShellArgs cfg.extraOptions));
-          RunAtLoad = true;
-          EnvironmentVariables = {
-            HOME = config.home.homeDirectory;
-            STNORESTART = "1";
+      launchd.agents.syncthing =
+        let
+          logDir =
+            if config.xdg.enable then
+              config.xdg.cacheHome
+            else
+              "${config.home.homeDirectory}/Library/Logs";
+        in
+        {
+          enable = true;
+          config = {
+            ProgramArguments = [
+              "${pkgs.syncthing}/bin/syncthing"
+              "--no-browser"
+              "--no-restart"
+              "--logflags=0"
+            ] ++ (optionals (cfg.extraOptions != [ ])
+              (escapeShellArgs cfg.extraOptions));
+            RunAtLoad = true;
+            EnvironmentVariables = {
+              HOME = config.home.homeDirectory;
+              STNORESTART = "1";
+            };
+            KeepAlive.SuccessfulExit = false;
+            LowPriorityIO = true;
+            ProcessType = "Background";
+            StandardOutPath = "${logDir}/syncthing.out.log";
+            StandardErrorPath = "${logDir}/syncthing.err.log";
           };
-          KeepAlive.SuccessfulExit = false;
-          LowPriorityIO = true;
-          ProcessType = "Background";
-          StandardOutPath = "${logDir}/syncthing.out.log";
-          StandardErrorPath = "${logDir}/syncthing.err.log";
         };
-      };
     })
 
     (mkIf (isAttrs cfg.tray && cfg.tray.enable) {

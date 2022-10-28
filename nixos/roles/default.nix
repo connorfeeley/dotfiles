@@ -1,7 +1,8 @@
-{
-  collective,
-  profiles,
-}: let
+{ collective
+, profiles
+,
+}:
+let
   graphical =
     (with collective.profiles; [
       fonts.common
@@ -22,7 +23,7 @@
       networking.tailscale
       networking.ssh-host
     ])
-    ++ (with profiles; []);
+    ++ (with profiles; [ ]);
 
   tangible =
     (with (collective.profiles); [
@@ -56,7 +57,8 @@
       boot.systemd-boot
       yubikey
     ]);
-in {
+in
+{
   inherit
     graphical
     server

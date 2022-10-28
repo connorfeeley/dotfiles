@@ -1,7 +1,7 @@
-{
-  stdenv,
-  fetchzip,
-  lib,
+{ stdenv
+, fetchzip
+, lib
+,
 }:
 stdenv.mkDerivation rec {
   pname = "yabai";

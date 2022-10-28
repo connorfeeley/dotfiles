@@ -1,8 +1,8 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  unzip,
+{ stdenv
+, fetchurl
+, lib
+, unzip
+,
 }:
 stdenv.mkDerivation rec {
   pname = "nerdfonts-symbols-only";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tuNRQx2gtp6ewNie0hogty/kBwkuRjfG9AyjXTe/rkw=";
   };
 
-  nativeBuildInputs = [unzip];
+  nativeBuildInputs = [ unzip ];
   sourceRoot = ".";
   installPhase = ''
     find -name \*.otf -exec mkdir -p $out/share/fonts/opentype/NerdFonts \; -exec mv {} $out/share/fonts/opentype/NerdFonts \;
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://nerdfonts.com/";
     license = licenses.mit;
-    maintainers = ["montchr"];
-    hydraPlatforms = []; # 'Output limit exceeded' on Hydra
+    maintainers = [ "montchr" ];
+    hydraPlatforms = [ ]; # 'Output limit exceeded' on Hydra
   };
 }

@@ -1,10 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   # Note that `builtins.getEnv` will only return an empty string unless running
   # an impure build. For that reason, a fallback value is necessary.
   envTheme = builtins.getEnv "DOTFIELD_THEME";
@@ -12,7 +12,8 @@
     if envTheme != ""
     then envTheme
     else "synth-midnight-dark";
-in {
+in
+{
   colorscheme = inputs.nix-colors.colorSchemes.${theme};
 
   theme.font = {

@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
-  home.packages = with pkgs; [docker docker-compose];
+  home.packages = with pkgs; [ docker docker-compose ];
 }

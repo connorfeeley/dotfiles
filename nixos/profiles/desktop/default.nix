@@ -1,16 +1,17 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.lib.dotfield.sys) hasWayland;
 
   firefoxPackage =
     if hasWayland
     then pkgs.firefox-wayland
     else pkgs.firefox;
-in {
+in
+{
   services.xserver.enable = true;
   services.xserver.layout = "dvorak";
   # FIXME: propagate to GNOME settings

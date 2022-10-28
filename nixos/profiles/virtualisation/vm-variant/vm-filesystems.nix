@@ -1,12 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   cfg = config.nixos-vm;
   mkVMDefault = lib.mkOverride 900;
-in {
+in
+{
   virtualisation = {
     # https://wiki.qemu.org/Documentation/9psetup#Performance_Considerations
     # FIXME: currently 500K seems to be the limit?

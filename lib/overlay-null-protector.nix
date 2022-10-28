@@ -1,6 +1,6 @@
 overlay: final: prev:
 if prev == null || (prev.isFakePkgs or false)
-then {}
+then { }
 else overlay final prev
 ##: sources:
 # - https://github.com/divnix/digga/issues/464#issuecomment-1154974631

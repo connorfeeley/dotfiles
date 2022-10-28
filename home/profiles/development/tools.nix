@@ -5,7 +5,7 @@
 }: {
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
-    hyperfine   # <- Command-line benchmarking tool
+    hyperfine # <- Command-line benchmarking tool
     # chronologer # <- Visualize changes in benchmark timings over git history
 
     ## === Local Development ===

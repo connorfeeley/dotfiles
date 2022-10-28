@@ -1,9 +1,8 @@
 # Adjusted manually from generated output of dconf2nix
 # https://github.com/gvolpe/dconf2nix
-{
-  lib,
-  pkgs,
-  ...
+{ lib
+, pkgs
+, ...
 }:
 with lib.hm.gvariant; {
   dconf.settings = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
@@ -38,7 +37,7 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      workspace-names = ["sys" "talk" "web" "edit" "run"];
+      workspace-names = [ "sys" "talk" "web" "edit" "run" ];
     };
 
     "org/gnome/mutter" = {

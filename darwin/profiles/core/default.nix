@@ -1,12 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
   inherit (config.lib) dotfield;
-in {
+in
+{
   nix.nixPath = [
     # TODO: This entry should be added automatically via FUP's `nix.linkInputs`
     # and `nix.generateNixPathFromInputs` options, but currently that doesn't
@@ -22,7 +23,7 @@ in {
   environment.darwinConfig = "${dotfield.fsPath}/lib/compat/darwin";
 
   # Administrative users on Darwin systems are part of the admin group by default.
-  nix.settings.trusted-users = ["@admin" "@wheel"];
+  nix.settings.trusted-users = [ "@admin" "@wheel" ];
 
 
   programs.bash = {

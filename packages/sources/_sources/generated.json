@@ -1,227 +1,227 @@
 {
-    "HPI": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "HPI",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/H/HPI/HPI-0.3.20220607.tar.gz"
-        },
-        "version": "0.3.20220607"
+  "HPI": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "HPI",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-GME0Z+TH/6U+smFkuk1sT8UBzlySv5/yGhb42Kiaj8w=",
+      "type": "url",
+      "url": "https://pypi.io/packages/source/H/HPI/HPI-0.3.20220607.tar.gz"
     },
-    "fish-autopair": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "fish-autopair",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "jorgebucaran",
-            "repo": "autopair.fish",
-            "rev": "1.0.4",
-            "sha256": "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=",
-            "type": "github"
-        },
-        "version": "1.0.4"
+    "version": "0.3.20220607"
+  },
+  "fish-autopair": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "fish-autopair",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "jorgebucaran",
+      "repo": "autopair.fish",
+      "rev": "1.0.4",
+      "sha256": "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=",
+      "type": "github"
     },
-    "fish-fifc": {
-        "cargoLocks": null,
-        "date": "2022-08-26",
-        "extract": null,
-        "name": "fish-fifc",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "adff5966739667d4c13d6388372e40f821571208",
-            "sha256": "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=",
-            "type": "git",
-            "url": "https://github.com/gazorby/fifc"
-        },
-        "version": "adff5966739667d4c13d6388372e40f821571208"
+    "version": "1.0.4"
+  },
+  "fish-fifc": {
+    "cargoLocks": null,
+    "date": "2022-08-26",
+    "extract": null,
+    "name": "fish-fifc",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "adff5966739667d4c13d6388372e40f821571208",
+      "sha256": "sha256-tUhEfwVtcd1iSHsmkOzkB5B33qK+x/AZ56Dgs8QEaDk=",
+      "type": "git",
+      "url": "https://github.com/gazorby/fifc"
     },
-    "fish-replay": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "fish-replay",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "jorgebucaran",
-            "repo": "replay.fish",
-            "rev": "1.2.1",
-            "sha256": "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=",
-            "type": "github"
-        },
-        "version": "1.2.1"
+    "version": "adff5966739667d4c13d6388372e40f821571208"
+  },
+  "fish-replay": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "fish-replay",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "jorgebucaran",
+      "repo": "replay.fish",
+      "rev": "1.2.1",
+      "sha256": "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=",
+      "type": "github"
     },
-    "fzf-scripts": {
-        "cargoLocks": null,
-        "date": "2022-09-02",
-        "extract": null,
-        "name": "fzf-scripts",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "15156e3cb56c715464a2421e6f4e4356a26ac975",
-            "sha256": "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=",
-            "type": "git",
-            "url": "https://github.com/DanielFGray/fzf-scripts"
-        },
-        "version": "15156e3cb56c715464a2421e6f4e4356a26ac975"
+    "version": "1.2.1"
+  },
+  "fzf-scripts": {
+    "cargoLocks": null,
+    "date": "2022-09-02",
+    "extract": null,
+    "name": "fzf-scripts",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "15156e3cb56c715464a2421e6f4e4356a26ac975",
+      "sha256": "sha256-rynePmia169HOvL0M2GTWrndulS6dKjfx7rT0GK9J0I=",
+      "type": "git",
+      "url": "https://github.com/DanielFGray/fzf-scripts"
     },
-    "hlissner-hey": {
-        "cargoLocks": null,
-        "date": "2022-09-19",
-        "extract": {
-            "bin/hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/bin/hey",
-            "config/zsh/completions/_hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/config/zsh/completions/_hey"
-        },
-        "name": "hlissner-hey",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "089f1a9da9018df9e5fc200c2d7bef70f4546026",
-            "sha256": "sha256-uKMuJnCINAJWdEapZeTaenBptJN+rIrh5Ml+9J7Gr+4=",
-            "type": "git",
-            "url": "https://github.com/hlissner/dotfiles"
-        },
-        "version": "089f1a9da9018df9e5fc200c2d7bef70f4546026"
+    "version": "15156e3cb56c715464a2421e6f4e4356a26ac975"
+  },
+  "hlissner-hey": {
+    "cargoLocks": null,
+    "date": "2022-09-19",
+    "extract": {
+      "bin/hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/bin/hey",
+      "config/zsh/completions/_hey": "./hlissner-hey-089f1a9da9018df9e5fc200c2d7bef70f4546026/config/zsh/completions/_hey"
     },
-    "hug": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "hug",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-sO2s4qy2GIc3ecnObs+RZdtU/vlcIiYvVwD83Z/rrsk=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/h/hug/hug-2.6.1.tar.gz"
-        },
-        "version": "2.6.1"
+    "name": "hlissner-hey",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "089f1a9da9018df9e5fc200c2d7bef70f4546026",
+      "sha256": "sha256-uKMuJnCINAJWdEapZeTaenBptJN+rIrh5Ml+9J7Gr+4=",
+      "type": "git",
+      "url": "https://github.com/hlissner/dotfiles"
     },
-    "kitty-bortflower-icons": {
-        "cargoLocks": null,
-        "date": "2022-08-01",
-        "extract": null,
-        "name": "kitty-bortflower-icons",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67",
-            "sha256": "sha256-Vy+iLGnysrJMSLfkaYq15pb/wG4kIbfsXRrPgSc3OFs=",
-            "type": "git",
-            "url": "https://github.com/DinkDonk/kitty-icon.git"
-        },
-        "version": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67"
+    "version": "089f1a9da9018df9e5fc200c2d7bef70f4546026"
+  },
+  "hug": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "hug",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-sO2s4qy2GIc3ecnObs+RZdtU/vlcIiYvVwD83Z/rrsk=",
+      "type": "url",
+      "url": "https://pypi.io/packages/source/h/hug/hug-2.6.1.tar.gz"
     },
-    "orgparse": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "orgparse",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-hg5vu5pnt0K6p5LmD4zBhSLpeJwGXSaCHAIoXV/BBK8=",
-            "type": "url",
-            "url": "https://pypi.io/packages/source/o/orgparse/orgparse-0.3.1.tar.gz"
-        },
-        "version": "0.3.1"
+    "version": "2.6.1"
+  },
+  "kitty-bortflower-icons": {
+    "cargoLocks": null,
+    "date": "2022-08-01",
+    "extract": null,
+    "name": "kitty-bortflower-icons",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67",
+      "sha256": "sha256-Vy+iLGnysrJMSLfkaYq15pb/wG4kIbfsXRrPgSc3OFs=",
+      "type": "git",
+      "url": "https://github.com/DinkDonk/kitty-icon.git"
     },
-    "promnesia": {
-        "cargoLocks": null,
-        "date": "2022-06-08",
-        "extract": null,
-        "name": "promnesia",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "karlicoss",
-            "repo": "promnesia",
-            "rev": "346b2e08e04604adffb17ae51244cd1b1ec9015f",
-            "sha256": "sha256-GcLPJZQaHqPUGvcZMNlofwqTizh5/PywA4vY9N3Ih7s=",
-            "type": "github"
-        },
-        "version": "346b2e08e04604adffb17ae51244cd1b1ec9015f"
+    "version": "269c0f0bd1c792cebc7821f299ce9250ed9bcd67"
+  },
+  "orgparse": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "orgparse",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-hg5vu5pnt0K6p5LmD4zBhSLpeJwGXSaCHAIoXV/BBK8=",
+      "type": "url",
+      "url": "https://pypi.io/packages/source/o/orgparse/orgparse-0.3.1.tar.gz"
     },
-    "roots-trellis-cli": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "roots-trellis-cli",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "roots",
-            "repo": "trellis-cli",
-            "rev": "v1.7.0",
-            "sha256": "sha256-/YUoGPVTbmegr8cmjhtHnG1jiwIjen91sUWjgK3T8GQ=",
-            "type": "github"
-        },
-        "version": "v1.7.0"
+    "version": "0.3.1"
+  },
+  "promnesia": {
+    "cargoLocks": null,
+    "date": "2022-06-08",
+    "extract": null,
+    "name": "promnesia",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "karlicoss",
+      "repo": "promnesia",
+      "rev": "346b2e08e04604adffb17ae51244cd1b1ec9015f",
+      "sha256": "sha256-GcLPJZQaHqPUGvcZMNlofwqTizh5/PywA4vY9N3Ih7s=",
+      "type": "github"
     },
-    "ssh-cmc": {
-        "cargoLocks": null,
-        "date": "2022-09-30",
-        "extract": {
-            "cmc": "./ssh-cmc-d5085c30d41ea1db96b1c119338fc6501fd09900/cmc"
-        },
-        "name": "ssh-cmc",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "d5085c30d41ea1db96b1c119338fc6501fd09900",
-            "sha256": "sha256-onESIhNu+uNPXFA27Hu041Rhk+epXWfTjIdtN1U8Jpg=",
-            "type": "git",
-            "url": "https://github.com/TimidRobot/cmc"
-        },
-        "version": "d5085c30d41ea1db96b1c119338fc6501fd09900"
-    }
+    "version": "346b2e08e04604adffb17ae51244cd1b1ec9015f"
+  },
+  "roots-trellis-cli": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "roots-trellis-cli",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "roots",
+      "repo": "trellis-cli",
+      "rev": "v1.7.0",
+      "sha256": "sha256-/YUoGPVTbmegr8cmjhtHnG1jiwIjen91sUWjgK3T8GQ=",
+      "type": "github"
+    },
+    "version": "v1.7.0"
+  },
+  "ssh-cmc": {
+    "cargoLocks": null,
+    "date": "2022-09-30",
+    "extract": {
+      "cmc": "./ssh-cmc-d5085c30d41ea1db96b1c119338fc6501fd09900/cmc"
+    },
+    "name": "ssh-cmc",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "d5085c30d41ea1db96b1c119338fc6501fd09900",
+      "sha256": "sha256-onESIhNu+uNPXFA27Hu041Rhk+epXWfTjIdtN1U8Jpg=",
+      "type": "git",
+      "url": "https://github.com/TimidRobot/cmc"
+    },
+    "version": "d5085c30d41ea1db96b1c119338fc6501fd09900"
+  }
 }

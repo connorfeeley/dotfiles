@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  primaryUser,
-  ...
+{ config
+, lib
+, pkgs
+, primaryUser
+, ...
 }: {
   services.openssh.enable = lib.mkForce true;
   services.openssh.permitRootLogin = "prohibit-password";

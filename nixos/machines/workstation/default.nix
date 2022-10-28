@@ -1,17 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  profiles,
-  suites,
-  inputs,
-  primaryUser,
-  collective,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, profiles
+, suites
+, inputs
+, primaryUser
+, collective
+, ...
+}:
+let
   inherit (collective) peers;
   inherit (config.networking) hostName;
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
   ];
@@ -19,8 +20,8 @@ in {
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 15;
-  boot.initrd.supportedFilesystems = ["ext4" "btrfs"];
-  boot.supportedFilesystems = ["ext4" "btrfs"];
+  boot.initrd.supportedFilesystems = [ "ext4" "btrfs" ];
+  boot.supportedFilesystems = [ "ext4" "btrfs" ];
 
   # Mount /tmp as tmpfs
   boot.tmpOnTmpfs = true;
@@ -54,7 +55,8 @@ in {
       host = peers.hosts.${hostName};
       net = peers.networks.${host.network};
       interface = "eth0";
-    in {
+    in
+    {
       useDHCP = false;
       usePredictableInterfaceNames = false;
       # interfaces.wlp6s0.useDHCP = true;
@@ -134,7 +136,7 @@ in {
   };
 
   home-manager.users = {
-    cfeeley = hmArgs: {imports = with hmArgs.roles; workstation ++ linux;};
+    cfeeley = hmArgs: { imports = with hmArgs.roles; workstation ++ linux; };
   };
 
 

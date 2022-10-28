@@ -3,7 +3,8 @@
 
 let
   macportVersion = "9.1";
-in import ./generic.nix (rec {
+in
+import ./generic.nix (rec {
   pname = "emacsMacport";
   version = "28.2";
   sha256 = "sha256-7iEYIjPvMjLcl7SGry2G4UBC27ZbvFNd9WLDqFgjJIg=";

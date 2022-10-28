@@ -27,14 +27,14 @@ in
   # Add 'users' group
   users.knownGroups = [ "users" ];
   users.groups.users = {
-    members = ["cfeeley"];
+    members = [ "cfeeley" ];
     gid = 1000;
     description = "users group for syncthing compatibility";
   };
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; workstation ++ macos ;
+      imports = with hmArgs.roles; workstation ++ macos;
 
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";

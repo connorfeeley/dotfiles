@@ -1,11 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (config.dotfield) guardian;
-in {
+in
+{
   virtualisation.docker = {
     enable = true;
     daemon.settings = {
@@ -13,5 +14,5 @@ in {
     };
   };
 
-  users.users.${guardian.username}.extraGroups = ["docker"];
+  users.users.${guardian.username}.extraGroups = [ "docker" ];
 }
