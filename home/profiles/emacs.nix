@@ -184,6 +184,12 @@ lib.mkMerge [
       gitAndTools.delta
       # :lang nix
       nixpkgs-fmt
+      # :lang cpp
+      (clang-tools.override { llvmPackages = llvmPackages_latest; })
+      llvmPackages_latest.lldb # includes lldb-vscode
+      vscode-extensions.ms-vscode.cpptools
+      # :lang python
+      python3Packages.debugpy
 
       # :tools pdf
       # Use with (package! pdf-tools :built-in 'prefer)
