@@ -218,7 +218,8 @@ let
     ];
 
     # Mark derivation impure: must have 'sandbox = relaxed' set in nix.conf or 'nixConfig.sandbox = "relaxed"' in flake.nix
-    __noChroot = withMacport;
+    # NOTE: this appears to prevent the derivation from being rebuilt (even when inputs change).
+    # __noChroot = withMacport;
 
     # This is unfortunate, but we need to use the same compiler as Xcode,
     # but Xcode doesn't provide a way to configure the compiler.
