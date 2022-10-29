@@ -13,7 +13,6 @@
     ccrypt
 
     ## === Forensics ===
-    chkrootkit
     ddrescue
     exiv2
     pdf-parser
@@ -41,6 +40,9 @@
     (binwalk.override { visualizationSupport = true; })
     radare2
     cutter
+
+    ## === Forensics ===
+    chkrootkit
 
     ## === Networking ===
     aircrack-ng

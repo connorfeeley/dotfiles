@@ -296,7 +296,7 @@
 
       channelsConfig = {
         allowUnfree = true;
-        allowUnsupportedSystem = true;
+        allowUnsupportedSystem = false;
 
         allowBroken = false;
       };

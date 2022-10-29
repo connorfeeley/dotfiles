@@ -45,7 +45,6 @@ in
     drill #         <- Like dig
     smartmontools # <- Mah boy's wicked smaht
     procs #         <- pspspspsps here kitty ( ps replacement )
-    iotop #         <- Terminal disk IO monitor
     diskonaut #     <- Terminal visual disk space navigator
 
     ## === Networking Tools ===
@@ -67,8 +66,9 @@ in
     bat-extras.prettybat #  <- Pretty-print source code and highlight it with bat.
 
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
+    iotop #     <- Terminal disk IO monitor
     psmisc #    <- Useful utilities that use the proc filesystem
-    kmon # <- Kernel manager and activity monitor
+    kmon #      <- Kernel manager and activity monitor
     systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
     sysz #      <- fzf-style systemd TUI
   ]);

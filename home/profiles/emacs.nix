@@ -158,9 +158,7 @@ lib.mkMerge [
 
       fd # faster projectile indexing
       imagemagick # for image-dired and emacs-gif-screencast
-      scrot
       gifsicle
-      peek
       zstd # for undo-fu-session/undo-tree compression
       feh
 
@@ -273,6 +271,9 @@ lib.mkMerge [
       #: vimrc
       nodePackages.vim-language-server
     ] ++ (lib.optionals (isLinux && !isAarch64) [
+      scrot
+      peek
+
       #: lang cpp
       vscode-extensions.ms-vscode.cpptools
 
