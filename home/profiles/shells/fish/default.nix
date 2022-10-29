@@ -25,7 +25,7 @@ in
       # FIXME: watch out, some of these abbrs may have undesirable results when
       # expanded inline. needs review.
       shellAbbrs
-      # shellAliases
+      shellAliases
       ;
 
     enable = true;
