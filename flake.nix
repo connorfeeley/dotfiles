@@ -39,7 +39,7 @@
     };
 
     digga = {
-      url = "github:divnix/digga/home-manager-22.11";
+      url = "github:divnix/digga";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
       inputs.darwin.follows = "darwin";
