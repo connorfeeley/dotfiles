@@ -18,7 +18,7 @@ in
     fishPlugins.forgit
   ];
 
-  programs.starship.enableFishIntegration = true;
+  programs.starship.enableFishIntegration = false;
 
   programs.fish = {
     inherit
@@ -48,6 +48,38 @@ in
         description = "Open a file in emacs (from vterm)";
         body = ''
           vterm_cmd find-file $argv
+        '';
+      };
+      fish_prompt = {
+        description = "'Pythonista' prompt";
+        body = ''
+          ###
+          ### Prompt
+          ###
+          if not set -q VIRTUAL_ENV_DISABLE_PROMPT
+              set -g VIRTUAL_ENV_DISABLE_PROMPT true
+          end
+          set_color yellow
+          printf '%s' $USER
+          set_color normal
+          printf ' at '
+
+          set_color magenta
+          echo -n (prompt_hostname)
+          set_color normal
+          printf ' in '
+
+          set_color $fish_color_cwd
+          printf '%s' (prompt_pwd)
+          set_color normal
+
+          # Line 2
+          echo
+          if test -n "$VIRTUAL_ENV"
+              printf "(%s) " (set_color blue)(basename $VIRTUAL_ENV)(set_color normal)
+          end
+          printf '↪ '
+          set_color normal
         '';
       };
     };
