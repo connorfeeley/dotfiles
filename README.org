@@ -5,6 +5,12 @@
 
 * Useful Commands
 
+** Unlock ~git-crypt~
+
+#+begin_src shell :noeval
+git-crypt unlock
+#+end_src
+
 ** Debug Nix Evaluation Errors
 
 *** On Linux
