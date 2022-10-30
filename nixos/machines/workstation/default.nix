@@ -90,6 +90,14 @@ in
     }
   );
 
+  # Allow unlocking LUKS over tailscale
+  remote-machine.boot.tailscaleUnlock = {
+    # FIXME: enabling this causes machine to hang on boot.
+    enable = false;
+
+    tailscaleStatePath = "${config.lib.dotfield.srcPath}/secrets/git-crypt/tailscale-luks-setup.state";
+  };
+
   ### === NFS share ============================================================
   fileSystems."/mnt/export/cfeeley" = {
     device = "/home/cfeeley";
