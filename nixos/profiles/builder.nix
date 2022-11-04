@@ -32,6 +32,7 @@ lib.mkMerge [
       buildMachines = [
         {
           hostName = "MacBook-Pro";
+          sshUser = config.dotfield.guardian.username;
           protocol = "ssh-ng";
           systems = [ "aarch64-darwin" "x86_64-darwin" ];
           sshUser = config.dotfield.guardian.username;
