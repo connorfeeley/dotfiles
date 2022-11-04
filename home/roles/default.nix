@@ -37,7 +37,7 @@ with profiles; let
   ];
 
   remote = [
-    shells.fish
+    ops
     ssh
   ];
 
