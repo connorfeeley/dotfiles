@@ -24,19 +24,30 @@ in
     matchBlocks = {
       "workstation" = {
         forwardX11Trusted = true;
+        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        # GPG agent forwarding
         remoteForwards = [{
           bind.address = "/run/user/1000/gnupg/S.gpg-agent";
           host.address = "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
         }];
-        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
       };
       "macbook-pro" = {
         forwardX11Trusted = true;
+        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        # GPG agent forwarding
         remoteForwards = [{
           bind.address = "/Users/cfeeley/.gnupg/S.gpg-agent";
           host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
         }];
+      };
+      "h8tsner" = {
+        forwardX11Trusted = true;
         extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        # GPG agent forwarding
+        remoteForwards = [{
+          bind.address = "/run/user/1000/gnupg/S.gpg-agent";
+          host.address = "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
+        }];
       };
       "cfeeley-laptop" = {
         hostname = cfeeley-laptop.ipv4.address;
