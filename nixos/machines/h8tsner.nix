@@ -18,6 +18,10 @@ let
   inherit (collective) peers;
   inherit (config.networking) hostName;
 
+  host = peers.hosts.${hostName};
+  net = peers.networks.${host.network};
+  interface = "eth0";
+
   # Bootstrap sets up:
   # - enabling systemd-boot
   # - a 'nixos' NixOS and HM user
@@ -32,16 +36,16 @@ in
   networking.usePredictableInterfaceNames = false;
   systemd.network = {
     enable = true;
-    networks."eth0".extraConfig = ''
+    networks."${interface}".extraConfig = ''
       [Match]
-      Name = eth0
+      Name = ${interface}
       [Network]
       # Add your own assigned ipv6 subnet here here!
-      Address = 2a01:4ff:f0:4cff::/64
-      Gateway = fe80::1
+      Address = ${host.ipv6.address}/${host.ipv6.prefixLength}
+      Gateway = ${net.ipv6.address}
       # optionally you can do the same for ipv4 and disable DHCP (networking.dhcpcd.enable = false;)
-      Address =  5.161.105.71/26
-      Gateway = 5.161.105.1
+      Address =  ${host.ipv4.address}/${host.ipv4.prefixLength}
+      Gateway = ${net.ipv4.address}
     '';
   };
   networking.dhcpcd.enable = false;
