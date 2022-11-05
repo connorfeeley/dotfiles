@@ -90,6 +90,7 @@
 
     # Live broadcasts of the legislature of the province of Ontario, Canada.
     # Civic engagement is good, mmkay?
-    "Parlance" = 1520014900;
+    # FIXME: this is an iPad app, which 'mas' doesn't seem to handle correctly.
+    # "Parlance" = 1520014900;
   };
 }
