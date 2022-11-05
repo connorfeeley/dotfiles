@@ -300,6 +300,10 @@ let
     configureFlags = [
       "--disable-build-details" # for a (more) reproducible build
       "--with-modules"
+      # TODO: try some of
+      # "-mmacosx-version-min=10.6"
+      # "-mmacosx-version-min=10.15"
+      # "--with-macosx-version-min=10.7"
     ] ++
     (lib.optional stdenv.isDarwin
       (lib.withFeature withNS "ns")) ++
