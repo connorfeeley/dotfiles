@@ -15,9 +15,6 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  networking.useDHCP = false;
-  networking.interfaces.enp1s0.useDHCP = true;
-
   swapDevices = [ ];
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 

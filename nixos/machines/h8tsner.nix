@@ -1,6 +1,7 @@
 ###
 ### A hetzner VM for hosting a private modded minecraft server.
 ###
+# TODO: use 'nixos/profiles/environments/hetzner-cloud.nix'
 # Useful flakes:
 # - https://github.com/Infinidoge/nix-minecraft
 # - https://github.com/mkaito/nixos-modded-minecraft-servers

@@ -41,6 +41,12 @@ in
         virtualisation.vm-variant
         workstations.flatpak
       ]);
+
+    h8tsner.modules =
+      (with roles; server) ++ (with profiles; [
+        environments.hetzner-cloud
+        virtualisation.vm-variant
+      ]);
   };
 
   hostDefaults = {
