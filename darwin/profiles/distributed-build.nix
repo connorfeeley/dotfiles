@@ -32,6 +32,7 @@ lib.mkMerge [
       buildMachines = [
         {
           hostName = "workstation";
+          maxJobs = 8;
           sshUser = config.dotfield.guardian.username;
           systems = [ "x86_64-linux" "aarch64-linux" ];
           # Base64-encoded ed25519 public host key
