@@ -34,7 +34,7 @@ address = "192.168.0.175"
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBu7vxj2IpJ5R4SL/TCbonZmAM6aFlruqc4z5zwBjyxo cfeeley@Connors-MacBook-Pro.local"]
 # age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
-## === H8TSNER ===
+## === H8TSNER (NixOS hetzner VM) ===
 
 [h8tsner]
 network = "hetzner"
@@ -44,9 +44,11 @@ keys = [
 
 [h8tsner.ipv4]
 address = "5.161.105.71"
+prefixLength = "26"
 
 [h8tsner.ipv6]
 address = "2a01:4ff:f0:4cff::"
+prefixLength = "64"
 
 
 [h8tsner.users.cfeeley]

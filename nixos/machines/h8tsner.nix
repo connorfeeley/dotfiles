@@ -99,6 +99,8 @@ in
   };
 
   home-manager.users = {
-    cfeeley = hmArgs: { imports = with hmArgs.roles; workstation ++ linux; };
+    cfeeley = hmArgs: { imports = with hmArgs.roles; shell; };
   };
+
+  system.stateVersion = "22.05";
 }

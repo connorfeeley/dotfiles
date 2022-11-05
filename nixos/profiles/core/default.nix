@@ -81,7 +81,7 @@ in
 
     openFirewall = true;
     passwordAuthentication = false;
-    permitRootLogin = "prohibit-password";
+    permitRootLogin = lib.mkDefault "prohibit-password";
   };
 
   services.openssh.hostKeys = [

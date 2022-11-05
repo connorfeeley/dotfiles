@@ -1,14 +1,18 @@
 { config
 , lib
+, primaryUser
 , modulesPath
 , pkgs
 , ...
 }: {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.devices = [ "/dev/sda" ];
+  # nixos-generate
+  boot.loader.grub = lib.mkDefault {
+    enable = true;
+    version = 2;
+    devices = [ "/dev/sda" ];
+  };
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
@@ -27,7 +31,9 @@
     fsType = "ext4";
   };
 
-  services.openssh.enable = true;
-  services.openssh.openFirewall = true;
-  services.openssh.permitRootLogin = "prohibit-password";
+  services.openssh = lib.mkDefault {
+    enable = true;
+    openFirewall = true;
+    # Authorized keys and permitRootLogin are set in ssh-host profile
+  };
 }
