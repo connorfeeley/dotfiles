@@ -22,7 +22,7 @@
     glow #            <- a markdown cli renderer (by charmbracelet)
 
     ## === Nix Utilities ===
-    nickel #        <-
+    nickel #        <- "Better configuration for less"
     fup-repl #      <- flake-utils-plus repl
     nvfetcher-bin # <- Generate nix sources expression for the latest version of packages
     nix-diff #      <- Explain why two Nix derivations differ
@@ -31,6 +31,7 @@
     manix #         <- nix documentation search
     nix-du #        <- Analyze derivation and store size
     zgrviewer #     <- Graphviz/DOT viewer (often used with nix-du)
+    nix-update #    <- swiss-army knife for updating nix packages
 
     ## === Linters + Formatters ===
     shfmt
