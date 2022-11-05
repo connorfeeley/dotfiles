@@ -79,15 +79,15 @@ in
         description = "Whether to mount the user's nix profile.";
       };
 
-      extraMounts = mkOption {
-        inherit
-          (options.virtualisation.sharedDirectories)
-          default
-          description
-          example
-          type
-          ;
-      };
+      # extraMounts = mkOption {
+      #   inherit
+      #     (options.virtualisation.sharedDirectories)
+      #     default
+      #     description
+      #     example
+      #     type
+      #     ;
+      # };
     };
   };
 }
