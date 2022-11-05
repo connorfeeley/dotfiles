@@ -4,7 +4,7 @@ moduleArgs @ { config
 , ...
 }:
 let
-  inherit (config.lib.dotfield.whoami) pgpPublicKey;
+  inherit (config.lib.dotfield.whoami) pgpPublicKey pgpKeygrip;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in
 lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
@@ -23,15 +23,15 @@ lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      sshKeys = [ pgpPublicKey ];
+      sshKeys = [ pgpKeygrip ];
 
       enableExtraSocket = true;
 
       enableZshIntegration = true;
 
       # 10 hour cache timeout
-      defaultCacheTtl = 36000;
-      defaultCacheTtlSsh = 36000;
+      defaultCacheTtl = 10 * 60 * 60;
+      defaultCacheTtlSsh = 10 * 60 * 60;
 
       extraConfig = ''
         allow-emacs-pinentry

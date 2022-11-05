@@ -31,6 +31,7 @@ in
       email = "connor@cfeeley.org";
       githubUserName = "connor.feeley";
       pgpPublicKey = "0x77CB2390C53B4E5B";
+      pgpKeygrip = "88EFF3DC7355A8AE37CE79ECF250098D909F3544";
     };
 
     emacs = rec {
