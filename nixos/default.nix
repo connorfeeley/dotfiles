@@ -60,14 +60,12 @@ in
       collective.profiles.core
       profiles.core
       home-manager.nixosModules.home-manager
+      digga.nixosModules.nixConfig
 
       # FIXME: upstream module causes a huge number of unnecessary
       # dependencies to be pulled in for all systems -- many of them are
       # graphical. should only be imported as needed.
       # digga.nixosModules.bootstrapIso
-
-      # FIXME: upstream module needs updating for unstable
-      # digga.nixosModules.nixConfig
 
       # FIXME: migrate to sops
       agenix.nixosModules.age
