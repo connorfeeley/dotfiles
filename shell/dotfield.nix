@@ -60,6 +60,11 @@ in
       (dotfield lefthook)
       (dotfield cachix)
       (dotfield nixos-generators)
+      (withCategory "dotfield" {
+        name = "generate-h8tsner-kexec-bundle";
+        help = "Use nixos-generate to build a kexec-build for the h8tsner VM.";
+        command = "${nixos-generators}/bin/nixos-generate --flake .#h8tsner --system x86_64-linux --format kexec-bundle";
+      })
 
       {
         category = "dotfield";
