@@ -86,5 +86,9 @@
     "Bitwarden" = 1352778147; # MAS version can integrate w/ FF for biometrics
 
     "Steam Link" = 1246969117;
+
+    # Live broadcasts of the legislature of the province of Ontario, Canada.
+    # Civic engagement is good, mmkay?
+    "Parlance" = 1520014900;
   };
 }
