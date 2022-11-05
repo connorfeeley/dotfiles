@@ -63,6 +63,12 @@ in
     };
     brews = [ ];
   };
+
+  # Alias 'tailscale' to 'Tailscale' from MAS application
+  environment.shellAliases = {
+    tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion
   # $ darwin-rebuild changelog
