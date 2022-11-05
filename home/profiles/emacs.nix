@@ -252,10 +252,8 @@ lib.mkMerge [
       rnix-lsp
       nil # ('nix-nil' from source repo)
       #: php
-      # FIXME(darwin): broken
       nodePackages.intelephense
       #: ruby
-      # FIXME(darwin): broken
       rubyPackages.solargraph
       #: sh
       nodePackages.bash-language-server

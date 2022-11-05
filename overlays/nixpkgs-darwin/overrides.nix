@@ -1,6 +1,9 @@
 channels: final: prev: {
   __dontExport = true;
 
+  ###
+  ### Packages from darwin-stable channel (better chance of hitting the binary cache)
+  ###
   inherit (channels.nixpkgs-darwin-stable)
     wally-cli
     ncdu
@@ -16,13 +19,16 @@ channels: final: prev: {
     js-beautify
     ;
 
-  inherit (channels.nixpkgs-darwin-stable.nodePackages)
-    stylelint
+  ###
+  ### Packages from nixos-unstable channel (sometimes also a better chance of hitting the binary cache)
+  ###
+  inherit (channels.nixos-unstable)
     ;
 
+  ###
+  ### Packages from nixos-stable channel
+  ###
   inherit (channels.nixos-stable)
     ;
 
-  inherit (channels.nixos-unstable)
-    ;
 }
