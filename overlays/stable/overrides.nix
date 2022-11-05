@@ -5,7 +5,6 @@ channels: final: prev: {
     (channels.nixos-unstable)
     fish
     iosevka-bin
-    kitty
     nerdfonts
     python3Packages
     statix
