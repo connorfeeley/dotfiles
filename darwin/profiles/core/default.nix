@@ -44,11 +44,7 @@ in
     darwin.trash
     darwin.lsusb # lsusb for MacOS
 
-    # A tool for managing macOS defaults.
-    # https://github.com/malob/prefmanager
-    # FIXME: `prefmanager` build fails with sandbox mode enabled
-    # https://github.com/malob/prefmanager/issues/2
-    # prefmanager
+    prefmanager # <- # A tool for managing macOS defaults.
   ];
 
   # Recreate /run/current-system symlink after boot

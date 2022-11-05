@@ -183,6 +183,7 @@
     , nixlib
     , nix-colors
     , nix-dram
+    , prefmanager
     , nixos-generators
     , nixos-hardware
     , nixos-stable
@@ -278,6 +279,7 @@
         (final: prev: {
           emacs-plus = self.packages.${final.system}.emacs-plus;
 
+          prefmanager = prefmanager.packages.${prev.stdenv.system}.default;
           amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
 
           nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
