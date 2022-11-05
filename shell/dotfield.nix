@@ -42,7 +42,7 @@ let
   dotfield = pkgWithCategory "dotfield";
   linter = pkgWithCategory "linters";
   formatter = pkgWithCategory "formatters";
-  utils = withCategory "utils";
+  utils = pkgWithCategory "utils";
   ci = withCategory "ci";
   secrets = pkgWithCategory "secrets";
 in
@@ -59,6 +59,7 @@ in
       (dotfield treefmt)
       (dotfield lefthook)
       (dotfield cachix)
+      (dotfield nixos-generators)
 
       {
         category = "dotfield";
@@ -115,6 +116,5 @@ in
           ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
         '';
       }
-      (utils nixos-generators)
     ];
 }
