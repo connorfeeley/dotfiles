@@ -32,6 +32,10 @@ in
       collective.profiles.core
       profiles.core
       home-manager.darwinModules.home-manager
+
+      # FIXME: "The option `commands.<...>.__darwinAllowLocalNetworking' does not exist."
+      # digga.nixosModules.nixConfig
+
       # `nixosModules` is correct, even for darwin
       # FIXME: migrate to sops
       agenix.nixosModules.age
