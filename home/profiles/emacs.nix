@@ -45,7 +45,7 @@ let
     };
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  doomRepoRev = "ceb985673ccd2be869bdde2ea4f41c84e9354f1e";
+  doomRepoRev = "9d4d5b756a8598c4b5c842e9f1f33148af2af8fd";
 
   emacsDir = "${configHome}/emacs";
 
@@ -55,8 +55,8 @@ let
 
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
-    rev = "f014747df1e95a524b3155dd9ff1e1acff857825";
-    sha256 = "sha256-rOKIlzvOkqNe89BLnTFj6IxKyGjMG407SLpgox/Vaig=";
+    rev = "bd03bcb6a84d913acf3d4590b7ec5120b335be1e";
+    sha256 = "sha256-5j4zz4OnS+kewmJ9QRTuE2qkQCSL3Q9NbVLIu8FUiLI=";
 
     fetchSubmodules = false;
     sparseCheckout = "modules/completion/corfu";
