@@ -16,6 +16,10 @@ channels: final: prev: {
     js-beautify
     ;
 
+  inherit (channels.nixpkgs-darwin-stable.nodePackages)
+    stylelint
+    ;
+
   inherit (channels.nixos-stable)
     ;
 
