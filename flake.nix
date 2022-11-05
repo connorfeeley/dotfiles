@@ -381,6 +381,13 @@
           autoRollback = true;
           magicRollback = true;
         };
+        h8tsner = with (collective.peers.hosts.h8tsner); {
+          hostname = "h8tsner";
+          sshUser = "cfeeley";
+          fastConnection = false;
+          autoRollback = true;
+          magicRollback = true;
+        };
         debian-vm = with (collective.peers.hosts.debian-vm); {
           hostname = "debian-vm";
           sshUser = "cfeeley";
