@@ -23,6 +23,7 @@ let
     terraform
     treefmt
     lefthook
+    nix-output-monitor
     ;
 
   inherit (pkgs.nodePackages)
@@ -65,6 +66,11 @@ in
         command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
       }
 
+      (utils {
+        name = "nom-check";
+        help = "Run 'nix flake check' with nom";
+        command = "nix flake check --log-format internal-json -v |& ${nix-output-monitor}/bin/nom --json";
+      })
       (utils {
         name = "evalnix";
         help = "Check Nix parsing";
