@@ -75,6 +75,7 @@
     "deluge"
     "roku-remote-tool"
     "discord"
+    "balenaetcher"
   ];
 
   homebrew.masApps = {
