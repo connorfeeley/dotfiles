@@ -33,6 +33,8 @@ let
 
   hooks = import ./hooks;
 
+  ci = pkgs.callPackage ./scripts/ci.nix { };
+
   withCategory = category: attrset: attrset // { inherit category; };
   pkgWithCategory = category: package: { inherit package category; };
 
