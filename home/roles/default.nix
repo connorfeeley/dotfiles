@@ -52,7 +52,7 @@ with profiles; let
 
   webdev = [
     aws
-    nodejs
+    # nodejs
   ];
 
   fpgadev = [
