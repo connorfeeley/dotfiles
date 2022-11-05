@@ -8,7 +8,7 @@
     nixos-stable-21-11.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-darwin.url = "nixos-unstable";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     nixlib.url = "github:nix-community/nixpkgs.lib";
 

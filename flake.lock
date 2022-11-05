@@ -2216,14 +2216,18 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-RERXruzBEBuf0c7OfZeX1hxEKB+PTCUNxWeB6C1jd8Y=",
-        "path": "/nix/store/c2la594kmk73rs39s8x9k49bmlmxshi5-source",
-        "type": "path"
+        "lastModified": 1667612485,
+        "narHash": "sha256-VCotbpxHEs7Tiu/mXpfDcr9nj4UB7/1DkS6ZhND1xeY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c28018857a879dec571b6e8acf9f2a0f4bb362c6",
+        "type": "github"
       },
       "original": {
-        "id": "nixos-unstable",
-        "type": "indirect"
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs-darwin-stable": {
