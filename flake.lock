@@ -3376,11 +3376,11 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1666887026,
-        "narHash": "sha256-m97JHbl0QBtKGLcdjxsI9xSVQ7Tu+TL4BsZB9Pl0Z48=",
+        "lastModified": 1667689099,
+        "narHash": "sha256-nMQIFoxZ9YFedgE6/W4ViVu1+TzJ8ohkmtxPowQF6cU=",
         "ref": "refs/heads/master",
-        "rev": "4413eb5cf07351e70a2f252984e0ef9783a3d215",
-        "revCount": 27,
+        "rev": "85dbd5d8ae60920dfa140d686a774449b5a6a1ab",
+        "revCount": 28,
         "type": "git",
         "url": "https://git.sr.ht/~cfeeley/xmobar-config"
       },
@@ -3454,11 +3454,11 @@
         "xmonad-contrib": "xmonad-contrib_2"
       },
       "locked": {
-        "lastModified": 1666843200,
-        "narHash": "sha256-PuoGt8qsZqZMSkODvzvz2+c9fqncu0mbJ2L3RpIvDUI=",
+        "lastModified": 1667620800,
+        "narHash": "sha256-qYtzjR6G+ixaQFJxTm6SvmirAUiExOc43MccqlHb5Ts=",
         "ref": "refs/heads/master",
-        "rev": "7722ea4d0196e9d6c08f24e7622c1c24abf8f49c",
-        "revCount": 20,
+        "rev": "93283549bcbab1b239e9160ad200e82490cbfbc9",
+        "revCount": 21,
         "type": "git",
         "url": "https://git.sr.ht/~cfeeley/xmonad-config"
       },
