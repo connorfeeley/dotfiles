@@ -3,12 +3,12 @@ with profiles; let
   shell = [
     shells.zsh
     shells.bash
-    shells.fish
     direnv
     ssh
   ];
 
   developer = [
+    shells.fish
     direnv
     emacs
     vim
@@ -38,6 +38,7 @@ with profiles; let
   ];
 
   personalised = [
+    shells.fish
     misc
     newsboat
     obs-studio
