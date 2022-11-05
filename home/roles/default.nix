@@ -1,12 +1,10 @@
 { profiles }:
 with profiles; let
   shell = [
-    direnv
-    vim
-    git
     shells.zsh
     shells.bash
     shells.fish
+    direnv
     ssh
   ];
 

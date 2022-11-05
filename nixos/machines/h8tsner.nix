@@ -1,7 +1,6 @@
 ###
 ### A hetzner VM for hosting a private modded minecraft server.
 ###
-# TODO: use 'nixos/profiles/environments/hetzner-cloud.nix'
 # Useful flakes:
 # - https://github.com/Infinidoge/nix-minecraft
 # - https://github.com/mkaito/nixos-modded-minecraft-servers
@@ -99,7 +98,10 @@ in
   };
 
   home-manager.users = {
-    cfeeley = hmArgs: { imports = with hmArgs.roles; shell; };
+    cfeeley = hmArgs: {
+      imports = with hmArgs.roles;
+        shell;
+    };
   };
 
   system.stateVersion = "22.05";
