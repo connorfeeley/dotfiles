@@ -74,6 +74,7 @@
     "spotify"
     "deluge"
     "roku-remote-tool"
+    "discord"
   ];
 
   homebrew.masApps = {
