@@ -1,8 +1,19 @@
 { profiles }:
 with profiles; let
+  shell = [
+    direnv
+    vim
+    git
+    shells.zsh
+    shells.bash
+    shells.fish
+    ssh
+  ];
+
   developer = [
     direnv
     emacs
+    vim
     git
     shells.zsh
     shells.bash
@@ -76,6 +87,7 @@ with profiles; let
 
   roles = {
     inherit
+      shell
       developer
       graphical
       personalised
@@ -89,7 +101,8 @@ with profiles; let
       ;
 
     workstation =
-      developer
+      shell
+      ++ developer
       ++ graphical
       ++ personalised
       ++ trusted
