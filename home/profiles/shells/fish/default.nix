@@ -88,7 +88,7 @@ in
       # "Required" by `fifc`
       # set -Ux fifc_editor $EDITOR
 
-      source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm.fish
+      source $EMACS_VTERM_PATH/etc/emacs-vterm.fish
     '';
   };
 }
