@@ -6,8 +6,9 @@
 , ...
 }:
 let
-  inherit
-    (pkgs)
+  inherit (pkgs.stdenv) isLinux isDarwin isAarch64;
+
+  inherit (pkgs)
     agenix
     nvfetcher-bin
     deploy-rs
@@ -24,17 +25,16 @@ let
     treefmt
     lefthook
     nix-output-monitor
+    nixos-generators
     ;
 
   inherit (pkgs.nodePackages)
     prettier
     ;
 
-  inherit (pkgs.stdenv) isLinux;
-
   hooks = import ./hooks;
 
-  ci = pkgs.callPackage ./scripts/ci.nix { };
+  ci-scripts = pkgs.callPackage ./scripts/ci.nix { };
 
   withCategory = category: attrset: attrset // { inherit category; };
   pkgWithCategory = category: package: { inherit package category; };
@@ -43,6 +43,7 @@ let
   linter = pkgWithCategory "linters";
   formatter = pkgWithCategory "formatters";
   utils = withCategory "utils";
+  ci = withCategory "ci";
   secrets = pkgWithCategory "secrets";
 in
 {
@@ -66,20 +67,33 @@ in
         command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
       }
 
-      (utils {
+      (ci {
         name = "nom-check";
         help = "Run 'nix flake check' with nom";
         command = "nix flake check --log-format internal-json -v |& ${nix-output-monitor}/bin/nom --json";
       })
-      (utils {
+      (ci {
         name = "evalnix";
         help = "Check Nix parsing";
         command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
       })
-      (utils {
+      (ci {
         name = "watch-flake";
         help = "Continuously check flake";
         command = "fd . --extension=nix | entr -arc nix flake check";
+      })
+      (ci {
+        name = "flake-ci";
+        help = "Show, check, then build the flake";
+        command =
+          let
+            rebuild = if pkgs.stdenv.isLinux then "nixos-rebuild" else "darwin-rebuild";
+          in
+          ''
+            ${nixUnstable}/bin/nix flake show --print-build-logs && \
+              ${nixUnstable}/bin/nix flake check --print-build-logs && \
+              ${rebuild} build --flake .#$HOSTNAME --print-build-logs
+          '';
       })
 
       (formatter nixpkgs-fmt)
@@ -101,19 +115,6 @@ in
           ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
         '';
       }
-      {
-        category = "ci";
-        name = "flake-ci";
-        help = "Show, check, then build the flake";
-        command =
-          let
-            rebuild = if pkgs.stdenv.isLinux then "nixos-rebuild" else "darwin-rebuild";
-          in
-          ''
-            ${nixUnstable}/bin/nix flake show --print-build-logs && \
-              ${nixUnstable}/bin/nix flake check --print-build-logs && \
-              ${rebuild} build --flake .#$HOSTNAME --print-build-logs
-          '';
-      }
+      (utils nixos-generators)
     ];
 }
