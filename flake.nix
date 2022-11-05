@@ -374,29 +374,26 @@
       ;
 
       deploy.nodes = digga.lib.mkDeployNodes { } {
-        # workstation = with (collective.peers.hosts.workstation); {
-        #   hostname = "workstation";
-        #   sshUser = "cfeeley";
-        #   fastConnection = true;
-        #   autoRollback = true;
-        #   magicRollback = true;
-        # };
-        # FIXME(darwin) throws:
-        # error: 'runCommandNoCC' has been renamed to/replaced by 'runCommand'
-        # debian-vm = with (collective.peers.hosts.debian-vm); {
-        #   hostname = "debian-vm";
-        #   sshUser = "cfeeley";
-        #   fastConnection = true;
-        #   autoRollback = true;
-        #   magicRollback = true;
-        #   profilesOrder = [ "cfeeley" ];
-        #   profiles.cfeeley = {
-        #     user = "cfeeley";
-        #     path = deploy.lib.aarch64-linux.activate.home-manager
-        #       self.homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm";
-        #   };
-        # };
-
+        workstation = with (collective.peers.hosts.workstation); {
+          hostname = "workstation";
+          sshUser = "cfeeley";
+          fastConnection = true;
+          autoRollback = true;
+          magicRollback = true;
+        };
+        debian-vm = with (collective.peers.hosts.debian-vm); {
+          hostname = "debian-vm";
+          sshUser = "cfeeley";
+          fastConnection = true;
+          autoRollback = true;
+          magicRollback = true;
+          profilesOrder = [ "cfeeley" ];
+          profiles.cfeeley = {
+            user = "cfeeley";
+            path = deploy.lib.aarch64-linux.activate.home-manager
+              self.homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm";
+          };
+        };
         # Deploy to 'cfeeley-laptop':
         # - Recommended: deploy .#cfeeley-laptop -- --print-build-logs
         # If there are nix eval errors, then we can tell 'deploy' to skip the flake checks:
