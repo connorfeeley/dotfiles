@@ -56,9 +56,8 @@ in
       (dotfield nixUnstable)
       (dotfield deploy-rs)
       (dotfield terraform)
-      (dotfield treefmt)
-      (dotfield lefthook)
       (dotfield cachix)
+      (dotfield lefthook)
       (dotfield nixos-generators)
       (withCategory "dotfield" {
         name = "generate-h8tsner-kexec-bundle";
@@ -102,6 +101,7 @@ in
           '';
       })
 
+      (dotfield treefmt)
       (formatter nixpkgs-fmt)
       (formatter prettier)
       (formatter shfmt)
