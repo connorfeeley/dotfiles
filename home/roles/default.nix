@@ -43,6 +43,11 @@ with profiles; let
     obs-studio
     spotify
     zotero
+
+    nnn
+    ranger
+    tealdeer
+    vim
   ];
 
   remote = [
@@ -53,6 +58,7 @@ with profiles; let
   trusted = [
     gpg
     mail
+    secrets.common
     secrets.password-store
     yubikey
     work

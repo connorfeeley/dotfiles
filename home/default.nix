@@ -9,11 +9,8 @@ let
 
   defaultProfiles = with profiles; [
     core
-    direnv
-    nnn
-    ranger
-    secrets.common
-    tealdeer
+    # FIXME: Removing this triggers the error:
+    # "The option `home-manager.users.<...>.programs.nixvim' is used but not defined."
     vim
   ];
 in
