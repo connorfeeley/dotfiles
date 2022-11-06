@@ -123,5 +123,6 @@ in
       }
 
       (utils scripts.dotfield-rebuild)
+      (utils scripts.dotfield-doom)
     ];
 }
