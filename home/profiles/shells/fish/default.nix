@@ -88,6 +88,9 @@ in
       # "Required" by `fifc`
       # set -Ux fifc_editor $EDITOR
 
+      # No greeting.
+      set --erase fish_greeting
+
       source $EMACS_VTERM_PATH/etc/emacs-vterm.fish
     '';
   };
