@@ -10,6 +10,10 @@ let
     ;
 in
 {
+  dotfield-sync = pkgs.callPackage ./ci/dotfield-sync-repos.nix {
+    inherit (pkgs.nodePackages) git-run;
+  };
+
   dotfield-rebuild =
     let
       extraPath = lib.makeBinPath [ nix-output-monitor ];

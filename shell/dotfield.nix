@@ -122,6 +122,7 @@ in
         '';
       }
 
+      (utils scripts.dotfield-sync)
       (utils scripts.dotfield-rebuild)
       (utils scripts.dotfield-doom)
     ];
