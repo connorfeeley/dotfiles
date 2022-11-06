@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./guardian.nix
+    ./documentation.nix
     # ./host.nix
   ];
 
