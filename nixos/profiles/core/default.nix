@@ -116,9 +116,10 @@ in
   documentation = {
     # NOTE: Cross-platform documentation options are set in 'profiles/core'.
     dev.enable = true;
-    man = {
+    man = rec {
       generateCaches = true;
       mandoc.enable = true;
+      man-db.enable = !mandoc.enable;
     };
     nixos.enable = true;
   };
