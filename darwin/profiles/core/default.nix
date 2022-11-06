@@ -69,6 +69,13 @@ in
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
   };
 
+  documentation = {
+    enable = true;
+    doc.enable = true;
+    info.enable = true;
+    man.enable = true;
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion
   # $ darwin-rebuild changelog

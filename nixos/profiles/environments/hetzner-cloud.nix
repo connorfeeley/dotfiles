@@ -45,10 +45,19 @@ in
   };
 
   environment.enableAllTerminfo = mkForce false;
+
+  # TODO: port to nixos:core
   documentation = mkForce {
-    enable = false;
-    dev.enable = false;
-    nixos.enable = false;
-    man.generateCaches = false;
+    enable = true;
+    doc.enable = true;
+    dev.enable = true;
+    nixos.enable = true;
+    man = {
+      enable = true;
+      generateCaches = false;
+      # TODO: pick one of man-db or mandoc as viewer
+      # man-db.enable = true;
+      # mandoc.enable = true;
+    };
   };
 }
