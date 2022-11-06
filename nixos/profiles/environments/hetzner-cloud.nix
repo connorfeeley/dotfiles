@@ -4,8 +4,14 @@
 , modulesPath
 , pkgs
 , ...
-}: {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+}:
+let
+  inherit (lib)
+    mkDefault
+    ;
+in
+{
+  # imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   # nixos-generate
   boot.loader.grub = lib.mkDefault {
@@ -20,9 +26,9 @@
   boot.extraModulePackages = [ ];
 
   swapDevices = [ ];
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
 
-  fileSystems."/" = {
+  fileSystems."/" = lib.mkDefault {
     # N.B. While nixos-generate-config will set this to a UUID by default, the
     # UUID of a disk on Hetzner Cloud appears to change if the server is
     # rebuilt. We know the root filesystem should always point to this
