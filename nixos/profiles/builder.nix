@@ -33,7 +33,7 @@ lib.mkMerge [
         {
           hostName = "MacBook-Pro";
           sshUser = config.dotfield.guardian.username;
-          protocol = "ssh-ng";
+          protocol = "ssh";
           systems = [ "aarch64-darwin" "x86_64-darwin" ];
           # "8 laptop cores times 1" seems like a reasonable relative speed factor.
           speedFactor = 8;
