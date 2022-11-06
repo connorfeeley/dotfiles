@@ -8,7 +8,7 @@
     nixos-stable-21-11.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     ##: --- utilities ----------------------------------------------------------
@@ -299,6 +299,11 @@
         allowUnsupportedSystem = false;
 
         allowBroken = false;
+
+        permittedInsecurePackages = [
+          # nixpkgs: pkgs/development/tools/poetry2nix/poetry2nix/mk-poetry-dep.nix
+          "python2.7-pyjwt-1.7.1"
+        ];
       };
 
       channels = {
