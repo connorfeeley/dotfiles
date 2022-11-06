@@ -17,6 +17,7 @@ with profiles; let
     shells.bash
     shells.fish
     ssh
+    ops # nixops
     development.tools
     virtualisation.common
     virtualisation.docker
