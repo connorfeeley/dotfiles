@@ -58,19 +58,19 @@ in
       (dotfield terraform)
       (dotfield cachix)
       (dotfield lefthook)
-      (dotfield nixos-generators)
-      (withCategory "dotfield" {
-        name = "generate-h8tsner-kexec-bundle";
-        help = "Use nixos-generate to build a kexec-build for the h8tsner VM.";
-        command = "${nixos-generators}/bin/nixos-generate --flake .#h8tsner --system x86_64-linux --format kexec-bundle";
-      })
-
       {
         category = "dotfield";
         name = nvfetcher-bin.pname;
         help = nvfetcher-bin.meta.description;
         command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
       }
+      (dotfield nixos-generators)
+      (withCategory "dotfield" {
+        name = "generate-h8tsner-kexec-bundle";
+        help = "Use nixos-generate to build a kexec-build for the h8tsner VM.";
+        # FIXME: --show-trace causes nix to segfault
+        command = "${nixos-generators}/bin/nixos-generate  --flake .#h8tsner --format kexec-bundle";
+      })
 
       (ci {
         name = "evalnix";
