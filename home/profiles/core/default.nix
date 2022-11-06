@@ -49,7 +49,6 @@ in
     entr #          <- Run arbitrary commands when files change
     lnav #          <- Log file navigator
     glances #       <- System resource usage viewer
-    zenithPackage # <- Other system resource usage viewer
     drill #         <- Like dig
     smartmontools # <- Mah boy's wicked smaht
     procs #         <- pspspspsps here kitty ( ps replacement )
@@ -74,11 +73,12 @@ in
     bat-extras.prettybat #  <- Pretty-print source code and highlight it with bat.
 
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
-    iotop #     <- Terminal disk IO monitor
-    psmisc #    <- Useful utilities that use the proc filesystem
-    kmon #      <- Kernel manager and activity monitor
-    systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
-    sysz #      <- fzf-style systemd TUI
+    zenithPackage # <- Other system resource usage viewer
+    iotop #         <- Terminal disk IO monitor
+    psmisc #        <- Useful utilities that use the proc filesystem
+    kmon #          <- Kernel manager and activity monitor
+    systeroid #     <- A more powerful alternative to sysctl(8) with a terminal user interface
+    sysz #          <- fzf-style systemd TUI
   ]);
 
   programs.bash.enable = true;
