@@ -31,7 +31,10 @@
     agenix.url = "github:montchr/agenix/darwin-support";
     flake-utils.url = "github:numtide/flake-utils";
     prefmanager.url = "github:malob/prefmanager";
-    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvfetcher.url = "github:berberman/nvfetcher";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -452,11 +455,13 @@
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
           emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
 
-          h8tsner = nixos-generators.nixosGenerate ( {
-            modules = [ self.nixosConfigurations.h8tsner ];
+          h8tsner-kexec = nixos-generators.nixosGenerate {
+            inherit (self.nixosConfigurations.h8tsner._module.args) pkgs;
             format = "kexec-bundle";
-          });
-
+            system = "x86_64-linux";
+            inherit (self.nixosConfigurations.h8tsner._module) specialArgs;
+            modules = self.nixosConfigurations.h8tsner._module.args.modules;
+          };
         in
         (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
           (flattenTree (rakeLeaves ./darwin/packages)))
@@ -466,6 +471,7 @@
             # Tested with XCode CLT version: 14.0.0.0.1.1661618636
             emacs28Macport
             emacs28Macport-noNativeComp
+            h8tsner-kexec
             ;
         }
       ;

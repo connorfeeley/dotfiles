@@ -1,4 +1,5 @@
-{ config
+{ self
+, config
 , lib
 , pkgs
 , ...
@@ -6,7 +7,7 @@
 let
   inherit (config.networking) hostName;
   hostNet =
-    (lib.our.peers.getHost hostName).network
+    (self.lib.peers.getHost hostName).network
       or (config.nixos-vm.peerConfig).network or null;
 in
 lib.mkMerge [
@@ -23,6 +24,6 @@ lib.mkMerge [
     };
   }
   (lib.mkIf (config.networking ? domain) {
-    networking.domain = (lib.our.peers.getNet hostNet).domain or null;
+    networking.domain = (self.lib.peers.getNet hostNet).domain or null;
   })
 ]

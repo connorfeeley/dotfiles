@@ -13,6 +13,9 @@ let
 in
 {
   # imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  imports = [
+    (modulesPath + "/installer/netboot/netboot-minimal.nix")
+  ];
 
   # nixos-generate
   boot.loader.grub = lib.mkDefault {
@@ -29,7 +32,7 @@ in
   swapDevices = [ ];
   hardware.cpu.amd.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
 
-  fileSystems."/" = lib.mkDefault {
+  fileSystems."/" = {
     # N.B. While nixos-generate-config will set this to a UUID by default, the
     # UUID of a disk on Hetzner Cloud appears to change if the server is
     # rebuilt. We know the root filesystem should always point to this
@@ -44,20 +47,20 @@ in
     # Authorized keys and permitRootLogin are set in ssh-host profile
   };
 
-  environment.enableAllTerminfo = mkForce false;
+  # environment.enableAllTerminfo = mkForce false;
 
   # TODO: port to nixos:core
-  documentation = mkForce {
-    enable = true;
-    doc.enable = true;
-    dev.enable = true;
-    nixos.enable = true;
-    man = {
-      enable = true;
-      generateCaches = false;
-      # TODO: pick one of man-db or mandoc as viewer
-      # man-db.enable = true;
-      # mandoc.enable = true;
-    };
-  };
+  # documentation = let enable = false; in mkForce {
+  #   enable = enable;
+  #   doc.enable = enable;
+  #   dev.enable = enable;
+  #   nixos.enable = enable;
+  #   man = {
+  #     enable = enable;
+  #     generateCaches = false;
+  #     # TODO: pick one of man-db or mandoc as viewer
+  #     # man-db.enable = true;
+  #     # mandoc.enable = true;
+  #   };
+  # };
 }
