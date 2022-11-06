@@ -385,6 +385,11 @@
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;
+          profiles.cfeeley = {
+            user = "cfeeley";
+            path = deploy.lib.x86_64-linux.activate.nixos
+              self.nixosConfigurations.x86_64-linux.workstation;
+          };
         };
         h8tsner = with (collective.peers.hosts.h8tsner); {
           hostname = "h8tsner";
@@ -392,6 +397,11 @@
           fastConnection = false;
           autoRollback = true;
           magicRollback = true;
+          profiles.cfeeley = {
+            user = "cfeeley";
+            path = deploy.lib.x86_64-linux.activate.nixos
+              self.nixosConfigurations.x86_64-linux.h8tsner ;
+          };
         };
         debian-vm = with (collective.peers.hosts.debian-vm); {
           hostname = "debian-vm";
