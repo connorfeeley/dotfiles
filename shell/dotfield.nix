@@ -73,19 +73,19 @@ in
       }
 
       (ci {
-        name = "nom-check";
-        help = "Run 'nix flake check' with nom";
-        command = "nix flake check --log-format internal-json -v |& ${nix-output-monitor}/bin/nom --json";
-      })
-      (ci {
         name = "evalnix";
         help = "Check Nix parsing";
         command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
       })
       (ci {
+        name = "nom-check";
+        help = "Run 'nix flake check' with nom";
+        command = "nix flake check --log-format internal-json -v |& ${nix-output-monitor}/bin/nom --json";
+      })
+      (ci {
         name = "watch-flake";
         help = "Continuously check flake";
-        command = "fd . --extension=nix | entr -arc nix flake check";
+        command = "fd . --extension=nix | entr -arc nom-check";
       })
       (ci {
         name = "flake-ci";
