@@ -24,6 +24,7 @@ in
 
     enable = true;
     enableCompletion = true;
+    enableVteIntegration = false;
 
     historyFile = "${config.xdg.dataHome}/bash/history";
     historyControl = [ "ignorespace" ];

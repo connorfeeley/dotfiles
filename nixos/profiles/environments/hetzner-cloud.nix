@@ -8,6 +8,7 @@
 let
   inherit (lib)
     mkDefault
+    mkForce
     ;
 in
 {
@@ -41,5 +42,13 @@ in
     enable = true;
     openFirewall = true;
     # Authorized keys and permitRootLogin are set in ssh-host profile
+  };
+
+  environment.enableAllTerminfo = mkForce false;
+  documentation = mkForce {
+    enable = false;
+    dev.enable = false;
+    nixos.enable = false;
+    man.generateCaches = false;
   };
 }

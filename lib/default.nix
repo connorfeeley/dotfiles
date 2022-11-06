@@ -42,6 +42,9 @@ lib.makeExtensible (self: rec {
 
   peers = rec {
     getHost = hostName: peers.hosts.${hostName} or false;
-    getNet = network: peers.networks.${network} or false;
+    getNet = network:
+      if network != null
+      then peers.networks.${network}
+      else false;
   };
 })

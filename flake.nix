@@ -38,7 +38,9 @@
     };
 
     digga = {
-      url = "github:divnix/digga";
+      # FIXME: digga isn't compatible with home-manager 22.11.
+      # Track master once fixed.
+      url = "github:divnix/digga/home-manager-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
       inputs.darwin.follows = "darwin";
@@ -439,6 +441,12 @@
           # - Intended primarily as a quick way to verify that the package builds
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
           emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
+
+          h8tsner = nixos-generators.nixosGenerate ( {
+            modules = [ self.nixosConfigurations.h8tsner ];
+            format = "kexec-bundle";
+          });
+
         in
         (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
           (flattenTree (rakeLeaves ./darwin/packages)))

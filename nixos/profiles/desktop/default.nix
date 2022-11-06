@@ -40,10 +40,7 @@ in
 
   environment.systemPackages =
     (with pkgs; [
-      _1password
-      _1password-gui
       firefoxPackage
-      signal-desktop
     ])
     ++ (lib.optionals hasWayland (with pkgs; [
       wl-clipboard

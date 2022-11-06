@@ -8,7 +8,8 @@ let
   roles = import ./roles { inherit profiles; };
 
   defaultProfiles = with profiles; [
-    core
+    core # pretty hardcore bruh
+
     # FIXME: Removing this triggers the error:
     # "The option `home-manager.users.<...>.programs.nixvim' is used but not defined."
     vim

@@ -6,6 +6,12 @@ moduleArgs @ { config
 let
   inherit (config.home) username;
   inherit (config.lib) dotfield;
+  hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
+
+  zenithPackage = with pkgs;
+    if hasNvidia
+    then zenith-nvidia
+    else zenith;
 in
 {
   home.packages = with pkgs; [
@@ -37,11 +43,13 @@ in
 
     ## === Sysadmin ===
     du-dust #       <- Like du but more intuitive.
+    duf #           <- df with colours
     dua #           <- quick disk usage
     ncdu #          <- dua with more ncurses
     entr #          <- Run arbitrary commands when files change
     lnav #          <- Log file navigator
     glances #       <- System resource usage viewer
+    zenithPackage # <- Other system resource usage viewer
     drill #         <- Like dig
     smartmontools # <- Mah boy's wicked smaht
     procs #         <- pspspspsps here kitty ( ps replacement )
