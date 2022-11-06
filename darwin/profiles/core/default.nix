@@ -70,10 +70,7 @@ in
   };
 
   documentation = {
-    enable = true;
-    doc.enable = true;
-    info.enable = true;
-    man.enable = true;
+    # NOTE: All darwin-compatible documentation options are set in 'profiles/core'.
   };
 
   # Used for backwards compatibility, please read the changelog before changing.

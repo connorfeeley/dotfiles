@@ -112,11 +112,14 @@ in
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   environment.enableDebugInfo = true;
-  # I want to include documentations for my own sanity, OK?
+
   documentation = {
-    enable = true;
+    # NOTE: Cross-platform documentation options are set in 'profiles/core'.
     dev.enable = true;
+    man = {
+      generateCaches = true;
+      mandoc.enable = true;
+    };
     nixos.enable = true;
-    man.generateCaches = true;
   };
 }

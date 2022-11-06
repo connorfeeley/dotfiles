@@ -76,6 +76,13 @@ in
 
   programs.fish.enable = lib.mkDefault true;
 
+  documentation = {
+    enable = true;
+    doc.enable = true;
+    info.enable = true;
+    man.enable = true;
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
