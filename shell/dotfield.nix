@@ -16,7 +16,6 @@ let
     cachix
     editorconfig-checker
     nixUnstable
-    nixos-rebuild
     rage
     shellcheck
     shfmt
@@ -34,11 +33,12 @@ let
 
   hooks = import ./hooks;
 
-  ci-scripts = pkgs.callPackage ./scripts/ci.nix { };
+  scripts = pkgs.callPackage ./scripts { };
 
   withCategory = category: attrset: attrset // { inherit category; };
   pkgWithCategory = category: package: { inherit package category; };
 
+  shortcut = pkgWithCategory "shortcut";
   dotfield = pkgWithCategory "dotfield";
   linter = pkgWithCategory "linters";
   formatter = pkgWithCategory "formatters";
@@ -121,5 +121,7 @@ in
           ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
         '';
       }
+
+      (utils scripts.dotfield-rebuild)
     ];
 }
