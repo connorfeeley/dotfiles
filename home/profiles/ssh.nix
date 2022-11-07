@@ -5,7 +5,7 @@ moduleArgs @ { config
 , ...
 }:
 let
-  inherit (peers.hosts) workstation MacBook-Pro cfeeley-laptop;
+  inherit (peers.hosts) workstation MacBook-Pro cfeeley-laptop h8tsner;
   identityFileName = "id_ed25519.pub";
   identityFile = "~/.ssh/${identityFileName}";
 in
@@ -41,6 +41,7 @@ in
         }];
       };
       "h8tsner" = {
+        hostname = h8tsner.ipv4.address;
         forwardX11Trusted = true;
         extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
         # GPG agent forwarding

@@ -29,6 +29,12 @@ let
 in
 # https://github.com/nix-community/nixos-install-scripts/blob/master/hosters/hetzner-dedicated/hetzner-dedicated-wipe-and-install-nixos.sh
 {
+  fileSystems."/" =
+    {
+      device = "/dev/disk/by-uuid/81817827-b655-4c17-8c18-d274ffa1a3b3";
+      fsType = "ext4";
+    };
+
   # Via: https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Online
   # This make sure that our interface is named `eth0`.
   # This should be ok as long as you don't have multiple physical network cards
@@ -107,4 +113,27 @@ in
   # };
 
   system.stateVersion = "22.05";
+  # Tries to build termite and fails.
+  environment.enableAllTerminfo = lib.mkForce false;
+
+  programs = lib.mkForce {
+    zsh.enable = true;
+    fish.enable = false;
+
+    # Does not exist
+    # termite.enable = false;
+  };
+
+  nix = lib.mkForce {
+    linkInputs = false;
+    generateRegistryFromInputs = false;
+    generateNixPathFromInputs = false;
+  };
+
+  ########################################
+  # home-manager.users.nixos = hmArgs: { #
+  #   programs.termite.enable = false;   #
+  #   programs.fish.enable = false;      #
+  # };                                   #
+  ########################################
 }

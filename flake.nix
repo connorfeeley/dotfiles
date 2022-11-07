@@ -405,10 +405,10 @@
           fastConnection = false;
           autoRollback = true;
           magicRollback = true;
-          profiles.cfeeley = {
-            user = "cfeeley";
+          profiles.system = {
+            user = "root";
             path = deploy.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.x86_64-linux.h8tsner;
+              self.nixosConfigurations.workstation;
           };
         };
         debian-vm = with (collective.peers.hosts.debian-vm); {
@@ -451,34 +451,6 @@
           system = "x86_64-linux";
           inherit (self.nixosConfigurations.h8tsner._module) specialArgs;
           modules = self.nixosConfigurations.h8tsner._module.args.modules ++ [
-            ({ config, lib, pkgs, ... }:
-              let
-                inherit (config.dotfield) guardian;
-              in {
-                # Tries to build termite and fails.
-                environment.enableAllTerminfo = lib.mkForce false;
-
-                programs = lib.mkForce {
-                  zsh.enable = true;
-                  fish.enable = false;
-
-                  # Does not exist
-                  # termite.enable = false;
-                };
-
-                nix = lib.mkForce {
-                  linkInputs = false;
-                  generateRegistryFromInputs = false;
-                  generateNixPathFromInputs = false;
-                };
-
-                ########################################
-                # home-manager.users.nixos = hmArgs: { #
-                #   programs.termite.enable = false;   #
-                #   programs.fish.enable = false;      #
-                # };                                   #
-                ########################################
-              })
           ];
         };
       }))
