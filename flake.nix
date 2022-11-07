@@ -408,7 +408,7 @@
           profiles.system = {
             user = "root";
             path = deploy.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.workstation;
+              self.nixosConfigurations.h8tsner;
           };
         };
         debian-vm = with (collective.peers.hosts.debian-vm); {
