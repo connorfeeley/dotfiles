@@ -81,10 +81,6 @@ in
     sysz #          <- fzf-style systemd TUI
   ]);
 
-  programs.bash.enable = true;
-  programs.fish.enable = true;
-  programs.zsh.enable = true;
-
   nix.package = pkgs.nix;
 
   programs.bat = {

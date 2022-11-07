@@ -9,10 +9,6 @@ let
 
   defaultProfiles = with profiles; [
     core # pretty hardcore bruh
-
-    # FIXME: Removing this triggers the error:
-    # "The option `home-manager.users.<...>.programs.nixvim' is used but not defined."
-    vim
   ];
 in
 {
@@ -21,7 +17,6 @@ in
     defaultProfiles
     ++ [
       nix-colors.homeManagerModule
-      pta2002-neovim.homeManagerModules.nixvim
       (_: { imports = [ ../lib/home ]; })
     ];
 

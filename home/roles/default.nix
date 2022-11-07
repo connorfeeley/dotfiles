@@ -3,7 +3,6 @@ with profiles; let
   shell = [
     shells.zsh
     shells.bash
-    direnv
     ssh
   ];
 

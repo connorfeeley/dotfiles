@@ -1,10 +1,18 @@
-{ config
+{ self
+, config
 , lib
 , pkgs
 , ...
-}: {
-  home.packages = [ ];
+}:
+let
+  inherit (self.inputs) pta2002-neovim;
+in {
+  imports = [ pta2002-neovim.homeManagerModules.nixvim ];
 
-  # pta2022's neovim flake
-  programs.nixvim.enable = true;
+  config = {
+    home.packages = [ ];
+
+    # pta2022's neovim flake
+    programs.nixvim.enable = true;
+  };
 }

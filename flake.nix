@@ -403,7 +403,7 @@
           profiles.cfeeley = {
             user = "cfeeley";
             path = deploy.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.x86_64-linux.h8tsner ;
+              self.nixosConfigurations.x86_64-linux.h8tsner;
           };
         };
         debian-vm = with (collective.peers.hosts.debian-vm); {
@@ -438,8 +438,28 @@
         };
       };
     })
-    // (eachSystem darwinSystems (system: {
-      packages =
+    // {
+      packages = (eachSystem supportedSystems (system: {
+        h8tsner-kexec = nixos-generators.nixosGenerate {
+          inherit (self.nixosConfigurations.h8tsner) pkgs;
+          format = "kexec-bundle";
+          system = "x86_64-linux";
+          inherit (self.nixosConfigurations.h8tsner._module) specialArgs;
+          modules = self.nixosConfigurations.h8tsner._module.args.modules ++ [
+            ({ config, lib, pkgs, ... }:
+              {
+                # Tries to build termite and fails.
+                environment.enableAllTerminfo = lib.mkForce false;
+
+                programs = {
+                  zsh.enable = true;
+                  fish.enable = false;
+                };
+              })
+          ];
+        };
+      }))
+      // (eachSystem darwinSystems (system:
         let
           # nixpkgs set used for flake's 'packages' output
           flakepkgs = import nixpkgs {
@@ -454,14 +474,6 @@
           # - Intended primarily as a quick way to verify that the package builds
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
           emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
-
-          h8tsner-kexec = nixos-generators.nixosGenerate {
-            inherit (self.nixosConfigurations.h8tsner._module.args) pkgs;
-            format = "kexec-bundle";
-            system = "x86_64-linux";
-            inherit (self.nixosConfigurations.h8tsner._module) specialArgs;
-            modules = self.nixosConfigurations.h8tsner._module.args.modules;
-          };
         in
         (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
           (flattenTree (rakeLeaves ./darwin/packages)))
@@ -471,11 +483,10 @@
             # Tested with XCode CLT version: 14.0.0.0.1.1661618636
             emacs28Macport
             emacs28Macport-noNativeComp
-            h8tsner-kexec
             ;
-        }
-      ;
-    }));
+        }));
+    }
+  ;
 
   # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
   nixConfig.extra-experimental-features = "nix-command flakes";

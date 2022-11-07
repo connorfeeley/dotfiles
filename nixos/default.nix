@@ -45,7 +45,6 @@ in
     h8tsner.modules =
       (with roles; server) ++ (with profiles; [
         environments.hetzner-cloud
-        virtualisation.vm-variant
       ]);
   };
 
