@@ -33,4 +33,4 @@ esac
 @nom@ build --no-link "${DOTFIELD_DIR}#${PLATFORM}Configurations.${HOSTNAME}.config.system.build.toplevel"
 
 # Forward first argument to {nixos,darwin}-rebuild (build, switch, etc)
-${PLATFORM}-rebuild --flake "${DOTFIELD_DIR}#${PLATFORM}Configurations.${HOSTNAME}" "${ACTION}"
+${PLATFORM}-rebuild --flake "${DOTFIELD_DIR}#${HOSTNAME}" "${ACTION}"
