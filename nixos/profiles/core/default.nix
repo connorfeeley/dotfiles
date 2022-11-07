@@ -82,19 +82,19 @@ in
     openFirewall = true;
     passwordAuthentication = false;
     permitRootLogin = lib.mkDefault "prohibit-password";
-  };
 
-  services.openssh.hostKeys = [
-    {
-      bits = 4096;
-      path = "${sshHostPath}/ssh_host_rsa_key";
-      type = "rsa";
-    }
-    {
-      path = "${sshHostPath}/ssh_host_ed25519_key";
-      type = "ed25519";
-    }
-  ];
+    hostKeys = [
+      {
+        bits = 4096;
+        path = "${sshHostPath}/ssh_host_rsa_key";
+        type = "rsa";
+      }
+      {
+        path = "${sshHostPath}/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+    ];
+  };
 
   security.pam = {
     # Allow passwordless sudo within an SSH session.
