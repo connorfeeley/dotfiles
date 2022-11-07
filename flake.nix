@@ -28,6 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flox.url = "github:flox/floxpkgs";
     agenix.url = "github:montchr/agenix/darwin-support";
     flake-utils.url = "github:numtide/flake-utils";
     prefmanager.url = "github:malob/prefmanager";
@@ -186,6 +187,7 @@
     , home-manager
     , nix-colors
     , nix-dram
+    , flox
     , prefmanager
     , nixos-generators
     , nixos-hardware
@@ -280,6 +282,7 @@
         nixpkgs-work.overlays.default
 
         (final: prev: {
+          # flox = flox.evalCatalog.${final.system}.stable.flox;
           emacs-plus = self.packages.${final.system}.emacs-plus;
 
           prefmanager = prefmanager.packages.${prev.stdenv.system}.default;
