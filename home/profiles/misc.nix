@@ -36,4 +36,12 @@
   # services.flameshot = {};
   # services.hound = ...
   # programs.ncspot = {}; # spotify thingy
+
+  programs.bottom.enable = true;
+  programs.exa.enable = true;
+  programs.exa.enableAliases = true;
+  programs.jq.enable = true;
+  programs.just.enable = true;
+  programs.pandoc.enable = true;
+  programs.tealdeer.enable = true;
 }
