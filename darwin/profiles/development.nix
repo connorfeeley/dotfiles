@@ -11,6 +11,7 @@
 {
   environment.systemPackages = with pkgs; [
     darwin.DarwinTools
+    darwin.print-reexports
     darwin.ios-deploy
   ];
 
