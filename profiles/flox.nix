@@ -5,7 +5,8 @@
 }:
 # Flox: multi-platform and reproducible environment manager.
 #   https://floxdev.com
-{
+# KLUDGE: disabled profile
+lib.mkIf false {
   # NOTE: also requires adding flox's private GitHub token to nix.conf.
   nix.settings = {
     trusted-substituters = [ "https://cache.floxdev.com?trusted=1" ];
