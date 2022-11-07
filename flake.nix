@@ -447,19 +447,37 @@
       packages = (eachSystem supportedSystems (system: {
         h8tsner-kexec = nixos-generators.nixosGenerate {
           inherit (self.nixosConfigurations.h8tsner) pkgs;
-          format = "kexec-bundle";
+          format = "kexec";
           system = "x86_64-linux";
           inherit (self.nixosConfigurations.h8tsner._module) specialArgs;
           modules = self.nixosConfigurations.h8tsner._module.args.modules ++ [
             ({ config, lib, pkgs, ... }:
-              {
+              let
+                inherit (config.dotfield) guardian;
+              in {
                 # Tries to build termite and fails.
                 environment.enableAllTerminfo = lib.mkForce false;
 
-                programs = {
+                programs = lib.mkForce {
                   zsh.enable = true;
                   fish.enable = false;
+
+                  # Does not exist
+                  # termite.enable = false;
                 };
+
+                nix = lib.mkForce {
+                  linkInputs = false;
+                  generateRegistryFromInputs = false;
+                  generateNixPathFromInputs = false;
+                };
+
+                ########################################
+                # home-manager.users.nixos = hmArgs: { #
+                #   programs.termite.enable = false;   #
+                #   programs.fish.enable = false;      #
+                # };                                   #
+                ########################################
               })
           ];
         };

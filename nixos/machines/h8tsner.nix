@@ -68,8 +68,8 @@ in
 
   ### === users ================================================================
 
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cfeeley";
+  # dotfield.guardian.enable = true;
+  # dotfield.guardian.username = "cfeeley";
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
@@ -97,12 +97,14 @@ in
     shell = pkgs.zsh;
   };
 
-  home-manager.users = {
-    cfeeley = hmArgs: {
-      imports = with hmArgs.roles;
-        shell;
-    };
-  };
+  # home-manager.users = {
+  #   cfeeley = hmArgs: {
+  #     ################################
+  #     # imports = with hmArgs.roles; #
+  #     #   shell;                     #
+  #     ################################
+  #   };
+  # };
 
   system.stateVersion = "22.05";
 }
