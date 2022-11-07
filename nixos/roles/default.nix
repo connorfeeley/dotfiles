@@ -56,6 +56,7 @@ let
     ++ (with profiles; [
       boot.systemd-boot
       yubikey
+      networking.avahi
     ]);
 in
 {
