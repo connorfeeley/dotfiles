@@ -109,16 +109,21 @@ in
     };
   };
 
-  programs.less.enable = true;
-  programs.man.enable = true;
-  programs.info.enable = true;
-  # N.B. This can slow down builds, but enables more manpage integrations
-  # across various tools. See the home-manager manual for more info.
-  programs.man.generateCaches = lib.mkDefault true;
-  programs.nix-index.enable = true;
-
   home.enableDebugInfo = true;
   home.enableNixpkgsReleaseCheck = true;
+
+  programs = {
+    less.enable = true;
+    man = {
+      enable = true;
+      # N.B. This can slow down builds, but enables more manpage integrations
+      # across various tools. See the home-manager manual for more info.
+      generateCaches = lib.mkDefault true;
+    };
+    info.enable = true;
+
+    nix-index.enable = true;
+  };
 
   manual = {
     manpages.enable = true;
