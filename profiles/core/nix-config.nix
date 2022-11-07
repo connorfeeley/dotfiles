@@ -20,9 +20,7 @@ in
     settings = {
       inherit substituters trusted-substituters;
 
-      sandbox = lib.mkDefault (!isDarwin);
-      darwin-log-sandbox-violations = isDarwin;
-
+      sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       # FIXME: dangerous
       allowed-users = [ "*" ];
       trusted-users = [ "root" "cfeeley" ];
