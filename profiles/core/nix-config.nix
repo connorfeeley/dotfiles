@@ -4,6 +4,8 @@
 , ...
 }:
 let
+  inherit (pkgs.stdenv) isDarwin;
+
   substituters = [
     "https://cache.nixos.org/"
     "https://nix-community.cachix.org"

@@ -61,6 +61,9 @@ let
     fetchSubmodules = false;
     sparseCheckout = "modules/completion/corfu";
   };
+
+  llvmPackages = pkgs.llvmPackages_14;
+  clang-tools = pkgs.clang-tools.override { inherit llvmPackages; };
 in
 lib.mkMerge [
   {
@@ -182,9 +185,14 @@ lib.mkMerge [
       gitAndTools.delta
       # :lang nix
       nixpkgs-fmt
+
       # :lang cpp
-      (clang-tools.override { llvmPackages = llvmPackages_latest; })
-      llvmPackages_latest.lldb # includes lldb-vscode
+      # NOTE: lldb-14 is broken
+      llvmPackages_13.lldb # includes lldb-vscode
+      clang-tools
+      # Linux-only:
+      # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
+
       # Linux only (see conditional appends below): vscode-extensions.ms-vscode.cpptools
       # :lang python
       python3Packages.debugpy
@@ -273,7 +281,7 @@ lib.mkMerge [
       peek
 
       #: lang cpp
-      vscode-extensions.ms-vscode.cpptools
+      (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
 
       #: fpga (bazel builds fail on darwin)
       verible
