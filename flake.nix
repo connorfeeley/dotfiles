@@ -275,6 +275,9 @@
         nur.overlay
         nvfetcher.overlay
 
+        xmonad-config.overlay
+        xmobar-config.overlay
+
         ttc-subway-font.overlay
 
         nix-xilinx.overlay
@@ -283,6 +286,7 @@
 
         (final: prev: {
           # flox = flox.evalCatalog.${final.system}.stable.flox;
+
           emacs-plus = self.packages.${final.system}.emacs-plus;
 
           prefmanager = prefmanager.packages.${prev.stdenv.system}.default;
@@ -292,6 +296,11 @@
 
           dashboard = nixpkgs-work.packages.${final.system}.dashboard;
           zeuspack = nixpkgs-work.packages.${final.system}.zeuspack;
+        } // rec {
+          xmonad = xmonad-config;
+          xmobar = xmobar-config;
+          xmonad-config = inputs.xmonad-config.packages.${final.system}.default;
+          xmobar-config = inputs.xmobar-config.packages.${final.system}.default;
         })
       ];
     in
@@ -340,14 +349,7 @@
             ];
         };
         nixos-unstable = {
-          overlays = overlays ++ [
-            (final: prev: rec {
-              xmonad = xmonad-config;
-              xmobar = xmobar-config;
-              xmonad-config = inputs.xmonad-config.packages.${final.system}.default;
-              xmobar-config = inputs.xmobar-config.packages.${final.system}.default;
-            })
-          ];
+          inherit overlays;
 
           imports = [
             (digga.lib.importOverlays ./overlays/common)
