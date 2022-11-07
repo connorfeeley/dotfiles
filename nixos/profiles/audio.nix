@@ -17,7 +17,7 @@
   security.rtkit.enable = true;
 
   environment.systemPackages = with pkgs; [
-    easyeffects
+    # easyeffects
     pavucontrol
     alsa-utils
     pulseaudio-ctl

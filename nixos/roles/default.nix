@@ -14,7 +14,7 @@ let
       desktop
       gnome-desktop
       video
-      zoom-us
+      # zoom-us
     ]);
 
   server =

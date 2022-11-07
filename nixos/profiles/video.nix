@@ -5,6 +5,6 @@
 }: {
   environment.systemPackages = with pkgs; [
     mpv
-    plex-media-player
+    vlc
   ];
 }
