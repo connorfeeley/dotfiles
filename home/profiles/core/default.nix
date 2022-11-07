@@ -111,6 +111,7 @@ in
 
   programs.less.enable = true;
   programs.man.enable = true;
+  programs.info.enable = true;
   # N.B. This can slow down builds, but enables more manpage integrations
   # across various tools. See the home-manager manual for more info.
   programs.man.generateCaches = lib.mkDefault true;
@@ -118,7 +119,12 @@ in
 
   home.enableDebugInfo = true;
   home.enableNixpkgsReleaseCheck = true;
-  manual.manpages.enable = true;
+
+  manual = {
+    manpages.enable = true;
+    html.enable = true;
+    json.enable = true;
+  };
 
   home.extraOutputsToInstall = [ "/share/zsh" ];
 
