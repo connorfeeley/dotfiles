@@ -6,9 +6,8 @@ let
   workstation =
     (with (collective.profiles); [
       fonts.common
-      # FIXME(cfeeley): delete fully?
-      # fonts.pragmatapro
       secrets
+      flox
     ])
     ++ (with profiles; [
       distributed-build

@@ -57,6 +57,7 @@ in
     ];
     modules = [
       collective.profiles.core
+      collective.profiles.flox
       profiles.core
       home-manager.nixosModules.home-manager
       digga.nixosModules.nixConfig
