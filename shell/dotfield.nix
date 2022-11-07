@@ -69,7 +69,8 @@ in
         name = "generate-h8tsner-kexec-bundle";
         help = "Use nixos-generate to build a kexec-build for the h8tsner VM.";
         # FIXME: --show-trace causes nix to segfault
-        command = "${nixos-generators}/bin/nixos-generate  --flake .#h8tsner --format kexec-bundle";
+        # command = "${nixos-generators}/bin/nixos-generate  --flake .#h8tsner --format kexec-bundle";
+        command = "${nix-output-monitor}/bin/nom build $DOTFIELD_DIR#packages.h8tsner-kexec.x86_64-linux --impure";
       })
 
       (ci {
