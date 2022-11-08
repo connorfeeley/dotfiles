@@ -67,8 +67,8 @@ in
 
   config = {
     environment.systemPackages = with pkgs; [
-      # CLI program for managing Minecraft modpacks from Modrinth, CurseForge, and Github Releases
-      ferium
+      ferium # <- CLI program for managing Minecraft modpacks from Modrinth, CurseForge, and Github Releases
+      mcrcon # <- Minecraft console client
     ];
 
     services.modded-minecraft-servers = {
