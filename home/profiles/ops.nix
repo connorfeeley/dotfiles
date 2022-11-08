@@ -11,5 +11,7 @@
     # Configure the hcloud program to use your token:
     # - hcloud context create my-project
     hcloud # <- CLI for Hetzner Cloud.
+
+    mcrcon # <- Minecraft console client
   ];
 }
