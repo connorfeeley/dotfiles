@@ -135,7 +135,7 @@ in
     '';
 
     initExtra = ''
-      source $DOTFIELD_DIR/lib/color.sh
+      # source $DOTFIELD_DIR/lib/color.sh
       source ${pkgs.dotfield-config}/zsh/functions.zsh
       source ${pkgs.dotfield-config}/zsh/options.zsh
 

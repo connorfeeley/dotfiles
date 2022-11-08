@@ -28,8 +28,6 @@ let
   };
 in
 {
-  environment.variables."SOPS_AGE_KEY_FILE" = "$XDG_CONFIG_HOME/sops/age/keys";
-
   environment.systemPackages = with pkgs; [
     agenix
     rage

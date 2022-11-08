@@ -40,22 +40,22 @@ in
   # This make sure that our interface is named `eth0`.
   # This should be ok as long as you don't have multiple physical network cards
   # For multiple cards one could add a netdev unit to rename the interface based on the mac address
-  networking.usePredictableInterfaceNames = false;
-  systemd.network = {
-    enable = true;
-    networks."${interface}".extraConfig = ''
-      [Match]
-      Name = ${interface}
-      [Network]
-      # Add your own assigned ipv6 subnet here here!
-      Address = ${host.ipv6.address}/${host.ipv6.prefixLength}
-      Gateway = ${net.ipv6.address}
-      # optionally you can do the same for ipv4 and disable DHCP (networking.dhcpcd.enable = false;)
-      Address =  ${host.ipv4.address}/${host.ipv4.prefixLength}
-      Gateway = ${net.ipv4.address}
-    '';
-  };
-  networking.dhcpcd.enable = false;
+  # networking.usePredictableInterfaceNames = false;
+  # systemd.network = {
+  #   enable = true;
+  #   networks."${interface}".extraConfig = ''
+  #     [Match]
+  #     Name = ${interface}
+  #     [Network]
+  #     # Add your own assigned ipv6 subnet here here!
+  #     # Address = ${host.ipv6.address}/${host.ipv6.prefixLength}
+  #     # Gateway = ${net.ipv6.address}
+  #     # optionally you can do the same for ipv4 and disable DHCP (networking.dhcpcd.enable = false;)
+  #     Address =  ${host.ipv4.address}/${host.ipv4.prefixLength}
+  #     Gateway = ${net.ipv4.address}
+  #   '';
+  # };
+  networking.dhcpcd.enable = true;
 
   ### === timezone ============================================================
 
@@ -77,6 +77,7 @@ in
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  # Authorized keys and PermitRootLogin set in ssh-host
   users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;

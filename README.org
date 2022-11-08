@@ -86,11 +86,28 @@ nom build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.buil
 
 ** Infect hetzner
 
+*** Create Floating IP
+
 #+begin_src shell
-hcloud server delete h8tsner
+hcloud primary-ip create --name minecraft --type ipv4 --datacenter ash-dc1
+hcloud primary-ip enable-protection minecraft
+#+end_src
 
-hcloud server create --image ubuntu-20.04 --name h8tsner --type cpx11 --ssh-key GPG --user-data-from-file $DOTFIELD_DIR/nixos/machines/h8tsner/user-data.txt --datacenter ash-dc1
+*** Create server
+#+begin_src shell
+hcloud server create --image ubuntu-20.04 --name h8tsner --type cpx11 --ssh-key GPG --user-data-from-file $DOTFIELD_DIR/nixos/machines/h8tsner/user-data.txt --datacenter ash-dc1 --without-ipv4
+#+end_src
 
+*** Assign Floating IP
+
+#+begin_src shell
+hcloud server shutdown h8tsner
+hcloud primary-ip assign minecraft --server h8tsner
+hcloud server poweron h8tsner
+#+end_src
+
+*** Deploy config
+#+begin_src shell
 deploy --skip-checks .#h8tsner -- --print-build-logs
 
 hcloud server reboot h8tsner
@@ -108,7 +125,7 @@ fnix build ~/.config/dotfield#homeConfigurationsPortable.aarch64-linux."cfeeley@
 deploy --skip-checks .#debian-vm -- --print-build-logs --show-trace
 #+end_example
 
-** Handy ~numtide/deveshell~ functions
+** Handy ~numtide/devshell~ functions
 
 Credit: [[https://github.com/montchr/dotfield/blob/8a61b8fe37cc3d3186ac8728363d7977fea6ff6e/devShells/default.nix#L46][github:montchr/dotfield]]
 #+begin_src nix
