@@ -118,7 +118,8 @@ in
         name = "convert-keys";
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
-          ssh-keyscan "${HOST:-localhost}" | ${ssh-to-age}/bin/ssh-to-age
+          ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/age-key.sec
+          ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
         '';
       }
 

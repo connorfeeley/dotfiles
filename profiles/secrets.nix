@@ -19,14 +19,6 @@ let
     then "secrets"
     else "admin";
 
-  mkSopsSecret = name: {
-    "${name}" = {
-      mode = "0440";
-      owner = config.users.users.cfeeley.name;
-      group = secretsGroup;
-    };
-  };
-
   mkEspansoMatchesSecret = name: {
     "espanso/${name}.yml" = {
       file = "${secretsDir}/espanso/${name}.yml.age";
@@ -54,7 +46,7 @@ in
   sops.defaultSopsFile = ../secrets/global.secrets.yaml;
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-  sops.secrets = lib.mkMerge [
-    (mkSopsSecret "hcloud-tokens/cfeeley-sops")
-  ];
+  # sops.secrets.github-api-token = {
+  #   format = "yaml";
+  # };
 }
