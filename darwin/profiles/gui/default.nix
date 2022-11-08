@@ -73,6 +73,7 @@
     "lulu"
     "stats"
     "steam"
+    "curseforge"
     "minecraft"
     "spotify"
     "deluge"
