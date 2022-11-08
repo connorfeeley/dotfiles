@@ -479,8 +479,8 @@
             emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
           in
           (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
-            (flattenTree (rakeLeaves ./darwin/packages)))
-          // {
+            (flattenTree (rakeLeaves ./darwin/packages))) //
+          {
             inherit
               # NOTE: both emacs28Macport variants are impure
               # Tested with XCode CLT version: 14.0.0.0.1.1661618636
