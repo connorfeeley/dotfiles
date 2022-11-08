@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga;
+  inherit (inputs) agenix home-manager digga modded-minecraft-servers;
   inherit (inputs.flake-utils.lib.system) x86_64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -42,14 +42,18 @@ in
         workstations.flatpak
       ]);
 
-    h8tsner.modules =
-      (with roles; server) ++ (with profiles; [
-        environments.hetzner-cloud
-      ]) ++
-      (with collective.profiles; [
-        networking.ssh-host
-      ])
-    ;
+    h8tsner = {
+      modules =
+        (with collective.profiles; [
+          networking.ssh-host
+        ]) ++
+        (with roles; server) ++ (with profiles; [
+          environments.hetzner-cloud
+
+          minecraft-server
+        ])
+      ;
+    };
   };
 
   hostDefaults = {

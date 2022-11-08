@@ -4,6 +4,7 @@
 # Useful flakes:
 # - https://github.com/Infinidoge/nix-minecraft
 # - https://github.com/mkaito/nixos-modded-minecraft-servers
+# FIXME: hardware config
 { config
 , lib
 , pkgs

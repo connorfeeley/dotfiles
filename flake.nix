@@ -149,6 +149,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Provides 'services.modded-minecraft-servers' via NixOS module
+    modded-minecraft-servers = {
+      url = "github:mkaito/nixos-modded-minecraft-servers";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ##: --- other --------------------------------------------------------------
 
     flake-compat = {
