@@ -13,6 +13,8 @@
     gtk-mac-integration
     fontconfig # appease 'doom doctor'
     dockutil # command line utility for managing macOS dock items
+
+    ferium # CLI program for managing Minecraft mods and modpacks
   ];
 
   environment.variables = {
@@ -71,7 +73,7 @@
     "lulu"
     "stats"
     "steam"
-    "curseforge"
+    "minecraft"
     "spotify"
     "deluge"
     "roku-remote-tool"
