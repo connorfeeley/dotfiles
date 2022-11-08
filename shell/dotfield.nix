@@ -126,5 +126,10 @@ in
       (utils scripts.dotfield-sync)
       (utils scripts.dotfield-rebuild)
       (utils scripts.dotfield-doom)
+      (withCategory "utils" {
+        name = "repl";
+        help = "Launch repl";
+        command = "${nixUnstable}/bin/nix repl $PRJ_ROOT/repl.nix";
+      })
     ];
 }
