@@ -14,9 +14,10 @@ let
     ;
 in
 {
-  imports = [
-    (modulesPath + "/installer/netboot/netboot-minimal.nix")
-  ];
+  # Causes the stupid kernel documentation to get built.
+  # imports = [
+  #   (modulesPath + "/installer/netboot/netboot-minimal.nix")
+  # ];
 
   options = {
     environments.isHetzner = mkOption {
@@ -29,7 +30,7 @@ in
 
   config = {
     # nixos-generate
-    boot.loader.grub = lib.mkDefault {
+    boot.loader.grub = {
       enable = lib.mkDefault true;
       version = lib.mkDefault 2;
       devices = lib.mkDefault [ "/dev/sda" ];

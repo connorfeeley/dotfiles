@@ -45,7 +45,11 @@ in
     h8tsner.modules =
       (with roles; server) ++ (with profiles; [
         environments.hetzner-cloud
-      ]);
+      ]) ++
+      (with collective.profiles; [
+        networking.ssh-host
+      ])
+    ;
   };
 
   hostDefaults = {

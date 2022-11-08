@@ -17,6 +17,11 @@
 let
   inherit (collective) peers;
   inherit (config.networking) hostName;
+  inherit (config.dotfield) guardian;
+
+  inherit (lib)
+    mkForce
+    ;
 
   host = peers.hosts.${hostName};
   net = peers.networks.${host.network};
@@ -29,11 +34,14 @@ let
 in
 # https://github.com/nix-community/nixos-install-scripts/blob/master/hosters/hetzner-dedicated/hetzner-dedicated-wipe-and-install-nixos.sh
 {
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/81817827-b655-4c17-8c18-d274ffa1a3b3";
-      fsType = "ext4";
-    };
+  ### === filesystems ================================================================
+
+  boot.loader.grub.devices = [ "/dev/sda" ];
+
+  # Mount /tmp as tmpfs
+  boot.tmpOnTmpfs = true;
+
+  ### === networking ================================================================
 
   # Via: https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Online
   # This make sure that our interface is named `eth0`.
@@ -56,9 +64,6 @@ in
   };
   networking.dhcpcd.enable = false;
 
-  # Mount /tmp as tmpfs
-  boot.tmpOnTmpfs = true;
-
   ### === timezone ============================================================
 
   time = {
@@ -74,8 +79,8 @@ in
 
   ### === users ================================================================
 
-  # dotfield.guardian.enable = true;
-  # dotfield.guardian.username = "cfeeley";
+  dotfield.guardian.enable = true;
+  dotfield.guardian.username = "cfeeley";
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
@@ -103,37 +108,16 @@ in
     shell = pkgs.zsh;
   };
 
-  # home-manager.users = {
-  #   cfeeley = hmArgs: {
-  #     ################################
-  #     # imports = with hmArgs.roles; #
-  #     #   shell;                     #
-  #     ################################
-  #   };
-  # };
+  home-manager.users = {
+    "${guardian.username}" = hmArgs: {
+      imports = with hmArgs.roles;
+        shell;
+
+      programs.termite.enable = false;
+    };
+  };
+
+  ### === misc ================================================================
 
   system.stateVersion = "22.05";
-  # Tries to build termite and fails.
-  environment.enableAllTerminfo = lib.mkForce false;
-
-  programs = lib.mkForce {
-    zsh.enable = true;
-    fish.enable = false;
-
-    # Does not exist
-    # termite.enable = false;
-  };
-
-  nix = lib.mkForce {
-    linkInputs = false;
-    generateRegistryFromInputs = false;
-    generateNixPathFromInputs = false;
-  };
-
-  ########################################
-  # home-manager.users.nixos = hmArgs: { #
-  #   programs.termite.enable = false;   #
-  #   programs.fish.enable = false;      #
-  # };                                   #
-  ########################################
 }

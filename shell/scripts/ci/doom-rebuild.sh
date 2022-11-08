@@ -1,5 +1,8 @@
 #!@shell@
 
+# Debug:
+# set -o xtrace
+
 # ############################################################ #
 #   ____  _          _ _    ___        _   _                   #
 #  / ___|| |__   ___| | |  / _ \ _ __ | |_(_) ___  _ __  ___   #
@@ -15,7 +18,9 @@ set -o errexit   # set -e : exit the script if any statement returns a non-true 
 
 export PATH=@path@:$PATH
 
-doom sync -u
+SYNC_ARG="${1:-}"
+
+doom sync "${SYNC_ARG}"
 
 doom build -r
 

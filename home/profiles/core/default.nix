@@ -165,5 +165,5 @@ in
     WD_CONFIG = "$XDG_CONFIG_HOME/wd/warprc";
   };
 
-  home.stateVersion = lib.mkForce "22.05";
+  home.stateVersion = lib.mkDefault "22.05";
 }

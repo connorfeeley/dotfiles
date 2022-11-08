@@ -402,7 +402,7 @@
         };
         h8tsner = with (collective.peers.hosts.h8tsner); {
           hostname = "h8tsner";
-          sshUser = "cfeeley";
+          sshUser = "root";
           fastConnection = false;
           autoRollback = true;
           magicRollback = true;

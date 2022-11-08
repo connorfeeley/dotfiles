@@ -1,5 +1,8 @@
 #!@shell@
 
+# Debug:
+# set -o xtrace
+
 # ############################################################ #
 #   ____  _          _ _    ___        _   _                   #
 #  / ___|| |__   ___| | |  / _ \ _ __ | |_(_) ___  _ __  ___   #
@@ -29,8 +32,12 @@ case "$(uname)" in
     PLATFORM="apolloGuidanceComputer";;
 esac
 
+# 'sudo nixos-rebuild' on Linux, 'darwin-rebuild' on MacOS
+SUDO=""
+[ "${PLATFORM}" != "nixos" ] || SUDO="sudo"
+
 # Pretty-build flake configuration
 @nom@ build --no-link "${DOTFIELD_DIR}#${PLATFORM}Configurations.${HOSTNAME}.config.system.build.toplevel"
 
 # Forward first argument to {nixos,darwin}-rebuild (build, switch, etc)
-${PLATFORM}-rebuild --flake "${DOTFIELD_DIR}#${HOSTNAME}" "${ACTION}"
+${SUDO} ${PLATFORM}-rebuild --flake "${DOTFIELD_DIR}#${HOSTNAME}" "${ACTION}"

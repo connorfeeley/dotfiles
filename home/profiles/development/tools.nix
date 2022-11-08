@@ -23,7 +23,6 @@
 
     ## === Nix Utilities ===
     nickel #        <- "Better configuration for less"
-    fup-repl #      <- flake-utils-plus repl
     nvfetcher-bin # <- Generate nix sources expression for the latest version of packages
     nix-diff #      <- Explain why two Nix derivations differ
     nix-tree #      <- Interactively browse dependency graphs of Nix derivations.
