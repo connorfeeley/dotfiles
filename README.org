@@ -93,9 +93,24 @@ hcloud primary-ip create --name minecraft --type ipv4 --datacenter ash-dc1
 hcloud primary-ip enable-protection minecraft
 #+end_src
 
+*** COMMENT Create Volume
+
+#+begin_src shell
+hcloud volume create --name minecraft-data --size 10 --location ash
+#+end_src
+
 *** Create server
 #+begin_src shell
-hcloud server create --image ubuntu-20.04 --name h8tsner --type cpx11 --ssh-key GPG --user-data-from-file $DOTFIELD_DIR/nixos/machines/h8tsner/user-data.txt --datacenter ash-dc1 --without-ipv4
+hcloud server create \
+    --image ubuntu-20.04 \
+    --name h8tsner \
+    --type cpx11 \
+    --ssh-key GPG \
+    --user-data-from-file $DOTFIELD_DIR/nixos/machines/h8tsner/user-data.txt \
+    --datacenter ash-dc1 \
+    --without-ipv4
+
+    # --volume minecraft-data --automount
 #+end_src
 
 *** Assign Floating IP

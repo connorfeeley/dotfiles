@@ -2,6 +2,7 @@
 with profiles; let
   shell = [
     shells.zsh
+    shells.fish
     shells.bash
     ssh
   ];

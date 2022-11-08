@@ -99,7 +99,9 @@ in
       ++ (lib.optional config.virtualisation.docker.enable "docker")
       ++ (lib.optional config.virtualisation.podman.enable "podman")
     ;
-    shell = pkgs.zsh;
+
+    # Set user's shell
+    shell = pkgs.fish;
   };
 
   home-manager.users = {
