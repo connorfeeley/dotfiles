@@ -34,8 +34,8 @@ in
     historySize = 1000000000;
 
     initExtra = ''
-      # # Source vterm-specific configuration
-      [[ -n $EMACS_VTERM_PATH ]] && source $EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh
+      # Source vterm-specific configuration
+      source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-bash.sh
 
       # MacOS only: XQuartz
       if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then

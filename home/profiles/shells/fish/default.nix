@@ -91,7 +91,7 @@ in
       # No greeting.
       set --erase fish_greeting
 
-      source $EMACS_VTERM_PATH/etc/emacs-vterm.fish
+      source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm.fish
     '';
   };
 }
