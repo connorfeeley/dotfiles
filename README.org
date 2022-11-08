@@ -84,6 +84,18 @@ nix flake check git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield
 nom build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel
 #+end_src
 
+** Infect hetzner
+
+#+begin_src shell
+hcloud server delete h8tsner
+
+hcloud server create --image ubuntu-20.04 --name h8tsner --type cpx11 --ssh-key GPG --user-data-from-file $DOTFIELD_DIR/nixos/machines/h8tsner/user-data.txt --datacenter ash-dc1
+
+deploy --skip-checks .#h8tsner -- --print-build-logs
+
+hcloud server reboot h8tsner
+#+end_src
+
 ** Build =debian-vm= system (inside VM)
 #+begin_example
 fnix build ~/.config/dotfield#homeConfigurationsPortable.aarch64-linux."cfeeley@debian-vm".activationPackage --show-trace

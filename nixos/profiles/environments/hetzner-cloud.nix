@@ -14,11 +14,6 @@ let
     ;
 in
 {
-  # Causes the stupid kernel documentation to get built.
-  # imports = [
-  #   (modulesPath + "/installer/netboot/netboot-minimal.nix")
-  # ];
-
   options = {
     environments.isHetzner = mkOption {
       type = types.bool;
@@ -28,30 +23,20 @@ in
     };
   };
 
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+
   config = {
-    # nixos-generate
-    boot.loader.grub = {
-      enable = lib.mkDefault true;
-      version = lib.mkDefault 2;
-      devices = lib.mkDefault [ "/dev/sda" ];
-    };
+    boot.cleanTmpDir = true;
+    zramSwap.enable = true;
+    networking.hostName = "h8tsner";
+    users.users.root.openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBxw8UnnH5Cizu7p9r4PFGDe/azUrdC0qA3K9GtWtvf/+l4dy044X3mI+hHVigTbxDH5viYcTiH6Lk+SHl2uZuX6fkzTBaFoonEJrKeCRS25TTMmas9g7D/maDoENEF1X0acs5Ffk3CAqKlOeynGPnj4M1ovUM8wyg1lsfZXA+LVr9GLLziiZSxVBBjG341hfVP3LFijj8qIAoDnBPrlLBjrrCsHXZa1QxjjyQADC5Ty7wgqLZqhfEEmkSdUEdkEt1lW4wzJzNXM/7F+iBmLTTp2KcUTPP2kyCU8YR+QvOMafB7ufmRoMf2ERjQtCwSJCYfEot3DBOvdgL0lFBTW4T /Users/cfeeley/.ssh/id_rsa"
+    ];
 
-    boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
-    boot.initrd.kernelModules = [ ];
-    boot.kernelModules = [ ];
-    boot.extraModulePackages = [ ];
-
-    swapDevices = [ ];
-    hardware.cpu.amd.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
-
-    fileSystems."/" = {
-      # N.B. While nixos-generate-config will set this to a UUID by default, the
-      # UUID of a disk on Hetzner Cloud appears to change if the server is
-      # rebuilt. We know the root filesystem should always point to this
-      # partition, so it's safer to point directly there.
-      device = "/dev/sda1";
-      fsType = "ext4";
-    };
+    boot.loader.grub.device = "/dev/sda";
+    boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "vmw_pvscsi" "xen_blkfront" ];
+    boot.initrd.kernelModules = [ "nvme" ];
+    fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
 
     services.openssh = lib.mkDefault {
       enable = true;

@@ -34,13 +34,6 @@ let
 in
 # https://github.com/nix-community/nixos-install-scripts/blob/master/hosters/hetzner-dedicated/hetzner-dedicated-wipe-and-install-nixos.sh
 {
-  ### === filesystems ================================================================
-
-  boot.loader.grub.devices = [ "/dev/sda" ];
-
-  # Mount /tmp as tmpfs
-  boot.tmpOnTmpfs = true;
-
   ### === networking ================================================================
 
   # Via: https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Online

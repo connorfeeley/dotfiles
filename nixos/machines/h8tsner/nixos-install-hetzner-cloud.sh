@@ -13,10 +13,32 @@
 #    further down in the section labelled "Replace this by your SSH pubkey" by you own,
 #    and host the modified script way under a URL of your choosing
 #    (e.g. gist.github.com with git.io as URL shortener service).
-# 3. Run on the server:
+# 3. Run on the client:
 #
-#       # Replace this URL by your own that has your pubkey in
-#       curl -L https://raw.githubusercontent.com/nix-community/nixos-install-scripts/master/hosters/hetzner-cloud/nixos-install-hetzner-cloud.sh | sudo bash
+#       hcloud server attach-iso h8tsner nixos-minimal-22.05.590.f05e7d39a48-x86_64-linux.iso
+#       hcloud server rebuild h8tsner --image ubuntu-22.04
+#
+#       XqVNLKaaMUFvnKvrgTkw
+#       hcloud server enable-rescue --ssh-key GPG h8tsner
+#
+#       hcloud server attach-iso h8tsner nixos-minimal-22.05.590.f05e7d39a48-x86_64-linux.iso
+#       hcloud server reboot h8tsner
+#
+#       hcloud server enable-rescue --ssh-key GPG h8tsner
+#       hcloud server poweroff h8tsner
+#       hcloud server poweron h8tsner
+#       ssh-copy-id nixos@h8tsner
+#       scp $DOTFIELD_DIR/nixos/machines/h8tsner/nixos-install-hetzner-cloud.sh nixos@h8tsner:
+#       ssh nixos@h8tsner 'sudo bash -c nixos-install-hetzner-cloud.sh'
+#
+#       hcloud server detach-iso h8tsner
+#       hcloud server poweron h8tsner
+#       ssh-keygen -R 5.161.105.71
+#       ssh-copy-id root@h8tsner
+#
+#       deploy --skip-checks .#h8tsner -- --print-build-logs
+#       hcloud server reboot h8tsner
+#       hcloud server poweron h8tsner
 #
 #    This will install NixOS and power off the server.
 # 4. Unmount the ISO image from the Hetzner Cloud GUI.
