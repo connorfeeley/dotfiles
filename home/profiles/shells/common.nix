@@ -56,6 +56,7 @@ in
         runtimeInputs = with pkgs; [ nix nix-json-progress ];
         text = builtins.readFile "${pkgs.sources.ssh-cmc.src}/cmc";
       })
+      pkgs.emacsPackages.vterm
     ];
 
   programs.bashmount = {

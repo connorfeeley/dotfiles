@@ -174,7 +174,7 @@ in
       else
         # # Source vterm-specific configuration
         [[ -n $EMACS_VTERM_PATH ]] && source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-zsh.sh
-        source $DOTFIELD_DIR/config/emacs/vterm.zsh
+        source ${pkgs.dotfield-config}/zsh/vterm.zsh
       fi
       # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
 
