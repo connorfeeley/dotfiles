@@ -3,19 +3,14 @@
 # Also see https://github.com/Mic92/dotfiles/blob/master/nixos/.sops.yaml
 # for a more complex example.
 keys:
-  #   GPG key
-  - &usr_cfeeley 69037A8C3B7036FFA2F8AFFF77CB2390C53B4E5B
-  #   ed25519-derived key
-  - &usr_cfeeley_age age1mqf0aaegn4ztp0aklrjy5cn2u737lauzr4pr0txmaz6v2ycj7yyqkehmtr
-
+  - &usr_cfeeley 30E9837DEE4C61CEA2EE557F447AEA2544F1E68F
   - &srv_workstation_age age1ugptt4756mkr29ysj342my7rmlljgde0vk8rt7kx32duz6j80c7scmky5n
-  - &srv_macbook-pro_age age1ew69tycc7hqsfpldeq334dk9rhw5cup5ymyjnp2e22g5a6av4svqqm8xyk
+  - &srv_macbook_pro_age age1ew69tycc7hqsfpldeq334dk9rhw5cup5ymyjnp2e22g5a6av4svqqm8xyk
 creation_rules:
   - path_regex: ^secrets/[^/]+\.yaml$
-    shamir_threshold: 1
     key_groups:
-    - pgp:
-      - *usr_cfeeley
     - age:
       - *srv_workstation_age
-      - *srv_macbook-pro_age
+      - *srv_macbook_pro_age
+    - pgp:
+      - *usr_cfeeley

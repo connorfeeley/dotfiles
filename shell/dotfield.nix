@@ -1,3 +1,4 @@
+# TODO: add dhall utils
 { pkgs
 , extraModulesPath
 , inputs
@@ -5,13 +6,7 @@
 , ...
 }:
 let
-  inherit (pkgs.stdenv) isLinux isDarwin isAarch64 system;
-
-  inherit (inputs.sops-nix.packages.${system})
-    sops-import-keys-hook
-    sops-init-gpg-key
-    ssh-to-pgp
-    ;
+  inherit (pkgs.stdenv) isLinux isDarwin isAarch64;
 
   inherit (pkgs)
     agenix
@@ -21,7 +16,6 @@ let
     cachix
     editorconfig-checker
     nixUnstable
-    sops
     rage
     shellcheck
     shfmt
@@ -117,34 +111,14 @@ in
       (linter shellcheck)
 
       (secrets agenix)
-      (secrets sops)
       (secrets rage)
       (secrets ssh-to-age)
-      {
-        category = "secrets";
-        name = "age-convert-keys";
-        help = "helper to convert the usual ssh ed25519 keys to age keys";
-        command = ''
-          echo "---------------"
-          echo "  ssh-keyscan  "
-          echo "---------------"
-          ssh-keyscan -v "$(hostname)"
-
-          echo
-          echo "----------------------------"
-          echo "  ssh-keyscan | ssh-to-age  "
-          echo "----------------------------"
-          ssh-keyscan "$(hostname)" | ${ssh-to-age}/bin/ssh-to-age
-        '';
-      }
       {
         category = "secrets";
         name = "convert-keys";
         help = "helper to convert the usual ssh ed25519 keys to age keys";
         command = ''
-          mkdir -p ~/.config/sops/age
-          ${ssh-to-age}/bin/ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/age-key.sec
-          ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
+          ssh-keyscan "${HOST:-localhost}" | ${ssh-to-age}/bin/ssh-to-age
         '';
       }
 
@@ -152,10 +126,4 @@ in
       (utils scripts.dotfield-rebuild)
       (utils scripts.dotfield-doom)
     ];
-
-  packages = [
-    sops-import-keys-hook
-    sops-init-gpg-key
-    ssh-to-pgp
-  ];
 }
