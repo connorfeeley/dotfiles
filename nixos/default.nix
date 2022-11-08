@@ -40,6 +40,8 @@ in
 
         virtualisation.vm-variant
         workstations.flatpak
+
+        minecraft-client
       ]);
 
     h8tsner = {
