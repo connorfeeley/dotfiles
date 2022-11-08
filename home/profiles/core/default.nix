@@ -81,7 +81,7 @@ in
     sysz #          <- fzf-style systemd TUI
   ]);
 
-  nix.package = pkgs.nix;
+  nix.package = lib.mkDefault pkgs.nix;
 
   programs.bat = {
     enable = true;
