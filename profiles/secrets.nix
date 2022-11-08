@@ -36,9 +36,20 @@ let
   };
 in
 {
-  environment.variables."SOPS_AGE_KEY_FILE" = "$XDG_CONFIG_HOME/sops/age/keys";
+  environment.sessionVariables = {
+    SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
+    sopsCreateGPGHome = "1";
+  };
+  home-manager.sharedModules = [{
+    # Allow running sops as a normal user without sudo.
+    home.sessionVariables = {
+      SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
+      sopsCreateGPGHome = "1";
+    };
+  }];
 
   environment.systemPackages = with pkgs; [
+    age
     agenix
     rage
     sops

@@ -274,6 +274,7 @@
         nixpkgs-wayland.overlay
         nur.overlay
         nvfetcher.overlay
+        sops-nix.overlay
 
         xmonad-config.overlay
         xmobar-config.overlay
