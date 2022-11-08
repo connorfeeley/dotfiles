@@ -71,6 +71,7 @@
     "lulu"
     "stats"
     "steam"
+    "curseforge"
     "spotify"
     "deluge"
     "roku-remote-tool"
