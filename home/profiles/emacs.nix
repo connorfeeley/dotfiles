@@ -187,7 +187,7 @@ lib.mkMerge [
       # :lang sh
       shellcheck # <- bash doesn't have to be scary
       nodePackages.bash-language-server # <- lsp client for bash that loves dividing by zero
-      bashdb # <- bash debugger
+      # Linux-only: bashdb # <- bash debugger
       # zshdb # <- zsh debugger (FIXME: not packaged for nix)
 
       # :lang cpp
@@ -285,6 +285,9 @@ lib.mkMerge [
     ] ++ (lib.optionals (isLinux && !isAarch64) [
       scrot
       peek
+
+      # :lang sh
+      bashdb # <- bash debugger
 
       #: lang cpp
       (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
