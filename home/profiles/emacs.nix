@@ -181,21 +181,27 @@ lib.mkMerge [
 
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
-      # :tools magit
-      gitAndTools.delta
       # :lang nix
       nixpkgs-fmt
+
+      # :lang sh
+      shellcheck # <- bash doesn't have to be scary
+      nodePackages.bash-language-server # <- lsp client for bash that loves dividing by zero
+      bashdb # <- bash debugger
+      # zshdb # <- zsh debugger (FIXME: not packaged for nix)
 
       # :lang cpp
       # NOTE: lldb-14 is broken
       llvmPackages_13.lldb # includes lldb-vscode
       clang-tools
-      # Linux-only:
+      # Linux-only (see conditional appends below):
       # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
 
-      # Linux only (see conditional appends below): vscode-extensions.ms-vscode.cpptools
       # :lang python
       python3Packages.debugpy
+
+      # :tools magit
+      gitAndTools.delta
 
       # :tools pdf
       # Use with (package! pdf-tools :built-in 'prefer)
