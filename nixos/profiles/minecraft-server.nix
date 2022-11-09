@@ -49,6 +49,9 @@ let
   rsyncSSHKeys = primaryUser.authorizedKeys;
 
   defaults = {
+    enable-rcon = true;
+    rcon-password = builtins.readFile ../../secrets/git-crypt/minecraft-rcon-password.txt;
+
     # Only people in the Cool Club (tm)
     white-list = true;
 
@@ -91,6 +94,7 @@ in
           serverConfig = defaults // {
             # Port must be unique
             server-port = 25566;
+            rcon-port = 25575;
             motd = "Welcome to RLCraft";
 
             # enable-command-block MUST be TRUE for villagers to spawn correctly in generated structures.
