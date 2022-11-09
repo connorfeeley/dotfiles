@@ -91,22 +91,6 @@ in
     # Followed by zoxide, command-not-found, direnv, GPG, aliases init.
     # Finally, followed by zsh-syntax-highlighting.
     initExtra = ''
-      # source $DOTFIELD_DIR/lib/color.sh
-      source ${pkgs.dotfield-config}/zsh/functions.zsh
-      source ${pkgs.dotfield-config}/zsh/options.zsh
-
-      ### zsh-notify config
-      zstyle ':notify:*' error-title "Command failed"
-      zstyle ':notify:*' success-title "Command finished"
-      zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
-      zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
-      zstyle ':notify:*' command-complete-timeout 15
-      zstyle ':notify:*' app-name sh
-      zstyle ':notify:*' expire-time 2500
-      zstyle ':notify:*' blacklist-regex 'find|git'
-      zstyle ':notify:*' enable-on-ssh yes
-
-
       ### Starship
       # eval "$(${pkgs.starship}/bin/starship init zsh)"
 
@@ -115,7 +99,6 @@ in
       prompt off
       PURE_PROMPT_SYMBOL="λ"
       prompt pure
-
 
       # Use vi-mode when:
       # - TERM is not dumb (which it is over TRAMP)
@@ -141,6 +124,21 @@ in
       if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
         export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
       fi
+
+      # source $DOTFIELD_DIR/lib/color.sh
+      source ${pkgs.dotfield-config}/zsh/functions.zsh
+      source ${pkgs.dotfield-config}/zsh/options.zsh
+
+      ### zsh-notify config
+      zstyle ':notify:*' error-title "Command failed"
+      zstyle ':notify:*' success-title "Command finished"
+      zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
+      zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
+      zstyle ':notify:*' command-complete-timeout 15
+      zstyle ':notify:*' app-name sh
+      zstyle ':notify:*' expire-time 2500
+      zstyle ':notify:*' blacklist-regex 'find|git'
+      zstyle ':notify:*' enable-on-ssh yes
     '';
 
     sessionVariables = {
