@@ -46,6 +46,7 @@
 
   homebrew.casks = [
     "emacs-mac"
+    "vscode"
 
     "utm-beta" # QEMU GUI with virtualisation support
     "barrier" # Poor man's KVM
