@@ -13,7 +13,7 @@ lib.mkIf pkgs.stdenv.isLinux {
   ];
 
   programs.vscode = {
-    enable = true;
+    enable = false;
     # Add extension-specific dependencies needed for rust lang server and rust-analyzer extension
     package = pkgs.vscode.fhsWithPackages (ps: with ps; [ rustup zlib openssl.dev pkg-config ]);
   };
