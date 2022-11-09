@@ -86,7 +86,7 @@ in
           inherit rsyncSSHKeys jvmOpts;
 
           # Call 'start.sh' in '/var/lib/mc-rlcraft'. $JVMOPTS will be set appropriately.
-          enable = true;
+          enable = false;
 
           jvmMaxAllocation = "4G";
           jvmInitialAllocation = "2G";
@@ -102,7 +102,45 @@ in
             # allow flight needs to be true for things like mounts that fly and fairy ring, or the server will kick players using those.
             allow-flight = true;
             # difficulty needs to be 3 for hard difficulty mode and the difficulty RLCraft is balanced around.
-            difficulty = 3;
+            difficulty = 1; # FIXME: laaaame..
+            # max-tick-time need to be -1 for big structures that generate (AND FOR PREGENNING AS WELL) as these structures take take some time to generate, and this prevents forge from thinking the server crashed and auto shutting it down.
+            max-tick-time = -1;
+            # view-distance should be 10 for full compatibility, but if you get performance issues with many players, lower this to 6
+            view-distance = 10;
+          };
+
+          # Setup commands:
+          # ferium profile create
+          # ferium modpack add 285109
+          # ferium modpack upgrade
+          #
+          # Start script:
+          # exec java -server "${JVMOPTS[@]}" -jar forge-1.12.2-14.23.5.2847-universal.jar nogui
+
+          # Install server (run from client):
+          # nix run nixpkgs#jre8 -- java -jar forge-1.12.2-14.23.5.2860-installer.jar --installServer
+        };
+        ftb-revelation = {
+          inherit rsyncSSHKeys jvmOpts;
+
+          # Call 'start.sh' in '/var/lib/mc-rlcraft'. $JVMOPTS will be set appropriately.
+          enable = true;
+
+          jvmMaxAllocation = "4G";
+          jvmInitialAllocation = "2G";
+
+          serverConfig = defaults // {
+            # Port must be unique
+            server-port = 25566;
+            rcon-port = 25575;
+            motd = "FTB Revelation";
+
+            # enable-command-block MUST be TRUE for villagers to spawn correctly in generated structures.
+            enable-command-block = true;
+            # allow flight needs to be true for things like mounts that fly and fairy ring, or the server will kick players using those.
+            allow-flight = true;
+            # difficulty needs to be 3 for hard difficulty mode and the difficulty RLCraft is balanced around.
+            difficulty = 1; # FIXME: laaaame..
             # max-tick-time need to be -1 for big structures that generate (AND FOR PREGENNING AS WELL) as these structures take take some time to generate, and this prevents forge from thinking the server crashed and auto shutting it down.
             max-tick-time = -1;
             # view-distance should be 10 for full compatibility, but if you get performance issues with many players, lower this to 6
