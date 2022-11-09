@@ -20,7 +20,6 @@ with profiles; let
     ops # nixops
     development.tools
     virtualisation.common
-    virtualisation.docker
   ];
 
   graphical = [
@@ -83,6 +82,7 @@ with profiles; let
   linux = [
     desktop.xmonad
     nixos.development.tools
+    virtualisation.docker
   ];
 
   macos = [
