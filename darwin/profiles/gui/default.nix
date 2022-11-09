@@ -55,7 +55,7 @@
     "rectangle" # Resize windows with keyboard shortcuts and snap areas
     "raycast" # Better search popup
 
-    "docker"
+    # "docker"
 
     "karabiner-elements"
 
