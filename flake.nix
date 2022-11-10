@@ -292,7 +292,6 @@
           emacs-plus = self.packages.${final.system}.emacs-plus;
 
           prefmanager = prefmanager.packages.${prev.stdenv.system}.default;
-          amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
 
           nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
 
@@ -343,8 +342,7 @@
           ];
           # FIXME: some of these have no use on darwin (e.g. nixpkgs-wayland)
           overlays =
-            overlays
-            ++ [
+            overlays ++ [
               (final: prev: {
                 amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
               })
@@ -359,7 +357,6 @@
             (digga.lib.importOverlays ./packages)
           ];
         };
-        nixpkgs-trunk = { };
       };
 
       lib = import ./lib {
@@ -449,46 +446,40 @@
           };
         };
       };
-    })
-    // {
+    }) //
+    # Generate attrs for each system: (formatter.<system>)
+    (eachSystem supportedSystems (system: {
+      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+    })) //
+    # Generate attrs for darwin systems only: (packages.<system>.emacs28Macport)
+    (eachSystem darwinSystems (system: {
       packages =
-        # (eachSystem supportedSystems (system: {
-        #   h8tsner-kexec = nixos-generators.nixosGenerate {
-        #     inherit (self.nixosConfigurations.h8tsner) pkgs;
-        #     format = "kexec";
-        #     system = "x86_64-linux";
-        #     inherit (self.nixosConfigurations.h8tsner._module) specialArgs;
-        #     modules = self.nixosConfigurations.h8tsner._module.args.modules ++ [
-        #     ];
-        #   };
-        # })) //
-        (eachSystem darwinSystems (system:
-          let
-            # nixpkgs set used for flake's 'packages' output
-            flakepkgs = import nixpkgs {
-              inherit system;
-              overlays = [
-                self.overlays."nixos-unstable/emacs28Macport"
-              ];
-            };
-            # emacs-mac v28.2 with native compilation enabled;
-            emacs28Macport = flakepkgs.emacs28Macport;
-            # emacs-mac v28.2 with native compilation disabled;
-            # - Intended primarily as a quick way to verify that the package builds
-            # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
-            emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
-          in
-          (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
-            (flattenTree (rakeLeaves ./darwin/packages))) //
-          {
-            inherit
-              # NOTE: both emacs28Macport variants are impure
-              # Tested with XCode CLT version: 14.0.0.0.1.1661618636
-              emacs28Macport
-              emacs28Macport-noNativeComp
-              ;
-          }));
-    }
+        let
+          # nixpkgs set used for flake's 'packages' output
+          flakepkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              self.overlays."nixos-unstable/emacs28Macport"
+            ];
+          };
+          # emacs-mac v28.2 with native compilation enabled;
+          emacs28Macport = flakepkgs.emacs28Macport;
+          # emacs-mac v28.2 with native compilation disabled;
+          # - Intended primarily as a quick way to verify that the package builds
+          # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
+          emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
+        in
+        (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
+          (flattenTree (rakeLeaves ./darwin/packages))) //
+        {
+          inherit
+            # NOTE: both emacs28Macport variants are impure
+            # Tested with XCode CLT version: 14.0.0.0.1.1661618636
+            emacs28Macport
+            emacs28Macport-noNativeComp
+            ;
+        };
+    }))
   ;
 
   # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
