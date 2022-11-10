@@ -40,9 +40,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvfetcher.url = "github:berberman/nvfetcher";
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-    };
 
     digga = {
       # FIXME: digga isn't compatible with home-manager 22.11.
@@ -205,7 +202,6 @@
     , nixpkgs-wayland
     , nur
     , nvfetcher
-    , sops-nix
     , xmonad-config
     , xmobar-config
     , pta2002-neovim

@@ -17,7 +17,6 @@ let
 in
 {
   imports = [
-    inputs.sops-nix.nixosModules.sops
     ../../lib/system
     ./nix-config.nix
     ./system-packages.nix
