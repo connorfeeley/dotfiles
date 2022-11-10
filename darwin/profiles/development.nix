@@ -15,8 +15,15 @@
     darwin.ios-deploy
   ];
 
-  # I'm not *quite* sure this belongs here.
-  homebrew.brews = [
-    "aircrack-ng" # History lesson: WEP was deprecated in 2004. No, I didn't drop a decade somewhere.
-  ];
+  homebrew = {
+    taps = [
+      "blacktop/tap" # ipsw
+    ];
+    brews = [
+      # I'm not *quite* sure this belongs here.
+      "aircrack-ng" # History lesson: WEP was deprecated in 2004. No, I didn't drop a decade somewhere.
+
+      "ipsw" # <- iOS/macOS Research Swiss Army Knife
+    ];
+  };
 }
