@@ -62,13 +62,19 @@ in
       enable = true;
       plugins = [
         # { name = ""; tags = ""; }
-        { name = "zdharma-continuum/fast-syntax-highlighting"; }
-        { name = "zsh-users/zsh-completions"; }
-        { name = "hlissner/zsh-autopair"; }
+
+        # WARNING: conflicts with 'programs.zsh.enableSyntaxHighlighting'
+        { name = "zdharma-continuum/fast-syntax-highlighting"; tags = [ "defer:2" ]; }
+        { name = "zsh-users/zsh-history-substring-search"; tags = [ "defer:3" ]; }
+
         { name = "agkozak/zsh-z"; }
-        { name = "scriptingosx/mac-zsh-completions"; }
         { name = "marzocchi/zsh-notify"; }
-        { name = "mafredri/zsh-async"; } # For pure prompt
+        { name = "hlissner/zsh-autopair"; }
+        { name = "scriptingosx/mac-zsh-completions"; }
+
+        # Pure prompt
+        { name = "mafredri/zsh-async"; }
+        { name = "sindresorhus/pure"; tags = [ "use:pure.zsh" "as:theme" ]; }
       ];
     };
 
@@ -101,56 +107,65 @@ in
     # After plugin init and history init in $ZDOTDIR/.zshrc
     # Followed by zoxide, command-not-found, direnv, GPG, aliases init.
     # Finally, followed by zsh-syntax-highlighting.
-    initExtra = ''
-      ### Starship
-      # eval "$(${pkgs.starship}/bin/starship init zsh)"
+    initExtra =
+      let
+        pure-prompt-config = ''
+          # ### Pure
+          # autoload -U promptinit; promptinit
+          # prompt off
+          PURE_PROMPT_SYMBOL="λ"
+          # prompt pure
+        '';
+        zsh-notify-config = ''
+          ### zsh-notify config
+          zstyle ':notify:*' error-title "Command failed"
+          zstyle ':notify:*' success-title "Command finished"
+          zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
+          zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
+          zstyle ':notify:*' command-complete-timeout 15
+          zstyle ':notify:*' app-name sh
+          zstyle ':notify:*' expire-time 2500
+          zstyle ':notify:*' blacklist-regex 'find|git'
+          zstyle ':notify:*' enable-on-ssh yes
+        '';
+      in
+      ''
+        ### Starship
+        # eval "$(${pkgs.starship}/bin/starship init zsh)"
 
-      ### Pure
-      autoload -U promptinit; promptinit
-      prompt off
-      PURE_PROMPT_SYMBOL="λ"
-      prompt pure
+        ${pure-prompt-config}
 
-      # Use vi-mode when:
-      # - TERM is not dumb (which it is over TRAMP)
-      # AND:
-      # - We are not in emacs
-      # - We are not in an emacs vterm over TRAMP
-      # if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
+        # Use vi-mode when:
+        # - TERM is not dumb (which it is over TRAMP)
+        # AND:
+        # - We are not in emacs
+        # - We are not in an emacs vterm over TRAMP
+        # if [[ $TERM != "dumb" && ( -z $INSIDE_EMACS || "''${INSIDE_EMACS/*tramp*/tramp}" != "tramp") ]]; then
 
-      if [[ $TERM != "dumb" && -z $INSIDE_EMACS ]]; then
-        # Vi keybindings
-        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-      else
-        # # Source vterm-specific configuration
-        [[ -n $EMACS_VTERM_PATH ]] && source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-zsh.sh
-        source ${pkgs.dotfield-config}/zsh/vterm.zsh
-      fi
-      # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
+        if [[ $TERM != "dumb" && -z $INSIDE_EMACS ]]; then
+          # Vi keybindings
+          source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+        else
+          # # Source vterm-specific configuration
+          [[ -n $EMACS_VTERM_PATH ]] && source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-zsh.sh
+          source ${pkgs.dotfield-config}/zsh/vterm.zsh
+        fi
+        # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
 
-      # bind DEL to delete-char  make `vterm-send-delete` delete char (on darwin, at least)
-      bindkey "\e[3~" delete-char
+        # bind DEL to delete-char  make `vterm-send-delete` delete char (on darwin, at least)
+        bindkey "\e[3~" delete-char
 
-      # MacOS only: XQuartz
-      if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
-        export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
-      fi
+        # MacOS only: XQuartz
+        if [ "$(uname)" = "Darwin" -a -n "$NIX_LINK" -a -f $NIX_LINK/etc/X11/fonts.conf ]; then
+          export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
+        fi
 
-      # source $DOTFIELD_DIR/lib/color.sh
-      source ${pkgs.dotfield-config}/zsh/functions.zsh
-      source ${pkgs.dotfield-config}/zsh/options.zsh
+        # source $DOTFIELD_DIR/lib/color.sh
+        source ${pkgs.dotfield-config}/zsh/functions.zsh
+        source ${pkgs.dotfield-config}/zsh/options.zsh
 
-      ### zsh-notify config
-      zstyle ':notify:*' error-title "Command failed"
-      zstyle ':notify:*' success-title "Command finished"
-      zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
-      zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
-      zstyle ':notify:*' command-complete-timeout 15
-      zstyle ':notify:*' app-name sh
-      zstyle ':notify:*' expire-time 2500
-      zstyle ':notify:*' blacklist-regex 'find|git'
-      zstyle ':notify:*' enable-on-ssh yes
-    '';
+        ${zsh-notify-config}
+      '';
 
     sessionVariables = {
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
