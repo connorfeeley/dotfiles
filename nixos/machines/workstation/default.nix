@@ -89,8 +89,7 @@ in
 
   # Allow unlocking LUKS over tailscale
   remote-machine.boot.tailscaleUnlock = {
-    # FIXME: enabling this causes machine to hang on boot.
-    enable = false;
+    enable = true;
 
     tailscaleStatePath = "${config.lib.dotfield.srcPath}/secrets/git-crypt/tailscale-luks-setup.state";
   };
@@ -98,12 +97,15 @@ in
     availableKernelModules = [ "r8169" ];
     network = {
       enable = true;
-      ssh.enable = true;
-      ssh.authorizedKeys = primaryUser.authorizedKeys;
-      ssh.hostKeys = [
-        "/etc/secrets/initrd/ssh_host_rsa_key"
-        "/etc/secrets/initrd/ssh_host_ed25519_key"
-      ];
+
+      ssh = {
+        enable = true;
+        authorizedKeys = primaryUser.authorizedKeys;
+        hostKeys = [
+          "${config.lib.dotfield.srcPath}/secrets/git-crypt/workstation-luks/ssh_host_rsa_key"
+          "${config.lib.dotfield.srcPath}/secrets/git-crypt/workstation-luks/ssh_host_ed25519_key"
+        ];
+      };
     };
   };
 

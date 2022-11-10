@@ -53,7 +53,7 @@
         message = ''
           Must be using DHCP or have at least 1 interface using DHCP.
 
-          See nixpkgs/nixos/modules/system/boot/initrd-network.nix for options.
+          See <nixpkgs>/nixos/modules/system/boot/initrd-network.nix for options.
         '';
       }];
 
@@ -73,6 +73,7 @@
             mknod /dev/net/tun c 10 200
             .tailscaled-wrapped 2>/dev/null &
             sleep 5
+            echo "Starting tailscale..."
             .tailscale-wrapped up
             .tailscale-wrapped status
 
