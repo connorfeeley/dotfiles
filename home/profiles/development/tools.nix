@@ -11,7 +11,6 @@
     ## === Local Development ===
     reuse #           <- Tool for licensing compliance
     asciinema #       <- Record and share terminal sessions
-    universal-ctags # <- Generates tag files in case of LSP bankrupcy
     just #            <- Just a command runner
     tokei #           <- Fancy wordcount for programmers
     sd #              <- Modern sed replacement
