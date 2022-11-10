@@ -12,6 +12,7 @@ let
     agenix
     nvfetcher-bin
     deploy-rs
+    deploy-flake
     nixpkgs-fmt
     cachix
     editorconfig-checker
@@ -57,6 +58,7 @@ in
     [
       (dotfield nixUnstable)
       (dotfield deploy-rs)
+      (dotfield deploy-flake)
       (dotfield terraform)
       (dotfield cachix)
       (dotfield lefthook)
