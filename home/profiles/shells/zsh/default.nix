@@ -4,6 +4,8 @@
 , ...
 }:
 let
+  inherit (pkgs.stdenv) isDarwin;
+
   shellAliases =
     (import ../abbrs.nix)
     // (import ../aliases.nix);
@@ -47,6 +49,12 @@ in
       size = 1000000000;
     };
     historySubstringSearch.enable = true;
+
+    dirHashes = {
+      docs = if isDarwin then "$HOME/Documents" else "$HOME/documents";
+      vids = "$HOME/Videos";
+      dl = "$HOME/Downloads";
+    };
 
     zplug = {
       enable = true;
