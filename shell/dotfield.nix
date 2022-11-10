@@ -124,6 +124,7 @@ in
       }
 
       (utils scripts.dotfield-sync)
+      (utils scripts.dotfield-push)
       (utils scripts.dotfield-rebuild)
       (utils scripts.dotfield-doom)
       (withCategory "utils" {

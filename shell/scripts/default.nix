@@ -14,6 +14,10 @@ in
     inherit (pkgs.nodePackages) git-run;
   };
 
+  dotfield-push = pkgs.callPackage ./ci/dotfield-push-repos.nix {
+    inherit (pkgs.nodePackages) git-run;
+  };
+
   dotfield-rebuild =
     let
       extraPath = lib.makeBinPath [ nix-output-monitor ];
