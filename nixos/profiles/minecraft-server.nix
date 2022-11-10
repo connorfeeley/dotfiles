@@ -120,12 +120,14 @@ in
           # Install server (run from client):
           # nix run nixpkgs#jre8 -- java -jar forge-1.12.2-14.23.5.2860-installer.jar --installServer
         };
-        ftb-revelation = {
+
+        atm7 = {
           inherit rsyncSSHKeys jvmOpts;
 
           # Call 'start.sh' in '/var/lib/mc-rlcraft'. $JVMOPTS will be set appropriately.
           enable = true;
 
+          jvmPackage = pkgs.jdk17;
           jvmMaxAllocation = "4G";
           jvmInitialAllocation = "2G";
 
@@ -133,7 +135,7 @@ in
             # Port must be unique
             server-port = 25566;
             rcon-port = 25575;
-            motd = "FTB Revelation";
+            motd = "atm7";
 
             # enable-command-block MUST be TRUE for villagers to spawn correctly in generated structures.
             enable-command-block = true;
