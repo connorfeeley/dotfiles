@@ -95,7 +95,8 @@ in
       # eval "$(${pkgs.starship}/bin/starship init zsh)"
 
       ### Pure
-      autoload -U promptinit; prompt off; promptinit
+      autoload -U promptinit; promptinit
+      prompt off
       PURE_PROMPT_SYMBOL="λ"
       prompt pure
 
