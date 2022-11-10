@@ -191,8 +191,6 @@ in
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
       ZSH_DATA = "${config.xdg.dataHome}/zsh";
 
-      ZSH_AUTOSUGGEST_USE_ASYNC = 1;
-
       # Needed for xwidgets in emacs
       WEBKIT_FORCE_SANDBOX = 0;
       WEBKIT_DISABLE_COMPOSITING_MODE = 1;
