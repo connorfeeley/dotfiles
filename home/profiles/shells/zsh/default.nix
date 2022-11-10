@@ -206,6 +206,10 @@ in
     # Don't source /etc/zprofile and /etc/zshrc
     # This is the end of $ZDOTDIR/.zshenv
     envExtra = ''
+      # DEBUG: print an informational message announcing the name of each file loaded
+      # set -o SOURCE_TRACE
+
+      # Don't source global RC files
       setopt no_global_rcs
     '';
   };
