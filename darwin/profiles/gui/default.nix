@@ -76,6 +76,7 @@
     "steam"
     "curseforge"
     "minecraft"
+    "feed-the-beast"
     "spotify"
     "deluge"
     "roku-remote-tool"
