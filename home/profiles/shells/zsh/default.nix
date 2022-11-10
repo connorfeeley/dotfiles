@@ -46,72 +46,20 @@ in
       save = 1000000000;
       size = 1000000000;
     };
+    historySubstringSearch.enable = true;
 
-    plugins = [
-      {
-        name = "fast-syntax-highlighting";
-        src = pkgs.fetchFromGitHub {
-          owner = "zdharma-continuum";
-          repo = "fast-syntax-highlighting";
-          rev = "v1.55";
-          sha256 = "0h7f27gz586xxw7cc0wyiv3bx0x3qih2wwh05ad85bh2h834ar8d";
-        };
-      }
-      {
-        name = "zsh-completions";
-        src = pkgs.fetchFromGitHub {
-          owner = "zsh-users";
-          repo = "zsh-completions";
-          rev = "0.34.0";
-          sha256 = "0jjgvzj3v31yibjmq50s80s3sqi4d91yin45pvn3fpnihcrinam9";
-        };
-      }
-      {
-        name = "zsh-history-substring-search";
-        src = pkgs.fetchFromGitHub {
-          owner = "zsh-users";
-          repo = "zsh-history-substring-search";
-          rev = "v1.0.2";
-          sha256 = "0y8va5kc2ram38hbk2cibkk64ffrabfv1sh4xm7pjspsba9n5p1y";
-        };
-      }
-      {
-        name = "zsh-autopair";
-        src = pkgs.fetchFromGitHub {
-          owner = "hlissner";
-          repo = "zsh-autopair";
-          rev = "v1.0";
-          sha256 = "1h0vm2dgrmb8i2pvsgis3lshc5b0ad846836m62y8h3rdb3zmpy1";
-        };
-      }
-      {
-        name = "zsh-z";
-        src = pkgs.fetchFromGitHub {
-          owner = "agkozak";
-          repo = "zsh-z";
-          rev = "aaafebcd97424c570ee247e2aeb3da30444299cd";
-          sha256 = "147rwiqn5xs0vx7pkqvl1480s7fv7f5879cq6k42pn74jawzhspm";
-        };
-      }
-      {
-        name = "mac-zsh-completions";
-        src = pkgs.fetchFromGitHub {
-          owner = "scriptingosx";
-          repo = "mac-zsh-completions";
-          rev = "303f25c8b30f3c7351a7bcaaf4b6f01818c3f1ad";
-          sha256 = "sha256-06mEWuZsfTLNKodqHGTxiakZf0MvWsvoSvnt2IW/Nkk=";
-        };
-      }
-      {
-        name = "zsh-notify";
-        src = pkgs.fetchFromGitHub {
-          owner = "marzocchi";
-          repo = "zsh-notify";
-          rev = "4d43b452c1a30ad1c854eb72a1fafb9b73d871ab";
-          sha256 = "sha256-yVReDAcPVnwGo8dpjH1fSghQPdCYCIGfkUDD/WLW73k=";
-        };
-      }
-    ];
+    zplug = {
+      enable = true;
+      plugins = [
+        # { name = ""; tags = ""; }
+        { name = "zdharma-continuum/fast-syntax-highlighting"; }
+        { name = "zsh-users/zsh-completions"; }
+        { name = "hlissner/zsh-autopair"; }
+        { name = "agkozak/zsh-z"; }
+        { name = "scriptingosx/mac-zsh-completions"; }
+        { name = "marzocchi/zsh-notify"; }
+      ];
+    };
 
     # This is the top of $ZDOTDIR/.zshrc
     initExtraFirst = ''
