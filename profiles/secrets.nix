@@ -5,7 +5,7 @@
 , ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux system;
+  inherit (pkgs.stdenv) system isLinux;
 
   cfg = config.age;
   secretsDir = ../secrets;
@@ -18,33 +18,10 @@ let
     if isLinux
     then "secrets"
     else "admin";
-
-  mkEspansoMatchesSecret = name: {
-    "espanso/${name}.yml" = {
-      file = "${secretsDir}/espanso/${name}.yml.age";
-      group = secretsGroup;
-      path = "${cfg.secretsDir}/espanso/${name}.yml";
-    };
-  };
 in
 {
   environment.systemPackages = with pkgs; [
     agenix
     rage
-    sops
   ];
-
-  users.groups.secrets.members = [ "root" "cfeeley" ];
-
-  # age.secrets = lib.mkMerge [
-  #   (mkEspansoMatchesSecret "personal")
-  #   # (mkEspansoMatchesSecret "work")
-  # ];
-
-  sops.defaultSopsFile = ../secrets/global.secrets.yaml;
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
-  # sops.secrets.github-api-token = {
-  #   format = "yaml";
-  # };
 }
