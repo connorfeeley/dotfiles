@@ -14,6 +14,7 @@ let
 
   settings = import ./settings.nix { inherit lib hasTwm socket; };
   colors = import ./colors.nix config.colorscheme;
+  modus-vivendi-faint = import ./modus-vivendi-faint.nix;
 
   # via home-manager kitty module
   toKittyConfig = lib.generators.toKeyValue {
@@ -79,7 +80,7 @@ lib.mkMerge [
 
     programs.kitty = {
       enable = true;
-      settings = settings // colors // {
+      settings = settings // modus-vivendi-faint // {
         font_size =
           if (isDarwin && isAarch64)
           then "12" #
