@@ -112,6 +112,7 @@ in
       }
     ];
 
+    # This is the top of $ZDOTDIR/.zshrc
     initExtraFirst = ''
       if [[ "$TERM" == "dumb" ]]; then
         unsetopt zle
@@ -131,9 +132,13 @@ in
       fi
     '';
 
+    # Before plugin init in $ZDOTDIR/.zshrc
     initExtraBeforeCompInit = ''
     '';
 
+    # After plugin init and history init in $ZDOTDIR/.zshrc
+    # Followed by zoxide, command-not-found, direnv, GPG, aliases init.
+    # Finally, followed by zsh-syntax-highlighting.
     initExtra = ''
       # source $DOTFIELD_DIR/lib/color.sh
       source ${pkgs.dotfield-config}/zsh/functions.zsh
@@ -197,6 +202,7 @@ in
     };
 
     # Don't source /etc/zprofile and /etc/zshrc
+    # This is the end of $ZDOTDIR/.zshenv
     envExtra = ''
       setopt no_global_rcs
     '';
