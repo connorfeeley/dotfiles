@@ -83,12 +83,12 @@ lib.mkMerge [
       settings = settings // modus-vivendi-faint // {
         font_size =
           if (isDarwin && isAarch64)
-          then "12" #
+          then "12"
           else "16";
-        confirm_os_window_close =
-          if (isDarwin)
-          then "1"
-          else "0";
+        confirm_os_window_close = "0";
+          # if (isDarwin)
+          # then "1"
+          # else "0";
       };
       keybindings = {
         # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos
