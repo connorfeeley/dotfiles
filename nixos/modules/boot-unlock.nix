@@ -43,6 +43,20 @@
       });
     in
     lib.mkIf cfg.enable {
+      assertions = [{
+        assertion =
+          let
+            dhcpInterfaces = lib.attrNames (lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or { }));
+            doDhcp = config.networking.useDHCP || dhcpInterfaces != [ ];
+          in
+          doDhcp;
+        message = ''
+          Must be using DHCP or have at least 1 interface using DHCP.
+
+          See nixpkgs/nixos/modules/system/boot/initrd-network.nix for options.
+        '';
+      }];
+
       boot.initrd = {
         secrets = {
           "/var/lib/tailscale/tailscaled.state" = cfg.tailscaleStatePath;

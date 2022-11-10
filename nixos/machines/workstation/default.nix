@@ -72,20 +72,17 @@ in
       };
 
       interfaces.${interface} = {
-        ipv4.addresses = [
-          {
-            inherit (host.ipv4) address;
-            inherit (net.ipv4) prefixLength;
-          }
-        ];
+        useDHCP = true;
+        ipv4.addresses = [{
+          inherit (host.ipv4) address;
+          inherit (net.ipv4) prefixLength;
+        }];
       };
       interfaces.eth1 = {
-        ipv4.addresses = [
-          {
-            address = "192.168.88.50";
-            inherit (net.ipv4) prefixLength;
-          }
-        ];
+        ipv4.addresses = [{
+          address = "192.168.88.50";
+          inherit (net.ipv4) prefixLength;
+        }];
       };
     }
   );
@@ -96,6 +93,18 @@ in
     enable = false;
 
     tailscaleStatePath = "${config.lib.dotfield.srcPath}/secrets/git-crypt/tailscale-luks-setup.state";
+  };
+  boot.initrd = {
+    availableKernelModules = [ "r8169" ];
+    network = {
+      enable = true;
+      ssh.enable = true;
+      ssh.authorizedKeys = primaryUser.authorizedKeys;
+      ssh.hostKeys = [
+        "/etc/secrets/initrd/ssh_host_rsa_key"
+        "/etc/secrets/initrd/ssh_host_ed25519_key"
+      ];
+    };
   };
 
   ### === NFS share ============================================================
