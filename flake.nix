@@ -291,22 +291,27 @@
         nix-xilinx.overlay
 
         nixpkgs-work.overlays.default
+        (final: prev:
+          let
+            packagesFrom = inputAttr: inputAttr.packages.${final.system};
+          in
+          rec {
+            inherit (packagesFrom self.packages) emacs-plus;
+            inherit (packagesFrom inputs.deploy-rs) deploy-rs;
+            inherit (packagesFrom inputs.deploy-flake) deploy-flake;
+            inherit (packagesFrom inputs.prefmanager) prefmanager;
+            inherit (packagesFrom inputs.nix-json-progress) nix-json-progress;
+            inherit (packagesFrom inputs.nixpkgs-work) dashboard;
+            inherit (packagesFrom inputs.nixpkgs-work) zeuspack;
+            inherit (packagesFrom inputs.xmonad-config) xmonad-config;
+            inherit (packagesFrom inputs.xmobar-config) xmobar-config;
+          }
+        )
+      ];
 
-        (final: prev: {
-          emacs-plus = self.packages.${final.system}.emacs-plus;
-
-          prefmanager = prefmanager.packages.${prev.stdenv.system}.default;
-
-          nix-json-progress = nix-json-progress.packages.${final.system}.nix-json-progress;
-
-          dashboard = nixpkgs-work.packages.${final.system}.dashboard;
-          zeuspack = nixpkgs-work.packages.${final.system}.zeuspack;
-        } // rec {
-          xmonad = xmonad-config;
-          xmobar = xmobar-config;
-          xmonad-config = inputs.xmonad-config.packages.${final.system}.default;
-          xmobar-config = inputs.xmobar-config.packages.${final.system}.default;
-        })
+      commonImports = [
+        (digga.lib.importOverlays ./overlays/common)
+        (digga.lib.importOverlays ./packages)
       ];
     in
     (digga.lib.mkFlake {
@@ -331,18 +336,16 @@
       channels = {
         nixos-stable = {
           inherit overlays;
-          imports = [
-            (digga.lib.importOverlays ./overlays/common)
+          imports = commonImports ++
+          [
             (digga.lib.importOverlays ./overlays/stable)
-            (digga.lib.importOverlays ./packages)
           ];
         };
         nixpkgs-darwin = {
-          imports = [
-            (digga.lib.importOverlays ./overlays/common)
-            (digga.lib.importOverlays ./overlays/stable)
+          imports = commonImports ++
+          [
             (digga.lib.importOverlays ./overlays/nixpkgs-darwin)
-            (digga.lib.importOverlays ./packages)
+            (digga.lib.importOverlays ./overlays/stable)
           ];
           # FIXME: some of these have no use on darwin (e.g. nixpkgs-wayland)
           overlays =
@@ -355,10 +358,9 @@
         nixos-unstable = {
           inherit overlays;
 
-          imports = [
-            (digga.lib.importOverlays ./overlays/common)
+          imports = commonImports ++
+          [
             (digga.lib.importOverlays ./overlays/nixos-unstable)
-            (digga.lib.importOverlays ./packages)
           ];
         };
       };
