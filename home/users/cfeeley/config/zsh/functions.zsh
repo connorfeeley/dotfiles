@@ -44,3 +44,29 @@ function color::print() {
     local color="%F{$1}"
     echo -E ${(qqqq)${(%)color}}
 }
+
+###: UTILS =====================================================================
+
+#=====================================
+# Find all .DS_Store files under the current directory, and prompt to remove them
+#=====================================
+function dotfield::clean-ds-stores() {
+    local TARGET="${1:-$PWD}"
+    local FILE_LIST="$(fd --no-ignore --hidden --case-sensitive '.DS_Store' "${TARGET}")"
+
+    # 'rm' on Linux, 'trash' on MacOS
+    local RM_TOOL="rm"
+    # [[ "$(uname)" == "Darwin" ]] && RM_TOOL="trash -v"
+    [[ "$(uname)" == "Darwin" ]] && RM_TOOL="trash -v"
+
+    echo "Files to remove:"
+    echo "${FILE_LIST}"
+    read -k 1 "?Are you sure? (Y/n) "
+    echo
+    if [[ "${REPLY}" =~ "^[Yy]$" ]]; then
+        echo "Removing files with '${RM_TOOL}'"
+        "${RM_TOOL}" < "${FILE_LIST}"
+    else
+        echo "Replied (${REPLY}), aborting."
+    fi
+}
