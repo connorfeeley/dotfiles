@@ -27,6 +27,10 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-flake = {
+      url = "github:antifuchs/deploy-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix.url = "github:montchr/agenix/darwin-support";
     flake-utils.url = "github:numtide/flake-utils";
