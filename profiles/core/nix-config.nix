@@ -56,7 +56,8 @@ in
       # How often (in seconds) to poll for locks
       build-poll-interval = 1;
 
-      bash-prompt = "\[\e[00;34m\]λ \W \[\e[0m\]";
+      # FIXME: broken
+      # bash-prompt = "\[\e[00;34m\]λ \W \[\e[0m\]";
 
       # Interesting!
       # pre-build-hook = "";
