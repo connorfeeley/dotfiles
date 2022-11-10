@@ -31,14 +31,15 @@ in
         boot.systemd-boot
         hardware.amd
         nvidia
+        virtualisation.vm-variant
 
-        gnome-desktop
-        login.gdm
+        # Just use startx for now...
+        # gnome-desktop
+        # login.gdm
         # login.greetd
 
         builder
 
-        virtualisation.vm-variant
         workstations.flatpak
 
         minecraft-client
