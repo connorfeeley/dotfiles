@@ -11,10 +11,12 @@ let
 in
 {
   dotfield-sync = pkgs.callPackage ./ci/dotfield-sync-repos.nix {
+    name = "dotfield-sync";
     inherit (pkgs.nodePackages) git-run;
   };
 
   dotfield-push = pkgs.callPackage ./ci/dotfield-push-repos.nix {
+    name = "dotfield-push";
     inherit (pkgs.nodePackages) git-run;
   };
 

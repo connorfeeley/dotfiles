@@ -1,11 +1,12 @@
 { lib
+, name
 , writeShellApplication
 , git
 , git-run
 }:
 
 writeShellApplication {
-  name = "dotfield-sync";
+  inherit name;
   runtimeInputs = [ git git-run ];
   text = ''
     # Pull dotfield and doomemacs (config) repos
