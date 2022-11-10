@@ -54,6 +54,8 @@ in
       docs = if isDarwin then "$HOME/Documents" else "$HOME/documents";
       vids = "$HOME/Videos";
       dl = "$HOME/Downloads";
+      dev = "$HOME/dev";
+      src = "$HOME/source";
     };
 
     zplug = {
