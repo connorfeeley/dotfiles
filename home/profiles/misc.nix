@@ -41,7 +41,7 @@
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
   programs.jq.enable = true;
-  programs.just.enable = true;
+  programs.just.enable = false; # FIXME: logs zsh completion error
   programs.pandoc.enable = true;
   programs.tealdeer.enable = true;
 }

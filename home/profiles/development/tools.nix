@@ -11,6 +11,7 @@
     ## === Local Development ===
     reuse #           <- Tool for licensing compliance
     asciinema #       <- Record and share terminal sessions
+    just #            <- Just a command runner
     tokei #           <- Fancy wordcount for programmers
     sd #              <- Modern sed replacement
     grex #            <- Generate regexps from user-provided test cases.
