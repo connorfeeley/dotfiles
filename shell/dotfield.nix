@@ -51,6 +51,8 @@ in
 
   name = "Dotfield";
 
+  packages = with pkgs; [ rnix-lsp nil ];
+
   commands =
     [
       (dotfield nixUnstable)
