@@ -29,8 +29,8 @@ in
     dotDir = ".config/zsh";
     enableCompletion = true;
     enableSyntaxHighlighting = true;
-    enableAutosuggestions = false;
-    enableVteIntegration = false;
+    enableAutosuggestions = true;
+    enableVteIntegration = true;
 
     defaultKeymap = "emacs"; # One of "emacs", "vicmd", "viins"
 
@@ -134,6 +134,8 @@ in
 
     # Before plugin init in $ZDOTDIR/.zshrc
     initExtraBeforeCompInit = ''
+      # # Init completion manually
+      # autoload compinit; compinit -u
     '';
 
     # After plugin init and history init in $ZDOTDIR/.zshrc
