@@ -4,8 +4,11 @@ moduleArgs @ { config
 , ...
 }:
 let
+  inherit (pkgs.stdenv) isAarch64;
+
   inherit (config.home) username;
   inherit (config.lib) dotfield;
+
   hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
 
   zenithPackage = with pkgs;
@@ -73,12 +76,13 @@ in
     bat-extras.prettybat #  <- Pretty-print source code and highlight it with bat.
 
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
-    zenithPackage # <- Other system resource usage viewer
     iotop #         <- Terminal disk IO monitor
     psmisc #        <- Useful utilities that use the proc filesystem
     kmon #          <- Kernel manager and activity monitor
     systeroid #     <- A more powerful alternative to sysctl(8) with a terminal user interface
     sysz #          <- fzf-style systemd TUI
+  ]) ++ (lib.optionals (!isAarch64) [
+    zenithPackage # <- Other system resource usage viewer
   ]);
 
   nix.package = lib.mkDefault pkgs.nix;
