@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga modded-minecraft-servers;
+  inherit (inputs) agenix home-manager digga nix-serve-ng modded-minecraft-servers;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -85,10 +85,12 @@ in
       home-manager.nixosModules.home-manager
       digga.nixosModules.nixConfig
 
+      nix-serve-ng.nixosModules.default
+
       # FIXME: upstream module causes a huge number of unnecessary
       # dependencies to be pulled in for all systems -- many of them are
       # graphical. should only be imported as needed.
-      # digga.nixosModules.bootstrapIso
+      digga.nixosModules.bootstrapIso
 
       # FIXME: migrate to sops
       agenix.nixosModules.age
