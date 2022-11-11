@@ -32,17 +32,30 @@ in
         hardware.amd
         nvidia
         virtualisation.vm-variant
+        builder
+
+        workstations.flatpak
+        games
 
         # Just use startx for now...
         # gnome-desktop
         # login.gdm
         # login.greetd
+      ]);
 
+    workstation-iso.modules =
+      (with roles; graphical ++ tangible ++ workstation ++ server)
+      ++ (with profiles; [
+        boot.systemd-boot
+        hardware.amd
+        nvidia
+        virtualisation.vm-variant
         builder
 
-        workstations.flatpak
-
-        games
+        # Just use startx for now...
+        # gnome-desktop
+        # login.gdm
+        # login.greetd
       ]);
 
     h8tsner = {
