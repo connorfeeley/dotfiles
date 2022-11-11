@@ -21,10 +21,10 @@ lib.mkMerge [
         {
           hostName = "workstation";
           maxJobs = 8;
-          sshUser = config.dotfield.guardian.username;
           systems = [ "x86_64-linux" "aarch64-linux" ];
           # Base64-encoded ed25519 public host key
           publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
+          sshUser = config.dotfield.guardian.username;
           # 12 desktop cores, times two (versus times 1 for a laptop)" seems like a reasonable relative speed factor.
           speedFactor = 12 * 2;
           supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
@@ -32,10 +32,10 @@ lib.mkMerge [
         {
           hostName = "rosy";
           maxJobs = 8;
-          sshUser = config.dotfield.guardian.username;
           systems = [ "aarch64-linux" "x86_64-linux" ];
           # Base64-encoded ed25519 public host key
-          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
+          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUtsM2ZZMXAvQnNjUmlyQXpweFltdDdSanFneWQvT0RCS2xnR2hjNUd6d2Egcm9vdEBuaXhvcwo=";
+          sshUser = "root";
           # "8 M1 cores, times one (versus times 2 for a desktop)" seems like a reasonable relative speed factor.
           speedFactor = 8 * 1;
           supportedFeatures = [ "nixos-test" "benchmark" "kvm" ];
