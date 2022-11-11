@@ -486,13 +486,32 @@
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
       packages = {
         workstation-iso = nixos-generators.nixosGenerate {
-          inherit (self.nixosConfigurations.workstation) pkgs;
+          inherit (self.nixosConfigurations.workstation-iso) pkgs;
           format = "iso";
           system = "x86_64-linux";
-          inherit (self.nixosConfigurations.workstation._module) specialArgs;
-          modules = self.nixosConfigurations.workstation._module.args.modules ++ [
-            ({ config, lib, pkgs, ... }:
+          inherit (self.nixosConfigurations.workstation-iso._module) specialArgs;
+          modules = self.nixosConfigurations.workstation-iso._module.args.modules ++ [
+            ({ config, lib, pkgs, modulesPath, ... }:
               {
+                ###
+                ### Installation CD
+                ###
+                imports = [
+                  "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+                ];
+
+                # use the latest Linux kernel
+                boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+
+                # Needed for https://github.com/NixOS/nixpkgs/issues/58959
+                boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
+
+                # See console messages during early boot
+                # boot.initrd.kernelModules = [ "fbcon" ];
+
+                ###
+                ### Override system options
+                ###
                 # Can't cross compile from aarch64-linux builder
                 programs.steam.enable = lib.mkForce false;
               })
