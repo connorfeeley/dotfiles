@@ -136,8 +136,10 @@ in
     device = "share";
     fsType = "virtiofs";
   };
-  nix.settings.extra-platforms = [ "x86_64-linux" ];
+  nix.settings.extra-platforms = [ "x86_64-linux" "i686-linux" ];
   nix.settings.extra-sandbox-paths = [ "/run/rosetta" "/run/binfmt" ];
+
+  boot.binfmt.emulatedSystems = [ "i686-linux" ]; # workstation ISO depends
   boot.binfmt.registrations."rosetta" = {
     # based on https://developer.apple.com/documentation/virtualization/running_intel_binaries_in_linux_vms_with_rosetta#3978495
     interpreter = "/run/rosetta/rosetta";
