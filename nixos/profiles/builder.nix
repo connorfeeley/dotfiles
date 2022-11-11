@@ -20,6 +20,7 @@ lib.mkMerge [
     nix = {
       sshServe = {
         enable = true;
+        write = true;
         protocol = "ssh-ng";
         keys = host.keys;
       };
@@ -28,6 +29,7 @@ lib.mkMerge [
 
   {
     nix = {
+      settings.trusted-users = [ "nix-ssh"];
       distributedBuilds = true;
       buildMachines = [
         {
