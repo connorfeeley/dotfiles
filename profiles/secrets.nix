@@ -18,7 +18,7 @@ let
     then "secrets"
     else "admin";
 
-  secretsDir = "${config.lib.dotfield.fsPath}/secrets/age";
+  secretsDir = "${config.lib.dotfield.srcPath}/secrets";
   mkAgeSecret = name: {
     "${name}" = {
       file = "${secretsDir}/${name}.age";
@@ -31,6 +31,7 @@ in
   users.groups.secrets.members = [ "root" config.dotfield.guardian.username ];
 
   age.secrets = lib.mkMerge [
+    (mkAgeSecret "minecraft-rcon-password.txt")
     (mkAgeSecret "tailscale-luks-setup.state")
     (mkAgeSecret "workstation-luks/ssh_host_ed25519_key")
     (mkAgeSecret "workstation-luks/ssh_host_ed25519_key.pub")

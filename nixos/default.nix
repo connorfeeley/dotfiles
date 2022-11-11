@@ -49,6 +49,7 @@ in
       modules =
         (with collective.profiles; [
           networking.ssh-host
+          secrets
         ]) ++
         (with roles; server) ++ (with profiles; [
           environments.hetzner-cloud
