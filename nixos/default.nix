@@ -78,6 +78,7 @@ in
           networking.ssh-host
         ]) ++
         (with roles; server) ++ (with profiles; [
+          boot.systemd-boot
           builder
         ])
       ;

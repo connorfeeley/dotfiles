@@ -23,7 +23,7 @@
     device = "rosetta";
     fsType = "virtiofs";
   };
-  fileSystems."/media/share" = {
+  fileSystems."/run/share" = {
     device = "share";
     fsType = "virtiofs";
   };
