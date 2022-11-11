@@ -5,7 +5,7 @@ moduleArgs @ { config
 , ...
 }:
 let
-  inherit (peers.hosts) workstation MacBook-Pro cfeeley-laptop h8tsner;
+  inherit (peers.hosts) workstation MacBook-Pro cfeeley-laptop h8tsner rosy;
   identityFileName = "id_ed25519.pub";
   identityFile = "~/.ssh/${identityFileName}";
 in
@@ -38,6 +38,15 @@ in
         remoteForwards = [{
           bind.address = "/Users/cfeeley/.gnupg/S.gpg-agent";
           host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
+        }];
+      };
+      "rosy" = {
+        forwardX11Trusted = true;
+        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        # GPG agent forwarding
+        remoteForwards = [{
+          bind.address = "/run/user/1000/gnupg/S.gpg-agent";
+          host.address = "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
         }];
       };
       "h8tsner" = {
