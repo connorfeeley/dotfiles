@@ -108,7 +108,7 @@ in
     ;
 
     # Set user's shell
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 
   home-manager.users = {
