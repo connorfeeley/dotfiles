@@ -72,6 +72,15 @@ darwin-rebuild switch --print-build-logs --flake git+ssh://cfeeley@workstation:/
 nom build git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel
 #+end_src
 
+** Build Rosy
+
+#+begin_src shell
+# Analogous to nix build $DOTFIELD_DIR#nixosConfigurations.rosy.config.system.build.toplevel
+# on host 'rosy'.
+# Target parameter: nixos://<host>/<nixosConfiguration>
+deploy-flake --flake $DOTFIELD_DIR nixos://rosy/rosy
+#+end_src
+
 *** Run checks
 
 #+begin_src shell

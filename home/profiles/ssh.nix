@@ -40,6 +40,7 @@ in
           host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
         }];
       };
+      # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
       "rosy" = {
         forwardX11Trusted = true;
         extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";

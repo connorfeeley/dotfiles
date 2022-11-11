@@ -65,6 +65,7 @@ in
           networking.ssh-host
         ]) ++
         (with roles; server) ++ (with profiles; [
+          builder
         ])
       ;
     };
