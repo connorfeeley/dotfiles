@@ -43,6 +43,16 @@ lib.mkMerge [
           supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         }
         {
+          hostName = "rosy";
+          systems = [ "aarch64-linux" ];
+          # Base64-encoded ed25519 public host key
+          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
+          # "8 M1 cores, times one (versus times 2 for a desktop)" seems like
+          # a reasonable relative speed factor.
+          speedFactor = 8 * 1;
+          supportedFeatures = [ "nixos-test" "benchmark" ];
+        }
+        {
           # https://github.com/LnL7/nix-docker
           # docker run --restart always --name nix-docker -d -p 3022:22 lnl7/nix:ssh
 

@@ -1,7 +1,7 @@
 collective: { inputs, ... }:
 let
   inherit (inputs) agenix home-manager digga modded-minecraft-servers;
-  inherit (inputs.flake-utils.lib.system) x86_64-linux;
+  inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
   # FIXME: move to guardian
@@ -55,6 +55,16 @@ in
           environments.hetzner-cloud
 
           minecraft.minecraft-server
+        ])
+      ;
+    };
+    rosy = {
+      system = aarch64-linux;
+      modules =
+        (with collective.profiles; [
+          networking.ssh-host
+        ]) ++
+        (with roles; server) ++ (with profiles; [
         ])
       ;
     };

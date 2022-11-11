@@ -400,6 +400,23 @@
               self.nixosConfigurations.x86_64-linux.workstation;
           };
         };
+        rosy = with (collective.peers.hosts.h8tsner); {
+          hostname = "rosy";
+          sshUser = "cfeeley";
+          fastConnection = true;
+          autoRollback = true;
+          magicRollback = true;
+          profiles.system = {
+            user = "root";
+            path = deploy.lib.aarch64-linux.activate.nixos
+              self.nixosConfigurations.rosy;
+          };
+          profiles.cfeeley = {
+            user = "cfeeley";
+            path = deploy.lib.aarch64-linux.activate.home-manager
+              self.homeConfigurations."cfeeley@rosy";
+          };
+        };
         h8tsner = with (collective.peers.hosts.h8tsner); {
           hostname = "h8tsner";
           sshUser = "root";
