@@ -452,27 +452,23 @@
         };
       };
     }) //
-    # Generate attrs for each system: (formatter.<system>)
-    (eachSystem supportedSystems (system: {
-      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
-    })) //
     # Generate attrs for darwin systems only: (packages.<system>.emacs28Macport)
     (eachSystem darwinSystems (system: {
       packages =
         let
           # nixpkgs set used for flake's 'packages' output
-          flakepkgs = import nixpkgs {
+          pkgs = import nixpkgs {
             inherit system;
             overlays = [
               self.overlays."nixos-unstable/emacs28Macport"
             ];
           };
           # emacs-mac v28.2 with native compilation enabled;
-          emacs28Macport = flakepkgs.emacs28Macport;
+          emacs28Macport = pkgs.emacs28Macport;
           # emacs-mac v28.2 with native compilation disabled;
           # - Intended primarily as a quick way to verify that the package builds
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
-          emacs28Macport-noNativeComp = flakepkgs.emacs28Macport.override { nativeComp = false; };
+          emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
         in
         (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
           (flattenTree (rakeLeaves ./darwin/packages))) //
@@ -484,6 +480,25 @@
             emacs28Macport-noNativeComp
             ;
         };
+    })) //
+    # Generate attrs for each system: (formatter.<system>)
+    (eachSystem supportedSystems (system: {
+      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+      packages = {
+        workstation-iso = nixos-generators.nixosGenerate {
+          inherit (self.nixosConfigurations.workstation) pkgs;
+          format = "iso";
+          system = "x86_64-linux";
+          inherit (self.nixosConfigurations.workstation._module) specialArgs;
+          modules = self.nixosConfigurations.workstation._module.args.modules ++ [
+            ({ config, lib, pkgs, ... }:
+              {
+                # Can't cross compile from aarch64-linux builder
+                programs.steam.enable = lib.mkForce false;
+              })
+          ];
+        };
+      };
     }))
   ;
 
