@@ -252,9 +252,6 @@ lib.mkMerge [
       nodePackages.typescript-language-server
       #: json
       nodePackages.vscode-json-languageserver
-      #: ledger
-      # FIXME: marked as broken upstream
-      # ledger
       #: markdown
       nodePackages.unified-language-server
       #: python
@@ -265,10 +262,6 @@ lib.mkMerge [
       #: nix
       rnix-lsp
       nil # ('nix-nil' from source repo)
-      #: php
-      nodePackages.intelephense
-      #: ruby
-      rubyPackages.solargraph
       #: sh
       nodePackages.bash-language-server
       #: toml

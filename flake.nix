@@ -55,14 +55,6 @@
       inputs.darwin.follows = "darwin";
     };
 
-    nix-dram = {
-      # FIXME: remove when nix-dram supports nix 2.11
-      # nix-PR: dramforever/nix-dram#22
-      url = "github:pub-solar/nix-dram/refs/heads/rebase-nix-2.11.0";
-      # url = "github:dramforever/nix-dram";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     nixago = {
       url = "github:nix-community/nixago";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -131,12 +123,6 @@
       flake = false;
     };
 
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      # Packages are built against this channel.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ttc-subway-font = {
       url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -197,14 +183,12 @@
     , gitignore
     , home-manager
     , nix-colors
-    , nix-dram
     , prefmanager
     , nixos-generators
     , nixos-hardware
     , nixos-stable
     , nixos-stable-21-11
     , nixos-unstable
-    , nixpkgs-wayland
     , nur
     , nvfetcher
     , xmonad-config
@@ -279,8 +263,6 @@
         agenix.overlay
         emacs-overlay.overlay
         gitignore.overlay
-        nix-dram.overlay
-        nixpkgs-wayland.overlay
         nur.overlay
         nvfetcher.overlay
 
@@ -348,7 +330,6 @@
             (digga.lib.importOverlays ./overlays/nixpkgs-darwin)
             (digga.lib.importOverlays ./overlays/stable)
           ];
-          # FIXME: some of these have no use on darwin (e.g. nixpkgs-wayland)
           overlays =
             overlays ++ [
               (final: prev: {
@@ -511,16 +492,12 @@
   nixConfig.extra-substituters = [
     "https://cache.nixos.org/"
     "https://nix-community.cachix.org"
-    "https://nixpkgs-wayland.cachix.org"
     "https://cache.iog.io"
     "https://iohk.cachix.org"
-    "https://dram.cachix.org"
   ];
   nixConfig.extra-trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
-    "dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY="
   ];
 }
