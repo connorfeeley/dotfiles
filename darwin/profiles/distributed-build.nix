@@ -44,7 +44,7 @@ lib.mkMerge [
         }
         {
           hostName = "rosy";
-          systems = [ "aarch64-linux" ];
+          systems = [ "aarch64-linux" "x86_64-linux" ];
           # Base64-encoded ed25519 public host key
           publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
           # "8 M1 cores, times one (versus times 2 for a desktop)" seems like
