@@ -175,5 +175,4 @@ in
   };
 
   programs.htop.enable = true;
-  programs.steam.enable = true;
 }

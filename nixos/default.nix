@@ -42,7 +42,7 @@ in
 
         workstations.flatpak
 
-        minecraft.minecraft-client
+        games
       ]);
 
     h8tsner = {
