@@ -50,7 +50,7 @@ let
 
   defaults = {
     enable-rcon = true;
-    rcon-password = builtins.readFile ../../secrets/git-crypt/minecraft-rcon-password.txt;
+    rcon-password = builtins.readFile config.age.secrets."minecraft-rcon-password.txt".path;
 
     # Only people in the Cool Club (tm)
     white-list = true;
