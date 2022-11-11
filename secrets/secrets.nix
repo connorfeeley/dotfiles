@@ -1,57 +1,20 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
-}:
+###
+### Only used by agenix CLI - this file is checked in, but shouldn't be used in the flake config
+### (for organizational reasons - not for security reasons)
+###
 let
-  inherit (peers) hosts;
-  peers = import ../ops/metadata/peers.nix;
-  hostKeys = builtins.mapAttrs (n: v: v.keys) hosts;
-  trustedUsers = import ./authorized-keys.nix;
+  cfeeley = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL0idNvgGiucWgup/mP78zyC23uFjYq0evcWdjGQUaBH";
+  users = [ cfeeley ];
 
-  servers = with hostKeys;
-    hierophant
-    ++ tsone;
-
-  workstations = with hostKeys;
-    workstation
-    ++ hodgepodge;
-
-  allMachines = servers ++ workstations;
-
-  inherit (pkgs.stdenv.hostPlatform) isLinux system;
-  # TODO: impermanence
-  hasImpermanence = false;
-
-  cfg = config.age;
-  secretsDir = ./age;
-  sshPath = "/etc/ssh";
-
-  # nix-darwin does not support the `users.<name>.extraGroups` option, but
-  # that's not a problem since we're only using darwin systems as a single
-  # admin user. although the username may vary across systems, each "primary
-  # user" will still be in the `admin` group.
-  secretsGroup =
-    if isLinux
-    then "secrets"
-    else "admin";
-
-  mkAgeSecret = name: {
-    "${name}" = {
-      file = "${secretsDir}/${name}.age";
-      group = secretsGroup;
-      # path = "${cfg.secretsDir}/${name}";
-    };
-  };
+  workstation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIL+myjkKGCYIYkI165tq/cp04m0iox8RLEb4MS1wjet";
+  macbook-pro = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKVrybsJrANrO+FslS5MFrpMTtc2EBgXriEoF4srqQrx";
+  systems = [ workstation macbook-pro ];
 in
 {
-  age.secrets = lib.mkMerge [
-    (mkAgeSecret "minecraft-rcon-password.txt")
-    (mkAgeSecret "tailscale-luks-setup.state")
-    (mkAgeSecret "ssh_host_ed25519_key")
-    (mkAgeSecret "ssh_host_ed25519_key.pub")
-    (mkAgeSecret "ssh_host_rsa_key")
-    (mkAgeSecret "ssh_host_rsa_key.pub")
-  ];
+  "minecraft-rcon-password.txt.age".publicKeys = [ cfeeley macbook-pro ];
+  "tailscale-luks-setup.state.age".publicKeys = users ++ systems;
+  "workstation-luks/ssh_host_ed25519_key.age".publicKeys = users ++ systems;
+  "workstation-luks/ssh_host_ed25519_key.pub.age".publicKeys = users ++ systems;
+  "workstation-luks/ssh_host_rsa_key.age".publicKeys = users ++ systems;
+  "workstation-luks/ssh_host_rsa_key.pub.age".publicKeys = users ++ systems;
 }

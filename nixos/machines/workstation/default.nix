@@ -106,7 +106,7 @@ in
   # Enable tailscale in initrd
   remote-machine.boot.tailscaleUnlock = {
     enable = true;
-    tailscaleStatePath = "${config.lib.dotfield.srcPath}/secrets/git-crypt/tailscale-luks-setup.state";
+    tailscaleStatePath = config.age.secrets."tailscale-luks-setup.state".path;
   };
 
   # Enable networking and SSH server in initrd
@@ -119,8 +119,8 @@ in
       enable = true;
       authorizedKeys = primaryUser.authorizedKeys;
       hostKeys = [
-        "${config.lib.dotfield.srcPath}/secrets/git-crypt/workstation-luks/ssh_host_rsa_key"
-        "${config.lib.dotfield.srcPath}/secrets/git-crypt/workstation-luks/ssh_host_ed25519_key"
+        config.age.secrets."workstation-luks/ssh_host_rsa_key".path
+        config.age.secrets."workstation-luks/ssh_host_ed25519_key".path
       ];
     };
   };

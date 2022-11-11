@@ -26,7 +26,7 @@ in
       ]);
 
     workstation.modules =
-      (with roles; graphical ++ tangible ++ webdev ++ fpgadev ++ workstation)
+      (with roles; graphical ++ tangible ++ webdev ++ fpgadev ++ workstation ++ server)
       ++ (with profiles; [
         boot.systemd-boot
         hardware.amd
@@ -42,7 +42,7 @@ in
 
         workstations.flatpak
 
-        minecraft-client
+        minecraft.minecraft-client
       ]);
 
     h8tsner = {
@@ -53,7 +53,7 @@ in
         (with roles; server) ++ (with profiles; [
           environments.hetzner-cloud
 
-          minecraft-server
+          minecraft.minecraft-server
         ])
       ;
     };

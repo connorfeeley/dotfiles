@@ -50,7 +50,9 @@ let
 
   defaults = {
     enable-rcon = true;
-    rcon-password = builtins.readFile config.age.secrets."minecraft-rcon-password.txt".path;
+    # NOTE: using readFile here since the value should be read on the build machine,
+    # and then written in plaintext into the instance's config file once deployed.
+    rcon-password = "${config.age.secrets."minecraft-rcon-password.txt".path}";
 
     # Only people in the Cool Club (tm)
     white-list = true;
@@ -69,6 +71,11 @@ in
   imports = [ inputs.modded-minecraft-servers.module ];
 
   config = {
+    age.secrets."minecraft-rcon-password.txt" = {
+      file = ./minecraft-rcon-password.txt.age;
+      group = secretsGroup;
+    };
+
     environment.systemPackages = with pkgs; [
       ferium # <- CLI program for managing Minecraft modpacks from Modrinth, CurseForge, and Github Releases
       mcrcon # <- Minecraft console client
