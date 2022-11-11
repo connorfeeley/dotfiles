@@ -293,7 +293,7 @@
           in
           rec {
             inherit (packagesFrom self.packages) emacs-plus;
-            inherit (packagesFrom inputs.deploy-rs) deploy-rs;
+            inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
             inherit (packagesFrom inputs.prefmanager) prefmanager;
             inherit (packagesFrom inputs.nix-json-progress) nix-json-progress;
