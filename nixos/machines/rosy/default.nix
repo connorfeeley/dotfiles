@@ -113,8 +113,9 @@ in
 
   home-manager.users = {
     "${guardian.username}" = hmArgs: {
-      imports = with hmArgs.roles;
-        shell;
+      imports =
+        (with hmArgs.roles; shell ++ remote) ++
+        (with hmArgs.profiles; [ direnv ]);
 
       programs.termite.enable = false;
     };
