@@ -386,7 +386,7 @@
               self.nixosConfigurations.x86_64-linux.workstation;
           };
         };
-        rosy = with (collective.peers.hosts.h8tsner); {
+        rosy = with (collective.peers.hosts.rosy); {
           hostname = "rosy";
           sshUser = "cfeeley";
           fastConnection = true;
