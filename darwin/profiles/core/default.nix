@@ -20,8 +20,6 @@ in
     "darwin=/etc/nix/inputs/darwin"
   ];
 
-  environment.darwinConfig = "${dotfield.fsPath}/lib/compat/darwin";
-
   programs.bash = {
     enable = true;
     enableCompletion = true;
