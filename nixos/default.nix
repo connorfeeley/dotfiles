@@ -70,10 +70,8 @@ in
     rosy = {
       system = aarch64-linux;
       modules =
-        (with collective.profiles; [
-          networking.ssh-host
-        ]) ++
-        (with roles; server) ++ (with profiles; [
+        (with roles; workstation ++ server) ++
+        (with profiles; [
           boot.systemd-boot
           builder
         ])
