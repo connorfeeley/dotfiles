@@ -11,6 +11,7 @@
 let
   inherit (collective) peers;
   inherit (config.networking) hostName;
+  inherit (config.lib.dotfield.secrets) mkAgeSecret;
 in
 {
   imports = [
@@ -123,6 +124,14 @@ in
       ];
     };
   };
+
+  age.secrets = [
+    (mkAgeSecret "tailscale-luks-setup.state")
+    (mkAgeSecret "workstation-luks/ssh_host_ed25519_key")
+    (mkAgeSecret "workstation-luks/ssh_host_ed25519_key.pub")
+    (mkAgeSecret "workstation-luks/ssh_host_rsa_key")
+    (mkAgeSecret "workstation-luks/ssh_host_rsa_key.pub")
+  ];
 
   ### === NFS share ============================================================
   fileSystems."/mnt/export/cfeeley" = {
