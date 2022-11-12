@@ -12,7 +12,9 @@ let
   cfg = config.age;
 in
 {
-  users.groups.secrets.members = [ "root" config.dotfield.guardian.username ];
+  # FIXME: had 'config.dotfield.guardian.username' in place of cfeeley,
+  # but that was causing eval errors when building 'workstation-iso'.
+  users.groups.secrets.members = [ "root" "cfeeley" ];
 
   age.secrets = lib.mkMerge [
     (mkAgeSecret "minecraft-rcon-password.txt")
