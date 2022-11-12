@@ -34,7 +34,9 @@ in
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; workstation ++ macos;
+      imports = with hmArgs.roles; workstation ++ macos ++ (with hmArgs.profiles; [
+        sync
+      ]);
 
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";

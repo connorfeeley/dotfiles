@@ -180,7 +180,11 @@ in
   };
 
   home-manager.users = {
-    cfeeley = hmArgs: { imports = with hmArgs.roles; workstation ++ linux; };
+    cfeeley = hmArgs: {
+      imports = with hmArgs.roles; workstation ++ linux ++ (with hmArgs.profiles; [
+        sync
+      ]);
+    };
   };
 
   programs.htop.enable = true;
