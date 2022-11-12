@@ -1,10 +1,12 @@
+# NOTE: symlink /etc/dotfield to flake dir with:
+#   sudo ln -s ~/.config/dotfield/ /etc/dotfield
 { ... }:
 let
   inherit (default.inputs.nixpkgs-stable) lib;
 
   default = (import ../.).defaultNix;
   configs = default.darwinConfigurations;
-  host = configs.${hostname} or configs.macOS;
+  host = configs.${hostname} or configs.MacBook-Pro;
 
   # TODO: /etc/hostname does not seem to exist on Darwin hosts as of 2022. The
   # file is un-writable (even with sudo) because the admin user is not in the
