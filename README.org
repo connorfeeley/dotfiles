@@ -257,3 +257,49 @@ export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
 
 nix -L build $DOTFIELD_DIR#workstation-iso
 #+end_src
+
+* ~workstation~ recovery
+:PROPERTIES:
+:header-args:shell: :noweb-ref workstation-recovery :tangle no :noweb no :comments noweb
+:END:
+
+#+begin_src shell :tangle shell/scripts/workstation-recovery.sh :noweb yes :noweb-ref nil :comments none
+#!/usr/bin/env bash
+
+<<workstation-recovery>>
+#+end_src
+
+** Partition disk
+
+#+begin_src shell
+# format the disk with the luks structure
+# open the encrypted partition and map it to /dev/mapper/cryptroot
+cryptsetup luksOpen /dev/nvme0n1p5 cryptroot
+
+# Mount partitions
+mount /dev/mapper/LinuxGroup-root /mnt
+
+mount /dev/disk/by-label/EFIBOOT /mnt/boot
+
+# Disabled: possibly less change of nuking my home directory.
+mkdir /mnt/home
+mount /dev/mapper/LinuxGroup-home /mnt/home
+#+end_src
+
+** Enter NixOS chroot
+
+#+begin_src shell
+nixos-enter --root /mnt
+
+sudo su - cfeeley
+
+# Unlock GPG
+echo "Enter password for GPG key:"; stty -echo; gpg --passphrase-fd 0 --pinentry-mode loopback --decrypt ~/test-gpg.asc; stty echo
+
+#+end_src
+
+** COMMENT Install NixOS
+
+#+begin_src shell
+nixos-enter --root /mnt
+#+end_src
