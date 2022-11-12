@@ -130,4 +130,9 @@ in
     # Authorized keys and permitRootLogin are set in ssh-host profile
   };
 
+  environment.systemPackages = with pkgs; [
+    # SPICE agent is required for clipboard sharing with UTM (both QEMU and Apple backend)
+    # as well as dynamic display resolution in QEMU backend.
+    spice-vdagent
+  ];
 }
