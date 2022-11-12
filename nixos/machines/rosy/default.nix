@@ -119,31 +119,6 @@ in
 
   system.stateVersion = "22.05";
 
-  ### === rosetta ================================================================
-  # https://xyno.space/post/nixos-utm-rosetta
-
-  boot.initrd.availableKernelModules = [ "virtiofs" ];
-  fileSystems."/run/rosetta" = {
-    device = "rosetta";
-    fsType = "virtiofs";
-  };
-  fileSystems."/media/share" = {
-    device = "share";
-    fsType = "virtiofs";
-  };
-  nix.settings.extra-platforms = [ "x86_64-linux" ];
-  nix.settings.extra-sandbox-paths = [ "/run/rosetta" "/run/binfmt" ];
-  boot.binfmt.registrations."rosetta" = {
-    # based on https://developer.apple.com/documentation/virtualization/running_intel_binaries_in_linux_vms_with_rosetta#3978495
-    interpreter = "/run/rosetta/rosetta";
-    fixBinary = true;
-    wrapInterpreterInShell = false;
-    matchCredentials = true;
-    magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
-    mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
-  };
-
-  boot.cleanTmpDir = true;
   networking.hostName = "rosy";
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBxw8UnnH5Cizu7p9r4PFGDe/azUrdC0qA3K9GtWtvf/+l4dy044X3mI+hHVigTbxDH5viYcTiH6Lk+SHl2uZuX6fkzTBaFoonEJrKeCRS25TTMmas9g7D/maDoENEF1X0acs5Ffk3CAqKlOeynGPnj4M1ovUM8wyg1lsfZXA+LVr9GLLziiZSxVBBjG341hfVP3LFijj8qIAoDnBPrlLBjrrCsHXZa1QxjjyQADC5Ty7wgqLZqhfEEmkSdUEdkEt1lW4wzJzNXM/7F+iBmLTTp2KcUTPP2kyCU8YR+QvOMafB7ufmRoMf2ERjQtCwSJCYfEot3DBOvdgL0lFBTW4T /Users/cfeeley/.ssh/id_rsa"

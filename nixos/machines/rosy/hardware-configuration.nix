@@ -13,20 +13,22 @@
   # /dev/sda2: LABEL="swap" UUID="d660c175-9640-40e0-a606-f633b8d762a5" TYPE="swap" PARTLABEL="primary" PARTUUID="a5a1cad4-7719-4434-aaa8-53c9df4ad884"
   # swapDevices = [ ];
 
+  boot.cleanTmpDir = true;
+
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/af964634-e7e2-4b32-8be8-11f2b75c540f";
+      device = "/dev/disk/by-uuid/7b63d324-ded3-4a61-a90d-e18bc480f644";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/EFF3-2E4B";
+      device = "/dev/disk/by-uuid/FCB3-452E";
       fsType = "vfat";
     };
 
   # Mount host's shared directory to /run/share
-  fileSystems."/run/share" = {
+  fileSystems."/media/share" = {
     neededForBoot = true;
     device = "share";
     # For virtfs (QEMU)
@@ -35,9 +37,16 @@
 
     # For virtiofs (apple virtualization)
     # fsType = "virtiofs";
+
+    # Manually:
+    # sudo mkdir /media/share
+    # sudo mount -t 9p -o trans=virtio share /media/share -oversion=9p2000.L
   };
 
-  # NOTE: emulating x86_64 for now - try rosetta+apple virtualization once it's more stable
+  ### === rosetta ================================================================
+  # https://xyno.space/post/nixos-utm-rosetta
+
+  # boot.initrd.availableKernelModules = [ "virtiofs" ];
   # fileSystems."/run/rosetta" = {
   #   device = "rosetta";
   #   fsType = "virtiofs";
