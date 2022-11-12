@@ -31,6 +31,7 @@
     nox #           <- Tools to make nix nicer to use
     zgrviewer #     <- Graphviz/DOT viewer (often used with nix-du)
     nix-update #    <- swiss-army knife for updating nix packages
+    nix-bisect #    <- Helper for bisecting nix builds
 
     ## === Linters + Formatters ===
     shfmt
