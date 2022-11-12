@@ -255,6 +255,5 @@ nix shell nixpkgs#nixos-generators
 
 export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
 
-nom build $DOTFIELD_DIR#workstation-iso
-nixos-generate --flake $DOTFIELD_DIR#rosy --show-trace --format iso
+nix -L build $DOTFIELD_DIR#workstation-iso
 #+end_src

@@ -48,21 +48,16 @@ in
       ++ (with profiles; [
         boot.systemd-boot
         hardware.amd
-        nvidia
+        # NOTE: vaapiVdpau can't be built on aarch64-linux
+        # nvidia
         virtualisation.vm-variant
-        builder
-
-        # Just use startx for now...
-        # gnome-desktop
-        # login.gdm
-        # login.greetd
       ]);
 
     h8tsner = {
       modules =
         (with collective.profiles; [
           networking.ssh-host
-          secrets
+          # secrets
         ]) ++
         (with roles; server) ++ (with profiles; [
           environments.hetzner-cloud
@@ -71,6 +66,7 @@ in
         ])
       ;
     };
+
     rosy = {
       system = aarch64-linux;
       modules =

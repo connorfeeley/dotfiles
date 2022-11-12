@@ -1,5 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
-
+let
+  useAppleVirtualization = true; # false for QMEU
+in
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -17,55 +19,54 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/7b63d324-ded3-4a61-a90d-e18bc480f644";
+      device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/FCB3-452E";
+      device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
 
   # Mount host's shared directory to /run/share
-  fileSystems."/media/share" = {
-    device = "share";
+  fileSystems."/run/share" = if (!useAppleVirtualization) then {
     # For virtfs (QEMU)
+    device = "share";
     fsType = "9p";
     options = [ "trans=virtio" "version=9p2000.L" ];
-
-    # For virtiofs (apple virtualization)
-    # fsType = "virtiofs";
 
     # Manually:
     # sudo mkdir /media/share
     # sudo mount -t 9p -o trans=virtio share /media/share -oversion=9p2000.L
+  } else {
+    # For virtiofs (apple virtualization)
+    device = "share";
+    fsType = "virtiofs";
+
+    # Manually:
+    # sudo mkdir /run/share
+    # sudo mount -t virtiofs share /run/share/
   };
 
   ### === rosetta ================================================================
   # https://xyno.space/post/nixos-utm-rosetta
 
-  # boot.initrd.availableKernelModules = [ "virtiofs" ];
-  # fileSystems."/run/rosetta" = {
-  #   device = "rosetta";
-  #   fsType = "virtiofs";
-  # };
-  # nix.settings.extra-platforms = [ "x86_64-linux" ];
-  # nix.settings.extra-sandbox-paths = [ "/run/rosetta" "/run/binfmt" ];
-  # boot.binfmt.registrations."rosetta" = {
-  #   # based on https://developer.apple.com/documentation/virtualization/running_intel_binaries_in_linux_vms_with_rosetta#3978495
-  #   interpreter = "/run/rosetta/rosetta";
-  #   fixBinary = true;
-  #   wrapInterpreterInShell = false;
-  #   matchCredentials = true;
-  #   magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
-  #   mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
-  # };
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s1.useDHCP = lib.mkDefault true;
+  fileSystems."/run/rosetta" = lib.optionals useAppleVirtualization {
+    device = "rosetta";
+    fsType = "virtiofs";
+  };
+  nix.settings.extra-platforms = lib.optionals useAppleVirtualization [ "x86_64-linux" ];
+  nix.settings.extra-sandbox-paths = lib.optionals useAppleVirtualization [ "/run/rosetta" "/run/binfmt" ];
+  boot.binfmt.registrations."rosetta" = lib.optionals useAppleVirtualization {
+    # based on https://developer.apple.com/documentation/virtualization/running_intel_binaries_in_linux_vms_with_rosetta#3978495
+    interpreter = "/run/rosetta/rosetta";
+    fixBinary = true;
+    wrapInterpreterInShell = false;
+    matchCredentials = true;
+    magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
+    mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
+  };
 }
