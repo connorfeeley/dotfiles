@@ -11,10 +11,6 @@ in
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  # TODO: add swap device:
-  # /dev/sda2: LABEL="swap" UUID="d660c175-9640-40e0-a606-f633b8d762a5" TYPE="swap" PARTLABEL="primary" PARTUUID="a5a1cad4-7719-4434-aaa8-53c9df4ad884"
-  # swapDevices = [ ];
-
   boot.cleanTmpDir = true;
 
   fileSystems."/" =
