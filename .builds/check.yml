@@ -11,6 +11,7 @@ environment:
     experimental-features = nix-command flakes
     accept-flake-config = true
     keep-going = true
+    allow-import-from-derivation = true
 tasks:
   - show: |
       cd dotfield
