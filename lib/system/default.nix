@@ -42,6 +42,24 @@ in
     srcPath = toString ../../.;
     fsPath = "/etc/dotfield";
 
+    secrets = rec {
+      # nix-darwin does not support the `users.<name>.extraGroups` option, but
+      # that's not a problem since we're only using darwin systems as a single
+      # admin user. although the username may vary across systems, each "primary
+      # user" will still be in the `admin` group.
+      secretsGroup =
+        if pkgs.stdenv.isLinux
+        then "secrets"
+        else "admin";
+      secretsDir = toString ../../secrets;
+      mkAgeSecret = name: {
+        "${name}" = {
+          file = "${secretsDir}/${name}.age";
+          group = secretsGroup;
+        };
+      };
+    };
+
     sys = {
       # Whether a NixOS system has enabled the proprietary NVIDIA drivers.
       #
