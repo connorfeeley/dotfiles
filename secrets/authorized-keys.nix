@@ -8,3 +8,5 @@ in
 with hosts;
 [ yubiGpg macGpg ]
 ++ workstation.keys
+++ MacBook-Pro.keys
+++ rosy.keys

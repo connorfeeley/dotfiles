@@ -22,7 +22,8 @@ lib.mkMerge [
         enable = true;
         write = true;
         protocol = "ssh-ng";
-        keys = host.keys;
+        # A list of SSH public keys allowed to access the binary cache via SSH.
+        keys = primaryUser.authorizedKeys;
       };
     };
   }
