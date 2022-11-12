@@ -29,11 +29,10 @@
 
   # Mount host's shared directory to /run/share
   fileSystems."/media/share" = {
-    neededForBoot = true;
     device = "share";
     # For virtfs (QEMU)
     fsType = "9p";
-    options = [ "trans=virtio" "version=9p2000.L" "rw" "_netdev" "nofail" ];
+    options = [ "trans=virtio" "version=9p2000.L" ];
 
     # For virtiofs (apple virtualization)
     # fsType = "virtiofs";
