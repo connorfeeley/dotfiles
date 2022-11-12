@@ -62,7 +62,6 @@ with profiles; let
     secrets.common
     secrets.password-store
     yubikey
-    work
     sync
   ];
 
