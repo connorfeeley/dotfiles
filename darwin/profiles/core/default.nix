@@ -22,10 +22,6 @@ in
 
   environment.darwinConfig = "${dotfield.fsPath}/lib/compat/darwin";
 
-  # Administrative users on Darwin systems are part of the admin group by default.
-  nix.settings.trusted-users = [ "@admin" "@wheel" ];
-
-
   programs.bash = {
     enable = true;
     enableCompletion = true;

@@ -23,7 +23,13 @@ in
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       # FIXME: dangerous
       allowed-users = [ "*" ];
-      trusted-users = [ "root" "cfeeley" ];
+      trusted-users = [
+        "root"
+        "cfeeley"
+        "nix-ssh" # user for store served with sshServe.enable
+        "@wheel"
+        "@admin" # Administrative users on Darwin systems are part of the admin group by default.
+      ];
 
       # Prevent shells from being automatically garbage-collected
       keep-outputs = true;
