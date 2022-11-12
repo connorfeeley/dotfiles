@@ -51,7 +51,7 @@ let
   workstation =
     (with collective.profiles; [
       networking.ssh-host
-      # secrets
+      secrets
     ])
     ++ (with profiles; [
       boot.systemd-boot

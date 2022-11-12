@@ -14,8 +14,8 @@ with lib;
       nlSupport = true;
     })
 
-    # xmonad-config
-    # xmobar-config
+    xmonad-config
+    xmobar-config
 
     redshift
     xorg.xbacklight
@@ -44,6 +44,7 @@ with lib;
     "plasma-workspace/env/set_window_manager.sh" = {
       executable = true;
       text = ''
+        export KDEWM="${pkgs.xmonad-config}/bin/xmonad"
       '';
     };
   };
@@ -59,8 +60,8 @@ with lib;
       enable = true;
       enableContribAndExtras = true;
       extraPackages = haskellPackages: with haskellPackages; [
-        # pkgs.xmonad-config
-        # pkgs.xmobar-config
+        pkgs.xmonad-config
+        pkgs.xmobar-config
       ];
     };
   };

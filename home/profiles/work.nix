@@ -17,7 +17,7 @@ in
     # FIXME(darwin): broken
     pwrbar # control Kasa WiFi powerbar
 
-    # dashboard
-    # zeuspack
+    dashboard
+    zeuspack
   ]);
 }

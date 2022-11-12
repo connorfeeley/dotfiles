@@ -128,7 +128,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nixpkgs-work.url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
+    nixpkgs-work.url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
 
     nix-nil = {
       url = "github:oxalica/nil";
@@ -195,7 +195,7 @@
     , xmobar-config
     , pta2002-neovim
     , ttc-subway-font
-    # , nixpkgs-work
+    , nixpkgs-work
     , nickel
     , comma
     , nix-xilinx
@@ -266,14 +266,14 @@
         nur.overlay
         nvfetcher.overlay
 
-        # xmonad-config.overlay
-        # xmobar-config.overlay
+        xmonad-config.overlay
+        xmobar-config.overlay
 
         ttc-subway-font.overlay
 
         nix-xilinx.overlay
 
-        # nixpkgs-work.overlays.default
+        nixpkgs-work.overlays.default
         (final: prev:
           let
             packagesFrom = inputAttr: inputAttr.packages.${final.system};
@@ -284,10 +284,10 @@
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
             inherit (packagesFrom inputs.prefmanager) prefmanager;
             inherit (packagesFrom inputs.nix-json-progress) nix-json-progress;
-            # inherit (packagesFrom inputs.nixpkgs-work) dashboard;
-            # inherit (packagesFrom inputs.nixpkgs-work) zeuspack;
-            # inherit (packagesFrom inputs.xmonad-config) xmonad-config;
-            # inherit (packagesFrom inputs.xmobar-config) xmobar-config;
+            inherit (packagesFrom inputs.nixpkgs-work) dashboard;
+            inherit (packagesFrom inputs.nixpkgs-work) zeuspack;
+            inherit (packagesFrom inputs.xmonad-config) xmonad-config;
+            inherit (packagesFrom inputs.xmobar-config) xmobar-config;
           }
         )
       ];
@@ -453,34 +453,34 @@
       };
     }) //
     # Generate attrs for darwin systems only: (packages.<system>.emacs28Macport)
-    # (eachSystem darwinSystems (system: {
-    #   packages =
-    #     let
-    #       # nixpkgs set used for flake's 'packages' output
-    #       pkgs = import nixpkgs {
-    #         inherit system;
-    #         overlays = [
-    #           self.overlays."nixos-unstable/emacs28Macport"
-    #         ];
-    #       };
-    #       # emacs-mac v28.2 with native compilation enabled;
-    #       emacs28Macport = pkgs.emacs28Macport;
-    #       # emacs-mac v28.2 with native compilation disabled;
-    #       # - Intended primarily as a quick way to verify that the package builds
-    #       # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
-    #       emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
-    #     in
-    #     (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
-    #       (flattenTree (rakeLeaves ./darwin/packages))) //
-    #     {
-    #       inherit
-    #         # NOTE: both emacs28Macport variants are impure
-    #         # Tested with XCode CLT version: 14.0.0.0.1.1661618636
-    #         emacs28Macport
-    #         emacs28Macport-noNativeComp
-    #         ;
-    #     };
-    # })) //
+    (eachSystem darwinSystems (system: {
+      packages =
+        let
+          # nixpkgs set used for flake's 'packages' output
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              self.overlays."nixos-unstable/emacs28Macport"
+            ];
+          };
+          # emacs-mac v28.2 with native compilation enabled;
+          emacs28Macport = pkgs.emacs28Macport;
+          # emacs-mac v28.2 with native compilation disabled;
+          # - Intended primarily as a quick way to verify that the package builds
+          # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
+          emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
+        in
+        (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
+          (flattenTree (rakeLeaves ./darwin/packages))) //
+        {
+          inherit
+            # NOTE: both emacs28Macport variants are impure
+            # Tested with XCode CLT version: 14.0.0.0.1.1661618636
+            emacs28Macport
+            emacs28Macport-noNativeComp
+            ;
+        };
+    })) //
     # Generate attrs for each system: (formatter.<system>)
     (eachSystem supportedSystems (system: {
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
