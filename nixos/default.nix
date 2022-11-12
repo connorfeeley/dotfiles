@@ -72,7 +72,7 @@ in
       ;
     };
     rosy = {
-      system = x86_64-linux;
+      system = aarch64-linux;
       modules =
         (with collective.profiles; [
           networking.ssh-host
