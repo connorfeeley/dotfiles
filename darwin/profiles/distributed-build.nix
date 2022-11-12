@@ -25,7 +25,10 @@ lib.mkMerge [
           # Base64-encoded ed25519 public host key of builder:
           #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
           publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURCbnFmajFrVmVYMDRKWU8xa2lHQjRFaVlqZnNDcE0xUSt6QmpGY0VvZGkgcm9vdEByb3N5Cg==";
+
           sshUser = config.dotfield.guardian.username;
+          # sshKey = config.age.secrets."workstation-luks/ssh_host_ed25519_key".path;
+
           # "8 M1 cores, times one (versus times 2 for a desktop)" seems like a reasonable relative speed factor.
           speedFactor = 8 * 1;
           supportedFeatures = [ "nixos-test" "benchmark" "kvm" ];

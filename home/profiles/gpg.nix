@@ -50,11 +50,6 @@ lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [
           source = ../../secrets + "/gpg-${pgpPublicKey}.txt";
           trust = "ultimate";
         }
-        # FIXME(cfeeley): add key
-        # {
-        #   source = ../../secrets + "/gpg-0xF0B8FB42A7498482.txt";
-        #   trust = "ultimate";
-        # }
       ];
 
       # https://github.com/drduh/config/blob/master/gpg.conf
