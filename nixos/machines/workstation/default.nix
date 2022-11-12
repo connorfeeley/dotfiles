@@ -19,17 +19,17 @@ in
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
-  assertions = [{
-    # Ensure eth0 (motherboard ethernet) is using DHCP and that
-    # tailscale, tailscaleUnlock, initrd networking, and initrd SSH are enabled.
-    assertion =
-      config.networking.interfaces.eth0.useDHCP &&
-      config.services.tailscale.enable &&
-      config.remote-machine.boot.tailscaleUnlock.enable &&
-      config.boot.initrd.network.enable &&
-      config.boot.initrd.network.ssh.enable;
-    message = "Workstation may not be remotely accessible via tailscale.";
-  }];
+  # assertions = [{
+  #   # Ensure eth0 (motherboard ethernet) is using DHCP and that
+  #   # tailscale, tailscaleUnlock, initrd networking, and initrd SSH are enabled.
+  #   assertion =
+  #     config.networking.interfaces.eth0.useDHCP &&
+  #     config.services.tailscale.enable &&
+  #     config.remote-machine.boot.tailscaleUnlock.enable &&
+  #     config.boot.initrd.network.enable &&
+  #     config.boot.initrd.network.ssh.enable;
+  #   message = "Workstation may not be remotely accessible via tailscale.";
+  # }];
 
   # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
   boot.loader.efi.canTouchEfiVariables = true;
@@ -85,7 +85,7 @@ in
       };
 
       interfaces.${interface} = {
-        useDHCP = true;
+        # useDHCP = true;
         ipv4.addresses = [{
           inherit (host.ipv4) address;
           inherit (net.ipv4) prefixLength;
@@ -104,25 +104,25 @@ in
 
   # Enable tailscale in initrd
   remote-machine.boot.tailscaleUnlock = {
-    enable = true;
-    tailscaleStatePath = config.age.secrets."tailscale-luks-setup.state".path;
+    enable = false;
+    # tailscaleStatePath = config.age.secrets."tailscale-luks-setup.state".path;
   };
 
   # Enable networking and SSH server in initrd
-  boot.initrd = {
-    # Driver for MSI (motherboard) 2.5GbE interface
-    availableKernelModules = [ "r8169" ];
+  # boot.initrd = {
+  #   # Driver for MSI (motherboard) 2.5GbE interface
+  #   availableKernelModules = [ "r8169" ];
 
-    network.enable = true;
-    network.ssh = {
-      enable = true;
-      authorizedKeys = primaryUser.authorizedKeys;
-      hostKeys = [
-        config.age.secrets."workstation-luks/ssh_host_rsa_key".path
-        config.age.secrets."workstation-luks/ssh_host_ed25519_key".path
-      ];
-    };
-  };
+  #   network.enable = true;
+  #   network.ssh = {
+  #     enable = true;
+  #     authorizedKeys = primaryUser.authorizedKeys;
+  #     hostKeys = [
+  #       config.age.secrets."workstation-luks/ssh_host_rsa_key".path
+  #       config.age.secrets."workstation-luks/ssh_host_ed25519_key".path
+  #     ];
+  #   };
+  # };
 
   ### === NFS share ============================================================
   fileSystems."/mnt/export/cfeeley" = {
@@ -157,7 +157,7 @@ in
         "networkmanager"
         "dialout"
         "cfeeley"
-        "secrets"
+        # "secrets"
         "wireshark"
       ]
       ++ (lib.optional config.networking.networkmanager.enable "networkmanager")

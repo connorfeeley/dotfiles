@@ -58,11 +58,10 @@
       }];
 
       boot.initrd = {
-        secrets = {
-          "/var/lib/tailscale/tailscaled.state" = cfg.tailscaleStatePath;
-          "/etc/ssl/certs/ca-certificates.crt" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-          "/etc/ssl/certs/ca-bundle.crt" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-        };
+        # secrets = {
+        #   "/etc/ssl/certs/ca-certificates.crt" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+        #   "/etc/ssl/certs/ca-bundle.crt" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+        # };
         network = {
           enable = true;
           flushBeforeStage2 = true;

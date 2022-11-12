@@ -59,8 +59,8 @@ with profiles; let
   trusted = [
     gpg
     mail
-    secrets.common
-    secrets.password-store
+    # secrets.common
+    # secrets.password-store
     yubikey
     work
     sync

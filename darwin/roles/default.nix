@@ -6,7 +6,7 @@ let
   workstation =
     (with (collective.profiles); [
       fonts.common
-      secrets
+      # secrets
       flox
     ])
     ++ (with profiles; [

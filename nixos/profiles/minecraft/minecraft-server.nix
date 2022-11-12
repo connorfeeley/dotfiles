@@ -54,7 +54,7 @@ let
     # readFile is used here since the value should be read on the build machine,
     # and then written in plaintext into the instance's config file once deployed.
     # But most importantly, I don't really care if this password is exposed.
-    rcon-password = config.age.secrets."minecraft-rcon-password.txt".path;
+    # rcon-password = config.age.secrets."minecraft-rcon-password.txt".path;
 
     # Only people in the Cool Club (tm)
     white-list = true;
