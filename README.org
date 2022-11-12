@@ -163,3 +163,98 @@ pkgWithCategory = category: package: { inherit package category; };
 (load "server")
 (unless (server-running-p) (server-start))
 #+end_src
+
+* ~rosy~ builder setup
+As ~nixos~ user
+
+** Partition disk
+[[https://krisztianfekete.org/nixos-on-apple-silicon-with-utm/][source]]
+
+#+begin_src shell :noeval
+passwd nixos
+
+sudo parted /dev/vda -- mklabel gpt
+sudo parted /dev/vda -- mkpart primary 1GiB -8GiB
+sudo parted /dev/vda -- mkpart primary linux-swap -8GiB 100%
+
+sudo parted /dev/vda -- mkpart ESP fat32 1MiB 512MiB
+sudo parted /dev/vda -- set 3 esp on
+
+sudo mkfs.ext4 -L nixos /dev/vda1
+sudo mkswap -L swap /dev/vda2
+sudo mkfs.fat -F 32 -n boot /dev/vda3
+
+sudo mount /dev/disk/by-label/nixos /mnt
+sudo mkdir -p /mnt/boot
+sudo mount /dev/disk/by-label/boot /mnt/boot
+#+end_src
+
+** Mount Share
+*** For QEMU
+#+begin_src shell :noeval
+sudo mkdir /run/share
+sudo mount -t 9p -o trans=virtio share /run/share -oversion=9p2000.L
+#+end_src
+
+*** For Apple Virtualization Framework
+[[https://docs.getutm.app/advanced/rosetta/#enabling-rosettaA][source]]
+#+begin_src shell :noeval
+#!/usr/bin/env bash
+sudo mkdir /run/share
+sudo mount -t virtiofs share /run/share/
+
+sudo mkdir /run/rosetta
+sudo mount -t virtiofs rosetta /run/rosetta/
+#+end_src
+
+** Install
+
+As root (~sudo su~):
+#+begin_src shell :noeval
+sudo su
+
+nix-env -i git
+
+export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
+
+mkdir -p ~/.ssh && cp /run/share/cfeeley/.ssh/id_* ~/.ssh/
+
+mkdir -p ~/.config && cp -a /run/share/cfeeley/.config/nix/ ~/.config
+
+# sudo nix --extra-experimental-features 'nix-command flakes' flake show $DOTFIELD_DIR
+
+nixos-install --verbose --flake $DOTFIELD_DIR#rosy
+
+umount /mnt/boot/
+umount /mnt/
+
+sync && reboot
+#+end_src
+
+** Rebuild ~rosy~
+
+#+begin_src shell :noeval
+export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
+sudo nixos-rebuild --print-build-logs switch --flake $DOTFIELD_DIR#rosy
+#+end_src
+
+** Build ~rosy~ iso
+
+#+begin_src shell :noeval
+nix shell nixpkgs#nixos-generators
+
+export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
+
+nixos-generate --flake $DOTFIELD_DIR#rosy --show-trace --format iso
+#+end_src
+
+** Build ~workstation~ iso
+
+#+begin_src shell :noeval
+nix shell nixpkgs#nixos-generators
+
+export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
+
+nom build $DOTFIELD_DIR#workstation-iso
+nixos-generate --flake $DOTFIELD_DIR#rosy --show-trace --format iso
+#+end_src
