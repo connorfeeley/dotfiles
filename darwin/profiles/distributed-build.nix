@@ -22,8 +22,9 @@ lib.mkMerge [
           hostName = "rosy";
           maxJobs = 8;
           systems = [ "aarch64-linux" "x86_64-linux" ];
-          # Base64-encoded ed25519 public host key
-          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUtsM2ZZMXAvQnNjUmlyQXpweFltdDdSanFneWQvT0RCS2xnR2hjNUd6d2Egcm9vdEBuaXhvcwo=";
+          # Base64-encoded ed25519 public host key of builder:
+          #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
+          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURCbnFmajFrVmVYMDRKWU8xa2lHQjRFaVlqZnNDcE0xUSt6QmpGY0VvZGkgcm9vdEByb3N5Cg==";
           sshUser = config.dotfield.guardian.username;
           # "8 M1 cores, times one (versus times 2 for a desktop)" seems like a reasonable relative speed factor.
           speedFactor = 8 * 1;
