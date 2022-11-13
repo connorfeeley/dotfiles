@@ -18,10 +18,5 @@ in
 
   age.secrets = lib.mkMerge [
     (mkAgeSecret "minecraft-rcon-password.txt")
-    (mkAgeSecret "tailscale-luks-setup.state")
-    (mkAgeSecret "workstation-luks/ssh_host_ed25519_key")
-    (mkAgeSecret "workstation-luks/ssh_host_ed25519_key.pub")
-    (mkAgeSecret "workstation-luks/ssh_host_rsa_key")
-    (mkAgeSecret "workstation-luks/ssh_host_rsa_key.pub")
   ];
 }

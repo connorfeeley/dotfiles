@@ -17,9 +17,4 @@ let
 in
 {
   "minecraft-rcon-password.txt.age".publicKeys = users ++ systems ++ [ h8tsner ];
-  "tailscale-luks-setup.state.age".publicKeys = users ++ systems;
-  "workstation-luks/ssh_host_ed25519_key.age".publicKeys = users ++ systems;
-  "workstation-luks/ssh_host_ed25519_key.pub.age".publicKeys = users ++ systems;
-  "workstation-luks/ssh_host_rsa_key.age".publicKeys = users ++ systems;
-  "workstation-luks/ssh_host_rsa_key.pub.age".publicKeys = users ++ systems;
 }
