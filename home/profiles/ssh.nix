@@ -31,6 +31,7 @@ in
           host.address = "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
         }];
       };
+      "workstation-luks" = { user = "root"; };
       "macbook-pro" = {
         forwardX11Trusted = true;
         extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
