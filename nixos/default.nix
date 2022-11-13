@@ -31,6 +31,7 @@ in
         boot.systemd-boot
         hardware.amd
         nvidia
+        hidpi
         virtualisation.vm-variant
         builder
 
