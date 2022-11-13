@@ -5,8 +5,6 @@ channels: final: prev: {
   ### Packages from darwin-stable channel (better chance of hitting the binary cache)
   ###
   inherit (channels.nixpkgs-darwin-stable)
-    ncdu
-
     # FIXME(darwin): mesa build fails otherwise.
     ffmpeg
     youtube-dl
@@ -29,5 +27,4 @@ channels: final: prev: {
   ###
   inherit (channels.nixos-stable)
     ;
-
 }
