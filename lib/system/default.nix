@@ -36,11 +36,14 @@ let
     Whether the given window manager is enabled by any user.
   */
   hasWm = name: hasEnabledModule [ "wayland" "windowManager" name ];
+
+  defaultUsername = "cfeeley";
 in
 {
-  lib.dotfield = {
+  lib.dotfield = rec {
     srcPath = toString ../../.;
     fsPath = "/etc/dotfield";
+    userConfigPath = toString "${srcPath}/home/users/${defaultUsername}/config";
 
     secrets = rec {
       # nix-darwin does not support the `users.<name>.extraGroups` option, but
@@ -79,6 +82,6 @@ in
           or (pkgs.stdenv.isLinux ? config.programs.sway.enable);
     };
 
-    home = { inherit hasEnabledModule hasWm; };
+    home = { inherit userConfigPath hasEnabledModule hasWm; };
   };
 }

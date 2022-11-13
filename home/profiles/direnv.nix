@@ -2,7 +2,12 @@
 , lib
 , pkgs
 , ...
-}: {
+}:
+let
+  inherit (config.lib) dotfield;
+  configDir = "${dotfield.userConfigPath}/direnv";
+in
+{
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -19,6 +24,6 @@
         ];
       };
     };
-    stdlib = builtins.readFile "${pkgs.dotfield-config}/direnv/direnvrc";
+    stdlib = builtins.readFile "${configDir}/direnvrc";
   };
 }

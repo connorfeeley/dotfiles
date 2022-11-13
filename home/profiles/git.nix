@@ -14,6 +14,9 @@ let
     pgpPublicKey
     ;
 
+  inherit (config.lib) dotfield;
+  configDir = "${dotfield.userConfigPath}/git";
+
   enableSigning =
     config.programs.gpg.enable
     && config.services.gpg-agent.enable
@@ -154,7 +157,7 @@ in
         github.user = githubUserName;
 
         # Environment variables will not be expanded -- this requires a path.
-        init.templateDir = "${config.xdg.configHome}/git/templates";
+        init.templateDir = "${dotfield.userConfigPath}/git/templates";
 
         # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
         pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
@@ -229,5 +232,5 @@ in
     extensions = with pkgs; [ gh-dash ];
   };
 
-  xdg.configFile."git/templates".source = "${pkgs.dotfield-config}/git/templates";
+  xdg.configFile."git/templates".source = "${configDir}/templates";
 }

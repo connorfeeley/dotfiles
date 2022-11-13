@@ -12,9 +12,10 @@ let
   this = config.lib.dotfield;
 in
 {
-  lib.dotfield = {
-    fsPath = "${configHome}/dotfield";
-    userConfigPath = "${this.fsPath}/home/users/${username}/config";
+  lib.dotfield = rec {
+    fsPath = toString "${configHome}/dotfield";
+    srcPath = toString ../../.;
+    userConfigPath = toString "${srcPath}/home/users/${username}/config";
 
     features = rec {
       hasPragPro = lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family;

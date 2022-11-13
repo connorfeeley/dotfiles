@@ -4,7 +4,9 @@
 , ...
 }:
 let
-  configDir = "${pkgs.dotfield-config}/hammerspoon";
+
+  inherit (config.lib) dotfield;
+  configDir = "${dotfield.userConfigPath}/hammerspoon";
 in
 {
   homebrew.casks = [ "hammerspoon" ];

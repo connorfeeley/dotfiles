@@ -5,6 +5,8 @@
 }:
 let
   inherit (pkgs.stdenv) isDarwin;
+  inherit (config.lib) dotfield;
+  configDir = "${dotfield.userConfigPath}/zsh";
 
   shellAliases =
     (import ../abbrs.nix)
@@ -148,7 +150,7 @@ in
         else
           # # Source vterm-specific configuration
           [[ -n $EMACS_VTERM_PATH ]] && source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/vterm-*/etc/emacs-vterm-zsh.sh
-          source ${pkgs.dotfield-config}/zsh/vterm.zsh
+          source ${configDir}/vterm.zsh
         fi
         # echo "\$TERM = $TERM	\$INSIDE_EMACS = $INSIDE_EMACS"
 
@@ -161,8 +163,8 @@ in
         fi
 
         # source $DOTFIELD_DIR/lib/color.sh
-        source ${pkgs.dotfield-config}/zsh/functions.zsh
-        source ${pkgs.dotfield-config}/zsh/options.zsh
+        source ${configDir}/zsh/functions.zsh
+        source ${configDir}/zsh/options.zsh
 
         ${zsh-notify-config}
       '';
