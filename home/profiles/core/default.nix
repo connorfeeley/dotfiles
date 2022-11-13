@@ -48,7 +48,6 @@ in
     du-dust #       <- Like du but more intuitive.
     duf #           <- df with colours
     dua #           <- quick disk usage
-    ncdu #          <- dua with more ncurses
     entr #          <- Run arbitrary commands when files change
     lnav #          <- Log file navigator
     glances #       <- System resource usage viewer
@@ -76,6 +75,7 @@ in
     bat-extras.prettybat #  <- Pretty-print source code and highlight it with bat.
 
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
+    ncdu #          <- dua with more ncurses
     iotop #         <- Terminal disk IO monitor
     psmisc #        <- Useful utilities that use the proc filesystem
     kmon #          <- Kernel manager and activity monitor
