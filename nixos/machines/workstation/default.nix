@@ -106,7 +106,7 @@ in
   # Enable tailscale in initrd
   remote-machine.boot.tailscaleUnlock = {
     enable = true;
-    tailscaleStatePath = config.age.secrets."tailscale-luks-setup.state".path;
+    tailscaleStatePath = "/etc/secrets/initrd/tailscale-luks-setup.state";
   };
 
   # Enable networking and SSH server in initrd
@@ -119,19 +119,12 @@ in
       enable = true;
       authorizedKeys = primaryUser.authorizedKeys;
       hostKeys = [
-        config.age.secrets."workstation-luks/ssh_host_rsa_key".path
-        config.age.secrets."workstation-luks/ssh_host_ed25519_key".path
+        # WARNING: DON'T USE AGE HERE
+        "/etc/secrets/initrd/ssh_host_rsa_key"
+        "/etc/secrets/initrd/ssh_host_ed25519_key"
       ];
     };
   };
-
-  age.secrets = lib.mkMerge [
-    (mkAgeSecret "tailscale-luks-setup.state")
-    (mkAgeSecret "workstation-luks/ssh_host_ed25519_key")
-    (mkAgeSecret "workstation-luks/ssh_host_ed25519_key.pub")
-    (mkAgeSecret "workstation-luks/ssh_host_rsa_key")
-    (mkAgeSecret "workstation-luks/ssh_host_rsa_key.pub")
-  ];
 
   ### === NFS share ============================================================
   fileSystems."/mnt/export/cfeeley" = {
