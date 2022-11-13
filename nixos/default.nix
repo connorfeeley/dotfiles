@@ -44,18 +44,15 @@ in
         # login.greetd
       ]);
 
-    workstation-iso = {
-      imports = [ workstation ];
-      modules =
-        (with roles; graphical ++ tangible ++ desktop ++ server)
-        ++ (with profiles; [
-          boot.systemd-boot
-          hardware.amd
-          # NOTE: vaapiVdpau can't be built on aarch64-linux
-          # nvidia
-          virtualisation.vm-variant
-        ]);
-    };
+    # workstation-iso.modules =
+    #   (with roles; graphical ++ tangible ++ desktop ++ server)
+    #   ++ (with profiles; [
+    #     boot.systemd-boot
+    #     hardware.amd
+    #     # NOTE: vaapiVdpau can't be built on aarch64-linux
+    #     # nvidia
+    #     virtualisation.vm-variant
+    #   ]);
 
     h8tsner = {
       modules =
