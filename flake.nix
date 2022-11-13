@@ -383,7 +383,7 @@
           profiles.cfeeley = {
             user = "cfeeley";
             path = deploy.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.x86_64-linux.workstation;
+              self.nixosConfigurations.workstation;
           };
         };
         rosy = with (collective.peers.hosts.rosy); {
