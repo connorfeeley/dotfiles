@@ -263,6 +263,11 @@ nix -L build $DOTFIELD_DIR#workstation-iso
 :header-args:shell: :noweb-ref workstation-recovery :tangle no :noweb no :comments noweb
 :END:
 
+Honestly - this was such a waste of time. I tried 800 different things but in the end I ended up just nuking my nix store... which at least let me reinstall NixOS.
+
+Biggest takeaway: ~initrd~ secrets are /the devil/. See:
+[[https://github.com/NixOS/nixpkgs/issues/34262][NixOS/nixpkgs#34262 `boot.initrd.network.ssh.hostRSAKey` breaks activation if...]]
+
 #+begin_src shell :tangle shell/scripts/workstation-recovery.sh :noweb yes :noweb-ref nil :comments none
 #!/usr/bin/env bash
 
@@ -279,27 +284,54 @@ cryptsetup luksOpen /dev/nvme0n1p5 cryptroot
 # Mount partitions
 mount /dev/mapper/LinuxGroup-root /mnt
 
-mount /dev/disk/by-label/EFIBOOT /mnt/boot
+# mount /dev/disk/by-label/EFIBOOT /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
 
-# Disabled: possibly less change of nuking my home directory.
-mkdir /mnt/home
 mount /dev/mapper/LinuxGroup-home /mnt/home
 #+end_src
 
 ** Enter NixOS chroot
 
 #+begin_src shell
+# Enter chroot
 nixos-enter --root /mnt
 
-sudo su - cfeeley
+# Login to cfeeley
+su - cfeeley
 
 # Unlock GPG
 echo "Enter password for GPG key:"; stty -echo; gpg --passphrase-fd 0 --pinentry-mode loopback --decrypt ~/test-gpg.asc; stty echo
 
+# Fetch and reset repo
+cd ~/.config/dotfield
+git remote add temp-mbp cfeeley@192.168.0.85:~/.config/dotfield
+git config --global --add safe.directory /mnt/home/cfeeley/.config/dotfield
+git fetch temp-mbp && git reset --hard temp-mbp/master
+
+# Hack: use path://<repo> to workaround chroot problems
+export DOTFIELD_DIR=path:///home/cfeeley/.config/dotfield
+
+# Rebuild system configuration
+sudo nixos-rebuild build --verbose --flake $DOTFIELD_DIR#workstation
+
+# Activate system configuration and reinstall the bootloader
+# sudo nixos-rebuild switch --verbose --install-bootloader --flake $DOTFIELD_DIR#workstation
 #+end_src
 
-** COMMENT Install NixOS
+Note the path to the final derivation - this will be used to activate the system in the next step.
+
+** Install NixOS
+
+*NOTE:* not inside ~nixos-enter~ chroot.
 
 #+begin_src shell
-nixos-enter --root /mnt
+# Get a DHCP address - only IPv6 worked until this for some reason
+nix run nixpkgs#dhcpcd
+
+echo "Enter password for GPG key:"; gpg --passphrase-fd 0 --pinentry-mode loopback --homedir /mnt/home/cfeeley/.gnupg --decrypt /mnt/home/cfeeley/test-gpg.asc
+
+# Hack: use path://<repo> to workaround chroot problems
+export DOTFIELD_DIR=path:///mnt/home/cfeeley/.config/dotfield
+
+nixos-install --verbose --flake $DOTFIELD_DIR#workstation
 #+end_src
