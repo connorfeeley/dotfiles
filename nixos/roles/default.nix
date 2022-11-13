@@ -48,7 +48,7 @@ let
     fpga.xilinx
   ];
 
-  workstation =
+  desktop =
     (with collective.profiles; [
       networking.ssh-host
       secrets
@@ -66,6 +66,6 @@ in
     tangible
     webdev
     fpgadev
-    workstation
+    desktop
     ;
 }

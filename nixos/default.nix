@@ -18,15 +18,15 @@ in
 
   imports = [ (importHosts ./machines) ];
 
-  hosts = {
+  hosts = rec {
     bootstrap-graphical.modules =
-      (with roles; graphical ++ tangible ++ workstation)
+      (with roles; graphical ++ tangible ++ desktop)
       ++ (with profiles; [
         login.gdm
       ]);
 
     workstation.modules =
-      (with roles; graphical ++ tangible ++ webdev ++ fpgadev ++ workstation ++ server)
+      (with roles; graphical ++ tangible ++ webdev ++ fpgadev ++ desktop ++ server)
       ++ (with profiles; [
         boot.systemd-boot
         hardware.amd
@@ -44,15 +44,18 @@ in
         # login.greetd
       ]);
 
-    workstation-iso.modules =
-      (with roles; graphical ++ tangible ++ workstation ++ server)
-      ++ (with profiles; [
-        boot.systemd-boot
-        hardware.amd
-        # NOTE: vaapiVdpau can't be built on aarch64-linux
-        # nvidia
-        virtualisation.vm-variant
-      ]);
+    workstation-iso = {
+      imports = [ workstation ];
+      modules =
+        (with roles; graphical ++ tangible ++ desktop ++ server)
+        ++ (with profiles; [
+          boot.systemd-boot
+          hardware.amd
+          # NOTE: vaapiVdpau can't be built on aarch64-linux
+          # nvidia
+          virtualisation.vm-variant
+        ]);
+    };
 
     h8tsner = {
       modules =
@@ -71,7 +74,7 @@ in
     rosy = {
       system = aarch64-linux;
       modules =
-        (with roles; workstation ++ server) ++
+        (with roles; desktop ++ server) ++
         (with profiles; [
           boot.systemd-boot
           builder
