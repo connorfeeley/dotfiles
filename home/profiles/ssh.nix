@@ -24,7 +24,7 @@ in
     matchBlocks = {
       "workstation" = {
         forwardX11Trusted = true;
-        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
         # GPG agent forwarding
         remoteForwards = [{
           bind.address = "/run/user/1000/gnupg/S.gpg-agent";
@@ -34,7 +34,7 @@ in
       "workstation-luks" = { user = "root"; };
       "macbook-pro" = {
         forwardX11Trusted = true;
-        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
         # GPG agent forwarding
         remoteForwards = [{
           bind.address = "/Users/cfeeley/.gnupg/S.gpg-agent";
@@ -44,7 +44,7 @@ in
       # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
       "rosy" = {
         forwardX11Trusted = true;
-        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
         # GPG agent forwarding
         remoteForwards = [{
           bind.address = "/run/user/1000/gnupg/S.gpg-agent";
@@ -54,7 +54,7 @@ in
       "h8tsner" = {
         hostname = h8tsner.ipv4.address;
         forwardX11Trusted = true;
-        extraOptions.SendEnv = "DISPLAY INSIDE_EMACS EMACS_VTERM_PATH";
+        extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
         # GPG agent forwarding
         remoteForwards = [{
           bind.address = "/run/user/1000/gnupg/S.gpg-agent";
