@@ -33,7 +33,7 @@
   homebrew.brews = [
     # This provides a GUI, despite it not being a cask.
     # NOTE: now using 'pinentry_mac' package
-    # "pinentry-mac"
+    "pinentry-mac"
 
     # Interesting project; however the password is not stored in the
     # secure enclave, which is a dealbreaker for me 😕.
