@@ -36,6 +36,7 @@ in
     cfeeley = hmArgs: {
       imports = with hmArgs.roles; workstation ++ macos ++ (with hmArgs.profiles; [
         sync
+        work
       ]);
 
       home.username = hmArgs.lib.mkForce "cfeeley";

@@ -2473,10 +2473,10 @@
         "nixpkgs-unstable": "nixpkgs-unstable_2"
       },
       "locked": {
-        "lastModified": 1668450318,
-        "narHash": "sha256-2PyWAZcU9xBVcjIWvj77w+MHPqbHlfdObn3Yk/CMFSk=",
+        "lastModified": 1668450556,
+        "narHash": "sha256-Zkod+IvIUSZasVqpBT2uJH2KB7WdXepEC2eUo4n6tuY=",
         "ref": "refs/heads/master",
-        "rev": "a8071f799b5e2fe33592eb40cb5287d1bfccc466",
+        "rev": "a9093214fda456b379c5cfcc0939a71854b082f3",
         "revCount": 30,
         "type": "git",
         "url": "ssh://git@git.sr.ht/~cfeeley/nixpkgs-work"

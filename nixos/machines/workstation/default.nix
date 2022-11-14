@@ -176,6 +176,7 @@ in
     cfeeley = hmArgs: {
       imports = with hmArgs.roles; workstation ++ linux ++ (with hmArgs.profiles; [
         sync
+        work
       ]);
     };
   };
