@@ -57,6 +57,7 @@ in
   #   '';
   # };
   networking.dhcpcd.enable = true;
+  services.fail2ban.enable = true;
 
   ### === timezone ============================================================
 
