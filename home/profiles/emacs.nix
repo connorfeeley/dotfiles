@@ -236,6 +236,9 @@ lib.mkMerge [
       ]))
       languagetool
 
+      # :tools lookup
+      wordnet
+
       ##: === lang/lsp ===
 
       #: docker
