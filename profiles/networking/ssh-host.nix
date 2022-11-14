@@ -10,6 +10,9 @@
   users.users.root.openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
 
   services.openssh.extraConfig = ''
+    # Possibly fix hanging SSH multiplexes
+    ClientAliveInterval 5
+
     StreamLocalBindUnlink yes
     AcceptEnv DISPLAY INSIDE_EMACS EMACS_VTERM_PATH
   '';
