@@ -151,7 +151,7 @@ in
             # allow flight needs to be true for things like mounts that fly and fairy ring, or the server will kick players using those.
             allow-flight = true;
             # difficulty needs to be 3 for hard difficulty mode and the difficulty RLCraft is balanced around.
-            difficulty = 1; # FIXME: laaaame..
+            difficulty = 1; # laaaame..
             # max-tick-time need to be -1 for big structures that generate (AND FOR PREGENNING AS WELL) as these structures take take some time to generate, and this prevents forge from thinking the server crashed and auto shutting it down.
             max-tick-time = -1;
             # view-distance should be 10 for full compatibility, but if you get performance issues with many players, lower this to 6
