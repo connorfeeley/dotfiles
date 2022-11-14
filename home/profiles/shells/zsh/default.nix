@@ -163,8 +163,8 @@ in
         fi
 
         # source $DOTFIELD_DIR/lib/color.sh
-        source ${configDir}/zsh/functions.zsh
-        source ${configDir}/zsh/options.zsh
+        source ${configDir}/functions.zsh
+        source ${configDir}/options.zsh
 
         ${zsh-notify-config}
       '';
