@@ -405,12 +405,12 @@
         };
         h8tsner = with (collective.peers.hosts.h8tsner); {
           hostname = "h8tsner";
-          sshUser = "root";
+          sshUser = "cfeeley";
           fastConnection = false;
           autoRollback = true;
           magicRollback = true;
           profiles.system = {
-            user = "root";
+            user = "cfeeley";
             path = deploy.lib.x86_64-linux.activate.nixos
               self.nixosConfigurations.h8tsner;
           };
