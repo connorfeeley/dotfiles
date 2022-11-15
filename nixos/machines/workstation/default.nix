@@ -144,7 +144,7 @@ in
     settings = {
       # Only expose via tailscale
       address = peers.hosts.${hostName}.tailscale;
-      port = 3464;
+      port = 33464;
       auth = false;
       tls = false;
       prefix = "/";
