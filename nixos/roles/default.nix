@@ -37,7 +37,7 @@ let
       networking.wifi
     ]);
 
-  webdev = with profiles; [
+  virt = with profiles; [
     virtualisation.libvirtd
     virtualisation.docker
     virtualisation.vagrant
@@ -64,7 +64,7 @@ in
     graphical
     server
     tangible
-    webdev
+    virt
     fpgadev
     desktop
     ;
