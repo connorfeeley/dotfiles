@@ -74,6 +74,10 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nur.url = "github:nix-community/NUR";
 
+    devenv = {
+      url = "github:cachix/devenv/v0.2";
+    };
+
     deadnix = {
       url = "github:astro/deadnix/refs/tags/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -200,6 +204,7 @@
     , comma
     , nix-xilinx
     , nix-json-progress
+    , devenv
     , deadnix
     , nix-nil
     , nix-ld
@@ -278,8 +283,9 @@
           let
             packagesFrom = inputAttr: inputAttr.packages.${final.system};
           in
-          rec {
+          {
             inherit (packagesFrom self.packages) emacs-plus;
+            inherit (packagesFrom inputs.devenv) devenv;
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
             inherit (packagesFrom inputs.prefmanager) prefmanager;
@@ -529,6 +535,7 @@
   nixConfig.extra-substituters = [
     "https://cache.nixos.org/"
     "https://nix-community.cachix.org"
+    "https://devenv.cachix.org"
     "https://cache.iog.io"
     "https://iohk.cachix.org"
   ];
