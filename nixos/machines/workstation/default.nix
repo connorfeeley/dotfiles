@@ -20,7 +20,7 @@ in
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
-  assertions = [{
+  assertions = lib.mkIf (!config.nixos-vm.enable) [{
     # Ensure eth0 (motherboard ethernet) is using DHCP and that
     # tailscale, tailscaleUnlock, initrd networking, and initrd SSH are enabled.
     assertion =
