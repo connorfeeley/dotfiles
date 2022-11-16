@@ -237,7 +237,6 @@ sync && reboot
 ** Rebuild ~rosy~
 
 #+begin_src shell :noeval
-export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
 sudo nixos-rebuild --print-build-logs switch --flake $DOTFIELD_DIR#rosy
 #+end_src
 
