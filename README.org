@@ -192,6 +192,7 @@ sudo mount /dev/disk/by-label/boot /mnt/boot
 ** Mount Share
 *** For QEMU
 #+begin_src shell :noeval
+export SHARED_HOMEDIR=/run/share
 sudo mkdir /run/share
 sudo mount -t 9p -o trans=virtio share /run/share -oversion=9p2000.L
 #+end_src
@@ -199,7 +200,7 @@ sudo mount -t 9p -o trans=virtio share /run/share -oversion=9p2000.L
 *** For Apple Virtualization Framework
 [[https://docs.getutm.app/advanced/rosetta/#enabling-rosettaA][source]]
 #+begin_src shell :noeval
-#!/usr/bin/env bash
+export SHARED_HOMEDIR=/run/share/cfeeley
 sudo mkdir /run/share
 sudo mount -t virtiofs share /run/share/
 
@@ -213,13 +214,13 @@ As root (~sudo su~):
 #+begin_src shell :noeval
 sudo su
 
-nix-env -i git
+nix-shell -p git
 
-export DOTFIELD_DIR=/run/share/cfeeley/.config/dotfield
+export DOTFIELD_DIR=${SHARED_HOMEDIR}/.config/dotfield
 
-mkdir -p ~/.ssh && cp /run/share/cfeeley/.ssh/id_* ~/.ssh/
+mkdir -p ~/.ssh && cp ${SHARED_HOMEDIR}/.ssh/id_* ~/.ssh/
 
-mkdir -p ~/.config && cp -a /run/share/cfeeley/.config/nix/ ~/.config
+mkdir -p ~/.config && cp -a ${SHARED_HOMEDIR}/.config/nix/ ~/.config
 
 # sudo nix --extra-experimental-features 'nix-command flakes' flake show $DOTFIELD_DIR
 
