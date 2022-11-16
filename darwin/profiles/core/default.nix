@@ -38,7 +38,8 @@ in
     darwin.trash
     darwin.lsusb # lsusb for MacOS
 
-    prefmanager # <- # A tool for managing macOS defaults.
+    prefmanager #   <- # A tool for managing macOS defaults.
+    wifi-password # <- # what was that password again?
   ];
 
   # Recreate /run/current-system symlink after boot
