@@ -9,10 +9,11 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    iterm2 # the king of macOS terminals; not kitty 😾
     gtk-mac-integration
-    fontconfig # appease 'doom doctor'
-    dockutil # command line utility for managing macOS dock items
+    iterm2 #     <- the king of macOS terminals; not kitty 😾
+    fontconfig # <- appease 'doom doctor'
+    dockutil #   <- command line utility for managing macOS dock items
+    mysides #    <- manages macOS Finder sidebar favorites, tells hilarious jokes
 
     ferium # CLI program for managing Minecraft mods and modpacks
   ];
