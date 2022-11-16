@@ -22,6 +22,8 @@ in
     displayManager.startx.enable = lib.mkDefault true;
   };
 
+  services.getty.autologinUser = config.dotfield.guardian.username;
+
   console.useXkbConfig = true;
 
   # TODO: might only be available on master?
