@@ -266,6 +266,7 @@
         gitignore.overlay
         nur.overlay
         nvfetcher.overlay
+        nix-nil.overlays.default
 
         xmonad-config.overlay
         xmobar-config.overlay
@@ -281,7 +282,6 @@
           in
           {
             inherit (packagesFrom self.packages) emacs-plus;
-            inherit (packagesFrom inputs.nix-nil) nil;
             inherit (packagesFrom inputs.devenv) devenv;
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
