@@ -1951,11 +1951,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1668428254,
-        "narHash": "sha256-KzQmGCEaOACOqaE1LsVZsqn18XpjlUbGWztDEI+o++w=",
+        "lastModified": 1668625881,
+        "narHash": "sha256-cWPlB/gqR30BWKRaeQoToL7vCxTFZNNz1lt0M/fj+ds=",
         "owner": "oxalica",
         "repo": "nil",
-        "rev": "3fa46cc956ebd67d77b61a0b7333edd2077c34dd",
+        "rev": "bea40f71fc2b918ad6cf2154bcc12521ac664dc2",
         "type": "github"
       },
       "original": {
