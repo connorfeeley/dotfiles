@@ -92,12 +92,6 @@
       url = "gitlab:doronbehar/nix-xilinx";
     };
 
-    nix-json-progress = {
-      # TODO: upstream to github:dramforever/nix-json-progress
-      url = "github:connorfeeley/nix-json-progress/feature/darwin-architecture-support";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nickel = {
       url = "github:tweag/nickel";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -203,7 +197,6 @@
     , nickel
     , comma
     , nix-xilinx
-    , nix-json-progress
     , devenv
     , deadnix
     , nix-nil
@@ -289,7 +282,6 @@
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
             inherit (packagesFrom inputs.prefmanager) prefmanager;
-            inherit (packagesFrom inputs.nix-json-progress) nix-json-progress;
             inherit (packagesFrom inputs.nixpkgs-work) dashboard;
             inherit (packagesFrom inputs.nixpkgs-work) zeuspack;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;

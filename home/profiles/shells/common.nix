@@ -39,23 +39,10 @@ in
           "$@"
         '';
       };
-      fnix = pkgs.writeShellApplication {
-        name = "fnix";
-        runtimeInputs = with pkgs; [ nix nix-json-progress ];
-        text = ''
-          nix --log-format internal-json "$@" |& ${pkgs.nix-json-progress}/bin/nix-json-progress
-        '';
-      };
     in
     [
       md
       stderred-wrapper # Highlight stderr in red
-      fnix
-      (pkgs.writeShellApplication {
-        name = "cmc";
-        runtimeInputs = with pkgs; [ nix nix-json-progress ];
-        text = builtins.readFile "${pkgs.sources.ssh-cmc.src}/cmc";
-      })
       pkgs.emacsPackages.vterm
     ];
 
