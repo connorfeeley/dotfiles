@@ -14,7 +14,6 @@
     fontconfig # <- appease 'doom doctor'
     dockutil #   <- command line utility for managing macOS dock items
     mysides #    <- manages macOS Finder sidebar favorites, tells hilarious jokes
-    utm #        <- QEMU GUI with virtualisation support
 
     ferium # CLI program for managing Minecraft mods and modpacks
   ];
@@ -50,6 +49,7 @@
     "emacs-mac"
     "visual-studio-code"
 
+    "utm-beta" # QEMU GUI with virtualisation support
     "barrier" # Poor man's KVM
     "swiftbar" # Tweak the menu bar
     "hiddenbar" # Hide/toggle menu bar icon visibility
