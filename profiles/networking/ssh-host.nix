@@ -16,7 +16,7 @@
       ClientAliveInterval 5
 
       StreamLocalBindUnlink yes
-      AcceptEnv DISPLAY INSIDE_EMACS EMACS_VTERM_PATH
+      AcceptEnv INSIDE_EMACS EMACS_VTERM_PATH
     '';
   };
   programs.mosh.enable = true;
