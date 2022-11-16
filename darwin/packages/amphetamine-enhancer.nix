@@ -3,9 +3,9 @@ let
   # TODO: break this out into a common function
   # Source: https://discourse.nixos.org/t/feedback-darwin-installapplication/11324
   installApplication =
-    { app ? "./", description, homepage, license, maintainers, name, sha256, url, version, postInstall ? "", ... }:
+    { app ? "./", description, homepage, license, maintainers, name, sha256, url, version, sourceRoot ? null, postInstall ? "", ... }:
     stdenvNoCC.mkDerivation {
-      inherit name version;
+      inherit name version sourceRoot;
 
       nativeBuildInputs = [ undmg unzip ];
 
@@ -33,6 +33,7 @@ in
 installApplication {
   name = "Amphetamine Enhancer";
   app = "./Amphetamine Enhancer.app";
+  sourceRoot = "Amphetamine Enhancer.app";
   version = "1.0";
 
   url = "https://github.com/x74353/Amphetamine-Enhancer/raw/master/Releases/Current/Amphetamine%20Enhancer.dmg";
@@ -42,5 +43,4 @@ installApplication {
   homepage = "https://github.com/x74353/Amphetamine-Enhancer";
   license = "mit";
   maintainers = [ lib.maintainers.cfeeley ];
-  broken = true; # FIXME: installPhase really, really hates spaces in ${app}
 }
