@@ -25,5 +25,8 @@
 
       "ipsw" # <- iOS/macOS Research Swiss Army Knife
     ];
+    casks = [
+      "altserver"
+    ];
   };
 }
