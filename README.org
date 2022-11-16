@@ -193,6 +193,8 @@ sudo mount /dev/disk/by-label/boot /mnt/boot
 *** For QEMU
 #+begin_src shell :noeval
 export SHARED_HOMEDIR=/run/share
+export DOTFIELD_DIR=${SHARED_HOMEDIR}/.config/dotfield
+
 sudo mkdir /run/share
 sudo mount -t 9p -o trans=virtio share /run/share -oversion=9p2000.L
 #+end_src
@@ -201,6 +203,8 @@ sudo mount -t 9p -o trans=virtio share /run/share -oversion=9p2000.L
 [[https://docs.getutm.app/advanced/rosetta/#enabling-rosettaA][source]]
 #+begin_src shell :noeval
 export SHARED_HOMEDIR=/run/share/cfeeley
+export DOTFIELD_DIR=${SHARED_HOMEDIR}/.config/dotfield
+
 sudo mkdir /run/share
 sudo mount -t virtiofs share /run/share/
 
@@ -215,8 +219,6 @@ As root (~sudo su~):
 sudo su
 
 nix-shell -p git
-
-export DOTFIELD_DIR=${SHARED_HOMEDIR}/.config/dotfield
 
 mkdir -p ~/.ssh && cp ${SHARED_HOMEDIR}/.ssh/id_* ~/.ssh/
 
