@@ -12,11 +12,15 @@ let
     else pkgs.firefox;
 in
 {
-  services.xserver.enable = true;
-  services.xserver.layout = "dvorak";
-  # FIXME: propagate to GNOME settings
-  services.xserver.xkbOptions = "caps:ctrl_modifier,ctrl:swap_lalt_lctl";
-  services.xserver.exportConfiguration = true;
+  services.xserver = {
+    enable = true;
+    layout = "dvorak";
+    # FIXME: propagate to GNOME settings
+    xkbOptions = "caps:ctrl_modifier,ctrl:swap_lalt_lctl";
+    exportConfiguration = true;
+
+    displayManager.startx.enable = lib.mkDefault true;
+  };
 
   console.useXkbConfig = true;
 
