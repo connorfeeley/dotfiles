@@ -1,6 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }:
 let
-  useAppleVirtualization = true; # false for QMEU
+  useAppleVirtualization = false; # false for QMEU
 in
 {
   boot.loader.systemd-boot.enable = true;
