@@ -50,6 +50,7 @@ in
         };
       };
       "workstation" = {
+        forwardX11 = true;
         forwardX11Trusted = true;
         extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
         # GPG agent forwarding
@@ -69,6 +70,7 @@ in
       };
       # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
       "rosy" = {
+        forwardX11 = true;
         forwardX11Trusted = true;
         extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
         # GPG agent forwarding
