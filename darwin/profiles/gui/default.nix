@@ -6,6 +6,7 @@
   imports = [
     ./hammerspoon.nix
     ./yabai.nix
+    ./xquartz.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -71,7 +72,6 @@
     "private-internet-access"
 
     "vlc"
-    "xquartz"
     "lulu"
     "stats"
     "steam"
