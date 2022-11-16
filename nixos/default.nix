@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga nix-serve-ng modded-minecraft-servers;
+  inherit (inputs) agenix home-manager digga nix-serve-ng modded-minecraft-servers dwarffs;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -25,9 +25,9 @@ in
         login.gdm
       ]);
 
-    workstation.modules =
-      (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ desktop ++ server)
-      ++ (with profiles; [
+    workstation.modules = [ dwarffs.nixosModules.dwarffs ] ++
+      (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ desktop ++ server) ++
+      (with profiles; [
         boot.systemd-boot
         hardware.amd
         nvidia

@@ -152,6 +152,8 @@
       flake = false;
     };
 
+    dwarffs.url = "github:edolstra/dwarffs";
+
     ##: --- FHS compat ---------------------------------------------------------
     nix-ld = {
       url = "github:Mic92/nix-ld/main";
@@ -178,6 +180,7 @@
     , mach-nix
     , emacs-overlay
     , flake-utils
+    , dwarffs
     , gitignore
     , home-manager
     , nix-colors
