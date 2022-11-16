@@ -43,4 +43,5 @@ installApplication {
   homepage = "https://github.com/x74353/Amphetamine-Enhancer";
   license = "mit";
   maintainers = [ lib.maintainers.cfeeley ];
+  broken = true;
 }

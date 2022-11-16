@@ -92,6 +92,6 @@ in
 
   programs.amphetamine = {
     enable = true;
-    withEnhancer = true;
+    withEnhancer = false;
   };
 }
