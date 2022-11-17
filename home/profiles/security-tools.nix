@@ -29,6 +29,7 @@
     wireshark
     sslsplit
     rustscan
+    ssh-audit
 
     ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
     maigret
