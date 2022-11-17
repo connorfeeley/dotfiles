@@ -1,6 +1,9 @@
 # Nix
 result
 
+# Tangle script from README.org
+shell/scripts/workstation-recovery.sh
+
 # nvfetcher
 packages/sources/_sources/.shake*
 packages/sources/_sources/hlissner-hey*
