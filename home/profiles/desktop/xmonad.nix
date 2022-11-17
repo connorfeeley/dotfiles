@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-(lib.mkIf (!pkgs.stdenv.isDarwin) {
+{
   xsession = {
     enable = true;
 
@@ -53,4 +53,4 @@ with lib;
       '';
     };
   };
-})
+}
