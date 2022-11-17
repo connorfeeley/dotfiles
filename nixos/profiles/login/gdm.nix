@@ -17,8 +17,8 @@
     libinput.enable = false;
 
     displayManager = {
-      # Enable the LightDM display manager
-      lightdm.enable = true;
+      # Enable the GDM display manager
+      gdm.enable = true;
 
       # Log in automatically
       autoLogin = {
