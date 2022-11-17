@@ -18,13 +18,12 @@ in
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
+  # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
+  #       'hardware.nvidia.package != null'.
   hardware.nvidia.package = nvLatest;
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  # Required for Wayland?
-  # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
-  #       'nvidia.modesetting.enable'.
-  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.modesetting.enable = false;
 
   # Prevent display corruption upon wake from a suspended or hibernated state.
   hardware.nvidia.powerManagement.enable = true;
