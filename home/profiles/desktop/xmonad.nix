@@ -11,7 +11,7 @@ with lib;
     windowManager.xmonad.enable = false;
 
     initExtra = ''
-      x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbport 5900 -shared -safer -display :1
+      # x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbport 5900 -shared -safer -display :1
     '';
   };
 
