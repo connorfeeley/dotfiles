@@ -42,7 +42,7 @@
       # Run xmonad session from home-manager
       name = "xsession";
       start = ''
-        ${pkgs.runtimeShell} $HOME/.xsession &
+        ${pkgs.zsh} $HOME/.xsession &
         waitPID=$!
       '';
     }];
