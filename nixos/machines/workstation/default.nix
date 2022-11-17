@@ -138,24 +138,24 @@ in
     /mnt/export/cfeeley 100.66.73.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=0,anongid=100)
   '';
 
-  services.webdav = {
-    enable = true;
-    user = "cfeeley";
-    settings = {
-      # Only expose via tailscale
-      address = peers.hosts.${hostName}.tailscale;
-      port = 33464;
-      auth = false;
-      tls = false;
-      prefix = "/";
-      debug = true; #FIXME
+  # services.webdav = {
+  #   enable = true;
+  #   user = "cfeeley";
+  #   settings = {
+  #     # Only expose via tailscale
+  #     address = peers.hosts.${hostName}.tailscale;
+  #     port = 33464;
+  #     auth = false;
+  #     tls = false;
+  #     prefix = "/";
+  #     debug = true; #FIXME
 
-      # Default user settings (will be merged)
-      scope = ".";
-      modify = true;
-      rules = [ ];
-    };
-  };
+  #     # Default user settings (will be merged)
+  #     scope = ".";
+  #     modify = true;
+  #     rules = [ ];
+  #   };
+  # };
 
   ### === users ================================================================
 
