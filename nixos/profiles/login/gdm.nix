@@ -26,10 +26,32 @@
         user = config.dotfield.guardian.username;
       };
 
-      # Fix keyring unlock
-      sessionCommands = ''
-        ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
-      '';
+      sessionCommands =
+        let
+          xmodmap = pkgs.writeText "xkb-layout" ''
+            !Swap control and caps lock
+            clear Lock
+            keysym Caps_Lock = Escape
+            keysym Escape = Caps_Lock
+            add Lock = Caps_Lock
+
+            !Swap left alt and left control
+            clear control
+            clear mod1
+            keycode 37 = Alt_L Meta_L
+            keycode 105 = Alt_R
+            keycode 64 = Control_L
+            keycode 108 = Control_R
+            add control = Control_L Control_R
+            add mod1 = Alt_L Meta_L Alt_R
+          '';
+        in
+        ''
+          ${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap}
+
+          # Fix keyring unlock
+          ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+        '';
 
       # Pre-select HM xsession
       defaultSession = "xsession";
