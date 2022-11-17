@@ -23,4 +23,29 @@ lib.mkIf isLinux {
   # xdg.desktopEntries = ...
   # xdg.mime = ...
   # xdg.mimeApps = ...
+
+  home.pointerCursor = {
+    package = pkgs.gnome.gnome-themes-extra; # Cursor package
+    size = 32;
+    name = "Adwaita"; # Name within package
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
+  services = {
+    # Tap caps-lock to send ESC; hold for L_CTRL
+    xcape = {
+      enable = true;
+      mapExpression = {
+        Caps_Lock = "Escape";
+      };
+      timeout = 200;
+    };
+
+    redshift = {
+      enable = true;
+      latitude = 43.70011;
+      longitude = -79.4163;
+    };
+  };
 }
