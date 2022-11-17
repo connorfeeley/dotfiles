@@ -38,10 +38,8 @@ in
         workstations.flatpak
         games
 
-        # Just use startx for now...
+        login.gdm # Not actually gdm
         # gnome-desktop
-        # login.gdm
-        # login.greetd
       ]);
 
     # workstation-iso.modules =
