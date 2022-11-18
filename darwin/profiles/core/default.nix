@@ -49,8 +49,10 @@ in
 
   homebrew = {
     enable = true;
-    onActivation.upgrade = false;
-    onActivation.cleanup = "zap";
+    onActivation = {
+      upgrade = false;
+      cleanup = "zap";
+    };
     global = {
       lockfiles = true; # Generate lockfiles when running 'brew bundle' manually
       autoUpdate = false; # Don't auto-update formulae when running brew manually
