@@ -19,7 +19,7 @@ in
     xkbOptions = "caps:ctrl_modifier,ctrl:swap_lalt_lctl";
     exportConfiguration = true;
 
-    displayManager.startx.enable = lib.mkDefault true;
+    displayManager.startx.enable = false;
   };
 
   services.getty.autologinUser = config.dotfield.guardian.username;
