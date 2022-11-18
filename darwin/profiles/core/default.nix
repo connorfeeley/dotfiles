@@ -52,6 +52,10 @@ in
     onActivation.upgrade = true;
     onActivation.cleanup = "zap";
     global.lockfiles = true;
+    caskArgs = {
+      appdir = "~/Applications/Homebrew";
+      require_sha = true;
+    };
 
     masApps = {
       "Tailscale" = 1475387142;
