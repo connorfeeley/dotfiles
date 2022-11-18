@@ -69,13 +69,6 @@ in
       #       done
       #     '';
       # };
-
-      # TODO: move to/create darwin-specific home config
-      # Add homebrew to PATH
-      home.sessionPath = [
-        (if pkgs.stdenv.hostPlatform.isAarch64 then "/opt/homebrew/bin" else "/usr/local/bin")
-        (if pkgs.stdenv.hostPlatform.isAarch64 then "/opt/homebrew/sbin" else "/usr/local/sbin")
-      ];
     };
   };
 
