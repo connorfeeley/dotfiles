@@ -9,8 +9,12 @@ let
   configDir = "${dotfield.userConfigPath}/zsh";
 
   shellAliases =
-    (import ../abbrs.nix)
-    // (import ../aliases.nix);
+    (import ../abbrs.nix) //
+    (import ../aliases.nix) //
+    (lib.optionals isDarwin {
+      # Alias 'tailscale' to MAS Tailscale binary
+      tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+    });
 in
 {
   imports = [ ../common.nix ];

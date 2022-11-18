@@ -70,11 +70,6 @@ in
     brews = [ ];
   };
 
-  # Alias 'tailscale' to 'Tailscale' from MAS application
-  environment.shellAliases = {
-    tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-  };
-
   documentation = {
     # NOTE: All darwin-compatible documentation options are set in 'profiles/core'.
   };
