@@ -69,7 +69,10 @@ in
       # FIXME: The default `false` value indicates that we cannot know with
       # certainty whether NVIDIA drives are in use. This may be the case, for
       # example, on generic Linux with a standalone home-manager.
-      hasNvidia = config.hardware.nvidia.package != null;
+      hasNvidia =
+        if pkgs.stdenv.isLinux
+        then (config.hardware.nvidia.package != null)
+        else false;
 
       # Whether a tiling window manager is enabled system-wide.
       hasTwm =
