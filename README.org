@@ -156,6 +156,11 @@ Credit: [[https://github.com/montchr/dotfield/blob/8a61b8fe37cc3d3186ac8728363d7
 withCategory = category: attrset: attrset // { inherit category; };
 pkgWithCategory = category: package: { inherit package category; };
 #+end_src
+* Handy Information
+
+** Access system configuration in ~home-manager~ module
+
+~osConfig~ is now passed to ~home-manager~ modules ([[https://github.com/nix-community/home-manager/issues/393#issuecomment-1259996423][source]])
 
 * Emacs Remote
 

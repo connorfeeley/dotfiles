@@ -1,4 +1,10 @@
-{ config, options, lib, pkgs, ... }:
+{ config
+, osConfig
+, options
+, lib
+, pkgs
+, ...
+}:
 
 with lib;
 
@@ -253,7 +259,7 @@ in
           ++ optional (cfg.pinentryFlavor == "mac")
           "pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac"
           ++ optional (cfg.pinentryFlavor == "touchid")
-          "pinentry-program /opt/homebrew/bin/pinentry-touchid"
+          "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid"
           ++ [ cfg.extraConfig ]);
 
       home.packages = optionals (cfg.pinentryFlavor != null) (
