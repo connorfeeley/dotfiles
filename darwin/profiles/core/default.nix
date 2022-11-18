@@ -51,7 +51,9 @@ in
     enable = true;
     onActivation.upgrade = false;
     onActivation.cleanup = "zap";
-    global.lockfiles = true;
+    global = {
+      lockfiles = true; # Generate lockfiles when running 'brew bundle' manually
+    };
     caskArgs = {
       appdir = "~/Applications/Homebrew";
       require_sha = true; # Casks must have a checksum
