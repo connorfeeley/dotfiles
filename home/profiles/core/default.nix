@@ -51,7 +51,7 @@ in
     entr #          <- Run arbitrary commands when files change
     lnav #          <- Log file navigator
     glances #       <- System resource usage viewer
-    drill #         <- Like dig
+    ldns #          <- 'drill' (like dig)
     smartmontools # <- Mah boy's wicked smaht
     procs #         <- pspspspsps here kitty ( ps replacement )
     diskonaut #     <- Terminal visual disk space navigator
