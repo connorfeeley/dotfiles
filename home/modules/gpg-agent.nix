@@ -250,8 +250,10 @@ in
           ++ optional (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid")
           "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry"
           # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
-          ++ optional (cfg.pinentryFlavor == "mac" || cfg.pinentryFlavor == "touchid")
+          ++ optional (cfg.pinentryFlavor == "mac")
           "pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac"
+          ++ optional (cfg.pinentryFlavor == "touchid")
+          "pinentry-program /opt/homebrew/bin/pinentry-touchid"
           ++ [ cfg.extraConfig ]);
 
       home.packages = optionals (cfg.pinentryFlavor != null) (

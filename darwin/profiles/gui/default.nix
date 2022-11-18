@@ -45,11 +45,18 @@ in
         # Both provide a GUI, despite neither being a cask.
         name = "pinentry-${pinentryFlavor}";
 
-        # First time setup:
+        # First time setup (pinentry-mac):
         # defaults write org.gpgtools.common UseKeychain -bool yes
+        # gpgconf --kill gpg-agent
         # echo 1234 | gpg -as -
         # (check 'Save in Keychain' box in prompt)
         # (Select 'Always Allow' if prompted)
+        #
+        # If using pinentry-touchid, first set pinentryFlavor to "mac", switch system config,
+        # follow pinentry-mac instructions, set pinentryFlavor to "touchid", switch system config,
+        # then run:
+        # gpgconf --kill gpg-agent
+        # defaults write org.gpgtools.common DisableKeychain -bool yes
       })
 
       { name = "freerdp"; }
