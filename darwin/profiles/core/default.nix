@@ -69,6 +69,9 @@ in
     brews = [ ];
   };
 
+  # Add homebrew packages to PATH
+  environment.systemPath = [ config.homebrew.brewPrefix ];
+
   documentation = {
     # NOTE: All darwin-compatible documentation options are set in 'profiles/core'.
   };
