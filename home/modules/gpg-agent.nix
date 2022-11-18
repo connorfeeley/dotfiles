@@ -12,7 +12,7 @@ let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   # Configure the pinentryFlavor to use on MacOS
-  macPinentryFlavor = "touchid";
+  macPinentryFlavor = "mac";
 
   cfg = config.services.gpg-agent;
   gpgPkg = config.programs.gpg.package;

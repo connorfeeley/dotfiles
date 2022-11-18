@@ -36,7 +36,7 @@ in
       { name = "homebrew/cask"; }
       { name = "homebrew/cask-versions"; }
       { name = "railwaycat/emacsmacport"; }
-      { name = "jorgelbg/tap"; }
+      { name = "jorgelbg/tap"; } # pinentry-touchid
     ];
 
     homebrew.brews = [
