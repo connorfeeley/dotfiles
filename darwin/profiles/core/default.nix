@@ -58,7 +58,6 @@ in
       autoUpdate = false; # Don't auto-update formulae when running brew manually
     };
     caskArgs = {
-      appdir = "~/Applications/Homebrew";
       require_sha = true; # Casks must have a checksum
       no_binaries = false; # Enable linking of helper executables
       no_quarantine = true; # Disable quarantining of downloads
