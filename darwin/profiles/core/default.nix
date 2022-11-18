@@ -49,7 +49,7 @@ in
 
   homebrew = {
     enable = true;
-    onActivation.upgrade = true;
+    onActivation.upgrade = false;
     onActivation.cleanup = "zap";
     global.lockfiles = true;
     caskArgs = {
