@@ -5,6 +5,9 @@ with lib;
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
+  # Configure the pinentryFlavor to use on MacOS
+  macPinentryFlavor = "touchid";
+
   cfg = config.services.gpg-agent;
   gpgPkg = config.programs.gpg.package;
 
@@ -194,9 +197,12 @@ in
       };
 
       pinentryFlavor = mkOption {
-        type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" ]));
+        type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
         example = "gnome3";
-        default = if isDarwin then "mac" else "qt";
+        default =
+          if isDarwin
+          then macPinentryFlavor
+          else "qt";
         description = ''
           Which pinentry interface to use. If not
           <literal>null</literal>, it sets
@@ -241,9 +247,10 @@ in
           "max-cache-ttl ${toString cfg.maxCacheTtl}"
           ++ optional (cfg.maxCacheTtlSsh != null)
           "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}"
-          ++ optional (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac")
+          ++ optional (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid")
           "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry"
-          ++ optional (cfg.pinentryFlavor == "mac")
+          # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
+          ++ optional (cfg.pinentryFlavor == "mac" || cfg.pinentryFlavor == "touchid")
           "pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac"
           ++ [ cfg.extraConfig ]);
 

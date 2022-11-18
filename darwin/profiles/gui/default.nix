@@ -3,6 +3,10 @@
 , pkgs
 , ...
 }:
+let
+  inherit (config.dotfield.guardian) username;
+  inherit (config.home-manager.users.${username}.services.gpg-agent) pinentryFlavor;
+in
 {
   imports = [
     ./hammerspoon.nix
@@ -36,13 +40,17 @@
     ];
 
     homebrew.brews = [
-      # This provides a GUI, despite it not being a cask.
-      # NOTE: now using 'pinentry_mac' package
-      { name = "pinentry-mac"; }
+      (lib.mkIf (pinentryFlavor == "mac" || pinentryFlavor == "touchid") {
+        # 'pinentry-mac' or 'pinentry-touchid' ('-touchid' is exclusive with '-mac')
+        # Both provide a GUI, despite neither being a cask.
+        name = "pinentry-${pinentryFlavor}";
 
-      # Interesting project; however the password is not stored in the
-      # secure enclave, which is a dealbreaker for me 😕.
-      { name = "pinentry-touchid"; }
+        # First time setup:
+        # defaults write org.gpgtools.common UseKeychain -bool yes
+        # echo 1234 | gpg -as -
+        # (check 'Save in Keychain' box in prompt)
+        # (Select 'Always Allow' if prompted)
+      })
 
       { name = "freerdp"; }
 
