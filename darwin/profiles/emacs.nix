@@ -6,8 +6,8 @@
   # Unavailable in nixpkgs.
   homebrew.brews = [
     # :lang org (macOS only)
-    "pngpaste"
+    { name = "pngpaste"; }
 
-    "coreutils"
+    { name = "coreutils"; }
   ];
 }

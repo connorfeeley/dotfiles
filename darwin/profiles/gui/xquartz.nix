@@ -19,6 +19,6 @@ in
   ### From homebrew
   ###
   homebrew.casks = lib.mkIf fromBrew [
-    "xquartz"
+    { name = "xquartz"; }
   ];
 }

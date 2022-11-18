@@ -25,63 +25,63 @@
   };
 
   homebrew.taps = [
-    "FelixKratz/formulae"
-    "homebrew/cask"
-    "homebrew/cask-versions"
-    "railwaycat/emacsmacport"
-    "jorgelbg/tap"
+    { name = "FelixKratz/formulae"; }
+    { name = "homebrew/cask"; }
+    { name = "homebrew/cask-versions"; }
+    { name = "railwaycat/emacsmacport"; }
+    { name = "jorgelbg/tap"; }
   ];
 
   homebrew.brews = [
     # This provides a GUI, despite it not being a cask.
     # NOTE: now using 'pinentry_mac' package
-    "pinentry-mac"
+    { name = "pinentry-mac"; }
 
     # Interesting project; however the password is not stored in the
     # secure enclave, which is a dealbreaker for me 😕.
-    # "pinentry-touchid"
+    # { name = "pinentry-touchid"; }
 
-    "freerdp"
+    { name = "freerdp"; }
 
-    "alerter" # like notify-send but for darwin
+    { name = "alerter"; } # like notify-send but for darwin
   ];
 
   homebrew.casks = [
-    "emacs-mac"
-    "visual-studio-code"
+    { name = "emacs-mac"; }
+    { name = "visual-studio-code"; }
 
-    "utm-beta" # QEMU GUI with virtualisation support
-    "barrier" # Poor man's KVM
-    "swiftbar" # Tweak the menu bar
-    "hiddenbar" # Hide/toggle menu bar icon visibility
-    "rectangle" # Resize windows with keyboard shortcuts and snap areas
-    "raycast" # Better search popup
+    { name = "utm-beta"; } # QEMU GUI with virtualisation support
+    { name = "barrier"; } # Poor man's KVM
+    { name = "swiftbar"; } # Tweak the menu bar
+    { name = "hiddenbar"; } # Hide/toggle menu bar icon visibility
+    { name = "rectangle"; } # Resize windows with keyboard shortcuts and snap areas
+    { name = "raycast"; } # Better search popup
 
-    # "docker"
+    # { name = "docker"; }
 
-    "karabiner-elements"
+    { name = "karabiner-elements"; }
 
-    "firefox"
-    "google-chrome"
-    "microsoft-edge"
+    { name = "firefox"; }
+    { name = "google-chrome"; }
+    { name = "microsoft-edge"; }
 
-    "microsoft-teams"
-    "microsoft-outlook"
+    { name = "microsoft-teams"; }
+    { name = "microsoft-outlook"; }
 
-    "nordvpn"
-    "private-internet-access"
+    { name = "nordvpn"; }
+    { name = "private-internet-access"; }
 
-    "vlc"
-    "lulu"
-    "stats"
-    "steam"
-    "curseforge"
-    "minecraft"
-    "feed-the-beast"
-    "spotify"
-    "deluge"
-    "discord"
-    "balenaetcher"
+    { name = "vlc"; }
+    { name = "lulu"; }
+    { name = "stats"; }
+    { name = "steam"; }
+    { name = "curseforge"; }
+    { name = "minecraft"; }
+    { name = "feed-the-beast"; }
+    { name = "spotify"; }
+    { name = "deluge"; }
+    { name = "discord"; }
+    { name = "balenaetcher"; }
   ];
 
   homebrew.masApps = {

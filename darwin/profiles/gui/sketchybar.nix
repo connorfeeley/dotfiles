@@ -4,9 +4,8 @@
 , inputs
 , ...
 }:
-let
-in {
-  homebrew.brews = [ "sketchybar" ];
+{
+  homebrew.brews = [ { name = "sketchybar"; } ];
 
   services.yabai.config.external_bar = "main:32:0";
 
