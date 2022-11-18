@@ -62,6 +62,9 @@ in
       dl = "$HOME/Downloads";
       dev = "$HOME/dev";
       src = "$HOME/source";
+      dots = "$XDG_CONFIG_HOME/dotfield";
+      doom = "$XDG_CONFIG_HOME/doom";
+      emacs = "$XDG_CONFIG_HOME/emacs";
     };
 
     zplug = {
