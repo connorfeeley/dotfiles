@@ -86,9 +86,11 @@ lib.mkMerge [
           then "12"
           else "16";
         confirm_os_window_close = "0";
-          # if (isDarwin)
-          # then "1"
-          # else "0";
+        # if (isDarwin)
+        # then "1"
+        # else "0";
+        # 85% opacity
+        background_opacity = lib.optionals isDarwin "0.85";
       };
       keybindings = {
         # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos
