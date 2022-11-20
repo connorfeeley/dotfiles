@@ -90,7 +90,7 @@ lib.mkMerge [
         # then "1"
         # else "0";
         # 85% opacity
-        background_opacity = lib.optionals isDarwin "0.85";
+        background_opacity = lib.mkIf isDarwin "0.85";
       };
       keybindings = {
         # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos
