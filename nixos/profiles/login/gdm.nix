@@ -22,9 +22,8 @@
 
       # Log in automatically
       autoLogin = {
-        enable = true;
-        # FIXME
-        user = "cfeeley";
+        enable = config.dotfield.guardian.autoLogin;
+        user = config.dotfield.guardian.username;
       };
 
       sessionCommands =
