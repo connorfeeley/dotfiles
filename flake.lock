@@ -51,6 +51,26 @@
         "type": "github"
       }
     },
+    "arion": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1664986582,
+        "narHash": "sha256-syBM0apq0w/xDLvdTeLgW+NJ+JCZKVFbIrH+NwVL1EI=",
+        "owner": "hercules-ci",
+        "repo": "arion",
+        "rev": "8159c4faa3502a571cf8b9347f4d4b49f35c4c9f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "arion",
+        "type": "github"
+      }
+    },
     "base16-kitty": {
       "flake": false,
       "locked": {
@@ -3223,6 +3243,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "arion": "arion",
         "base16-kitty": "base16-kitty",
         "comma": "comma",
         "darwin": "darwin",

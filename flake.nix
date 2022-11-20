@@ -68,6 +68,10 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    arion = {
+      url = "github:hercules-ci/arion";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
@@ -179,6 +183,7 @@
     , digga
     , mach-nix
     , emacs-overlay
+    , arion
     , flake-utils
     , dwarffs
     , gitignore
