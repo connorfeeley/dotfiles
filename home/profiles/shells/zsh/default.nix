@@ -11,10 +11,10 @@ let
   shellAliases =
     (import ../abbrs.nix) //
     (import ../aliases.nix) //
-    (lib.optionals isDarwin {
+    (if isDarwin then {
       # Alias 'tailscale' to MAS Tailscale binary
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-    });
+    } else { });
 in
 {
   imports = [ ../common.nix ];
