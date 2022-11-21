@@ -159,8 +159,11 @@ in
 
   ### === users ================================================================
 
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cfeeley";
+  dotfield.guardian = {
+    enable = true;
+    username = "cfeeley";
+    autoLogin = true;
+  };
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";

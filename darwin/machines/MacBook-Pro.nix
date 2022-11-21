@@ -15,8 +15,10 @@ in
 {
   ### === users ================================================================
 
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cfeeley";
+  dotfield.guardian = {
+    enable = true;
+    username = "cfeeley";
+  };
 
   # Get user and group ID
   users.users.cfeeley = {
