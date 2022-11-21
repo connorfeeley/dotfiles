@@ -1,5 +1,5 @@
 { lib
-, peers
+, collective
 ,
 }:
 lib.makeExtensible (self: rec {
@@ -41,13 +41,13 @@ lib.makeExtensible (self: rec {
   treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;
 
   peers = rec {
-    getHost = hostName: peers.hosts.${hostName} or false;
+    getHost = hostName: collective.peers.hosts.${hostName};
     getNet = network:
       if network != null
-      then peers.networks.${network}
+      then collective.peers.networks.${network}
       else false;
 
     # If 'ssh_port' is set in hosts.toml for the supplied host, then use that; otherwise use port 22.
-    getSshPort = hostName: (getHost hostName) . ssh_port or 22;
+    getSshPort = hostName: (getHost hostName).ssh_port or 22;
   };
 })

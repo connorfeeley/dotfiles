@@ -355,7 +355,7 @@
       };
 
       lib = import ./lib {
-        inherit (collective) peers;
+        inherit collective;
         lib = digga.lib // nixos-unstable.lib;
       };
 
