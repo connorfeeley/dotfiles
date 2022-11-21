@@ -207,4 +207,15 @@ in
   };
 
   programs.htop.enable = true;
+
+  services.grafana = {
+    enable = true;
+    settings.server = {
+      # Listening address and TCP port
+      http_addr = "0.0.0.0";
+      http_port = 9010;
+      # Grafana needs to know on which domain and URL it's running:
+      domain = config.networking.hostName;
+    };
+  };
 }
