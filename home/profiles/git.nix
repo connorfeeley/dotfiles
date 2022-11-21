@@ -41,6 +41,7 @@ in
     gitAndTools.hut  # Sourcehut CLI
     gitAndTools.hub  # GitHub CLI
     gitAndTools.glab # GitLab CLI
+    gitAndTools.lab  # Another GitLab CLI
     gitAndTools.tig
     gitAndTools.git-crypt
     gitAndTools.git-standup
