@@ -40,11 +40,14 @@ lib.makeExtensible (self: rec {
   # => [ "foo" ]
   treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;
 
-  peers = {
+  peers = rec {
     getHost = hostName: peers.hosts.${hostName} or false;
     getNet = network:
       if network != null
       then peers.networks.${network}
       else false;
+
+    # If 'ssh_port' is set in hosts.toml for the supplied host, then use that; otherwise use port 22.
+    getSshPort = hostName: (getHost hostName) . ssh_port or 22;
   };
 })

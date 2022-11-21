@@ -8,6 +8,8 @@
 
   services.openssh = {
     enable = lib.mkForce true;
+
+    ports = [ (lib.our.peers.getSshPort config.networking.hostName) ];
     permitRootLogin = lib.mkDefault "prohibit-password";
     forwardX11 = true;
 

@@ -70,6 +70,7 @@ in
       };
       # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
       "rosy" = {
+        port = lib.our.peers.getSshPort "rosy";
         forwardX11 = true;
         forwardX11Trusted = true;
         extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
