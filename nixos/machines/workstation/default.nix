@@ -196,6 +196,9 @@ in
       imports = with hmArgs.roles; workstation ++ linux ++ (with hmArgs.profiles; [
         sync
         work
+
+        # Systemd scripts
+        nixos.work
       ]);
     };
   };
