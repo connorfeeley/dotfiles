@@ -17,19 +17,10 @@ address = "fe80::1"
 prefixLength = 64
 
 [local]
-domain = "test"
-
-[tso]
-domain = "TKTKTK"
-
-[cubegarden]
-domain = "cube.garden"
+domain = "local"
 
 [ouroboros]
 domain = "loop.garden"
 
 [cfeeley]
 domain = "cfeeley.org"
-
-[tusecurewireless]
-domain = "temple.edu"
