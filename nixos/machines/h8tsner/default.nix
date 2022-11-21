@@ -57,7 +57,12 @@ in
   #   '';
   # };
   networking.dhcpcd.enable = true;
+
+  # Ban baddies
   services.fail2ban.enable = true;
+
+  # :)
+  environments.hetzner.tarpit.enable = true;
 
   ### === timezone ============================================================
 

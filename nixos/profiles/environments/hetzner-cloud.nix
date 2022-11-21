@@ -7,20 +7,25 @@
 }:
 let
   inherit (lib)
+    mkEnableOption
     mkOption
     mkDefault
     mkForce
     types
     ;
+
+    cfg = config.environments.hetzner;
 in
 {
   options = {
-    environments.isHetzner = mkOption {
+    environments.hetzner.enable = mkOption {
       type = types.bool;
       description = "R/O (ish) flag indicating to home-manager that the target environment is a Hetzner VM.";
       default = true;
       readOnly = true;
     };
+
+    environments.hetzner.tarpit.enable = mkEnableOption "Enable the endlessh-go tarpit";
   };
 
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
@@ -42,6 +47,26 @@ in
       enable = true;
       openFirewall = true;
       # Authorized keys and permitRootLogin are set in ssh-host profile
+    };
+
+    ###
+    ### SSH tarpit
+    ###
+    services.endlessh-go = {
+      inherit (cfg.tarpit) enable;
+
+      # Open a port in the firewall. What good is a tarpit otherwise?
+      openFirewall = cfg.tarpit.enable;
+
+      # Run on port 22 for maximum fun.
+      # NOTE: will conflict unless OpenSSH port is changed in hosts.toml! (this is by design)
+      port = 22;
+
+      # Prometheus should ONLY listen on the "internal" (to me) tailscale address.
+      prometheus = {
+        enable = true;
+        listenAddress = (lib.our.peers.getHost config.networking.hostName).tailscale;
+      };
     };
   };
 }
