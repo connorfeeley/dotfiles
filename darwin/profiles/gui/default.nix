@@ -100,6 +100,7 @@ in
       { name = "deluge"; }
       { name = "discord"; }
       { name = "balenaetcher"; }
+      { name = "gimp"; }
     ];
 
     homebrew.masApps = {
