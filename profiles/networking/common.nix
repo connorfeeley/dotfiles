@@ -4,12 +4,12 @@
 , pkgs
 , ...
 }:
-let
-  inherit (config.networking) hostName;
-  hostNet =
-    (self.lib.peers.getHost hostName).network
-      or (config.nixos-vm.peerConfig).network or null;
-in
+# let
+#   inherit (config.networking) hostName;
+#   hostNet =
+#     (self.lib.peers.getHost hostName).network
+#       or (config.nixos-vm.peerConfig).network or null;
+# in
 lib.mkMerge [
   {
     networking = {
@@ -23,7 +23,9 @@ lib.mkMerge [
       ];
     };
   }
-  (lib.mkIf (config.networking ? domain) {
-    networking.domain = (self.lib.peers.getNet hostNet).domain or null;
-  })
+  # FIXME: adds domain to homeConfigurations (<user>@<host><domain>), causing endless errors.
+  # I don't want to deal with it.
+  # (lib.mkIf (config.networking ? domain) {
+  #   networking.domain = (self.lib.peers.getNet hostNet).domain or null;
+  # })
 ]
