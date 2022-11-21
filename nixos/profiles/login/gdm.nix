@@ -29,6 +29,12 @@
       sessionCommands =
         let
           xmodmap = pkgs.writeText "xkb-layout" ''
+            !Swap control and caps lock
+            clear Lock
+            keysym Caps_Lock = Escape
+            keysym Escape = Caps_Lock
+            add Lock = Caps_Lock
+
             !Swap left alt and left control
             clear control
             clear mod1
