@@ -27,6 +27,8 @@ in
 
   programs.zsh.enable = true;
 
+  programs.tmux.enableSensible = true;
+
   environment.enableAllTerminfo = true;
 
   environment.systemPackages = with pkgs; [

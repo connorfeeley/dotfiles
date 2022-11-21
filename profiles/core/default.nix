@@ -53,7 +53,6 @@ in
 
   programs.tmux = {
     enable = true;
-    enableSensible = true;
   };
 
   environment.shells = with pkgs; [
