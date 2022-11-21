@@ -86,13 +86,6 @@ in
     man.enable = true;
   };
 
-  # Enable info and man pages
-  programs = {
-    info.enable = true;
-    # Include "man" outputs of all systemPackages
-    man.enable = true;
-  };
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;

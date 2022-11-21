@@ -78,6 +78,13 @@ in
     # NOTE: All darwin-compatible documentation options are set in 'profiles/core'.
   };
 
+  # Enable info and man pages
+  programs = {
+    info.enable = true;
+    # Include "man" outputs of all systemPackages
+    man.enable = true;
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion
   # $ darwin-rebuild changelog
