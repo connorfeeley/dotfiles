@@ -33,7 +33,6 @@ in
     ripgrep
     rsync
     screen
-    tmux
     vim
 
     ## === Network ===

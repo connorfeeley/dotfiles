@@ -51,6 +51,11 @@ in
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
+  programs.tmux = {
+    enable = true;
+    enableSensible = true;
+  };
+
   environment.shells = with pkgs; [
     bashInteractive
     fish
