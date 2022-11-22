@@ -17,8 +17,8 @@
     libinput.enable = false;
 
     displayManager = {
-      # Enable the SDDM display manager
-      sddm.enable = true;
+      # Enable the GDM display manager
+      gdm.enable = true;
 
       # Log in automatically
       autoLogin = {
