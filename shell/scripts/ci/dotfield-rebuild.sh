@@ -1,4 +1,5 @@
 #!@shell@
+# shellcheck shell=bash
 
 # Debug:
 # set -o xtrace
@@ -12,9 +13,9 @@
 #                               |_|                            #
 # ############################################################ #
 
-set -o pipefail  # trace ERR through pipes
-set -o nounset   # set -u : exit the script if you try to use an uninitialised variable
-set -o errexit   # set -e : exit the script if any statement returns a non-true return value
+set -o pipefail # trace ERR through pipes
+set -o nounset  # set -u : exit the script if you try to use an uninitialised variable
+set -o errexit  # set -e : exit the script if any statement returns a non-true return value
 
 export PATH=@path@:$PATH
 
@@ -23,13 +24,16 @@ HOSTNAME="$(hostname)"
 ACTION="${1:-}"
 
 case "$(uname)" in
-  Darwin)
-    PLATFORM="darwin";;
-  Linux)
-    PLATFORM="nixos";;
-  *)
-    # Always use sensible defaults.
-    PLATFORM="apolloGuidanceComputer";;
+Darwin)
+  PLATFORM="darwin"
+  ;;
+Linux)
+  PLATFORM="nixos"
+  ;;
+*)
+  # Always use sensible defaults.
+  PLATFORM="apolloGuidanceComputer"
+  ;;
 esac
 
 # 'sudo nixos-rebuild' on Linux, 'darwin-rebuild' on MacOS
