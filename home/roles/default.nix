@@ -1,5 +1,8 @@
 { profiles }:
 with profiles; let
+  ###: --- roles ---------------------------------------------------------------
+
+  # SSH and shells
   shell = [
     shells.zsh
     shells.fish
@@ -7,6 +10,7 @@ with profiles; let
     ssh
   ];
 
+  # beep boop
   developer = [
     shells.fish
     direnv
@@ -22,6 +26,7 @@ with profiles; let
     virtualisation.common
   ];
 
+  # Desktop packages
   graphical = [
     desktop.common
     # desktop.gnome
@@ -37,6 +42,7 @@ with profiles; let
     themes
   ];
 
+  # Slightly more frivolous packages
   personalised = [
     shells.fish
     misc
@@ -44,18 +50,19 @@ with profiles; let
     obs-studio
     spotify
     zotero
-
-    nnn
+    nnn # file manager
     ranger
     tealdeer
     vim
   ];
 
-  remote = [
-    ops
+  # Someone else's computer
+  server = [
+    ops # nixops
     ssh
   ];
 
+  # If I told you then I'd have to kill you
   trusted = [
     gpg
     mail
@@ -64,38 +71,43 @@ with profiles; let
     yubikey
   ];
 
+  # Web development :(
   webdev = [
     aws
     # nodejs
   ];
 
+  # ∨ ¬ ∧
   fpgadev = [
     development.xilinx
   ];
 
+  # Tools for network diagnostics, information gathering, reverse engineering, etc.
   security = [
     security-tools
   ];
 
+  # OS-specific: Linux-only
   linux = [
     desktop.xmonad
     nixos.development.tools
     virtualisation.docker
   ];
 
+  # OS-specific: MacOS
   macos = [
     virtualisation.podman
-
     darwin.search
   ];
 
+  ###: --- meta-roles ----------------------------------------------------------
   roles = {
     inherit
       shell
       developer
       graphical
       personalised
-      remote
+      server
       trusted
       webdev
       fpgadev
