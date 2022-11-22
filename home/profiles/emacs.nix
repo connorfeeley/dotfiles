@@ -136,7 +136,9 @@ lib.mkMerge [
         pdf-tools
         org-pdftools
         tree-sitter
-        tree-sitter-langs
+        (epkgs.tree-sitter-langs.withPlugins (
+          _: pkgs.tree-sitter.allGrammars
+        ))
         tsc
         parinfer-rust-mode
       ];
@@ -219,9 +221,6 @@ lib.mkMerge [
       sqlite
 
       editorconfig-core-c
-
-      # Comment highling, namely for Doxygen in C++
-      tree-sitter-grammars.tree-sitter-comment
 
       ##: === writing ===
 
