@@ -27,7 +27,7 @@
     # : ~~~ FHS compat ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     nix-ld = { url = "github:Mic92/nix-ld/main"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-alien = { url = "github:thiagokokada/nix-alien"; inputs.nixpkgs.follows = "nixpkgs"; };
-    envfs = { url = "github:wentasah/envfs"; inputs.nixpkgs.follows = "nixpkgs"; };
+    envfs = { url = "github:Mic92/envfs"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- utilities ----------------------------------------------------------
     flake-utils.url = "github:numtide/flake-utils";
