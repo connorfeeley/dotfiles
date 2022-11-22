@@ -173,7 +173,7 @@ in
           insteadOf = "srht:";
           pushInsteadOf = "srht:";
         };
-        url."git@srvvirgitlab.rossvideo.com:" = {
+        url."git@srvvirgitlab.rossvideo.com:connectivity-sw/" = {
           insteadOf = "srvvirgitlab:";
           pushInsteadOf = "srvvirgitlab:";
         };
