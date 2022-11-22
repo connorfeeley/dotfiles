@@ -2,6 +2,7 @@
   description = "Dotfield";
 
   inputs = {
+    ##: --- nixpkgs flavours ----------------------------------------------------------
     nixpkgs.follows = "nixos-unstable";
     nixpkgs-stable.follows = "nixos-stable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
@@ -11,169 +12,69 @@
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
-    ##: --- utilities ----------------------------------------------------------
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-serve-ng = {
-      url = "github:aristanetworks/nix-serve-ng";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-    };
-    deploy = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    deploy-flake = {
-      url = "github:antifuchs/deploy-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    agenix.url = "github:montchr/agenix/darwin-support";
-    flake-utils.url = "github:numtide/flake-utils";
-    prefmanager.url = "github:malob/prefmanager";
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvfetcher.url = "github:berberman/nvfetcher";
-
+    ##: --- system -------------------------------------------------------------
+    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     digga = {
-      # FIXME: digga isn't compatible with home-manager 22.11.
-      # Track master once fixed.
-      url = "github:divnix/digga/home-manager-22.11";
+      url = "github:divnix/digga/home-manager-22.11"; # FIXME: digga isn't compatible with home-manager 22.11. Track master once fixed.
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
       inputs.darwin.follows = "darwin";
     };
+    agenix.url = "github:montchr/agenix/darwin-support";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    nixago = {
-      url = "github:nix-community/nixago";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # : ~~~ FHS compat ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    nix-ld = { url = "github:Mic92/nix-ld/main"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-alien = { url = "github:thiagokokada/nix-alien"; inputs.nixpkgs.follows = "nixpkgs"; };
+    envfs = { url = "github:wentasah/envfs"; inputs.nixpkgs.follows = "nixpkgs"; };
+
+    ##: --- utilities ----------------------------------------------------------
+    flake-utils.url = "github:numtide/flake-utils";
+
+    nur.url = "github:nix-community/NUR";
+    nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nvfetcher.url = "github:berberman/nvfetcher";
+    arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
+    nixago = { url = "github:nix-community/nixago"; inputs.nixpkgs.follows = "nixpkgs"; };
+    stylix = { url = "github:danth/stylix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- sources ------------------------------------------------------------
 
     mach-nix.url = "github:DavHau/mach-nix/refs/tags/3.5.0";
-
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    arion = {
-      url = "github:hercules-ci/arion";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-    nur.url = "github:nix-community/NUR";
+    deadnix = { url = "github:astro/deadnix/refs/tags/v1.0.0"; inputs.nixpkgs.follows = "nixpkgs"; };
+    comma = { url = "github:nix-community/comma"; inputs.nixpkgs.follows = "nixpkgs"; };
+    rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
 
-    devenv = {
-      url = "github:cachix/devenv/v0.2";
-    };
-
-    deadnix = {
-      url = "github:astro/deadnix/refs/tags/v1.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    comma = {
-      url = "github:nix-community/comma";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-xilinx = {
-      url = "gitlab:doronbehar/nix-xilinx";
-    };
-
-    nickel = {
-      url = "github:tweag/nickel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    xmonad-config = {
-      url = "git+https://git.sr.ht/~cfeeley/xmonad-config";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    xmobar-config = {
-      url = "git+https://git.sr.ht/~cfeeley/xmobar-config";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    stylix = { url = "github:danth/stylix"; inputs.nixpkgs.follows = "nixpkgs"; };
-
-    base16-kitty = {
-      url = "github:kdrag0n/base16-kitty";
-      flake = false;
-    };
-
-    firefox-lepton = {
-      url = "github:black7375/Firefox-UI-Fix";
-      flake = false;
-    };
-
-    ttc-subway-font = {
-      url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    ##: --- personal packages --------------------------------------------------
+    xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
+    xmobar-config = { url = "git+https://git.sr.ht/~cfeeley/xmobar-config"; inputs.flake-utils.follows = "flake-utils"; };
     nixpkgs-work.url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
+    ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; };
 
-    nix-nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    ##: --- meta packages ------------------------------------------------------
+    emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-xilinx = { url = "gitlab:doronbehar/nix-xilinx"; };
 
-    # Nicely preconfigured vim
-    pta2002-neovim = {
-      url = "github:pta2002/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Provides 'services.modded-minecraft-servers' via NixOS module
-    modded-minecraft-servers = {
-      url = "github:mkaito/nixos-modded-minecraft-servers";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    ##: --- packages -----------------------------------------------------------
+    nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-nil = { url = "github:oxalica/nil"; inputs.nixpkgs.follows = "nixpkgs"; };
+    devenv = { url = "github:cachix/devenv/v0.2"; };
+    deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
+    deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
+    pta2002-neovim = { url = "github:pta2002/nixvim"; inputs.nixpkgs.follows = "nixpkgs"; };
+    prefmanager.url = "github:malob/prefmanager";
 
     ##: --- other --------------------------------------------------------------
 
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     dwarffs.url = "github:edolstra/dwarffs";
-
-    ##: --- FHS compat ---------------------------------------------------------
-    nix-ld = {
-      url = "github:Mic92/nix-ld/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-alien = {
-      url = "github:thiagokokada/nix-alien";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    envfs = {
-      # url = "github:Mic92/envfs";
-      url = "github:wentasah/envfs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    base16-kitty = { url = "github:kdrag0n/base16-kitty"; flake = false; };
+    firefox-lepton = { url = "github:black7375/Firefox-UI-Fix"; flake = false; };
+    modded-minecraft-servers = { url = "github:mkaito/nixos-modded-minecraft-servers"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs =
