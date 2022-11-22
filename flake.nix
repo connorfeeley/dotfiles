@@ -115,6 +115,8 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    stylix = { url = "github:danth/stylix"; inputs.nixpkgs.follows = "nixpkgs"; };
+
     base16-kitty = {
       url = "github:kdrag0n/base16-kitty";
       flake = false;
