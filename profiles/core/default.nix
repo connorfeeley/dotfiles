@@ -30,7 +30,7 @@ in
   environment.systemPackages = [ pkgs.nix-doc ];
 
   environment.variables = {
-    DOTFIELD_DIR = dotfield.fsPath;
+    DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
     EDITOR = "e";
     KERNEL_NAME =
       if pkgs.stdenv.hostPlatform.isDarwin

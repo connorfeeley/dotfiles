@@ -133,7 +133,7 @@ in
   home.extraOutputsToInstall = [ "/share/zsh" ];
 
   home.sessionVariables = {
-    DOTFIELD_DIR = dotfield.fsPath;
+    DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
 
     # Default is "1". But when typeset in PragmataPro that leaves no space
     # between the icon and its filename.
