@@ -60,8 +60,8 @@ moduleArgs @ { config
   # https://docs.npmjs.com/cli/v7/configuring-npm/npmrc
   # https://nixos.org/manual/nix/stable/#idm140737322046656
   xdg.configFile."npm/npmrc".text = ''
-    email=connor@cfeeley.org
-    init-author-name="Chris Montgomery"
+    email=git@cfeeley.org
+    init-author-name="Connor Feeley"
     init-version=0.0.1
     cache=''${XDG_CACHE_HOME}/npm
   '';
