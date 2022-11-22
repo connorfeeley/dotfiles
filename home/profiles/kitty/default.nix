@@ -13,7 +13,6 @@ let
   socket = "unix:/tmp/kitty-socket";
 
   settings = import ./settings.nix { inherit lib hasTwm socket; };
-  colors = import ./colors.nix config.colorscheme;
   modus-vivendi-faint = import ./modus-vivendi-faint.nix;
 
   # via home-manager kitty module
@@ -80,7 +79,7 @@ lib.mkMerge [
 
     programs.kitty = {
       enable = true;
-      settings = settings // modus-vivendi-faint // {
+      settings = settings // {
         font_size =
           if (isDarwin && isAarch64)
           then "12"
@@ -91,7 +90,7 @@ lib.mkMerge [
         # else "0";
         # 85% opacity
         background_opacity = if isDarwin then "0.85" else "1.0";
-      };
+      } // (lib.mkForce modus-vivendi-faint); # force kitty colorscheme (also set by stylix)
       keybindings = {
         # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos
         "kitty_mod+n" = "new_os_window_with_cwd";

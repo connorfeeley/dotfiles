@@ -218,4 +218,12 @@ in
       domain = config.networking.hostName;
     };
   };
+
+  ###: --- module configuration ------------------------------------------------
+  #: stylix
+  stylix.image = pkgs.fetchurl {
+    # MacOS mojave wallpaper
+    url = "https://512pixels.net/downloads/macos-wallpapers-thumbs/10-14-Day-Thumb.jpg";
+    sha256 = "01r92v0062c8mbnhi2vya40l6mmhqwa25g23a6qnqzqq4iw78v0v";
+  };
 }

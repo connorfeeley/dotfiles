@@ -20,8 +20,8 @@ in
 
   hosts.MacBook-Pro = {
     system = aarch64-darwin;
-    modules =
-      (with roles; workstation);
+    modules = with roles; workstation ++
+      [ ];
   };
 
   hostDefaults = {
@@ -35,7 +35,6 @@ in
       digga.nixosModules.nixConfig
 
       # `nixosModules` is correct, even for darwin
-      # FIXME: migrate to sops
       agenix.nixosModules.age
     ];
   };

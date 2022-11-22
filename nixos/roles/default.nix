@@ -6,24 +6,21 @@ let
   graphical =
     (with collective.profiles; [
       fonts.common
-      # TODO: remove?
-      # fonts.pragmatapro
+      # fonts.pragmatapro # TODO: remove
     ])
     ++ (with profiles; [
       boot.systemd-boot
       desktop
       gnome-desktop
       video
-      # zoom-us
+      zoom-us
     ]);
 
-  server =
-    (with (collective.profiles); [
-      networking.common
-      networking.tailscale
-      networking.ssh-host
-    ])
-    ++ (with profiles; [ ]);
+  server = (with (collective.profiles); [
+    networking.common
+    networking.tailscale
+    networking.ssh-host
+  ]) ++ (with profiles; [ ]);
 
   tangible =
     (with (collective.profiles); [

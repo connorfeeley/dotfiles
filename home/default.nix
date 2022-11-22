@@ -1,6 +1,6 @@
 collective @ { peers, ... }: { self, ... }:
 let
-  inherit (self.inputs) digga nix-colors pta2002-neovim;
+  inherit (self.inputs) digga nix-colors;
   inherit (digga.lib) importExportableModules rakeLeaves;
 
   homeModules = importExportableModules ./modules;

@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga nix-serve-ng modded-minecraft-servers dwarffs;
+  inherit (inputs) agenix home-manager digga nix-serve-ng dwarffs stylix;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -25,8 +25,12 @@ in
         login.gdm
       ]);
 
-    workstation.modules = [ dwarffs.nixosModules.dwarffs ] ++
+    workstation.modules =
+      #: ~ Modules ~
+      [ dwarffs.nixosModules.dwarffs stylix.nixosModules.stylix ] ++
+      #: ~ Roles ~
       (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ desktop ++ server) ++
+      #: ~ Profiles ~
       (with profiles; [
         boot.systemd-boot
         hardware.amd
@@ -93,6 +97,7 @@ in
       profiles.core
       home-manager.nixosModules.home-manager
       digga.nixosModules.nixConfig
+      agenix.nixosModules.age
 
       nix-serve-ng.nixosModules.default
 
@@ -100,9 +105,6 @@ in
       # dependencies to be pulled in for all systems -- many of them are
       # graphical. should only be imported as needed.
       digga.nixosModules.bootstrapIso
-
-      # FIXME: migrate to sops
-      agenix.nixosModules.age
     ];
   };
 }
