@@ -6,7 +6,8 @@
 }:
 let
   inherit (self.inputs) pta2002-neovim;
-in {
+in
+{
   imports = [ pta2002-neovim.homeManagerModules.nixvim ];
 
   config = {

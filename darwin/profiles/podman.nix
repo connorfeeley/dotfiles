@@ -16,8 +16,8 @@ in
 lib.mkMerge [
   {
     homebrew = {
-      brews = [ { name = "podman"; } ];
-      casks = [ { name = "podman-desktop"; } ];
+      brews = [{ name = "podman"; }];
+      casks = [{ name = "podman-desktop"; }];
     };
 
     environment.variables = {

@@ -9,7 +9,7 @@ let
   configDir = "${dotfield.userConfigPath}/hammerspoon";
 in
 {
-  homebrew.casks = [ { name = "hammerspoon"; } ];
+  homebrew.casks = [{ name = "hammerspoon"; }];
 
   # Point Hammerspoon to its init file.
   # https://github.com/Hammerspoon/hammerspoon/pull/582

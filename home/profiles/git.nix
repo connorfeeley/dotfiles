@@ -38,10 +38,10 @@ in
     bfg-repo-cleaner # Like git-filter-repo
     git-sizer # Analyze shape of repository
     git-submodule-rewrite
-    gitAndTools.hut  # Sourcehut CLI
-    gitAndTools.hub  # GitHub CLI
+    gitAndTools.hut # Sourcehut CLI
+    gitAndTools.hub # GitHub CLI
     gitAndTools.glab # GitLab CLI
-    gitAndTools.lab  # Another GitLab CLI
+    gitAndTools.lab # Another GitLab CLI
     gitAndTools.tig
     gitAndTools.git-crypt
     gitAndTools.git-standup

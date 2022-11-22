@@ -26,24 +26,25 @@ in
     };
 
   # Mount host's shared directory to /run/share
-  fileSystems."/run/share" = if (!useAppleVirtualization) then {
-    # For virtfs (QEMU)
-    device = "share";
-    fsType = "9p";
-    options = [ "trans=virtio" "version=9p2000.L" ];
+  fileSystems."/run/share" =
+    if (!useAppleVirtualization) then {
+      # For virtfs (QEMU)
+      device = "share";
+      fsType = "9p";
+      options = [ "trans=virtio" "version=9p2000.L" ];
 
-    # Manually:
-    # sudo mkdir /media/share
-    # sudo mount -t 9p -o trans=virtio share /media/share -oversion=9p2000.L
-  } else {
-    # For virtiofs (apple virtualization)
-    device = "share";
-    fsType = "virtiofs";
+      # Manually:
+      # sudo mkdir /media/share
+      # sudo mount -t 9p -o trans=virtio share /media/share -oversion=9p2000.L
+    } else {
+      # For virtiofs (apple virtualization)
+      device = "share";
+      fsType = "virtiofs";
 
-    # Manually:
-    # sudo mkdir /run/share
-    # sudo mount -t virtiofs share /run/share/
-  };
+      # Manually:
+      # sudo mkdir /run/share
+      # sudo mount -t virtiofs share /run/share/
+    };
 
   # Emulate x86_64-linux with QEMU
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];

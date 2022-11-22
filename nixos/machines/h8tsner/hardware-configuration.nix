@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+    [
+      (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
@@ -11,7 +12,8 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/81817827-b655-4c17-8c18-d274ffa1a3b3";
+    {
+      device = "/dev/disk/by-uuid/81817827-b655-4c17-8c18-d274ffa1a3b3";
       fsType = "ext4";
     };
 

@@ -26,6 +26,7 @@ in
     programs.fish.plugins = map mkPlugin (
       (lib.optional cfg.autopair.enable "autopair") ++
       (lib.optional cfg.fifc.enable "fifc") ++
-      (lib.optional cfg.bass.enable "bass"));
+      (lib.optional cfg.bass.enable "bass")
+    );
   };
 }

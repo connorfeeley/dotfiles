@@ -14,7 +14,7 @@ let
     types
     ;
 
-    cfg = config.environments.hetzner;
+  cfg = config.environments.hetzner;
 in
 {
   options = {

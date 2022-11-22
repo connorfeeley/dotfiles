@@ -11,5 +11,5 @@ writeShellApplication {
   text = ''
     # Pull dotfield and doomemacs (config) repos
     ${git-run}/bin/gr "$DOTFIELD_DIR" "$DOOMDIR" -- git pull --rebase --autostash
-   '';
+  '';
 }
