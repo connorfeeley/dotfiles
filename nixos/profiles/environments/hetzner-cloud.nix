@@ -62,10 +62,11 @@ in
       # NOTE: will conflict unless OpenSSH port is changed in hosts.toml! (this is by design)
       port = 22;
 
-      # Prometheus should ONLY listen on the "internal" (to me) tailscale address.
+      # Listen for prometheus queries ONLY on the "internal" (to me) tailscale address.
       prometheus = {
         enable = true;
         listenAddress = (lib.our.peers.getHost config.networking.hostName).tailscale;
+        port = 2112;
       };
     };
   };

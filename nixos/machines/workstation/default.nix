@@ -207,23 +207,4 @@ in
   };
 
   programs.htop.enable = true;
-
-  services.grafana = {
-    enable = true;
-    settings.server = {
-      # Listening address and TCP port
-      http_addr = "0.0.0.0";
-      http_port = 9010;
-      # Grafana needs to know on which domain and URL it's running:
-      domain = config.networking.hostName;
-    };
-  };
-
-  ###: --- module configuration ------------------------------------------------
-  #: stylix
-  stylix.image = pkgs.fetchurl {
-    # MacOS mojave wallpaper
-    url = "https://512pixels.net/downloads/macos-wallpapers-thumbs/10-14-Day-Thumb.jpg";
-    sha256 = "01r92v0062c8mbnhi2vya40l6mmhqwa25g23a6qnqzqq4iw78v0v";
-  };
 }

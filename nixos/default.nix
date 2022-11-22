@@ -44,6 +44,8 @@ in
 
         login.gdm # Not actually gdm
         # gnome-desktop
+
+        grafana
       ]);
 
     # workstation-iso.modules =
