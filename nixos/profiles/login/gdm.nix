@@ -73,7 +73,7 @@
     ### KDE
     ###
     desktopManager.plasma5 = {
-      enable = false;
+      enable = true;
       supportDDC = true;
       useQtScaling = true;
       runUsingSystemd = true;
