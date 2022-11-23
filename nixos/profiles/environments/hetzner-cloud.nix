@@ -63,7 +63,10 @@ in
       port = 22;
 
       # Geolocate IP addresses
-      extraOptions = [ "-geoip_supplier ip-api" ];
+      extraOptions = [
+        "-geoip_supplier max-mind-db"
+        "-max_mind_db ${pkgs.clash-geoip}/etc/clash/Country.mmdb"
+      ];
 
       # Listen for prometheus queries ONLY on the "internal" (to me) tailscale address.
       prometheus = {
