@@ -88,7 +88,7 @@ in
 
   hostDefaults = {
     system = x86_64-linux;
-    channelName = "nixos-unstable";
+    channelName = "nixos-stable";
     imports = [
       collective.modules
       nixosModules

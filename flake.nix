@@ -4,19 +4,17 @@
   inputs = {
     ##: --- nixpkgs flavours ----------------------------------------------------------
     nixpkgs.follows = "nixos-stable";
-    nixpkgs-stable.follows = "nixos-stable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixos-stable-21-11.url = "github:NixOS/nixpkgs/nixos-21.11";
+
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
 
     ##: --- system -------------------------------------------------------------
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     digga = {
-      url = "github:divnix/digga/home-manager-22.11"; # FIXME: digga isn't compatible with home-manager 22.11. Track master once fixed.
+      url = "github:divnix/digga/home-manager-22.11"; # FIXME: eventually track main
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
       inputs.darwin.follows = "darwin";
@@ -96,8 +94,9 @@
     , nixos-generators
     , nixos-hardware
     , nixos-stable
-    , nixos-stable-21-11
     , nixos-unstable
+    , nixpkgs-darwin
+    , nixos-21-11
     , nur
     , nvfetcher
     , xmonad-config

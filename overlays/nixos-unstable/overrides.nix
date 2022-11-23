@@ -1,7 +1,7 @@
 channels: final: prev: {
   __dontExport = true;
 
-  inherit (channels.nixos-stable-21-11)
+  inherit (channels.nixos-21-11)
     sourcetrail
     ;
 }
