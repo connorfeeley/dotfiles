@@ -5,17 +5,17 @@
 , ...
 }:
 let
-  exporters = builtins.map
-    (k: {
-      inherit (k.config.services.prometheus.exporters.node) port;
-      inherit (k.config.networking) hostName;
+  exporters = lib.mapAttrsToList
+    (k: v: mkPrometheusTarget {
+      inherit (v.config.services.prometheus.exporters.node) port;
+      inherit (v.config.networking) hostName;
     })
-    (lib.collect (k: k.services.prometheus.exporters.node.enable or false) self.nixosConfigurations);
+    (lib.filterAttrs (k: v: v.config.services.prometheus.exporters.node.enable) (self.nixosConfigurations));
 
   mkPrometheusTarget = { hostName, port }: {
     job_name = hostName;
     static_configs = [{
-      targets = [ "${(lib.our.peers.getHost hostName).tailscale}:${port}" ];
+      targets = [ "${(lib.our.peers.getHost hostName).tailscale}:${toString port}" ];
     }];
   };
 in
@@ -44,9 +44,10 @@ in
       };
     };
 
-    # Configure prometheus to read metrics from this exporter
     scrapeConfigs =
-      # (lib.traceVal exporters) ++
+      # Read metrics from all hosts in nixosConfigurations with the prometheus node exporter enabled
+      exporters ++
+      # Configure prometheus to read metrics from this exporter
       [
         {
           job_name = config.networking.hostName;
