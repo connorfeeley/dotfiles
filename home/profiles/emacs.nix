@@ -59,7 +59,7 @@ let
     sha256 = "sha256-5j4zz4OnS+kewmJ9QRTuE2qkQCSL3Q9NbVLIu8FUiLI=";
 
     fetchSubmodules = false;
-    sparseCheckout = "modules/completion/corfu";
+    sparseCheckout = [ "modules/completion/corfu" ];
   };
 
   llvmPackages = pkgs.llvmPackages_14;
