@@ -62,6 +62,9 @@ in
       # NOTE: will conflict unless OpenSSH port is changed in hosts.toml! (this is by design)
       port = 22;
 
+      # Geolocate IP addresses
+      extraOptions = [ "-geoip_supplier ip-api" ];
+
       # Listen for prometheus queries ONLY on the "internal" (to me) tailscale address.
       prometheus = {
         enable = true;
