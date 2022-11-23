@@ -34,6 +34,7 @@
     nix-bisect #    <- Helper for bisecting nix builds
     devenv #        <- Cachix's new 'devenv' tool
     vulnix #        <- Scan nix (store) paths for CVEs
+    nix-eval-jobs # <- Parallel nix evaluator with a streamable json output
 
     ## === Linters + Formatters ===
     shfmt
