@@ -108,7 +108,7 @@ lib.mkMerge [
         "kitty_mod+l" = "next_layout";
       };
       font = {
-        name = "Iosevka Extended";
+        name = lib.mkForce "Iosevka Extended";
       };
       extraConfig = ''
         ${lib.optionalString hasPragPro pragmataProExtras}
