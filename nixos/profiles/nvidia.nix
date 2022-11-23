@@ -13,7 +13,7 @@ let
     then nvStable
     else nvBeta;
 
-  xorgPackages = with pkgs.org; [ xhost xauth xinit xeyes ];
+  xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in
 {
   nixpkgs.config.allowUnfree = lib.mkForce true;
