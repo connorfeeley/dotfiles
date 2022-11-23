@@ -9,4 +9,8 @@ in
 
   xmonad = prev.xmonad-config;
   xmobar = prev.xmobar-config;
+
+  inherit (channels.nixos-21-11)
+    sourcetrail
+    ;
 }
