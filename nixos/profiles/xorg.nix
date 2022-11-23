@@ -23,11 +23,11 @@
 
     xrandrHeads = [
       # [ <- ]
-      { output = "DP-0"; primary = false; mode = "3840x2160"; pos = "0x0"; rotate = "normal"; }
+      { output = "DP-0"; primary = false; pos = "0x0"; rotate = "normal"; }
       # [ ⚪ ]
-      { output = "HDMI-0"; primary = false; mode = "3840x2160"; pos = "3840x0"; rotate = "normal"; }
+      { output = "HDMI-0"; primary = false; pos = "3840x0"; rotate = "normal"; }
       # [ -> ]
-      { output = "DP-2"; primary = false; mode = "3840x2160"; pos = "7680x0"; rotate = "normal"; }
+      { output = "DP-2"; primary = false; pos = "7680x0"; rotate = "normal"; }
     ];
 
     displayManager = {
