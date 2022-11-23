@@ -3,9 +3,9 @@
 
   inputs = {
     ##: --- nixpkgs flavours ----------------------------------------------------------
-    nixpkgs.follows = "nixos-unstable";
+    nixpkgs.follows = "nixos-stable";
     nixpkgs-stable.follows = "nixos-stable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-stable-21-11.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
