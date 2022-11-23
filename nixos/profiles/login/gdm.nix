@@ -17,8 +17,8 @@
     libinput.enable = false;
 
     displayManager = {
-      # Enable the GDM display manager
-      gdm.enable = true;
+      # Enable the lightdm display manager
+      lightdm.enable = true;
 
       # Log in automatically
       autoLogin = {
@@ -73,7 +73,7 @@
     ### KDE
     ###
     desktopManager.plasma5 = {
-      enable = true;
+      enable = false;
       supportDDC = true;
       useQtScaling = true;
       runUsingSystemd = true;
