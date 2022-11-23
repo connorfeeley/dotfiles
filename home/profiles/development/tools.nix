@@ -33,6 +33,7 @@
     nix-update #    <- swiss-army knife for updating nix packages
     nix-bisect #    <- Helper for bisecting nix builds
     devenv #        <- Cachix's new 'devenv' tool
+    vulnix #        <- Scan nix (store) paths for CVEs
 
     ## === Linters + Formatters ===
     shfmt
