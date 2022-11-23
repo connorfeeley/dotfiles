@@ -14,6 +14,7 @@
     device = "/dev/disk/by-uuid/c1b38fbf-1786-4d0d-bfed-eb4bc15570f9";
     preLVM = true;
     allowDiscards = true;
+    bypassWorkqueues = true;
   };
 
   fileSystems."/" =
