@@ -12,6 +12,8 @@ let
     if (lib.versionOlder nvBeta.version nvStable.version)
     then nvStable
     else nvBeta;
+
+  xorgPackages = with pkgs.org; [ xhost xauth xinit xeyes ];
 in
 {
   nixpkgs.config.allowUnfree = lib.mkForce true;
@@ -38,5 +40,5 @@ in
     enableNvidia = true;
   };
 
-  environment.systemPackages = with pkgs; [ nvtop ddcutil xorg.xhost xorg.xauth xorg.xinit xorg.xeyes ];
+  environment.systemPackages = with pkgs; [ nvtop ddcutil ] ++ xorgPackages;
 }
