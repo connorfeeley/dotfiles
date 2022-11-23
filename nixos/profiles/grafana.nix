@@ -50,9 +50,9 @@ in
       # Configure prometheus to read metrics from this exporter
       [
         {
-          job_name = config.networking.hostName;
+          job_name = "h8tsner-endlessh";
           static_configs = [{
-            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            targets = [ "${(lib.our.peers.getHost "h8tsner").tailscale}:${toString self.nixosConfigurations.h8tsner.config.services.endlessh-go.prometheus.port}" ];
           }];
         }
       ];
