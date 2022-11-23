@@ -21,13 +21,21 @@
     exportConfiguration = true; # symlink conf under /etc/X11/xorg.conf
     updateDbusEnvironment = true; # update the DBus activation environment
 
+    ###
+    ### Monitor config
+    ### Note: monitors will be mapped from left to right in the order of the list.
     xrandrHeads = [
       # [ <- ]
-      { output = "DP-0"; primary = false; pos = "0x0"; rotate = "normal"; }
+      { output = "DP-0"; primary = false; }
+      # [ <- ]
+
       # [ ⚪ ]
-      { output = "HDMI-0"; primary = false; pos = "3840x0"; rotate = "normal"; }
+      { output = "HDMI-0"; primary = true; }
+      # [ ⚪ ]
+
       # [ -> ]
-      { output = "DP-2"; primary = false; pos = "7680x0"; rotate = "normal"; }
+      { output = "DP-2"; primary = false; }
+      # [ -> ]
     ];
 
     displayManager = {
