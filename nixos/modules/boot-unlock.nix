@@ -74,7 +74,7 @@
             .tailscaled-wrapped 2>/dev/null &
             sleep 5
             echo "Starting tailscale..."
-            { .tailscale-wrapped up && .tailscale-wrapped status } &
+            { .tailscale-wrapped up; .tailscale-wrapped status; } &
 
             echo "echo 'Use cryptsetup-askpass to unlock!'" >> /root/.profile
           '';
