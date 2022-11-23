@@ -117,18 +117,15 @@
     , ...
     } @ inputs:
     let
-      inherit
-        (digga.lib)
+      inherit (digga.lib)
         flattenTree
         importExportableModules
         rakeLeaves
         ;
-      inherit
-        (flake-utils.lib)
+      inherit (flake-utils.lib)
         eachSystem
         ;
-      inherit
-        (flake-utils.lib.system)
+      inherit (flake-utils.lib.system)
         x86_64-linux
         aarch64-linux
 
@@ -226,6 +223,9 @@
         ];
       };
 
+      ###
+      ### Overlay & Channel Configuration
+      ###
       channels = {
         nixos-stable = {
           inherit overlays;
@@ -257,11 +257,6 @@
         };
       };
 
-      lib = import ./lib {
-        inherit collective;
-        lib = digga.lib // nixos-unstable.lib;
-      };
-
       sharedOverlays = [
         (final: prev: {
           __dontExport = true;
@@ -271,6 +266,14 @@
           });
         })
       ];
+
+      ###
+      ### Other attributes
+      ###
+      lib = import ./lib {
+        inherit collective;
+        lib = digga.lib // nixos-unstable.lib;
+      };
 
       nixos = import ./nixos collective;
       darwin = import ./darwin collective;
