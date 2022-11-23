@@ -1,8 +1,24 @@
-{ config
+{ self
+, config
 , lib
 , pkgs
 , ...
 }:
+let
+  exporters = builtins.map
+    (k: {
+      inherit (k.config.services.prometheus.exporters.node) port;
+      inherit (k.config.networking) hostName;
+    })
+    (lib.collect (k: k.services.prometheus.exporters.node.enable or false) self.nixosConfigurations);
+
+  mkPrometheusTarget = { hostName, port }: {
+    job_name = hostName;
+    static_configs = [{
+      targets = [ "${(lib.our.peers.getHost hostName).tailscale}:${port}" ];
+    }];
+  };
+in
 {
   services.grafana = {
     enable = true;
@@ -29,13 +45,15 @@
     };
 
     # Configure prometheus to read metrics from this exporter
-    scrapeConfigs = [
-      {
-        job_name = "chrysalis";
-        static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-        }];
-      }
-    ];
+    scrapeConfigs =
+      # (lib.traceVal exporters) ++
+      [
+        {
+          job_name = config.networking.hostName;
+          static_configs = [{
+            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+          }];
+        }
+      ];
   };
 }
