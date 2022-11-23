@@ -22,7 +22,7 @@ in
 
   # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
   #       'hardware.nvidia.package != null'.
-  hardware.nvidia.package = nvLatest;
+  hardware.nvidia.package = nvStable;
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia.modesetting.enable = false;
