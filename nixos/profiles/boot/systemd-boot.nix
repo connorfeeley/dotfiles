@@ -11,7 +11,10 @@
       enable = true;
       consoleMode = "auto";
       configurationLimit = lib.mkDefault 24;
-      editor = false;
+      editor = true;
+
+      # Easy netbooting
+      netbootxyz.enable = true;
     };
   };
 }

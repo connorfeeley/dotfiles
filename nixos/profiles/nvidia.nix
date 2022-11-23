@@ -12,6 +12,8 @@ let
     if (lib.versionOlder nvBeta.version nvStable.version)
     then nvStable
     else nvBeta;
+
+  xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in
 {
   nixpkgs.config.allowUnfree = lib.mkForce true;
@@ -20,7 +22,7 @@ in
 
   # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
   #       'hardware.nvidia.package != null'.
-  hardware.nvidia.package = nvLatest;
+  hardware.nvidia.package = nvStable;
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia.modesetting.enable = false;
@@ -31,6 +33,8 @@ in
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [ vaapiVdpau ];
+
+    driSupport = true;
     driSupport32Bit = true;
   };
 
@@ -38,5 +42,5 @@ in
     enableNvidia = true;
   };
 
-  environment.systemPackages = with pkgs; [ nvtop ddcutil xorg.xhost xorg.xauth xorg.xinit xorg.xeyes ];
+  environment.systemPackages = with pkgs; [ nvtop ddcutil ] ++ xorgPackages;
 }

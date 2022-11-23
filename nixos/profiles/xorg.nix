@@ -3,6 +3,8 @@
 , pkgs
 , ...
 }: {
+  hardware.acpilight.enable = true;
+
   # NOTE: see https://source.mcwhirter.io/craige/mio-ops/src/branch/consensus/profiles/xmonad.nix
   # for an example config.
   programs = {
@@ -15,10 +17,30 @@
     enable = true;
     layout = "dvorak";
     libinput.enable = false;
+    enableTCP = true; # allow X server to accept TCP conn.
+    exportConfiguration = true; # symlink conf under /etc/X11/xorg.conf
+    updateDbusEnvironment = true; # update the DBus activation environment
+
+    ###
+    ### Monitor config
+    ### Note: monitors will be mapped from left to right in the order of the list.
+    xrandrHeads = [
+      # [ <- ]
+      { output = "DP-0"; primary = false; }
+      # [ <- ]
+
+      # [ ⚪ ]
+      { output = "HDMI-0"; primary = true; }
+      # [ ⚪ ]
+
+      # [ -> ]
+      { output = "DP-2"; primary = false; }
+      # [ -> ]
+    ];
 
     displayManager = {
-      # Enable the GDM display manager
-      gdm.enable = true;
+      # Enable the lightdm display manager
+      lightdm.enable = true;
 
       # Log in automatically
       autoLogin = {

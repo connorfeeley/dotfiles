@@ -199,10 +199,17 @@ in
         };
         ##: }}
 
+        ##: rerere {{
+        rerere = {
+          enabled = true;
+          autoUpdate = true; # autostage files resolved by rerere
+        };
+
         ##: Diff/Merge Tools {{
-        rerere.enabled = true;
-        merge.conflictstyle = "diff3";
-        merge.tool = "ediff";
+        merge = {
+          conflictstyle = "diff3";
+          tool = "ediff";
+        };
 
         diff = {
           algorithm = "minimal";

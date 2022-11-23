@@ -22,7 +22,7 @@ in
     bootstrap-graphical.modules =
       (with roles; graphical ++ tangible ++ desktop)
       ++ (with profiles; [
-        login.gdm
+        xorg
       ]);
 
     workstation.modules =
@@ -42,7 +42,7 @@ in
         workstations.flatpak
         games
 
-        login.gdm # Not actually gdm
+        xorg
         # gnome-desktop
 
         grafana
