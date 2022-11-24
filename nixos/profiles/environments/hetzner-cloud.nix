@@ -43,6 +43,8 @@ in
     boot.initrd.kernelModules = [ "nvme" ];
     fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
 
+    services.earlyoom.enable = true;
+
     services.openssh = lib.mkDefault {
       enable = true;
       openFirewall = true;
