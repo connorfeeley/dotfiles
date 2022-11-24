@@ -24,6 +24,8 @@ in
 
   services.getty.autologinUser = config.dotfield.guardian.username;
 
+  services.earlyoom.enable = true;
+
   console.useXkbConfig = true;
 
   # TODO: might only be available on master?
@@ -45,7 +47,7 @@ in
   };
 
   environment.systemPackages =
-    (with pkgs; [
+    ([
       firefoxPackage
     ])
     ++ (lib.optionals hasWayland (with pkgs; [
