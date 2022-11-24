@@ -26,6 +26,9 @@ let
     lefthook
     nix-output-monitor
     nixos-generators
+    nix-eval-jobs
+    nix-prefetch-git
+    nix-build-uncached
     ;
 
   inherit (pkgs.nodePackages)
@@ -39,7 +42,6 @@ let
   withCategory = category: attrset: attrset // { inherit category; };
   pkgWithCategory = category: package: { inherit package category; };
 
-  shortcut = pkgWithCategory "shortcut";
   dotfield = pkgWithCategory "dotfield";
   linter = pkgWithCategory "linters";
   formatter = pkgWithCategory "formatters";
@@ -56,6 +58,10 @@ in
 
   commands =
     [
+      (utils nix-eval-jobs)
+      (utils nix-prefetch-git)
+      (utils nix-build-uncached)
+
       (dotfield nixUnstable)
       (dotfield deploy-rs)
       (dotfield deploy-flake)
