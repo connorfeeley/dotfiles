@@ -11,7 +11,7 @@ let
 
   workstation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIL+myjkKGCYIYkI165tq/cp04m0iox8RLEb4MS1wjet";
   macbook-pro = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKVrybsJrANrO+FslS5MFrpMTtc2EBgXriEoF4srqQrx";
-  rosy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBu7vxj2IpJ5R4SL/TCbonZmAM6aFlruqc4z5zwBjyxo cfeeley@Connors-MacBook-Pro.local";
+  rosy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMSoMj5v8JwK4YhB8p4mrJM26TeNAO+xZgIwaxxj0Umb";
   h8tsner = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGPdaiVggrhTnMX3QmE+4UEfPAyFTdB4jJdmjNdjWFU";
   systems = [ workstation macbook-pro rosy ];
 in
