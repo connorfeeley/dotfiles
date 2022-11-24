@@ -3,10 +3,12 @@ image: nixos/unstable
 secrets:
   - 11097f83-8e5a-46c9-be7f-d4c746730000 # ~/.ssh/config
   - 11affa26-7640-4dea-8233-045ddd667367 # ~/.ssh/id_rsa
+  - 47005b27-ef6a-42c2-a1f3-3424cf1e0098 # ~/.config/cachix/cachix.dhall
 packages:
   - nixos.nixUnstable
   - nixos.nix-output-monitor
 environment:
+  CACHIX: cachix watch-exec
   NIX_CONFIG: |
     experimental-features = nix-command flakes
     accept-flake-config = true
@@ -15,10 +17,10 @@ environment:
 tasks:
   - show: |
       cd dotfield
-      nix --print-build-logs flake show
+      $CACHIX nix --print-build-logs flake show
   - devshell: |
       cd dotfield
-      nix --print-build-logs build .#devShell.x86_64-linux
+      $CACHIX nix --print-build-logs build .#devShell.x86_64-linux
   - check: |
       cd dotfield
-      nix --print-build-logs flake check
+      $CACHIX nix --print-build-logs flake check
