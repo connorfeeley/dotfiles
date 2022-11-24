@@ -9,8 +9,7 @@ packages:
   - nixos.nixUnstable
   - nixos.nix-output-monitor
 environment:
-  CACHIX: cachix watch-exec cfeeley
-  NIX: $CACHIX nix --
+  NIX: cachix watch-exec cfeeley nix --
   NIX_CONFIG: |
     experimental-features = nix-command flakes
     accept-flake-config = true
