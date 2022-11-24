@@ -10,6 +10,7 @@ packages:
   - nixos.nix-output-monitor
 environment:
   CACHIX: cachix watch-exec cfeeley
+  NIX: $CACHIX nix --
   NIX_CONFIG: |
     experimental-features = nix-command flakes
     accept-flake-config = true
@@ -18,10 +19,10 @@ environment:
 tasks:
   - show: |
       cd dotfield
-      $CACHIX nix --print-build-logs flake show
+      $NIX --print-build-logs flake show
   - devshell: |
       cd dotfield
-      $CACHIX nix --print-build-logs build .#devShell.x86_64-linux
+      $NIX --print-build-logs build .#devShell.x86_64-linux
   - check: |
       cd dotfield
-      $CACHIX nix --print-build-logs flake check
+      $NIX --print-build-logs flake check
