@@ -35,7 +35,6 @@ in
       };
     in
     {
-      "cfeeley@debian-vm" = mkHome "cfeeley";
       "cfeeley@cfeeley-laptop" = mkHome "cfeeley";
     };
 }
