@@ -49,9 +49,7 @@ let
 
   emacsDir = "${configHome}/emacs";
 
-  # FIXME: this is gross
-  configDir = ../../.;
-  e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${configDir}/config/emacs/e");
+  e-wrapper = pkgs.writeShellScriptBin "e" ("${config.lib.dotfield.srcPath}/config/emacs/e");
 
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
