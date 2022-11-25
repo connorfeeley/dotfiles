@@ -26,7 +26,7 @@
     ### Note: monitors will be mapped from left to right in the order of the list.
     xrandrHeads = [
       # [ <- ]
-      { output = "DP-0"; primary = false; }
+      { output = "DP-2"; primary = false; }
       # [ <- ]
 
       # [ ⚪ ]
@@ -34,7 +34,7 @@
       # [ ⚪ ]
 
       # [ -> ]
-      { output = "DP-2"; primary = false; }
+      { output = "DP-0"; primary = false; }
       # [ -> ]
     ];
 
