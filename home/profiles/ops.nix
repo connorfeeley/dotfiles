@@ -5,7 +5,7 @@
 , ...
 }: {
   home.packages = with pkgs; [
-    nixops # <- Use Nix to operate on Nix OS operations.
+    nixopsUnstable # <- Use Nix to operate on Nix OS operations.
 
     # Hetzner Cloud management tool
     # Configure the hcloud program to use your token:
