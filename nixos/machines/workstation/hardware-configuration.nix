@@ -4,10 +4,13 @@
 , pkgs
 , ...
 }: {
-  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.supportedFilesystems = [ "ext4" "btrfs" "zfs" ];
+  boot.supportedFilesystems = [ "ext4" "btrfs" "zfs" ];
 
   # LUKS-encrypted Linux boot
   boot.initrd.luks.devices.luksroot = {
@@ -59,4 +62,11 @@
   # networking.interfaces.enp9s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp7s0.useDHCP = lib.mkDefault true;
+
+  ###
+  ### ZFS
+  ###
+  networking.hostId = "5679a857";
+  # NOTE: use latest Linux kernel that works with ZFS
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 }

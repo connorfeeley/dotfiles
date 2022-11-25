@@ -32,11 +32,6 @@ in
     message = "Workstation may not be remotely accessible via tailscale.";
   }];
 
-  # FIXME: does this interfere with rEFInd? if not this, then i blame Windows.
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.supportedFilesystems = [ "ext4" "btrfs" ];
-  boot.supportedFilesystems = [ "ext4" "btrfs" ];
-
   # Mount /tmp as tmpfs
   boot.tmpOnTmpfs = true;
 
