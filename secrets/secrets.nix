@@ -17,4 +17,12 @@ let
 in
 {
   "minecraft-rcon-password.txt.age".publicKeys = users ++ systems ++ [ h8tsner ];
+
+  # Workstation binary cache
+  "hosts/workstation/cache-priv-key.pem.age".publicKeys = [ workstation ];
+  "hosts/workstation/cache-pub-key.pem.age".publicKeys = [ macbook-pro ];
+
+  # MacBook-Pro binary cache
+  "hosts/macbook-pro/cache-priv-key.pem.age".publicKeys = [ macbook-pro ];
+  "hosts/macbook-pro/cache-pub-key.pem.age".publicKeys = [ macbook-pro ];
 }
