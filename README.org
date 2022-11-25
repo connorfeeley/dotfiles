@@ -3,6 +3,132 @@
    1. [[#build-debian-vm][Build =debian-vm= system (inside VM)]]
    2. [[#deploy-rs-build][=deploy-rs=: build =debian-vm= in QEMU]]
 
+* Hosts
+
+** Workstation (~workstation~)
+
+*** Partitions
+
+- LUKS volume: ~nvme0n1p5~ - ~c1b38fbf-1786-4d0d-bfed-eb4bc15570f9~ - 443.22 GiB
+  + Home: ~/dev/mapper/LinuxGroup-home~ - ~/dev/dm-3~ - ~9d3dd037-d860-40e1-b053-adf05f7f7dc1~ - 278 GiB
+  + Root: ~/dev/mapper/LinuxGroup-root~  - ~/dev/dm-2~ - ~b13cc249-6db1-41c3-bd28-9213dbd5b773~ - 458 GiB
+  + Swap: ~/dev/mapper/LinuxGroup-swap~ - ~/dev/dm-1~ - ~c1b79739-30a2-45fd-b238-b54049525d00~
+- exFAT boot partition: ~nvme0n1p1~ - ~86A8-3AD7~ - 100 MiB
+- Data partition (~/mnt/ssd~): ~nvme1n1p1~ - ~f08114d8-bff1-4c63-9e85-3d3aa09aca50~
+
+- ZFS: 5 x 2 TiB Western Digital Blue (~WDC WD20EZBX-00A~)
+- RaidZ2: 3 useable drives + 2 parity drives
+| Blockdev | UUID | ID                     | Label |
+|----------+------+------------------------+-------|
+| sda      |      | wwn-0x50014ee2bebedeff |       |
+| sdb      |      | wwn-0x50014ee2146dee6c |       |
+| sdc      |      | wwn-0x50014ee2bf0d6363 |       |
+| sdd      |      | wwn-0x50014ee21413b844 |       |
+| sde      |      | wwn-0x50014ee2146238e1 |       |
+
+- Zpool name: ~rpool~
+
+*** Instructions (as root):
+https://nixos.wiki/wiki/ZFS
+https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/Root%20on%20ZFS/3-system-configuration.html
+https://cheat.readthedocs.io/en/latest/nixos/zfs_install.html
+**** [X] Partition disks
+CLOSED: [2022-11-25 Fri 23:35]
+  #+begin_src shell :noeval
+export DISK="/dev/disk/by-id/wwn-0x50014ee2bebedeff /dev/disk/by-id/wwn-0x50014ee2146dee6c /dev/disk/by-id/wwn-0x50014ee2bf0d6363 /dev/disk/by-id/wwn-0x50014ee21413b844 /dev/disk/by-id/wwn-0x50014ee2146238e1"
+
+INST_PARTSIZE_RPOOL=
+
+for i in ${DISK}; do
+  sgdisk --zap-all $i
+
+  sgdisk -n1:1M:+1G -t1:EF00 $i
+
+  sgdisk -n2:0:+4G -t2:BE00 $i
+
+  test -z $INST_PARTSIZE_SWAP || sgdisk -n4:0:+${INST_PARTSIZE_SWAP}G -t4:8200 $i
+
+  if test -z $INST_PARTSIZE_RPOOL; then
+      sgdisk -n3:0:0   -t3:BF00 $i
+  else
+      sgdisk -n3:0:+${INST_PARTSIZE_RPOOL}G -t3:BF00 $i
+  fi
+
+  sgdisk -a1 -n5:24K:+1000K -t5:EF02 $i
+done
+  #+end_src
+
+**** [X] Create boot pool:
+CLOSED: [2022-11-25 Fri 23:36]
+
+#+begin_src shell :noeval
+# Create the pool. If you want to tweak this a bit and you're feeling adventurous, you
+# might try adding one or more of the following additional options:
+# To disable writing access times:
+#   -O atime=off
+# To enable filesystem compression:
+#   -O compression=lz4
+# To improve performance of certain extended attributes:
+#   -O xattr=sa
+# For systemd-journald posixacls are required
+#   -O  acltype=posixacl
+# To specify that your drive uses 4K sectors instead of relying on the size reported
+# by the hardware (note small 'o'):
+#   -o ashift=12
+#
+# The 'mountpoint=none' option disables ZFS's automount machinery; we'll use the
+# normal fstab-based mounting machinery in Linux.
+# '-R /mnt' is not a persistent property of the FS, it'll just be used while we're installing.
+zpool create \
+    -O mountpoint=none \
+    -O atime=off \
+    -O compression=lz4 \
+    -O xattr=sa \
+    -O acltype=posixacl \
+    -o ashift=12 \
+    -R /mnt/zfs rpool \
+    $(for i in ${DISK}; do
+          printf "$i-part3 ";
+      done)
+#+end_src
+**** [X] Create filesystems:
+CLOSED: [2022-11-25 Fri 23:38]
+
+Create the filesystems. This layout is designed so that /home is separate from the root filesystem, as you'll likely want to snapshot it differently for backup purposes. It also makes a "nixos" filesystem underneath the root, to support installing multiple OSes if that's something you choose to do in future.
+
+#+begin_src shell :noeval
+zfs create -o mountpoint=none rpool/root
+zfs create -o mountpoint=legacy rpool/root/nixos
+zfs create -o mountpoint=legacy rpool/home
+zfs create -o mountpoint=legacy rpool/backup
+zfs create -o mountpoint=legacy rpool/data
+#+end_src
+
+**** [X] Mount filesystems:
+CLOSED: [2022-11-25 Fri 23:44]
+
+Mount the filesystems manually. The nixos installer will detect these mountpoints and save them to /mnt/nixos/hardware-configuration.nix during the install process.
+#+begin_src shell :noeval
+mkdir /mnt/zfs
+mount -t zfs rpool/root/nixos /mnt/zfs
+
+mkdir /mnt/zfs/home
+mount -t zfs rpool/home /mnt/zfs/home
+
+mkdir /mnt/zfs/backup
+mount -t zfs rpool/backup /mnt/zfs/backup
+
+mkdir /mnt/zfs/data
+mount -t zfs rpool/data /mnt/zfs/data
+#+end_src
+**** [X] Unmount filesystems:
+CLOSED: [2022-11-25 Fri 23:45]
+
+#+begin_src shell :noeval
+umount -Rl /mnt/zfs
+zpool export -a
+#+end_src
+
 * Useful Commands
 
 ** Unlock ~git-crypt~
@@ -156,18 +282,18 @@ Credit: [[https://github.com/montchr/dotfield/blob/8a61b8fe37cc3d3186ac8728363d7
 withCategory = category: attrset: attrset // { inherit category; };
 pkgWithCategory = category: package: { inherit package category; };
 #+end_src
-* Handy Information
-
-** Access system configuration in ~home-manager~ module
-
-~osConfig~ is now passed to ~home-manager~ modules ([[https://github.com/nix-community/home-manager/issues/393#issuecomment-1259996423][source]])
-
-* Emacs Remote
+** Emacs Remote
 
 #+begin_src emacs-lisp
 (load "server")
 (unless (server-running-p) (server-start))
 #+end_src
+
+* Handy Information
+
+** Access system configuration in ~home-manager~ module
+
+~osConfig~ is now passed to ~home-manager~ modules ([[https://github.com/nix-community/home-manager/issues/393#issuecomment-1259996423][source]])
 
 * ~rosy~ builder setup
 As ~nixos~ user
