@@ -39,7 +39,6 @@ in
         virtualisation.vm-variant
 
         builder
-        collective.profiles.nix-substituter
 
         workstations.flatpak
         games
