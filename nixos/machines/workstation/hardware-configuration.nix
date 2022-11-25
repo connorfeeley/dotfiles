@@ -79,8 +79,10 @@
   # Take snapshots automatically
   # See services.sanoid section in man configuration.nix.
 
-  fileSystems."/mnt/zfs" = {
-    device = "rpool";
-    fsType = "zfs";
-  };
+  boot.zfs.extraPools = [ "rpool" ];
+
+  # fileSystems."/mnt/zfs" = {
+  #   device = "rpool";
+  #   fsType = "zfs";
+  # };
 }
