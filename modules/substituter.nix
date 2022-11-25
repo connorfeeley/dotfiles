@@ -22,14 +22,28 @@ let
 
   macbook-pro-priv = { file = "${secretsDir}/hosts/macbook-pro/cache-priv-key.pem.age"; group = "nixbld"; };
   macbook-pro-pub = { file = "${secretsDir}/hosts/macbook-pro/cache-pub-key.pem.age"; group = "nixbld"; };
+
+  cfg = config.substituter;
 in
 {
-  age.secrets = {
-    inherit workstation-priv;
+  options.substituter = {
+    enable = lib.mkEnableOption "Whether to make the host a Nix substituter.";
+
+    hostName = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.networking.hostName}";
+      description = "Hostname for the substituter.";
+    };
   };
-  nix = {
-    settings = {
-      secret-key-files = [ config.age.secrets.workstation-priv.path ];
+
+  config = lib.mkIf cfg.enable {
+    age.secrets = {
+      inherit workstation-priv;
+    };
+    nix = {
+      settings = {
+        secret-key-files = [ config.age.secrets.workstation-priv.path ];
+      };
     };
   };
 }
