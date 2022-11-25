@@ -26,7 +26,7 @@ in
     let
       mkHome = name: hmArgs: {
         imports = with hmArgs.roles;
-          developer ++ server;
+          developer ++ linux ++ server;
         home = {
           username = hmArgs.lib.mkForce name;
           homeDirectory = hmArgs.lib.mkForce "/home/${name}";
