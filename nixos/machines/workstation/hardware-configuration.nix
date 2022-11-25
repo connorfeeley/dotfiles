@@ -44,11 +44,14 @@
       fsType = "ext4";
     };
 
-  # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
-  #      vulnerabilities. Don't copy this blindly! And especially not for
-  #      mission critical or server/headless builds exposed to the world.
   boot.kernelParams = [
+    # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
+    #      vulnerabilities. Don't copy this blindly! And especially not for
+    #      mission critical or server/headless builds exposed to the world.
     "mitigations=off"
+
+    # Max ARC (Adaptive Replacement Cache) size: 12GB
+    "zfs.zfs_arc_max=12884901888"
   ];
 
   swapDevices =
@@ -69,4 +72,15 @@
   networking.hostId = "5679a857";
   # NOTE: use latest Linux kernel that works with ZFS
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # Regularly scrub ZFS pools (as reccomended)
+  services.zfs.autoScrub.enable = true;
+  # Automatically trim
+  services.zfs.trim.enable = true;
+  # Take snapshots automatically
+  # See services.sanoid section in man configuration.nix.
+
+  # fileSystems."/mnt/zfs" = {
+  #   device = "zpool_name";
+  #   fsType = "zfs";
+  # };
 }
