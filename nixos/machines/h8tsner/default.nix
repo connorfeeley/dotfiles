@@ -36,10 +36,6 @@ let
 in
 # https://github.com/nix-community/nixos-install-scripts/blob/master/hosters/hetzner-dedicated/hetzner-dedicated-wipe-and-install-nixos.sh
 {
-  imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
-  ];
-
   ### === networking ================================================================
 
   # Via: https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Online
@@ -131,25 +127,29 @@ in
 
   ### === hardware ================================================================
 
-  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  # imports = [
+  #   (modulesPath + "/profiles/qemu-guest.nix")
+  # ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/81817827-b655-4c17-8c18-d274ffa1a3b3";
-      fsType = "ext4";
-    };
+  # boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
+  # boot.initrd.kernelModules = [ ];
+  # boot.kernelModules = [ ];
+  # boot.extraModulePackages = [ ];
 
-  swapDevices = [ ];
+  # fileSystems."/" =
+  #   {
+  #     device = "/dev/disk/by-uuid/81817827-b655-4c17-8c18-d274ffa1a3b3";
+  #     fsType = "ext4";
+  #   };
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
+  # swapDevices = [ ];
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # # (the default) this is the recommended approach. When using systemd-networkd it's
+  # # still possible to use this option, but it's recommended to use it in conjunction
+  # # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  # networking.useDHCP = lib.mkDefault true;
+  # # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
+
+  # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
