@@ -11,14 +11,7 @@
 let
   inherit (collective) peers;
   inherit (config.networking) hostName;
-  inherit (config.lib.dotfield.secrets) secretsDir secretsGroup mkAgeSecret;
   host = peers.hosts.${hostName};
-
-  workstation-priv = { file = "${secretsDir}/hosts/workstation/cache-priv-key.pem.age"; group = secretsGroup; };
-  workstation-pub = { file = "${secretsDir}/hosts/workstation/cache-pub-key.pem.age"; group = secretsGroup; };
-
-  macbook-pro-priv = { file = "${secretsDir}/hosts/macbook-pro/cache-priv-key.pem.age"; group = secretsGroup; };
-  macbook-pro-pub = { file = "${secretsDir}/hosts/macbook-pro/cache-pub-key.pem.age"; group = secretsGroup; };
 in
 lib.mkMerge [
   {
