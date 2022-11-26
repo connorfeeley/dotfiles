@@ -23,6 +23,7 @@
     file
     mediainfo
     unzip
+    pigz
 
     ## === Data Sync ===
     rclone
