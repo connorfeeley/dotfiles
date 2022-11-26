@@ -102,5 +102,10 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    # Interactive, file-level Time Machine-like tool for ZFS/btrfs
+    httm
+  ];
+
   boot.zfs.extraPools = [ "rpool" ];
 }
