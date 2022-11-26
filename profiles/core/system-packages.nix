@@ -18,6 +18,8 @@ in
     coreutils-full
     exa
     fd
+    dua
+    duf
     findutils
     gawk
     git
