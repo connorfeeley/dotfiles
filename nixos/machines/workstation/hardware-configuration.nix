@@ -72,17 +72,33 @@
   networking.hostId = "5679a857";
   # NOTE: use latest Linux kernel that works with ZFS
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
   # Regularly scrub ZFS pools (as reccomended)
   services.zfs.autoScrub.enable = true;
+
   # Automatically trim
   services.zfs.trim.enable = true;
+
   # Take snapshots automatically
-  # See services.sanoid section in man configuration.nix.
+  services.sanoid = {
+    enable = true;
+    datasets = {
+      "rpool/root/nixos" = { use_template = [ "production" ]; };
+      "rpool/home" = { use_template = [ "production" ]; };
+      "rpool/data" = { use_template = [ "production" ]; };
+      "rpool/backup" = { use_template = [ "production" ]; };
+
+      "template_production" = {
+        frequently = 0;
+        hourly = 36;
+        daily = 30;
+        monthly = 3;
+        yearly = 0;
+        autosnap = true;
+        autoprune = true;
+      };
+    };
+  };
 
   boot.zfs.extraPools = [ "rpool" ];
-
-  # fileSystems."/mnt/zfs" = {
-  #   device = "rpool";
-  #   fsType = "zfs";
-  # };
 }
