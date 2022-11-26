@@ -25,4 +25,6 @@ in
   # MacBook-Pro binary cache
   "hosts/macbook-pro/cache-priv-key.pem.age".publicKeys = [ macbook-pro ];
   "hosts/macbook-pro/cache-pub-key.pem.age".publicKeys = [ macbook-pro ];
+
+  "dotfield-readme-update-access-token.txt.age".publicKeys = users ++ systems;
 }
