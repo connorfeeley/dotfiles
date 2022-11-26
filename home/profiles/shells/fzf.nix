@@ -31,6 +31,8 @@ in
     # fish integration may be handled by the fifc plugin
     enableFishIntegration = !config.programs.fish.fifc.enable;
 
+    tmux.enableShellIntegration = config.programs.tmux.enable;
+
     defaultCommand = "${fdBin} --hidden --follow --exclude .git 2>/dev/null";
     defaultOptions = [
       "--height 40%"
