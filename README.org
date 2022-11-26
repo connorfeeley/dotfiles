@@ -99,9 +99,17 @@ Create the filesystems. This layout is designed so that /home is separate from t
 #+begin_src shell :noeval
 zfs create -o mountpoint=none rpool/root
 zfs create -o mountpoint=legacy rpool/root/nixos
+zfs create -o mountpoint=legacy rpool/store
 zfs create -o mountpoint=legacy rpool/home
 zfs create -o mountpoint=legacy rpool/backup
 zfs create -o mountpoint=legacy rpool/data
+#+end_src
+
+**** [X] Share filesystems via NFS:
+CLOSED: [2022-11-26 Sat 00:25]
+
+#+begin_src shell :noeval
+zfs set sharenfs='rw' rpool/data
 #+end_src
 
 **** [X] Mount filesystems:
