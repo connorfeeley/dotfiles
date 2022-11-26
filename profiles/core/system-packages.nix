@@ -41,4 +41,8 @@ in
     wget
     whois
   ];
+
+  environment.shellAliases = {
+    ll = "${pkgs.exa} -l";
+  };
 }
