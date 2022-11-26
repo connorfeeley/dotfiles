@@ -87,8 +87,10 @@
       "rpool/home" = { use_template = [ "production" ]; };
       "rpool/data" = { use_template = [ "production" ]; };
       "rpool/backup" = { use_template = [ "production" ]; };
+    };
 
-      "template_production" = {
+    templates = {
+      "production" = {
         frequently = 0;
         hourly = 36;
         daily = 30;
