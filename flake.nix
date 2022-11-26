@@ -285,6 +285,8 @@
         (digga.lib.mkHomeConfigurations self.nixosConfigurations)
       ;
 
+      colmena = import ./colmena.nix { inherit nixpkgs inputs self; };
+
       deploy.nodes = digga.lib.mkDeployNodes { } {
         workstation = with (collective.peers.hosts.workstation); {
           hostname = "workstation";
