@@ -32,6 +32,7 @@
 
     nur.url = "github:nix-community/NUR";
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
+    macos-builder = { url = "github:Gabriella439/macos-builder"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
     arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };

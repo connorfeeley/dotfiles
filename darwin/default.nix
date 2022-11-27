@@ -33,9 +33,9 @@ in
       profiles.core
       home-manager.darwinModules.home-manager
       digga.nixosModules.nixConfig
+      agenix.nixosModules.age # `nixosModules` is correct, even for darwin
 
-      # `nixosModules` is correct, even for darwin
-      agenix.nixosModules.age
+      profiles.virtualization.nixos-vm-host
     ];
   };
 }
