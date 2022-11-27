@@ -382,6 +382,11 @@
             emacs28Macport-noNativeComp
             ;
         };
+
+      apps = {
+        # Re-export macos-builder for convenience
+        macos-builder = inputs.macos-builder.apps.${system}.default;
+      };
     })) //
     # Generate attrs for each system: (formatter.<system>)
     (eachSystem supportedSystems (system: {
