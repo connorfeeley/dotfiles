@@ -8,9 +8,10 @@ let
 in
 {
   virtualisation.docker = {
-    enable = true;
+    enable = false;
     daemon.settings = {
-      data-root = "/mnt/ssd/docker";
+      # Default: /var/lib/docker
+      data-root = "/var/lib/docker"; # "/mnt/ssd/docker";
     };
 
     # Fixes nixos hanging on shutdown for a few minutes
