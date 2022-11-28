@@ -9,8 +9,8 @@
   boot.extraModulePackages = [ ];
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.supportedFilesystems = [ "ext4" "btrfs" "zfs" ];
-  boot.supportedFilesystems = [ "ext4" "btrfs" "zfs" ];
+  boot.initrd.supportedFilesystems = [ "ext4" "zfs" ];
+  boot.supportedFilesystems = [ "ext4" "ntfs" "zfs" ];
 
   # LUKS-encrypted Linux boot
   boot.initrd.luks.devices.luksroot = {
