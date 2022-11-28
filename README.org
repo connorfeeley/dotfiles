@@ -129,6 +129,14 @@ mount -t zfs rpool/backup /mnt/zfs/backup
 mkdir /mnt/zfs/data
 mount -t zfs rpool/data /mnt/zfs/data
 #+end_src
+
+**** [X] Snapshot Filesystems
+CLOSED: [2022-11-28 Mon 01:51]
+
+#+begin_src shell :noeval
+sudo zfs snapshot "rpool@$(hostname)_$(date +%y%m%d%H%M)"
+#+end_src
+
 **** [X] Unmount filesystems:
 CLOSED: [2022-11-25 Fri 23:45]
 
