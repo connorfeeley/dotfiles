@@ -292,6 +292,7 @@
         workstation = with (collective.peers.hosts.workstation); {
           hostname = "workstation";
           sshUser = "cfeeley";
+          remoteBuild = true;
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;
@@ -304,6 +305,7 @@
         rosy = with (collective.peers.hosts.rosy); {
           hostname = "rosy";
           sshUser = "cfeeley";
+          remoteBuild = true;
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;
@@ -342,6 +344,7 @@
         cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
           hostname = ipv4.address;
           sshUser = "cfeeley";
+          remoteBuild = true;
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;
