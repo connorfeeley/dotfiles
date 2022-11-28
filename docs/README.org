@@ -6,7 +6,6 @@
 * Hosts
 
 ** Workstation (~workstation~)
-
 *** Partitions
 
 - LUKS volume: ~nvme0n1p5~ - ~c1b38fbf-1786-4d0d-bfed-eb4bc15570f9~ - 443.22 GiB
@@ -27,8 +26,138 @@
 | sde      |      | wwn-0x50014ee2146238e1 |       |
 
 - Zpool name: ~rpool~
+*** Disks
+**** ~parted~ output
+~print all~:
+#+begin_example
+GNU Parted 3.5
+Using /dev/sda
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+(parted) print all
+Model: ATA WDC WD20EZBX-00A (scsi)
+Disk /dev/sda: 2000GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags:
 
-*** Instructions (as root):
+Number  Start   End     Size    File system  Name  Flags
+ 5      24.6kB  1049kB  1024kB                     bios_grub
+ 1      1049kB  1075MB  1074MB                     boot, esp
+ 2      1075MB  5370MB  4295MB
+ 3      5370MB  2000GB  1995GB
+
+
+Model: ATA WDC WD20EZBX-00A (scsi)
+Disk /dev/sdb: 2000GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 5      24.6kB  1049kB  1024kB                     bios_grub
+ 1      1049kB  1075MB  1074MB                     boot, esp
+ 2      1075MB  5370MB  4295MB
+ 3      5370MB  2000GB  1995GB
+
+
+Model: ATA WDC WD20EZBX-00A (scsi)
+Disk /dev/sdc: 2000GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 5      24.6kB  1049kB  1024kB                     bios_grub
+ 1      1049kB  1075MB  1074MB                     boot, esp
+ 2      1075MB  5370MB  4295MB
+ 3      5370MB  2000GB  1995GB
+
+
+Model: ATA WDC WD20EZBX-00A (scsi)
+Disk /dev/sdd: 2000GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 5      24.6kB  1049kB  1024kB                     bios_grub
+ 1      1049kB  1075MB  1074MB                     boot, esp
+ 2      1075MB  5370MB  4295MB
+ 3      5370MB  2000GB  1995GB
+
+
+Model: ATA WDC WD20EZBX-00A (scsi)
+Disk /dev/sde: 2000GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 5      24.6kB  1049kB  1024kB                     bios_grub
+ 1      1049kB  1075MB  1074MB                     boot, esp
+ 2      1075MB  5370MB  4295MB
+ 3      5370MB  2000GB  1995GB
+
+
+Model: KINGSTON SA2000M81000G (nvme)
+Disk /dev/nvme0n1: 1000GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name                          Flags
+ 1      1049kB  106MB   105MB   fat32        EFI system partition          boot, esp
+ 2      106MB   123MB   16.8MB               Microsoft reserved partition  msftres
+ 3      123MB   524GB   524GB   ntfs         Basic data partition          msftdata
+ 4      524GB   524GB   523MB   ntfs                                       hidden, diag
+ 5      524GB   1000GB  476GB
+
+
+Model: Samsung SSD 970 EVO Plus 1TB (nvme)
+Disk /dev/nvme1n1: 1000GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size   File system  Name  Flags
+ 1      1049kB  500GB   500GB  ext4         work
+ 2      500GB   1000GB  500GB  ntfs               msftdata
+#+end_example
+
+**** SSDs
+***** Samsung 970 EVO Plus (1TB): ~nvme1n1~
+#+begin_example
+Model: Samsung SSD 970 EVO Plus 1TB (nvme)
+Disk /dev/nvme1n1: 1000GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size   File system  Name  Flags
+ 1      1049kB  500GB   500GB  ext4         work
+ 2      500GB   1000GB  500GB  ntfs               msftdata
+#+end_example
+
+- Linux misc data drive: ~/dev/nvme1n1p1:/mnt/ssd~
+- Windows misc data drive (games): ~/dev/nvme1n1p2:/mnt/ssd~
+
+***** Kingston SA2000 (1TB): ~nvme0n1~
+#+begin_example
+Model: KINGSTON SA2000M81000G (nvme)
+Disk /dev/nvme0n1: 1000GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name                          Flags
+ 1      1049kB  106MB   105MB   fat32        EFI system partition          boot, esp
+ 2      106MB   123MB   16.8MB               Microsoft reserved partition  msftres
+ 3      123MB   524GB   524GB   ntfs         Basic data partition          msftdata
+ 4      524GB   524GB   523MB   ntfs                                       hidden, diag
+ 5      524GB   1000GB  476GB
+#+end_example
+
+*** ZFS on HDDs: Instructions (as root)
 https://nixos.wiki/wiki/ZFS
 https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/Root%20on%20ZFS/3-system-configuration.html
 https://cheat.readthedocs.io/en/latest/nixos/zfs_install.html
@@ -103,6 +232,7 @@ zfs create -o mountpoint=legacy rpool/store
 zfs create -o mountpoint=legacy rpool/home
 zfs create -o mountpoint=legacy rpool/backup
 zfs create -o mountpoint=legacy rpool/data
+zfs create -o mountpoint=/mnt/zfs/media rpool/data/media
 #+end_src
 
 **** [X] Share filesystems via NFS:
