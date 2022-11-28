@@ -85,6 +85,7 @@
       "rpool/root/nixos" = { use_template = [ "production" ]; };
       "rpool/home" = { use_template = [ "production" ]; };
       "rpool/data" = { use_template = [ "production" ]; };
+      "rpool/data/media" = { use_template = [ "production" ]; };
       "rpool/backup" = { use_template = [ "production" ]; };
     };
 
