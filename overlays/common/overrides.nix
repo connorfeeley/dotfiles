@@ -13,4 +13,12 @@ in
   inherit (channels.nixos-21-11)
     sourcetrail
     ;
+
+  # FIXME: nix-zsh-completions are broken
+  # https://github.com/NixOS/nixpkgs/pull/202750/files
+  nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (o: {
+    postPatch = ''
+      rm _nix
+    '';
+  });
 }
