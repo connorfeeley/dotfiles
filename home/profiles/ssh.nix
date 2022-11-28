@@ -59,6 +59,7 @@ in
           PubkeyAcceptedKeyTypes = "+ssh-rsa";
           KexAlgorithms = "+diffie-hellman-group1-sha1";
           HostKeyAlgorithms = "+ssh-rsa";
+          Port = "22";
           # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
           # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
           # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
@@ -71,6 +72,7 @@ in
       "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "cryptsetup-askpass"; };
       "macbook-pro" = mkMatchBlock { hostName = "MacBook-Pro"; trusted = true; };
       "cfeeley-laptop" = mkMatchBlock { hostName = "cfeeley-laptop"; trusted = true; } // { hostname = cfeeley-laptop.ipv4.address; };
+      "assuring-redshank" = { hostname = "assuring-redshank"; user = "ubuntu"; };
 
       ### VMs (local)
       "rosy" = mkMatchBlock { hostName = "rosy"; }; # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
