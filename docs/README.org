@@ -157,6 +157,212 @@ Number  Start   End     Size    File system  Name                          Flags
  5      524GB   1000GB  476GB
 #+end_example
 
+*** ZFS on SSD (~nvme1n1~): Instructions (as root)
+[[https://github.com/cole-h/nixos-config#1-partition][GitHub - cole-h/nixos-config: My flakes-powered NixOS configuration]]
+
+
+#+begin_src shell :noeval
+# This section should be run as root.
+
+export DISK=/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T
+export INST_PARTSIZE_SWAP=32
+export INST_PARTSIZE_NPOOL=
+
+for i in ${DISK}; do
+  # Partition disk
+  sgdisk --zap-all $i
+
+  sgdisk -n1:1M:+1G -t1:EF00 $i
+
+  sgdisk -n2:0:+4G -t2:BE00 $i
+
+  test -z $INST_PARTSIZE_SWAP || sgdisk -n4:0:+${INST_PARTSIZE_SWAP}G -t4:8200 $i
+
+  if test -z $INST_PARTSIZE_NPOOL; then
+      sgdisk -n3:0:0   -t3:BF00 $i
+  else
+      sgdisk -n3:0:+${INST_PARTSIZE_NPOOL}G -t3:BF00 $i
+  fi
+
+  sgdisk -a1 -n5:24K:+1000K -t5:EF02 $i
+done
+
+# Create boot pool
+zpool create \
+    -o compatibility=grub2 \
+    -o ashift=12 \
+    -o autotrim=on \
+    -O acltype=posixacl \
+    -O canmount=off \
+    -O compression=on \
+    -O devices=off \
+    -O normalization=formD \
+    -O relatime=on \
+    -O xattr=sa \
+    -O mountpoint=/boot \
+    -R /mnt \
+    bpool \
+    $(for i in ${DISK}; do
+       printf "$i-part2 ";
+      done)
+
+# Create root pool
+zpool create \
+    -o ashift=12 \
+    -o autotrim=on \
+    -R /mnt \
+    -O acltype=posixacl \
+    -O canmount=off \
+    -O compression=zstd \
+    -O dnodesize=auto \
+    -O normalization=formD \
+    -O relatime=on \
+    -O xattr=sa \
+    -O mountpoint=/ \
+    npool \
+   $(for i in ${DISK}; do
+      printf "$i-part3 ";
+     done)
+
+# Create encrypted root container
+zfs create \
+ -o canmount=off \
+ -o mountpoint=none \
+ -o encryption=on \
+ -o keylocation=prompt \
+ -o keyformat=passphrase \
+ npool/nixos
+
+# Create system datasets
+zfs create -o canmount=on -o mountpoint=/     npool/nixos/root
+zfs create -o canmount=on -o mountpoint=/home npool/nixos/home
+zfs create -o canmount=off -o mountpoint=/var  npool/nixos/var
+zfs create -o canmount=on  npool/nixos/var/lib
+zfs create -o canmount=on  npool/nixos/var/log
+
+# Create boot dataset
+zfs create -o canmount=off -o mountpoint=none bpool/nixos
+zfs create -o canmount=on -o mountpoint=/boot bpool/nixos/root
+
+# Format and mount ESP
+for i in ${DISK}; do
+ mkfs.vfat -n EFI ${i}-part1
+ mkdir -p /mnt/boot/efis/${i##*/}-part1
+ mount -t vfat ${i}-part1 /mnt/boot/efis/${i##*/}-part1
+done
+
+mkdir -p /mnt/boot/efi
+mount -t vfat $(echo $DISK | cut -f1 -d\ )-part1 /mnt/boot/efi
+
+# Disable cache (stale cache will prevent system from booting)
+mkdir -p /mnt/etc/zfs/
+rm -f /mnt/etc/zfs/zpool.cache
+touch /mnt/etc/zfs/zpool.cache
+chmod a-w /mnt/etc/zfs/zpool.cache
+chattr +i /mnt/etc/zfs/zpool.cache
+
+# Generate initial system configuration
+nixos-generate-config --root /mnt
+
+# Set machine-id
+cp /tmp/other-ssd/etc/machine-id /mnt/etc/
+# -> Copy machine-id from old partition
+
+# ##################### #
+# Configure bootloader for both legacy boot and UEFI boot and mirror bootloader
+# -> IMPORT zfs-root.nix
+# -> DISABLE boot.systemd-boot profile
+# ##################### #
+
+# Mount datasets with zfsutil option
+sed -i 's|fsType = "zfs";|fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];|g' \
+/mnt/etc/nixos/hardware-configuration.nix
+# -> Add 'options = [ "zfsutil" "X-mount.mkdir" ];' to all ZFS fileSystems)
+
+# Install system and apply configuration
+nixos-install -v --show-trace --no-root-passwd --root /mnt
+
+# Unmount filesystems
+umount -Rl /mnt
+zpool export -a
+
+# Reboot
+reboot
+
+
+
+
+
+
+
+
+
+
+gdisk $DISK
+  # o (delete all partitions + protective mbr)
+  # n, 1, +1M,   +2G, ef00  (EFI boot)
+  # n, 2, ...,  +32G, 8200  (swap)
+  # n, 3, ...,  ....,  ...  (Linux)
+  # c, 3, "[a-z][0-9]?pool" -- set part label
+  # w
+
+mkfs.fat -F 32 -n boot $DISK-part1
+mkswap -L swap $DISK-part2
+
+zpool create \
+    -O mountpoint=none \
+    # SSDs may or may not lie that it uses a 512B physical block size;
+    # ashift of 12 (4k) shouldn't really hurt, according to various
+    # people
+    -o ashift=12 \
+    -R /mnt \
+    apool $DISK-part3
+
+zfs create \
+    -o canmount=off \
+    -o atime=off \
+    # requires ZoL 2.0
+    -o compression=zstd \
+    # apparently gcm is faster than ccm
+    -o encryption=aes-256-gcm -o keyformat=passphrase \
+    -o xattr=sa \
+    -o acltype=posixacl \
+    apool/r
+
+# https://gist.github.com/LnL7/5701d70f46ea23276840a6b1c404597f
+# maybe don't need mountpoint=legacy except for /nix?
+alias nomount='zfs create -o canmount=off'
+alias legacy='zfs create -o mountpoint=legacy'
+nomount apool/r
+nomount apool/r/local
+legacy apool/r/local/root # /
+legacy apool/r/local/nix # /nix
+legacy apool/r/local/var # /var
+nomount apool/r/safe
+legacy apool/r/safe/state
+legacy -p apool/r/safe/state/home/vin/Downloads # create /home, /home/vin, and /home/vin/Downloads datasets
+# zfs create -s -V 400G apool/r/win10
+
+# keep space available in case it's ever needed
+# to free up the space, `zfs set refreservation=none apool/alloc`
+nomount -o refreservation=1G apool/alloc
+
+# create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
+zfs snapshot -r apool/r@blank
+# roll back with `zfs rollback -r apool/r@blank`
+
+alias zmnt='mount -t zfs'
+zmnt apool/r/local/root /mnt
+mkdir -p /mnt/{boot,var,nix,state/home/vin/Downloads,mnt,shares/media}
+zmnt apool/r/local/var /mnt/var
+zmnt apool/r/local/nix /mnt/nix
+zmnt apool/r/safe/state /mnt/state
+zmnt apool/r/safe/state/home /mnt/state/home
+zmnt apool/r/safe/state/home/vin /mnt/state/home/vin
+zmnt apool/r/safe/state/home/vin/Downloads /mnt/state/home/vin/Downloads
+mount $DISK-part1 /mnt/boot
+#+end_src
+
 *** ZFS on HDDs: Instructions (as root)
 https://nixos.wiki/wiki/ZFS
 https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/Root%20on%20ZFS/3-system-configuration.html
@@ -274,7 +480,6 @@ CLOSED: [2022-11-25 Fri 23:45]
 umount -Rl /mnt/zfs
 zpool export -a
 #+end_src
-
 * Useful Commands
 
 ** Unlock ~git-crypt~
