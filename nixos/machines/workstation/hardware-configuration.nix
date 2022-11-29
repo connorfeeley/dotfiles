@@ -8,35 +8,34 @@
   boot.initrd.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.supportedFilesystems = [ "ext4" "zfs" ];
   boot.supportedFilesystems = [ "ext4" "ntfs" "zfs" ];
 
   # LUKS-encrypted Linux boot
-  boot.initrd.luks.devices.luksroot = {
-    device = "/dev/disk/by-uuid/c1b38fbf-1786-4d0d-bfed-eb4bc15570f9";
-    preLVM = true;
-    allowDiscards = true;
-    bypassWorkqueues = true;
-  };
-
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/b13cc249-6db1-41c3-bd28-9213dbd5b773";
-      fsType = "ext4";
-    };
-
-  fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/9d3dd037-d860-40e1-b053-adf05f7f7dc1";
-      fsType = "ext4";
-    };
-
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/86A8-3AD7";
-      fsType = "vfat";
-    };
+  # boot.initrd.luks.devices.luksroot = {
+  #   device = "/dev/disk/by-uuid/c1b38fbf-1786-4d0d-bfed-eb4bc15570f9";
+  #   preLVM = true;
+  #   allowDiscards = true;
+  #   bypassWorkqueues = true;
+  # };
+  #
+  # fileSystems."/" =
+  #   {
+  #     device = "/dev/disk/by-uuid/b13cc249-6db1-41c3-bd28-9213dbd5b773";
+  #     fsType = "ext4";
+  #   };
+  #
+  # fileSystems."/home" =
+  #   {
+  #     device = "/dev/disk/by-uuid/9d3dd037-d860-40e1-b053-adf05f7f7dc1";
+  #     fsType = "ext4";
+  #   };
+  #
+  # fileSystems."/boot" =
+  #   {
+  #     device = "/dev/disk/by-uuid/86A8-3AD7";
+  #     fsType = "vfat";
+  #   };
 
   # fileSystems."/mnt/ssd" =
   #   {
@@ -54,8 +53,8 @@
     "zfs.zfs_arc_max=12884901888"
   ];
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/c1b79739-30a2-45fd-b238-b54049525d00"; }];
+  # swapDevices =
+  #   [{ device = "/dev/disk/by-uuid/c1b79739-30a2-45fd-b238-b54049525d00"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

@@ -9,7 +9,6 @@ let
       # fonts.pragmatapro # TODO: remove
     ])
     ++ (with profiles; [
-      boot.systemd-boot
       desktop
       gnome-desktop
       video
@@ -51,7 +50,6 @@ let
       secrets
     ])
     ++ (with profiles; [
-      boot.systemd-boot
       yubikey
       networking.avahi
     ]);

@@ -32,7 +32,6 @@ in
       (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ desktop ++ server) ++
       #: ~ Profiles ~
       (with profiles; [
-        boot.systemd-boot
         hardware.amd
         nvidia
         hidpi

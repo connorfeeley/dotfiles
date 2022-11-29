@@ -16,6 +16,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ./zfs-root.nix
   ];
 
   # OKAY: make sure I don't bork my system remotely!
