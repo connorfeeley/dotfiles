@@ -69,7 +69,7 @@
           '';
         in
         ''
-          ${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap}
+          # ${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap}
 
           # Fix keyring unlock
           ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all

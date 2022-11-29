@@ -16,7 +16,7 @@ in
     enable = true;
     layout = "dvorak";
     # FIXME: propagate to GNOME settings
-    xkbOptions = "caps:ctrl_modifier,ctrl:swap_lalt_lctl";
+    xkbOptions = "ctrl:nocaps,ctrl:swap_lalt_lctl";
     exportConfiguration = true;
 
     displayManager.startx.enable = false;
