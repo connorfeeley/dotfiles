@@ -144,9 +144,11 @@ lib.mkMerge [
 
     services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
       # Doom will take care of running the server.
-      enable = lib.mkDefault false;
+      enable = lib.mkDefault true;
       defaultEditor = lib.mkForce true;
       socketActivation.enable = false;
+      startWithUserSession = lib.mkDefault true; # implies socketActivitaion is disabled
+      client.enable = lib.mkDefault true; # Generate desktop file
     };
 
     home.packages = with pkgs; [
