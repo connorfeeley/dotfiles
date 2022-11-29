@@ -69,7 +69,8 @@ in
 
       ### Physical
       "workstation" = mkMatchBlock { hostName = "workstation"; trusted = true; };
-      "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "cryptsetup-askpass"; };
+      # "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "cryptsetup-askpass"; };
+      "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "zfs load-key -a; killall zfs"; };
       "macbook-pro" = mkMatchBlock { hostName = "MacBook-Pro"; trusted = true; };
       "cfeeley-laptop" = mkMatchBlock { hostName = "cfeeley-laptop"; trusted = true; } // { hostname = cfeeley-laptop.ipv4.address; };
       "assuring-redshank" = { hostname = "assuring-redshank"; user = "ubuntu"; };
