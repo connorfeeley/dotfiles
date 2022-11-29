@@ -38,11 +38,11 @@
       fsType = "vfat";
     };
 
-  fileSystems."/mnt/ssd" =
-    {
-      device = "/dev/disk/by-uuid/f08114d8-bff1-4c63-9e85-3d3aa09aca50";
-      fsType = "ext4";
-    };
+  # fileSystems."/mnt/ssd" =
+  #   {
+  #     device = "/dev/disk/by-uuid/f08114d8-bff1-4c63-9e85-3d3aa09aca50";
+  #     fsType = "ext4";
+  #   };
 
   boot.kernelParams = [
     # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
