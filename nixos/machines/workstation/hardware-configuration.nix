@@ -82,6 +82,8 @@
   services.sanoid = {
     enable = true;
     datasets = {
+      "npool/nixos/home" = { use_template = [ "production" ]; };
+
       "rpool/root/nixos" = { use_template = [ "production" ]; };
       "rpool/home" = { use_template = [ "production" ]; };
       "rpool/data" = { use_template = [ "production" ]; };
