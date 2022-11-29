@@ -8,7 +8,7 @@ let
 in
 {
   virtualisation.docker = {
-    enable = false;
+    enable = true;
     daemon.settings = {
       # Default: /var/lib/docker
       data-root = "/var/lib/docker"; # "/mnt/ssd/docker";
