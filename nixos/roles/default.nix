@@ -41,6 +41,7 @@ let
   ];
 
   fpgadev = with profiles; [
+    fpga.intel-altera
     fpga.xilinx
   ];
 
