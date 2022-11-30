@@ -118,7 +118,7 @@ in
     dev.enable = true;
     man = rec {
       generateCaches = true;
-      mandoc.enable = false;
+      mandoc.enable = true;
       man-db.enable = !mandoc.enable;
     };
     nixos.enable = true;
