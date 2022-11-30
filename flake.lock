@@ -3428,10 +3428,10 @@
       },
       "locked": {
         "lastModified": 1669784400,
-        "narHash": "sha256-38Yo3jLSPTbghq1glnmIFq1WCFuXxsBIeVT28TLAsjY=",
+        "narHash": "sha256-HsYXEpXJqS/ektP0ovWR2jwUz7ohikCrcnTTONnZ3kA=",
         "ref": "refs/heads/master",
-        "rev": "2229abc5ec957e02e85a5047e2777f4ec1a966c3",
-        "revCount": 25,
+        "rev": "546668f853ae56895f999d840ea5fa0dbe9a9aca",
+        "revCount": 36,
         "type": "git",
         "url": "https://git.sr.ht/~cfeeley/xmonad-config"
       },
