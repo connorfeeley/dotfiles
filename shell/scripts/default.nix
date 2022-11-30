@@ -50,4 +50,7 @@ in
         } // env);
     in
     writeProgram "dotfield-doom" { } ./ci/doom-rebuild.sh;
+
+  # TODO: keeping this here for when I finally implement README generation for sourcehut.
+  # config.age.secrets."dotfield-readme-update-access-token".path;
 }
