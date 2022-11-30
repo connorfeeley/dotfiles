@@ -12,6 +12,7 @@ in
 
   inherit (channels.nixos-21-11)
     sourcetrail
+    quartus-prime-lite
     ;
 
   # FIXME: nix-zsh-completions are broken
@@ -42,9 +43,5 @@ in
     postInstall = ''
       cp -pr --reflink=auto -- info "$out/share/"
     '';
-  });
-
-  quartus-prime-lite = prev.quartus-prime-lite.overrideAttrs (finalAttrs: previousAttrs: {
-    targetPkgs = previousAttrs.targetPkgs ++ [ prev.libcrypt ];
   });
 }
