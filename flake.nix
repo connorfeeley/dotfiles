@@ -50,7 +50,6 @@
 
     ##: --- personal packages --------------------------------------------------
     xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
-    xmobar-config = { url = "git+https://git.sr.ht/~cfeeley/xmobar-config"; inputs.flake-utils.follows = "flake-utils"; };
     nixpkgs-work.url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
     ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; };
 
@@ -101,7 +100,6 @@
     , nur
     , nvfetcher
     , xmonad-config
-    , xmobar-config
     , pta2002-neovim
     , ttc-subway-font
     , nixpkgs-work
@@ -173,8 +171,7 @@
         nvfetcher.overlay
         nix-nil.overlays.default
 
-        xmonad-config.overlay
-        xmobar-config.overlay
+        xmonad-config.overlays.default
 
         ttc-subway-font.overlay
 
@@ -194,7 +191,7 @@
             inherit (packagesFrom inputs.nixpkgs-work) dashboard;
             inherit (packagesFrom inputs.nixpkgs-work) zeuspack;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
-            inherit (packagesFrom inputs.xmobar-config) xmobar-config;
+            inherit (packagesFrom inputs.xmonad-config) xmobar-config;
           }
         )
       ];
