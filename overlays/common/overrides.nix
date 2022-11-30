@@ -43,4 +43,8 @@ in
       cp -pr --reflink=auto -- info "$out/share/"
     '';
   });
+
+  quartus-prime-lite = prev.quartus-prime-lite.overrideAttrs (finalAttrs: previousAttrs: {
+    targetPkgs = previousAttrs.targetPkgs ++ [ prev.libcrypt ];
+  });
 }
