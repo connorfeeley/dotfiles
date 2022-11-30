@@ -12,6 +12,7 @@
     tidy-viewer # Pretty-print CSV files
     xsv # A fast CSV command line toolkit
     python3Packages.yq # <- jq wrapper for YAML/XML/TOML documents
+    htmlq # Like jq, but for HTML
 
     ## === Media Tools ===
     # TODO: media should be it's own profile; +use hm module
