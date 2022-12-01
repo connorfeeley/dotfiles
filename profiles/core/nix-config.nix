@@ -86,7 +86,7 @@ in
     extraOptions = ''
       warn-dirty = false
       allow-import-from-derivation = true
-      experimental-features = repl-flake
+      experimental-features = repl-flake ca-derivations
     '';
 
     # FUP Options {{
