@@ -1,3 +1,3 @@
 final: prev: {
-  macports = final.callPackage ./macports.nix { };
+  macports = final.darwin.apple_sdk_11_0.callPackage ./macports.nix { };
 }

@@ -1,21 +1,25 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl, autoreconfHook, xcbuild, curl }:
 
 stdenv.mkDerivation rec {
-  version = "";
-  name = "-${version}";
+  version = "2.8.0";
+  name = "macports-base-v${version}";
 
   src = fetchurl {
-    url = "";
-    sha256 = "";
+    url = "https://github.com/macports/macports-base/releases/download/v${version}/MacPorts-${version}.tar.gz";
+    sha256 = "0yh036bjpmnscdgs4g9yc37hzayfxdjzy80a30qvd7ahhjvr2rqh";
   };
 
-  buildInputs = [  ];
+  buildInputs = [ curl ];
+
+  # Passes invalid "-arch <arch>" flag.
+  # Hoped autoreconfHook would fix that.
+  nativeBuildInputs = [ autoreconfHook ];
 
   meta = {
     description = "";
-    homepage = https://;
-    license = stdenv.lib.licenses.;
-    maintainers = [ stdenv.lib.maintainers. ];
-    platforms = stdenv.lib.platforms.;
+    homepage = "https://macports.org";
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.cfeeley];
+    platforms = lib.platforms.darwin;
   };
 }
