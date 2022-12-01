@@ -73,7 +73,13 @@ in
 
       firewall = {
         enable = true;
-        allowedTCPPorts = [ 2049 ]; # 2049: NFS
+        allowedTCPPorts = [
+          2049 # 2049: NFS
+          5357 # wsdd
+        ];
+        allowedUDPPorts = [
+          3702 # wsdd
+        ];
       };
 
       defaultGateway = {
@@ -139,6 +145,67 @@ in
     /mnt/export         100.66.73.0/24(rw,fsid=0,no_subtree_check,all_squash,anonuid=0,anongid=100)
     /mnt/export/cfeeley 100.66.73.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=0,anongid=100)
   '';
+
+  services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    extraConfig = ''
+      workgroup = WORKGROUP
+      server string = Workstation
+      netbios name = Workstation
+      security = user
+      #use sendfile = yes
+      #max protocol = smb2
+      # note: localhost is the ipv6 localhost ::1
+      hosts allow = 100. 192.168.0. 127.0.0.1 localhost
+      hosts deny = 0.0.0.0/0
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      tm_share = {
+        path = "/mnt/zfs/backup/tm_share";
+        "valid users" = "username";
+        public = "no";
+        writeable = "yes";
+        "force user" = "username";
+        "fruit:aapl" = "yes";
+        "fruit:time machine" = "yes";
+        "vfs objects" = "catia fruit streams_xattr";
+      };
+      # public = {
+      #   path = "/mnt/Shares/Public";
+      #   browseable = "yes";
+      #   "read only" = "no";
+      #   "guest ok" = "yes";
+      #   "create mask" = "0644";
+      #   "directory mask" = "0755";
+      #   "force user" = "username";
+      #   "force group" = "groupname";
+      # };
+      Media = {
+        path = "/mnt/zfs/media";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "username";
+        "force group" = "groupname";
+      };
+      private = {
+        path = "/mnt/export/cfeeley";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "username";
+        "force group" = "groupname";
+      };
+    };
+  };
 
   # services.webdav = {
   #   enable = true;
