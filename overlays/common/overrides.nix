@@ -44,4 +44,14 @@ in
       cp -pr --reflink=auto -- info "$out/share/"
     '';
   });
+
+  # Fix nixos-option flake support
+  nixos-option = prev.symlinkJoin {
+    name = "nixos-option";
+    paths = [ prev.nixos-option ];
+    buildInputs = [ prev.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/nixos-option --add-flags '-I nixpkgs="$DOTFIELD_DIR/lib/compat"'
+    '';
+  };
 }

@@ -26,6 +26,7 @@
     nix-diff #      <- Explain why two Nix derivations differ
     nix-tree #      <- Interactively browse dependency graphs of Nix derivations.
     nix-top #       <- 'top' for nix builds
+    nixos-option #  <- Search nixos options
     manix #         <- nix documentation search
     nix-du #        <- Analyze derivation and store size
     nox #           <- Tools to make nix nicer to use
