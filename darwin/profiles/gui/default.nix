@@ -90,7 +90,7 @@ in
       { name = "private-internet-access"; }
 
       { name = "vlc"; }
-      { name = "lulu"; }
+      # { name = "lulu"; }
       { name = "stats"; }
       { name = "steam"; }
       { name = "curseforge"; }
