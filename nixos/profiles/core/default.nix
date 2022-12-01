@@ -118,7 +118,8 @@ in
     dev.enable = true;
     man = rec {
       generateCaches = true;
-      mandoc.enable = true;
+      # Mandoc isn't compatible with MANPAGER=bat: https://github.com/sharkdp/bat/issues/1145
+      mandoc.enable = false;
       man-db.enable = !mandoc.enable;
     };
     nixos.enable = true;
