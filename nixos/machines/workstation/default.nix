@@ -97,7 +97,7 @@ in
     }
   );
 
-  ### === Remote LUKS Unlock  ============================================================
+  ### === Remote LUKS/ZFS Unlock  ============================================================
 
   # Enable tailscale in initrd
   remote-machine.boot.tailscaleUnlock = {
@@ -121,6 +121,8 @@ in
       ];
     };
   };
+
+  environment.systemPackages = with pkgs; [ cryptsetup ];
 
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
