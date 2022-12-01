@@ -1350,11 +1350,11 @@
         "tullia": "tullia"
       },
       "locked": {
-        "lastModified": 1669857499,
-        "narHash": "sha256-ult3wJu9mnQQpPyPvLYpSIep85caCdygo//loYjbtg8=",
+        "lastModified": 1669867460,
+        "narHash": "sha256-1nVCVvOikYKFDjMCA+S/xyJEwIE05S1gqm+kwdtLsy8=",
         "owner": "input-output-hk",
         "repo": "haskell.nix",
-        "rev": "2f42ad0e304167e5062204442d3d7431c55e42cf",
+        "rev": "fadf9227afcdd93eedc656ba380f6a55d08fa650",
         "type": "github"
       },
       "original": {
@@ -3427,11 +3427,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1669784400,
-        "narHash": "sha256-HsYXEpXJqS/ektP0ovWR2jwUz7ohikCrcnTTONnZ3kA=",
+        "lastModified": 1669870800,
+        "narHash": "sha256-SMbetga+7FI2LsFQ068z/M9TMmEY32roxgm7QvcRTPs=",
         "ref": "refs/heads/master",
-        "rev": "546668f853ae56895f999d840ea5fa0dbe9a9aca",
-        "revCount": 36,
+        "rev": "b27635779069b2fe6253083ead3c9e5b47f07b51",
+        "revCount": 39,
         "type": "git",
         "url": "https://git.sr.ht/~cfeeley/xmonad-config"
       },
