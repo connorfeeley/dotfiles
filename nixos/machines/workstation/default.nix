@@ -97,7 +97,7 @@ in
     }
   );
 
-  kernel.sysctl = {
+  boot.kernel.sysctl = {
     net.ipv6.route.max_size = 2147483647; # Default: 4096
   };
 
