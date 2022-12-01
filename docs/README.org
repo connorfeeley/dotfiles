@@ -286,82 +286,32 @@ nixos-install -v --show-trace --no-root-passwd --root /mnt
 umount -Rl /mnt
 zpool export -a
 
-# Reboot
+# Done!
 reboot
-
-
-
-
-
-
-
-
-
-
-gdisk $DISK
-  # o (delete all partitions + protective mbr)
-  # n, 1, +1M,   +2G, ef00  (EFI boot)
-  # n, 2, ...,  +32G, 8200  (swap)
-  # n, 3, ...,  ....,  ...  (Linux)
-  # c, 3, "[a-z][0-9]?pool" -- set part label
-  # w
-
-mkfs.fat -F 32 -n boot $DISK-part1
-mkswap -L swap $DISK-part2
-
-zpool create \
-    -O mountpoint=none \
-    # SSDs may or may not lie that it uses a 512B physical block size;
-    # ashift of 12 (4k) shouldn't really hurt, according to various
-    # people
-    -o ashift=12 \
-    -R /mnt \
-    apool $DISK-part3
-
-zfs create \
-    -o canmount=off \
-    -o atime=off \
-    # requires ZoL 2.0
-    -o compression=zstd \
-    # apparently gcm is faster than ccm
-    -o encryption=aes-256-gcm -o keyformat=passphrase \
-    -o xattr=sa \
-    -o acltype=posixacl \
-    apool/r
-
-# https://gist.github.com/LnL7/5701d70f46ea23276840a6b1c404597f
-# maybe don't need mountpoint=legacy except for /nix?
-alias nomount='zfs create -o canmount=off'
-alias legacy='zfs create -o mountpoint=legacy'
-nomount apool/r
-nomount apool/r/local
-legacy apool/r/local/root # /
-legacy apool/r/local/nix # /nix
-legacy apool/r/local/var # /var
-nomount apool/r/safe
-legacy apool/r/safe/state
-legacy -p apool/r/safe/state/home/vin/Downloads # create /home, /home/vin, and /home/vin/Downloads datasets
-# zfs create -s -V 400G apool/r/win10
-
-# keep space available in case it's ever needed
-# to free up the space, `zfs set refreservation=none apool/alloc`
-nomount -o refreservation=1G apool/alloc
-
-# create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
-zfs snapshot -r apool/r@blank
-# roll back with `zfs rollback -r apool/r@blank`
-
-alias zmnt='mount -t zfs'
-zmnt apool/r/local/root /mnt
-mkdir -p /mnt/{boot,var,nix,state/home/vin/Downloads,mnt,shares/media}
-zmnt apool/r/local/var /mnt/var
-zmnt apool/r/local/nix /mnt/nix
-zmnt apool/r/safe/state /mnt/state
-zmnt apool/r/safe/state/home /mnt/state/home
-zmnt apool/r/safe/state/home/vin /mnt/state/home/vin
-zmnt apool/r/safe/state/home/vin/Downloads /mnt/state/home/vin/Downloads
-mount $DISK-part1 /mnt/boot
 #+end_src
+
+
+**** Time Machine Filesystem
+
+#+begin_example
+tmArgs=(
+    atime=off
+    dnodesize=auto
+    xattr=sa
+    logbias=throughput
+    recordsize=1M
+    compression=zstd-10
+    refquota=3T
+    # optional - greatly improves write performance
+    sync=disabled
+    # security
+    setuid=off
+    exec=off
+    devices=off
+)
+
+zfs create "${tmArgs[@]}" rpool/backup/time_machine
+#+end_example
 
 *** ZFS on HDDs: Instructions (as root)
 https://nixos.wiki/wiki/ZFS
