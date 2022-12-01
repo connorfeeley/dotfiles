@@ -28,8 +28,8 @@
 
   #: Window layout {{{
   remember_window_size = false;
-  initial_window_width = "640";
-  initial_window_height = "800";
+  initial_window_width = "1600";
+  initial_window_height = "1280";
   window_padding_width = "10";
   window_margin_width = "0";
   single_window_margin_width = "-1";
