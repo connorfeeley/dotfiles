@@ -45,7 +45,7 @@
     shares = {
       timemachine = {
         path = "/mnt/zfs/backup/time_machine";
-        # "valid users" = "username";
+        "valid users" = "cfeeley";
         # public = "no";
         # writeable = "yes";
 
