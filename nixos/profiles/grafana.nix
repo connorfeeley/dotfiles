@@ -49,12 +49,15 @@ in
       # Configure prometheus to read metrics from this exporter
       [
         {
+          job_name = "workstation-zfs";
+          static_configs = [{
+            targets = [ "${(lib.our.peers.getHost "workstation").tailscale}:${toString self.nixosConfigurations.workstation.config.services.prometheus.exporters.zfs.port}" ];
+          }];
+        }
+        {
           job_name = "h8tsner-endlessh";
           static_configs = [{
-            targets = [
-              "${(lib.our.peers.getHost "h8tsner").tailscale}:${toString self.nixosConfigurations.h8tsner.config.services.endlessh-go.prometheus.port}"
-              "${(lib.our.peers.getHost "workstation").tailscale}:${toString self.nixosConfigurations.workstation.config.services.prometheus.exporters.zfs.port}"
-            ];
+            targets = [ "${(lib.our.peers.getHost "h8tsner").tailscale}:${toString self.nixosConfigurations.h8tsner.config.services.endlessh-go.prometheus.port}" ];
           }];
         }
       ];
