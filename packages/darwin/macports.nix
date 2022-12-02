@@ -15,11 +15,14 @@ stdenv.mkDerivation rec {
   # Hoped autoreconfHook would fix that.
   nativeBuildInputs = [ autoreconfHook ];
 
+  # TODO: support x86_64-darwin as well
+  configureFlags = [ ''--with-universal-archs="arm64"'' ];
+
   meta = {
     description = "";
     homepage = "https://macports.org";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.cfeeley];
+    maintainers = [ lib.maintainers.cfeeley ];
     platforms = lib.platforms.darwin;
   };
 }
