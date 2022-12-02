@@ -229,4 +229,6 @@ in
     enable = true;
     port = 9134;
   };
+
+  services.x2goserver.enable = true;
 }
