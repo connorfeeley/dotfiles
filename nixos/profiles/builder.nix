@@ -1,18 +1,11 @@
 { config
 , lib
-, pkgs
-, profiles
-, suites
-, inputs
 , primaryUser
 , collective
 , ...
 }:
 let
-  inherit (collective) peers;
   inherit (config.networking) hostName;
-  hostKeys = (lib.our.peers.getHost "MacBook-Pro").keys;
-  host = peers.hosts.${hostName};
 in
 lib.mkMerge [
   {

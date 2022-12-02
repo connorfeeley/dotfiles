@@ -2,8 +2,6 @@
 , lib
 , pkgs
 , profiles
-, suites
-, inputs
 , primaryUser
 , collective
 , ...
@@ -11,7 +9,6 @@
 let
   inherit (collective) peers;
   inherit (config.networking) hostName;
-  inherit (config.lib.dotfield.secrets) mkAgeSecret;
 in
 {
   imports = [

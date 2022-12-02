@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ ... }:
 let
   useAppleVirtualization = false; # false for QMEU
 in

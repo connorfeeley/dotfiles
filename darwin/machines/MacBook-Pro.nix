@@ -1,15 +1,10 @@
 { config
 , lib
-, pkgs
 , profiles
-, suites
-, inputs
-, primaryUser
 , collective
 , ...
 }:
 let
-  inherit (collective) peers;
   inherit (config.networking) hostName;
 in
 {

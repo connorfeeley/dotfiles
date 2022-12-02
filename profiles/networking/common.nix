@@ -1,7 +1,4 @@
-{ self
-, config
-, lib
-, pkgs
+{ lib
 , ...
 }:
 # let

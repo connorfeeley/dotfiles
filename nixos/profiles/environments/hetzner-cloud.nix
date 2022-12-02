@@ -1,6 +1,5 @@
 { config
 , lib
-, primaryUser
 , modulesPath
 , pkgs
 , ...
@@ -10,7 +9,6 @@ let
     mkEnableOption
     mkOption
     mkDefault
-    mkForce
     types
     ;
 

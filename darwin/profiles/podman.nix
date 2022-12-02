@@ -3,16 +3,6 @@
 , pkgs
 , ...
 }:
-let
-  inherit (pkgs.stdenv) isDarwin;
-  inherit (config.lib.dag) entryAfter;
-  inherit (config.xdg) configHome;
-
-  qemuPackage = pkgs.qemu; # or pkgs.qemu_kvm
-
-  # TODO: Should perhaps match all podman-machine-*.json files.
-  podmanMachineConfDir = "${configHome}/containers/podman/machine/qemu";
-in
 lib.mkMerge [
   {
     homebrew = {

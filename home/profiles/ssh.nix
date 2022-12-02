@@ -1,5 +1,4 @@
-moduleArgs @ { config
-, lib
+{ lib
 , pkgs
 , peers
 , ...

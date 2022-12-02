@@ -1,10 +1,9 @@
-{ config
-, lib
+{ lib
 , pkgs
 , ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
 
   gmailAccount =
     { name
@@ -124,7 +123,7 @@ in
   };
 
   programs.emacs = {
-    extraPackages = epkgs: [
+    extraPackages = _epkgs: [
       pkgs.mu
     ];
   };

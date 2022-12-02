@@ -1,13 +1,12 @@
-moduleArgs @ { config
+{ config
 , lib
-, options
 , pkgs
 , inputs
 , ...
 }:
 let
   inherit (inputs) base16-kitty nix-colors;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux isAarch64;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isAarch64;
   inherit (config.lib.dotfield.features) hasTwm hasPragPro;
 
   socket = "unix:/tmp/kitty-socket";

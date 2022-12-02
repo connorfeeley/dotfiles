@@ -1,10 +1,9 @@
-{ config
-, lib
+{ lib
 , pkgs
 , ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux system;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
 in
 {
   home.packages = with pkgs; [

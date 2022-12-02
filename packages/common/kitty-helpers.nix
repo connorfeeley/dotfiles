@@ -4,7 +4,7 @@
 , writeShellScriptBin
 ,
 }:
-lib.makeExtensible (self: {
+lib.makeExtensible (_self: {
   # FIXME: provide a better indication that there can be multiple kitty windows in
   # a single platform window. perhaps 'tab' is better suited?
   #

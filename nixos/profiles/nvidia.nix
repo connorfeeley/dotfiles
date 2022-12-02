@@ -7,11 +7,6 @@ let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
   nvStable = nvidiaPackages.stable;
-  nvBeta = nvidiaPackages.beta;
-  nvLatest =
-    if (lib.versionOlder nvBeta.version nvStable.version)
-    then nvStable
-    else nvBeta;
 
   xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in

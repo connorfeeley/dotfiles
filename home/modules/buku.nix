@@ -4,7 +4,6 @@
 , ...
 }:
 let
-  inherit (pkgs.nur.repos.rycee) firefox-addons;
 
   cfg = config.programs.buku;
 in

@@ -1,15 +1,6 @@
-{ config
-, lib
-, pkgs
-, profiles
-, suites
-, inputs
-, primaryUser
-, collective
+{ pkgs
 , ...
 }:
-let
-in
 {
   environment.systemPackages = with pkgs; [
     minecraft

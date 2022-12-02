@@ -1,11 +1,9 @@
-{ config
-, lib
-, pkgs
+{ lib
 , ...
 }:
 
 let
-  mkPrompt = sep: arr: lib.concatMapStrings (x: "$" + x) arr;
+  mkPrompt = _sep: arr: lib.concatMapStrings (x: "$" + x) arr;
 in
 {
   programs.starship = {

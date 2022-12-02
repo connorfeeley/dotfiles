@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, autoreconfHook, xcbuild, curl }:
+{ lib, stdenv, fetchurl, autoreconfHook, curl }:
 
 stdenv.mkDerivation rec {
   version = "2.8.0";

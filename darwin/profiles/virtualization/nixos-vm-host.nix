@@ -1,7 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
+{ ...
 }:
 let
   substituters = [ "https://macos-builder.cachix.org" ];

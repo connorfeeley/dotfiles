@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, profiles
-, suites
-, ...
+{ ...
 }: {
   boot.loader.systemd-boot.enable = true;
 

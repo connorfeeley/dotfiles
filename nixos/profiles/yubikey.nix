@@ -1,6 +1,4 @@
-{ config
-, lib
-, pkgs
+{ pkgs
 , ...
 }: {
   services.pcscd.enable = true;

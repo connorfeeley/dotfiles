@@ -1,11 +1,6 @@
-moduleArgs @ { config
-, lib
-, pkgs
+{ pkgs
 , ...
 }:
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-in
 {
   home.packages = with pkgs; [
     element-desktop # Matrix client

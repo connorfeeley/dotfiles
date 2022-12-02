@@ -81,36 +81,23 @@
     , darwin
     , deploy
     , digga
-    , mach-nix
     , emacs-overlay
     # , arion # FIXME: checks fail on darwin
     , flake-utils
-    , dwarffs
     , gitignore
     , home-manager
-    , nix-colors
     , prefmanager
-    , nixos-generators
-    , nixos-hardware
     , nixos-stable
     , nixos-unstable
     , nixpkgs-darwin
-    , nixos-21-11
     , nur
     , nvfetcher
     , xmonad-config
-    , pta2002-neovim
     , ttc-subway-font
     , nixpkgs-work
-    , nickel
-    , comma
     , nix-xilinx
     , devenv
-    , deadnix
     , nix-nil
-    , nix-ld
-    , nix-alien
-    , envfs
     , ...
     } @ inputs:
     let
@@ -177,7 +164,7 @@
         nix-xilinx.overlay
 
         nixpkgs-work.overlays.default
-        (final: prev:
+        (final: _prev:
           let
             packagesFrom = inputAttr: inputAttr.packages.${final.system};
           in
@@ -238,7 +225,7 @@
           ];
           overlays =
             overlays ++ [
-              (final: prev: {
+              (final: _prev: {
                 amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
               })
             ];
@@ -254,10 +241,10 @@
       };
 
       sharedOverlays = [
-        (final: prev: {
+        (_final: prev: {
           __dontExport = true;
           inherit inputs;
-          lib = prev.lib.extend (lfinal: lprev: {
+          lib = prev.lib.extend (_lfinal: _lprev: {
             our = self.lib;
           });
         })
@@ -371,7 +358,7 @@
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
           emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
         in
-        (builtins.mapAttrs (n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
+        (builtins.mapAttrs (_n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
           (flattenTree (rakeLeaves ./darwin/packages))) //
         {
           inherit

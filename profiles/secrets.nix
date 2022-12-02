@@ -1,16 +1,11 @@
 { config
 , lib
 , pkgs
-, inputs
-, collective
 , ...
 }:
 let
-  inherit (pkgs.stdenv) isLinux system;
 
-  inherit (config.lib.dotfield.secrets) secretsDir secretsGroup mkAgeSecret;
-
-  cfg = config.age;
+  inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 in
 {
   # FIXME: had 'config.dotfield.guardian.username' in place of cfeeley,

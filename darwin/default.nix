@@ -1,7 +1,7 @@
 collective: { inputs, ... }:
 let
   inherit (inputs) agenix home-manager digga;
-  inherit (inputs.flake-utils.lib.system) aarch64-darwin x86_64-darwin;
+  inherit (inputs.flake-utils.lib.system) aarch64-darwin;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
   # FIXME: move to guardian

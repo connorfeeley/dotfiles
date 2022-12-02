@@ -1,11 +1,8 @@
 { config
 , lib
 , pkgs
-, profiles
-, suites
 , inputs
 , primaryUser
-, collective
 , ...
 }:
 let

@@ -1,7 +1,5 @@
 # It's lonely in here.
-{ config
-, lib
-, pkgs
+{ pkgs
 , ...
 }: {
   home.packages = with pkgs; [

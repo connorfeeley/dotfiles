@@ -1,4 +1,4 @@
-final: prev: {
+final: _prev: {
   pwrbar = final.callPackage ./pwrbar {
     python-kasa = final.python3Packages.python-kasa;
   };

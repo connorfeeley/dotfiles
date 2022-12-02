@@ -1,5 +1,4 @@
-{ lib
-, name
+{ name
 , writeShellApplication
 , git
 , git-run

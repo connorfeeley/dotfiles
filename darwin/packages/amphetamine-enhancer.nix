@@ -25,7 +25,7 @@ let
         description = description;
         homepage = homepage;
         license = licenses."${license}";
-        maintainers = forEach maintainers (x: maintainers."${maintainer}");
+        maintainers = forEach maintainers (_x: maintainers."${maintainer}");
         platforms = platforms.darwin;
       };
     };

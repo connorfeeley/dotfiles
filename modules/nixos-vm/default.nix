@@ -10,31 +10,21 @@
 { config
 , lib
 , options
-, pkgs
-, modulesPath
 , ...
 }:
 let
   inherit
-    (builtins)
-    getEnv
-    ;
-  inherit
     (lib)
     mkEnableOption
     mkOption
-    types
     ;
   inherit
     (types)
     attrsOf
     bool
-    nullOr
     raw
     str
     ;
-  cfg = config.nixos-vm;
-  user = getEnv "USER";
 in
 {
   options.nixos-vm = {

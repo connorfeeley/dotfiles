@@ -1,11 +1,6 @@
-{ config
-, lib
-, pkgs
+{ pkgs
 , ...
 }:
-let
-  inherit (pkgs.stdenv) isLinux;
-in
 {
   programs.tmux = {
     enable = true;

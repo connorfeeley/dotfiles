@@ -8,31 +8,16 @@
 { config
 , lib
 , pkgs
-, profiles
-, suites
-, inputs
 , primaryUser
 , collective
-, modulesPath
 , ...
 }:
 let
-  inherit (collective) peers;
-  inherit (config.networking) hostName;
   inherit (config.dotfield) guardian;
-
-  inherit (lib)
-    mkForce
-    ;
-
-  host = peers.hosts.${hostName};
-  net = peers.networks.${host.network};
-  interface = "eth0";
 
   # Bootstrap sets up:
   # - enabling systemd-boot
   # - a 'nixos' NixOS and HM user
-  bootstrap-graphical = import ./bootstrap-graphical.nix;
 in
 # https://github.com/nix-community/nixos-install-scripts/blob/master/hosters/hetzner-dedicated/hetzner-dedicated-wipe-and-install-nixos.sh
 {

@@ -1,5 +1,4 @@
-moduleArgs @ { config
-, lib
+{ config
 , pkgs
 , ...
 }: {

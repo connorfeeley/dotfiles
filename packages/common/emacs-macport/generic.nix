@@ -4,11 +4,9 @@
 , pname ? "emacs"
 , name ? "emacs-${version}${versionModifier}"
 , patches ? [ ]
-, macportVersion ? null
 , macportPatches ? null
 }:
 { stdenv
-, llvmPackages_11
 , lib
 , fetchurl
 , fetchpatch
@@ -47,7 +45,6 @@
 , recurseIntoAttrs
 , emacsPackagesFor
 , libgccjit
-, targetPlatform
 , makeWrapper # native-comp params
 , fetchFromSavannah
 
@@ -72,8 +69,6 @@
 , autoconf
 , automake
 , gmp
-, llvmPackages
-
 , systemd ? null
 , withX ? !stdenv.isDarwin && !withPgtk
 , withNS ? stdenv.isDarwin && !withMacport

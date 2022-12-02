@@ -1,6 +1,5 @@
 moduleArgs @ { config
 , lib
-, pkgs
 , ...
 }:
 let

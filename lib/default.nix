@@ -2,7 +2,7 @@
 , collective
 ,
 }:
-lib.makeExtensible (self: rec {
+lib.makeExtensible (_self: rec {
   # treesWithValue :: (String -> Any -> Bool) -> [String] -> AttrSet -> [String]
   #
   # Given a nested attrset and an attribute path, return the names of the

@@ -1,4 +1,4 @@
-channels: final: prev:
+channels: _final: _prev:
 let
   inherit
     (channels.nixos-unstable)

@@ -1,5 +1,4 @@
-{ config
-, lib
+{ lib
 , pkgs
 , ...
 }: (lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {

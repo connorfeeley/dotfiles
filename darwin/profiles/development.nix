@@ -1,11 +1,4 @@
-{ config
-, lib
-, pkgs
-, profiles
-, suites
-, inputs
-, primaryUser
-, collective
+{ pkgs
 , ...
 }:
 {

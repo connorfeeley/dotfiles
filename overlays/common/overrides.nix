@@ -1,7 +1,4 @@
 channels: final: prev:
-let
-  packagesFrom = inputAttr: inputAttr.packages.${final.system};
-in
 {
   __dontExport = true;
 
@@ -17,7 +14,7 @@ in
 
   # FIXME: nix-zsh-completions are broken
   # https://github.com/NixOS/nixpkgs/pull/202750/files
-  nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (o: {
+  nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (_o: {
     postPatch = ''
       rm _nix
     '';

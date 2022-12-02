@@ -1,5 +1,4 @@
-moduleArgs @ { self
-, config
+moduleArgs @ { config
 , lib
 , pkgs
 , inputs

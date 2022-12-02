@@ -1,11 +1,9 @@
 moduleArgs @ { config
 , lib
-, pkgs
 , ...
 }:
 let
-  inherit (config.xdg) configHome dataHome stateHome;
-  inherit (config.home) username;
+  inherit (config.xdg) configHome;
 
   sysLib = moduleArgs.osConfig.lib.dotfield or { };
 

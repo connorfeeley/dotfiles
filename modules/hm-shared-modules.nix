@@ -1,5 +1,4 @@
-{ config
-, inputs
+{ inputs
 , pkgs
 , ...
 }:

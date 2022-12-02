@@ -6,13 +6,6 @@
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (config.lib.dotfield.whoami) pgpPublicKey;
-
-  passWithExtensions = pkgs.pass.withExtensions (exts:
-    with exts; [
-      pass-import # https://github.com/roddhjav/pass-import
-      pass-otp # https://github.com/tadfisher/pass-otp
-      pass-update # https://github.com/roddhjav/pass-update
-    ]);
 in
 lib.mkMerge [
   {

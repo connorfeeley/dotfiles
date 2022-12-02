@@ -1,16 +1,15 @@
 { self
 , config
 , lib
-, pkgs
 , ...
 }:
 let
   exporters = lib.mapAttrsToList
-    (k: v: mkPrometheusTarget {
+    (_k: v: mkPrometheusTarget {
       inherit (v.config.services.prometheus.exporters.node) port;
       inherit (v.config.networking) hostName;
     })
-    (lib.filterAttrs (k: v: v.config.services.prometheus.exporters.node.enable) (self.nixosConfigurations));
+    (lib.filterAttrs (_k: v: v.config.services.prometheus.exporters.node.enable) (self.nixosConfigurations));
 
   mkPrometheusTarget = { hostName, port }: {
     job_name = hostName;

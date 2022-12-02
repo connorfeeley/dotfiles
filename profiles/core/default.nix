@@ -2,12 +2,9 @@
 , config
 , lib
 , pkgs
-, profiles
-, inputs
 , ...
 }:
 let
-  inherit (config.lib) dotfield;
 
   inherit (pkgs.stdenv) isDarwin;
 

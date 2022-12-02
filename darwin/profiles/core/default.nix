@@ -1,12 +1,8 @@
 { config
 , lib
 , pkgs
-, inputs
 , ...
 }:
-let
-  inherit (config.lib) dotfield;
-in
 {
   nix.nixPath = [
     # TODO: This entry should be added automatically via FUP's `nix.linkInputs`

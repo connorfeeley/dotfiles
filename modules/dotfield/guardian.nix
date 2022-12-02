@@ -1,11 +1,10 @@
 { options
 , config
 , lib
-, pkgs
 , ...
 }:
 let
-  inherit (lib.types) nullOr str submodule;
+  inherit (lib.types) nullOr str;
 
   cfg = config.dotfield.guardian;
 in

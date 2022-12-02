@@ -1,4 +1,4 @@
-channels: final: prev: {
+_channels: _final: _prev: {
   __dontExport = true;
 
   ###

@@ -3,9 +3,6 @@
 , pkgs
 , ...
 }:
-let
-  inherit (config.lib) dotfield;
-in
 {
   environment.systemPackages = with pkgs; [
     hlissner-hey

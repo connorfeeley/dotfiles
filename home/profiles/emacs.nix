@@ -1,17 +1,15 @@
-moduleArgs @ { config
+{ config
 , lib
 , pkgs
-, self
 , ...
 }:
 let
   inherit (config.lib) dotfield;
-  inherit (pkgs.stdenv) buildPlatform hostPlatform;
+  inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin isAarch64;
   inherit (config.xdg) configHome;
   inherit (config.lib.dag) entryAfter;
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  inherit (config.lib.dotfield.emacs) profilesBase profilesPath;
 
   emacsPackage =
     let

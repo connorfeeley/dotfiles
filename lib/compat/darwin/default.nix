@@ -2,7 +2,6 @@
 #   sudo ln -s ~/.config/dotfield/ /etc/dotfield
 { ... }:
 let
-  inherit (default.inputs.nixpkgs-stable) lib;
 
   default = (import ../.).defaultNix;
   configs = default.darwinConfigurations;

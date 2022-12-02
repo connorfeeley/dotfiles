@@ -1,8 +1,6 @@
 { config
 , lib
-, pkgs
 , primaryUser
-, collective
 , ...
 }: {
   users.users.root.openssh.authorizedKeys.keys = primaryUser.authorizedKeys;

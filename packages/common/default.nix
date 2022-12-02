@@ -1,4 +1,4 @@
-final: prev: {
+final: _prev: {
   kitty-helpers = final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix { });
 
   svlangserver-unwrapped = (final.callPackage ./svlangserver { }).package.override {

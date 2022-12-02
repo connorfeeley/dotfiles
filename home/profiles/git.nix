@@ -1,11 +1,9 @@
 { config
 , lib
 , pkgs
-, inputs
 , ...
 }:
 let
-  inherit (lib) getAttr attrNames;
   inherit
     (config.lib.dotfield.whoami)
     email

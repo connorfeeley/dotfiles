@@ -1,7 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
+{ ...
 }: {
   # Unavailable in nixpkgs.
   homebrew.brews = [

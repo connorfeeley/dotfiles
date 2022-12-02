@@ -1,4 +1,4 @@
-moduleArgs @ { config
+{ config
 , lib
 , pkgs
 , ...

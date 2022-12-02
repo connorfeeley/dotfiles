@@ -1,12 +1,9 @@
 # TODO: add dhall utils
 { pkgs
-, extraModulesPath
-, inputs
-, lib
 , ...
 }:
 let
-  inherit (pkgs.stdenv) isLinux isDarwin isAarch64;
+  inherit (pkgs.stdenv) isLinux;
 
   inherit (pkgs)
     agenix
@@ -34,8 +31,6 @@ let
   inherit (pkgs.nodePackages)
     prettier
     ;
-
-  hooks = import ./hooks;
 
   scripts = pkgs.callPackage ./scripts { };
 

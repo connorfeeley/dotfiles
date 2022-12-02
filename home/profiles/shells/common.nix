@@ -1,25 +1,7 @@
-{ config
-, lib
+{ lib
 , pkgs
-, inputs
 , ...
 }:
-let
-  inherit (lib.dotfield.whoami) githubUserName;
-  inherit (pkgs.stdenv) isLinux isDarwin;
-
-  envInit = import ./env-init.sh.nix;
-
-  shellAliases =
-    (import ./abbrs.nix) //
-    (import ./aliases.nix) //
-    (lib.optionals isDarwin {
-      # Alias 'tailscale' to MAS Tailscale binary
-      tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-    });
-
-  fdBin = "${pkgs.fd}/bin/fd";
-in
 {
   imports = [
     ./fzf.nix

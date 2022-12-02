@@ -1,14 +1,11 @@
 { config
 , lib
 , pkgs
-, inputs
 , ...
 }:
 let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
   inherit (config.lib) dotfield;
-
-  cfg = config.services.yabai;
   # barCfg = config.services.sketchybar;
 
   configDir = "${dotfield.userConfigPath}/yabai";
