@@ -35,6 +35,8 @@
       fruit:model = MacSamba
       fruit:posix_rename = yes
       fruit:veto_appledouble = no
+      fruit:posix_rename = yes
+      fruit:zero_file_id = yes
       fruit:nfs_aces = no
       fruit:wipe_intentionally_left_blank_rfork = yes
       fruit:delete_empty_adfiles = yes
@@ -46,7 +48,7 @@
         # "valid users" = "username";
         # public = "no";
         # writeable = "yes";
-        #
+
         comment = "Time Machine";
         browseable = "yes";
         "fruit:model" = "MacSamba";
