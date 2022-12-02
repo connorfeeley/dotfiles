@@ -223,4 +223,10 @@ in
   };
 
   substituter.enable = true;
+
+  # Enable ZFS exporter
+  services.prometheus.exporters.zfs = {
+    enable = true;
+    port = 9134;
+  };
 }
