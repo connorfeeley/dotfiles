@@ -14,7 +14,6 @@
       browseable = yes
       server string = workstation
       netbios name = workstation
-      security = user
 
       use sendfile = yes
 
@@ -24,43 +23,35 @@
       guest account = nobody
       map to guest = bad user
     '' + ''
-      ### TIME MACHINE ###
-      min protocol = SMB2
-      ea support = yes
-
-      # This needs to be global else time machine ops can fail.
-      vfs objects = fruit streams_xattr
-      fruit:aapl = yes
-      fruit:metadata = stream
-      fruit:model = MacSamba
-      fruit:posix_rename = yes
-      fruit:veto_appledouble = no
-      fruit:posix_rename = yes
-      fruit:zero_file_id = yes
-      fruit:nfs_aces = no
-      fruit:wipe_intentionally_left_blank_rfork = yes
-      fruit:delete_empty_adfiles = yes
-      spotlight = no
     '';
     shares = {
-      timemachine = {
+      global = {
+        ### TIME MACHINE ###
+        "min protocol" = "SMB2";
+        "ea support" = "yes";
+
+        # This needs to be global else time machine ops can fail.
+        "vfs objects" = "fruit streams_xattr";
+        "fruit:aapl" = "yes";
+        "fruit:metadata" = "netatalk";
+        "fruit:model" = "MacSamba";
+        "fruit:posix_rename" = "yes";
+        "fruit:veto_appledouble" = "no";
+        "fruit:zero_file_id" = "yes";
+        "fruit:nfs_aces" = "no";
+        "fruit:wipe_intentionally_left_blank_rfork" = "yes";
+        "fruit:delete_empty_adfiles" = "yes";
+        "spotlight" = "no";
+      };
+      tm_share = {
         path = "/mnt/zfs/backup/time_machine";
         "valid users" = "cfeeley";
-        # public = "no";
-        # writeable = "yes";
-
-        comment = "Time Machine";
-        browseable = "yes";
-        "fruit:model" = "MacSamba";
+        public = "no";
+        writeable = "yes";
+        "force user" = "cfeeley";
+        "fruit:aapl" = "yes";
         "fruit:time machine" = "yes";
-        "fruit:time machine max size" = "1050G";
-        "write list" = "cfeeley";
-        "create mask" = "0600";
-        "directory mask" = "0700";
-        "case sensitive" = "true";
-        "default case" = "lower";
-        "preserve case" = "no";
-        "short preserve case" = "no";
+        "vfs objects" = "catia fruit streams_xattr";
       };
       # public = {
       #   path = "/mnt/Shares/Public";
