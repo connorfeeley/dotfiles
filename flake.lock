@@ -35,28 +35,6 @@
         "type": "github"
       }
     },
-    "arion": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "haskell-flake": "haskell-flake",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1669987452,
-        "narHash": "sha256-m+SssP7p4/bqUeYMLjOeOi1sc1YL2rGdFzQx7f8XK9M=",
-        "owner": "hercules-ci",
-        "repo": "arion",
-        "rev": "683a79dfccd6f70c7ccecb40fd85d17a3f9430b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "arion",
-        "type": "github"
-      }
-    },
     "base16": {
       "inputs": {
         "nixpkgs": [
@@ -878,22 +856,18 @@
     },
     "flake-parts": {
       "inputs": {
-        "nixpkgs-lib": [
-          "arion",
-          "nixpkgs"
-        ]
+        "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1669931201,
-        "narHash": "sha256-UnYFeaLPLj7e4eEt4GJooeJZhaZXyloQZYinwO/CeUw=",
+        "lastModified": 1668450977,
+        "narHash": "sha256-cfLhMhnvXn6x1vPm+Jow3RiFAUSCw/l1utktCw5rVA4=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "995d6bc162c0539998ef6375c2c6b612972dc016",
+        "rev": "d591857e9d7dd9ddbfba0ea02b43b927c3c0f1fa",
         "type": "github"
       },
       "original": {
         "owner": "hercules-ci",
-        "ref": "easyOverlay",
         "repo": "flake-parts",
         "type": "github"
       }
@@ -1384,21 +1358,6 @@
         "type": "github"
       }
     },
-    "haskell-flake": {
-      "locked": {
-        "lastModified": 1668167720,
-        "narHash": "sha256-5wDTR6xt9BB3BjgKR+YOjOkZgMyDXKaX79g42sStzDU=",
-        "owner": "srid",
-        "repo": "haskell-flake",
-        "rev": "4fc511d93a55fedf815c1647ad146c26d7a2054e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "srid",
-        "repo": "haskell-flake",
-        "type": "github"
-      }
-    },
     "haskellNix": {
       "inputs": {
         "HTTP": "HTTP",
@@ -1855,7 +1814,7 @@
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
         "lastModified": 1669296560,
@@ -2392,6 +2351,24 @@
       }
     },
     "nixpkgs-lib": {
+      "locked": {
+        "dir": "lib",
+        "lastModified": 1665349835,
+        "narHash": "sha256-UK4urM3iN80UXQ7EaOappDzcisYIuEURFRoGQ/yPkug=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "34c5293a71ffdb2fe054eb5288adc1882c1eb0b1",
+        "type": "github"
+      },
+      "original": {
+        "dir": "lib",
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib_2": {
       "locked": {
         "lastModified": 1655599917,
         "narHash": "sha256-kjZbt5WdTrnjMxL79okg9TCoRUdADG50x/TWozbyTsE=",
@@ -3089,7 +3066,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "arion": "arion",
         "base16-kitty": "base16-kitty",
         "comma": "comma",
         "darwin": "darwin",
@@ -3103,6 +3079,7 @@
         "envfs": "envfs",
         "firefox-lepton": "firefox-lepton",
         "flake-compat": "flake-compat_6",
+        "flake-parts": "flake-parts",
         "flake-utils": "flake-utils_7",
         "gitignore": "gitignore",
         "home-manager": "home-manager",

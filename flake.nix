@@ -29,18 +29,18 @@
 
     ##: --- utilities ----------------------------------------------------------
     flake-utils.url = "github:numtide/flake-utils";
+    flake-parts = { url = "github:hercules-ci/flake-parts"; };
 
     nur.url = "github:nix-community/NUR";
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     macos-builder = { url = "github:Gabriella439/macos-builder"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
-    arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; };
+    # arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; }; # FIXME: checks fail on darwin
     nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
     nixago = { url = "github:nix-community/nixago"; inputs.nixpkgs.follows = "nixpkgs"; };
     stylix = { url = "github:danth/stylix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- sources ------------------------------------------------------------
-
     mach-nix.url = "github:DavHau/mach-nix/refs/tags/3.5.0";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
@@ -67,7 +67,6 @@
     prefmanager.url = "github:malob/prefmanager";
 
     ##: --- other --------------------------------------------------------------
-
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     dwarffs.url = "github:edolstra/dwarffs";
     base16-kitty = { url = "github:kdrag0n/base16-kitty"; flake = false; };
@@ -84,7 +83,7 @@
     , digga
     , mach-nix
     , emacs-overlay
-    , arion
+    # , arion # FIXME: checks fail on darwin
     , flake-utils
     , dwarffs
     , gitignore
