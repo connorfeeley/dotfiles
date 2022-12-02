@@ -19,7 +19,7 @@ let
     mkOption
     ;
   inherit
-    (types)
+    (lib.types)
     attrsOf
     bool
     raw

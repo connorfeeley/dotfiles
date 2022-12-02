@@ -28,7 +28,6 @@ final: _prev: {
       ImageCaptureCore GSS ImageIO;
     inherit (final.darwin) sigtool;
     inherit (final) gmp;
-    llvmPackages = final.llvmPackages_14;
   };
 
   ##: third-party scripts ------------------------------------------------------

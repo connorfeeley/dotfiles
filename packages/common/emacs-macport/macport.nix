@@ -20,7 +20,6 @@ import ./generic.nix (rec {
       sha256 = "sha256-f2DRcUZq8Y18n6MJ6vtChN5hLGERduMB8B1mrrds6Ns=";
     })
   ];
-  inherit macportVersion;
   macportPatches = builtins.fetchTarball {
     url = "ftp://ftp.math.s.chiba-u.ac.jp/emacs/emacs-${version}-mac-${macportVersion}.tar.gz";
     sha256 = "0cxrqc8a55fsr3rjw68krndb778m8yq55934fqgz04imcr3yjydf";
