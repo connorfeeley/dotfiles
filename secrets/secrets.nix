@@ -3,14 +3,13 @@
 ### (for organizational reasons - not for security reasons)
 ###
 let
-  cfeeley = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL0idNvgGiucWgup/mP78zyC23uFjYq0evcWdjGQUaBH";
-  cfeeley-mac-ed = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBu7vxj2IpJ5R4SL/TCbonZmAM6aFlruqc4z5zwBjyxo";
-  cfeeley-yubi = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDXwfYATGpZ/8EH8+i6idMaSWEW3EfgvT/cXy4zmgGbQRfHlG7jc8qokUtAy1xR4tSk8979bEzHZnBQ5LUGpu4a7W0ufd2uCg0OOxDs7lPPsxmrl4hdkn9kfw0fIdEpUej3EFuQjJcdLYT6z3zqK1KCzosa9AEiEwaflnI5+abqVhQ0q2IchYQqNxfpAIigxQ07h+EA7hJiOl8Vt9/z8Iky+iLnvdT6v1QO2XOhqD2uO+LzBThQ/5wJXsueLUw05FAe5zVCx55K1ui6HvMrgHUZ/rVSQr5X9AYvgCBwUPpY3TuyLBepHG4egccU8eFIY/uw0LFxN1Tkj91LA7mLcveVhNoWo6gIGlx6iJXidHPkZlJcAJ+eq4RNf+3gkSZ46m0p0X4hJgurMr5vTzSR4tDOSkrAgdJL6SSqNcnZZuQNg7JJDxRLrWuFup4UBGFb9/odwXa4rAgMP6dol6UhpIgVFklmbfg4FWD8YaJ1M1lVo6Jid6wVypYwpB+t13k5PdxVzjUJeOTV6jdENRE5+gk6GXoLrxYZp7u0JKmxybYcJ0U6H0azp35BKNYJaobqwtFA+3FL/pnpdRmwLWweqzZV46iO6Vq/T5r4fDxY6nc6d210VbAiFTz4HU743O30w/+3P3csu+E4LAaA8PAvJLNFPLBuMzc67mp00E1irz+Z5w==";
-  cfeeley-rosy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICv0DIS4BFakxKLgkaQ3zn8SgMgTb4p5/XlVcASERANj cfeeley@rosy";
-  users = [ cfeeley cfeeley-mac-ed cfeeley-yubi cfeeley-rosy ];
+  cfeeley = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCVmAx+FNqurkG9eQ7icgqS1tOzy1JyL+spWMr477mU";
+  cfeeley-mac-ed = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyCzd5UcqFUC3O7r62N3sx6ywXcayHQRV3jWJC8OQyl";
+  cfeeley-rosy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICv0DIS4BFakxKLgkaQ3zn8SgMgTb4p5/XlVcASERANj";
+  users = [ cfeeley cfeeley-mac-ed cfeeley-rosy ];
 
   workstation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIL+myjkKGCYIYkI165tq/cp04m0iox8RLEb4MS1wjet";
-  macbook-pro = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKVrybsJrANrO+FslS5MFrpMTtc2EBgXriEoF4srqQrx";
+  macbook-pro = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+pW5LB+Op2HgkiCuwAOQ5UB1ATEvTrnV89CFo4toCS";
   rosy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMSoMj5v8JwK4YhB8p4mrJM26TeNAO+xZgIwaxxj0Umb";
   h8tsner = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGPdaiVggrhTnMX3QmE+4UEfPAyFTdB4jJdmjNdjWFU";
   systems = [ workstation macbook-pro rosy ];
@@ -19,12 +18,7 @@ in
   "minecraft-rcon-password.txt.age".publicKeys = users ++ systems ++ [ h8tsner ];
 
   # Workstation binary cache
-  "hosts/workstation/cache-priv-key.pem.age".publicKeys = [ workstation ];
-  "hosts/workstation/cache-pub-key.pem.age".publicKeys = [ macbook-pro ];
-
-  # MacBook-Pro binary cache
-  "hosts/macbook-pro/cache-priv-key.pem.age".publicKeys = [ macbook-pro ];
-  "hosts/macbook-pro/cache-pub-key.pem.age".publicKeys = [ macbook-pro ];
+  "hosts/workstation/cache-priv-key.pem.age".publicKeys = users ++ [ workstation ];
 
   "dotfield-readme-update-access-token.txt.age".publicKeys = users ++ systems;
 }
