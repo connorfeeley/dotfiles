@@ -22,9 +22,11 @@
     nickel #        <- "Better configuration for less"
     nvfetcher-bin # <- Generate nix sources expression for the latest version of packages
     nix-diff #      <- Explain why two Nix derivations differ
+    nvd #           <- Nix/NixOS package version diff tool
     nix-tree #      <- Interactively browse dependency graphs of Nix derivations.
     nix-top #       <- 'top' for nix builds
     nixos-option #  <- Search nixos options
+    nix-prefetch #  <- Prefetch any fetcher function call
     manix #         <- nix documentation search
     nix-du #        <- Analyze derivation and store size
     nox #           <- Tools to make nix nicer to use
