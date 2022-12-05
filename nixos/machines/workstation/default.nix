@@ -121,7 +121,7 @@ in
     network.enable = true;
     network.ssh = {
       enable = true;
-      inherit (primaryUser) authorizedKeys;
+      authorizedKeys = primaryUser.authorizedKeys;
       hostKeys = [
         # WARNING: DON'T USE AGE HERE
         "/etc/secrets/initrd/ssh_host_rsa_key"

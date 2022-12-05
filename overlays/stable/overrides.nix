@@ -18,5 +18,5 @@ channels: final: prev: {
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
 
   # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
-  inherit (final.python3Packages) httpie;
+  httpie = final.python3Packages.httpie;
 }

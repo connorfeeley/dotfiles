@@ -60,14 +60,14 @@ let
         ${mkArgString args'}
     '';
 
-  mkRules = lib.strings.concatMapStringsSep "\n" (mkRule);
-  mkSignals = lib.strings.concatMapStringsSep "\n" (mkSignal);
+  mkRules = rules: lib.strings.concatMapStringsSep "\n" (x: mkRule x) rules;
+  mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
 
   # FIXME: avoid IFD -- add to a package derivation
   mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
     (builtins.readFile "${configDir}/bin/${name}"));
 
-  scriptsFromFiles = map (mkScriptFromFile) [
+  scriptsFromFiles = map (n: mkScriptFromFile n) [
     "close-window"
     "focus-direction"
   ];
@@ -75,7 +75,7 @@ let
   scripts =
     (builtins.listToAttrs (map
       (drv: {
-        inherit (drv) name;
+        name = drv.name;
         value = drv;
       })
       scriptsFromFiles))

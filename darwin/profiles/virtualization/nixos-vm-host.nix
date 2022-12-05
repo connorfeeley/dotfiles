@@ -1,4 +1,5 @@
-_:
+{ ...
+}:
 let
   substituters = [ "https://macos-builder.cachix.org" ];
   trusted-substituters = substituters;

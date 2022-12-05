@@ -1,4 +1,5 @@
-_: {
+{ ...
+}: {
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.generationsDir.copyKernels = true;

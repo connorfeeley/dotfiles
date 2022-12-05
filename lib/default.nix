@@ -38,7 +38,7 @@ lib.makeExtensible (_self: rec {
   # }; in
   # lib.treesWithEnabledLeaf ["programs" "emacs" "enable"] users
   # => [ "foo" ]
-  treesWithEnabledLeaf = treesWithValue (_: v: v);
+  treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;
 
   peers = rec {
     getHost = hostName: collective.peers.hosts.${hostName};

@@ -1609,8 +1609,8 @@ let
   };
 in
 {
-  inherit args;
-  inherit sources;
+  args = args;
+  sources = sources;
   tarball = nodeEnv.buildNodeSourceDist args;
   package = nodeEnv.buildNodePackage args;
   shell = nodeEnv.buildNodeShell args;

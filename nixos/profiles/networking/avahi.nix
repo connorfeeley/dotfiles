@@ -1,4 +1,5 @@
-_:
+{ ...
+}:
 
 {
   services.avahi = {
