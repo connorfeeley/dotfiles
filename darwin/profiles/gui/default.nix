@@ -12,6 +12,7 @@ in
     ./hammerspoon.nix
     ./yabai.nix
     ./xquartz.nix
+    ./safari.nix
   ];
 
   options = { };
