@@ -7,7 +7,7 @@ let
 in
 stdenv.mkDerivation {
   name = "pragmatapro-${version}";
-  version = version;
+  inherit version;
 
   src = builtins.fetchGit {
     # TODO: update url once fixed: https://github.com/NixOS/nix/issues/3503

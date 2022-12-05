@@ -1,6 +1,6 @@
 # NOTE: symlink /etc/dotfield to flake dir with:
 #   sudo ln -s ~/.config/dotfield/ /etc/dotfield
-{ ... }:
+_:
 let
 
   default = (import ../.).defaultNix;

@@ -22,8 +22,8 @@ let
       '' + postInstall;
 
       meta = with lib; {
-        description = description;
-        homepage = homepage;
+        inherit description;
+        inherit homepage;
         license = licenses."${license}";
         maintainers = forEach maintainers (_x: maintainers."${maintainer}");
         platforms = platforms.darwin;

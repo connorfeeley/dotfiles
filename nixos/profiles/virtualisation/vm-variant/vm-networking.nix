@@ -1,5 +1,4 @@
-{ ...
-}: {
+_: {
   virtualisation = {
     # N.B. If using the default SLiRP user networking, be aware that the guest's
     # firewall configuration must be configured to enable traffic through the

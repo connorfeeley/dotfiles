@@ -3,7 +3,7 @@
 }:
 
 let
-  mkPrompt = _sep: arr: lib.concatMapStrings (x: "$" + x) arr;
+  mkPrompt = _sep: lib.concatMapStrings (x: "$" + x);
 in
 {
   programs.starship = {

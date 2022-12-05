@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 # Source: https://fy.blackhats.net.au/blog/html/2021/03/22/time_machine_on_samba_with_zfs.html
 
 # Server setup: sudo smbpasswd -a cfeeley

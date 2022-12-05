@@ -1,6 +1,6 @@
 final: _prev: {
   pwrbar = final.callPackage ./pwrbar {
-    python-kasa = final.python3Packages.python-kasa;
+    inherit (final.python3Packages) python-kasa;
   };
   hpi = final.callPackage ./HPI { };
   orgparse = final.callPackage ./orgparse { };

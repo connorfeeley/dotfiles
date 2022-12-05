@@ -226,7 +226,7 @@
           overlays =
             overlays ++ [
               (final: _prev: {
-                amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
+                inherit (self.packages.${final.system}) amphetamine-enhancer;
               })
             ];
         };
@@ -352,7 +352,7 @@
             ];
           };
           # emacs-mac v28.2 with native compilation enabled;
-          emacs28Macport = pkgs.emacs28Macport;
+          inherit (pkgs) emacs28Macport;
           # emacs-mac v28.2 with native compilation disabled;
           # - Intended primarily as a quick way to verify that the package builds
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)

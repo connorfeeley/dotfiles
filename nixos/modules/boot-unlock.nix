@@ -46,7 +46,7 @@
       assertions = [{
         assertion =
           let
-            dhcpInterfaces = lib.attrNames (lib.filterAttrs (_iface: v: v.useDHCP == true) (config.networking.interfaces or { }));
+            dhcpInterfaces = lib.attrNames (lib.filterAttrs (_iface: v: v.useDHCP) (config.networking.interfaces or { }));
             doDhcp = config.networking.useDHCP || dhcpInterfaces != [ ];
           in
           doDhcp;

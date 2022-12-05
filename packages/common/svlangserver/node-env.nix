@@ -4,9 +4,9 @@
 
 let
   # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
-  utillinux = if pkgs ? utillinux then pkgs.utillinux else pkgs.util-linux;
+  utillinux = pkgs.utillinux or pkgs.util-linux;
 
-  python = if nodejs ? python then nodejs.python else python2;
+  python = nodejs.python or python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
   tarWrapper = runCommand "tarWrapper" { } ''
@@ -182,7 +182,7 @@ let
           if [ -d node_modules ]
           then
               cd node_modules
-              ${lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
+              ${lib.concatMapStrings (pinpointDependenciesOfPackage) dependencies}
               cd ..
           fi
         ''}
@@ -473,7 +473,7 @@ let
 
       meta = {
         # default to Node.js' platforms
-        platforms = nodejs.meta.platforms;
+        inherit (nodejs.meta) platforms;
       } // meta;
     } // extraArgs);
 

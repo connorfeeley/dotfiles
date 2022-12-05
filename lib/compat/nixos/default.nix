@@ -1,4 +1,4 @@
-{ ... }:
+_:
 let
   default = (import ../.).defaultNix;
   configs = default.nixosConfigurations;

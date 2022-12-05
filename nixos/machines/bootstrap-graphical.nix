@@ -1,5 +1,4 @@
-{ ...
-}: {
+_: {
   boot.loader.systemd-boot.enable = true;
 
   # Will be overridden by the bootstrapIso module.
