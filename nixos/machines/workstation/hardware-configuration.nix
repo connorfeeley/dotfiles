@@ -82,17 +82,26 @@
   services.sanoid = {
     enable = true;
     datasets = {
-      "npool/nixos/home" = { use_template = [ "production" ]; };
+      ### ROOT: npool - single-SSD root pool
+      "npool/nixos/home" = { use_template = [ "default" ]; recursive = true; };
 
-      "rpool/root/nixos" = { use_template = [ "production" ]; };
-      "rpool/home" = { use_template = [ "production" ]; };
-      "rpool/data" = { use_template = [ "production" ]; };
-      "rpool/data/media" = { use_template = [ "production" ]; };
-      "rpool/backup" = { use_template = [ "production" ]; };
+      ### BOOT: bpool - single-SSD boot pool
+      "bpool/nixos/home" = { use_template = [ "default" ]; };
+
+      ### rpool: 5-disk spinning rust pool
+      "rpool/root/nixos" = { use_template = [ "default" ]; };
+      "rpool/home" = { use_template = [ "default" ]; };
+      "rpool/data" = { use_template = [ "default" ]; };
+      "rpool/data/media" = { use_template = [ "media" ]; };
+
+      ### BACKUPS (also on 5-HDD pool)
+      "rpool/backup" = { use_template = [ "backup" ]; recursive = true; };
+      "rpool/backup/time_machine" = { use_template = [ "backup" ]; recursive = true; };
     };
 
     templates = {
-      "production" = {
+      # Default: hourly backups
+      "default" = {
         frequently = 0;
         hourly = 36;
         daily = 30;
@@ -100,6 +109,26 @@
         yearly = 0;
         autosnap = true;
         autoprune = true;
+      };
+      # Media: only snapshot daily
+      "media" = {
+        frequently = 0;
+        hourly = 0;
+        daily = 30;
+        monthly = 3;
+        yearly = 0;
+        autosnap = true;
+        autoprune = true;
+      };
+      # Backup: keep long-term
+      "backup" = {
+        frequently = 0;
+        hourly = 36;
+        daily = 30;
+        monthly = 6;
+        yearly = 0;
+        autosnap = true;
+        autoprune = false;
       };
     };
   };
