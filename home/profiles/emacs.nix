@@ -43,7 +43,7 @@ let
     };
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  doomRepoRev = "9d4d5b756a8598c4b5c842e9f1f33148af2af8fd";
+  doomRepoRev = "d5ccac5d71c819035fa251f01d023b3f94b4fba4";
 
   emacsDir = "${configHome}/emacs";
 
@@ -64,8 +64,7 @@ in
 lib.mkMerge [
   {
     home.sessionVariables = {
-      # NOTE: doom is picky about having the trailing slash
-      EMACSDIR = emacsDir + "/";
+      EMACSDIR = emacsDir;
 
       # "default" profile
       # FIXME: profiles seem broken, see doom issue tracker
