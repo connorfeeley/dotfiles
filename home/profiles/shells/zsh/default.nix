@@ -14,6 +14,9 @@ let
     (if isDarwin then {
       # Alias 'tailscale' to MAS Tailscale binary
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+
+      # Time Machine backup normally runs as a low-profile process; run as high priority instead
+      tm_high_prio = "sudo sysctl debug.lowpri_throttle_enabled=0";
     } else { });
 in
 {
