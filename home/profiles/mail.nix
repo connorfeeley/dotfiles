@@ -93,7 +93,7 @@ in
   programs.mu.enable = isLinux;
   programs.msmtp.enable = true;
   services.mbsync = lib.mkIf isLinux {
-    enable = true;
+    enable = false;
     frequency = "*:0/5"; # 5 minutes
     # TODO: might need to be told about password store dir
     postExec = "${pkgs.mu}/bin/mu index";
