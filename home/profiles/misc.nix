@@ -6,6 +6,7 @@
   # most don't belong on a server, etc.
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
+    just # <- Just a command wrapper
 
     ## === Data and Documents ===
     tidy-viewer # Pretty-print CSV files
@@ -42,7 +43,6 @@
   programs.exa.enable = true;
   programs.exa.enableAliases = true;
   programs.jq.enable = true;
-  programs.just.enable = false; # FIXME: logs zsh completion error
   programs.pandoc.enable = true;
   programs.tealdeer.enable = true;
 }
