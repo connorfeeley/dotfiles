@@ -50,7 +50,7 @@
     "mitigations=off"
 
     # Max ARC (Adaptive Replacement Cache) size: 12GB
-    "zfs.zfs_arc_max=19327352832" # 18 GB
+    # "zfs.zfs_arc_max=19327352832" # 18 GB
   ];
 
   # swapDevices =
