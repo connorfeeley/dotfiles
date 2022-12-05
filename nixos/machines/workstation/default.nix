@@ -202,7 +202,7 @@ in
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; workstation ++ linux ++ (with hmArgs.profiles; [
+      imports = with hmArgs.roles; workstation ++ linux ++ emacs-config ++ (with hmArgs.profiles; [
         sync
         work
 

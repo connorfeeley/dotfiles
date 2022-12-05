@@ -14,7 +14,6 @@ with profiles; let
   developer = [
     shells.fish
     direnv
-    emacs
     vim
     git
     shells.zsh
@@ -24,6 +23,13 @@ with profiles; let
     ops # nixops
     development.tools
     virtualisation.common
+  ];
+
+  emacs-config = [
+    direnv
+    emacs
+    git
+    development.tools
   ];
 
   # Desktop packages
@@ -105,6 +111,7 @@ with profiles; let
     inherit
       shell
       developer
+      emacs-config
       graphical
       personalised
       server
