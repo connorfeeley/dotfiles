@@ -82,7 +82,7 @@ lib.mkMerge [
         font_size =
           if (isDarwin && isAarch64)
           then "12"
-          else "16";
+          else "18";
         confirm_os_window_close = "0";
         # if (isDarwin)
         # then "1"
