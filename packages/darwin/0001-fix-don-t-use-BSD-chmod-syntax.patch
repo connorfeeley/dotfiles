@@ -1,0 +1,38 @@
+From ae258836795dca8960172768a360b746aa85b1c8 Mon Sep 17 00:00:00 2001
+From: Connor Feeley <git@cfeeley.org>
+Date: Tue, 6 Dec 2022 10:36:21 -0500
+Subject: [PATCH] fix: don't use BSD chmod syntax
+
+---
+ doc/Makefile.in      | 2 +-
+ src/port/Makefile.in | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/doc/Makefile.in b/doc/Makefile.in
+index ed2d1a01c..5f60c0411 100644
+--- a/doc/Makefile.in
++++ b/doc/Makefile.in
+@@ -206,7 +206,7 @@ ifeq (darwin,@OS_PLATFORM@)
+ ifneq (8,@OS_MAJOR@)
+ # Tiger's chmod doesn't accept -h
+ # mtree with umask 0077 doesn't get the permissions of the symlink right
+-	chmod -h 755 "${DESTDIR}${INSTALLDIR}/man"
++	chmod 755 "${DESTDIR}${INSTALLDIR}/man"
+ endif
+ endif
+ 
+diff --git a/src/port/Makefile.in b/src/port/Makefile.in
+index 000577913..be8103ac5 100644
+--- a/src/port/Makefile.in
++++ b/src/port/Makefile.in
+@@ -42,6 +42,6 @@ install: all mkdirs
+ 	$(LN_S) -f "${TCLSH}" "${DESTDIR}${INSTALLDIR}/bin/port-tclsh"
+ ifeq (darwin,@OS_PLATFORM@)
+ ifneq (8,@OS_MAJOR@)
+-	chmod -h 555 "${DESTDIR}${INSTALLDIR}/bin/portf" "${DESTDIR}${INSTALLDIR}/bin/port-tclsh"
++	chmod 555 "${DESTDIR}${INSTALLDIR}/bin/portf" "${DESTDIR}${INSTALLDIR}/bin/port-tclsh"
+ endif
+ endif
+-- 
+2.38.1
+

@@ -16,7 +16,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   # TODO: support x86_64-darwin as well
-  configureFlags = [ ''--with-universal-archs="arm64"'' ];
+  configureFlags = [
+    ''--with-universal-archs="arm64"''
+    "--with-no-root-privileges"
+  ];
+
+  patches = [
+    ./0001-fix-don-t-use-BSD-chmod-syntax.patch
+  ];
 
   meta = {
     description = "";
