@@ -582,15 +582,15 @@
         "utils": "utils_5"
       },
       "locked": {
-        "lastModified": 1670174782,
-        "narHash": "sha256-QzGkgmcdKoBC8YLi4w8TVUplWXqn6rvosMb/aXLfGf4=",
-        "owner": "Mic92",
+        "lastModified": 1624546795,
+        "narHash": "sha256-qr4LkwY7hlp1sgFwmiQaj973Zqxwk4b3m7o3Mf4KqRI=",
+        "owner": "wentasah",
         "repo": "envfs",
-        "rev": "b9bdfc55dc93ae44272ec8feb6b34a62b89febab",
+        "rev": "7c4461767d775d131bc7a3c9a238c8e393edd2f8",
         "type": "github"
       },
       "original": {
-        "owner": "Mic92",
+        "owner": "wentasah",
         "repo": "envfs",
         "type": "github"
       }
