@@ -1,13 +1,14 @@
 { ...
 }: {
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.efiInstallAsRemovable = false;
   boot.loader.generationsDir.copyKernels = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.copyKernels = true;
   boot.loader.grub.efiSupport = true;
+  boot.loader.grub.gfxmodeEfi = "2560x1440";
   boot.loader.grub.zfsSupport = true;
   boot.loader.grub.extraPrepareConfig = ''
     mkdir -p /boot/efis
@@ -29,45 +30,58 @@
   ];
 
   fileSystems."/" =
-    { device = "npool/nixos/root";
+    {
+      device = "npool/nixos/root";
       fsType = "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/home" =
-    { device = "npool/nixos/home";
+    {
+      device = "npool/nixos/home";
       fsType = "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var/lib" =
-    { device = "npool/nixos/var/lib";
+    {
+      device = "npool/nixos/var/lib";
       fsType = "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var/log" =
-    { device = "npool/nixos/var/log";
+    {
+      device = "npool/nixos/var/log";
       fsType = "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/boot" =
-    { device = "bpool/nixos/root";
+    {
+      device = "bpool/nixos/root";
       fsType = "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
-  fileSystems."/boot/efis/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T-part1" =
-    { device = "/dev/disk/by-uuid/E342-9852";
-      fsType = "vfat";
-    };
-
+  # EFI partion
   fileSystems."/boot/efi" =
-    { device = "/boot/efis/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T-part1";
-      fsType = "none";
-      options = [ "bind" ];
+    {
+      device = "/dev/disk/by-uuid/E342-9852"; # "-part1"
+      fsType = "vfat";
+      options = [ "x-systemd.idle-timeout=1min" "x-systemd.automount" "noauto" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T-part4";
+      discardPolicy = "both";
+      randomEncryption = {
+        enable = true;
+        # Enable trim on SSD; this has security implications
+        allowDiscards = true;
+      };
+    }
+  ];
+
 }

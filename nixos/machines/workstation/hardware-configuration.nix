@@ -134,8 +134,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # Interactive, file-level Time Machine-like tool for ZFS/btrfs
-    httm
+    httm # Interactive, file-level Time Machine-like tool for ZFS/btrfs
+    zpool-iostat-viz # "zpool iostats" for humans; find the slow parts of your ZFS pool
+    ioztat # A storage load analysis tool for OpenZFS
   ];
 
   boot.zfs.extraPools = [ "rpool" ];
