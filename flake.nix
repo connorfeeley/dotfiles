@@ -348,9 +348,11 @@
           pkgs = import nixpkgs {
             inherit system;
             overlays = [
-              self.overlays."nixos-unstable/emacs28Macport"
+              self.overlays."nixpkgs-darwin/emacs28Macport"
+              self.overlays."nixpkgs-darwin/macports"
             ];
           };
+          inherit (pkgs) macports;
           # emacs-mac v28.2 with native compilation enabled;
           emacs28Macport = pkgs.emacs28Macport;
           # emacs-mac v28.2 with native compilation disabled;
@@ -362,6 +364,9 @@
           (flattenTree (rakeLeaves ./darwin/packages))) //
         {
           inherit
+            # MacPorts as in "not Homebrew"; not "the emacs macport". Emacs macport is next.
+            macports
+
             # NOTE: both emacs28Macport variants are impure
             # Tested with XCode CLT version: 14.0.0.0.1.1661618636
             emacs28Macport
