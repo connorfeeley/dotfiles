@@ -276,11 +276,7 @@ in
 
     (mkIf (cfg.sshKeys != null) {
       # Trailing newlines are important
-      home.file."${homedir}/sshcontrol".text = concatMapStrings
-        (s: ''
-          ${s}
-        '')
-        cfg.sshKeys;
+      home.file.".gnupg/sshcontrol".text = concatMapStrings (s: "${s}\n") cfg.sshKeys;
     })
 
     # The systemd units below are direct translations of the
