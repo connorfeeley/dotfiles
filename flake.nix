@@ -272,7 +272,7 @@
       colmena = import ./colmena.nix { inherit nixpkgs inputs self; };
 
       deploy.nodes = digga.lib.mkDeployNodes { } {
-        workstation = with (collective.peers.hosts.workstation); {
+        workstation = {
           hostname = "workstation";
           sshUser = "cfeeley";
           remoteBuild = true;
@@ -285,7 +285,7 @@
               self.nixosConfigurations.workstation;
           };
         };
-        rosy = with (collective.peers.hosts.rosy); {
+        rosy = {
           hostname = "rosy";
           sshUser = "cfeeley";
           remoteBuild = true;
@@ -303,7 +303,7 @@
               self.homeConfigurations."cfeeley@rosy";
           };
         };
-        h8tsner = with (collective.peers.hosts.h8tsner); {
+        h8tsner = {
           hostname = "h8tsner";
           sshUser = "root";
           fastConnection = false;
