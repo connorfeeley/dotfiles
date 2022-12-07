@@ -4,7 +4,6 @@
 , ...
 }:
 let
-  inherit (config.lib) dotfield;
   inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin isAarch64;
   inherit (config.xdg) configHome;
@@ -234,6 +233,9 @@ lib.mkMerge [
 
       # :tools lookup
       wordnet
+
+      # :tools copilot
+      nodejs-16_x # Copilot requires Node.js version 17 or below
 
       ##: === lang/lsp ===
 
