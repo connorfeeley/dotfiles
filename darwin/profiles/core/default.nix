@@ -25,6 +25,8 @@
 
   programs.tmux.enableSensible = true;
 
+  programs.nix-index.enable = true;
+
   environment.enableAllTerminfo = true;
 
   environment.systemPackages = with pkgs; [
