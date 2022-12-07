@@ -114,6 +114,7 @@ in
           {
             name = "personal";
             domain = "cfeeley.org";
+            username = "git";
           }
         // {
           primary = lib.mkDefault true;
