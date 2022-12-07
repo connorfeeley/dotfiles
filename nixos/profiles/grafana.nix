@@ -4,19 +4,32 @@
 , ...
 }:
 let
-  exporters = lib.mapAttrsToList
-    (_k: v: mkPrometheusTarget {
-      inherit (v.config.services.prometheus.exporters.node) port;
-      inherit (v.config.networking) hostName;
-    })
-    (lib.filterAttrs (_k: v: v.config.services.prometheus.exporters.node.enable) (self.nixosConfigurations));
+  inherit (lib) filterAttrs mapAttrs attrValues flatten;
 
-  mkPrometheusTarget = { hostName, port }: {
-    job_name = hostName;
-    static_configs = [{
-      targets = [ "${(lib.our.peers.getHost hostName).tailscale}:${toString port}" ];
-    }];
+  allHosts = self.nixosConfigurations;
+
+  enabledExportersF = name: host: filterAttrs (k: v: v.enable == true) host.config.services.prometheus.exporters;
+  enabledExporters = mapAttrs enabledExportersF allHosts;
+
+  mkScrapeConfigExporter = hostname: ename: ecfg: {
+    job_name = "${hostname}-${ename}";
+    static_configs = [{ targets = [ "${hostname}:${toString ecfg.port}" ]; }];
+    relabel_configs = [
+      {
+        target_label = "instance";
+        replacement = "${hostname}";
+      }
+      {
+        target_label = "job";
+        replacement = "${ename}";
+      }
+    ];
   };
+
+  mkScrapeConfigHost = name: exporters: mapAttrs (mkScrapeConfigExporter name) exporters;
+  scrapeConfigsByHost = mapAttrs mkScrapeConfigHost enabledExporters;
+
+  autogenScrapeConfigs = flatten (map attrValues (attrValues scrapeConfigsByHost));
 in
 {
   services.grafana = {
@@ -27,6 +40,19 @@ in
       http_port = 9010;
       # Grafana needs to know on which domain and URL it's running:
       domain = config.networking.hostName;
+    };
+    provision = {
+      enable = true;
+      # Set up the datasources
+      datasources.settings.datasources = [
+        {
+          name = "Prometheus";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://localhost:${toString config.services.prometheus.port}";
+          isDefault = true;
+        }
+      ];
     };
   };
   services.prometheus = {
@@ -43,23 +69,6 @@ in
       };
     };
 
-    scrapeConfigs =
-      # Read metrics from all hosts in nixosConfigurations with the prometheus node exporter enabled
-      exporters ++
-      # Configure prometheus to read metrics from this exporter
-      [
-        {
-          job_name = "workstation-zfs";
-          static_configs = [{
-            targets = [ "${(lib.our.peers.getHost "workstation").tailscale}:${toString self.nixosConfigurations.workstation.config.services.prometheus.exporters.zfs.port}" ];
-          }];
-        }
-        {
-          job_name = "h8tsner-endlessh";
-          static_configs = [{
-            targets = [ "${(lib.our.peers.getHost "h8tsner").tailscale}:${toString self.nixosConfigurations.h8tsner.config.services.endlessh-go.prometheus.port}" ];
-          }];
-        }
-      ];
+    scrapeConfigs = autogenScrapeConfigs;
   };
 }
