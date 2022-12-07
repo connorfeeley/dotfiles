@@ -19,9 +19,7 @@ set -o errexit  # set -e : exit the script if any statement returns a non-true r
 
 export PATH=@path@:$PATH
 
-SYNC_ARG="${1:-}"
-
-doom sync "${SYNC_ARG}"
+doom sync "${1:-}"
 
 doom build -r
 
