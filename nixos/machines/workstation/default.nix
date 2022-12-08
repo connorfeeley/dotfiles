@@ -105,6 +105,8 @@ in
     "net.ipv6.route.max_size" = 2147483647; # Default: 4096
   };
 
+  boot.kernelModules = [ "usbip" ];
+
   ### === Remote LUKS/ZFS Unlock  ============================================================
 
   # Enable tailscale in initrd
@@ -130,7 +132,7 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [ cryptsetup ];
+  environment.systemPackages = with pkgs; [ cryptsetup usbip ];
 
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
