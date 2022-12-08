@@ -189,7 +189,10 @@ in
       WEBKIT_DISABLE_COMPOSITING_MODE = 1;
 
       # zsh-autosuggestions config
-      ZSH_AUTOSUGGEST_STRATEGY = "(history completion)";
+      # ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];
+
+      # Hundredths of a second to wait for escape sequence (?)
+      # KEYTIMEOUT = 40;
     };
 
     # Don't source /etc/zprofile and /etc/zshrc
