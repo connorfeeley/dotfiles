@@ -17,6 +17,9 @@ let
 
       # Time Machine backup normally runs as a low-profile process; run as high priority instead
       tm_high_prio = "sudo sysctl debug.lowpri_throttle_enabled=0";
+
+      # Reboot after FileVault unlock
+      reboot = "sudo fdesetup authrestart";
     } else { });
 in
 {
