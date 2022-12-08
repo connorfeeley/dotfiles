@@ -105,7 +105,9 @@ in
     ];
 
     homebrew.masApps = {
+      "Developer" = 640199958;
       "Xcode" = 497799835;
+
       "Keynote" = 409183694;
       "Numbers" = 409203825;
       "Pages" = 409201541;
