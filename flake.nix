@@ -65,6 +65,7 @@
     deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixvim = { url = "github:pta2002/nixvim"; inputs.nixpkgs.follows = "nixpkgs"; };
     prefmanager.url = "github:malob/prefmanager";
+    tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; };
 
     ##: --- other --------------------------------------------------------------
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
@@ -82,7 +83,7 @@
     , deploy
     , digga
     , emacs-overlay
-    # , arion # FIXME: checks fail on darwin
+      # , arion # FIXME: checks fail on darwin
     , flake-utils
     , gitignore
     , home-manager
@@ -180,6 +181,7 @@
             inherit (packagesFrom inputs.xmonad-config) xmobar-config;
           }
         )
+        (import ./overlays/tum-dse-config { inherit inputs; })
       ];
 
       commonImports = [
