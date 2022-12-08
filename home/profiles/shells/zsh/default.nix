@@ -41,7 +41,7 @@ in
     enableCompletion = true;
     # NOTE: conflicts with 'zdharma/fast-syntax-highlighting'
     enableSyntaxHighlighting = false;
-    enableAutosuggestions = true;
+    enableAutosuggestions = false;
     enableVteIntegration = true;
 
     defaultKeymap = "emacs"; # One of "emacs", "vicmd", "viins"
@@ -79,6 +79,7 @@ in
         { name = "zdharma-continuum/fast-syntax-highlighting"; tags = [ "defer:2" ]; }
         { name = "zsh-users/zsh-history-substring-search"; tags = [ "defer:3" ]; }
 
+        { name = "zsh-users/zsh-autosuggestions"; }
         { name = "agkozak/zsh-z"; }
         { name = "marzocchi/zsh-notify"; }
         { name = "hlissner/zsh-autopair"; }
@@ -186,6 +187,9 @@ in
       # Needed for xwidgets in emacs
       WEBKIT_FORCE_SANDBOX = 0;
       WEBKIT_DISABLE_COMPOSITING_MODE = 1;
+
+      # zsh-autosuggestions config
+      ZSH_AUTOSUGGEST_STRATEGY = "(history completion)";
     };
 
     # Don't source /etc/zprofile and /etc/zshrc
