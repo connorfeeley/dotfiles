@@ -63,7 +63,7 @@
     devenv = { url = "github:cachix/devenv/v0.4"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
-    pta2002-neovim = { url = "github:pta2002/nixvim"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nixvim = { url = "github:pta2002/nixvim"; inputs.nixpkgs.follows = "nixpkgs"; };
     prefmanager.url = "github:malob/prefmanager";
 
     ##: --- other --------------------------------------------------------------
