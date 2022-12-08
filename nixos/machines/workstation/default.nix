@@ -132,7 +132,7 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [ cryptsetup usbip ];
+  environment.systemPackages = with pkgs; [ cryptsetup linuxPackages.usbip ];
 
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
