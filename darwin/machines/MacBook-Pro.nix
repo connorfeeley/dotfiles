@@ -31,7 +31,7 @@ in
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; workstation ++ macos ++ emacs-config ++ (with hmArgs.profiles; [
+      imports = with hmArgs.roles; workstation ++ macos ++ developer ++ emacs-config ++ (with hmArgs.profiles; [
         sync
         work
         ops
