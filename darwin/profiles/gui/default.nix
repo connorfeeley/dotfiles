@@ -91,6 +91,7 @@ in
 
       { name = "vlc"; }
       # { name = "lulu"; }
+      { name = "wireshark"; }
       { name = "stats"; }
       { name = "steam"; }
       { name = "curseforge"; }
