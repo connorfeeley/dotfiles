@@ -6,6 +6,8 @@
 }:
 let
   inherit (config.networking) hostName;
+
+  inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 in
 {
   ### === users ================================================================
@@ -60,5 +62,9 @@ in
   programs.amphetamine = {
     enable = true;
     withEnhancer = false;
+  };
+
+  age.secrets = {
+    dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
   };
 }

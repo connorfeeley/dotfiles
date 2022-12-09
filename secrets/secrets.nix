@@ -10,15 +10,14 @@ let
 
   workstation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIL+myjkKGCYIYkI165tq/cp04m0iox8RLEb4MS1wjet";
   macbook-pro = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+pW5LB+Op2HgkiCuwAOQ5UB1ATEvTrnV89CFo4toCS";
+  franklin = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEKC3vTzrixjN7QtMOxaN0r1EQ9PRb9AkT4r73DXmYPF";
   rosy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMSoMj5v8JwK4YhB8p4mrJM26TeNAO+xZgIwaxxj0Umb";
   h8tsner = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGPdaiVggrhTnMX3QmE+4UEfPAyFTdB4jJdmjNdjWFU";
-  systems = [ workstation macbook-pro rosy ];
+  systems = [ workstation macbook-pro franklin rosy ];
 in
 {
-  "minecraft-rcon-password.txt.age".publicKeys = users ++ systems ++ [ h8tsner ];
-
   # Workstation binary cache
-  "hosts/workstation/cache-priv-key.pem.age".publicKeys = users ++ [ workstation ];
+  "hosts/workstation/cache-priv-key.pem.age".publicKeys = users ++ systems;
 
   "dotfield-readme-update-access-token.txt.age".publicKeys = users ++ systems;
 }
