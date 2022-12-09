@@ -25,7 +25,6 @@
     socat
     tcpreplay
     tcpdump
-    wireshark
     sslsplit
     rustscan
     ssh-audit
@@ -46,6 +45,7 @@
 
     ## === Networking ===
     aircrack-ng
+    wireshark
     mitmproxy
     proxychains
     udptunnel
