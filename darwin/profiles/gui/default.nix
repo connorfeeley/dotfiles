@@ -19,7 +19,6 @@ in
   config = {
     environment.systemPackages = with pkgs; [
       gtk-mac-integration
-      iterm2 #     <- the king of macOS terminals; not kitty 😾
       fontconfig # <- appease 'doom doctor'
       dockutil #   <- command line utility for managing macOS dock items
       mysides #    <- manages macOS Finder sidebar favorites, tells hilarious jokes

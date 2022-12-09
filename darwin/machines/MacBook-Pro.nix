@@ -39,6 +39,8 @@ in
 
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";
+
+      programs.iterm2.enable = true;
     };
   };
 
