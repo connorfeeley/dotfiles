@@ -3,6 +3,30 @@
    1. [[#build-debian-vm][Build =debian-vm= system (inside VM)]]
    2. [[#deploy-rs-build][=deploy-rs=: build =debian-vm= in QEMU]]
 
+* Flake Outputs
+
+
+** Home Manager Modules
+
+
+*** iTerm2
+
+A ~home-manager~ module is exported which provides options for enabling ~iterm2~'s [[https://iterm2.com/documentation-shell-integration.html][shell integration]].
+
+To use this module, add the module output to your flake (~homeModules.iterm2~).
+
+Configuration:
+#+begin_src nix
+programs.iterm2 = {
+  enable = true;         # Default: false
+  package = pkgs.iterm2; # Default: pkgs.iterm2
+
+  enableBashIntegration = true; # Default: stdenv.isDarwin && config.programs.bash.enable
+  enableFishIntegration = true; # Default: stdenv.isDarwin && config.programs.fish.enable
+  enableZshIntegration = true;  # Default: stdenv.isDarwin && config.programs.zsh.enable
+}
+#+end_src
+
 * Hosts
 
 ** Workstation (~workstation~)
