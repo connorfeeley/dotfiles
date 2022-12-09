@@ -2,7 +2,11 @@
 , lib
 , pkgs
 , ...
-}: {
+}:
+let
+  inherit (pkgs.stdenv) isAarch64;
+in
+{
   imports = [ ];
 
   # Symlink Nix applications to '~/Applications/Nix Apps'
@@ -21,7 +25,8 @@
     ''
   );
 
-  security.pam.enableSudoTouchIdAuth = true;
+  # Use touchID for authorizing sudo; but only on Apple Silicon
+  security.pam.enableSudoTouchIdAuth = isAarch64;
 
   # TODO: why disabled? caused an error?
   # system.defaults.".GlobalPreferences".com.apple.sound.beep.sound = "Funk";
