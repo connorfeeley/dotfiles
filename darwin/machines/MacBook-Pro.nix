@@ -52,8 +52,10 @@ in
     "Wi-Fi"
     "iPhone USB"
     "Thunderbolt Bridge"
-    "Tailscale Tunnel"
   ];
+
+  # Tailscale MAS App
+  programs.tailscale.enable = true;
 
   programs.amphetamine = {
     enable = true;
