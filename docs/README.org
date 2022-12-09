@@ -502,6 +502,7 @@ darwin-rebuild switch --flake ~/.config/dotfield
 ~/.config/emacs/bin/doom install
 #+end_src
 
+|   |   |   |   |   |   | parent of 3781ac52 (docs: add MBP setup instructions) |
 ** Franklin
 The speed demon of the group - an early 2015 13-inch MacBook Air. Used as a server and as an internet gateway for some /loud/ devices that I don't want near my router.
 
