@@ -12,7 +12,6 @@ with profiles; let
 
   # beep boop
   developer = [
-    shells.fish
     direnv
     vim
     git

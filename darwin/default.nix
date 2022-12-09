@@ -1,7 +1,7 @@
 collective: { inputs, ... }:
 let
   inherit (inputs) agenix home-manager digga;
-  inherit (inputs.flake-utils.lib.system) aarch64-darwin;
+  inherit (inputs.flake-utils.lib.system) aarch64-darwin x86_64-darwin;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
   # FIXME: move to guardian
@@ -20,8 +20,12 @@ in
 
   hosts.MacBook-Pro = {
     system = aarch64-darwin;
-    modules = with roles; workstation ++
-      [ ];
+    modules = with roles; workstation ++ [ ];
+  };
+
+  hosts.franklin = {
+    system = x86_64-darwin;
+    modules = with roles; server ++ [ ];
   };
 
   hostDefaults = {

@@ -454,6 +454,125 @@ CLOSED: [2022-11-25 Fri 23:45]
 umount -Rl /mnt/zfs
 zpool export -a
 #+end_src
+
+** MacBook-Pro
+A base-model  M1 MacBook Pro. Secondary development machine (though the unholy combination of Nix + Apple Silicon means I'm frequently SSHed into ~workstation~).
+
+*** Setup
+
+#+begin_src shell :noeval
+# Install Nix
+sh <(curl -L https://nixos.org/nix/install)
+
+ssh cfeeley@localhost
+
+softwareupdate --install-rosetta --agree-to-license
+
+# Install Xcode	from App Store
+sudo xcodebuild -license
+
+sudo mv /etc/nix/nix.conf{,.bak}
+sudo mv /etc/shells{,.bak}
+
+# Brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew analytics off
+
+# Clone Repositories
+git clone git@git.sr.ht:~cfeeley/dotfield ~/.config/dotfield
+git clone git@git.sr.ht:~cfeeley/doom-emacs-private ~/.config/doom
+git clone https://github.com/doomemacs/doomemacs ~/.config/emacs
+
+# Install Flake
+
+mkdir ~/Applications
+
+cd ~/.config/dotfield && nix --experimental-features 'nix-command flakes' build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel -L --keep-going && ./result/sw/bin/darwin-rebuild switch --flake ~/.config/dotfield
+
+printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
+/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t # For Big Sur and later
+
+cd ~/.config/dotfield && nix --experimental-features 'nix-command flakes' build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel -L --keep-going && ./result/sw/bin/darwin-rebuild switch --flake ~/.config/dotfield
+
+sudo chsh -s /run/current-system/sw/bin/zsh cfeeley
+
+darwin-rebuild switch --flake ~/.config/dotfield
+
+# Emacs
+~/.config/emacs/bin/doom install
+#+end_src
+
+** Franklin
+The speed demon of the group - an early 2015 13-inch MacBook Air. Used as a server and as an internet gateway for some /loud/ devices that I don't want near my router.
+
+Hardware Overview:
+#+begin_example
+  Model Name:	MacBook Air
+  Model Identifier:	MacBookAir7,2
+  Processor Name:	Dual-Core Intel Core i5
+  Processor Speed:	1.6 GHz
+  Number of Processors:	1
+  Total Number of Cores:	2
+  L2 Cache (per Core):	256 KB
+  L3 Cache:	3 MB
+  Hyper-Threading Technology:	Enabled
+  Memory:	4 GB
+#+end_example
+
+*** Setup
+
+#+begin_src shell :noeval
+# Install Nix
+sh <(curl -L https://nixos.org/nix/install)
+
+# ssh cfeeley@localhost
+
+# Install Xcode	from App Store
+# sudo xcodebuild -license
+
+# Brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew analytics off
+
+# Install nix-darwin
+nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+./result/bin/darwin-installer && rm result
+
+# Clone Repositories
+# git clone git@git.sr.ht:~cfeeley/dotfield ~/.config/dotfield
+# git clone git@git.sr.ht:~cfeeley/doom-emacs-private ~/.config/doom
+# git clone https://github.com/doomemacs/doomemacs ~/.config/emacs
+
+# Install Flake
+mkdir ~/Applications
+
+# cd ~/.config/dotfield && nix --experimental-features 'nix-command flakes' build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel -L --keep-going && ./result/sw/bin/darwin-rebuild switch --flake ~/.config/dotfield
+
+printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
+/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t # For Big Sur and later
+
+# cd ~/.config/dotfield && nix --experimental-features 'nix-command flakes' build ~/.config/dotfield#darwinConfigurations.MacBook-Pro.config.system.build.toplevel -L --keep-going && ./result/sw/bin/darwin-rebuild switch --flake ~/.config/dotfield
+
+sudo chsh -s /run/current-system/sw/bin/zsh cfeeley
+
+# darwin-rebuild switch --flake ~/.config/dotfield
+
+# Emacs
+# ~/.config/emacs/bin/doom install
+
+nix --extra-experimental-features 'nix-command flakes' flake show git+ssh://MacBook-Pro.local:/Users/cfeeley/.config/dotfield
+
+echo "trusted-users = root cfeeley nix-ssh @wheel @admin" >> /etc/nix/nix.conf
+
+sudo mv /etc/nix/nix.conf{,.bak}
+sudo mv /etc/shells{,.bak}
+#+end_src
+
+From another machine:
+#+begin_src shell :noeval
+nix build ~/.config/dotfield#darwinConfigurations.franklin.config.system.build.toplevel
+./result/sw/bin/darwin-rebuild switch --flake ~/.config/darwin
+#+end_src
+
 * Useful Commands
 
 ** Unlock ~git-crypt~

@@ -3,8 +3,7 @@
 ,
 }:
 let
-  workstation =
-    (with (collective.profiles); [
+  workstation = (with (collective.profiles); [
       fonts.common
       secrets
       flox
@@ -18,9 +17,22 @@ let
       podman
       system-defaults
     ]);
+
+  server = (with (collective.profiles); [
+    fonts.common
+    secrets
+    flox
+  ])
+  ++ (with profiles; [
+    system-defaults
+    distributed-build
+
+    podman
+  ]);
 in
 {
   inherit
     workstation
+    server
     ;
 }

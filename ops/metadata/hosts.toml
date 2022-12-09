@@ -1,5 +1,6 @@
+##
 ## === WORKSTATION ===
-
+##
 [workstation]
 network = "home"
 tailscale = "100.79.154.16"
@@ -17,8 +18,9 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCVmAx+FNqurkG9eQ7icgqS1tOzy1JyL+s
 age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
 
+##
 ## === MACBOOK-PRO ===
-
+##
 [MacBook-Pro]
 network = "home"
 tailscale = "100.87.60.82"
@@ -39,8 +41,26 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+pW5LB+Op2HgkiCuwAOQ5UB1ATEvTrnV8
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyCzd5UcqFUC3O7r62N3sx6ywXcayHQRV3jWJC8OQyl cfeeley@Connors-MacBook-Pro.local"]
 age = "age194m4x730g4ddfyvm7qccxe09vmrdymwg350kygys4unp35ndtpsqqnns03"
 
-## === H8TSNER (NixOS hetzner VM) ===
+##
+## === FRANKLIN ===
+##
+[franklin]
+network = "home"
+# tailscale = "100.87.60.82"
+keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEKC3vTzrixjN7QtMOxaN0r1EQ9PRb9AkT4r73DXmYPF", ]
 
+[franklin.ipv4]
+address = "192.168.0.195"
+
+[franklin.users.root]
+keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEKC3vTzrixjN7QtMOxaN0r1EQ9PRb9AkT4r73DXmYPF", ]
+[franklin.users.cfeeley]
+keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL++RSmtl7/qvt7V1P+Rbcep7NBqzlotPySOAud4JtID cfeeley@franklin.local", ]
+# age = "age194m4x730g4ddfyvm7qccxe09vmrdymwg350kygys4unp35ndtpsqqnns03"
+
+##
+## === H8TSNER (NixOS hetzner VM) ===
+##
 [h8tsner]
 network = "hetzner"
 tailscale = "100.117.51.78"
@@ -61,8 +81,9 @@ prefixLength = "64"
 [h8tsner.users.cfeeley]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBu7vxj2IpJ5R4SL/TCbonZmAM6aFlruqc4z5zwBjyxo cfeeley@Connors-MacBook-Pro.local"]
 
+##
 ## === ROSY (NixOS builder for aarch64-linux) ===
-
+##
 [rosy]
 network = "home"
 keys = [
@@ -79,8 +100,9 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBu7vxj2IpJ5R4SL/TCbonZmAM6aFlruqc
 [rosy.users.cfeeley]
 keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICv0DIS4BFakxKLgkaQ3zn8SgMgTb4p5/XlVcASERANj cfeeley@rosy", ]
 
+##
 ## === DEBIAN-VM ===
-
+##
 [debian-vm]
 network = "home"
 tailscale = "100.95.162.28"
@@ -95,8 +117,9 @@ keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKPuNW9UcyAmtp9J0SJAaiMxSwqQyoJyJs9o/YcCQYMG cfeeley@debian-vm"
 ]
 
+##
 ## === CFEELEY-LAPTOP ===
-
+##
 [cfeeley-laptop]
 network = "home"
 # tailscale = "100.79.154.16"
@@ -113,7 +136,8 @@ keys = [
 ]
 # age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
+##
 ## === INSTALLER: GRAPHICAL ===
-
+##
 [bootstrap-graphical]
 network = "cfeeley"
