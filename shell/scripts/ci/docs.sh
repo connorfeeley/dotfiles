@@ -7,8 +7,8 @@ set -o xtrace
 export PATH=@path@:$PATH
 
 # Generate a personal access token and export it as PRIVATE_BEARER_TOKEN:
-if [ -e "~/.dotfield-readme-update-access-token.txt" ]; then
-  source ~/.dotfield-readme-update-access-token.txt
+if [ -e /tmp/dotfield-readme-update-access-token.txt ]; then
+   PRIVATE_BEARER_TOKEN="$(cat /tmp/dotfield-readme-update-access-token.txt)"
 elif [ -f "/run/agenix/dotfield-readme-update-access-token" ]; then
    PRIVATE_BEARER_TOKEN="$(cat "/run/agenix/dotfield-readme-update-access-token")"
 fi

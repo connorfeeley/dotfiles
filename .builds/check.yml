@@ -6,6 +6,7 @@ secrets:
   - 47005b27-ef6a-42c2-a1f3-3424cf1e0098 # ~/.config/cachix/cachix.dhall
   - 37b06205-689c-4338-8365-f85e88f5eda9 # README access token
   - b5cddfe1-72db-41c8-98f2-51d93f1df9eb
+  - a4fc2b74-cbd2-4f32-ba60-8e35a4dec141
 packages:
   - nixos.cachix
   - nixos.nixUnstable
