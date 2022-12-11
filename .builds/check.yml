@@ -5,6 +5,7 @@ secrets:
   - 11affa26-7640-4dea-8233-045ddd667367 # ~/.ssh/id_rsa
   - 47005b27-ef6a-42c2-a1f3-3424cf1e0098 # ~/.config/cachix/cachix.dhall
   - 37b06205-689c-4338-8365-f85e88f5eda9 # README access token
+  - b5cddfe1-72db-41c8-98f2-51d93f1df9eb
 packages:
   - nixos.cachix
   - nixos.nixUnstable
