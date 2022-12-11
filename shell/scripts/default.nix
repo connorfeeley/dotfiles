@@ -50,6 +50,17 @@ in
     in
     writeProgram "dotfield-doom" { } ./ci/doom-rebuild.sh;
 
-  # TODO: keeping this here for when I finally implement README generation for sourcehut.
-  # config.age.secrets."dotfield-readme-update-access-token".path;
+  dotfield-docs =
+    let
+      extraPath = lib.makeBinPath (with pkgs; [ pandoc jq curl ]);
+      writeProgram = name: env: src:
+        pkgs.substituteAll ({
+          inherit name src;
+          inherit (stdenv) shell;
+          path = "${extraPath}";
+          dir = "bin";
+          isExecutable = true;
+        } // env);
+    in
+    writeProgram "dotfield-docs" { } ./ci/docs.sh;
 }

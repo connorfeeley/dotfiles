@@ -7,8 +7,11 @@
 export PATH=@path@:$PATH
 
 # Generate a personal access token and export it as PRIVATE_BEARER_TOKEN:
-ACCESS_TOKEN_FILE=/run/agenix/dotfield-readme-update-access-token
-[ -f "${ACCESS_TOKEN_FILE}" ] && PRIVATE_BEARER_TOKEN="$(cat "${ACCESS_TOKEN_FILE}")"
+if [ -f "$PRJ_ROOT/secrets/dotfield-readme-update-access-token.txt" ]; then
+  PRIVATE_BEARER_TOKEN="$(cat "$PRJ_ROOT/secrets/dotfield-readme-update-access-token.txt")"
+elif [ -f "/run/agenix/dotfield-readme-update-access-token" ]; then
+   PRIVATE_BEARER_TOKEN="$(cat "/run/agenix/dotfield-readme-update-access-token")"
+fi
 
 # ############################################################ #
 #   ____  _          _ _    ___        _   _                   #
@@ -33,7 +36,7 @@ set -o errexit  # set -e : exit the script if any statement returns a non-true r
 
 bearer_token="${PRIVATE_BEARER_TOKEN}"
 
-pandoc README.org -f org -t html5 -o README.html
+pandoc docs/README.org -f org -t html5 -o README.html
 
 ###
 ### First-time setup

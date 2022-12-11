@@ -132,6 +132,7 @@ in
       (utils scripts.dotfield-push)
       (utils scripts.dotfield-rebuild)
       (utils scripts.dotfield-doom)
+      (utils scripts.dotfield-docs)
       (withCategory "utils" {
         name = "repl";
         help = "Launch repl";
