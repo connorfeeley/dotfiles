@@ -2,7 +2,9 @@
 # shellcheck shell=bash
 
 # Debug:
-set -o xtrace
+# XXX: WARNING: WILL EXPOSE SECRET VALUES
+# set -o xtrace
+# XXX: WARNING: WILL EXPOSE SECRET VALUES
 
 export PATH=@path@:$PATH
 
