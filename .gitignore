@@ -23,3 +23,5 @@ flycheck_config.el
 /.composer/
 /.direnv
 /secrets/dotfield-readme-update-access-token.txt
+/README.html
+/README.md

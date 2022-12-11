@@ -1,13 +1,11 @@
-* Table of Contents
+* Addendum
 1. [[*Useful Commands][Useful Commands]]
    1. [[#build-debian-vm][Build =debian-vm= system (inside VM)]]
    2. [[#deploy-rs-build][=deploy-rs=: build =debian-vm= in QEMU]]
 
 * Flake Outputs
 
-
 ** Home Manager Modules
-
 
 *** iTerm2
 

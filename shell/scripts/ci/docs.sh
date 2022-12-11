@@ -2,13 +2,13 @@
 # shellcheck shell=bash
 
 # Debug:
-# set -o xtrace
+set -o xtrace
 
 export PATH=@path@:$PATH
 
 # Generate a personal access token and export it as PRIVATE_BEARER_TOKEN:
-if [ -f "$PRJ_ROOT/secrets/dotfield-readme-update-access-token.txt" ]; then
-  PRIVATE_BEARER_TOKEN="$(cat "$PRJ_ROOT/secrets/dotfield-readme-update-access-token.txt")"
+if [ -f "~/.dotfield-readme-update-access-token.txt" ]; then
+  PRIVATE_BEARER_TOKEN="$(cat "~/.dotfield-readme-update-access-token.txt")"
 elif [ -f "/run/agenix/dotfield-readme-update-access-token" ]; then
    PRIVATE_BEARER_TOKEN="$(cat "/run/agenix/dotfield-readme-update-access-token")"
 fi
@@ -36,7 +36,8 @@ set -o errexit  # set -e : exit the script if any statement returns a non-true r
 
 bearer_token="${PRIVATE_BEARER_TOKEN}"
 
-pandoc docs/README.org -f org -t html5 -o README.html
+pandoc docs/README.org -f org -t gfm -o /tmp/README.md --table-of-contents -s
+pandoc /tmp/README.md -f gfm -t html5 -o /tmp/README.html
 
 ###
 ### First-time setup
@@ -58,7 +59,7 @@ pandoc docs/README.org -f org -t html5 -o README.html
 repo_id=171368
 
 # And the readme file:
-readme=README.html
+readme=/tmp/README.html
 
 # Set the repository's README
 jq -sR '{
@@ -82,3 +83,6 @@ jq -sR '{
 #   | curl --oauth2-bearer $bearer_token \
 #     -H "Content-Type: application/json" \
 #     -d@- https://git.sr.ht/query
+
+echo
+echo "Updated project README with $(wc -l < "$readme") lines"
