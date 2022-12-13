@@ -213,6 +213,14 @@ in
         # Systemd scripts
         nixos.work
       ]);
+
+      programs.iterm2 = {
+        enable = false;
+        package = pkgs.xterm;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+        enableFishIntegration = true;
+      };
     };
   };
 
