@@ -73,4 +73,8 @@
     enable = true;
     withEnhancer = false;
   };
+
+  homebrew.masApps = {
+    "Xcode" = 497799835;
+  };
 }
