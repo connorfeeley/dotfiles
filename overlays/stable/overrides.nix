@@ -6,7 +6,6 @@ channels: final: prev: {
     fish
     iosevka-bin
     nerdfonts
-    python3Packages
     statix
     ;
 
