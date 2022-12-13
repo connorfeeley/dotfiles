@@ -205,7 +205,9 @@ lib.mkMerge [
       # Use with (package! pdf-tools :built-in 'prefer)
       emacsPackage.pkgs.pdf-tools
 
-      # ChatGPT
+      ### ChatGPT
+      # Requires epc and github:mmabrouk/chatgpt-wrapper
+      python3Packages.epc
       chatgpt-wrapper
 
       # Treemacs
