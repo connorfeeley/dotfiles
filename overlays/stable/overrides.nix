@@ -15,7 +15,9 @@ channels: final: prev: {
     pyright
     ;
 
-  ripgrep = prev.ripgrep.override { withPCRE2 = true; };
+  ripgrep = final.ripgrep.override { withPCRE2 = true; };
+
+  lshw = final.lshw.override { withGUI = true; };
 
   # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
   httpie = final.python3Packages.httpie;
