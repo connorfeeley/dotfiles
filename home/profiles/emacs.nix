@@ -289,6 +289,9 @@ lib.mkMerge [
       #: lang cpp
       (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
 
+      #: lang graphql
+      nodePackages.graphql-language-service-cli
+
       #: fpga (bazel builds fail on darwin)
       verible
       verilator
