@@ -205,6 +205,9 @@ lib.mkMerge [
       # Use with (package! pdf-tools :built-in 'prefer)
       emacsPackage.pkgs.pdf-tools
 
+      # ChatGPT
+      chatgpt-wrapper
+
       # Treemacs
       python3
 
