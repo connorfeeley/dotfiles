@@ -5,7 +5,8 @@
   environment.systemPackages = with pkgs; [
     darwin.DarwinTools
     darwin.print-reexports
-    darwin.ios-deploy
+    # FIXME(darwin): build failing as of 2022-12-13
+    # darwin.ios-deploy
   ];
 
   homebrew = {
