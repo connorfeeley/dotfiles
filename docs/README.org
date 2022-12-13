@@ -569,7 +569,7 @@ sudo mv /etc/shells{,.bak}
 From another machine:
 #+begin_src shell :noeval
 nix build ~/.config/dotfield#darwinConfigurations.franklin.config.system.build.toplevel
-./result/sw/bin/darwin-rebuild switch --flake ~/.config/darwin
+./result/sw/bin/darwin-rebuild build --flake ~/.config/darwin
 #+end_src
 
 * Useful Commands
