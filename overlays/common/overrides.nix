@@ -7,6 +7,11 @@ channels: final: prev:
   xmonad = prev.xmonad-config;
   xmobar = prev.xmobar-config;
 
+  lshw = prev.lshw.override { withGUI = true; };
+
+  # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
+  httpie = prev.python3Packages.httpie;
+
   inherit (channels.nixos-21-11)
     sourcetrail
     quartus-prime-lite
