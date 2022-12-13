@@ -65,6 +65,7 @@ in
     ];
 
     homebrew.casks = [
+      { name = "kitty"; }
       { name = "emacs-mac"; }
       { name = "visual-studio-code"; }
 
