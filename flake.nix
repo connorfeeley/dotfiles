@@ -180,6 +180,7 @@
             inherit (packagesFrom inputs.nixpkgs-work) zeuspack;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.xmonad-config) xmobar-config;
+            inherit (packagesFrom inputs.chatgpt-wrapper) chatgpt-wrapper;
           }
         )
         (import ./overlays/tum-dse-config { inherit inputs; })
