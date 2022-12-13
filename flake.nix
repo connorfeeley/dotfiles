@@ -5,9 +5,9 @@
     ##: --- nixpkgs flavours ----------------------------------------------------------
     nixpkgs.follows = "nixos-stable";
 
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
 
     ##: --- system -------------------------------------------------------------
