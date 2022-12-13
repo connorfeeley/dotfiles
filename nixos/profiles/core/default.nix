@@ -123,4 +123,6 @@ in
     };
     nixos.enable = true;
   };
+
+  services.timesyncd.enable = true;
 }
