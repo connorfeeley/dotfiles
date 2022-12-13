@@ -63,7 +63,6 @@ with profiles; let
 
   # Someone else's computer
   server = [
-    ops # nixops
     ssh
   ];
 

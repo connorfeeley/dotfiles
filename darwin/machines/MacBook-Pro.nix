@@ -36,7 +36,6 @@ in
       imports = with hmArgs.roles; workstation ++ macos ++ developer ++ emacs-config ++ (with hmArgs.profiles; [
         sync
         work
-        ops
       ]);
 
       home.username = hmArgs.lib.mkForce "cfeeley";
