@@ -4,6 +4,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    quartus-prime-lite
+    # quartus-prime-lite
   ];
 }
