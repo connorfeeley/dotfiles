@@ -69,6 +69,29 @@ in
       };
     };
 
-    scrapeConfigs = autogenScrapeConfigs;
+    scrapeConfigs = autogenScrapeConfigs ++
+      [
+        (
+          let
+            hostname = "h8tsner";
+            ename = "endlessh-go";
+            ecfg.port = 2112;
+          in
+          {
+            job_name = "${hostname}-${ename}";
+            static_configs = [{ targets = [ "${hostname}:${toString ecfg.port}" ]; }];
+            relabel_configs = [
+              {
+                target_label = "instance";
+                replacement = "${hostname}";
+              }
+              {
+                target_label = "job";
+                replacement = "${ename}";
+              }
+            ];
+          }
+        )
+      ];
   };
 }

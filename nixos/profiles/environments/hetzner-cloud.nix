@@ -75,6 +75,7 @@ in
         port = 2112;
       };
     };
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 2112 ];
 
     ###
     ### Prometheus node
