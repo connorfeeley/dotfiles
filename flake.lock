@@ -222,11 +222,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1670969323,
-        "narHash": "sha256-69HZ3MiTtWOZPM8cS3YgbLEZBfUoVXEADrgCPP2637A=",
+        "lastModified": 1670982366,
+        "narHash": "sha256-uvV5L2m1eiPD9t0Zj+WtFLMAzTYi9u2swL+trIjVeTU=",
         "owner": "~cfeeley",
         "repo": "chatgpt-wrapper",
-        "rev": "f6f866fb46e35d234eaa47049ccaf41cf9844150",
+        "rev": "75953f1452f6baec6e91a9fb532ec5a072639d7b",
         "type": "sourcehut"
       },
       "original": {
