@@ -207,8 +207,11 @@ lib.mkMerge [
 
       ### ChatGPT
       # Requires epc and github:mmabrouk/chatgpt-wrapper
-      python3Packages.epc
-      chatgpt-wrapper
+      python3Packages.chatgpt-wrapper
+      (pkgs.writeShellScriptBin "python-chatgpt-wrapper" ''
+        export PLAYWRIGHT_BROWSERS_PATH=${chatgpt-wrapper.playwrightBrowsers}
+        exec -a $0 ${pkgs.python3.withPackages (ps: with ps; [ epc chatgpt-wrapper ])}/bin/python $@
+      '')
 
       # Treemacs
       python3

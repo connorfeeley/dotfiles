@@ -12,6 +12,14 @@ channels: final: prev:
   # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
   httpie = prev.python3Packages.httpie;
 
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (
+      python-final: python-prev: {
+        inherit (prev) chatgpt-wrapper;
+      }
+    )
+  ];
+
   inherit (channels.nixos-21-11)
     sourcetrail
     quartus-prime-lite

@@ -21,6 +21,7 @@ with profiles; let
     ssh
     ops # nixops
     development.tools
+    python
     virtualisation.common
   ];
 
