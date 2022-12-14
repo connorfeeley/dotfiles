@@ -11,7 +11,8 @@ let
       # fonts.pragmatapro # TODO: remove
     ])
     ++ (with profiles; [
-      desktop
+      desktop.common
+      desktop.ddc-monitor-control
       gnome-desktop
       video
       zoom-us

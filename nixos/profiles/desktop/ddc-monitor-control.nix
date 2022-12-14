@@ -1,13 +1,13 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgs, ... }:
+let
+  inherit (config.dotfield) guardian;
+in
+{
   boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
   boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
 
   services.udev.extraRules = ''
-    SUBSYSTEM=="i2c-dev", ACTION=="add",\
-      ATTR{name}=="NVIDIA i2c adapter*",\
-      TAG+="ddcci",\
-      TAG+="systemd",\
-      ENV{SYSTEMD_WANTS}+="ddcci@$kernel.service"
+    KERNEL=="i2c-[0-9]*", TAG+="uaccess"
   '';
 
   systemd.services."ddcci@" = {
@@ -22,4 +22,7 @@
     '';
     serviceConfig.Type = "oneshot";
   };
+
+  # Allow guardian user to access run ddcutil commands
+  users.users.${guardian.username}.extraGroups = [ "i2c" ];
 }
