@@ -6,6 +6,8 @@ let
   graphical =
     (with collective.profiles; [
       fonts.common
+      networking.ssh-host
+      secrets
       # fonts.pragmatapro # TODO: remove
     ])
     ++ (with profiles; [
@@ -13,6 +15,8 @@ let
       gnome-desktop
       video
       zoom-us
+      yubikey
+      networking.avahi
     ]);
 
   server = (with (collective.profiles); [
@@ -44,16 +48,6 @@ let
     fpga.intel-altera
     fpga.xilinx
   ];
-
-  desktop =
-    (with collective.profiles; [
-      networking.ssh-host
-      secrets
-    ])
-    ++ (with profiles; [
-      yubikey
-      networking.avahi
-    ]);
 in
 {
   inherit
@@ -62,6 +56,5 @@ in
     tangible
     virt
     fpgadev
-    desktop
     ;
 }

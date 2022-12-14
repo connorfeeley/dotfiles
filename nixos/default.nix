@@ -20,7 +20,7 @@ in
 
   hosts = rec {
     bootstrap-graphical.modules =
-      (with roles; graphical ++ tangible ++ desktop)
+      (with roles; graphical ++ tangible)
       ++ (with profiles; [
         xorg
       ]);
@@ -29,7 +29,7 @@ in
       #: ~ Modules ~
       [ dwarffs.nixosModules.dwarffs stylix.nixosModules.stylix ] ++
       #: ~ Roles ~
-      (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ desktop ++ server) ++
+      (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ server) ++
       #: ~ Profiles ~
       (with profiles; [
         hardware.amd
@@ -49,7 +49,7 @@ in
       ]);
 
     # workstation-iso.modules =
-    #   (with roles; graphical ++ tangible ++ desktop ++ server)
+    #   (with roles; graphical ++ tangible ++ server)
     #   ++ (with profiles; [
     #     boot.systemd-boot
     #     hardware.amd
@@ -75,7 +75,7 @@ in
     rosy = {
       system = aarch64-linux;
       modules =
-        (with roles; desktop ++ server) ++
+        (with roles; server) ++
         (with profiles; [
           boot.systemd-boot
           builder
