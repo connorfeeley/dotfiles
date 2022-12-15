@@ -354,6 +354,9 @@
           pkgs = import nixpkgs {
             inherit system;
             overlays = [
+              # Helper function to install DMGs
+              self.overlays."nixpkgs-darwin/installApplication"
+
               self.overlays."nixpkgs-darwin/emacs28Macport"
               self.overlays."nixpkgs-darwin/macports"
             ];
@@ -366,7 +369,7 @@
           # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
           emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
         in
-        (builtins.mapAttrs (_n: v: nixpkgs.legacyPackages.${system}.callPackage v { })
+        (builtins.mapAttrs (_n: v: nixpkgs.legacyPackages.${system}.callPackage v { inherit (pkgs) installApplication; })
           (flattenTree (rakeLeaves ./darwin/packages))) //
         {
           inherit

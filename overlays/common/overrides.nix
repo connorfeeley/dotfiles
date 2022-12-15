@@ -20,6 +20,8 @@ channels: final: prev:
     )
   ];
 
+  inherit (final) installApplication;
+
   inherit (channels.nixos-21-11)
     sourcetrail
     quartus-prime-lite
