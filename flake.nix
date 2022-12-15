@@ -376,7 +376,7 @@
               pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.linux-packages ]; config.allowUnfree = true; };
             in
             {
-              inherit (pkgs) xmonad-config xsct;
+              inherit (pkgs) xmonad-config;
             };
 
           mkDarwinPackages = system:
