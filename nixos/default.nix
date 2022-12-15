@@ -43,7 +43,7 @@ in
         games
 
         xorg
-        # gnome-desktop
+        gnome-desktop
 
         grafana
       ]);
