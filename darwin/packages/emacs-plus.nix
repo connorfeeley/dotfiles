@@ -5,6 +5,7 @@
 , darwin
 , noTitlebar ? false
 , otherIcon ? "default"
+, ...
 }:
 let
   emacsPlus = fetchFromGitHub {
