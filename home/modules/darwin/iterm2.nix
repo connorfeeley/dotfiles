@@ -7,7 +7,7 @@ let
   inherit (pkgs.stdenv) isDarwin;
   inherit (lib) types mkIf mkEnableOption mkOption;
 
-  shellInit = shell: cfg.package + "/Applications/iTerm2.app/Contents/Resources/iterm2_shell_integration." + shell;
+  shellInit = shell: "source " + cfg.package + "/Applications/iTerm2.app/Contents/Resources/iterm2_shell_integration." + shell;
 
   cfg = config.programs.iterm2;
 in
