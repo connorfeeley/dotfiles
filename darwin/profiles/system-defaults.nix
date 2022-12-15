@@ -9,22 +9,6 @@ in
 {
   imports = [ ];
 
-  # Symlink Nix applications to '~/Applications/Nix Apps'
-  # https://github.com/nix-community/home-manager/issues/1341#issuecomment-1190875080
-  # https://github.com/LnL7/nix-darwin/pull/487
-  # FIXME: ~/Applications must be created manually first
-  system.activationScripts.applications.text = pkgs.lib.mkForce (
-    ''
-      echo "setting up ~/Applications..." >&2
-      rm -rf ~/Applications/Nix\ Apps
-      mkdir -p ~/Applications/Nix\ Apps
-      for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
-        src="$(/usr/bin/stat -f%Y "$app")"
-        cp -r "$src" ~/Applications/Nix\ Apps
-      done
-    ''
-  );
-
   # Use touchID for authorizing sudo; but only on Apple Silicon
   security.pam.enableSudoTouchIdAuth = isAarch64;
 
