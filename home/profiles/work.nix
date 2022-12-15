@@ -15,9 +15,5 @@ in
 
     # FIXME(darwin): broken
     pwrbar # control Kasa WiFi powerbar
-
-    # FIXME(aarch64): eclipse dependency is unsupported on aarch64
-    # dashboard
-    zeuspack
   ]);
 }

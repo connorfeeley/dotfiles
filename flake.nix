@@ -51,7 +51,6 @@
     ##: --- personal packages --------------------------------------------------
     xmonad-config = { url = "sourcehut:~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
     chatgpt-wrapper = { url = "sourcehut:~cfeeley/chatgpt-wrapper"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-darwin.follows = "nixpkgs-darwin"; };
-    nixpkgs-work.url = "git+ssh://git@git.sr.ht/~cfeeley/nixpkgs-work";
     ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- meta packages ------------------------------------------------------
@@ -96,7 +95,6 @@
     , nvfetcher
     , xmonad-config
     , ttc-subway-font
-    , nixpkgs-work
     , nix-xilinx
     , devenv
     , nix-nil
@@ -165,7 +163,6 @@
 
         nix-xilinx.overlay
 
-        nixpkgs-work.overlays.default
         (final: _prev:
           let
             packagesFrom = inputAttr: inputAttr.packages.${final.system};
@@ -176,8 +173,6 @@
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
             inherit (packagesFrom inputs.prefmanager) prefmanager;
-            inherit (packagesFrom inputs.nixpkgs-work) dashboard;
-            inherit (packagesFrom inputs.nixpkgs-work) zeuspack;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.xmonad-config) xmobar-config;
           }
