@@ -58,7 +58,7 @@ in
           PubkeyAcceptedKeyTypes = "+ssh-rsa";
           KexAlgorithms = "+diffie-hellman-group1-sha1";
           HostKeyAlgorithms = "+ssh-rsa";
-          Port = "22";
+          # Port = "22";
           # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
           # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
           # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
