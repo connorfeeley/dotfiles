@@ -356,85 +356,50 @@
           self.overlays."nixos-stable/xmonad-config"
         ];
       };
-    }) //
-    # Generate attrs for darwin systems only: (packages.<system>.emacs28Macport)
-    (eachSystem darwinSystems (system: {
+    })
+    //
+    # Generate attrs for each system: (formatter.<system>)
+    (eachSystem supportedSystems (system: {
+      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+    })) //
+    # Generate attrs for each system: (formatter.<system>)
+    {
       packages =
         let
-          # nixpkgs set used for flake's 'packages' output
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ self.overlays.darwin-packages ];
-          };
-          inherit (pkgs) macports;
-          # emacs-mac v28.2 with native compilation enabled;
-          emacs28Macport = pkgs.emacs28Macport;
-          # emacs-mac v28.2 with native compilation disabled;
-          # - Intended primarily as a quick way to verify that the package builds
-          # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
-          emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
-        in
-        (builtins.mapAttrs (_n: v: nixpkgs.legacyPackages.${system}.callPackage v { inherit (pkgs) installApplication; })
-          (flattenTree (rakeLeaves ./darwin/packages))) //
-        {
-          inherit
-            # MacPorts as in "not Homebrew"; not "the emacs macport". Emacs macport is next.
-            macports
+          mkLinuxPackages = system:
+            let
+              pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.linux-packages ]; };
+            in
+            {
+              inherit (pkgs) xmonad-config;
+            };
 
-            # NOTE: both emacs28Macport variants are impure
-            # Tested with XCode CLT version: 14.0.0.0.1.1661618636
-            emacs28Macport
-            emacs28Macport-noNativeComp
-            ;
+          mkDarwinPackages = system:
+            let
+              pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.darwin-packages ]; };
+            in
+            {
+              inherit (pkgs) macports amphetamine-enhancer emacs28Macport;
+
+              # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
+              emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
+            } //
+            (builtins.mapAttrs (_n: v: nixpkgs.legacyPackages.${system}.callPackage v { inherit (pkgs) installApplication; })
+              (flattenTree (rakeLeaves ./darwin/packages)));
+        in
+        {
+          x86_64-linux = mkLinuxPackages "x86_64-darwin";
+          aarch64-linux = mkLinuxPackages "x86_64-darwin";
+          x86_64-darwin = mkDarwinPackages "x86_64-darwin";
+          aarch64-darwin = mkDarwinPackages "x86_64-darwin";
         };
 
       apps = {
         # Re-export macos-builder for convenience
-        macos-builder = inputs.macos-builder.apps.${system}.default;
+        x86_64-darwin.macos-builder = inputs.macos-builder.apps.x86_64-darwin.default;
+        aarch64-darwin.macos-builder = inputs.macos-builder.apps.aarch64-darwin.default;
       };
-    })) //
-    # Generate attrs for each system: (formatter.<system>)
-    (eachSystem supportedSystems (system: {
-      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
-      # packages = {
-      #   workstation-iso = nixos-generators.nixosGenerate {
-      #     inherit (self.nixosConfigurations.workstation-iso) pkgs;
-      #     format = "iso";
-      #     system = "x86_64-linux";
-      #     inherit (self.nixosConfigurations.workstation-iso._module) specialArgs;
-      #     modules = self.nixosConfigurations.workstation-iso._module.args.modules ++ [
-      #       ({ config, lib, pkgs, modulesPath, ... }:
-      #         {
-      #           ###
-      #           ### Installation CD
-      #           ###
-      #           imports = [
-      #             "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-      #           ];
-
-      #           # use the latest Linux kernel
-      #           boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
-
-      #           # Needed for https://github.com/NixOS/nixpkgs/issues/58959
-      #           boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
-
-      #           # wpa_supplicant conflicts with NetworkManager
-      #           networking.wireless.enable = false;
-
-      #           # See console messages during early boot
-      #           # boot.initrd.kernelModules = [ "fbcon" ];
-
-      #           ###
-      #           ### Override system options
-      #           ###
-      #           # Can't cross compile from aarch64-linux builder
-      #           programs.steam.enable = lib.mkForce false;
-      #         })
-      #     ];
-      #   };
-      # };
-    }))
-  ;
+    };
 
   # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
   nixConfig.extra-experimental-features = "nix-command flakes";
