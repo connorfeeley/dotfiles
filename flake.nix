@@ -369,7 +369,7 @@
         let
           mkLinuxPackages = system:
             let
-              pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.linux-packages ]; };
+              pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.linux-packages ]; config.allowUnfree = true; };
             in
             {
               inherit (pkgs) xmonad-config xsct;
