@@ -13,7 +13,6 @@ repositories: {}
 packages:
 - nixos.cachix
 - nixos.nixUnstable
-- nixos.nix-output-monitor
 environment:
   BUILD_SUBMITTER: git.sr.ht
   NIX: cachix watch-exec cfeeley nix --
