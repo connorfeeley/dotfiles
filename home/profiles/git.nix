@@ -255,7 +255,7 @@ in
   };
 
   programs.gh = {
-    enable = false;
+    enable = true;
     extensions = with pkgs; [ gh-dash ];
   };
 
