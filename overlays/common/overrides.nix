@@ -20,7 +20,7 @@ channels: final: prev:
     )
   ];
 
-  inherit (final) installApplication;
+  inherit (prev) installApplication;
 
   inherit (channels.nixos-21-11)
     sourcetrail
