@@ -58,6 +58,12 @@ in
     smem
     nethogs
     sshfs
+
+    # FHS compat
+    nix-alien
+    nix-index-update
+    nix-index
+    nix-autobahn
   ];
 
   programs.bandwhich.enable = true;

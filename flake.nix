@@ -25,6 +25,7 @@
     # : ~~~ FHS compat ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     nix-ld = { url = "github:Mic92/nix-ld/main"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-alien = { url = "github:thiagokokada/nix-alien"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-autobahn = { url = "github:Lassulus/nix-autobahn"; inputs.nixpkgs.follows = "nixpkgs"; };
     envfs = { url = "github:Mic92/envfs"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- utilities ----------------------------------------------------------
@@ -175,6 +176,9 @@
             inherit (packagesFrom inputs.prefmanager) prefmanager;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.xmonad-config) xmobar-config;
+            inherit (packagesFrom inputs.nix-alien) nix-alien;
+            inherit (packagesFrom inputs.nix-alien) nix-index-update;
+            inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
           }
         )
         (import ./overlays/tum-dse-config { inherit inputs; })
