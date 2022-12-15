@@ -27,7 +27,7 @@ in
 
     workstation.modules =
       #: ~ Modules ~
-      [ dwarffs.nixosModules.dwarffs stylix.nixosModules.stylix ] ++
+      [ dwarffs.nixosModules.dwarffs ] ++
       #: ~ Roles ~
       (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ server) ++
       #: ~ Profiles ~
