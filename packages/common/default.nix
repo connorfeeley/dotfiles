@@ -30,6 +30,8 @@ final: _prev: {
     inherit (final) gmp;
   };
 
+  xsct = final.callPackage ./xsct.nix { };
+
   ##: third-party scripts ------------------------------------------------------
 
   # darwin-rebuild =

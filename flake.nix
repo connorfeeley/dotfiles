@@ -354,6 +354,7 @@
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
           self.overlays."nixos-stable/xmonad-config"
+          self.overlays."nixos-stable/xsct"
         ];
       };
     })
@@ -371,7 +372,7 @@
               pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.linux-packages ]; };
             in
             {
-              inherit (pkgs) xmonad-config;
+              inherit (pkgs) xmonad-config xsct;
             };
 
           mkDarwinPackages = system:
