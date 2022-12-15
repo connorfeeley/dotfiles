@@ -25,6 +25,12 @@ programs.iterm2 = {
 }
 #+end_src
 
+** Overlays
+*** Linux Packages: ~linux-packages~
+*** Darwin Packages: ~darwin-packages~
+** Packages
+*** Darwin DMG Installer Function: ~installApplication~
+
 * Hosts
 
 ** Workstation (~workstation~)
