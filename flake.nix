@@ -340,6 +340,22 @@
         #   };
         # };
       };
+
+      overlays = rec {
+        # Helper function to install DMGs
+        installApplication = self.overlays."nixpkgs-darwin/installApplication";
+        darwin-packages = nixpkgs.lib.composeManyExtensions [
+          installApplication
+
+          self.overlays."nixpkgs-darwin/emacs28Macport"
+          self.overlays."nixpkgs-darwin/emacs-plus"
+
+          self.overlays."nixpkgs-darwin/macports"
+        ];
+        linux-packages = nixpkgs.lib.composeManyExtensions [
+          self.overlays."nixos-stable/xmonad-config"
+        ];
+      };
     }) //
     # Generate attrs for darwin systems only: (packages.<system>.emacs28Macport)
     (eachSystem darwinSystems (system: {
@@ -348,13 +364,7 @@
           # nixpkgs set used for flake's 'packages' output
           pkgs = import nixpkgs {
             inherit system;
-            overlays = [
-              # Helper function to install DMGs
-              self.overlays."nixpkgs-darwin/installApplication"
-
-              self.overlays."nixpkgs-darwin/emacs28Macport"
-              self.overlays."nixpkgs-darwin/macports"
-            ];
+            overlays = [ self.overlays.darwin-packages ];
           };
           inherit (pkgs) macports;
           # emacs-mac v28.2 with native compilation enabled;
