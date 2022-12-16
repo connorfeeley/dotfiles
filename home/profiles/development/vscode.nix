@@ -25,7 +25,6 @@ let
     jnoortheen.nix-ide
 
     # C++
-    ms-vscode.cpptools
     ms-vscode.cmake-tools
 
     # Shell
@@ -44,6 +43,8 @@ let
 
     # Markdown
     yzhang.markdown-all-in-one
+  ] ++ lib.optionals pkgs.stdenv.isLinux [
+    ms-vscode.cpptools
   ];
 
   # With extension-specific dependencies, to be added to the FHS environment
