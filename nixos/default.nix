@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga nix-serve-ng dwarffs stylix;
+  inherit (inputs) agenix home-manager digga nix-serve-ng dwarffs nixos-vscode-server;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -102,6 +102,7 @@ in
       agenix.nixosModules.age
 
       nix-serve-ng.nixosModules.default
+      nixos-vscode-server.nixosModules.default
 
       # FIXME: upstream module causes a huge number of unnecessary
       # dependencies to be pulled in for all systems -- many of them are

@@ -36,10 +36,10 @@
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     macos-builder = { url = "github:Gabriella439/macos-builder"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
-    # arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; }; # FIXME: checks fail on darwin
+    # arion = { url = "github:hercules-ci/arion"; };
     nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
     nixago = { url = "github:nix-community/nixago"; inputs.nixpkgs.follows = "nixpkgs"; };
-    stylix = { url = "github:danth/stylix"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nixos-vscode-server = { url = "github:msteen/nixos-vscode-server"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- sources ------------------------------------------------------------
     mach-nix.url = "github:DavHau/mach-nix/refs/tags/3.5.0";
@@ -84,7 +84,7 @@
     , deploy
     , digga
     , emacs-overlay
-      # , arion # FIXME: checks fail on darwin
+    , nixos-vscode-server
     , flake-utils
     , gitignore
     , home-manager

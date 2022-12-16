@@ -206,7 +206,7 @@ in
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; workstation ++ linux ++ emacs-config ++ (with hmArgs.profiles; [
+      imports = with hmArgs.roles; workstation ++ developer ++ linux ++ emacs-config ++ (with hmArgs.profiles; [
         sync
         work
 
@@ -239,4 +239,6 @@ in
   age.secrets = {
     dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
   };
+
+  services.vscode-server.enable = true;
 }

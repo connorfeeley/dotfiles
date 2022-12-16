@@ -61,6 +61,8 @@ in
     inherit extensions;
 
     # Add extension-specific dependencies needed for rust lang server and rust-analyzer extension
-    # package = vscodeFhs;
+    package = lib.mkIf false vscodeFhs;
   };
+
+  services.vscode-server.enable = true;
 }
