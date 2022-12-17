@@ -26,6 +26,7 @@ network = "home"
 tailscale = "100.87.60.82"
 keys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyCzd5UcqFUC3O7r62N3sx6ywXcayHQRV3jWJC8OQyl cfeeley@Connors-MacBook-Pro.local",
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJPlZoQYrN1c0Udd0WHrdZT7tfF0X/49gtuBc40rr7WA root@MacBook-Pro",
   # delete these?
   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBxw8UnnH5Cizu7p9r4PFGDe/azUrdC0qA3K9GtWtvf/+l4dy044X3mI+hHVigTbxDH5viYcTiH6Lk+SHl2uZuX6fkzTBaFoonEJrKeCRS25TTMmas9g7D/maDoENEF1X0acs5Ffk3CAqKlOeynGPnj4M1ovUM8wyg1lsfZXA+LVr9GLLziiZSxVBBjG341hfVP3LFijj8qIAoDnBPrlLBjrrCsHXZa1QxjjyQADC5Ty7wgqLZqhfEEmkSdUEdkEt1lW4wzJzNXM/7F+iBmLTTp2KcUTPP2kyCU8YR+QvOMafB7ufmRoMf2ERjQtCwSJCYfEot3DBOvdgL0lFBTW4T /home/cfeeley/.ssh/id_rsa",
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBu7vxj2IpJ5R4SL/TCbonZmAM6aFlruqc4z5zwBjyxo cfeeley@Connors-MacBook-Pro.local",
@@ -36,7 +37,7 @@ keys = [
 address = "192.168.0.175"
 
 [MacBook-Pro.users.root]
-keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+pW5LB+Op2HgkiCuwAOQ5UB1ATEvTrnV89CFo4toCS"]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJPlZoQYrN1c0Udd0WHrdZT7tfF0X/49gtuBc40rr7WA"]
 [MacBook-Pro.users.cfeeley]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyCzd5UcqFUC3O7r62N3sx6ywXcayHQRV3jWJC8OQyl cfeeley@Connors-MacBook-Pro.local"]
 age = "age194m4x730g4ddfyvm7qccxe09vmrdymwg350kygys4unp35ndtpsqqnns03"
