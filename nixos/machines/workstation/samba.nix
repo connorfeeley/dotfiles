@@ -1,9 +1,13 @@
-{ ...
+{ config
+, ...
 }:
 # Source: https://fy.blackhats.net.au/blog/html/2021/03/22/time_machine_on_samba_with_zfs.html
 
 # Server setup: sudo smbpasswd -a cfeeley
 # MacOS setup: tmutil setdestination smb://cfeeley:<password>@workstation/timemachine
+let
+  inherit (config.dotfield) guardian;
+in
 {
   services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
   services.samba = {
@@ -42,6 +46,16 @@
         "fruit:wipe_intentionally_left_blank_rfork" = "yes";
         "fruit:delete_empty_adfiles" = "yes";
         "spotlight" = "no";
+      };
+      "${guardian.username}" = {
+        path = "/home/${guardian.username}";
+        "valid users" = "cfeeley";
+        public = "no";
+        browsable = "yes";
+        writeable = "yes";
+        "force user" = "cfeeley";
+        "fruit:aapl" = "yes";
+        "vfs objects" = "catia fruit streams_xattr";
       };
       tm_share = {
         path = "/mnt/zfs/backup/time_machine";
