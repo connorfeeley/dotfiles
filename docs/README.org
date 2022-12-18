@@ -650,6 +650,10 @@ nom build git+ssh://cfeeley@workstation:/home/cfeeley/.config/dotfield#darwinCon
 ** Build Rosy
 
 #+begin_src shell
+sudo nixos-rebuild switch --flake git+ssh://cfeeley@192.168.199.2:/Users/cfeeley/.config/dotfield#rosy
+#+end_src
+
+#+begin_src shell
 # Analogous to nix build $DOTFIELD_DIR#nixosConfigurations.rosy.config.system.build.toplevel
 # on host 'rosy'.
 # Target parameter: nixos://<host>/<nixosConfiguration>
