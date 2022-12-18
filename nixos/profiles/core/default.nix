@@ -35,7 +35,7 @@ in
   boot.loader.systemd-boot.consoleMode = "auto";
   boot.cleanTmpDir = lib.mkDefault true;
 
-  i18n.defaultLocale = "en_CA.UTF-8";
+  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
 
   environment.enableAllTerminfo = true;
 
