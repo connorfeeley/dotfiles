@@ -25,34 +25,15 @@ in
 
   ### === networking ================================================================
 
-  # Via: https://nixos.wiki/wiki/Install_NixOS_on_Hetzner_Online
-  # This make sure that our interface is named `eth0`.
-  # This should be ok as long as you don't have multiple physical network cards
-  # For multiple cards one could add a netdev unit to rename the interface based on the mac address
-  # networking.usePredictableInterfaceNames = false;
-  # systemd.network = {
-  #   enable = true;
-  #   networks."${interface}".extraConfig = ''
-  #     [Match]
-  #     Name = ${interface}
-  #     [Network]
-  #     # Add your own assigned ipv6 subnet here here!
-  #     # Address = ${host.ipv6.address}/${host.ipv6.prefixLength}
-  #     # Gateway = ${net.ipv6.address}
-  #     # optionally you can do the same for ipv4 and disable DHCP (networking.dhcpcd.enable = false;)
-  #     Address =  ${host.ipv4.address}/${host.ipv4.prefixLength}
-  #     Gateway = ${net.ipv4.address}
-  #   '';
-  # };
-  networking.dhcpcd.enable = true;
+  networking = {
+    hostName = "rosy";
+    dhcpcd.enable = true;
+    networkmanager.enable = true;
+  };
 
   ### === timezone ============================================================
 
-  time = {
-    timeZone = "America/Toronto";
-    hardwareClockInLocalTime = true;
-  };
-  environment.sessionVariables.TZ = "${config.time.timeZone}";
+  time.timeZone = "America/Toronto";
   location = {
     provider = "manual";
     latitude = 43.70011;
@@ -103,16 +84,53 @@ in
     };
   };
 
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBxw8UnnH5Cizu7p9r4PFGDe/azUrdC0qA3K9GtWtvf/+l4dy044X3mI+hHVigTbxDH5viYcTiH6Lk+SHl2uZuX6fkzTBaFoonEJrKeCRS25TTMmas9g7D/maDoENEF1X0acs5Ffk3CAqKlOeynGPnj4M1ovUM8wyg1lsfZXA+LVr9GLLziiZSxVBBjG341hfVP3LFijj8qIAoDnBPrlLBjrrCsHXZa1QxjjyQADC5Ty7wgqLZqhfEEmkSdUEdkEt1lW4wzJzNXM/7F+iBmLTTp2KcUTPP2kyCU8YR+QvOMafB7ufmRoMf2ERjQtCwSJCYfEot3DBOvdgL0lFBTW4T"
+  ];
+
+  ### === xorg ================================================================
+
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "dvorak";
+  };
+
+  # Enable automatic login for the user.
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "cfeeley";
+
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
+
   ### === misc ================================================================
 
-  system.stateVersion = "22.05";
+  console.keyMap = "dvorak";
 
   services.getty.autologinUser = config.dotfield.guardian.username;
 
-  networking.hostName = "rosy";
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBxw8UnnH5Cizu7p9r4PFGDe/azUrdC0qA3K9GtWtvf/+l4dy044X3mI+hHVigTbxDH5viYcTiH6Lk+SHl2uZuX6fkzTBaFoonEJrKeCRS25TTMmas9g7D/maDoENEF1X0acs5Ffk3CAqKlOeynGPnj4M1ovUM8wyg1lsfZXA+LVr9GLLziiZSxVBBjG341hfVP3LFijj8qIAoDnBPrlLBjrrCsHXZa1QxjjyQADC5Ty7wgqLZqhfEEmkSdUEdkEt1lW4wzJzNXM/7F+iBmLTTp2KcUTPP2kyCU8YR+QvOMafB7ufmRoMf2ERjQtCwSJCYfEot3DBOvdgL0lFBTW4T /Users/cfeeley/.ssh/id_rsa"
-  ];
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
 
   services.openssh = lib.mkDefault {
     enable = true;
