@@ -293,6 +293,7 @@ lib.mkMerge [
 
       #: lang cpp
       (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
+      cmake-language-server
 
       #: lang graphql
       nodePackages.graphql-language-service-cli
