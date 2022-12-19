@@ -111,15 +111,16 @@ in
       };
     };
 
-    systemd.services.prlshprint = {
-      description = "Parallels Shared Printer Tool";
-      wantedBy = [ "multi-user.target" ];
-      bindsTo = [ "cups.service" ];
-      serviceConfig = {
-        Type = "forking";
-        ExecStart = "${prl-tools}/bin/prlshprint";
-      };
-    };
+    # FIXME: service broken
+    # systemd.services.prlshprint = {
+    #   description = "Parallels Shared Printer Tool";
+    #   wantedBy = [ "multi-user.target" ];
+    #   bindsTo = [ "cups.service" ];
+    #   serviceConfig = {
+    #     Type = "forking";
+    #     ExecStart = "${prl-tools}/bin/prlshprint";
+    #   };
+    # };
 
     systemd.user.services = {
       prlcc = {
