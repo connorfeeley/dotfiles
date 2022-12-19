@@ -1,6 +1,7 @@
 { config
 , lib
 , modulesPath
+, pkgs
 , ...
 }: {
   disabledModules = [ "virtualisation/parallels-guest.nix" ];
@@ -19,6 +20,4 @@
     enable = true;
     package = config.boot.kernelPackages.callPackage ./prl-tools.nix { };
   };
-
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
