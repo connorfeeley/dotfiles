@@ -79,6 +79,7 @@ in
         (with profiles; [
           boot.systemd-boot
           builder
+          virtualisation.guests.parallels
 
           # rosetta
         ])
