@@ -20,7 +20,9 @@ in
 
   hosts.MacBook-Pro = {
     system = aarch64-darwin;
-    modules = with roles; workstation ++ [ ];
+    modules = with roles; workstation ++ [
+      profiles.virtualization.nixos-vm-host
+    ];
   };
 
   hosts.franklin = {
@@ -38,8 +40,6 @@ in
       home-manager.darwinModules.home-manager
       digga.nixosModules.nixConfig
       agenix.nixosModules.age # `nixosModules` is correct, even for darwin
-
-      profiles.virtualization.nixos-vm-host
     ];
   };
 }

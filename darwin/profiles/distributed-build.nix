@@ -9,6 +9,9 @@ in
 lib.mkMerge [
   {
     nix = {
+      # FIXME: keep in sync with below
+      settings.builders = "cfeeley@workstation x86_64-linux,aarch64-linux - 8 24 nixos-test,benchmark,big-parallel,kvm - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
+
       distributedBuilds = true;
       buildMachines = [
         ### NixOS workstation
