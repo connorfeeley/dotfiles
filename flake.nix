@@ -23,7 +23,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # : ~~~ FHS compat ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    nix-ld = { url = "github:Mic92/nix-ld/main"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-alien = { url = "github:thiagokokada/nix-alien"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-autobahn = { url = "github:Lassulus/nix-autobahn"; inputs.nixpkgs.follows = "nixpkgs"; };
     envfs = { url = "github:Mic92/envfs"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -66,7 +65,7 @@
     deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixvim = { url = "github:pta2002/nixvim"; inputs.nixpkgs.follows = "nixpkgs"; };
     prefmanager.url = "github:malob/prefmanager";
-    tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; };
+    tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
 
     ##: --- other --------------------------------------------------------------
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
@@ -88,7 +87,6 @@
     , digga
     , agenix
     , nixos-hardware
-    , nix-ld
     , nix-alien
     , nix-autobahn
     , envfs

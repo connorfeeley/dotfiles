@@ -17,7 +17,6 @@ let
 in
 {
   imports = [
-    inputs.nix-ld.nixosModules.nix-ld
     inputs.envfs.nixosModules.envfs
   ];
 
@@ -67,6 +66,7 @@ in
     nix-index
     nix-autobahn
   ];
+  programs.nix-ld.enable = true;
 
   programs.bandwhich.enable = true;
 

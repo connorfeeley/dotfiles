@@ -74,7 +74,7 @@
           "nixpkgs"
         ],
         "poetry2nix": "poetry2nix",
-        "utils": "utils_8"
+        "utils": "utils_7"
       },
       "locked": {
         "lastModified": 1669854260,
@@ -953,27 +953,6 @@
         "type": "github"
       }
     },
-    "flake-parts_2": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "tum-dse-config",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1671322946,
-        "narHash": "sha256-J8Qj+ITV+eti+irTK9Zn2LZVYoIW2g7irPUckU8yZvU=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "3f7172646953bf86dad5953bc45f0edae62ac445",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "flake-registry": {
       "flake": false,
       "locked": {
@@ -1518,7 +1497,7 @@
     "gomod2nix": {
       "inputs": {
         "nixpkgs": "nixpkgs_16",
-        "utils": "utils_10"
+        "utils": "utils_9"
       },
       "locked": {
         "lastModified": 1655245309,
@@ -2041,28 +2020,6 @@
       "original": {
         "owner": "Misterio77",
         "repo": "nix-colors",
-        "type": "github"
-      }
-    },
-    "nix-ld": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "utils": "utils_7"
-      },
-      "locked": {
-        "lastModified": 1671467851,
-        "narHash": "sha256-0aXxARYr6EDMW+fOOPUxB0IIItP1bxVljSc100RRAeo=",
-        "owner": "Mic92",
-        "repo": "nix-ld",
-        "rev": "3210f71f0171b491b88bbb099effc5d3c7ef99e9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "ref": "main",
-        "repo": "nix-ld",
         "type": "github"
       }
     },
@@ -3341,7 +3298,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "utils": "utils_9"
+        "utils": "utils_8"
       },
       "locked": {
         "lastModified": 1669555118,
@@ -3385,7 +3342,6 @@
         "nix-alien": "nix-alien",
         "nix-autobahn": "nix-autobahn",
         "nix-colors": "nix-colors",
-        "nix-ld": "nix-ld",
         "nix-nil": "nix-nil",
         "nix-serve-ng": "nix-serve-ng",
         "nix-xilinx": "nix-xilinx",
@@ -3650,7 +3606,9 @@
     "tum-dse-config": {
       "inputs": {
         "envfs": "envfs_2",
-        "flake-parts": "flake-parts_2",
+        "flake-parts": [
+          "flake-parts"
+        ],
         "flake-registry": "flake-registry",
         "flake-utils": "flake-utils_23",
         "home-manager": "home-manager_2",
@@ -3686,21 +3644,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "utils_10": {
-      "locked": {
-        "lastModified": 1653893745,
-        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
         "type": "github"
       },
       "original": {
@@ -3801,11 +3744,11 @@
     },
     "utils_8": {
       "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
         "type": "github"
       },
       "original": {
@@ -3816,11 +3759,11 @@
     },
     "utils_9": {
       "locked": {
-        "lastModified": 1656928814,
-        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "lastModified": 1653893745,
+        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
         "type": "github"
       },
       "original": {
