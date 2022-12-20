@@ -207,6 +207,7 @@
           # nixpkgs: pkgs/development/tools/poetry2nix/poetry2nix/mk-poetry-dep.nix
           "python2.7-pyjwt-1.7.1"
           "python3.10-poetry-1.2.2"
+          "python3.10-certifi-2022.9.24"
         ];
       };
 
