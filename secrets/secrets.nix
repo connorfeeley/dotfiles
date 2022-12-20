@@ -20,4 +20,7 @@ in
   "hosts/workstation/cache-priv-key.pem.age".publicKeys = users ++ systems;
 
   "dotfield-readme-update-access-token.txt.age".publicKeys = users ++ systems;
+
+  # Mail app password
+  "fastmail.txt.age".publicKeys = users ++ systems;
 }
