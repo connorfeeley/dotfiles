@@ -47,6 +47,36 @@ in
         "fruit:delete_empty_adfiles" = "yes";
         "spotlight" = "no";
       };
+      "Data" = {
+        path = "/mnt/zfs/data";
+        "valid users" = "cfeeley";
+        public = "no";
+        browsable = "yes";
+        writeable = "yes";
+        "force user" = "cfeeley";
+        "fruit:aapl" = "yes";
+        "vfs objects" = "catia fruit streams_xattr";
+      };
+      "Media" = {
+        path = "/mnt/zfs/media";
+        "valid users" = "cfeeley";
+        public = "no";
+        browsable = "yes";
+        writeable = "yes";
+        "force user" = "cfeeley";
+        "fruit:aapl" = "yes";
+        "vfs objects" = "catia fruit streams_xattr";
+      };
+      "Backup" = {
+        path = "/mnt/zfs/backup";
+        "valid users" = "cfeeley";
+        public = "no";
+        browsable = "yes";
+        writeable = "yes";
+        "force user" = "cfeeley";
+        "fruit:aapl" = "yes";
+        "vfs objects" = "catia fruit streams_xattr";
+      };
       "${guardian.username}" = {
         path = "/home/${guardian.username}";
         "valid users" = "cfeeley";
@@ -67,36 +97,6 @@ in
         "fruit:time machine" = "yes";
         "vfs objects" = "catia fruit streams_xattr";
       };
-      # public = {
-      #   path = "/mnt/Shares/Public";
-      #   browseable = "yes";
-      #   "read only" = "no";
-      #   "guest ok" = "yes";
-      #   "create mask" = "0644";
-      #   "directory mask" = "0755";
-      #   "force user" = "username";
-      #   "force group" = "groupname";
-      # };
-      # Media = {
-      #   path = "/mnt/zfs/media";
-      #   browseable = "yes";
-      #   "read only" = "no";
-      #   "guest ok" = "no";
-      #   "create mask" = "0644";
-      #   "directory mask" = "0755";
-      #   "force user" = "username";
-      #   "force group" = "groupname";
-      # };
-      # private = {
-      #   path = "/mnt/export/cfeeley";
-      #   browseable = "yes";
-      #   "read only" = "no";
-      #   "guest ok" = "no";
-      #   "create mask" = "0644";
-      #   "directory mask" = "0755";
-      #   "force user" = "username";
-      #   "force group" = "groupname";
-      # };
     };
   };
 }
