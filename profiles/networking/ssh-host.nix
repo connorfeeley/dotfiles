@@ -12,6 +12,9 @@
     permitRootLogin = lib.mkDefault "prohibit-password";
     forwardX11 = true;
 
+    # NOTE: distinct from password authentication
+    kbdInteractiveAuthentication = false;
+
     extraConfig = ''
       # Possibly fix hanging SSH multiplexes
       ClientAliveInterval 5
