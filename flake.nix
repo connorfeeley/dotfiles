@@ -79,26 +79,53 @@
   outputs =
     { self
     , nixpkgs
-    , agenix
-    , darwin
-    , deploy
-    , digga
-    , emacs-overlay
-    , nixos-vscode-server
-    , flake-utils
-    , gitignore
-    , home-manager
-    , prefmanager
     , nixos-stable
-    , nixos-unstable
     , nixpkgs-darwin
+    , nixos-unstable
+    , nixos-21-11
+    , home-manager
+    , darwin
+    , digga
+    , agenix
+    , nixos-hardware
+    , nix-ld
+    , nix-alien
+    , nix-autobahn
+    , envfs
+    , flake-utils
+    , flake-parts
     , nur
+    , nixos-generators
+    , macos-builder
     , nvfetcher
+    # , arion
+    , nix-serve-ng
+    , nixago
+    , nixos-vscode-server
+    , mach-nix
+    , gitignore
+    , nix-colors
+    , deadnix
+    , comma
+    , rnix-lsp
     , xmonad-config
+    , chatgpt-wrapper
     , ttc-subway-font
+    , emacs-overlay
     , nix-xilinx
-    , devenv
+    , nickel
     , nix-nil
+    , devenv
+    , deploy
+    , deploy-flake
+    , nixvim
+    , prefmanager
+    , tum-dse-config
+    , flake-compat
+    , dwarffs
+    , base16-kitty
+    , firefox-lepton
+    , modded-minecraft-servers
     , ...
     } @ inputs:
     let
