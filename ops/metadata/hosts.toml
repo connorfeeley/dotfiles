@@ -41,6 +41,7 @@ keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJPlZoQYrN1c0Udd0WHrdZT7tfF0X/49gtu
 [MacBook-Pro.users.cfeeley]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyCzd5UcqFUC3O7r62N3sx6ywXcayHQRV3jWJC8OQyl cfeeley@Connors-MacBook-Pro.local"]
 age = "age194m4x730g4ddfyvm7qccxe09vmrdymwg350kygys4unp35ndtpsqqnns03"
+ssh_port = 26473
 
 ##
 ## === FRANKLIN ===
