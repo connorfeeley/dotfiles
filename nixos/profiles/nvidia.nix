@@ -1,5 +1,4 @@
 { config
-, options
 , lib
 , pkgs
 , ...
@@ -31,9 +30,7 @@ in
     extraPackages = with pkgs; [ vaapiVdpau ];
 
     driSupport = true;
-    # NOTE: When built as an aarch64-linux VM on an aarch64-darwin host,
-    # complains that 32-bit DRI only makes sense on 64-bit systems.
-    driSupport32Bit = lib.mkForce (!options.virtualisation ? qemu);
+    driSupport32Bit = true;
   };
 
   virtualisation.docker = {

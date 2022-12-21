@@ -33,8 +33,6 @@ in
         # ./vm-networking.nix
       ];
 
-      virtualisation.host.pkgs = import pkgs.path { system = "aarch64-darwin"; };
-
       # Kind of hacky way to answer the question "are we in a VM?"
       nixos-vm.enable = true;
 
