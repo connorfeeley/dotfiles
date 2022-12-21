@@ -12,7 +12,7 @@
 #
 # Then add the .state file to your machine secrets and pass its path as tailscaleStatePath.
 
-{ config, lib, pkgs, ... }: {
+{ config, options, lib, pkgs, ... }: {
   options = {
     remote-machine.boot.tailscaleUnlock = with lib; {
       enable = mkOption {
@@ -42,7 +42,7 @@
         ];
       });
     in
-    lib.mkIf cfg.enable {
+    lib.mkIf (cfg.enable && !options.virtualisation ? qemu) {
       assertions = [{
         assertion =
           let

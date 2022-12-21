@@ -1,4 +1,5 @@
 { config
+, options
 , lib
 , pkgs
 , profiles
@@ -21,7 +22,7 @@ in
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
-  assertions = lib.mkIf (!config.nixos-vm.enable) [{
+  assertions = lib.mkIf (!options.virtualisation ? qemu) [{
     # Ensure eth0 (motherboard ethernet) is using DHCP and that
     # tailscale, tailscaleUnlock, initrd networking, and initrd SSH are enabled.
     assertion =
@@ -112,13 +113,13 @@ in
   ### === Remote LUKS/ZFS Unlock  ============================================================
 
   # Enable tailscale in initrd
-  remote-machine.boot.tailscaleUnlock = {
+  remote-machine.boot.tailscaleUnlock = lib.mkIf (!options.virtualisation ? qemu) {
     enable = true;
     tailscaleStatePath = "/etc/secrets/initrd/tailscale-luks-setup.state";
   };
 
   # Enable networking and SSH server in initrd
-  boot.initrd = {
+  boot.initrd = lib.mkIf (!options.virtualisation ? qemu) {
     # Driver for MSI (motherboard) 2.5GbE interface
     availableKernelModules = [ "r8169" ];
 
