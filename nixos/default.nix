@@ -39,6 +39,8 @@ in
 
         builder
 
+        mail
+
         workstations.flatpak
         games
 

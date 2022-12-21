@@ -59,6 +59,7 @@ in
         "${name}" = {
           file = "${secretsDir}/${name}.age";
           group = secretsGroup;
+          mode = "770";
         };
       };
     };
