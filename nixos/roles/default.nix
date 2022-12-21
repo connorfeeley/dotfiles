@@ -15,7 +15,6 @@ let
       desktop.ddc-monitor-control
       gnome-desktop
       video
-      zoom-us
       yubikey
       networking.avahi
     ]);

@@ -33,7 +33,10 @@ in
         # ./vm-networking.nix
       ];
 
+      virtualisation.host.pkgs = import pkgs.path { system = "aarch64-darwin"; };
+
       # Kind of hacky way to answer the question "are we in a VM?"
+      # Could also use 'options.virtualisation ? qemu'
       nixos-vm.enable = true;
 
       # Preserve most of the host machine's peer config but override networking.

@@ -39,9 +39,9 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  virtualisation.vmVariant = {
-    virtualisation.graphics = false;
-  };
+  # virtualisation.vmVariant = {
+  #   virtualisation.graphics = true;
+  # };
 
   system.stateVersion = "22.05";
 
@@ -207,7 +207,13 @@ in
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; workstation ++ developer ++ linux ++ emacs-config ++ (with hmArgs.profiles; [
+      imports = with hmArgs.roles; (lib.flatten [
+      ] ++ lib.optionals (!config.nixos-vm.enable) (lib.flatten [
+        workstation
+        developer
+        linux
+        emacs-config
+      ])) ++ (with hmArgs.profiles; [
         sync
         work
 

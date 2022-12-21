@@ -84,6 +84,8 @@ in
       hasWayland =
         config.services.xserver.displayManager.gdm.wayland
           or (pkgs.stdenv.isLinux ? config.programs.sway.enable);
+
+      notVm = !config.nixos-vm.enable;
     };
 
     home = { inherit userConfigPath hasEnabledModule hasWm; };

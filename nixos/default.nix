@@ -19,9 +19,12 @@ in
   imports = [ (importHosts ./machines) ];
 
   hosts = rec {
+    bootstrap-graphical.system = "aarch64-linux";
     bootstrap-graphical.modules =
-      (with roles; graphical ++ tangible)
+      (with roles; graphical)
       ++ (with profiles; [
+        # Must run: export NIX_DISK_IMAGE=bootstrap-graphical.qcow2
+        virtualisation.vm-variant
         xorg
       ]);
 

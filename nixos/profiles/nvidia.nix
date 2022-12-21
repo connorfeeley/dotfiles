@@ -10,8 +10,7 @@ let
 
   xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in
-{
-  nixpkgs.config.allowUnfree = lib.mkForce true;
+lib.mkIf (!config.nixos-vm.enable) {
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
@@ -30,7 +29,7 @@ in
     extraPackages = with pkgs; [ vaapiVdpau ];
 
     driSupport = true;
-    driSupport32Bit = true;
+    driSupport32Bit = pkgs.stdenv.isx86_64;
   };
 
   virtualisation.docker = {

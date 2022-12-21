@@ -5,7 +5,6 @@
 , ...
 }: {
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   boot.initrd.supportedFilesystems = [ "ext4" "zfs" ];
@@ -139,5 +138,5 @@
     ioztat # A storage load analysis tool for OpenZFS
   ];
 
-  boot.zfs.extraPools = [ "rpool" ];
+  boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
 }
