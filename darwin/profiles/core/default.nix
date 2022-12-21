@@ -72,6 +72,10 @@
   # Add homebrew packages to PATH
   environment.systemPath = [ config.homebrew.brewPrefix ];
 
+  environment.pathsToLink = [
+    "/Applications"
+  ];
+
   documentation = {
     # NOTE: All darwin-compatible documentation options are set in 'profiles/core'.
   };
