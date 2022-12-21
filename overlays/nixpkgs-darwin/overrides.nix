@@ -15,4 +15,8 @@ _channels: _final: _prev: {
   #   starship
   #   js-beautify
   #   ;
+
+  # kitty = prev.kitty.overrideAttrs (old: {
+  #   runTests = false;
+  # });
 }
