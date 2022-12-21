@@ -33,6 +33,7 @@
 
     nur.url = "github:nix-community/NUR";
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
+    # FIXME: merged to nixpkgs, see https://nixpk.gs/pr-tracker.html?pr=206951
     macos-builder = { url = "github:Gabriella439/macos-builder"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
     # arion = { url = "github:hercules-ci/arion"; };
