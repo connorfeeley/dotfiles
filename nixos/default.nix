@@ -50,6 +50,26 @@ in
         grafana
       ]);
 
+    workstation-macvm.system = aarch64-linux;
+    workstation-macvm.modules =
+      #: ~ Modules ~
+      [ dwarffs.nixosModules.dwarffs ] ++
+      #: ~ Profiles ~
+      (with profiles; [
+        ( import ./machines/workstation )
+        # 'graphical' role
+        collective.profiles.fonts.common
+        desktop.common
+        desktop.ddc-monitor-control
+        gnome-desktop
+
+        hidpi
+        virtualisation.vm-variant
+
+        xorg
+        gnome-desktop
+      ]);
+
     # workstation-iso.modules =
     #   (with roles; graphical ++ tangible ++ server)
     #   ++ (with profiles; [
