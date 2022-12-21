@@ -18,7 +18,7 @@ lib.mkMerge [
         {
           hostName = "workstation";
           maxJobs = 8;
-          systems = [ "x86_64-linux" "aarch64-linux" ];
+          systems = [ "x86_64-linux" "aarch64-linux" "i686-linux" ];
           # Base64-encoded ed25519 public host key of builder:
           #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
           publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
