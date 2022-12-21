@@ -1,6 +1,11 @@
 { ...
 }:
 {
+
+  ###
+  ### FIXME: use rosetta.nix from nixpkgs instead
+  ###
+
   ### === rosetta ================================================================
   # https://xyno.space/post/nixos-utm-rosetta
 
