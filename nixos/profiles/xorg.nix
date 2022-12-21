@@ -23,10 +23,10 @@
 
     displayManager = {
       # Log in automatically
-      autoLogin = {
-        enable = config.dotfield.guardian.autoLogin;
-        user = config.dotfield.guardian.username;
-      };
+      # autoLogin = {
+      #   enable = config.dotfield.guardian.autoLogin;
+      #   user = config.dotfield.guardian.username;
+      # };
 
       sessionCommands =
         let
@@ -54,16 +54,6 @@
           # Fix keyring unlock
           ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
         '';
-    };
-
-    ###
-    ### KDE
-    ###
-    desktopManager.plasma5 = {
-      enable = true;
-      supportDDC = true;
-      useQtScaling = true;
-      runUsingSystemd = true;
     };
   };
 }

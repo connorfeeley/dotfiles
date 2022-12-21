@@ -47,8 +47,12 @@ in
         workstations.flatpak
         games
 
+        desktop.common
         xorg
-        gnome-desktop
+        kde
+        hm-xmonad
+        # gnome-desktop
+        # pantheon
 
         grafana
       ]);

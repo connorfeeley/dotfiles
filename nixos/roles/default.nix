@@ -13,7 +13,6 @@ let
     ++ (with profiles; [
       desktop.common
       desktop.ddc-monitor-control
-      gnome-desktop
       video
       yubikey
       networking.avahi

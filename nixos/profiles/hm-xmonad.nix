@@ -3,6 +3,10 @@
 , pkgs
 , ...
 }: {
+
+  services.redshift = {
+    enable = true;
+  };
   services.autorandr = {
     enable = true;
     profiles = {
@@ -44,6 +48,7 @@
       };
     };
   };
+
   services.xserver = {
     ###
     ### Monitor config

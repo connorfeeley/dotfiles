@@ -37,15 +37,9 @@ lib.mkIf isLinux {
     xcape = {
       enable = true;
       mapExpression = {
-        Caps_Lock = "Escape";
+        Control_L = "Escape";
       };
       timeout = 200;
-    };
-
-    redshift = {
-      enable = true;
-      latitude = 43.70011;
-      longitude = -79.4163;
     };
   };
 }
