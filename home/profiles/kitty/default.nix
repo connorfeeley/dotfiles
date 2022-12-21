@@ -108,6 +108,7 @@ lib.mkMerge [
       };
       font = {
         name = lib.mkForce "Iosevka Extended";
+        size = 18;
       };
       extraConfig = ''
         ${lib.optionalString hasPragPro pragmataProExtras}

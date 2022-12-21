@@ -6,8 +6,6 @@
   # ET (don't) phone home
   update_check_interval = 0;
 
-  font_family = "Iosevka Extended";
-  font_size = lib.mkDefault "16";
   adjust_line_height = "110%";
   # TODO: why?
   box_drawing_scale = "0.001, 1, 1.5, 2";
