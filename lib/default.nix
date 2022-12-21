@@ -41,7 +41,7 @@ lib.makeExtensible (_self: rec {
   treesWithEnabledLeaf = path: attrs: treesWithValue (_: v: v) path attrs;
 
   peers = rec {
-    getHost = hostName: collective.peers.hosts.${hostName};
+    getHost = hostName: collective.peers.hosts.${hostName} or null;
     getNet = network:
       if network != null
       then collective.peers.networks.${network}
