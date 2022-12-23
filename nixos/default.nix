@@ -25,7 +25,13 @@ in
       ++ (with profiles; [
         # Must run: export NIX_DISK_IMAGE=bootstrap-graphical.qcow2
         virtualisation.vm-variant
+
+        desktop.common
         xorg
+        kde
+        hm-xmonad
+        # gnome-desktop
+        # pantheon
       ]);
 
     workstation.modules =
@@ -98,7 +104,7 @@ in
 
   hostDefaults = {
     system = x86_64-linux;
-    channelName = "nixos-stable";
+    channelName = "nixos-unstable";
     imports = [
       collective.modules
       nixosModules

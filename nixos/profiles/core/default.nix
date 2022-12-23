@@ -133,4 +133,10 @@ in
   };
 
   services.timesyncd.enable = lib.mkDefault true;
+
+  location = {
+    provider = "manual";
+    latitude = 43.70011;
+    longitude = -79.4163;
+  };
 }
