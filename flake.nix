@@ -33,8 +33,6 @@
 
     nur.url = "github:nix-community/NUR";
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
-    # FIXME: merged to nixpkgs, see https://nixpk.gs/pr-tracker.html?pr=206951
-    macos-builder = { url = "github:Gabriella439/macos-builder"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
     # arion = { url = "github:hercules-ci/arion"; };
     nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
@@ -95,7 +93,6 @@
     , flake-parts
     , nur
     , nixos-generators
-    , macos-builder
     , nvfetcher
     # , arion
     , nix-serve-ng
@@ -425,12 +422,6 @@
           x86_64-darwin = mkDarwinPackages "x86_64-darwin";
           aarch64-darwin = mkDarwinPackages "x86_64-darwin";
         };
-
-      apps = {
-        # Re-export macos-builder for convenience
-        x86_64-darwin.macos-builder = inputs.macos-builder.apps.x86_64-darwin.default;
-        aarch64-darwin.macos-builder = inputs.macos-builder.apps.aarch64-darwin.default;
-      };
     };
 
   # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
