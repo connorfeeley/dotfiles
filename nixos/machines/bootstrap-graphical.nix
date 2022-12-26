@@ -1,5 +1,7 @@
 { ...
 }: {
+  system.stateVersion = "22.11";
+
   boot.loader.systemd-boot.enable = true;
 
   # Will be overridden by the bootstrapIso module.
@@ -13,10 +15,10 @@
   };
 
   home-manager.users.cfeeley = hmArgs: {
-    imports = (with hmArgs.roles; graphical) ++ (with hmArgs.profiles; [
-      desktop.xmonad
-    ]);
+    imports =
+      (with hmArgs.roles; graphical) ++
+      (with hmArgs.profiles; [
+        desktop.xmonad
+      ]);
   };
-
-  system.stateVersion = "22.11";
 }

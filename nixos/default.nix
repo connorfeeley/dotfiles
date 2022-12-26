@@ -18,21 +18,23 @@ in
 
   imports = [ (importHosts ./machines) ];
 
-  hosts = rec {
-    bootstrap-graphical.system = "aarch64-linux";
-    bootstrap-graphical.modules =
-      (with roles; graphical)
-      ++ (with profiles; [
-        # Must run: export NIX_DISK_IMAGE=bootstrap-graphical.qcow2
-        virtualisation.vm-variant
+  hosts = {
+    bootstrap-graphical = {
+      # Must run: export NIX_DISK_IMAGE=bootstrap-graphical.qcow2
+      system = "aarch64-linux";
+      modules =
+        # (with roles; graphical) ++
+        (with profiles; [
+          virtualisation.vm-variant
 
-        desktop.common
-        xorg
-        kde
-        hm-xmonad
-        # gnome-desktop
-        # pantheon
-      ]);
+          desktop.common
+          xorg
+          kde
+          hm-xmonad
+          # gnome-desktop
+          # pantheon
+        ]);
+    };
 
     workstation.modules =
       #: ~ Modules ~
