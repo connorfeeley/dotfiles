@@ -32,6 +32,8 @@ final: _prev: {
 
   xsct = final.callPackage ./xsct.nix { };
 
+  xantfarm = final.callPackage ./xantfarm.nix { };
+
   ##: third-party scripts ------------------------------------------------------
 
   # darwin-rebuild =
