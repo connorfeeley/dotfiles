@@ -30,9 +30,9 @@ in
           desktop.common
           xorg
           kde
-          hm-xmonad
-          # gnome-desktop
+          gnome-desktop
           # pantheon
+          # hm-xmonad
         ]);
     };
 

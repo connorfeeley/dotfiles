@@ -18,7 +18,7 @@
     imports =
       (with hmArgs.roles; graphical) ++
       (with hmArgs.profiles; [
-        desktop.xmonad
+        # desktop.xmonad
       ]);
   };
 }

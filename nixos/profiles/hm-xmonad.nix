@@ -68,18 +68,32 @@
     ];
 
     # Pre-select HM xsession
-    displayManager.defaultSession = "xsession";
+    # displayManager.defaultSession = "none+xmonad";
+
+    # Must contain 'A list of packages containing x11 or wayland session files to be passed to the display manager.'
+    # displayManager.sessionPackages = [];
 
     ###
     ### XMonad (via home-manager)
     ###
-    desktopManager.session = [{
-      # Run xmonad session from home-manager
-      name = "xsession";
-      start = ''
-        ${pkgs.zsh} $HOME/.xsession &
-        waitPID=$!
-      '';
-    }];
+    desktopManager.session = [
+      {
+        manage = "desktop";
+        name = "none+xterm";
+        start = ''
+          ${pkgs.xterm}/bin/xterm -ls &
+          waitPID=$!
+        '';
+      }
+      {
+        # Run Xmonad xsession from home-manager
+        manage = "desktop";
+        name = "session";
+        start = ''
+          ${pkgs.zsh} $HOME/.xsession &
+          waitPID=$!
+        '';
+      }
+    ];
   };
 }
