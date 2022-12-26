@@ -17,7 +17,10 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.iterm2;
+      default = if isDarwin then pkgs.iterm2 else pkgs.iterm2.overrideAttrs(o: {
+        buildPhase = "true";
+        meta.platforms = o.platforms ++ lib.platforms.linux;
+      });
       description = "The iTerm2 package to use.";
     };
 
