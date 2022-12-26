@@ -40,7 +40,10 @@ tasks:
       git push --prune github +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
   - check: |
       cd dotfield
-      $NIX --print-build-logs flake check
+      nix --print-build-logs flake check
+  - check-cachix: |
+      cd dotfield
+      $NIX --print-build-logs flake check || true
 triggers:
   - action: email
     condition: failure
