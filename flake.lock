@@ -203,15 +203,15 @@
       "locked": {
         "lastModified": 1671152343,
         "narHash": "sha256-G0RGwVp67GNUnYBwWG8DAkASjao/ai+o0fQdkuHPpyE=",
-        "owner": "~cfeeley",
-        "repo": "chatgpt-wrapper",
+        "ref": "refs/heads/feat/nix-pkg",
         "rev": "f643a8a0dc6131516bec7714320a323f1eeda41e",
-        "type": "sourcehut"
+        "revCount": 85,
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/chatgpt-wrapper"
       },
       "original": {
-        "owner": "~cfeeley",
-        "repo": "chatgpt-wrapper",
-        "type": "sourcehut"
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/chatgpt-wrapper"
       }
     },
     "comma": {
@@ -3750,15 +3750,15 @@
       "locked": {
         "lastModified": 1669957200,
         "narHash": "sha256-4NqBRHz3U7eht8AJDR5BSZdYmATuQ5Mq0rFw714eGaY=",
-        "owner": "~cfeeley",
-        "repo": "xmonad-config",
+        "ref": "refs/heads/master",
         "rev": "6145a38f35c49ee0b45fbcfc4d84b1dac4a3d9ce",
-        "type": "sourcehut"
+        "revCount": 44,
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/xmonad-config"
       },
       "original": {
-        "owner": "~cfeeley",
-        "repo": "xmonad-config",
-        "type": "sourcehut"
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/xmonad-config"
       }
     },
     "yants": {
