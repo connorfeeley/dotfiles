@@ -21,6 +21,10 @@
     exportConfiguration = true; # symlink conf under /etc/X11/xorg.conf
     updateDbusEnvironment = true; # update the DBus activation environment
 
+    xkbOptions = "ctrl:nocaps,ctrl:swap_lalt_lctl";
+
+    displayManager.startx.enable = false;
+
     displayManager = {
       # Log in automatically
       # autoLogin = {

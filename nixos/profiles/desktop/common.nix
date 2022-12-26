@@ -12,25 +12,11 @@ let
     else pkgs.firefox;
 in
 {
-  services.xserver = {
-    enable = true;
-    layout = "dvorak";
-    # FIXME: propagate to GNOME settings
-    xkbOptions = "ctrl:nocaps,ctrl:swap_lalt_lctl";
-    exportConfiguration = true;
-
-    displayManager.startx.enable = false;
-  };
-
   services.getty.autologinUser = config.dotfield.guardian.username;
 
   services.earlyoom.enable = true;
 
   console.useXkbConfig = true;
-
-  # TODO: might only be available on master?
-  # programs._1password-gui.enable = true;
-  # programs._1password.enable = true;
 
   xdg.portal.enable = true;
 
