@@ -3,7 +3,7 @@
 , pkgs
 , ...
 }: {
-  # imports = [./dconf.settings.nix];
+  imports = [./dconf.settings.nix];
   config = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
     home.packages = with pkgs; [
       # https://github.com/gvolpe/dconf2nix

@@ -1,4 +1,5 @@
-{ pkgs
+{ config
+, pkgs
 , ...
 }: {
   # Required for Firefox integration in home-manager
@@ -9,8 +10,17 @@
 
   services.xserver = {
     enable = true;
+
     displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+
+    desktopManager.gnome = {
+      enable = true;
+      extraGSettingsOverrides = ''
+        [org.gnome.desktop.input-sources]
+        sources=[('xkb', '${config.services.xserver.layout}')]
+        xkb-options=['${config.services.xserver.xkbOptions}']
+      '';
+    };
 
     # desktopManager.gnome3 = {
     #   enable = true;
