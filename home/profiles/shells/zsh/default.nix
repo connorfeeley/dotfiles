@@ -19,7 +19,7 @@ let
       tm_high_prio = "sudo sysctl debug.lowpri_throttle_enabled=0";
 
       # Reboot after FileVault unlock
-      reboot = "sudo fdesetup authrestart";
+      reboot = "sudo fdesetup authrestart -user cfeeley -verbose";
     } else { });
 in
 {
