@@ -95,6 +95,14 @@ in
         (with roles; server) ++
         (with profiles; [
           builder
+
+          desktop.common
+          xorg
+          kde
+          gnome-desktop
+          xfce
+          # pantheon
+          # hm-xmonad
         ])
       ;
     };
