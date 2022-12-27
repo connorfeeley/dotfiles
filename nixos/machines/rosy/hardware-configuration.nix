@@ -19,38 +19,16 @@ in
   boot.cleanTmpDir = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1040b84b-91b4-4a25-b4d3-cf1493a8a5b6";
+    { device = "/dev/disk/by-uuid/c31a1f64-1ce9-4c7a-9b8f-4bffd490176a";
       fsType = "ext4";
     };
 
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/CEAA-2742";
+    { device = "/dev/disk/by-uuid/2B2E-B964";
       fsType = "vfat";
     };
 
   swapDevices = [ ];
 
   hardware.parallels.enable = true;
-  # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "prl-tools" ];
-
-  # Mount host's shared directory to /run/share
-  # fileSystems."/run/share" =
-  #   if (!useAppleVirtualization) then {
-  #     # For virtfs (QEMU)
-  #     device = "share";
-  #     fsType = "9p";
-  #     options = [ "trans=virtio" "version=9p2000.L" ];
-
-  #     # Manually:
-  #     # sudo mkdir /media/share
-  #     # sudo mount -t 9p -o trans=virtio share /media/share -oversion=9p2000.L
-  #   } else {
-  #     # For virtiofs (apple virtualization)
-  #     device = "share";
-  #     fsType = "virtiofs";
-
-  #     # Manually:
-  #     # sudo mkdir /run/share
-  #     # sudo mount -t virtiofs share /run/share/
-  #   };
 }
