@@ -94,7 +94,6 @@ in
       modules =
         (with roles; server) ++
         (with profiles; [
-          boot.systemd-boot
           builder
         ])
       ;
