@@ -6,6 +6,9 @@
 }:
 with lib.hm.gvariant; {
   dconf.settings = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+    # Enable night light in GDM
+    "org/gnome/settings-daemon/plugins/color".night-light-enabled  = true;
+
     "org/gnome/calculator" = {
       accuracy = 9;
       angle-units = "degrees";
