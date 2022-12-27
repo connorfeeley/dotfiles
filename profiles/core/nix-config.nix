@@ -17,7 +17,7 @@ in
 {
   nix = {
     package = pkgs.nix;
-    settings = {
+    settings = lib.mkDefault {
       inherit substituters trusted-substituters;
 
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
