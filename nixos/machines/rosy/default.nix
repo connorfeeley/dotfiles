@@ -143,4 +143,6 @@ in
     # as well as dynamic display resolution in QEMU backend.
     spice-vdagent
   ];
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

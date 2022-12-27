@@ -96,9 +96,16 @@ in
         (with profiles; [
           boot.systemd-boot
           builder
-          virtualisation.guests.parallels
+        ])
+      ;
+    };
 
-          # rosetta
+    builder = {
+      system = aarch64-linux;
+      modules =
+        (with roles; server) ++
+        (with profiles; [
+          builder
         ])
       ;
     };
