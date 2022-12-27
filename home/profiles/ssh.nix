@@ -75,7 +75,7 @@ in
       "assuring-redshank" = { hostname = "assuring-redshank"; user = "ubuntu"; };
 
       ### VMs (local)
-      "rosy" = mkMatchBlock { hostName = "rosy"; }; # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
+      "rosy" = mkMatchBlock { hostName = "rosy"; trusted = true; }; # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
 
       ### VMs (remote)
       "h8tsner" = mkMatchBlock { hostName = "h8tsner"; };
