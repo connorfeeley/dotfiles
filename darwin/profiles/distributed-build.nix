@@ -10,14 +10,14 @@ lib.mkMerge [
   {
     nix = {
       # FIXME: keep in sync with below
-      settings.builders = [ "cfeeley@workstation x86_64-linux,aarch64-linux - 8 24 nixos-test,benchmark,big-parallel,kvm - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==" ];
+      settings.builders = [ "cfeeley@workstation x86_64-linux,aarch64-linux,i686-linux - 12 24 nixos-test,benchmark,big-parallel,kvm - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==" ];
 
       distributedBuilds = true;
       buildMachines = [
         ### NixOS workstation
         {
           hostName = "workstation";
-          maxJobs = 8;
+          maxJobs = 12;
           systems = [ "x86_64-linux" "aarch64-linux" "i686-linux" ];
           # Base64-encoded ed25519 public host key of builder:
           #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
