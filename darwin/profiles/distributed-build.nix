@@ -27,7 +27,7 @@ lib.mkMerge [
           speedFactor = 12 * 2;
           supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         }
-        ### NixOS VM (UTM)
+        ### NixOS VM (Parallels)
         {
           hostName = "rosy";
           maxJobs = 8;

@@ -104,6 +104,11 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 
+  # Emulate x86_64-linux with QEMU
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+
+  nix.settings.extra-platforms = [ "x86_64-linux" ];
+
   ### === users ================================================================
 
   dotfield.guardian.enable = true;
