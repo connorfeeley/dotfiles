@@ -29,5 +29,7 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
   hardware.parallels.enable = true;
+  # Parallels' printer sharing seems broken. I don't need it anyways.
+  systemd.services.prlshprint.wantedBy = lib.mkForce [ ];
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "prl-tools" ];
 }
