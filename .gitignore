@@ -25,3 +25,4 @@ flycheck_config.el
 /secrets/dotfield-readme-update-access-token.txt
 /README.html
 /README.md
+/*.qcow2
