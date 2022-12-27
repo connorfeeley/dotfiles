@@ -105,9 +105,9 @@ in
   system.stateVersion = "22.11"; # Did you read the comment?
 
   # Emulate x86_64-linux with QEMU
-  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+  # boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
-  nix.settings.extra-platforms = [ "x86_64-linux" ];
+  # nix.settings.extra-platforms = [ "x86_64-linux" ];
 
   ### === users ================================================================
 
