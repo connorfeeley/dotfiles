@@ -2019,6 +2019,26 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1672221335,
+        "narHash": "sha256-T+aFPK2CBS7cRmQ56pRjivoi8KSjhSuWz2uURdCKBz4=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "5b2bd5b1b880881e248d34ac99755b806ded0581",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nix-nil": {
       "inputs": {
         "flake-utils": "flake-utils_15",
@@ -3350,6 +3370,7 @@
         "nix-alien": "nix-alien",
         "nix-autobahn": "nix-autobahn",
         "nix-colors": "nix-colors",
+        "nix-index-database": "nix-index-database",
         "nix-nil": "nix-nil",
         "nix-serve-ng": "nix-serve-ng",
         "nix-xilinx": "nix-xilinx",

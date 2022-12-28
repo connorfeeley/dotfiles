@@ -45,6 +45,7 @@
     nix-colors.url = "github:Misterio77/nix-colors";
     deadnix = { url = "github:astro/deadnix/refs/tags/v1.0.0"; inputs.nixpkgs.follows = "nixpkgs"; };
     comma = { url = "github:nix-community/comma"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-index-database = { url = "github:Mic92/nix-index-database"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
     hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { flake-parts.follows = "flake-parts"; nix-darwin.follows = "darwin"; }; };
 
