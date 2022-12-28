@@ -23,6 +23,10 @@ environment:
     allow-import-from-derivation = true
 artifacts: []
 tasks:
+  - mirror-to-github: |
+      cd dotfield
+      git remote add github git@github.com:connorfeeley/dotfiles.git
+      git push --prune github +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
   - show: |
       cd dotfield
       $NIX --print-build-logs flake show
@@ -34,10 +38,6 @@ tasks:
       echo "Updating README"
       $NIX --print-build-logs develop .#devShell.x86_64-linux -c dotfield-docs
       echo "Updated README"
-  - mirror-to-github: |
-      cd dotfield
-      git remote add github git@github.com:connorfeeley/dotfiles.git
-      git push --prune github +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
   - check: |
       cd dotfield
       nix --print-build-logs flake check
