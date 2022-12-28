@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga nix-serve-ng dwarffs nixos-vscode-server;
+  inherit (inputs) agenix home-manager digga dwarffs nixos-vscode-server;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -49,6 +49,7 @@ in
         virtualisation.vm-variant
 
         builder
+        binary-cache
 
         mail
 
@@ -102,7 +103,7 @@ in
           gnome-desktop
           xfce
           # pantheon
-          # hm-xmonad
+          hm-xmonad
         ])
       ;
     };
@@ -133,7 +134,6 @@ in
       digga.nixosModules.nixConfig
       agenix.nixosModules.age
 
-      nix-serve-ng.nixosModules.default
       nixos-vscode-server.nixosModules.default
 
       # FIXME: upstream module causes a huge number of unnecessary
