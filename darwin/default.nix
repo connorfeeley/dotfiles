@@ -21,7 +21,7 @@ in
   hosts.MacBook-Pro = {
     system = aarch64-darwin;
     modules = with roles; workstation ++ [
-      collective.profiles.hercules-ci-agent
+      # collective.profiles.hercules-ci-agent
       profiles.virtualization.nixos-vm-host
     ];
   };
