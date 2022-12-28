@@ -5,6 +5,8 @@ let cfg = config.services.nix-serve; in
   options = {
     services.nix-serve.enable = lib.mkEnableOption "nix-serve, the standalone Nix binary cache server";
 
+    services.nix-serve.createUser = lib.mkEnableOption "If the nix-serve user and gruop should be created automatically" // { default = true; };
+
     services.nix-serve.port = lib.mkOption {
       type = lib.types.port;
       default = 5000;
@@ -49,6 +51,18 @@ let cfg = config.services.nix-serve; in
   };
 
   config = lib.mkIf cfg.enable {
+    # -- nix-serve user --
+    users = lib.mkIf cfg.createUser {
+      users.nix-serve = {
+        gid = lib.mkDefault config.users.groups.nix-serve.gid;
+        home = lib.mkDefault "/var/lib/nix-serve";
+        shell = "/bin/bash";
+        description = "nix-serve service user";
+      };
+      groups.nix-serve.description = "Nix group for nix-Serve service";
+    };
+
+    # -- nix-serve daemon --
     launchd.daemons.nix-serve = {
       script = ''
         ${pkgs.nix-serve}/bin/nix-serve --listen ${cfg.bindAddress}:${toString cfg.port} cfg.extraParams;
