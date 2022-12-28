@@ -15,7 +15,7 @@ packages:
   - nixos.nixUnstable
 environment:
   BUILD_SUBMITTER: git.sr.ht
-  NIX: cachix watch-exec cfeeley nix --
+  NIX: cachix watch-exec cfeeley nix -- -vv --print-build-logs
   NIX_CONFIG: |
     experimental-features = nix-command flakes
     accept-flake-config = true
