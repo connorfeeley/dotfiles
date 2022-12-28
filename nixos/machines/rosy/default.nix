@@ -147,7 +147,7 @@ in
     "${guardian.username}" = hmArgs: {
       imports =
         (with hmArgs.roles; shell ++ server ++ trusted) ++
-        (with hmArgs.profiles; [ direnv development.tools ]);
+        (with hmArgs.profiles; [ direnv development.tools ssh ]);
 
       programs.termite.enable = false;
     };
