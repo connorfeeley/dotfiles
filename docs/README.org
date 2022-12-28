@@ -1,3 +1,6 @@
+* Homepage
+/Note: this repository is mirrored to [[https://github.com/connorfeeley/dotfiles][GitHub]], though the canonical location is on [[https://sr.ht/~cfeeley/dotfiles/][Sourcehut]]./
+
 * Addendum
 1. [[*Useful Commands][Useful Commands]]
    1. [[#build-debian-vm][Build =debian-vm= system (inside VM)]]
