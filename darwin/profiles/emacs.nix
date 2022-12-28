@@ -1,10 +1,17 @@
 { ...
 }: {
-  # Unavailable in nixpkgs.
-  homebrew.brews = [
-    # :lang org (macOS only)
-    { name = "pngpaste"; }
+  environment.variables = {
+    DOOMDIR = "$XDG_CONFIG_HOME/doom";
+    EMACSDIR = "$XDG_CONFIG_HOME/emacs";
+  };
 
-    { name = "coreutils"; }
-  ];
+  homebrew = {
+    taps = [ { name = "railwaycat/emacsmacport"; } ];
+    casks = [ { name = "emacs-mac"; } ];
+    brews = [
+      # :lang org (macOS only)
+      { name = "pngpaste"; }
+      { name = "coreutils"; }
+    ];
+  };
 }

@@ -26,18 +26,12 @@ in
       ferium # CLI program for managing Minecraft mods and modpacks
     ];
 
-    environment.variables = {
-      DOOMDIR = "$XDG_CONFIG_HOME/doom";
-      EMACSDIR = "$XDG_CONFIG_HOME/emacs";
-    };
-
     services.karabiner-elements.enable = true;
 
     homebrew.taps = [
       { name = "FelixKratz/formulae"; }
       { name = "homebrew/cask"; }
       { name = "homebrew/cask-versions"; }
-      { name = "railwaycat/emacsmacport"; }
       { name = "jorgelbg/tap"; } # pinentry-touchid
     ];
 
@@ -68,7 +62,6 @@ in
 
     homebrew.casks = [
       { name = "kitty"; }
-      { name = "emacs-mac"; }
       { name = "visual-studio-code"; }
 
       { name = "utm-beta"; } # QEMU GUI with virtualisation support
