@@ -46,6 +46,7 @@
     deadnix = { url = "github:astro/deadnix/refs/tags/v1.0.0"; inputs.nixpkgs.follows = "nixpkgs"; };
     comma = { url = "github:nix-community/comma"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
+    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { flake-parts.follows = "flake-parts"; nix-darwin.follows = "darwin"; }; };
 
     ##: --- personal packages --------------------------------------------------
     xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };

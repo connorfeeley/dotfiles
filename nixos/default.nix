@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga dwarffs nixos-vscode-server;
+  inherit (inputs) agenix home-manager digga dwarffs nixos-vscode-server hercules-ci-agent;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -48,6 +48,7 @@ in
         hidpi
         virtualisation.vm-variant
 
+        collective.profiles.hercules-ci-agent
         builder
         binary-cache
 
@@ -133,6 +134,7 @@ in
       home-manager.nixosModules.home-manager
       digga.nixosModules.nixConfig
       agenix.nixosModules.age
+      hercules-ci-agent.nixosModules.agent-service
 
       nixos-vscode-server.nixosModules.default
 

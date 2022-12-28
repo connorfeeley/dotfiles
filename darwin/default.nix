@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga;
+  inherit (inputs) agenix home-manager digga hercules-ci-agent;
   inherit (inputs.flake-utils.lib.system) aarch64-darwin x86_64-darwin;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -21,6 +21,7 @@ in
   hosts.MacBook-Pro = {
     system = aarch64-darwin;
     modules = with roles; workstation ++ [
+      collective.profiles.hercules-ci-agent
       profiles.virtualization.nixos-vm-host
     ];
   };
@@ -40,6 +41,7 @@ in
       home-manager.darwinModules.home-manager
       digga.nixosModules.nixConfig
       agenix.nixosModules.age # `nixosModules` is correct, even for darwin
+      hercules-ci-agent.darwinModules.agent-service
     ];
   };
 }
