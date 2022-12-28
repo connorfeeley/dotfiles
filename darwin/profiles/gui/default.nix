@@ -31,6 +31,8 @@ in
       EMACSDIR = "$XDG_CONFIG_HOME/emacs";
     };
 
+    services.karabiner-elements.enable = true;
+
     homebrew.taps = [
       { name = "FelixKratz/formulae"; }
       { name = "homebrew/cask"; }
@@ -77,8 +79,6 @@ in
       { name = "raycast"; } # Better search popup
 
       # { name = "docker"; }
-
-      { name = "karabiner-elements"; }
 
       { name = "firefox"; }
       { name = "google-chrome"; }
