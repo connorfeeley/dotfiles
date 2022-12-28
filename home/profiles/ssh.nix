@@ -44,28 +44,6 @@ in
     includes = [ "~/.config/ssh/config.local" ];
 
     matchBlocks = {
-      "*" = {
-        addressFamily = "inet";
-        forwardX11 = false;
-        forwardX11Trusted = false;
-        extraOptions = {
-          AddKeysToAgent = "yes";
-          ChallengeResponseAuthentication = "no";
-          PasswordAuthentication = "yes";
-          StrictHostKeyChecking = "ask";
-          VerifyHostKeyDNS = "yes";
-          VisualHostKey = "yes";
-          PubkeyAcceptedKeyTypes = "+ssh-rsa";
-          KexAlgorithms = "+diffie-hellman-group1-sha1";
-          HostKeyAlgorithms = "+ssh-rsa";
-          Port = "22";
-          # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
-          # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
-          # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
-          # MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
-        };
-      };
-
       ### Physical
       "workstation" = mkMatchBlock { hostName = "workstation"; trusted = true; };
       # "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "cryptsetup-askpass"; };
@@ -91,6 +69,27 @@ in
         extraOptions = {
           KexAlgorithms = "+diffie-hellman-group1-sha1";
           HostKeyAlgorithms = "+ssh-rsa";
+        };
+      };
+      "*" = {
+        addressFamily = "inet";
+        forwardX11 = false;
+        forwardX11Trusted = false;
+        extraOptions = {
+          AddKeysToAgent = "yes";
+          ChallengeResponseAuthentication = "no";
+          PasswordAuthentication = "yes";
+          StrictHostKeyChecking = "ask";
+          VerifyHostKeyDNS = "yes";
+          VisualHostKey = "yes";
+          PubkeyAcceptedKeyTypes = "+ssh-rsa";
+          KexAlgorithms = "+diffie-hellman-group1-sha1";
+          HostKeyAlgorithms = "+ssh-rsa";
+          Port = "22";
+          # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
+          # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
+          # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
+          # MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
         };
       };
     };
