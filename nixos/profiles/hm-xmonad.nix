@@ -86,6 +86,14 @@
         '';
       }
       {
+        manage = "desktop";
+        name = "none+xmonad";
+        start = ''
+          ${pkgs.xmonad-config}/bin/xmonad &
+          waitPID=$!
+        '';
+      }
+      {
         # Run Xmonad xsession from home-manager
         manage = "desktop";
         name = "session";
