@@ -6,9 +6,18 @@
   };
 
   homebrew = {
-    taps = [ { name = "railwaycat/emacsmacport"; } ];
-    casks = [ { name = "emacs-mac"; } ];
+    taps = [{ name = "railwaycat/emacsmacport"; }];
     brews = [
+      {
+        name = "emacs-mac";
+        args = [
+          "with-natural-title-bar"
+          "with-starter"
+          "with-mac-metal"
+          "with-native-compilation"
+          "with-xwidgets"
+        ];
+      }
       # :lang org (macOS only)
       { name = "pngpaste"; }
       { name = "coreutils"; }

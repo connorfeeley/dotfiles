@@ -23,6 +23,8 @@ in
     modules = with roles; workstation ++ [
       # collective.profiles.hercules-ci-agent
       profiles.virtualization.nixos-vm-host
+
+      profiles.emacs # emacs-macport from homebrew
     ];
   };
 
