@@ -9,7 +9,7 @@
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      extraPackages = hp: [ hp.xmonad hp.xmonad-contrib hp.xmonad-extras hp.xmonad-config hp.xmobar-config ];
+      extraPackages = hp: [ hp.xmonad hp.xmonad-contrib hp.xmonad-extras ];
 
       config = ''
         import XMonad

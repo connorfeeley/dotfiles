@@ -5,7 +5,6 @@ channels: final: prev:
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
 
   xmonad = prev.xmonad-config;
-  xmobar = prev.xmobar-config;
 
   lshw = prev.lshw.override { withGUI = true; };
 
