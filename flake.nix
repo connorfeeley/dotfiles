@@ -183,8 +183,6 @@
         nvfetcher.overlay
         nix-nil.overlays.default
 
-        xmonad-config.overlay
-
         ttc-subway-font.overlay
 
         nix-xilinx.overlay
@@ -199,6 +197,7 @@
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
             inherit (packagesFrom inputs.prefmanager) prefmanager;
+            inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.nix-alien) nix-alien;
             inherit (packagesFrom inputs.nix-alien) nix-index-update;
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
