@@ -104,7 +104,7 @@ in
           gnome-desktop
           xfce
           # pantheon
-          # hm-xmonad
+          hm-xmonad
         ])
       ;
     };
