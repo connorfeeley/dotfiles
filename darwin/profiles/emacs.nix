@@ -13,7 +13,7 @@
         args = [
           "with-natural-title-bar"
           "with-starter"
-          "with-mac-metal"
+          # "with-mac-metal"
           "with-native-compilation"
           "with-xwidgets"
         ];
