@@ -62,5 +62,8 @@
 
     # WM-only sessions usually don't handle XDG autostart files by default.
     desktopManager.runXdgAutostartIfNone = true;
+
+    # Don't autosuspend from GDM
+    displayManager.gdm.autoSuspend = false;
   };
 }

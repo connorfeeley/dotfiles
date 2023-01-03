@@ -59,9 +59,10 @@ in
         desktop.common
         xorg
         kde
-        hm-xmonad
-        # gnome-desktop
+        gnome-desktop
+        xfce
         # pantheon
+        # hm-xmonad
 
         grafana
       ]);
