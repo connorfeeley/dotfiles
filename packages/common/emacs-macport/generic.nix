@@ -132,9 +132,8 @@ let
 
     patches = patches fetchpatch;
 
-    src = fetchFromSavannah {
-      repo = "emacs";
-      rev = version;
+    src = fetchurl {
+      url = "mirror://gnu/emacs/${name}.tar.xz";
       inherit sha256;
     };
 
