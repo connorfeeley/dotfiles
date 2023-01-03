@@ -49,7 +49,7 @@ in
         virtualisation.vm-variant
 
         builder
-        binary-cache
+        # binary-cache
 
         mail
 
