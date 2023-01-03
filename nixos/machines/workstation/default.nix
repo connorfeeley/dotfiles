@@ -208,6 +208,7 @@ in
   home-manager.users = {
     cfeeley = hmArgs: {
       imports = with hmArgs.roles; (lib.flatten [
+        personalised
       ] ++ lib.optionals (!config.nixos-vm.enable) (lib.flatten [
         workstation
         developer

@@ -24,6 +24,9 @@ with profiles; let
     development.vscode
     python
     virtualisation.common
+    ranger
+    tealdeer
+    vim
   ];
 
   emacs-config = [
@@ -58,9 +61,6 @@ with profiles; let
     spotify
     zotero
     nnn # file manager
-    ranger
-    tealdeer
-    vim
   ];
 
   # Someone else's computer
@@ -127,7 +127,6 @@ with profiles; let
       shell
       ++ developer
       ++ graphical
-      ++ personalised
       ++ trusted
       ++ webdev
       ++ fpgadev

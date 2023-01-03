@@ -145,9 +145,19 @@ in
 
   home-manager.users = {
     "${guardian.username}" = hmArgs: {
-      imports =
-        (with hmArgs.roles; shell ++ server ++ trusted) ++
-        (with hmArgs.profiles; [ direnv development.tools ssh git ]);
+      imports = with hmArgs.roles; (lib.flatten [
+      ] ++ lib.optionals (!config.nixos-vm.enable) (lib.flatten [
+        workstation
+        developer
+        linux
+        emacs-config
+      ])) ++ (with hmArgs.profiles; [
+        sync
+        work
+
+        # Systemd scripts
+        nixos.work
+      ]);
 
       programs.termite.enable = false;
     };
