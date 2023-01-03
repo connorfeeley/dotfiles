@@ -115,13 +115,13 @@ in
   dotfield.guardian.username = "cfeeley";
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  users.users.root.hashedPassword = "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
   # Authorized keys and PermitRootLogin set in ssh-host
   users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
-    hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    initialHashedPassword = "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
+    hashedPassword = "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     extraGroups =
       [
