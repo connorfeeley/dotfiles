@@ -16,11 +16,7 @@ with lib;
   };
 
   home.packages = with pkgs; [
-    # Provides xmonad binary - pkgs.xmobar should be overlayed as xmobar-config
     xmonad-config
-
-    # Provides xmobar-top, xmobar-bottom, etc
-    xmobar-config
 
     dmenu
     haskellPackages.xmobar
@@ -38,12 +34,6 @@ with lib;
 
     x11vnc
   ];
-
-  programs.xmobar = {
-    # Explicitly disabled - HM module gets in the way of xmobar-config
-    enable = false;
-    package = xmobar-config;
-  };
 
   xdg.configFile = {
     "plasma-workspace/env/set_window_manager.sh" = {
