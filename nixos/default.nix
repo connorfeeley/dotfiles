@@ -48,7 +48,6 @@ in
         hidpi
         virtualisation.vm-variant
 
-        collective.profiles.hercules-ci-agent
         builder
         binary-cache
 
