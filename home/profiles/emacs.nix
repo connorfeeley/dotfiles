@@ -42,7 +42,7 @@ let
     };
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
-  doomRepoRev = "d5ccac5d71c819035fa251f01d023b3f94b4fba4";
+  doomRepoRev = "e96624926d724aff98e862221422cd7124a99c19";
 
   emacsDir = "${configHome}/emacs";
 
