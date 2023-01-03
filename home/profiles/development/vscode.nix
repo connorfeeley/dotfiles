@@ -42,9 +42,9 @@ let
 
     # Markdown
     yzhang.markdown-all-in-one
-  ] ++ lib.optionals pkgs.stdenv.isLinux [
-    ms-python.python
+  ] ++ lib.optionals (pkgs.stdenv.isLinux && pkgs.stdenv.isx86_64) [
     ms-vscode.cpptools
+    ms-python.python
   ];
 
   # With extension-specific dependencies, to be added to the FHS environment
