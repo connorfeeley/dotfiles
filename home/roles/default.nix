@@ -95,7 +95,6 @@ with profiles; let
 
   # OS-specific: Linux-only
   linux = [
-    desktop.xmonad
     nixos.development.tools
     virtualisation.docker
   ];
