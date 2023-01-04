@@ -219,6 +219,7 @@ in
         work
 
         desktop.xmonad
+        desktop.plasma
 
         # Systemd scripts
         nixos.work
