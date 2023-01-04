@@ -174,9 +174,6 @@ in
           };
         };
 
-    # Gnome shell native connector
-    enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
-
     # TODO: add zotero connector addon -- not available in upstream nur repo
     extensions = with firefox-addons; [
       (lib.mkIf isBukuEnabled bukubrow)
