@@ -159,20 +159,32 @@ in
       then pkgs.runCommand "firefox-0.0.0" { } "mkdir $out"
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
       else
-        pkgs.firefox.override {
-          cfg = {
-            # Gnome shell native connector
-            enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
-            # Plasma browser integration
-            enablePlasmaBrowserIntegration = isLinux;
-            # Tridactyl native connector
-            enableTridactylNative = true;
-            # Enable Chromecast support (fx_cast)
-            enableFXCastBridge = true;
-            # Buku bookmarking tool native connector
-            enableBukubrow = isBukuEnabled;
+        (pkgs.firefox.overrideAttrs
+          (oldAttrs: {
+            patches =
+              (oldAttrs.patches or [ ]) ++
+              [
+                (pkgs.fetchpatch {
+                  name = "mozilla-kde.patch";
+                  url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
+                  sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
+                })
+              ];
+          })).override
+          {
+            cfg = {
+              # Gnome shell native connector
+              enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
+              # Plasma browser integration
+              enablePlasmaBrowserIntegration = isLinux;
+              # Tridactyl native connector
+              enableTridactylNative = true;
+              # Enable Chromecast support (fx_cast)
+              enableFXCastBridge = true;
+              # Buku bookmarking tool native connector
+              enableBukubrow = isBukuEnabled;
+            };
           };
-        };
 
     # TODO: add zotero connector addon -- not available in upstream nur repo
     extensions = with firefox-addons; [
