@@ -36,14 +36,14 @@ with lib;
   ];
 
   # For non-systemd plasma5 init:
-  xdg.configFile = {
-    "plasma-workspace/env/set_window_manager.sh" = {
-      executable = true;
-      text = ''
-        # export KDEWM=/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad
-        export KDEWM=${pkgs.xmonad-config}/bin/xmonad
-        exec ${pkgs.plasma-workspace}/bin/startplasma-x11
-      '';
-    };
-  };
+  # xdg.configFile = {
+  #   "plasma-workspace/env/set_window_manager.sh" = {
+  #     executable = true;
+  #     text = ''
+  #       # export KDEWM=/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad
+  #       export KDEWM=${pkgs.xmonad-config}/bin/xmonad
+  #       exec ${pkgs.plasma-workspace}/bin/startplasma-x11
+  #     '';
+  #   };
+  # };
 }

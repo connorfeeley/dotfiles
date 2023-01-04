@@ -59,11 +59,15 @@ in
         manage = "desktop";
         name = "plasma+xmonad";
         # start = ''exec env KDEWM=${pkgs.xmonad-config}/bin/xmonad ${pkgs.plasma-workspace}/bin/startplasma-x11'';
-        start = ''
-          # export KDEWM=/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad
-          export KDEWM=${pkgs.xmonad-config}/bin/xmonad
-          exec ${pkgs.plasma-workspace}/bin/startplasma-x11
-        '';
+        start =
+          let
+            localPath = "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
+            defaultPath = "${pkgs.xmonad-config}/bin/xmonad";
+          in
+          ''
+            export KDEWM=${defaultPath}
+            exec env KDEWM=${defaultPath} ${pkgs.plasma-workspace}/bin/startplasma-x11
+          '';
       }
     ];
   };
