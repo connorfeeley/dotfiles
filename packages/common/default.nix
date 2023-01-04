@@ -30,6 +30,8 @@ final: _prev: {
     inherit (final) gmp;
   };
 
+  appmenu-gtk3-module = final.callPackage ./appmenu-gtk3-module.nix { };
+
   xsct = final.callPackage ./xsct.nix { };
 
   xantfarm = final.callPackage ./xantfarm.nix { };
