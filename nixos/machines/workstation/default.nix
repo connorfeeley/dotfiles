@@ -218,7 +218,7 @@ in
         sync
         work
 
-        # desktop.xmonad
+        desktop.xmonad
 
         # Systemd scripts
         nixos.work

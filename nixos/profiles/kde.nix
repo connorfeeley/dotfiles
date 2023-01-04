@@ -49,17 +49,20 @@ in
     enable = true;
     supportDDC = true;
     useQtScaling = true;
-    runUsingSystemd = true;
+    runUsingSystemd = false;
   };
 
   services.xserver.displayManager = {
-    defaultSession = "plasma+xmonad+xmonad";
+    defaultSession = "plasma+xmonad";
     session = [
       {
         manage = "desktop";
         name = "plasma+xmonad";
-        start = ''exec env KDEWM=${pkgs.xmonad-config}/bin/xmonad ${pkgs.plasma-workspace}/bin/startplasma-x11'';
-        # start = ''exec env KDEWM=/media/psf/Home/source/xmonad-config/dist-newstyle/build/aarch64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad ${pkgs.plasma-workspace}/bin/startplasma-x11'';
+        # start = ''exec env KDEWM=${pkgs.xmonad-config}/bin/xmonad ${pkgs.plasma-workspace}/bin/startplasma-x11'';
+        start = ''
+          export KDEWM=/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad
+          exec ${pkgs.plasma-workspace}/bin/startplasma-x11
+        '';
       }
     ];
   };
