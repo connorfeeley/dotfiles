@@ -5,6 +5,7 @@
     displayManager = {
       sddm.enable = true;
       sddm.enableHidpi = true;
+      # sddm.settings = { Autologin = { Session = "plasma.desktop"; User = "john"; } ; };
     };
     windowManager.xmonad = {
       enable = true;
