@@ -18,6 +18,7 @@ in
   };
 
   services.xserver.displayManager = {
+    defaultSession = "plasma+xmonad+xmonad";
     session = [
       {
         manage = "desktop";
