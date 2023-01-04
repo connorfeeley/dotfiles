@@ -44,7 +44,11 @@ in
   ###
   ### KDE
   ###
-  environment.systemPackages = [ myTheme ];
+  environment.systemPackages = with pkgs; [
+    myTheme
+    latte-dock
+    variety
+  ];
   services.xserver.desktopManager.plasma5 = {
     enable = true;
     supportDDC = true;
