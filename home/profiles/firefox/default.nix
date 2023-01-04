@@ -5,7 +5,7 @@ moduleArgs @ { config
 , ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
   themeFonts = config.theme.font;
@@ -159,16 +159,23 @@ in
       then pkgs.runCommand "firefox-0.0.0" { } "mkdir $out"
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
       else
-        pkgs.firefox-wayland.override {
+        pkgs.firefox.override {
           cfg = {
             # Gnome shell native connector
             enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
+            # Plasma browser integration
+            enablePlasmaBrowserIntegration = isLinux;
             # Tridactyl native connector
             enableTridactylNative = true;
+            # Enable Chromecast support (fx_cast)
+            enableFXCastBridge = true;
             # Buku bookmarking tool native connector
             enableBukubrow = isBukuEnabled;
           };
         };
+
+    # Gnome shell native connector
+    enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
 
     # TODO: add zotero connector addon -- not available in upstream nur repo
     extensions = with firefox-addons; [
@@ -197,6 +204,8 @@ in
       https-everywhere
 
       auto-tab-discard
+
+      (lib.mkIf isLinux plasma-integration)
 
       ##: Themes {{
 
@@ -240,4 +249,3 @@ in
 #
 # - https://github.com/cmacrae/config/blob/5a32507753339a2ee45155b78b76fda0824002a0/modules/macintosh.nix#L331-L407
 # - https://restoreprivacy.com/firefox-privacy/
-
