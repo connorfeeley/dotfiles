@@ -44,7 +44,6 @@ with profiles; let
     desktop.word-processing
     firefox
     chromium
-    foot
     keyboard
     kitty
     misc
