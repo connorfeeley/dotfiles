@@ -77,6 +77,8 @@
           enableGnomePanel = true;
         }
       ];
+      sessionPath = [ pkgs.appmenu-gtk3-module ];
+
       # sessionPath =
       #   let
       #     gnome-flashback-xmonad = pkgs.callPackage
