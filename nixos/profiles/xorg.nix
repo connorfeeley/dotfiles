@@ -5,6 +5,8 @@
 }: {
   hardware.acpilight.enable = true;
 
+  environment.systemPackages = [ pkgs.xcape ];
+
   # NOTE: see https://source.mcwhirter.io/craige/mio-ops/src/branch/consensus/profiles/xmonad.nix
   # for an example config.
   programs = {
