@@ -17,5 +17,16 @@ in
     runUsingSystemd = true;
   };
 
+  services.xserver.displayManager = {
+    defaultSession = "plasma5+xmonad";
+    session = [
+      {
+        manage = "desktop";
+        name = "plasma5+xmonad";
+        start = ''exec env KDEWM=${pkgs.xmonad-config}/bin/xmonad ${pkgs.plasma-workspace}/bin/startplasma-x11'';
+      }
+    ];
+  };
+
   qt5.platformTheme = "gnome";
 }
