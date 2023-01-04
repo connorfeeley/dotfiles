@@ -13,11 +13,16 @@ let
     "https://cache.iog.io"
   ];
   trusted-substituters = substituters;
+
+  nix-doc-path =
+    if isDarwin then "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib"
+    else "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
 in
 {
+  environment.systemPackages = [ pkgs.nix-doc ];
   nix = {
     package = pkgs.nix;
-    settings = lib.mkDefault {
+    settings = {
       inherit substituters trusted-substituters;
 
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
@@ -76,6 +81,9 @@ in
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
       ];
+
+      # Load nix-doc pluign
+      plugin-files = nix-doc-path; # Plugins to be loaded by nix
     };
 
     gc = {

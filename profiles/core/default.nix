@@ -7,10 +7,6 @@
 let
 
   inherit (pkgs.stdenv) isDarwin;
-
-  nix-doc-path =
-    if isDarwin then "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib"
-    else "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
 in
 {
   imports = [
@@ -21,10 +17,6 @@ in
 
   # TODO: can this be merged with the 'dotfield' lib?
   lib.our = self.lib;
-
-  # Load nix-doc pluign
-  nix.settings.plugin-files = nix-doc-path; # Plugins to be loaded by nix
-  environment.systemPackages = [ pkgs.nix-doc ];
 
   environment.variables = {
     DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
