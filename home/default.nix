@@ -1,6 +1,6 @@
 { peers, ... }: { self, ... }:
 let
-  inherit (self.inputs) digga nix-colors nixos-vscode-server nix-index-database;
+  inherit (self.inputs) digga nix-colors nixos-vscode-server nix-index-database plasma-manager;
   inherit (digga.lib) importExportableModules rakeLeaves;
 
   homeModules = importExportableModules ./modules;
@@ -19,6 +19,7 @@ in
       nix-colors.homeManagerModule
       nixos-vscode-server.nixosModules.home
       nix-index-database.hmModules.nix-index
+      plasma-manager.homeManagerModules.plasma-manager
       (_: { imports = [ ../lib/home ]; })
     ];
 
