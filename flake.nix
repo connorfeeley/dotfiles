@@ -74,6 +74,7 @@
     base16-kitty = { url = "github:kdrag0n/base16-kitty"; flake = false; };
     firefox-lepton = { url = "github:black7375/Firefox-UI-Fix"; flake = false; };
     modded-minecraft-servers = { url = "github:mkaito/nixos-modded-minecraft-servers"; inputs.nixpkgs.follows = "nixpkgs"; };
+    plasma-manager = { url = "github:pjones/plasma-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs =
@@ -124,6 +125,7 @@
     , base16-kitty
     , firefox-lepton
     , modded-minecraft-servers
+    , plasma-manager
     , ...
     } @ inputs:
     let

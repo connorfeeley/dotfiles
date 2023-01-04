@@ -1376,6 +1376,28 @@
     "home-manager_2": {
       "inputs": {
         "nixpkgs": [
+          "plasma-manager",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1654113405,
+        "narHash": "sha256-VpK+0QaWG2JRgB00lw77N9TjkE3ec0iMYIX1TzGpxa4=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "ac2287df5a2d6f0a44bbcbd11701dbbf6ec43675",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-22.05",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_3": {
+      "inputs": {
+        "nixpkgs": [
           "tum-dse-config",
           "nixpkgs"
         ]
@@ -2544,6 +2566,27 @@
         "type": "github"
       }
     },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": "home-manager_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1664383871,
+        "narHash": "sha256-dOnnzfqd/PCf1K3USKq2PqSGKmIqkr/SD7zHb1yoAyw=",
+        "owner": "pjones",
+        "repo": "plasma-manager",
+        "rev": "16c437e43a0e049b15c9bfd37295f6e978ea9955",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pjones",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
     "plist-source": {
       "flake": false,
       "locked": {
@@ -2815,6 +2858,7 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "nvfetcher": "nvfetcher",
+        "plasma-manager": "plasma-manager",
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp",
         "ttc-subway-font": "ttc-subway-font",
@@ -2984,7 +3028,7 @@
           "flake-parts"
         ],
         "flake-registry": "flake-registry",
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager_3",
         "nixos-hardware": "nixos-hardware_2",
         "nixpkgs": [
           "nixpkgs"
