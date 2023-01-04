@@ -17,40 +17,46 @@ in
 
     package = mkOption {
       type = types.package;
-      default = if isDarwin then pkgs.iterm2 else pkgs.iterm2.overrideAttrs(o: {
-        buildPhase = "true";
-        meta.platforms = o.platforms ++ lib.platforms.linux;
-      });
+      default =
+        if isDarwin then pkgs.iterm2
+        else
+          pkgs.iterm2.overrideAttrs (o: {
+            # Remove the generated binary
+            installPhase = o.installPhase + ''
+              rm -rf $out/bin
+            '';
+            meta.platforms = o.meta.platforms ++ lib.platforms.linux;
+          });
       description = "The iTerm2 package to use.";
     };
 
     enableBashIntegration = mkOption {
       type = types.bool;
-      default = isDarwin && config.programs.bash.enable;
+      default = config.programs.bash.enable;
       description = "Enable iTerm2 bash integration.";
     };
 
     enableZshIntegration = mkOption {
       type = types.bool;
-      default = isDarwin && config.programs.zsh.enable;
+      default = config.programs.zsh.enable;
       description = "Enable iTerm2 zsh integration.";
     };
 
     #homeManagerModules.nixvim = import ./wrappers/hm.nix modules;
     enableFishIntegration = mkOption {
       type = types.bool;
-      default = isDarwin && config.programs.fish.enable;
+      default = config.programs.fish.enable;
       description = "Enable iTerm2 fish integration.";
     };
   };
 
   config = {
-      home.packages = mkIf cfg.enable [ cfg.package ];
+    home.packages = mkIf cfg.enable [ cfg.package ];
 
-      programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellInit "bash");
+    programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellInit "bash");
 
-      programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellInit "zsh");
+    programs.zsh.initExtra = mkIf cfg.enableZshIntegration (shellInit "zsh");
 
-      programs.fish.shellInit = mkIf cfg.enableFishIntegration (shellInit "fish");
-    };
+    programs.fish.shellInit = mkIf cfg.enableFishIntegration (shellInit "fish");
+  };
 }
