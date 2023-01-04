@@ -66,4 +66,6 @@
     # Don't autosuspend from GDM
     displayManager.gdm.autoSuspend = false;
   };
+
+  programs.light.enable = true; # Backlight control for users in the 'video' group
 }

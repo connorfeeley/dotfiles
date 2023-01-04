@@ -149,11 +149,13 @@ in
       ] ++ lib.optionals (!config.nixos-vm.enable) (lib.flatten [
         workstation
         developer
-        # linux
+        linux
         emacs-config
       ])) ++ (with hmArgs.profiles; [
         sync
         work
+
+        desktop.xmonad
 
         # Systemd scripts
         nixos.work

@@ -16,4 +16,6 @@ in
     useQtScaling = true;
     runUsingSystemd = true;
   };
+
+  qt5.platformTheme = "gnome";
 }
