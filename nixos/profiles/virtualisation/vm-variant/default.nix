@@ -33,7 +33,8 @@ in
         # ./vm-networking.nix
       ];
 
-      virtualisation.host.pkgs = import pkgs.path { system = "aarch64-darwin"; };
+      # Uncomment when building on Darwin
+      # virtualisation.host.pkgs = import pkgs.path { system = "aarch64-darwin"; };
 
       # Kind of hacky way to answer the question "are we in a VM?"
       # Could also use 'options.virtualisation ? qemu'
