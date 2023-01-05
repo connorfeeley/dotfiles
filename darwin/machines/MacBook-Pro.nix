@@ -54,6 +54,8 @@ in
     withEnhancer = true;
   };
 
+  services.input-leap.enable = true;
+
   age.secrets = {
     dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
   };
