@@ -1,0 +1,43 @@
+From 8f2451574edc2e3af2a3ff0faf0cb8ff6e8ea900 Mon Sep 17 00:00:00 2001
+From: Connor Feeley <git@cfeeley.org>
+Date: Mon, 19 Dec 2022 00:17:06 -0500
+Subject: [PATCH 2/2] fix: don't search for macdeployqt from brew/ports
+
+---
+ dist/macos/bundle/build_dist.sh.in | 19 +------------------
+ 1 file changed, 1 insertion(+), 18 deletions(-)
+
+diff --git a/dist/macos/bundle/build_dist.sh.in b/dist/macos/bundle/build_dist.sh.in
+index 743d1fab..0ed21f13 100755
+--- a/dist/macos/bundle/build_dist.sh.in
++++ b/dist/macos/bundle/build_dist.sh.in
+@@ -35,25 +35,8 @@ info "Copying binaries into bundle"
+ # Copy the folder instead of globbing unquoted path
+ cp -r "$B_BINDIR" "$B_MACOS" || exit 1
+ 
+-# Check for macdeployqt on MacPorts
+-if which -s port ; then
+-    info "MacPorts found, searching for macdeployqt"
+-    DEPLOYQT="$(port contents qt5-qttools | grep --only --max-count 1 '/.*macdeployqt')"
+-    if [ ! -x "$DEPLOYQT" ]; then
+-        error "Please install package qt5-qttools"
+-        exit 1
+-    fi
+-fi
+ 
+-# Check for macdeployqt on Homebrew
+-if which -s brew ; then
+-    info "Homebrew found, searching for macdeployqt"
+-    DEPLOYQT="$(brew list qt@5 | grep --only '/.*macdeployqt' | head -1)"
+-    if [ ! -x "$DEPLOYQT" ]; then
+-        error "Please install package qt"
+-        exit 1
+-    fi
+-fi
++DEPLOYQT="macdeployqt"
+ 
+ # Use macdeployqt to include libraries and create dmg
+ if [ "$B_BUILDTYPE" = "Release" ]; then
+-- 
+2.38.1
+
