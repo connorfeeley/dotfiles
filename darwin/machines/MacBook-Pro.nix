@@ -24,7 +24,7 @@ in
   };
 
   home-manager.users = {
-    cfeeley = hmArgs: {
+    "${config.dotfield.guardian.username}" = hmArgs: {
       imports = with hmArgs.roles; workstation ++ macos ++ developer ++ emacs-config ++ (with hmArgs.profiles; [
         work
       ]);
