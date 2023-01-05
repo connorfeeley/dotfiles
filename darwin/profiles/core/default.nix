@@ -36,10 +36,13 @@
     mas
     terminal-notifier
     darwin.trash
-    darwin.lsusb # lsusb for MacOS
+    darwin.lsusb #  <- lsusb for MacOS
 
-    prefmanager #   <- # A tool for managing macOS defaults.
-    wifi-password # <- # what was that password again?
+    prefmanager #   <- a tool for managing macOS defaults.
+    wifi-password # <- what was that password again?
+
+    macfuse-stubs # <- MacOS port of FUSE
+    sshfs-fuse #    <- sshfs for MacOS
   ];
 
   # Recreate /run/current-system symlink after boot
