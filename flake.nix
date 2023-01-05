@@ -367,7 +367,9 @@
           self.overlays."nixpkgs-darwin/input-leap"
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
-          self.overlays."nixos-stable/xmonad-config"
+          # FIXME(darwin): causes 'nix flake show' to error
+          # self.overlays."nixos-stable/xmonad-config"
+
           self.overlays."nixos-stable/xsct"
         ];
       };
@@ -386,7 +388,8 @@
               pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.linux-packages ]; config.allowUnfree = true; };
             in
             {
-              inherit (pkgs) xmonad-config;
+              # FIXME(darwin): causes 'nix flake show' to error
+              # inherit (pkgs) xmonad-config;
             };
 
           mkDarwinPackages = system:
