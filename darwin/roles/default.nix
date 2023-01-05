@@ -14,7 +14,7 @@ let
       gui
       emacs
       development
-      podman
+      virtualization.podman
       system-defaults
     ]);
 
@@ -27,7 +27,7 @@ let
     system-defaults
     distributed-build
 
-    podman
+    virtualization.podman
   ]);
 in
 {
