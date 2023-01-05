@@ -363,6 +363,8 @@
           self.overlays."nixpkgs-darwin/emacs-plus"
 
           self.overlays."nixpkgs-darwin/macports"
+
+          self.overlays."nixpkgs-darwin/input-leap"
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
           self.overlays."nixos-stable/xmonad-config"
@@ -392,7 +394,7 @@
               pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.darwin-packages ]; };
             in
             {
-              inherit (pkgs) macports amphetamine-enhancer emacs28Macport;
+              inherit (pkgs) macports amphetamine-enhancer emacs28Macport input-leap;
 
               # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
               emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
