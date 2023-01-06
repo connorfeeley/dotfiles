@@ -18,7 +18,7 @@
     # TODO: media should be it's own profile; +use hm module
     chafa #    <- "terminal graphics for the 21st century"
     mpv
-    youtube-dl
+    yt-dlp #   <- youtube-dl fork
 
     ## === Files ===
     file
