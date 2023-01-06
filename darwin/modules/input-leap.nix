@@ -9,29 +9,55 @@ in
 {
   options = {
     services.input-leap.enable = mkEnableOption "Enable Input Leap to share keyboard and mouse between computers";
+
+    services.input-leap.client = {
+      enable = mkEnableOption "Autostart Input Leap client daemon.";
+      serverHost = mkOption {
+        description = "The IP address or hostname of the server to connect to";
+        type = types.str;
+        example = "192.168.1.50";
+      };
+    };
+
+    services.input-leap.server = {
+      enable = mkEnableOption "Autostart Input Leap server daemon.";
+      configFile = mkOption {
+        description = "The IP address or hostname of the server to connect to";
+        type = types.path;
+        example = "/Users/me/";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.input-leap ];
 
-    # system.activationScripts.extraActivation.text = ''
-    #   rm -rf ${parentAppDir}
-    #   mkdir -p ${parentAppDir}
-    #   # Kernel extensions must reside inside of /Applications, they cannot be symlinks
-    #   cp -r ${pkgs.input-leap.driver}/Applications/.Karabiner-VirtualHIDDevice-Manager.app ${parentAppDir}
-    # '';
-
-    launchd.daemons.karabiner_grabber = {
-      serviceConfig.ProgramArguments = [
-        "${pkgs.input-leap}/Applications/Barrier.app/MacOS/barrier"
-      ];
-      serviceConfig.ProcessType = "Interactive";
-      serviceConfig.Label = "org.pqrs.karabiner.karabiner_grabber";
-      serviceConfig.KeepAlive.SuccessfulExit = true;
-      serviceConfig.KeepAlive.Crashed = true;
-      serviceConfig.KeepAlive.AfterInitialDemand = true;
+    launchd.user.agents = {
+      input-leap-client = lib.mkIf cfg.client.enable {
+        serviceConfig = {
+          ProgramArguments = [
+            "${pkgs.input-leap}/Applications/Barrier.app/Contents/MacOS/barrierc"
+            "--no-daemon"
+            cfg.client.serverHost
+          ];
+          Label = "org.debauchee.com.barrierc";
+          OnDemand = false;
+          RunAtLoad = true;
+        };
+      };
+      input-leap-server = lib.mkIf cfg.server.enable {
+        serviceConfig = {
+          ProgramArguments = [
+            "${pkgs.input-leap}/Applications/Barrier.app/Contents/MacOS/barriers"
+            "--no-daemon"
+            "--config"
+            cfg.server.configFile
+          ];
+          Label = "org.debauchee.com.barriers";
+          OnDemand = false;
+          RunAtLoad = true;
+        };
+      };
     };
-
-    # environment.userLaunchAgents."org.pqrs.karabiner.agent.karabiner_grabber.plist".source = "${pkgs.input-leap}/Library/LaunchAgents/org.pqrs.karabiner.agent.karabiner_grabber.plist";
   };
 }
