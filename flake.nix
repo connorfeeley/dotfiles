@@ -406,10 +406,10 @@
               (flattenTree (rakeLeaves ./darwin/packages)));
         in
         {
-          x86_64-linux = mkLinuxPackages "x86_64-darwin";
-          aarch64-linux = mkLinuxPackages "x86_64-darwin";
+          x86_64-linux = mkLinuxPackages "x86_64-linux";
+          aarch64-linux = mkLinuxPackages "aarch64-linux";
           x86_64-darwin = mkDarwinPackages "x86_64-darwin";
-          aarch64-darwin = mkDarwinPackages "x86_64-darwin";
+          aarch64-darwin = mkDarwinPackages "aarch64-darwin";
         };
     };
 
