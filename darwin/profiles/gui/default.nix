@@ -65,7 +65,7 @@ in
       { name = "visual-studio-code"; }
 
       { name = "utm-beta"; } # QEMU GUI with virtualisation support
-      { name = "barrier"; } # Poor man's KVM
+      # { name = "barrier"; } # Poor man's KVM
       { name = "swiftbar"; } # Tweak the menu bar
       # { name = "hiddenbar"; } # Hide/toggle menu bar icon visibility
       { name = "rectangle"; } # Resize windows with keyboard shortcuts and snap areas
