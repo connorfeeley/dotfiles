@@ -32,6 +32,8 @@ let
   };
 in
 {
+  home.packages = with pkgs; [ autossh ];
+
   programs.ssh = {
     enable = true;
     forwardAgent = false; # SSH agent forwarding must be disabled to use gpg-agent forwarding
