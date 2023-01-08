@@ -36,5 +36,5 @@ lib.mkIf (!config.nixos-vm.enable) {
     enableNvidia = true;
   };
 
-  environment.systemPackages = with pkgs; [ nvtop ddcutil ] ++ xorgPackages;
+  environment.systemPackages = with pkgs; [ nvtop ddcutil cudatoolkit linuxPackages.nvidia_x11 ] ++ xorgPackages;
 }
