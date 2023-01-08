@@ -183,6 +183,14 @@ in
               enableFXCastBridge = true;
               # Buku bookmarking tool native connector
               enableBukubrow = isBukuEnabled;
+
+              extraPatches = [
+                (pkgs.fetchpatch {
+                  name = "mozilla-kde.patch";
+                  url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
+                  sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
+                })
+              ];
             };
           };
 
