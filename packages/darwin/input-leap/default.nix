@@ -94,7 +94,7 @@ mkDerivation rec {
     "-DINPUTLEAP_USE_EXTERNAL_GTEST=ON"
 
     # The bundling script is patched out, but we still want
-    # PkgInfo, Info.plist, and the icon copiied to the bundle
+    # PkgInfo, Info.plist, and the icon copied to the bundle
     "-DINPUTLEAP_BUILD_INSTALLER=ON"
   ];
 
