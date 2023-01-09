@@ -87,6 +87,12 @@ mkDerivation rec {
   postInstall = lib.optionals stdenv.isDarwin ''
     mkdir -p $out/Applications
     cp -r bundle/Barrier.app $out/Applications/Barrier.app
+
+    # Link binaries into the bundle so that they are added to system path
+    mkdir -p $out/bin
+    ln -s $out/Applications/Barrier.app/Contents/MacOS/barrier $out/bin/barrier
+    ln -s $out/Applications/Barrier.app/Contents/MacOS/barrierc $out/bin/barrierc
+    ln -s $out/Applications/Barrier.app/Contents/MacOS/barriers $out/bin/barriers
   '';
 
   cmakeFlags = [
