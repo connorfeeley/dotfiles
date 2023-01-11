@@ -96,6 +96,7 @@ in
       { name = "discord"; }
       { name = "balenaetcher"; }
       { name = "gimp"; }
+      { name = "zoom"; }
     ];
 
     homebrew.masApps = {
