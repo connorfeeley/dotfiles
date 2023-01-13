@@ -218,7 +218,6 @@ in
       sponsorblock
       sidebery
       vimium
-      https-everywhere
 
       auto-tab-discard
 
