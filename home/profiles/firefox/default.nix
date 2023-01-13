@@ -5,7 +5,7 @@ moduleArgs @ { config
 , ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux isAarch64;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
 
   themeFonts = config.theme.font;
@@ -180,7 +180,7 @@ in
               # Tridactyl native connector
               enableTridactylNative = true;
               # Enable Chromecast support (fx_cast)
-              enableFXCastBridge = true;
+              enableFXCastBridge = !isAarch64;
               # Buku bookmarking tool native connector
               enableBukubrow = isBukuEnabled;
 
