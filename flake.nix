@@ -166,7 +166,7 @@
         emacs-overlay.overlay
         gitignore.overlay
         nur.overlay
-        nvfetcher.overlay
+        nvfetcher.overlays.default
         nix-nil.overlays.default
 
         ttc-subway-font.overlay
