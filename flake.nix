@@ -19,6 +19,7 @@
       inputs.home-manager.follows = "home-manager";
       inputs.darwin.follows = "darwin";
     };
+    nixos-wsl = { url = "github:nix-community/NixOS-WSL"; inputs.nixpkgs.follows = "nixpkgs"; };
     agenix.url = "github:montchr/agenix/darwin-support";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 

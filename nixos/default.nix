@@ -1,6 +1,6 @@
 collective: { inputs, ... }:
 let
-  inherit (inputs) agenix home-manager digga dwarffs nixos-vscode-server hercules-ci-agent;
+  inherit (inputs) agenix home-manager digga dwarffs nixos-vscode-server hercules-ci-agent nixos-wsl;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -65,6 +65,38 @@ in
         # pantheon
 
         grafana
+      ]);
+
+    workstation-wsl.modules =
+      #: ~ Modules ~
+      [ dwarffs.nixosModules.dwarffs ] ++
+      #: ~ Roles ~
+      (with roles; graphical ++ tangible ++ virt ++ server) ++
+      #: ~ Profiles ~
+      (with profiles; [
+        nixos-wsl.nixosModules.wsl
+        hardware.amd
+        nvidia
+        hidpi
+        virtualisation.vm-variant
+
+        builder
+        # binary-cache
+
+        # mail
+
+        # workstations.flatpak
+        # games
+
+        # desktop.common
+        # xorg
+        # # hm-xmonad
+        # kde
+        # gnome-desktop
+        # xfce
+        # # pantheon
+
+        # grafana
       ]);
 
     # workstation-iso.modules =
