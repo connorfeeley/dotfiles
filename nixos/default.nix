@@ -74,7 +74,6 @@ in
       (with roles; graphical ++ tangible ++ virt ++ server) ++
       #: ~ Profiles ~
       (with profiles; [
-        nixos-wsl.nixosModules.wsl
         hardware.amd
         nvidia
         hidpi
@@ -169,6 +168,7 @@ in
       hercules-ci-agent.nixosModules.agent-service
 
       nixos-vscode-server.nixosModules.default
+      nixos-wsl.nixosModules.wsl
 
       # FIXME: upstream module causes a huge number of unnecessary
       # dependencies to be pulled in for all systems -- many of them are

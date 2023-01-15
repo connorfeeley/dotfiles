@@ -17,6 +17,24 @@ address = "192.168.0.165"
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCVmAx+FNqurkG9eQ7icgqS1tOzy1JyL+spWMr477mU cfeeley@cfeeley-workstation"]
 age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
+##
+## === WORKSTATION-WSL ===
+##
+[workstation-wsl]
+network = "home"
+tailscale = "100.79.154.16"
+keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBqVrQHdMGPKud9TYS3EtqTXLpalTD2+9M+7LfFl6Bv4 root@workstation",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCj009h5RovaCwxxpHfzKWCFBropvJIOKmHjs3EhrEWyFzzQb0TpKYgsrEV8P+x7xQRGpV/Lf1Qgdl5pwbj1LVs2YS2HbktYLp/MP6D/2o7qH+HcRUKag3aTHgvfStGHRCb+RP7aVUtnnnrY9pDfiLpRluCI9X6rksIlomjAP0PSEkTxVp9HL2IccEsyxxt/foNlogJ+P1MIBD+Ae92CN5YGg+BrahMOZiGCrBVSipKE6KlFUhLY4ZEODm0Sr4c18IhemDkKoqRywoBXIOHcJdnbbLFAi3xTxOZuru1XbOwoOKNMLHDkwGPdfrCACni4AtDN4FblFxHO9b6R9GW4aZgRDWIwR0nEw8IL1rv9gqiBiZ3L2A8kXUChRv4PexvT8Z7nLNksZ4hIJWmfWhpnRqCCtBRECVL2Pg0WTDUcJTjwnoNrB893uzlAnpgR1PR+LbW6RvPkN3Qkot6bQ18KugsWx6+Tpa5+vfrWZ8Fan4xHfq2FdKW6KAI3YkF3vf47d0= root@workstation",
+]
+age = "age1s0ckz3rka4zuutd00cn4px4yrkrq992cpejtvljsdvn5u25pkylqkfsrd0"
+
+[workstation-wsl.ipv4]
+address = "192.168.0.165"
+
+[workstation-wsl.users.cfeeley]
+keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCVmAx+FNqurkG9eQ7icgqS1tOzy1JyL+spWMr477mU cfeeley@cfeeley-workstation"]
+age = "age1up0p4xs0lze04acxrlxqj374ymu0dfkmc6adz2psmlz8g57ddv2qvf6pd4"
 
 ##
 ## === MACBOOK-PRO ===

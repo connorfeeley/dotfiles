@@ -18,8 +18,6 @@ in
 
   console.useXkbConfig = true;
 
-  xdg.portal.enable = true;
-
   programs.gnupg.agent.enableBrowserSocket = true;
 
   # Hide cursor upon keystroke.

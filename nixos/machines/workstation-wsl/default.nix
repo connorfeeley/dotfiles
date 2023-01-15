@@ -17,13 +17,13 @@ let
 in
 {
   imports = [
-    "${modulesPath}/profiles/minimal.nix"
+    "${modulesPath}/profiles/base.nix"
   ];
 
   wsl = {
     enable = true;
-    automountPath = "/mnt";
-    defaultUser = "nixos";
+    wslConf.automount.root = "/mnt";
+    defaultUser = "cfeeley";
     startMenuLaunchers = true;
 
     # Enable native Docker support
@@ -111,8 +111,11 @@ in
 
   ### === users ================================================================
 
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cfeeley";
+  dotfield.guardian = {
+    enable = true;
+    username = "cfeeley";
+    autoLogin = true;
+  };
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";

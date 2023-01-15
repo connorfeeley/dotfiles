@@ -68,7 +68,7 @@ in
 
   programs.fish.enable = lib.mkDefault true;
 
-  documentation = lib.mkDefault {
+  documentation = lib.mkOptionDefault {
     enable = true;
     doc.enable = true;
     info.enable = true;
