@@ -1,4 +1,4 @@
-final: _prev: {
+final: prev: {
   kitty-helpers = final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix { });
 
   svlangserver-unwrapped = (final.callPackage ./svlangserver { }).package.override {
@@ -35,6 +35,26 @@ final: _prev: {
   xsct = final.callPackage ./xsct.nix { };
 
   xantfarm = final.callPackage ./xantfarm.nix { };
+
+  openssh =
+    let
+      # Fixed ssh-copy-id for old+new dropbear compatibility
+      ssh-copy-id =
+        final.stdenv.mkDerivation {
+          name = "ssh-copy-id";
+          src = ./ssh-copy-id;
+          installPhase = ''
+            mkdir -p $out/bin
+            cp ssh-copy-id $out/bin/ssh-copy-id
+            chmod +x $out/bin/ssh-copy-id
+          '';
+        };
+    in
+    final.symlinkJoin {
+      name = "openssh";
+      paths = [ prev.openssh ssh-copy-id ];
+      buildInputs = [ final.makeWrapper ];
+    };
 
   ##: third-party scripts ------------------------------------------------------
 
