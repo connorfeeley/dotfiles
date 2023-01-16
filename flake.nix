@@ -372,6 +372,7 @@
           # self.overlays."nixos-stable/xmonad-config"
 
           self.overlays."nixos-stable/xsct"
+          self.overlays."nixos-stable/input-leap"
         ];
       };
     })
@@ -390,7 +391,7 @@
             in
             {
               # FIXME(darwin): causes 'nix flake show' to error
-              # inherit (pkgs) xmonad-config;
+              inherit (pkgs) input-leap;
             };
 
           mkDarwinPackages = system:
