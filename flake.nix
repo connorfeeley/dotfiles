@@ -298,24 +298,24 @@
               self.nixosConfigurations.workstation;
           };
         };
-        # rosy = {
-        #   hostname = "rosy";
-        #   sshUser = "cfeeley";
-        #   remoteBuild = true;
-        #   fastConnection = true;
-        #   autoRollback = true;
-        #   magicRollback = true;
-        #   profiles.system = {
-        #     user = "root";
-        #     path = deploy.lib.aarch64-linux.activate.nixos
-        #       self.nixosConfigurations.rosy;
-        #   };
-        #   profiles.cfeeley = {
-        #     user = "cfeeley";
-        #     path = deploy.lib.aarch64-linux.activate.home-manager
-        #       self.homeConfigurations."cfeeley@rosy";
-        #   };
-        # };
+        rosy = {
+          hostname = "rosy";
+          sshUser = "cfeeley";
+          remoteBuild = true;
+          fastConnection = true;
+          autoRollback = true;
+          magicRollback = true;
+          profiles.system = {
+            user = "root";
+            path = deploy.lib.aarch64-linux.activate.nixos
+              self.nixosConfigurations.rosy;
+          };
+          profiles.cfeeley = {
+            user = "cfeeley";
+            path = deploy.lib.aarch64-linux.activate.home-manager
+              self.homeConfigurations."cfeeley@rosy";
+          };
+        };
         h8tsner = {
           hostname = "h8tsner";
           sshUser = "root";
