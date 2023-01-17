@@ -3,6 +3,8 @@
 , fetchurl
 , buildFHSUserEnv
 , writeScript
+, autoPatchelfHook
+, pkgs
 }:
 let
   version = "${releaseMajor}-${releaseMinor}";
@@ -19,26 +21,82 @@ let
       sha256 = "b038e9f101c68ae691616d0976651e2be9d045e1a36d997bfe431c1526ab7a9c";
     };
 
-    doUnpack = false;
+    # Skip unpack
+    unpackPhase = ''echo "Skipping unpackPhase!"'';
 
+    # Unpack directly into the output directory to save a bnuch of time on I/O
     installPhase = ''
+      set -x
+
+      du -hs $src
+
       mkdir -p $out
-      tar -xf $src -C $out
-      cp -r ${releaseMajor}.${releaseMinor}/* $out
+      tar -I 'xz -T0' -xf $src --strip-components=2 --exclude=gnu --exclude=data -C $out
+
+      du -hs $out/*
+      ls -al $out
+      set +x
     '';
 
-    postInstall = ''
-      substituteInPlace $out/bin/ldlibpath.sh \
-          --replace "lsb_release $1 2>/dev/null | sed 's/^.*:[ 	]*//' | tr '[:upper:]' '[:lower:]'" "echo nixos-suse-nixos"
-    '';
+    # libidn.so.11 wanted by          $out/tps/lnx64/cmake-3.3.2/bin/ctest
+    # libidn.so.11 wanted by          $out/tps/lnx64/cmake-3.3.2/bin/cpack
+    # libidn.so.11 wanted by          $out/tps/lnx64/cmake-3.3.2/bin/ccmake
+    # libidn.so.11 wanted by          $out/tps/lnx64/cmake-3.3.2/bin/cmake
+    # libidn.so.11 wanted by          $out/tps/lnx64/cmake-3.3.2/bin/cmake-gui
+    # ** libXext.so.6 wanted by          $out/tps/lnx64/cmake-3.3.2/bin/cmake-gui
+    # ** libX11.so.6 wanted by           $out/tps/lnx64/cmake-3.3.2/bin/cmake-gui
+    # libclang.so.3.9 wanted by       $out/lib/lnx64.o/libXidanePass.so
+    # ** libX11.so.6 wanted by           $out/lib/lnx64.o/librdi_commonx11.so
+    # libpython3.8.so.1.0 wanted by   $out/lib/lnx64.o/librdi_ipservicestasks.so
+    # libpython3.8.so.1.0 wanted by   $out/lib/lnx64.o/librdi_project.so
+    # ** libcrypt.so.1 wanted by         $out/bin/unwrapped/lnx64.o/xclkernelinfohash_new
 
-    nativeBuildInputs = [ ];
+    preFixup =
+      let
+        patchelfFixup = binary: needed: replaced: ''
+          patchelf --replace-needed ${needed} ${replaced} ${binary} --output ${binary}.patched
+          mv ${binary}.patched ${binary}
+        '';
+      in
+      ''
+        set -x
 
-    buildInputs = [ ];
+        # Add additional library paths to autoPatchelfHook's search path
+        addAutoPatchelfSearchPath $out/lib
+
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ctest" "libidn.so.11" "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cpack" "libidn.so.11" "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ccmake" "libidn.so.11" "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cmake" "libidn.so.11" "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cmake-gui" "libidn.so.11" "libidn.so"}
+        ${patchelfFixup "$out/lib/lnx64.o/libXidanePass.so" "libclang.so.3.9" "libclang.so"}
+        ${patchelfFixup "$out/lib/lnx64.o/librdi_ipservicestasks.so" "libpython3.8.so.1.0" "libpython3.8.so"}
+        ${patchelfFixup "$out/lib/lnx64.o/librdi_project.so" "libpython3.8.so.1.0" "libpython3.8.so"}
+
+        substituteInPlace $out/bin/ldlibpath.sh \
+            --replace "lsb_release $1 2>/dev/null | sed 's/^.*:[ 	]*//' | tr '[:upper:]' '[:lower:]'" "echo nixos-suse-nixos"
+
+        set +x
+      '';
+
+    nativeBuildInputs = [ autoPatchelfHook ];
+
+    buildInputs = with pkgs; [
+      # common (autoPatchelfHook) requirements
+      zlib
+      xz
+      llvmPackages.libclang
+      libidn
+      python38
+      libxcrypt
+
+      xorg.libXext
+      xorg.libX11
+    ];
 
     meta = with lib; {
       homepage = "https://www.xilinx.com/htmldocs/xilinx2019_1/SDK_Doc/xsct/intro/xsct_introduction.html";
-      description = "Xilinx Software Command-Line Tool";
+      description = "Xilinx Software Command-Line Tools";
       license = licenses.unfree;
       maintainers = [ maintainers.cfeeley ];
       platforms = platforms.linux;
@@ -49,6 +107,8 @@ buildFHSUserEnv rec {
   name = "xsct-wrapper"; # wrapped
 
   targetPkgs = pkgs: with pkgs; [
+    xsct
+
     openssl
     zlib
 
@@ -84,6 +144,7 @@ buildFHSUserEnv rec {
     ncurses5
     unixODBC
     # libXft
+
     # common requirements
     freetype
     fontconfig
@@ -189,19 +250,102 @@ buildFHSUserEnv rec {
         "xtclsh"
         "xvc_pcie"
       ];
-      executablesStr = lib.concatStringsSep " " executables;
+      executablesUnwrapped = [
+        "aie_import"
+        "buildinfo"
+        "caller_rewrite"
+        "cd_client_test"
+        "cdoutil"
+        "cf2bd"
+        "cf2sw"
+        "cf2xd"
+        "cfgen"
+        "cs_server"
+        "diffbd"
+        "emconfigutil"
+        "evRouter"
+        "flash_strip_bw"
+        "gclkskewcheck"
+        "HAOPResynthWorker"
+        "hls_wrapper_gen"
+        "hw_server"
+        "hw_serverpv"
+        "ipmetadata_config_checker"
+        "ipmetadata_metadata_checker"
+        "ipmetadata_schema_validator"
+        "kernelinfo"
+        "LCBEConfigCreator"
+        "lgbmTest"
+        "librabit.a"
+        "lmgrd"
+        "lmutil"
+        "manage_ipcache"
+        "messagepp"
+        "mkfatimg"
+        "parallel_synth_helper"
+        "perf_analyze"
+        "platforminfo"
+        "pragma_gen"
+        "prep_target"
+        "prodversion"
+        "rdi_program_ftdi"
+        "rdi_vitis"
+        "rdi_xilmfs"
+        "rdi_xsct"
+        "rdi_xsdb"
+        "rdi_zynq_flash"
+        "regiongen_new"
+        "rlwrap"
+        "srcscanner"
+        "stub_gen"
+        "svf_utility"
+        "symbol_server"
+        "system_link"
+        "tcfgdbclient"
+        "tcflog"
+        "tclsh8.5"
+        "test_model"
+        "testSpeedModelController"
+        "updatemem"
+        "v++"
+        "versal_noc_wizard"
+        "vitis_analyzer"
+        "vivado_lab"
+        "vp_analyze"
+        "vperf"
+        "vpl"
+        "vrs"
+        "wbtcv"
+        "xccrypt"
+        "xccryptd"
+        "xcd"
+        "xclbinutil"
+        "xclkernelinfohash_new"
+        "xilcurl"
+        "xilinxd"
+        "xilpigz"
+        "xilproxy"
+        "xlicdiag"
+        "xml2-config"
+        "xrcserver"
+        "xrflink"
+        "xrt_server"
+        "xvc_pcie"
+      ];
+      executablesStr = lib.concatStringsSep " " executablesUnwrapped;
     in
     ''
       mkdir -p $out/share/applications $out/share/icons/128x128
       ln -s ${xsct}/licenses/images/dc_quartus_panel_logo.png $out/share/icons/128x128/quartus.png
 
-      mkdir -p $out/quartus/bin $out/quartus/sopc_builder/bin $out/modelsim_ase/bin $out/qprogrammer/bin
+      ln -s ${xsct} $out/XSCT-DELETEME
+
       WRAPPER=$out/bin/${name}
-      EXECUTABLES="${lib.concatStringsSep " " executables}"
+      EXECUTABLES="${lib.concatStringsSep " " executablesUnwrapped}"
       for executable in $EXECUTABLES;
       do
         echo "#!${stdenv.shell}" >> $out/$executable
-        echo "$WRAPPER ${xsct}/bin/$executable \"\$@\"" >> $out/$executable
+        echo "$WRAPPER ${xsct}/bin/unwrapped/lnx64.o/$executable \"\$@\"" >> $out/$executable
       done
 
       cd $out
@@ -217,6 +361,8 @@ buildFHSUserEnv rec {
   # we use the name so that quartus can load the 64 bit verson and modelsim can load the 32 bit version
   # https://community.intel.com/t5/Intel-FPGA-Software-Installation/Running-Quartus-Prime-Standard-on-WSL-crashes-in-libudev-so/m-p/1189032
   runScript = writeScript "${name}-wrapper" ''
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${xsct}/lib/lnx64.o"
+    echo "$LD_LIBRARY_PATH"
     exec "$@"
   '';
 }
