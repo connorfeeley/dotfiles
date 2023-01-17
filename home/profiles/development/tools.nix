@@ -17,6 +17,7 @@
     pastel #          <- A command-line tool to generate, analyze, convert and manipulate colors
     hexyl #           <- a command-line hex viewer
     glow #            <- a markdown cli renderer (by charmbracelet)
+    patchelf #        <- modify the dynamic linker and RPATH of ELF executables
 
     ## === Nix Utilities ===
     nickel #        <- "Better configuration for less"
