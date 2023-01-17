@@ -47,6 +47,7 @@ in
         nvidia
         hidpi
         virtualisation.vm-variant
+        smart
 
         builder
         # binary-cache
