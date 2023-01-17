@@ -36,25 +36,25 @@ final: prev: {
 
   xantfarm = final.callPackage ./xantfarm.nix { };
 
-  openssh =
-    let
-      # Fixed ssh-copy-id for old+new dropbear compatibility
-      ssh-copy-id =
-        final.stdenv.mkDerivation {
-          name = "ssh-copy-id";
-          src = ./ssh-copy-id;
-          installPhase = ''
-            mkdir -p $out/bin
-            cp ssh-copy-id $out/bin/ssh-copy-id
-            chmod +x $out/bin/ssh-copy-id
-          '';
-        };
-    in
-    final.symlinkJoin {
-      name = "openssh";
-      paths = [ prev.openssh ssh-copy-id ];
-      buildInputs = [ final.makeWrapper ];
-    };
+  # openssh =
+  #   let
+  #     # Fixed ssh-copy-id for old+new dropbear compatibility
+  #     ssh-copy-id =
+  #       final.stdenv.mkDerivation {
+  #         name = "ssh-copy-id";
+  #         src = ./ssh-copy-id;
+  #         installPhase = ''
+  #           mkdir -p $out/bin
+  #           cp ssh-copy-id $out/bin/ssh-copy-id
+  #           chmod +x $out/bin/ssh-copy-id
+  #         '';
+  #       };
+  #   in
+  #   final.symlinkJoin {
+  #     name = "openssh";
+  #     paths = [ prev.openssh ssh-copy-id ];
+  #     buildInputs = [ final.makeWrapper ];
+  #   };
 
   ##: third-party scripts ------------------------------------------------------
 
