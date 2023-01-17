@@ -373,6 +373,7 @@
 
           self.overlays."nixos-stable/xsct"
           self.overlays."nixos-stable/input-leap"
+          self.overlays."nixos-stable/xsct"
         ];
       };
     })
@@ -391,7 +392,7 @@
             in
             {
               # FIXME(darwin): causes 'nix flake show' to error
-              inherit (pkgs) input-leap;
+              inherit (pkgs) input-leap xsct;
             };
 
           mkDarwinPackages = system:
