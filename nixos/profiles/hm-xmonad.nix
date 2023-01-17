@@ -104,4 +104,8 @@
       }
     ];
   };
+
+  # Prevent Java applications only displaying a blank window under tiling WMs
+  # NOTE: Fixes Vivado white screen!
+  environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = 1;
 }
