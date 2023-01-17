@@ -85,6 +85,7 @@ in
       signByDefault = true;
     };
     includes = [
+      # What I do on my own time is mine. Keep yer' grubby mitts off my timestamps.
       {
         condition = "gitdir:~/source/**";
         contents = {
@@ -92,6 +93,8 @@ in
           privacy = {
             pattern = "hms";
             replacements = true;
+            # "my own time" = 6PM - 9AM, apparently.
+            limit = "18-9";
           };
         };
       }
