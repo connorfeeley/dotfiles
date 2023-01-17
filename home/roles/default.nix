@@ -102,6 +102,7 @@ with profiles; let
   macos = [
     virtualisation.podman
     darwin.search
+    darwin.dock-apps
   ];
 
   ###: --- meta-roles ----------------------------------------------------------
