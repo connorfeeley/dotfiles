@@ -64,6 +64,11 @@ let
         # Add additional library paths to autoPatchelfHook's search path
         addAutoPatchelfSearchPath $out/lib
 
+        # FIXME:
+        #   $ LD_DEBUG=reloc result/XSCT-DELETEME/bin/unwrapped/lnx64.o/rdi_xsct
+        #   result/XSCT-DELETEME/bin/unwrapped/lnx64.o/rdi_xsct: error while loading shared libraries: \
+        #     /nix/store/qyjw1x8ym9hr4sizda517j3qp938207v-xsct-2021-2/lib/lnx64.o/libxv_isl_iostreams.so: \
+        #     unexpected PLT reloc type 0xacd9aa30
         ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ctest" "libidn.so.11" "libidn.so"}
         ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cpack" "libidn.so.11" "libidn.so"}
         ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ccmake" "libidn.so.11" "libidn.so"}
@@ -91,6 +96,7 @@ let
       libxcrypt
 
       xorg.libXext
+      xorg.libXv
       xorg.libX11
     ];
 
