@@ -10,9 +10,10 @@ lib.mkIf pkgs.stdenv.isLinux {
     ubootTools #       <- tools for working with u-boot images
     universal-ctags #  <- Generates tag files in case of LSP bankrupcy
     elfutils #         <- Handy tools like eu-stack
-    devdocs-desktop #  <- full-featured desktop app for DevDocs.io
 
     nur.repos.mic92.gdb-dashboard
     nur.repos.mic92.traceshark
+  ] ++ lib.optionals (!pkgs.stdenv.isAarch64) [
+    devdocs-desktop #  <- full-featured desktop app for DevDocs.io
   ];
 }
