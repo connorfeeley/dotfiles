@@ -67,6 +67,14 @@ in
         enabledCollectors = [ "systemd" ];
         port = 9012;
       };
+      smartctl = {
+        enable = config.services.smartd.enable;
+        openFirewall = config.services.smartd.enable;
+        # Defaults:
+        user = "smartctl-exporter";
+        group = "disk";
+        port = 9633;
+      };
     };
 
     scrapeConfigs = autogenScrapeConfigs ++
