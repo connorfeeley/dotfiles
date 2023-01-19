@@ -88,7 +88,7 @@ in
     includes = [
       # Professionals *totally* don't make their best contributions at 3AM... right?
       {
-        condition = "gitdir:~/dev/**";
+        condition = "gitdir:~/dev/";
         contents = {
           user.email = "cfeeley@rossvideo.com";
           privacy = {
@@ -101,7 +101,7 @@ in
       }
       # What I do on my own time is mine. Keep yer' grubby mitts off my timestamps.
       {
-        condition = "gitdir:~/source/**";
+        condition = "gitdir:~/source/";
         contents = {
           user.email = "git@cfeeley.org";
           privacy = {
