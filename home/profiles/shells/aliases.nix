@@ -37,4 +37,6 @@
   rsc = "rsync -rav --progress";
 
   rl = "readlink -f";
+
+  procsrg = ''(){ procs | rg --smart-case $@; }'';
 }
