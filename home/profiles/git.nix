@@ -272,6 +272,13 @@ in
           ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE $MERGED";
           vscode.cmd = "code --wait $MERGED";
         };
+
+        privacy = {
+          pattern = "hms";
+          replacements = true;
+          # "my own time" = 6PM - 9AM, apparently.
+          limit = "18-9";
+        };
         ##: }}
       }
     ];
