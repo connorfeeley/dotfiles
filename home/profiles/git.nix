@@ -24,7 +24,7 @@ let
     # Epoch for today at 00:00:00
     EPOCH_TODAY="$(date --date=$(date --iso-8601=date) +'%s')"
 
-    ${gnupg}/bin/gpg2 --faked-system-time "$EPOCH_TODAY!" --no-emit-version $@
+    ${gnupg}/bin/gpg2 --faked-system-time "$EPOCH_TODAY!" $@
   '';
 in
 {
@@ -83,6 +83,7 @@ in
     signing = lib.mkIf enableSigning {
       key = pgpPublicKey;
       signByDefault = true;
+      gpgPath = "${git-gpg-privacy}/bin/git-gpg-privacy";
     };
     includes = [
       # Professionals *totally* don't make their best contributions at 3AM... right?
