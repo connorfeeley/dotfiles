@@ -96,10 +96,6 @@ in
             # ... not anymore! Automatically round it to 9 AM or 6PM (whichever is closer).
             limit = "9-18";
           };
-          ignores = [
-            # Direnv
-            ".envrc"
-          ];
         };
       }
       # What I do on my own time is mine. Keep yer' grubby mitts off my timestamps.
@@ -166,6 +162,9 @@ in
       ".scratch"
       "*localrc"
       "*.local"
+
+      # Direnv
+      ".envrc"
     ];
 
     aliases = {
