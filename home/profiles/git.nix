@@ -85,34 +85,40 @@ in
       signByDefault = true;
       gpgPath = "${git-gpg-privacy}/bin/git-gpg-privacy";
     };
-    includes = [
-      # Professionals *totally* don't make their best contributions at 3AM... right?
-      {
-        condition = "gitdir:~/dev/";
-        contents = {
-          user.email = "cfeeley@rossvideo.com";
-          privacy = {
-            pattern = "s";
-            replacements = true;
-            # ... not anymore! Automatically round it to 9 AM or 6PM (whichever is closer).
-            limit = "9-18";
+    includes =
+      let
+        personalIncludes = dir: {
+          condition = "gitdir:${dir}";
+          contents = {
+            user.email = "git@cfeeley.org";
+            # What I do on my own time is mine. Keep yer' grubby mitts off my timestamps!
+            privacy = {
+              pattern = "hms";
+              replacements = true;
+              # "my own time" = 6PM - 9AM, apparently.
+              limit = "18-9";
+            };
           };
         };
-      }
-      # What I do on my own time is mine. Keep yer' grubby mitts off my timestamps.
-      {
-        condition = "gitdir:~/source/";
-        contents = {
-          user.email = "git@cfeeley.org";
-          privacy = {
-            pattern = "hms";
-            replacements = true;
-            # "my own time" = 6PM - 9AM, apparently.
-            limit = "18-9";
+        professionalIncludes = dir: {
+          condition = "gitdir:${dir}";
+          contents = {
+            user.email = "cfeeley@rossvideo.com";
+            # Professionals *totally* don't make their best contributions at 3AM... right?
+            privacy = {
+              pattern = "s";
+              replacements = true;
+              # ... not anymore! Automatically round it to 9 AM or 6PM (whichever is closer).
+              limit = "9-18";
+            };
           };
         };
-      }
-    ];
+      in
+      [
+        (personalIncludes "~/source/")
+        (personalIncludes "~/.config/")
+        (professionalIncludes "~/dev/")
+      ];
 
     difftastic.enable = true;
 
