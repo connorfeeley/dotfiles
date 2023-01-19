@@ -13,6 +13,7 @@ in
     ./yabai.nix
     ./xquartz.nix
     ./safari.nix
+    ./orion.nix
   ];
 
   options = { };
@@ -71,7 +72,7 @@ in
       { name = "rectangle"; } # Resize windows with keyboard shortcuts and snap areas
       { name = "raycast"; } # Better search popup
 
-      { name = "orion"; } # Native WebKit-based browser
+      { name = "bluesnooze"; } # Sleeping Mac = Bluetooth off
 
       # { name = "docker"; }
 
