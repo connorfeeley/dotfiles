@@ -399,7 +399,7 @@
 
           mkDarwinPackages = system:
             let
-              pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.darwin-packages ]; };
+              pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.darwin-packages ]; config.allowUnfree = true; };
             in
             {
               inherit (pkgs) macports amphetamine-enhancer orion-browser mints emacs28Macport input-leap;
