@@ -240,7 +240,6 @@
             overlays ++ [
               (final: _prev: {
                 amphetamine-enhancer = self.packages.${final.system}.amphetamine-enhancer;
-                orion-browser = self.packages.${final.system}.orion-browser;
                 mints = self.packages.${final.system}.mints;
               })
             ];
@@ -402,7 +401,7 @@
               pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.darwin-packages ]; config.allowUnfree = true; };
             in
             {
-              inherit (pkgs) macports amphetamine-enhancer orion-browser mints emacs28Macport input-leap;
+              inherit (pkgs) macports amphetamine-enhancer mints emacs28Macport input-leap;
 
               # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
               emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
