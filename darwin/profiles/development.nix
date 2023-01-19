@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
     darwin.DarwinTools
     darwin.print-reexports
+    undmg
     # FIXME(darwin): build failing as of 2022-12-13
     # darwin.ios-deploy
   ];
