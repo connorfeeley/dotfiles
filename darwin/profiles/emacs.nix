@@ -1,5 +1,11 @@
-{ ...
-}: {
+{ config, pkgs, ... }:
+let
+  inherit (config.dotfield.guardian) username;
+
+  # Primary user's HM configuration
+  guardianConfig = config.home-manager.users."${username}";
+in
+{
   environment.variables = {
     DOOMDIR = "$XDG_CONFIG_HOME/doom";
     EMACSDIR = "$XDG_CONFIG_HOME/emacs";
@@ -22,5 +28,11 @@
       { name = "pngpaste"; }
       { name = "coreutils"; }
     ];
+  };
+
+  services.emacs = {
+    enable = true;
+    package = guardianConfig.programs.emacs.package;
+    additionalPath = [ "/Users/${config.dotfield.guardian.username}/.config/emacs/bin" ];
   };
 }
