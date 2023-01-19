@@ -47,7 +47,10 @@
 
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
-  services.nix-daemon.enable = true;
+  services.nix-daemon = {
+    enable = true;
+    enableSocketListener = true; # Else nix-daemon process appears as 'Finder'
+  };
   nix.configureBuildUsers = true;
 
   homebrew = {
