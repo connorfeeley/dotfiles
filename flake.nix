@@ -407,7 +407,7 @@
               # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
               emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
             } //
-            (builtins.mapAttrs (_n: v: nixpkgs.legacyPackages.${system}.callPackage v { inherit (pkgs) installApplication; })
+            (builtins.mapAttrs (_n: v: pkgs.callPackage v { inherit (pkgs) installApplication; })
               (flattenTree (rakeLeaves ./darwin/packages)));
         in
         {
