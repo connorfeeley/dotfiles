@@ -172,6 +172,9 @@ lib.mkMerge [
       graphviz
       gnuplot
 
+      # :lang lua
+      luaPackages.lua-lsp
+
       #: parinfer
       parinfer-rust
       # emacs == vim... at least as far as the required parinfer library package is concerned
