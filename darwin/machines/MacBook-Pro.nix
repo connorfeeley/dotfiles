@@ -38,8 +38,6 @@ in
 
   networking.hostName = "MacBook-Pro";
 
-  # FIXME: verify
-  # $ networksetup -listallnetworkservices
   networking.knownNetworkServices = [
     "Wi-Fi"
     "iPhone USB"
