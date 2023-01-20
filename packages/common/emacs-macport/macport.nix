@@ -17,6 +17,12 @@ import ./generic.nix (rec {
         url = "https://raw.githubusercontent.com/railwaycat/homebrew-emacsmacport/89fc33ae62c82c7ff5894967c1038ef87bb0b418/patches/emacs-mac-title-bar-9.0.patch";
         sha256 = "sha256-TIojIx2TmIGmjPmMNoWHbs9XWCV1DtbRR0jZ3yjsHrc=";
       })
+      # FIXME: also use this when titlebarPatches is false
+      (fetchpatch {
+        name = "multi-tty-27.diff";
+        url = "https://raw.githubusercontent.com/railwaycat/homebrew-emacsmacport/667f0efc08506facfc6963ac1fd1d5b9b777e094/patches/multi-tty-27.diff";
+        sha256 = "18am04h93hci5c1a0cvkgz03qh077ad3w9zh1yblm76fg4zfh4ss";
+      })
       # (fetchpatch {
       #   name = "emacs-26.2-rc1-mac-7.5-no-title-bar.patch";
       #   url = "https://raw.githubusercontent.com/railwaycat/homebrew-emacsmacport/667f0efc08506facfc6963ac1fd1d5b9b777e094/patches/emacs-26.2-rc1-mac-7.5-no-title-bar.patch";
