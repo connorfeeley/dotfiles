@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Staggeringly powerful macOS desktop automation with Lua";
-    license = stdenv.lib.licenses.mit;
+    license = lib.licenses.mit;
     homepage = "https://www.hammerspoon.org";
     platforms = lib.platforms.darwin;
   };
