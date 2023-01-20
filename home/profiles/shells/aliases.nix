@@ -38,5 +38,5 @@
 
   rl = "readlink -f";
 
-  procsrg = ''(){ procs | rg --smart-case $@; }'';
+  procrg = ''(){ procs | rg --smart-case $@; }'';
 }
