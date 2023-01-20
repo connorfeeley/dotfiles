@@ -26,6 +26,7 @@ let
     nix-eval-jobs
     nix-prefetch-git
     nix-build-uncached
+    nixos-rebuild # For remote nixos-rebuild on darwin
     ;
 
   inherit (pkgs.nodePackages)
@@ -53,23 +54,36 @@ in
 
   commands =
     [
+      # -- Utils --
+      (utils nixos-rebuild)
+      (utils nixos-generators)
       (utils nix-eval-jobs)
       (utils nix-prefetch-git)
       (utils nix-build-uncached)
+      (utils nixUnstable)
+      (utils deploy-rs)
+      (utils deploy-flake)
+      (utils terraform)
+      (utils cachix)
+      (utils lefthook)
 
-      (dotfield nixUnstable)
-      (dotfield deploy-rs)
-      (dotfield deploy-flake)
-      (dotfield terraform)
-      (dotfield cachix)
-      (dotfield lefthook)
-      {
+      # -- Dotfield --
+      (dotfield scripts.dotfield-sync)
+      (dotfield scripts.dotfield-push)
+      (dotfield scripts.dotfield-rebuild)
+      (dotfield scripts.dotfield-doom)
+      (dotfield scripts.dotfield-docs)
+      (withCategory "dotfield" {
+        name = "repl";
+        help = "Launch repl";
+        command = "${nixUnstable}/bin/nix repl $PRJ_ROOT/repl.nix";
+      })
+      (withCategory "dotfield" {
         category = "dotfield";
         name = nvfetcher-bin.pname;
         help = nvfetcher-bin.meta.description;
         command = "cd $PRJ_ROOT/packages/sources; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
-      }
-      (dotfield nixos-generators)
+      })
       (withCategory "dotfield" {
         name = "generate-h8tsner-kexec-bundle";
         help = "Use nixos-generate to build a kexec-build for the h8tsner VM.";
@@ -77,7 +91,7 @@ in
         # command = "${nixos-generators}/bin/nixos-generate  --flake .#h8tsner --format kexec-bundle";
         command = "${nix-output-monitor}/bin/nom build $DOTFIELD_DIR#packages.h8tsner-kexec.x86_64-linux --impure";
       })
-
+      # -- CI --
       (ci {
         name = "evalnix";
         help = "Check Nix parsing";
@@ -107,14 +121,17 @@ in
           '';
       })
 
-      (dotfield treefmt)
+      # -- Formatter --
+      (formatter treefmt)
       (formatter nixpkgs-fmt)
       (formatter prettier)
       (formatter shfmt)
 
+      # -- Linter --
       (linter editorconfig-checker)
       (linter shellcheck)
 
+      # -- Secrets --
       (secrets agenix)
       (secrets rage)
       (secrets ssh-to-age)
@@ -127,16 +144,5 @@ in
           ${ssh-to-age}/bin/ssh-to-age -i ~/.ssh/id_ed25519.pub > ~/.config/sops/age/age-key.pub
         '';
       }
-
-      (utils scripts.dotfield-sync)
-      (utils scripts.dotfield-push)
-      (utils scripts.dotfield-rebuild)
-      (utils scripts.dotfield-doom)
-      (utils scripts.dotfield-docs)
-      (withCategory "utils" {
-        name = "repl";
-        help = "Launch repl";
-        command = "${nixUnstable}/bin/nix repl $PRJ_ROOT/repl.nix";
-      })
     ];
 }
