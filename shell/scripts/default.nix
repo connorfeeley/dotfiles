@@ -9,6 +9,11 @@ let
     ;
 in
 {
+  nixos-rebuild-remote = pkgs.callPackage ./ci/nixos-rebuild-remote.nix {
+    name = "nixos-rebuild-remote";
+    inherit (pkgs) writeShellApplication nixos-rebuild;
+  };
+
   dotfield-sync = pkgs.callPackage ./ci/dotfield-sync-repos.nix {
     name = "dotfield-sync";
     inherit (pkgs.nodePackages) git-run;

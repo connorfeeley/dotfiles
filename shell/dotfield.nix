@@ -56,6 +56,7 @@ in
     [
       # -- Utils --
       (utils nixos-rebuild)
+      (utils scripts.nixos-rebuild-remote)
       (utils nixos-generators)
       (utils nix-eval-jobs)
       (utils nix-prefetch-git)
