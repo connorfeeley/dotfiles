@@ -39,4 +39,6 @@
   rl = "readlink -f";
 
   procrg = ''(){ procs | rg --smart-case $@; }'';
+
+  s = "ssh";
 }
