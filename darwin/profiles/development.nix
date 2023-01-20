@@ -23,6 +23,7 @@
     ];
     casks = [
       { name = "altserver"; }
+      { name = "github"; }
     ];
   };
 }
