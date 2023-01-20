@@ -80,7 +80,7 @@ in
   ###### implementation
 
   config = mkMerge [
-    (mkIf cfgC.enable || cfgS.enable {
+    (mkIf (cfgC.enable || cfgS.enable) {
       environment.systemPackages = [ pkgs.input-leap ];
     })
 
