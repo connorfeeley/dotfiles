@@ -10,10 +10,10 @@
       xterm.enable = false;
       xfce = {
         enable = true;
-        noDesktop = true;
-        enableXfwm = false;
+        # noDesktop = true;
+        # enableXfwm = false;
       };
     };
-    windowManager.i3.enable = true;
+    # windowManager.i3.enable = true;
   };
 }
