@@ -49,7 +49,7 @@
   services.activate-system.enable = true;
   services.nix-daemon = {
     enable = true;
-    enableSocketListener = true; # Else nix-daemon process appears as 'Finder'
+    enableSocketListener = false; # 'true' causes connection refused error
   };
   nix.configureBuildUsers = true;
 
