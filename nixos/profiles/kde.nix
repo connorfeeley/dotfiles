@@ -46,7 +46,6 @@ in
   ###
   environment.systemPackages = with pkgs; [
     myTheme
-    latte-dock
     variety
   ];
   services.xserver.desktopManager.plasma5 = {
