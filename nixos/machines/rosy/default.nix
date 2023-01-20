@@ -150,7 +150,7 @@ in
         workstation
         developer
         linux
-        # emacs-config
+        emacs-config
       ])) ++ (with hmArgs.profiles; [
         sync
         work
