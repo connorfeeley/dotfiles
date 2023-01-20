@@ -59,7 +59,7 @@ in
 
     client = {
       enable = true;
-      serverHost = "workstation";
+      serverAddress = "workstation";
     };
   };
 

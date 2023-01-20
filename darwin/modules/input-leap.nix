@@ -12,10 +12,13 @@ in
 
     services.input-leap.client = {
       enable = mkEnableOption "Autostart Input Leap client daemon.";
-      serverHost = mkOption {
-        description = "The IP address or hostname of the server to connect to";
+      serverAddress = mkOption {
         type = types.str;
-        example = "192.168.1.50";
+        description = lib.mdDoc ''
+          The server address is of the form: [hostname][:port].  The
+          hostname must be the address or hostname of the server.  The
+          port overrides the default port, 24800.
+        '';
       };
     };
 
@@ -38,7 +41,7 @@ in
           ProgramArguments = [
             "${pkgs.input-leap}/Applications/Barrier.app/Contents/MacOS/barrierc"
             "--no-daemon"
-            cfg.client.serverHost
+            cfg.client.serverAddress
           ];
           Label = "org.debauchee.com.barrierc";
           OnDemand = false;
