@@ -72,7 +72,7 @@ in
   };
 
   services.emacs = {
-    enable = true;
+    enable = false;
     package = emacsPackage;
     additionalPath = [ "/Users/${config.dotfield.guardian.username}/.config/emacs/bin" ];
   };
