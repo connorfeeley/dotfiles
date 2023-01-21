@@ -40,13 +40,7 @@
                     "key_code": "escape"
                   }
                 ],
-                "type": "basic",
-                "conditions": [
-                    {
-                        "type": "frontmost_application_unless",
-                        "bundle_identifiers": ["^com\\.parallels\\.desktop\\.console$"]
-                    }
-                ]
+                "type": "basic"
               }
             ]
           },
