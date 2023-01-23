@@ -101,6 +101,7 @@ in
       { name = "balenaetcher"; }
       { name = "gimp"; }
       { name = "zoom"; }
+      { name = "disk-inventory-x"; } # view
     ];
 
     homebrew.masApps = {
