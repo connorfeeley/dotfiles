@@ -68,6 +68,7 @@ in
       dl = "$HOME/Downloads";
       dev = "$HOME/dev";
       src = "$HOME/source";
+      cfg = "$XDG_CONFIG_HOME";
       dots = "$XDG_CONFIG_HOME/dotfield";
       doom = "$XDG_CONFIG_HOME/doom";
       emacs = "$XDG_CONFIG_HOME/emacs";
