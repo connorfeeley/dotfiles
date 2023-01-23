@@ -1,4 +1,3 @@
-# TODO: add dhall utils
 { pkgs
 , ...
 }:
@@ -6,7 +5,11 @@ let
   inherit (pkgs.stdenv) isLinux;
 
   inherit (pkgs)
+    rage
     agenix
+    ssh-to-age
+    sops
+    sops-pgp-hook
     nvfetcher-bin
     deploy-rs
     deploy-flake
@@ -14,10 +17,8 @@ let
     cachix
     editorconfig-checker
     nixUnstable
-    rage
     shellcheck
     shfmt
-    ssh-to-age
     terraform
     treefmt
     lefthook
@@ -136,6 +137,8 @@ in
       (secrets agenix)
       (secrets rage)
       (secrets ssh-to-age)
+      (secrets sops)
+      (secrets sops-pgp-hook)
       {
         category = "secrets";
         name = "convert-keys";

@@ -2075,6 +2075,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-22_05": {
+      "locked": {
+        "lastModified": 1672580127,
+        "narHash": "sha256-3lW3xZslREhJogoOkjeZtlBtvFMyxHku7I/9IVehhT8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0874168639713f547c05947c76124f78441ea46c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-22.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-darwin": {
       "locked": {
         "lastModified": 1673816771,
@@ -2885,6 +2901,7 @@
         "plasma-manager": "plasma-manager",
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp",
+        "sops-nix": "sops-nix",
         "ttc-subway-font": "ttc-subway-font",
         "tum-dse-config": "tum-dse-config",
         "xmonad-config": "xmonad-config"
@@ -3006,6 +3023,28 @@
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-22_05": "nixpkgs-22_05"
+      },
+      "locked": {
+        "lastModified": 1673786104,
+        "narHash": "sha256-sGPefrC4mUXs0jiIPEBEn172Gw43colmn7G8MMAStUg=",
+        "owner": "pogobanane",
+        "repo": "sops-nix",
+        "rev": "6e1fda673165cbe9820303a555116edf9579b6c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pogobanane",
+        "ref": "feat/home-manager-darwin",
+        "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "sops-nix_2": {
+      "inputs": {
+        "nixpkgs": [
           "tum-dse-config",
           "nixpkgs"
         ],
@@ -3083,7 +3122,7 @@
         ],
         "nur": "nur_2",
         "retiolum": "retiolum",
-        "sops-nix": "sops-nix",
+        "sops-nix": "sops-nix_2",
         "srvos": "srvos"
       },
       "locked": {
