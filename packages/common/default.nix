@@ -32,6 +32,8 @@ final: prev: {
 
   appmenu-gtk3-module = final.callPackage ./appmenu-gtk3-module.nix { };
 
+  fildem-global-menu = final.callPackage ./fildem-global-menu.nix { inherit (final) lib stdenv fetchFromGitHub; };
+
   xsct = final.callPackage ./xsct.nix { };
 
   xantfarm = final.callPackage ./xantfarm.nix { };
