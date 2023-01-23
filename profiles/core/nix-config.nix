@@ -21,7 +21,7 @@ in
 {
   environment.systemPackages = [ pkgs.nix-doc ];
   nix = {
-    package = pkgs.nix;
+    package = pkgs.nixUnstable;
     settings = {
       inherit substituters trusted-substituters;
 
