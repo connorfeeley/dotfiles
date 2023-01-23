@@ -38,7 +38,6 @@
     ## === Reverse Engineering ===
     (binwalk.override { visualizationSupport = true; })
     radare2
-    cutter
 
     ## === Forensics ===
     chkrootkit
@@ -65,5 +64,8 @@
     john
     hashcat
     hashcat-utils
+  ]) ++ (lib.optionals (!pkgs.stdenv.isLinux && !pkgs.stdenv.isAarch64) [
+    ## === Reverse Engineering ===
+    cutter
   ]);
 }
