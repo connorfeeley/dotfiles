@@ -253,5 +253,5 @@ in
 
   services.vscode-server.enable = true;
 
-  virtualisation.docker.settings.hosts = [ "unix:///var/run/docker.sock" "tcp://127.0.0.1:2375" ];
+  virtualisation.docker.daemon.settings.hosts = [ "unix:///var/run/docker.sock" "tcp://127.0.0.1:2375" ];
 }
