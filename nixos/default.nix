@@ -58,7 +58,7 @@ in
         games
 
         desktop.common
-        login.gdm
+        login.sddm
         xorg
         # hm-xmonad
         kde

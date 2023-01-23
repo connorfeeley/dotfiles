@@ -56,7 +56,7 @@ in
   };
 
   services.xserver.displayManager = {
-    defaultSession = "plasma+xmonad";
+    # defaultSession = "plasma+xmonad";
     session =
       let
         localPath = "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
