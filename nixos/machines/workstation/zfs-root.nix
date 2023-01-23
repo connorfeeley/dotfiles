@@ -1,5 +1,10 @@
-{ ...
-}: {
+{ config
+, options
+, lib
+, ...
+}:
+# Don't configure ZFS for VMs
+lib.mkIf (!options.virtualisation ? qemu) {
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.efiInstallAsRemovable = false;
@@ -28,6 +33,8 @@
   boot.loader.grub.devices = [
     "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T"
   ];
+
+  boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
 
   fileSystems."/" =
     {

@@ -137,6 +137,4 @@
     zpool-iostat-viz # "zpool iostats" for humans; find the slow parts of your ZFS pool
     ioztat # A storage load analysis tool for OpenZFS
   ];
-
-  boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
 }
