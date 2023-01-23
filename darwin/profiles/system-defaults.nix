@@ -52,7 +52,7 @@ in
     #  105: Active Processes
     #  106: Inactive Processes
     #  107: Windowed Processes
-    ShowCategory = 102;
+    ShowCategory = 101;
     # Which column to sort the main activity page by
     SortColumn = "CPUUsage";
     SortDirection = 0; # 0: Descending; 1: Ascending
