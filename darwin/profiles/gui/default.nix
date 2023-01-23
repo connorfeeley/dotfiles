@@ -59,7 +59,6 @@ in
 
       { name = "freerdp"; }
       { name = "alerter"; } # like notify-send but for darwin
-      { name = "timemachineeditor"; } # start backups in Time Machine at particular times
     ];
 
     homebrew.casks = [
@@ -101,6 +100,7 @@ in
       { name = "balenaetcher"; }
       { name = "gimp"; }
       { name = "zoom"; }
+      { name = "timemachineeditor"; } # start backups in Time Machine at particular times
       { name = "disk-inventory-x"; } # view
     ];
 
