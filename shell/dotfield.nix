@@ -9,7 +9,7 @@ let
     agenix
     ssh-to-age
     sops
-    sops-pgp-hook
+    # sops-pgp-hook
     nvfetcher-bin
     deploy-rs
     deploy-flake
@@ -138,7 +138,7 @@ in
       (secrets rage)
       (secrets ssh-to-age)
       (secrets sops)
-      (secrets sops-pgp-hook)
+      # (secrets sops-pgp-hook)
       {
         category = "secrets";
         name = "convert-keys";
