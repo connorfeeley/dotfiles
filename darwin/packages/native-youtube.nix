@@ -1,17 +1,18 @@
 { lib, stdenv, fetchzip, ... }:
 
 stdenv.mkDerivation rec {
+  # NOTE: 3.1 requires MacOS Ventura
+  version = "2.2.3";
   pname = "native-youtube";
-  version = "3.1";
 
   src = fetchzip {
     url = "https://github.com/Aayush9029/NativeYoutube/releases/download/v${version}/NativeYoutube.app.zip";
-    sha256 = "sha256-3QLVEMAAKJNmyicld/vjnJQKYF5LGdRJQrovZ2Yrc38=";
+    sha256 = "sha256-kzdM4Q3pKEcdPNRTIo+cC9Nd6m0um9+wd+hVp0kYpic=";
   };
 
   installPhase = ''
-    mkdir -p "$out/Applications/Native YouTube.app"
-    mv * "$out/Applications/Native YouTube.app"
+    mkdir -p "$out/Applications/NativeYoutube.app"
+    cp -r * "$out/Applications/NativeYoutube.app"
   '';
 
   meta = {
