@@ -58,6 +58,7 @@ in
         games
 
         desktop.common
+        login.gdm
         xorg
         # hm-xmonad
         kde
@@ -124,13 +125,14 @@ in
     };
 
     rosy = {
-      system = aarch64-linux;
+      # system = aarch64-linux;
       modules =
         (with roles; server) ++
         (with profiles; [
           builder
 
           desktop.common
+          login.gdm
           xorg
           kde
           gnome-desktop
