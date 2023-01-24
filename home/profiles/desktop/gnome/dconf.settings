@@ -38,6 +38,7 @@ xkb-options=['terminate:ctrl_alt_bksp']
 
 [org/gnome/desktop/interface]
 gtk-im-module='gtk-im-context-simple'
+gtk-key-theme="Emacs"
 
 [org/gnome/desktop/notifications]
 application-children=['gnome-network-panel', 'org-gnome-nautilus', 'gnome-power-panel', 'firefox', 'zoom']
