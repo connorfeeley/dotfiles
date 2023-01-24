@@ -6,7 +6,7 @@
 , ...
 }:
 stdenv.mkDerivation rec {
-  name = "mdio-tools";
+  pname = "mdio-tools";
   version = "1.2.0";
   src = fetchurl {
     url = "https://github.com/wkz/mdio-tools/releases/download/${version}/mdio-tools-${version}.tar.gz";
@@ -19,9 +19,11 @@ stdenv.mkDerivation rec {
   # installTargets = [ "install" "install.man" ];
 
   meta = with lib; {
+    mainProgram = "mdio";
     description = "Low-level debug tools for MDIO devices.";
     homepage = "https://github.com/wkz/mdio-tools";
     license = licenses.gpl2;
+    platforms = platforms.linux;
     maintainers = [ maintainers.cfeeley ];
   };
 }
