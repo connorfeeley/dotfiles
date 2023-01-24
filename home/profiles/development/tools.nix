@@ -32,6 +32,7 @@
     nix-du #        <- Analyze derivation and store size
     nox #           <- Tools to make nix nicer to use
     zgrviewer #     <- Graphviz/DOT viewer (often used with nix-du)
+    kgraphviewer #  <- KDE-flavoured Graphviz viewer
     nix-update #    <- swiss-army knife for updating nix packages
     nix-bisect #    <- Helper for bisecting nix builds
     devenv #        <- Cachix's new 'devenv' tool
