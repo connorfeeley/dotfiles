@@ -10,7 +10,7 @@ let
 in
 {
   # homebrew.casks = [{ name = "hammerspoon"; }];
-  services.hammerspoon.enable = true;
+  services.hammerspoon.enable = false;
   services.hammerspoon.spoons = [
     { name = "AClock"; }
     { name = "Cherry"; }
