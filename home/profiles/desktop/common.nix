@@ -31,15 +31,4 @@ lib.mkIf isLinux {
     gtk.enable = true;
     x11.enable = true;
   };
-
-  services = {
-    # Tap caps-lock to send ESC; hold for L_CTRL
-    xcape = {
-      enable = true;
-      mapExpression = {
-        Control_L = "Escape";
-      };
-      timeout = 200;
-    };
-  };
 }
