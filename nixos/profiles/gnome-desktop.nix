@@ -105,7 +105,7 @@
             dontBuild = false;
           });
         in
-        [ pkgs.appmenu-gtk3-module fildem-global-menu ];
+        [ pkgs.appmenu-gtk3-module fildem-global-menu pkgs.gnomeExtensions.pop-shell ];
 
       # sessionPath =
       #   let
