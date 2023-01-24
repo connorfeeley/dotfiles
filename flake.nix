@@ -377,7 +377,7 @@
 
           self.overlays."nixos-stable/xsct"
           self.overlays."nixos-stable/input-leap"
-          self.overlays."nixos-stable/xsct"
+          self.overlays."nixos-stable/mdio-tools"
           # self.overlays."nixos-stable/fildem-global-menu"
         ];
       };
@@ -397,7 +397,7 @@
             in
             {
               # FIXME(darwin): causes 'nix flake show' to error
-              inherit (pkgs) input-leap xsct;
+              inherit (pkgs) input-leap xsct mdio-tools;
               # inherit (pkgs) fildem-global-menu;
             };
 

@@ -38,6 +38,8 @@ final: prev: {
 
   xantfarm = final.callPackage ./xantfarm.nix { };
 
+  mdio-tools = final.callPackage ./mdio-tools.nix { };
+
   # openssh =
   #   let
   #     # Fixed ssh-copy-id for old+new dropbear compatibility
