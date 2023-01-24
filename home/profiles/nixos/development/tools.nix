@@ -10,6 +10,7 @@ lib.mkIf pkgs.stdenv.isLinux {
     ubootTools #       <- tools for working with u-boot images
     universal-ctags #  <- Generates tag files in case of LSP bankrupcy
     elfutils #         <- Handy tools like eu-stack
+    ethtool
 
     nur.repos.mic92.gdb-dashboard
     nur.repos.mic92.traceshark
