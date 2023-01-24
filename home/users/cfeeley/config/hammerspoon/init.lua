@@ -4,12 +4,48 @@ if not ipc.cliStatus("/usr/local") then
   ipc.cliInstall()
 end
 
--- hs.hotkey.bindSpec({command, "e"},
---   function ()
---     hs.task.new("zsh", nil, { "-l", "-c", "emacsclient --eval '(emacs-everywhere)'" }):start()
---   end
--- )
+-- Reload hammerspoon config automatically.
+hs.loadSpoon("ReloadConfiguration")
+spoon.ReloadConfiguration:start()
 
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
-  hs.alert.show("Hello World!")
+-- Use left half of screen
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = max.x
+  f.y = max.y
+  f.w = max.w / 2
+  f.h = max.h
+  win:setFrame(f)
+end)
+
+-- Use right half of screen
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Right", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = max.x + (max.w / 2)
+  f.y = max.y
+  f.w = max.w / 2
+  f.h = max.h
+  win:setFrame(f)
+end)
+
+-- Maximize window
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Up", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = max.x
+  f.y = max.y
+  f.w = max.w
+  f.h = max.h
+  win:setFrame(f)
 end)
