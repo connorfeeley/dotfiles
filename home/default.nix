@@ -39,6 +39,6 @@ in
       };
     in
     {
-      # "cfeeley@cfeeley-laptop" = mkHome "cfeeley";
+      "cfeeley@cfeeley-laptop" = mkHome "cfeeley";
     };
 }
