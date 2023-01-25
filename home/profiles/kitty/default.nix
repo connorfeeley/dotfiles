@@ -28,6 +28,7 @@ let
 
   mkTheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
   mkTheme' = name: toKittyConfig (mkTheme name);
+  mkThemeBuiltin = name: pkgs.kitty-themes.outPath + "/themes/" + name;
 
   mkFontFeatures = name: features: "font_features ${name} ${lib.concatStringsSep " " features}";
 
@@ -112,7 +113,10 @@ lib.mkMerge [
       };
       extraConfig = ''
         ${lib.optionalString hasPragPro pragmataProExtras}
-      '';
+
+        # Include theme - symlink to either the selected dark or light theme
+        include ${config.xdg.configDir + "/kitty/current-theme.conf"}
+        '';
     };
   }
   (lib.mkIf isDarwin {
@@ -124,17 +128,21 @@ lib.mkMerge [
     };
   })
   {
-    xdg.configFile = {
-      "kitty/base16-kitty".source = base16-kitty.outPath;
-      "kitty/themes/dark.conf".text = mkTheme' "black-metal-khold";
-      "kitty/themes/light.conf".text = mkTheme' "grayscale-light";
+    xdg.configFile =
+      let chosenTheme = "dark";
+      in {
+        "kitty/base16-kitty".source = base16-kitty.outPath;
+        "kitty/nix-kitty-themes".source = pkgs.kitty-themes.outPath;
+        "kitty/themes/dark.conf".source = mkThemeBuiltin "Brogrammer";
+        "kitty/themes/light.conf".source = mkThemeBuiltin "Doom_One_Light";
+        "kitty/current-theme.conf".source = config.xdg.configDir + "/kitty/themes/${chosenTheme}.conf";
 
-      "kitty/session".text = ''
-        # Start new sessions in the previous working directory
-        # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
-        # https://sw.kovidgoyal.net/kitty/faq/#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window
-        launch --cwd=current
-      '';
-    };
+        "kitty/session".text = ''
+          # Start new sessions in the previous working directory
+          # https://sw.kovidgoyal.net/kitty/overview/#startup-sessions
+          # https://sw.kovidgoyal.net/kitty/faq/#how-do-i-open-a-new-window-or-tab-with-the-same-working-directory-as-the-current-window
+          launch --cwd=current
+        '';
+      };
   }
 ]
