@@ -90,7 +90,8 @@ lib.mkMerge [
         # else "0";
         # 85% opacity
         background_opacity = if isDarwin then "0.85" else "1.0";
-      } // (lib.mkForce modus-vivendi-faint); # force kitty colorscheme (also set by stylix)
+      };
+      # // (lib.mkForce modus-vivendi-faint); # force kitty colorscheme (also set by stylix)
       keybindings = {
         # kitty_mod: ctrl+shift, or ⌘ (cmd) key on macos
         "kitty_mod+n" = "new_os_window_with_cwd";
@@ -115,7 +116,7 @@ lib.mkMerge [
         ${lib.optionalString hasPragPro pragmataProExtras}
 
         # Include theme - symlink to either the selected dark or light theme
-        include ${config.xdg.configDir + "/kitty/current-theme.conf"}
+        include ${config.xdg.configHome}/kitty/current-theme.conf
         '';
     };
   }
@@ -129,13 +130,18 @@ lib.mkMerge [
   })
   {
     xdg.configFile =
-      let chosenTheme = "dark";
+      let chosenTheme = dark;
+          dark = mkThemeBuiltin "Brogrammer";
+          light = mkThemeBuiltin "Doom_One_Light";
       in {
+        ###
+        ### Theming
+        ###
         "kitty/base16-kitty".source = base16-kitty.outPath;
         "kitty/nix-kitty-themes".source = pkgs.kitty-themes.outPath;
-        "kitty/themes/dark.conf".source = mkThemeBuiltin "Brogrammer";
-        "kitty/themes/light.conf".source = mkThemeBuiltin "Doom_One_Light";
-        "kitty/current-theme.conf".source = config.xdg.configDir + "/kitty/themes/${chosenTheme}.conf";
+        "kitty/themes/dark.conf".source = dark;
+        "kitty/themes/light.conf".source = light;
+        "kitty/current-theme.conf".source = chosenTheme;
 
         "kitty/session".text = ''
           # Start new sessions in the previous working directory
