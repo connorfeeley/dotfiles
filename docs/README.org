@@ -509,7 +509,29 @@ darwin-rebuild switch --flake ~/.config/dotfield
 ~/.config/emacs/bin/doom install
 #+end_src
 
-|   |   |   |   |   |   | parent of 3781ac52 (docs: add MBP setup instructions) |
+*** Automount SMB Shares
+
+[[https://gist.github.com/rudelm/7bcc905ab748ab9879ea][Original Instructions]]
+
+Add to the end of ~/etc/auto_master~:
+#+begin_src
+/-          auto_smb    -nosuid,noowners
+#+end_src
+
+#+name: /etc/auto_smb
+#+begin_src
+/mount/cfeeley    -fstype=smbfs,soft,noowners,nosuid,rw ://cfeeley@workstation:/cfeeley
+/mount/Backup    -fstype=smbfs,soft,noowners,nosuid,rw ://cfeeley@workstation:/Backup
+/mount/Data    -fstype=smbfs,soft,noowners,nosuid,rw ://cfeeley@workstation:/Data
+/mount/Media    -fstype=smbfs,soft,noowners,nosuid,rw ://cfeeley@workstation:/Media
+/mount/tm_share    -fstype=smbfs,soft,noowners,nosuid,rw ://cfeeley@workstation:/tm_share
+#+end_src
+
+Restart service:
+#+begin_src shell
+sudo automount -cv
+#+end_src
+
 ** Franklin
 The speed demon of the group - an early 2015 13-inch MacBook Air. Used as a server and as an internet gateway for some /loud/ devices that I don't want near my router.
 
