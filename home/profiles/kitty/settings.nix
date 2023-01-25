@@ -70,5 +70,9 @@
   # Prevent input latency.
   sync_to_monitor = false;
 
+  # Ding ding
   enable_audio_bell = true;
+
+  # Automatic shell integration
+  shell_integration = true;
 }
