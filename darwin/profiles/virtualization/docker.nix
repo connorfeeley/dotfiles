@@ -17,4 +17,20 @@ in
   };
 
   users.groups.docker.members = [ "root" guardian.username ];
+
+  environment.etc = {
+    "docker/daemon.json".source = pkgs.writeText "daemon.json" (builtins.toJSON {
+      hosts = [ "unix:///var/run/docker.sock" "tcp://127.0.0.1:2375" ];
+      builder = {
+        gc = {
+          defaultKeepStorage = "20GB";
+          enabled = true;
+        };
+      };
+      experimental = false;
+      features = {
+        buildkit = true;
+      };
+    });
+  };
 }
