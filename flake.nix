@@ -345,7 +345,6 @@
         cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
           hostname = ipv4.address;
           sshUser = "cfeeley";
-          remoteBuild = true;
           fastConnection = true;
           autoRollback = true;
           magicRollback = true;

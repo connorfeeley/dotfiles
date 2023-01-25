@@ -29,8 +29,16 @@ in
   users =
     let
       mkHome = name: hmArgs: {
-        imports = with hmArgs.roles;
-          developer ++ server ++ (with hmArgs.profiles; [ work ]);
+        imports = with hmArgs.roles; (hmArgs.lib.flatten [
+          personalised
+        ] ++ (hmArgs.lib.flatten [
+          workstation
+          developer
+          linux
+          emacs-config
+        ])) ++ (with hmArgs.profiles; [
+          work
+        ]);
         home = {
           username = hmArgs.lib.mkForce name;
           homeDirectory = hmArgs.lib.mkForce "/home/${name}";
