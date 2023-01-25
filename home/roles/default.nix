@@ -20,6 +20,7 @@ with profiles; let
     shells.fish
     ssh
     ops # nixops
+    development.navi
     development.tools
     development.vscode
     python
