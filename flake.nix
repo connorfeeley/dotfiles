@@ -63,7 +63,7 @@
     ##: --- packages -----------------------------------------------------------
     nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-nil = { url = "github:oxalica/nil"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-init = { url = "github:nix-community/nix-init"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-init = { url = "github:nix-community/nix-init"; };
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -182,7 +182,6 @@
           in
           {
             inherit (packagesFrom self.packages) emacs-plus;
-            inherit (packagesFrom inputs.nix-init) nix-init;
             inherit (packagesFrom inputs.devenv) devenv;
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
@@ -191,6 +190,8 @@
             inherit (packagesFrom inputs.nix-alien) nix-alien;
             inherit (packagesFrom inputs.nix-alien) nix-index-update;
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
+
+            nix-init = inputs.nix-init.packages.${final.system}.default;
           }
         )
         (import ./overlays/tum-dse-config { inherit inputs; })
