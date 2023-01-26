@@ -28,7 +28,7 @@ let
 
   mkTheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
   mkTheme' = name: toKittyConfig (mkTheme name);
-  mkThemeBuiltin = name: pkgs.kitty-themes.outPath + "/themes/" + name;
+  mkThemeBuiltin = name: pkgs.kitty-themes.outPath + "/themes/" + name + ".conf";
 
   mkFontFeatures = name: features: "font_features ${name} ${lib.concatStringsSep " " features}";
 
