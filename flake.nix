@@ -369,9 +369,7 @@
 
           self.overlays."nixpkgs-darwin/emacs28Macport"
           self.overlays."nixpkgs-darwin/emacs-plus"
-
           self.overlays."nixpkgs-darwin/macports"
-
           self.overlays."nixpkgs-darwin/input-leap"
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
@@ -381,6 +379,7 @@
           self.overlays."nixos-stable/xsct"
           self.overlays."nixos-stable/input-leap"
           self.overlays."nixos-stable/mdio-tools"
+          self.overlays."nixos-stable/aranet4"
           # self.overlays."nixos-stable/fildem-global-menu"
         ];
       };
@@ -400,7 +399,7 @@
             in
             {
               # FIXME(darwin): causes 'nix flake show' to error
-              inherit (pkgs) input-leap xsct mdio-tools;
+              inherit (pkgs) input-leap xsct mdio-tools aranet4;
               # inherit (pkgs) fildem-global-menu;
             };
 

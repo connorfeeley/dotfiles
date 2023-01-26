@@ -1,4 +1,5 @@
 final: _prev: {
+  aranet4 = final.callPackage ./aranet4 { };
   pwrbar = final.callPackage ./pwrbar {
     python-kasa = final.python3Packages.python-kasa;
   };
