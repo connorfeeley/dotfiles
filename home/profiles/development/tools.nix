@@ -1,6 +1,13 @@
-{ pkgs
+{ config
+, pkgs
 , ...
-}: {
+}:
+let
+  inherit (config.lib) dotfield;
+  configDir = dotfield.userConfigPath + "/zsh";
+  toTOML = (pkgs.formats.toml { }).generate;
+in
+{
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
     hyperfine # <- Command-line benchmarking tool
@@ -56,4 +63,18 @@
   ]);
 
   fonts.fontconfig.enable = true;
+
+  # nix-init configuration
+  xdg.configFile."nix-init/config.toml".source = toTOML "config.toml" {
+    # Maintainers that will get added to the package meta
+    maintainers = [ "cfeeley" ];
+
+    # Access tokens to access private repositories and avoid rate limits
+    # NOTE: just an example!
+    # access-tokens = {
+    #   "github.com" = "ghp_blahblahblah...";
+    #   "gitlab.com".command = [ "secret-tool" "or" "whatever" "you" "use" ];
+    #   "gitlab.gnome.org".file = "/path/to/api/token";
+    # };
+  };
 }
