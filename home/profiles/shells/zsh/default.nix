@@ -178,9 +178,6 @@ in
         fi
 
         # source $DOTFIELD_DIR/lib/color.sh
-        ~/.config/dotfield/home/profiles/shells/zsh/default.nix
-        ~/.config/dotfield/home/profiles/shells/zsh/../../../users/cfeeley/config/zsh/vterm.zsh
-        ~/.config/dotfield/home/users/cfeeley/config/zsh/vterm.zsh
         source ${configDir + "/functions.zsh"}
         source ${configDir + "/options.zsh"}
 
