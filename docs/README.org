@@ -509,6 +509,27 @@ darwin-rebuild switch --flake ~/.config/dotfield
 ~/.config/emacs/bin/doom install
 #+end_src
 
+*** Change SSH server port to make room for ~darwin.builder~
+
+Edit ~/etc/services~ as ~root~ and change:
+#+begin_example
+ssh                 22/udp     # SSH Remote Login Protocol
+ssh                 22/tcp     # SSH Remote Login Protocol
+#+end_example
+
+Replace ~22~ with whatever values is configured in ~hosts.toml~ (in this case: 26473):
+#+begin_example
+ssh              26473/udp     # SSH Remote Login Protocol
+ssh              26473/tcp     # SSH Remote Login Protocol
+#+end_example
+
+Now configure SSH (client) to default back to port 22:
+#+name: /etc/ssh/ssh_config.d/22-default
+#+begin_example
+Host *
+     Port 22
+#+end_example
+
 *** Automount SMB Shares
 
 [[https://gist.github.com/rudelm/7bcc905ab748ab9879ea][Original Instructions]]
