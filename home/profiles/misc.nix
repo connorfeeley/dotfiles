@@ -9,16 +9,16 @@
     just # <- Just a command wrapper
 
     ## === Data and Documents ===
-    tidy-viewer # Pretty-print CSV files
-    xsv # A fast CSV command line toolkit
-    python3Packages.yq # <- jq wrapper for YAML/XML/TOML documents
-    htmlq # Like jq, but for HTML
+    tidy-viewer #         <- Pretty-print CSV files
+    xsv #                 <- A fast CSV command line toolkit
+    python3Packages.yq #  <- jq wrapper for YAML/XML/TOML documents
+    htmlq #               <- Like jq, but for HTML
 
     ## === Media Tools ===
     # TODO: media should be it's own profile; +use hm module
-    chafa #    <- "terminal graphics for the 21st century"
+    chafa #               <- "terminal graphics for the 21st century"
+    yt-dlp #              <- youtube-dl fork
     mpv
-    yt-dlp #   <- youtube-dl fork
 
     ## === Files ===
     file
