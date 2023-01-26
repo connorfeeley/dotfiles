@@ -23,6 +23,7 @@
     ## === Nix Utilities ===
     nickel #        <- "Better configuration for less"
     nvfetcher-bin # <- Generate nix sources expression for the latest version of packages
+    nix-init #      <- Generate Nix packages from URLs with hash prefetching, dependency inference, license detection, and more
     nix-diff #      <- Explain why two Nix derivations differ
     nvd #           <- Nix/NixOS package version diff tool
     nix-tree #      <- Interactively browse dependency graphs of Nix derivations.
