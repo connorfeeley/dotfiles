@@ -1772,6 +1772,26 @@
         "type": "github"
       }
     },
+    "nix-init": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1674691297,
+        "narHash": "sha256-PfdzRbygOQPHa6MKohTMeF3KaHnMb4KIu/5oLmPDst4=",
+        "owner": "nix-community",
+        "repo": "nix-init",
+        "rev": "bb0cdf15ee15b8f0ba343d9712d05d0fb8dee948",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-init",
+        "type": "github"
+      }
+    },
     "nix-nil": {
       "inputs": {
         "flake-utils": "flake-utils_15",
@@ -2953,6 +2973,7 @@
         "nix-autobahn": "nix-autobahn",
         "nix-colors": "nix-colors",
         "nix-index-database": "nix-index-database",
+        "nix-init": "nix-init",
         "nix-nil": "nix-nil",
         "nix-serve-ng": "nix-serve-ng",
         "nix-xilinx": "nix-xilinx",
