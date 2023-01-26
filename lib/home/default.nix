@@ -14,7 +14,7 @@ in
   lib.dotfield = rec {
     fsPath = toString "${configHome}/dotfield";
     srcPath = toString ../../.;
-    userConfigPath = toString "${srcPath}/home/users/${defaultUsername}/config";
+    userConfigPath = srcPath + "/home/users/${defaultUsername}/config";
 
     features = rec {
       hasPragPro = lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family;

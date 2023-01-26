@@ -13,7 +13,7 @@ let
     ;
 
   inherit (config.lib) dotfield;
-  configDir = "${dotfield.userConfigPath}/git";
+  configDir = dotfield.userConfigPath + "/git";
 
   enableSigning =
     config.programs.gpg.enable

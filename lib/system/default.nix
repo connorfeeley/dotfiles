@@ -41,9 +41,9 @@ let
 in
 {
   lib.dotfield = rec {
-    srcPath = toString ../../.;
     fsPath = "/etc/dotfield";
-    userConfigPath = toString "${srcPath}/home/users/${defaultUsername}/config";
+    srcPath = toString ../../.;
+    userConfigPath = srcPath + "/home/users/${defaultUsername}/config";
 
     secrets = rec {
       # nix-darwin does not support the `users.<name>.extraGroups` option, but
