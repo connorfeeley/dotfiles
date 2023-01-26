@@ -18,6 +18,7 @@
     hexyl #           <- a command-line hex viewer
     glow #            <- a markdown cli renderer (by charmbracelet)
     patchelf #        <- modify the dynamic linker and RPATH of ELF executables
+    poetry #          <- sanest python package manager
 
     ## === Nix Utilities ===
     nickel #        <- "Better configuration for less"
