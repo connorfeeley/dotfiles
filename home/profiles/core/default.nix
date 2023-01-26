@@ -23,6 +23,7 @@ in
     tealdeer #           <- A very fast implementation of tldr in Rust.
     nix-output-monitor # <- Pretty nix { build, shell, develop }
     thefuck #            <- Corrects your previous console command
+    mtr #                <- Traceroute and ping in a single tool
 
     ## === Moreutils ===
     # Includes, of note:
