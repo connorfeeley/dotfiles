@@ -23,6 +23,7 @@ in
     tealdeer #           <- A very fast implementation of tldr in Rust.
     nix-output-monitor # <- Pretty nix { build, shell, develop }
     thefuck #            <- Corrects your previous console command
+    bashSnippets #       <- Collection of small bash scripts; includes 'cheat' (cheat.sh)
 
     ## === Moreutils ===
     # Includes, of note:
