@@ -11,6 +11,7 @@ lib.mkIf pkgs.stdenv.isLinux {
     universal-ctags #  <- Generates tag files in case of LSP bankrupcy
     elfutils #         <- Handy tools like eu-stack
     ethtool
+    eclipses.eclipse-java # <- public struct Eclipse { public static void main(String[] args) { System.out.println("Hello World"); } } ... seriously?
 
     nur.repos.mic92.gdb-dashboard
     nur.repos.mic92.traceshark
