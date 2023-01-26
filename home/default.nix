@@ -29,9 +29,7 @@ in
   users =
     let
       mkHome = name: hmArgs: {
-        imports = with hmArgs.roles; (hmArgs.lib.flatten [
-          personalised
-        ] ++ (hmArgs.lib.flatten [
+        imports = with hmArgs.roles; (hmArgs.lib.flatten [ ] ++ (hmArgs.lib.flatten [
           workstation
           developer
           linux
