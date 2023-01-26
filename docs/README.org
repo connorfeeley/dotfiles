@@ -33,6 +33,7 @@ programs.iterm2 = {
 *** Darwin Packages: ~darwin-packages~
 ** Packages
 *** Darwin DMG Installer Function: ~installApplication~
+*** ~aranet4~: python application and library for the [[https://aranet.com/products/aranet4/][Aranet4 CO2 monitor]]
 
 * Hosts
 
