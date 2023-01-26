@@ -10,6 +10,7 @@ lib.mkIf pkgs.stdenv.isLinux {
     ubootTools #       <- tools for working with u-boot images
     universal-ctags #  <- Generates tag files in case of LSP bankrupcy
     elfutils #         <- Handy tools like eu-stack
+    bashSnippets #     <- Collection of small bash scripts; includes 'cheat' (cheat.sh)
     ethtool
     eclipses.eclipse-java # <- public struct Eclipse { public static void main(String[] args) { System.out.println("Hello World"); } } ... seriously?
 
