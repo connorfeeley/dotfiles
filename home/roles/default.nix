@@ -95,6 +95,7 @@ with profiles; let
 
   # OS-specific: Linux-only
   linux = [
+    nixos.rofi
     nixos.development.tools
     virtualisation.docker
   ];
