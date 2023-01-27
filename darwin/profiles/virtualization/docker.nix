@@ -8,8 +8,10 @@ let
 in
 {
   homebrew = {
-    brews = [{ name = "docker"; }];
-    casks = [{ name = "docker-desktop"; }];
+    # Docker CLI only
+    # brews = [{ name = "docker"; }];
+    # Docker desktop
+    casks = [{ name = "docker"; }];
   };
 
   environment.variables = {
