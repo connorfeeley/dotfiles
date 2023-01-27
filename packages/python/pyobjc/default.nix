@@ -258,6 +258,19 @@ python3.pkgs.buildPythonPackage rec {
 
   # pythonImportsCheck = [ "objc._objc" ];
 
+  # checkInputs = with python3.pkgs; [
+  #   # aiodns
+  #   # aiohttp
+  #   # flask
+  #   # mock
+  #   pytest
+  #   pytest-trio
+  #   pytest-asyncio
+  #   pytestCheckHook
+  #   # trio
+  # ];
+  # pytestFlagsArray = [ "PyObjCTest/" ];
+
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#chap-meta
   meta = with lib; {
     description = "Python<->ObjC Interoperability Module";
