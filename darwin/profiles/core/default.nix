@@ -60,7 +60,7 @@
       cleanup = "zap";
     };
     global = {
-      lockfiles = true; # Generate lockfiles when running 'brew bundle' manually
+      brewfile = true; # Use generated Brewfile in the nix store
       autoUpdate = false; # Don't auto-update formulae when running brew manually
     };
     caskArgs = {
