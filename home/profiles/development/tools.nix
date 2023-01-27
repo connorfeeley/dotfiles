@@ -78,4 +78,9 @@ in
     #   "gitlab.gnome.org".file = "/path/to/api/token";
     # };
   };
+  # nix-template configuration
+  xdg.configFile."nix-template/config.toml".source = toTOML "config.toml" {
+    # Maintainer name that will get added to the package meta
+    name = "cfeeley";
+  };
 }
