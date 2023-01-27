@@ -38,19 +38,17 @@ python3.pkgs.buildPythonPackage rec {
                       --replace "#include <ffi/ffi.h>" "#include <ffi.h>"
   '';
 
+  # NIX_DEBUG = true;
+  enableParallelBuilding = true;
+  makeFlags = [ "SDKROOT=${darwin.apple_sdk.MacOSX-SDK}" ];
   # List of flags passed to `setup.py build_ext` command.
   setupPyBuildFlags = [ "--no-warnings-as-errors" "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}" ];
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#ssec-stdenv-dependencies
-  propagatedBuildInputs = [ ];
+  propagatedBuildInputs = with frameworks; [
+    libffi
 
-  # NIX_DEBUG = true;
-
-  enableParallelBuilding = true;
-
-  makeFlags = [ "SDKROOT=${darwin.apple_sdk.MacOSX-SDK}" ];
-  buildInputs = with frameworks; [
-    Foundation
+    # Foundation
     CoreFoundation
     CoreServices
     AVFoundation
@@ -251,9 +249,8 @@ python3.pkgs.buildPythonPackage rec {
     # WidgetKit
     # iTunesLibrary
     # vmnet
-  ] ++ [
-    darwin.cctools
-    libffi
+  ];
+  buildInputs = [
   ];
 
   # pythonImportsCheck = [ "objc._objc" ];
