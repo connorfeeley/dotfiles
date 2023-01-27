@@ -36,15 +36,10 @@ python3.pkgs.buildPythonPackage rec {
                       Modules/objc/libffi_support.h \
                       Modules/objc/libffi_extra.m \
                       --replace "#include <ffi/ffi.h>" "#include <ffi.h>"
-  ''
-  + lib.optionalString (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-    "MACOSX_DEPLOYMENT_TARGET=10.16"
-  ;
+  '';
 
   # List of flags passed to `setup.py build_ext` command.
-  setupPyBuildFlags = [ "--no-warnings-as-errors" "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}" ] ++
-    lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "--plat-name" "macosx_11_0" ]
-  ;
+  setupPyBuildFlags = [ "--no-warnings-as-errors" "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}" ];
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#ssec-stdenv-dependencies
   propagatedBuildInputs = [ ];
@@ -261,8 +256,7 @@ python3.pkgs.buildPythonPackage rec {
     libffi
   ];
 
-  pythonImportsCheck = [ "_objc" ];
-  # pythonImportsCheck = [ "_objc.core" ];
+  pythonImportsCheck = [ "objc._objc" ];
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#chap-meta
   meta = with lib; {
