@@ -86,6 +86,11 @@ in
     zenithPackage # <- Other system resource usage viewer
   ]);
 
+  # Configure 'thefuck'
+  programs.bash.initExtra = "eval $(thefuck --alias)";
+  programs.zsh.initExtra = "eval $(thefuck --alias)";
+  programs.fish.interactiveShellInit = "thefuck --alias | source";
+
   nix.package = lib.mkDefault pkgs.nix;
 
   programs.bat = {
