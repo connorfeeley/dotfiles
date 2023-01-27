@@ -135,7 +135,7 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [ cryptsetup linuxPackages.usbip ];
+  environment.systemPackages = with pkgs; [ cryptsetup linuxPackages.usbip input-leap ];
 
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
