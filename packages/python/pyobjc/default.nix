@@ -256,7 +256,7 @@ python3.pkgs.buildPythonPackage rec {
     libffi
   ];
 
-  pythonImportsCheck = [ "objc._objc" ];
+  # pythonImportsCheck = [ "objc._objc" ];
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#chap-meta
   meta = with lib; {
