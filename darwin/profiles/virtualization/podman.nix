@@ -11,7 +11,7 @@ lib.mkMerge [
     };
 
     environment.variables = {
-      DOCKER_HOST = "unix://$XDG_DATA_HOME/containers/podman/machine/podman-machine-default/podman.sock";
+      # DOCKER_HOST = "unix://$XDG_DATA_HOME/containers/podman/machine/podman-machine-default/podman.sock";
     };
   }
 

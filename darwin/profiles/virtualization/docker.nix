@@ -22,7 +22,7 @@ in
 
   environment.etc = {
     "docker/daemon.json".source = pkgs.writeText "daemon.json" (builtins.toJSON {
-      hosts = [ "unix:///var/run/docker.sock" "tcp://127.0.0.1:2375" ];
+      hosts = [ "unix:///var/run/docker.sock" "tcp://workstation:2375" ];
       builder = {
         gc = {
           defaultKeepStorage = "20GB";
