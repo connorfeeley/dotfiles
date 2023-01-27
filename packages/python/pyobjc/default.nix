@@ -42,7 +42,7 @@ python3.pkgs.buildPythonPackage rec {
   enableParallelBuilding = true;
   makeFlags = [ "SDKROOT=${darwin.apple_sdk.MacOSX-SDK}" ];
   # List of flags passed to `setup.py build_ext` command.
-  setupPyBuildFlags = [ "--no-warnings-as-errors" "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}" ];
+  setupPyBuildFlags = [ "--no-warnings-as-errors" "--no-lto" "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}" ];
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#ssec-stdenv-dependencies
   propagatedBuildInputs = with frameworks; [
