@@ -1,4 +1,8 @@
 final: _prev: {
+  pyobjc = final.callPackage ./pyobjc {
+    frameworks = final.lib.optionals final.stdenv.isDarwin final.darwin.apple_sdk.frameworks;
+    inherit (final) darwin xcbuild xcbuildHook;
+  };
   aranet4 = final.callPackage ./aranet4 { };
   pwrbar = final.callPackage ./pwrbar {
     python-kasa = final.python3Packages.python-kasa;
