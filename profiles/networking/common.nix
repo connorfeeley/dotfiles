@@ -1,4 +1,5 @@
-{ lib
+{ config
+, lib
 , ...
 }:
 # let
@@ -12,7 +13,7 @@ lib.mkMerge [
     networking = {
       # Use Cloudflare DNS
       # https://developers.cloudflare.com/1.1.1.1/
-      nameservers = [
+      nameservers = lib.mkIf (!config.wsl.wslConf.network.generateResolvConf) [
         "1.1.1.1"
         "1.0.0.1"
         "2606:4700:4700::1111"
