@@ -18,6 +18,7 @@ with profiles; let
     shells.zsh
     shells.bash
     shells.fish
+    kitty
     ssh
     ops # nixops
     development.navi
@@ -46,7 +47,6 @@ with profiles; let
     firefox
     chromium
     keyboard
-    kitty
     misc
     mpv
     themes
