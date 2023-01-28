@@ -3,6 +3,9 @@
 , pkgs
 , ...
 }:
+let
+  inherit (config.networking) hostName;
+in
 {
   nix.nixPath = [
     # TODO: This entry should be added automatically via FUP's `nix.linkInputs`
@@ -15,6 +18,9 @@
     # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/107
     "darwin=/etc/nix/inputs/darwin"
   ];
+
+  # HACK: MacOS doesn't have an /etc/hostname file
+  config.environment.etc."hostname".text = "${hostName}";
 
   programs.bash = {
     enable = true;
