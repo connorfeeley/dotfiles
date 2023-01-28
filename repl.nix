@@ -27,6 +27,8 @@ in
 // flake
 // builtins
 // (flake.nixosConfigurations or { })
+// (flake.darwinConfigurations or { })
 // flake.nixosConfigurations.${hostname} or { }
+// flake.darwinConfigurations.${hostname} or { }
 // nixpkgsOutput
   // { getFlake = path: getFlake (toString path); }
