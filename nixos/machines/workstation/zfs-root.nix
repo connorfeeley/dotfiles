@@ -91,4 +91,6 @@ lib.mkIf (!options.virtualisation ? qemu) {
     }
   ];
 
+  # Fix podman on ZFS
+  virtualisation.containers.storage.settings.storage.driver = "zfs";
 }
