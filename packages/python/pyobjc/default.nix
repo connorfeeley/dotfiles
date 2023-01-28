@@ -3,6 +3,7 @@
 , python3
   # , buildPythonPackage
   # , fetchPypi
+, fetchFromGitHub
 , libffi
 
 , darwin
@@ -18,10 +19,14 @@ python3.pkgs.buildPythonPackage rec {
   version = "9.0.1";
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#chap-pkgs-fetchers
-  src = python3.pkgs.fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-XOFRC7C9/1J8WXB5pCsuE6GbdZLnaFC+eWCid1tZySk=";
+  src = fetchFromGitHub {
+    owner = "ronaldoussoren";
+    repo = "pyobjc";
+    rev = "v${version}";
+    sha256 = "sha256-R5Eul7W6bubYOtajod6gQvqkS+YYlPyy5LC3YT5AbUg=";
   };
+
+  sourceRoot = "source/${pname}";
 
   # Darwin stdenv unsets SDKROOT, so we can't set it as an attr
   preConfigure = ''
@@ -120,18 +125,19 @@ python3.pkgs.buildPythonPackage rec {
   # Therefore I think it's right
   pythonImportsCheck = [ "objc._objc" ];
 
-  # checkInputs = with python3.pkgs; [
-  #   # aiodns
-  #   # aiohttp
-  #   # flask
-  #   # mock
-  #   pytest
-  #   pytest-trio
-  #   pytest-asyncio
-  #   pytestCheckHook
-  #   # trio
-  # ];
-  # pytestFlagsArray = [ "PyObjCTest/" ];
+  checkInputs = with python3.pkgs; [
+    pytestCheckHook
+    # aiodns
+    # aiohttp
+    # flask
+    # mock
+    pytest
+    pytest-trio
+    pytest-asyncio
+    pytestCheckHook
+    # trio
+  ] ++ [ xcbuild ];
+  pytestFlagsArray = [ "PyObjCTest/" ];
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#chap-meta
   meta = with lib; {
