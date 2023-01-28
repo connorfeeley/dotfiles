@@ -20,7 +20,7 @@ in
   ];
 
   # HACK: MacOS doesn't have an /etc/hostname file
-  config.environment.etc."hostname".text = "${hostName}";
+  environment.etc."hostname".text = "${hostName}";
 
   programs.bash = {
     enable = true;
