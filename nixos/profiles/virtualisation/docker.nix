@@ -5,6 +5,8 @@ let
   inherit (config.dotfield) guardian;
 in
 {
+  virtualisation.oci-containers.backend = "docker";
+
   virtualisation.docker = {
     enable = true;
     daemon.settings = {
