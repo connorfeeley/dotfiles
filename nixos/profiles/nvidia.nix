@@ -32,9 +32,8 @@ lib.mkIf (!config.nixos-vm.enable) {
     driSupport32Bit = pkgs.stdenv.isx86_64;
   };
 
-  virtualisation.docker = {
-    enableNvidia = true;
-  };
+  virtualisation.docker.enableNvidia = lib.mkIf config.virtualisation.docker.enable true;
+  virtualisation.podman.enableNvidia = lib.mkIf config.virtualisation.docker.enable true;
 
   environment.systemPackages = with pkgs; [ nvtop ddcutil cudatoolkit linuxPackages.nvidia_x11 ] ++ xorgPackages;
 }
