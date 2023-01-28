@@ -15,6 +15,8 @@
     xfce.xfce4-cpufreq-plugin
     xfce.xfce4-cpugraph-plugin
     xfce.xfce4-clipman-plugin
+
+    redshift
   ];
   services.picom = {
     enable = true;
@@ -38,7 +40,7 @@
     executable = "/bin/redshift-gtk";
 
     brightness.day = "1.0";
-    brightness.night = "0.5";
+    brightness.night = "0.7";
 
     temperature.day = 5500;
     temperature.night = 3700;
