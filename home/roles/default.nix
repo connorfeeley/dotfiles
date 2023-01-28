@@ -97,7 +97,7 @@ with profiles; let
   linux = [
     nixos.rofi
     nixos.development.tools
-    virtualisation.docker
+    virtualisation.podman
   ];
 
   # OS-specific: MacOS
