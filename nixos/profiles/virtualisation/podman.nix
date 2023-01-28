@@ -26,7 +26,7 @@ in
     defaultNetwork.dnsname.enable = true;
 
     # Allow remote access
-    networkSocket.enable = true;
+    networkSocket.enable = false;
     networkSocket.server = "ghostunnel";
     networkSocket.tls.key = "/etc/ssl/server-key.pem";
     networkSocket.tls.cacert = "/etc/ssl/ca-cert.pem";
