@@ -10,6 +10,7 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 in
 {
+  imports = [ profiles.pulseaudio ];
   ### === users ================================================================
 
   dotfield.guardian = {
