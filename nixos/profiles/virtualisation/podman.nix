@@ -37,5 +37,5 @@ in
     extraPackages = [ pkgs.zfs ];
 
   };
-  users.users.${guardian.username}.extraGroups = [ "podman" ];
+  users.extraUsers.${guardian.username}.extraGroups = ["podman"];
 }

@@ -14,7 +14,7 @@ let
       gui
       emacs
       development
-      virtualization.docker
+      virtualization.podman
       system-defaults
     ]);
 
