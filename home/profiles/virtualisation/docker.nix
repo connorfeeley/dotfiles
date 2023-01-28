@@ -1,4 +1,7 @@
-{ pkgs
+{ lib
+, pkgs
+, config
+, osConfig
 , ...
 }: {
   /*
@@ -9,10 +12,11 @@
     ln -s $(which docker-buildx) $DOCKER_CONFIG/cli-plugins/docker-buildx
   */
   home.packages = with pkgs; [
-    docker
-    docker-compose
     docker-buildx
     docker-credential-helpers
     buildkit
+  ] ++ lib.optionals osConfig.virtualisation.docker.enable [
+    docker
+    docker-compose
   ];
 }
