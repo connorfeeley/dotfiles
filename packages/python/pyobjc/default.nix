@@ -25,29 +25,50 @@ python3.pkgs.buildPythonPackage rec {
 
   # Darwin stdenv unsets SDKROOT, so we can't set it as an attr
   preConfigure = ''
-    # export SDKROOT="${darwin.apple_sdk_11_0.MacOSX-SDK}"
-
-    # ln -s ${darwin.apple_sdk_11_0.MacOSX-SDK} MacOSX-11.0.0.sdk
-    # export SDKROOT=./MacOSX-11.0.0.sdk
-
     # Otherwise Nix's libffi headers can't be found
-    substituteInPlace Modules/objc/selector.h \
-                      Modules/objc/libffi_extra.h \
-                      Modules/objc/libffi_support.h \
-                      Modules/objc/libffi_extra.m \
-                      --replace "#include <ffi/ffi.h>" "#include <ffi.h>"
+    # substituteInPlace Modules/objc/selector.h \
+    #                   Modules/objc/libffi_extra.h \
+    #                   Modules/objc/libffi_support.h \
+    #                   Modules/objc/libffi_extra.m \
+    #                   --replace "#include <ffi/ffi.h>" "#include <ffi.h>"
+    # substituteInPlace setup.py \
+    #                   --replace "/usr/bin/xcrun" "xcrun"
   '';
 
   # NIX_DEBUG = true;
   enableParallelBuilding = true;
-  makeFlags = [ "SDKROOT=${darwin.apple_sdk.MacOSX-SDK}" ];
+  # makeFlags = [ "SDKROOT=${darwin.apple_sdk.MacOSX-SDK}" ];
   # List of flags passed to `setup.py build_ext` command.
-  setupPyBuildFlags = [ "--no-warnings-as-errors" "--no-lto" "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}" ];
+  setupPyBuildFlags = [
+    "--no-warnings-as-errors"
+    "--inplace"
+    "--no-lto"
+    "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}"
+  ] ++ lib.optionals (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
+    "--deployment-target=11.0"
+  ];
 
+  # nativeBuildInputs = lib.optionals stdenv.isDarwin [ xcbuild ];
+
+  NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isGNU [
+  ] ++ lib.optionals stdenv.isDarwin [
+    "-DMAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_12"
+    "-DMAC_OS_X_VERSION_MIN_REQUIRED=MAC_OS_X_VERSION_10_12"
+    "-Wno-elaborated-enum-base"
+
+    #
+    # Prevent errors like
+    # /nix/store/xxx-apple-framework-CoreData/Library/Frameworks/CoreData.framework/Headers/NSEntityDescription.h:51:7:
+    # error: pointer to non-const type 'id' with no explicit ownership
+    #     id** _kvcPropertyAccessors;
+    #
+    # TODO remove when new Apple SDK is in
+    #
+    "-fno-objc-arc"
+  ];
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#ssec-stdenv-dependencies
   propagatedBuildInputs = with frameworks; [
-    libffi
-
+    # libffi
     # Foundation
     CoreFoundation
     CoreServices
@@ -58,202 +79,14 @@ python3.pkgs.buildPythonPackage rec {
     SceneKit
     GLKit
     MetalPerformanceShaders
-
-    # AGL
-    # AVFoundation
-    # AVKit
-    # Accelerate
-    # Accessibility
-    # Accounts
-    # AdSupport
-    # AddressBook
-    # AppKit
-    # AppTrackingTransparency
-    # AppleScriptKit
-    # AppleScriptObjC
-    # ApplicationServices
-    # AudioToolbox
-    # AudioUnit
-    # AudioVideoBridging
-    # AuthenticationServices
-    # AutomaticAssessmentConfiguration
-    # Automator
-    # BackgroundTasks
-    # BusinessChat
-    # CFNetwork
-    # CalendarStore
-    # CallKit
-    # Carbon
-    # ClassKit
-    # CloudKit
-    # Cocoa
-    # Collaboration
-    # ColorSync
-    # Combine
-    # Contacts
-    # ContactsUI
-    # CoreAudio
-    # CoreAudioKit
-    # CoreAudioTypes
-    # CoreBluetooth
-    # CoreData
-    # CoreDisplay
-    # CoreFoundation
-    # CoreGraphics
-    # CoreHaptics
-    # CoreImage
-    # CoreLocation
-    # CoreMIDI
-    # CoreMIDIServer
-    # CoreML
-    # CoreMedia
-    # CoreMediaIO
-    # CoreMotion
-    # CoreServices
-    # CoreSpotlight
-    # CoreTelephony
-    # CoreText
-    # CoreVideo
-    # CoreWLAN
-    # CryptoKit
-    # CryptoTokenKit
-    # DVDPlayback
-    # DeveloperToolsSupport
-    # DeviceCheck
-    # DirectoryService
-    # DiscRecording
-    # DiscRecordingUI
-    # DiskArbitration
-    # DriverKit
-    # EventKit
-    # ExceptionHandling
-    # ExecutionPolicy
-    # ExternalAccessory
-    # FWAUserLib
-    # FileProvider
-    # FileProviderUI
-    # FinderSync
-    # ForceFeedback
-    # Foundation
-    # GLKit
-    # GLUT
-    # GSS
-    # GameController
-    # GameKit
-    # GameplayKit
-    # HIDDriverKit
-    # Hypervisor
-    # ICADevices
-    # IMServicePlugIn
-    # IOBluetooth
-    # IOBluetoothUI
-    # IOKit
-    # IOSurface
-    # IOUSBHost
-    # IdentityLookup
-    # ImageCaptureCore
-    # ImageIO
-    # InputMethodKit
-    # InstallerPlugins
-    # InstantMessage
-    # Intents
-    # JavaNativeFoundation
-    # JavaRuntimeSupport
-    # JavaScriptCore
-    # Kerberos
-    # Kernel
-    # KernelManagement
-    # LDAP
-    # LatentSemanticMapping
-    # LinkPresentation
-    # LocalAuthentication
-    # MLCompute
-    # MapKit
-    # MediaAccessibility
-    # MediaLibrary
-    # MediaPlayer
-    # MediaToolbox
-    # Message
-    # Metal
-    # MetalKit
-    # MetalPerformanceShaders
-    # MetalPerformanceShadersGraph
-    # MetricKit
     ModelIO
-    # MultipeerConnectivity
-    # NaturalLanguage
-    # NearbyInteraction
-    # NetFS
-    # Network
-    # NetworkExtension
-    # NetworkingDriverKit
-    # NotificationCenter
-    # OSAKit
-    # OSLog
-    # OpenAL
-    # OpenCL
-    # OpenDirectory
-    # OpenGL
-    # PCIDriverKit
-    # PCSC
-    # PDFKit
-    # ParavirtualizedGraphics
-    # PassKit
-    # PencilKit
-    # Photos
-    # PhotosUI
-    # PreferencePanes
-    # PushKit
-    # Python
-    # QTKit
-    # Quartz
-    # QuartzCore
-    # QuickLook
-    # QuickLookThumbnailing
-    # RealityKit
-    # ReplayKit
-    # Ruby
-    # SafariServices
-    # SceneKit
-    # ScreenSaver
-    # ScreenTime
-    # ScriptingBridge
-    # Security
-    # SecurityFoundation
-    # SecurityInterface
-    # SensorKit
-    # ServiceManagement
-    # Social
-    # SoundAnalysis
-    # Speech
-    # SpriteKit
-    # StoreKit
-    # SwiftUI
-    # SyncServices
-    # System
-    # SystemConfiguration
-    # SystemExtensions
-    # TWAIN
-    # Tcl
-    # Tk
-    # USBDriverKit
-    # UniformTypeIdentifiers
-    # UserNotifications
-    # UserNotificationsUI
-    # VideoDecodeAcceleration
-    # VideoSubscriberAccount
-    # VideoToolbox
-    # Virtualization
-    # Vision
-    # WebKit
-    # WidgetKit
-    # iTunesLibrary
-    # vmnet
   ];
   buildInputs = [
   ];
 
-  # pythonImportsCheck = [ "objc._objc" ];
+  # Output from when this was commented out: building 'objc._objc' extension
+  # Therefore I think it's right
+  pythonImportsCheck = [ "objc._objc" ];
 
   # checkInputs = with python3.pkgs; [
   #   # aiodns
