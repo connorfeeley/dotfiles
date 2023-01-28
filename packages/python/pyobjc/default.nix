@@ -33,6 +33,12 @@ python3.pkgs.buildPythonPackage rec {
     #                   --replace "#include <ffi/ffi.h>" "#include <ffi.h>"
     # substituteInPlace setup.py \
     #                   --replace "/usr/bin/xcrun" "xcrun"
+    for i in $(find . -type f -name "*.py"); do
+      substituteInPlace $i \
+        --replace '_subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
+        --replace 'subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
+        --replace 'subprocess.check_output(["/usr/bin/sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"'
+    done
   '';
 
   # NIX_DEBUG = true;
@@ -52,9 +58,35 @@ python3.pkgs.buildPythonPackage rec {
 
   NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isGNU [
   ] ++ lib.optionals stdenv.isDarwin [
-    "-DMAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_12"
-    "-DMAC_OS_X_VERSION_MIN_REQUIRED=MAC_OS_X_VERSION_10_12"
+    # "-DMAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_12" "-DMAC_OS_X_VERSION_MIN_REQUIRED=MAC_OS_X_VERSION_10_12"
+    "-DTARGET_OS_OSX"
+    "-DTARGET_OS_IPHONE=0"
+    "-DTARGET_OS_WATCH=0"
+
     "-Wno-elaborated-enum-base"
+
+    # Resolve ffi includes and library
+    "-I${darwin.apple_sdk.MacOSX-SDK}/usr/include"
+    "-L${darwin.apple_sdk.MacOSX-SDK}/usr/lib"
+
+    # Suppress warning about nullability:
+    #     note: insert '_Nonnull' if the array parameter should never be null
+    "-Wno-nullability-completeness"
+
+    # Suppress 'warning: unknown platform 'macCatalyst' in availability macro'
+    "-Wno-availability"
+
+    # 'warning: macro expansion producing 'defined' has undefined behavior'
+    "-Wno-expansion-to-defined"
+
+    # 'warning: unused parameter'
+    "-Wno-unused-parameter"
+
+    # warning: argument unused during compilation: '-fno-strict-overflow'
+    "-Wno-unused-command-line-argument"
+
+    # 'warning: unused function'
+    "-Wno-unused-function"
 
     #
     # Prevent errors like

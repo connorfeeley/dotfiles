@@ -417,7 +417,7 @@
                 native-youtube
                 emacs28Macport
                 input-leap
-                # pyobjc
+                pyobjc
               ;
 
               # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
