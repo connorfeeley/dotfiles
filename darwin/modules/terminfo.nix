@@ -29,6 +29,7 @@ with lib;
 
     environment.pathsToLink = [
       "/share/terminfo"
+      "/Contents/Resources/terminfo"
     ];
 
     environment.etc.terminfo = {
@@ -36,7 +37,6 @@ with lib;
     };
 
     environment.extraInit = ''
-
       # reset TERM with new TERMINFO available (if any)
       export TERM=$TERM
     '';
