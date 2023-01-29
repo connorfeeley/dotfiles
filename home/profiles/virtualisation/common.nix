@@ -4,6 +4,6 @@
 }:
 lib.mkMerge [
   {
-    home.packages = with pkgs; [ distrobox ];
+    home.packages = with pkgs; [ distrobox arion ];
   }
 ]
