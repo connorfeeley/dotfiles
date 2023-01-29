@@ -21,13 +21,13 @@
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # (the hourly) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp9s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp7s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp9s0.useDHCP = lib.mkHourly true;
+  # networking.interfaces.tailscale0.useDHCP = lib.mkHourly true;
+  # networking.interfaces.wlp7s0.useDHCP = lib.mkHourly true;
 
   ###
   ### ZFS
@@ -47,17 +47,18 @@
     enable = true;
     datasets = {
       ### ROOT: npool - single-SSD root pool
-      "npool/nixos/home" = { use_template = [ "default" ]; recursive = true; };
+      "npool/nixos/home" = { use_template = [ "hourly" ]; recursive = true; };
+      "npool/nixos/home/dev" = { use_template = [ "daily" ]; };
+      "npool/nixos/home/source" = { use_template = [ "daily" ]; };
+      "npool/nixos/var" = { use_template = [ "hourly" ]; };
 
       ### BOOT: bpool - single-SSD boot pool
-      "bpool/nixos/home" = { use_template = [ "default" ]; };
+      "bpool/nixos/home" = { use_template = [ "hourly" ]; };
 
       ### rpool: 5-disk spinning rust pool
-      "rpool/root/nixos" = { use_template = [ "default" ]; };
-      "rpool/home" = { use_template = [ "default" ]; };
-      "rpool/home/dev" = { use_template = [ "default" ]; };
-      "rpool/home/source" = { use_template = [ "default" ]; };
-      "rpool/data" = { use_template = [ "default" ]; };
+      "rpool/root/nixos" = { use_template = [ "hourly" ]; };
+      "rpool/home" = { use_template = [ "hourly" ]; };
+      "rpool/data" = { use_template = [ "hourly" ]; };
       "rpool/data/media" = { use_template = [ "daily" ]; };
 
       ### BACKUPS (also on 5-HDD pool)
@@ -66,8 +67,8 @@
     };
 
     templates = {
-      # Default: hourly backups
-      "default" = {
+      # Hourly: hourly backups
+      "hourly" = {
         frequently = 0;
         hourly = 24;
         daily = 7;
