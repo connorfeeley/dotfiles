@@ -2,6 +2,7 @@ final: _prev: {
   pyobjc = final.callPackage ./pyobjc {
     inherit (final.darwin.apple_sdk) frameworks;
     inherit (final) darwin xcbuild xcbuildHook;
+    python3 = final.python38;
   };
   aranet4 = final.callPackage ./aranet4 { };
   pwrbar = final.callPackage ./pwrbar {

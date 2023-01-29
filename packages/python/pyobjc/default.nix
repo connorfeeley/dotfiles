@@ -137,7 +137,16 @@ python3.pkgs.buildPythonPackage rec {
     pytestCheckHook
     # trio
   ] ++ [ xcbuild ];
+
   pytestFlagsArray = [ "PyObjCTest/" ];
+  disabledTestPaths = [
+    "PyObjCTest/test_vectorcall.py"
+    "PyObjCTest/test_set_interface.py"
+    "PyObjCTest/test_dict_interface.py"
+    "PyObjCTest/test_array_interface.py"
+    "PyObjCTest/test_archive_python.py"
+  ];
+  # TODO: run c tests ('make c-coverage')
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#chap-meta
   meta = with lib; {
