@@ -58,6 +58,7 @@ in
         games
 
         desktop.common
+        desktop.input-leap
         login.sddm
         xorg
         # hm-xmonad

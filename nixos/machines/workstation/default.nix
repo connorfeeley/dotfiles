@@ -245,16 +245,6 @@ in
     port = 9134;
   };
 
-  # FIXME: option does not exist for some reason
-  # services.input-leap = {
-  #   enable = true;
-
-  #   server = {
-  #     enable = true;
-  #     configFile = "/home/${config.dotfield.guardian.username}/.config/Debauchee/Barrier.conf";
-  #   };
-  # };
-
   services.x2goserver.enable = true;
 
   age.secrets = {
