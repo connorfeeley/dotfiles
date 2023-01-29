@@ -40,7 +40,7 @@
     executable = "/bin/redshift-gtk";
 
     brightness.day = "1.0";
-    brightness.night = "0.7";
+    brightness.night = "0.8";
 
     temperature.day = 5500;
     temperature.night = 3700;
