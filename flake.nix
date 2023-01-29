@@ -158,6 +158,7 @@
       ];
 
       collective = {
+        containers = importExportableModules ./containers;
         modules = importExportableModules ./modules;
         peers = import ./ops/metadata/peers.nix;
         profiles = rakeLeaves ./profiles;
