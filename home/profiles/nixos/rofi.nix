@@ -48,7 +48,7 @@ let
     };
   };
 in
-{
+lib.mkIf isLinux {
   home.packages = [
     rofi-adi1090x-themes
   ];

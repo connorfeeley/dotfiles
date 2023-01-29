@@ -158,6 +158,7 @@
       ];
 
       collective = {
+        containers = importExportableModules ./containers;
         modules = importExportableModules ./modules;
         peers = import ./ops/metadata/peers.nix;
         profiles = rakeLeaves ./profiles;
@@ -371,6 +372,7 @@
           self.overlays."nixpkgs-darwin/emacs-plus"
           self.overlays."nixpkgs-darwin/macports"
           self.overlays."nixpkgs-darwin/input-leap"
+          self.overlays."nixpkgs-darwin/pyobjc"
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
           # FIXME(darwin): causes 'nix flake show' to error
@@ -408,7 +410,16 @@
               pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.darwin-packages ]; config.allowUnfree = true; };
             in
             {
-              inherit (pkgs) macports amphetamine-enhancer mints hammerspoon native-youtube emacs28Macport input-leap;
+              inherit (pkgs)
+                macports
+                amphetamine-enhancer
+                mints
+                hammerspoon
+                native-youtube
+                emacs28Macport
+                input-leap
+                pyobjc
+              ;
 
               # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
               emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };

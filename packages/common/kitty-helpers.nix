@@ -1,7 +1,9 @@
 { lib
+, stdenv
 , jq
 , sources
 , writeShellScriptBin
+, kitty
 ,
 }:
 lib.makeExtensible (_self: {
@@ -24,4 +26,29 @@ lib.makeExtensible (_self: {
     rm /var/folders/*/*/*/com.apple.dock.iconcache
     killall Dock
   '';
+
+  kittyTerminfo = stdenv.mkDerivation {
+    pname = "kitty-terminfo";
+    inherit (kitty) version src;
+
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out/lib/kitty/terminfo
+      cp terminfo/k/kitty $out/share/terminfo/k
+      terminfo_src=${if stdenv.isDarwin then
+        ''"$out/Applications/kitty.app/Contents/Resources/terminfo"''
+        else
+        "$out/share/terminfo"}
+
+      mkdir -p $terminfo/share
+      mv "$terminfo_src" $terminfo/share/terminfo
+
+      mkdir -p $out/nix-support
+      echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
+
+      cp -r 'shell-integration' "$shell_integration"
+    '';
+
+    outputs = [ "terminfo" ];
+  };
 })
