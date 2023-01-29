@@ -69,8 +69,8 @@
       # Default: hourly backups
       "default" = {
         frequently = 0;
-        hourly = 36;
-        daily = 30;
+        hourly = 24;
+        daily = 7;
         monthly = 3;
         yearly = 0;
         autosnap = true;
@@ -80,7 +80,7 @@
       "daily" = {
         frequently = 0;
         hourly = 0;
-        daily = 30;
+        daily = 14;
         monthly = 3;
         yearly = 0;
         autosnap = true;
@@ -90,7 +90,7 @@
       "backup" = {
         frequently = 0;
         hourly = 36;
-        daily = 30;
+        daily = 14;
         monthly = 6;
         yearly = 0;
         autosnap = true;
