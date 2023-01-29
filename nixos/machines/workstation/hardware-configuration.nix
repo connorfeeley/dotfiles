@@ -10,38 +10,6 @@
   boot.initrd.supportedFilesystems = [ "ext4" "zfs" ];
   boot.supportedFilesystems = [ "ext4" "ntfs" "zfs" ];
 
-  # LUKS-encrypted Linux boot
-  # boot.initrd.luks.devices.luksroot = {
-  #   device = "/dev/disk/by-uuid/c1b38fbf-1786-4d0d-bfed-eb4bc15570f9";
-  #   preLVM = true;
-  #   allowDiscards = true;
-  #   bypassWorkqueues = true;
-  # };
-  #
-  # fileSystems."/" =
-  #   {
-  #     device = "/dev/disk/by-uuid/b13cc249-6db1-41c3-bd28-9213dbd5b773";
-  #     fsType = "ext4";
-  #   };
-  #
-  # fileSystems."/home" =
-  #   {
-  #     device = "/dev/disk/by-uuid/9d3dd037-d860-40e1-b053-adf05f7f7dc1";
-  #     fsType = "ext4";
-  #   };
-  #
-  # fileSystems."/boot" =
-  #   {
-  #     device = "/dev/disk/by-uuid/86A8-3AD7";
-  #     fsType = "vfat";
-  #   };
-
-  # fileSystems."/mnt/ssd" =
-  #   {
-  #     device = "/dev/disk/by-uuid/f08114d8-bff1-4c63-9e85-3d3aa09aca50";
-  #     fsType = "ext4";
-  #   };
-
   boot.kernelParams = [
     # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
     #      vulnerabilities. Don't copy this blindly! And especially not for
@@ -51,9 +19,6 @@
     # Max ARC (Adaptive Replacement Cache) size: 12GB
     # "zfs.zfs_arc_max=19327352832" # 18 GB
   ];
-
-  # swapDevices =
-  #   [{ device = "/dev/disk/by-uuid/c1b79739-30a2-45fd-b238-b54049525d00"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -90,8 +55,10 @@
       ### rpool: 5-disk spinning rust pool
       "rpool/root/nixos" = { use_template = [ "default" ]; };
       "rpool/home" = { use_template = [ "default" ]; };
+      "rpool/home/dev" = { use_template = [ "default" ]; };
+      "rpool/home/source" = { use_template = [ "default" ]; };
       "rpool/data" = { use_template = [ "default" ]; };
-      "rpool/data/media" = { use_template = [ "media" ]; };
+      "rpool/data/media" = { use_template = [ "daily" ]; };
 
       ### BACKUPS (also on 5-HDD pool)
       "rpool/backup" = { use_template = [ "backup" ]; recursive = true; };
@@ -110,7 +77,7 @@
         autoprune = true;
       };
       # Media: only snapshot daily
-      "media" = {
+      "daily" = {
         frequently = 0;
         hourly = 0;
         daily = 30;
