@@ -1,7 +1,7 @@
 { lib
 , stdenv
 # WARNING: may be broken on python38! "offsetof(....., vectorcall)" or something
-, python3
+, python3Packages
   # , buildPythonPackage
   # , fetchPypi
 , fetchFromGitHub
@@ -15,7 +15,7 @@
 , frameworks
 }:
 
-python3.pkgs.buildPythonPackage rec {
+python3Packages.buildPythonApplication rec {
   pname = "pyobjc-core";
   version = "9.0.1";
 
@@ -29,6 +29,11 @@ python3.pkgs.buildPythonPackage rec {
 
   sourceRoot = "source/${pname}";
 
+  PIP_DISABLE_PIP_VERSION_CHECK=1;
+
+  preShellHook = ''
+    export out=$(pwd)/out
+  '';
   # Darwin stdenv unsets SDKROOT, so we can't set it as an attr
   preConfigure = ''
     # Otherwise Nix's libffi headers can't be found
@@ -127,7 +132,7 @@ python3.pkgs.buildPythonPackage rec {
   # Therefore I think it's right
   pythonImportsCheck = [ "objc._objc" ];
 
-  checkInputs = with python3.pkgs; [
+  checkInputs = with python3Packages; [
     pytestCheckHook
     # aiodns
     # aiohttp
