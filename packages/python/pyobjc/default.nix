@@ -1,5 +1,6 @@
 { lib
 , stdenv
+# WARNING: may be broken on python38! "offsetof(....., vectorcall)" or something
 , python3
   # , buildPythonPackage
   # , fetchPypi
@@ -52,11 +53,11 @@ python3.pkgs.buildPythonPackage rec {
   # List of flags passed to `setup.py build_ext` command.
   setupPyBuildFlags = [
     "--no-warnings-as-errors"
-    "--inplace"
+    # "--inplace"
     "--no-lto"
-    "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}"
+    # "--sdk-root=${darwin.apple_sdk_11_0.MacOSX-SDK}"
   ] ++ lib.optionals (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
-    "--deployment-target=11.0"
+    # "--deployment-target=11.0"
   ];
 
   # nativeBuildInputs = lib.optionals stdenv.isDarwin [ xcbuild ];
@@ -119,6 +120,7 @@ python3.pkgs.buildPythonPackage rec {
     ModelIO
   ];
   buildInputs = [
+    darwin.libobjc
   ];
 
   # Output from when this was commented out: building 'objc._objc' extension

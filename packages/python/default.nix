@@ -1,8 +1,9 @@
 final: _prev: {
-  pyobjc = final.callPackage ./pyobjc {
-    inherit (final.darwin.apple_sdk) frameworks;
+  pyobjc = final.darwin.apple_sdk_11_0.callPackage ./pyobjc {
+    inherit (final.darwin.apple_sdk_11_0) frameworks;
     inherit (final) darwin xcbuild xcbuildHook;
-    python3 = final.python38;
+    # WARNING: may be broken on python38! "offsetof(....., vectorcall)" or something
+    python3 = final.python39;
   };
   aranet4 = final.callPackage ./aranet4 { };
   pwrbar = final.callPackage ./pwrbar {
