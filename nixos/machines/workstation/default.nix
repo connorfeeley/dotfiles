@@ -229,6 +229,15 @@ in
 
   programs.htop.enable = true;
 
+  programs.atop = {
+    enable = true;
+    atopgpu.enable = true;
+    netatop.enable = true;
+    setuidWrapper.enable = true;
+    atopService.enable = true;
+    atopRotateTimer.enable = true;
+  };
+
   ###: --- module configuration ------------------------------------------------
   #: stylix
   # stylix.image = pkgs.fetchurl {
