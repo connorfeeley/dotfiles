@@ -126,7 +126,7 @@ in
     };
 
     rosy = {
-      # system = aarch64-linux;
+      system = aarch64-linux;
       modules =
         (with roles; server) ++
         (with profiles; [
