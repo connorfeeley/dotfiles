@@ -1,4 +1,4 @@
-{ config
+moduleArgs @ { config
 , lib
 , pkgs
 , ...
@@ -98,6 +98,12 @@ in
     # Include "man" outputs of all systemPackages
     man.enable = true;
   };
+
+  # Include a link in the system closure containing a symlink to the source flake
+  # configuration that it was built from.
+  system.activationScripts.postActivation.text = ''
+    ln -s ${moduleArgs.self} $out/flake
+  '';
 
   # Used for backwards compatibility, please read the changelog before changing.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-system.stateVersion

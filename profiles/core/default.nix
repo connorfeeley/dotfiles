@@ -5,7 +5,6 @@
 , ...
 }:
 let
-
   inherit (pkgs.stdenv) isDarwin;
 in
 {

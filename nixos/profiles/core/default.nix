@@ -65,6 +65,8 @@ in
     nix-index-update
     nix-index
     nix-autobahn
+
+    nixos-install-tools # in the *totally unlikely* case I need to recover my system
   ];
   programs.nix-ld.enable = true;
 
@@ -139,4 +141,11 @@ in
     latitude = 43.70011;
     longitude = -79.4163;
   };
+
+  # Include a link in the system closure containing a symlink to the source flake
+  # configuration that it was built from.
+  system.extraSystemBuilderCmds = ''
+    ln -s ${moduleArgs.self} $out/flake
+  '';
+
 }
