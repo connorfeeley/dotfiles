@@ -61,9 +61,14 @@ in
           description = lib.mdDoc "Address on which to listen for clients.";
         };
         autoStart = mkOption {
-          default = true;
+          default = false;
           type = types.bool;
           description = lib.mdDoc "Whether the Input Leap server should be started automatically.";
+        };
+        checkClientCert = mkOption {
+          default = true;
+          type = types.bool;
+          description = lib.mdDoc "Whether the Input Leap server should check client certificates. If false, any client can connect.";
         };
       };
     };
@@ -88,8 +93,7 @@ in
         restartTriggers = [ cfgC.configFile ];
 
         serviceConfig = {
-          DynamicUser = true;
-          ExecStart = ''${pkgs.barrier}/bin/barrierc -f ${optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"} ${cfgC.serverAddress}'';
+          ExecStart = ''${pkgs.barrier}/bin/barrierc --no-daemon ${optionalString (cfgC.screenName != "") "--name ${cfgC.screenName}"} ${cfgC.serverAddress}'';
           Restart = "always";
         };
       };
@@ -105,8 +109,7 @@ in
         restartTriggers = [ cfgS.configFile ];
 
         serviceConfig = {
-          DynamicUser = true;
-          ExecStart = ''${pkgs.barrier}/bin/barriers -c ${cfgS.configFile} -f${optionalString (cfgS.address != "") " -a ${cfgS.address}"}${optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"}'';
+          ExecStart = ''${pkgs.barrier}/bin/barriers --config ${cfgS.configFile} --no-daemon ${optionalString (cfgS.address != "") " --address ${cfgS.address}"} ${optionalString (cfgS.screenName != "") "--name ${cfgS.screenName}"} ${optionalString (!cfgS.checkClientCert) "--disable-client-cert-checking"}'';
           Restart = "always";
         };
       };
