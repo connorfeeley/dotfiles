@@ -14,5 +14,6 @@ in
   ] ++ lib.optionals isLinux (with pkgs; [
     remmina # RDP/VNC client
     freerdp
+    gparted # device tree compiler
   ]);
 }
