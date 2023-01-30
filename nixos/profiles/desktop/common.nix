@@ -21,10 +21,10 @@ in
   programs.gnupg.agent.enableBrowserSocket = true;
 
   # Hide cursor upon keystroke.
-  services.unclutter = {
-    enable = true;
-    keystroke = true;
-  };
+  # services.unclutter = {
+  #   enable = true;
+  #   keystroke = true;
+  # };
 
   environment.variables = {
     MOZ_ENABLE_WAYLAND = lib.optionalString hasWayland "1";
