@@ -18,11 +18,16 @@ let
     };
 in
 rec {
+  # Install order ():
+  # - pyobjc-core
+  # - pyobjc-framework-Cocoa
+  # - pyobjc-framework-Quartz
+
   # nix-build --pure ~dots -A packages.aarch64-darwin.pyobjc.pyobjc-core --show-trace
   pyobjc-core = mkPackage {
     pname = "pyobjc-core";
     pythonImportsCheck = [ "objc._objc" ];
-    doCheck = false;
+    doCheck = true;
     pytestFlagsArray = [ "PyObjCTest/" ];
     disabledTestPaths = [
       "PyObjCTest/test_vectorcall.py"
@@ -32,22 +37,8 @@ rec {
       "PyObjCTest/test_archive_python.py"
     ];
     disabledTests = [ "PyObjCTest.test_transform" ];
-  };
-  pyobjc-framework-Quartz = mkPackage {
-    pname = "pyobjc-framework-Quartz";
-    pythonImportsCheck = [ "objc._objc" ];
-    doCheck = false;
-    pytestFlagsArray = [ "PyObjCTest/" ];
-    disabledTestPaths = [
-      "PyObjCTest/test_vectorcall.py"
-      "PyObjCTest/test_set_interface.py"
-      "PyObjCTest/test_dict_interface.py"
-      "PyObjCTest/test_array_interface.py"
-      "PyObjCTest/test_archive_python.py"
-    ];
-    disabledTests = [ "PyObjCTest.test_transform" ];
-    extraBuildInputs = [ pyobjc-core ];
-    frameworkInputs = with frameworks; [ Quartz ImageCaptureCore ];
+    frameworkInputs = [ darwin.objc4 ];
+    extraBuildInputs = [ darwin.DarwinTools ];
   };
   pyobjc-framework-Cocoa = mkPackage {
     pname = "pyobjc-framework-Cocoa";
@@ -64,6 +55,22 @@ rec {
     disabledTests = [ "PyObjCTest.test_transform" ];
     extraBuildInputs = [ pyobjc-core ];
     frameworkInputs = with frameworks; [ Cocoa ];
+  };
+  pyobjc-framework-Quartz = mkPackage {
+    pname = "pyobjc-framework-Quartz";
+    pythonImportsCheck = [ "objc._objc" ];
+    doCheck = false;
+    pytestFlagsArray = [ "PyObjCTest/" ];
+    disabledTestPaths = [
+      "PyObjCTest/test_vectorcall.py"
+      "PyObjCTest/test_set_interface.py"
+      "PyObjCTest/test_dict_interface.py"
+      "PyObjCTest/test_array_interface.py"
+      "PyObjCTest/test_archive_python.py"
+    ];
+    disabledTests = [ "PyObjCTest.test_transform" ];
+    extraBuildInputs = [ pyobjc-core ];
+    frameworkInputs = with frameworks; [ Quartz ImageCaptureCore ];
   };
   # pyobjc-framework-Quartz = callPackage ./Quartz.nix { };
 }

@@ -103,6 +103,7 @@ python3Packages.buildPythonApplication rec {
     ModelIO
   ] ++ frameworkInputs;
   buildInputs = [ darwin.libobjc xcbuild ] ++ extraBuildInputs;
+  nativeBuildInputs = [ darwin.DarwinTools];
 
   # TODO: run c tests ('make c-coverage')
   inherit pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck;
