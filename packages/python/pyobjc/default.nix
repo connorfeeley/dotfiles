@@ -35,9 +35,16 @@ rec {
       "PyObjCTest/test_dict_interface.py"
       "PyObjCTest/test_array_interface.py"
       "PyObjCTest/test_archive_python.py"
+      # Tries to assert that a path is equal to the user's home - would break purity
+      "test_bundleFunctions.py"
     ];
-    disabledTests = [ "PyObjCTest.test_transform" ];
-    frameworkInputs = [ darwin.objc4 ];
+    disabledTests = [
+      "PyObjCTest.test_transform"
+      # Tries to assert that a path is equal to the user's home - would break purity
+      "PyObjCTest.test_bundleFunctions.TestBundleFunctions"
+      # TODO: test_interop_int (PyObjCTest.test_archiving_secure_interop.TestNSKeyedArchivingInterop) ... 2023-01-31 02:52:55.243 dump-nsarchive-securecoding[75588:2670416] Cannot decode archive: Error Domain=NSCocoaErrorDomain Code=4865 "requested key: 'root'" UserInfo={NSDebugDescription=requested key: 'root'}
+    ];
+    frameworkInputs = [ darwin.apple_sdk.objc4 ];
     extraBuildInputs = [ darwin.DarwinTools ];
   };
   pyobjc-framework-Cocoa = mkPackage {

@@ -38,7 +38,13 @@ python3Packages.buildPythonApplication rec {
 
     for i in $(find . -type f -name "*.py"); do
       substituteInPlace $i \
-        --replace '/usr/bin/sw_vers' 'sw_vers'
+        --replace '["/usr/bin/xcrun", "-sdk", "macosx", "--show-sdk-path"]' '["echo", "${darwin.apple_sdk.MacOSX-SDK}"]' \
+        --replace '["/usr/bin/sw_vers", "-productVersion"]' '["echo", "${darwin.apple_sdk.MacOSX-SDK.passthru.version}"]' \
+        --replace 'assert sdkname.startswith("MacOSX")' "" \
+        --replace 'assert sdkname.endswith(".sdk")' "" \
+        --replace 'get_sdk_level(self.sdk_root)' '"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'
+
+
         # --replace '_subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
         # --replace 'subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
         # --replace 'subprocess.check_output(["/usr/bin/sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"'
@@ -54,6 +60,7 @@ python3Packages.buildPythonApplication rec {
     "--no-warnings-as-errors"
     "--inplace"
     "--no-lto"
+    # "--sdk-root=${darwin.apple_sdk.MacOSX-SDK}"
   ];
 
   NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isGNU [ ]
@@ -86,6 +93,9 @@ python3Packages.buildPythonApplication rec {
 
     # 'warning: unused function'
     "-Wno-unused-function"
+
+    # warning: cast of type 'SEL' to 'const char *' is deprecated; use sel_getName instead
+    "-Wno-cast-of-sel-type"
   ];
 
   propagatedBuildInputs = with frameworks; [
@@ -103,7 +113,7 @@ python3Packages.buildPythonApplication rec {
     ModelIO
   ] ++ frameworkInputs;
   buildInputs = [ darwin.libobjc xcbuild ] ++ extraBuildInputs;
-  nativeBuildInputs = [ darwin.DarwinTools];
+  nativeBuildInputs = [ darwin.DarwinTools xcbuild ];
 
   # TODO: run c tests ('make c-coverage')
   inherit pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck;
