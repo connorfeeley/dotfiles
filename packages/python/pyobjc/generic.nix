@@ -1,7 +1,20 @@
-{ lib, stdenv
+{ lib
+, stdenv
 , python3Packages # WARNING: may be broken on python38! "offsetof(....., vectorcall)" or something
-, fetchFromGitHub, libffi, darwin, frameworks, xcbuild, xcbuildHook
-, pname, pythonImportsCheck, pytestFlagsArray, disabledTestPaths, disabledTests, doCheck ? false
+, fetchFromGitHub
+, libffi
+, darwin
+, frameworks
+, xcbuild
+, xcbuildHook
+, pname
+, pythonImportsCheck
+, pytestFlagsArray
+, disabledTestPaths
+, disabledTests
+, doCheck ? false
+, extraBuildInputs ? [ ]
+, frameworkInputs ? [ ]
 }:
 python3Packages.buildPythonApplication rec {
   inherit pname;
@@ -20,12 +33,18 @@ python3Packages.buildPythonApplication rec {
   PIP_DISABLE_PIP_VERSION_CHECK = 1;
 
   preConfigure = ''
+    OIFS="$IFS"
+    IFS=$'\n'
+
     for i in $(find . -type f -name "*.py"); do
       substituteInPlace $i \
-        --replace '_subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
-        --replace 'subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
-        --replace 'subprocess.check_output(["/usr/bin/sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"'
+        --replace '/usr/bin/sw_vers' 'sw_vers'
+        # --replace '_subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
+        # --replace 'subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
+        # --replace 'subprocess.check_output(["/usr/bin/sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"'
     done
+
+    IFS="$OIFS"
   '';
 
   enableParallelBuilding = true;
@@ -33,41 +52,41 @@ python3Packages.buildPythonApplication rec {
   # List of flags passed to `setup.py build_ext` command.
   setupPyBuildFlags = [
     "--no-warnings-as-errors"
-    # "--inplace"
+    "--inplace"
     "--no-lto"
   ];
 
   NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isGNU [ ]
     ++ lib.optionals stdenv.isDarwin [
-      "-DTARGET_OS_OSX"
-      "-DTARGET_OS_IPHONE=0"
-      "-DTARGET_OS_WATCH=0"
+    "-DTARGET_OS_OSX"
+    "-DTARGET_OS_IPHONE=0"
+    "-DTARGET_OS_WATCH=0"
 
-      # Resolve ffi includes and library
-      "-I${darwin.apple_sdk.MacOSX-SDK}/usr/include"
-      "-L${darwin.apple_sdk.MacOSX-SDK}/usr/lib"
+    # Resolve ffi includes and library
+    "-I${darwin.apple_sdk.MacOSX-SDK}/usr/include"
+    "-L${darwin.apple_sdk.MacOSX-SDK}/usr/lib"
 
-      "-Wno-elaborated-enum-base"
+    "-Wno-elaborated-enum-base"
 
-      # Suppress warning about nullability:
-      #     note: insert '_Nonnull' if the array parameter should never be null
-      "-Wno-nullability-completeness"
+    # Suppress warning about nullability:
+    #     note: insert '_Nonnull' if the array parameter should never be null
+    "-Wno-nullability-completeness"
 
-      # Suppress 'warning: unknown platform 'macCatalyst' in availability macro'
-      "-Wno-availability"
+    # Suppress 'warning: unknown platform 'macCatalyst' in availability macro'
+    "-Wno-availability"
 
-      # 'warning: macro expansion producing 'defined' has undefined behavior'
-      "-Wno-expansion-to-defined"
+    # 'warning: macro expansion producing 'defined' has undefined behavior'
+    "-Wno-expansion-to-defined"
 
-      # 'warning: unused parameter'
-      "-Wno-unused-parameter"
+    # 'warning: unused parameter'
+    "-Wno-unused-parameter"
 
-      # warning: argument unused during compilation: '-fno-strict-overflow'
-      "-Wno-unused-command-line-argument"
+    # warning: argument unused during compilation: '-fno-strict-overflow'
+    "-Wno-unused-command-line-argument"
 
-      # 'warning: unused function'
-      "-Wno-unused-function"
-    ];
+    # 'warning: unused function'
+    "-Wno-unused-function"
+  ];
 
   propagatedBuildInputs = with frameworks; [
     # libffi
@@ -82,8 +101,8 @@ python3Packages.buildPythonApplication rec {
     GLKit
     MetalPerformanceShaders
     ModelIO
-  ];
-  buildInputs = [ darwin.libobjc xcbuild ];
+  ] ++ frameworkInputs;
+  buildInputs = [ darwin.libobjc xcbuild ] ++ extraBuildInputs;
 
   # TODO: run c tests ('make c-coverage')
   inherit pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck;
