@@ -32,8 +32,36 @@
     layout = "dvorak";
     libinput.enable = false;
     enableTCP = true; # allow X server to accept TCP conn.
-    exportConfiguration = true; # symlink conf under /etc/X11/xorg.conf
     updateDbusEnvironment = true; # update the DBus activation environment
+
+    exportConfiguration = true; # symlink conf under /etc/X11/xorg.conf
+
+    # Mapped from left to right
+    # Affects /etc/X11/xorg.conf
+    xrandrHeads = [
+      {
+        output = "DP-0";
+        monitorConfig = ''
+          DisplaySize 607 345
+          Option      "DPMS"
+        '';
+      }
+      {
+        output = "HDMI-0";
+        primary = true;
+        monitorConfig = ''
+          DisplaySize 697 392
+          Option      "DPMS"
+        '';
+      }
+      {
+        output = "DP-2";
+        monitorConfig = ''
+          DisplaySize 607 345
+          Option      "DPMS"
+        '';
+      }
+    ];
 
     xkbOptions = "ctrl:nocaps,ctrl:swap_lalt_lctl";
 
