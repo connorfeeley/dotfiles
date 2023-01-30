@@ -16,13 +16,22 @@ lib.mkIf (!config.nixos-vm.enable) {
 
   # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
   #       'hardware.nvidia.package != null'.
-  hardware.nvidia.package = nvStable;
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.nvidia.modesetting.enable = false;
+  hardware.nvidia = {
+    package = nvStable;
+    modesetting.enable = false;
+    nvidiaSettings = true; # Enable nvidia-settings utility
+    nvidiaPersistenced = false; # Don't run daemon to keep GPU state alive
+    # Prevent display corruption upon wake from a suspended or hibernated state.
+    powerManagement.enable = true;
 
-  # Prevent display corruption upon wake from a suspended or hibernated state.
-  hardware.nvidia.powerManagement.enable = true;
+    # "Whether to force-enable the full composition pipeline. This sometimes fixes
+    # screen tearing issues. This has been reported to reduce the performance of
+    # some OpenGL applications and may produce issues in WebGL. It also drastically
+    # increases the time the driver needs to clock down after load."
+    forceFullCompositionPipeline = false;
+  };
 
   hardware.opengl = {
     enable = true;
