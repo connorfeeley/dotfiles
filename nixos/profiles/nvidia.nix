@@ -33,6 +33,12 @@ lib.mkIf (!config.nixos-vm.enable) {
     forceFullCompositionPipeline = false;
   };
 
+  boot.plymouth = {
+    enable = true;
+    theme = "breeze";
+    font = "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.ttf";
+  };
+
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [ vaapiVdpau ];
