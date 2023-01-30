@@ -32,6 +32,7 @@ in
         noto-fonts-emoji
 
         ttc-subway
+        bloor-yonge-font
 
         (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
