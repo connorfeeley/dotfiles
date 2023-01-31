@@ -39,6 +39,7 @@ let
   virt = with profiles; [
     virtualisation.libvirtd
     virtualisation.docker
+    virtualisation.podman
     virtualisation.vagrant
     # virtualisation.virtualbox
   ];

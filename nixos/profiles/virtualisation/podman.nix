@@ -21,8 +21,8 @@ in
   virtualisation.podman = {
     enable = true;
     enableNvidia = true;
-    dockerCompat = true;
-    dockerSocket.enable = true;
+    dockerCompat = !config.virtualisation.docker.enable;
+    dockerSocket.enable = !config.virtualisation.docker.enable;
     defaultNetwork.dnsname.enable = true;
 
     # Allow remote access
