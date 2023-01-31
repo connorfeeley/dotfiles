@@ -19,10 +19,11 @@ let
     , doCheck ? false
     , extraBuildInputs ? [ ]
     , frameworkInputs ? [ ]
+    , checkInputs ? [ ]
     , preCheck ? ""
     }:
     callPackage ./generic.nix {
-      inherit pname pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck extraBuildInputs frameworkInputs preCheck;
+      inherit pname pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck extraBuildInputs frameworkInputs preCheck checkInputs;
 
       inherit lib stdenv python3Packages fetchFromGitHub libffi darwin frameworks xcbuild xcbuildHook;
     };
@@ -37,11 +38,20 @@ rec {
   pyobjc-core = mkPackage {
     pname = "pyobjc-core";
     pythonImportsCheck = [ "objc._objc" ];
+
     doCheck = true;
+    checkInputs = with python3Packages; [ pytestCheckHook ];
     pytestFlagsArray = [
-      "--asyncio-mode=auto"
+      "PyObjCTest/"
     ];
 
+    # requires additional data
+    preCheck = ''
+      set -x
+      # disable tests that check paths outside fo the sandbox
+      substituteInPlace PyObjCTest/test_bundleFunctions.py \
+        --replace 'self.assertEqual(value, os.path.expanduser("~"))' 'self.assertEqual(value, value)'
+    '';
     disabledTestPaths = [
       # Skip the examples tests
       "Examples/GUITests/test_modalsession.py"
@@ -60,11 +70,6 @@ rec {
       # TODO: does this do anything?
       "PyObjCTest/test_bundleFunctions.py"
     ];
-    preCheck = ''
-      # disable tests that check paths outside fo the sandbox
-      substituteInPlace PyObjCTest/test_bundleFunctions.py \
-        --replace 'self.assertEqual(value, os.path.expanduser("~"))' 'self.assertEqual(value, value)'
-    '';
     disabledTests = [
       "PyObjCTest.test_bundleFunctions.TestBundleFunctions"
       "test_bundleFunctions.TestBundleFunctions"

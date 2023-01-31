@@ -15,17 +15,18 @@
 , doCheck ? false
 , extraBuildInputs ? [ ]
 , frameworkInputs ? [ ]
+, checkInputs ? [ ]
 , preCheck ? ""
 }:
 python3Packages.buildPythonApplication rec {
   inherit pname;
-  version = "9.0.1";
+  version = "9.1";
 
   # See the guide for more information: https://nixos.org/nixpkgs/manual/#chap-pkgs-fetchers
   src = fetchFromGitHub {
     owner = "ronaldoussoren";
     repo = "pyobjc";
-    rev = "v${version}";
+    rev = "v9.0.1";
     sha256 = "sha256-R5Eul7W6bubYOtajod6gQvqkS+YYlPyy5LC3YT5AbUg=";
   };
 
@@ -117,7 +118,7 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = [ darwin.DarwinTools xcbuild ];
 
   # TODO: run c tests ('make c-coverage')
-  inherit pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck preCheck;
+  inherit pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck preCheck checkInputs;
 
   meta = with lib; {
     description = "Python<->ObjC Interoperability Module";
