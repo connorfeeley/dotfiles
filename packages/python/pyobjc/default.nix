@@ -16,17 +16,31 @@ let
     , pytestFlagsArray ? [ ]
     , disabledTestPaths ? [ ]
     , disabledTests ? [ ]
-    , doCheck ? false
+    , doCheck ? true
     , extraBuildInputs ? [ ]
     , frameworkInputs ? [ ]
     , checkInputs ? [ ]
+    , preConfigure ? ""
     , preCheck ? ""
     }:
     callPackage ./generic.nix {
-      inherit pname pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck extraBuildInputs frameworkInputs preCheck checkInputs;
+      inherit pname pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck extraBuildInputs frameworkInputs preConfigure preCheck checkInputs;
 
       inherit lib stdenv python3Packages fetchFromGitHub libffi darwin frameworks xcbuild xcbuildHook;
     };
+
+  substitute = old: new: "--replace '${old}' '${new}'";
+  generateSubstitutions = { substitutionFiles, substitutions }: ''
+    OIFS="$IFS"
+    IFS=$'\n'
+
+    for i in ${lib.concatStringsSep " " substitutionFiles}; do
+      substituteInPlace $i \
+        ${lib.concatStringsSep " " substitutions}
+    done
+
+    IFS="$OIFS"
+  '';
 in
 rec {
   # Install order ():
@@ -39,57 +53,54 @@ rec {
     pname = "pyobjc-core";
     pythonImportsCheck = [ "objc._objc" ];
 
-    doCheck = true;
-
-    # requires additional data
-    preCheck = ''
-      set -x
-      # disable tests that check paths outside fo the sandbox
-      substituteInPlace PyObjCTest/test_bundleFunctions.py \
-        --replace 'self.assertEqual(value, os.path.expanduser("~"))' 'self.assertEqual(value, value)'
-    '';
-    disabledTestPaths = [
-      # Skip the examples tests
-      "Examples/GUITests/test_modalsession.py"
-      "Examples/NonFunctional/RemotePyInterpreter/test_client.py"
-      "Examples/NonFunctional/RemotePyInterpreter/AsyncPythonInterpreter.py"
-      "Examples/NonFunctional/RemotePyInterpreter/ConsoleReactor.py"
-      "Examples/NonFunctional/RemotePyInterpreter/netrepr.py"
-      "Examples/NonFunctional/RemotePyInterpreter/remote_bootstrap.py"
-      "Examples/NonFunctional/RemotePyInterpreter/remote_console.py"
-      "Examples/NonFunctional/RemotePyInterpreter/remote_pipe.py"
-      "Examples/NonFunctional/RemotePyInterpreter/RemotePyInterpreter.py"
-      "Examples/NonFunctional/RemotePyInterpreter/setup.py"
-      "Examples/NonFunctional/RemotePyInterpreter/tcpinterpreter.py"
-      "Examples/NonFunctional/RemotePyInterpreter/test_client.py"
-
-      # TODO: does this do anything?
-      "PyObjCTest/test_bundleFunctions.py"
-    ];
-    disabledTests = [
-      "PyObjCTest.test_bundleFunctions.TestBundleFunctions"
-      "test_bundleFunctions.TestBundleFunctions"
-      "PyObjCTest.test_bundleFunctions"
-    ];
-    frameworkInputs = [ darwin.apple_sdk.objc4 ];
     extraBuildInputs = [ darwin.DarwinTools ];
+    frameworkInputs = [ darwin.apple_sdk.objc4 ];
+
+    preConfigure = generateSubstitutions {
+      substitutionFiles = [ ''$(find . -type f -name "*.py")'' ];
+      substitutions = [
+        (substitute ''["/usr/bin/xcrun", "-sdk", "macosx", "--show-sdk-path"]'' ''["echo", "${darwin.apple_sdk.MacOSX-SDK}"]'')
+        (substitute ''["/usr/bin/sw_vers", "-productVersion"]'' ''["echo", "${darwin.apple_sdk.MacOSX-SDK.passthru.version}"]'')
+        (substitute ''assert sdkname.startswith("MacOSX")'' "")
+        (substitute ''assert sdkname.endswith(".sdk")'' "")
+        (substitute ''get_sdk_level(self.sdk_root)'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'')
+      ];
+    };
+
+    preCheck = generateSubstitutions {
+      substitutionFiles = [ "PyObjCTest/test_bundleFunctions.py" ];
+      substitutions = [
+        (substitute ''self.assertEqual(value, os.path.expanduser("~"))'' ''self.assertEqual(value, value)'')
+      ];
+    };
   };
+
   pyobjc-framework-Cocoa = mkPackage {
     pname = "pyobjc-framework-Cocoa";
     pythonImportsCheck = [ "objc.Cocoa" ];
-    doCheck = false;
-    pytestFlagsArray = [ "PyObjCTest/" ];
-    disabledTestPaths = [
-      "PyObjCTest/test_vectorcall.py"
-      "PyObjCTest/test_set_interface.py"
-      "PyObjCTest/test_dict_interface.py"
-      "PyObjCTest/test_array_interface.py"
-      "PyObjCTest/test_archive_python.py"
-    ];
-    disabledTests = [ "PyObjCTest.test_transform" ];
+
+    preConfigure = generateSubstitutions {
+      substitutionFiles = [ ''$(find . -type f -name "*.py")'' ];
+      substitutions = [
+        (substitute ''["/usr/bin/xcrun", "-sdk", "macosx", "--show-sdk-path"]'' ''["echo", "${darwin.apple_sdk.MacOSX-SDK}"]'')
+        (substitute ''["/usr/bin/sw_vers", "-productVersion"]'' ''["echo", "${darwin.apple_sdk.MacOSX-SDK.passthru.version}"]'')
+        (substitute ''assert sdkname.startswith("MacOSX")'' "")
+        (substitute ''assert sdkname.endswith(".sdk")'' "")
+        (substitute ''get_sdk_level(self.sdk_root)'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'')
+      ];
+    };
+
+    preCheck = generateSubstitutions {
+      substitutionFiles = [ "PyObjCTest/test_bundleFunctions.py" ];
+      substitutions = [
+        (substitute ''self.assertEqual(value, os.path.expanduser("~"))'' ''self.assertEqual(value, value)'')
+      ];
+    };
+
     extraBuildInputs = [ pyobjc-core ];
-    frameworkInputs = with frameworks; [ Cocoa ];
+    frameworkInputs = [ frameworks.Cocoa ];
   };
+
   pyobjc-framework-Quartz = mkPackage {
     pname = "pyobjc-framework-Quartz";
     pythonImportsCheck = [ "objc._objc" ];

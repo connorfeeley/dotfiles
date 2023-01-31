@@ -17,6 +17,7 @@
 , frameworkInputs ? [ ]
 , checkInputs ? [ ]
 , preCheck ? ""
+, preConfigure ? ""
 }:
 python3Packages.buildPythonApplication rec {
   inherit pname;
@@ -34,26 +35,7 @@ python3Packages.buildPythonApplication rec {
 
   PIP_DISABLE_PIP_VERSION_CHECK = 1;
 
-  preConfigure = ''
-    OIFS="$IFS"
-    IFS=$'\n'
-
-    for i in $(find . -type f -name "*.py"); do
-      substituteInPlace $i \
-        --replace '["/usr/bin/xcrun", "-sdk", "macosx", "--show-sdk-path"]' '["echo", "${darwin.apple_sdk.MacOSX-SDK}"]' \
-        --replace '["/usr/bin/sw_vers", "-productVersion"]' '["echo", "${darwin.apple_sdk.MacOSX-SDK.passthru.version}"]' \
-        --replace 'assert sdkname.startswith("MacOSX")' "" \
-        --replace 'assert sdkname.endswith(".sdk")' "" \
-        --replace 'get_sdk_level(self.sdk_root)' '"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'
-
-
-        # --replace '_subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
-        # --replace 'subprocess.check_output(["sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"' \
-        # --replace 'subprocess.check_output(["/usr/bin/sw_vers", "-productVersion"])' 'b"${darwin.apple_sdk.MacOSX-SDK.version}"'
-    done
-
-    IFS="$OIFS"
-  '';
+  inherit preConfigure;
 
   enableParallelBuilding = true;
 
