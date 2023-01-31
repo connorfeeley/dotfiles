@@ -15,17 +15,42 @@
 
   xdg.portal.enable = true;
 
-  # Tap caps-lock to send ESC; hold for CTRL
-  services.interception-tools = {
-    enable = true;
-    plugins = [ pkgs.interception-tools-plugins.caps2esc ];
-    udevmonConfig = ''
-      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-        DEVICE:
-          EVENTS:
-            EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-    '';
-  };
+  # Interception enables remapping keys at a lower level than xmodmap, setxkbmap, or xcape.
+  # These mappings also apply in the TTY.
+  services.interception-tools =
+    let
+      # Map caps lock to:
+      # - ESC when tapped
+      # - LCTRL when held
+      dualFunctionKeysConfig = pkgs.writeText "dual-function-keys.yaml" ''
+        MAPPINGS:
+          # CAPS (tap) -> ESC, CAPS (hold) -> LCTRL
+          - KEY: KEY_CAPSLOCK
+            TAP: KEY_ESC
+            HOLD: KEY_LEFTCTRL
+
+          # Swap LALT with LCTRL
+          - KEY: KEY_LEFTALT
+            TAP: KEY_LEFTCTRL
+            HOLD: KEY_LEFTCTRL
+            HOLD_START: BEFORE_CONSUME
+
+          # Swap LCTRL with LALT
+          - KEY: KEY_LEFTCTRL
+            TAP: KEY_LEFTALT
+            HOLD: KEY_LEFTALT
+            HOLD_START: BEFORE_CONSUME
+      '';
+    in
+    {
+      enable = true;
+      plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
+      udevmonConfig = ''
+        - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c ${dualFunctionKeysConfig} | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+          DEVICE:
+            LINK: .*-event-kbd
+      '';
+    };
 
   services.xserver = {
     enable = true;
@@ -63,8 +88,6 @@
       }
     ];
 
-    xkbOptions = "ctrl:nocaps,ctrl:swap_lalt_lctl";
-
     displayManager.startx.enable = false;
 
     displayManager = {
@@ -74,29 +97,7 @@
       #   user = config.dotfield.guardian.username;
       # };
 
-      sessionCommands =
-        let
-          xmodmap = pkgs.writeText "xkb-layout" ''
-            !Swap control and caps lock
-            clear Lock
-            keysym Caps_Lock = Escape
-            keysym Escape = Caps_Lock
-            add Lock = Caps_Lock
-
-            !Swap left alt and left control
-            clear control
-            clear mod1
-            keycode 37 = Alt_L Meta_L
-            keycode 105 = Alt_R
-            keycode 64 = Control_L
-            keycode 108 = Control_R
-            add control = Control_L Control_R
-            add mod1 = Alt_L Meta_L Alt_R
-          '';
-        in
-        ''
-          # ${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap}
-
+      sessionCommands = ''
           # Fix keyring unlock
           ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
         '';
