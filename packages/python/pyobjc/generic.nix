@@ -15,6 +15,7 @@
 , doCheck ? false
 , extraBuildInputs ? [ ]
 , frameworkInputs ? [ ]
+, preCheck ? ""
 }:
 python3Packages.buildPythonApplication rec {
   inherit pname;
@@ -116,7 +117,7 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = [ darwin.DarwinTools xcbuild ];
 
   # TODO: run c tests ('make c-coverage')
-  inherit pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck;
+  inherit pythonImportsCheck pytestFlagsArray disabledTestPaths disabledTests doCheck preCheck;
 
   meta = with lib; {
     description = "Python<->ObjC Interoperability Module";
