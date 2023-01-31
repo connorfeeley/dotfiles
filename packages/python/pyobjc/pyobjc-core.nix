@@ -3,13 +3,13 @@
 
 buildPythonPackage rec {
   pname = "pyobjc-core";
-  version = "6.2.2";
+  version = "8.5.1";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0z42b8nrgfa2wfxds5pwc0j8iysjkqi7i2xj33fxlf940idb3rrq";
+    sha256 = "sha256-+FkqEt4HbCcAZwDEpGFkR4Vk+jPX2kHny90KO/ndvM8=";
   };
 
   postPatch = ''
