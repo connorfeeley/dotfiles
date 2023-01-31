@@ -1,5 +1,5 @@
 # https://raw.githubusercontent.com/NixOS/nixpkgs/852c2c65bbc34a4afeaa20f64072db9909bef572/pkgs/development/python-modules/pyobjc-core/default.nix
-{ stdenv, buildPythonPackage, pythonOlder, fetchPypi, darwin, python, cffi, setuptools}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, darwin, python, cffi, setuptools}:
 
 buildPythonPackage rec {
   pname = "pyobjc-core";
@@ -17,14 +17,14 @@ buildPythonPackage rec {
     # Fix hardcoded paths
     # Remove xcrun call, all paths are provided by nix anyway
     substituteInPlace setup.py \
-      --replace 'get_sdk_level(self.sdk_root)' '"${darwin.apple_sdk.sdk.version}"' \
+      --replace 'get_sdk_level(self.sdk_root)' '"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"' \
       --replace 'os.path.join(self.sdk_root, "usr/include/objc/runtime.h")' '"${darwin.objc4}/include/objc/runtime.h"' \
       --replace '["/usr/bin/xcrun", "-sdk", "macosx", "--show-sdk-path"]' '["true"]'
 
     # Hard code OS version
     # This needs to be done here or pyobjc-frameworks-* don't get the change
     substituteInPlace Lib/PyObjCTools/TestSupport.py \
-      --replace 'return ".".join(v.split("."))' 'return "${darwin.apple_sdk.sdk.version}"'
+      --replace 'return ".".join(v.split("."))' 'return "${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'
   '';
 
   buildInputs = [
@@ -61,7 +61,7 @@ buildPythonPackage rec {
     rm PyObjCTest/test_bridgesupport.py
 
     substituteInPlace PyObjCTest/test_testsupport.py \
-      --replace '".".join(platform.mac_ver()[0].split("."))' '"${darwin.apple_sdk.sdk.version}"'
+      --replace '".".join(platform.mac_ver()[0].split("."))' '"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'
 
     # Tries to acces paths outside the sandbox
     rm PyObjCTest/test_filepointer.py PyObjCTest/test_fsref.py
@@ -79,7 +79,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python<->ObjC Interoperability Module";
     homepage = "https://pythonhosted.org/pyobjc-core/";
     license = licenses.mit;
