@@ -113,6 +113,8 @@ python3Packages.buildPythonApplication rec {
     GLKit
     MetalPerformanceShaders
     ModelIO
+    # required for namespaced import of PyObjCTools.TestSupport from pyobjc-framework-*
+    python3Packages.setuptools
   ] ++ frameworkInputs;
   buildInputs = [ darwin.libobjc xcbuild ] ++ extraBuildInputs;
   nativeBuildInputs = [ darwin.DarwinTools xcbuild ];

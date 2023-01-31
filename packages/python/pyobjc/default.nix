@@ -13,7 +13,7 @@ let
   mkPackage =
     { pname
     , pythonImportsCheck
-    , pytestFlagsArray
+    , pytestFlagsArray ? [ ]
     , disabledTestPaths ? [ ]
     , disabledTests ? [ ]
     , doCheck ? false
@@ -40,10 +40,6 @@ rec {
     pythonImportsCheck = [ "objc._objc" ];
 
     doCheck = true;
-    checkInputs = with python3Packages; [ pytestCheckHook ];
-    pytestFlagsArray = [
-      "PyObjCTest/"
-    ];
 
     # requires additional data
     preCheck = ''

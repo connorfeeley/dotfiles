@@ -1,5 +1,5 @@
 # https://raw.githubusercontent.com/NixOS/nixpkgs/852c2c65bbc34a4afeaa20f64072db9909bef572/pkgs/development/python-modules/pyobjc-core/default.nix
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, darwin, python, cffi, setuptools}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, darwin, python, libffi, setuptools}:
 
 buildPythonPackage rec {
   pname = "pyobjc-core";
@@ -28,7 +28,7 @@ buildPythonPackage rec {
   '';
 
   buildInputs = [
-    cffi
+    libffi
   ] ++ (with darwin.apple_sdk.frameworks; [
     Carbon
     Cocoa
@@ -42,6 +42,16 @@ buildPythonPackage rec {
 
   hardeningDisable = [ "strictoverflow" ];
 
+  NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isGNU [ ]
+    ++ lib.optionals stdenv.isDarwin [
+    # "-DTARGET_OS_OSX"
+    # "-DTARGET_OS_IPHONE=0"
+    # "-DTARGET_OS_WATCH=0"
+
+    # Resolve ffi includes and library
+    "-I${darwin.apple_sdk.MacOSX-SDK}/usr/include"
+    "-L${darwin.apple_sdk.MacOSX-SDK}/usr/lib"
+  ];
   preBuild = ''
     export SDKROOT=/
   '';
