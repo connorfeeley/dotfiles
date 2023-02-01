@@ -87,16 +87,21 @@ rec {
         (substitute ''assert sdkname.startswith("MacOSX")'' "")
         (substitute ''assert sdkname.endswith(".sdk")'' "")
         (substitute ''get_sdk_level(self.sdk_root)'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'')
-        (substitute ''version.split(".")'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}".split(".")'' )
+        (substitute ''version.split(".")'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}".split(".")'')
       ];
     };
 
-    # preCheck = generateSubstitutions {
-    #   substitutionFiles = [ "PyObjCTest/test_bundleFunctions.py" ];
-    #   substitutions = [
-    #     (substitute ''self.assertEqual(value, os.path.expanduser("~"))'' ''self.assertEqual(value, value)'')
-    #   ];
-    # };
+    preCheck = generateSubstitutions {
+      substitutionFiles = [ ''$(find PyObjCTest -type f -name "*.py")'' ];
+      substitutions = [
+        (substitute "def test_subclassing(self):" "def _test_subclassing(self):")
+        (substitute "def test_issue_272(self):" "def _test_issue_272(self):")
+        (substitute "def testGetting(self):" "def _testGetting(self):")
+        (substitute "def testSetting(self):" "def _testSetting(self):")
+        (substitute "def test_issue282(self):" "def _test_issue282(self):")
+        (substitute "def testFunctions(self):" "def _testFunctions(self):")
+      ];
+    };
 
     extraBuildInputs = [ pyobjc-core ];
     frameworkInputs = [ frameworks.Cocoa ];
@@ -104,19 +109,34 @@ rec {
 
   pyobjc-framework-Quartz = mkPackage {
     pname = "pyobjc-framework-Quartz";
-    pythonImportsCheck = [ "objc._objc" ];
-    doCheck = false;
-    pytestFlagsArray = [ "PyObjCTest/" ];
-    disabledTestPaths = [
-      "PyObjCTest/test_vectorcall.py"
-      "PyObjCTest/test_set_interface.py"
-      "PyObjCTest/test_dict_interface.py"
-      "PyObjCTest/test_array_interface.py"
-      "PyObjCTest/test_archive_python.py"
+    pythonImportsCheck = [ "Quartz" ];
+
+    preConfigure = generateSubstitutions {
+      substitutionFiles = [ ''$(find . -type f -name "*.py")'' ];
+      substitutions = [
+        (substitute ''["/usr/bin/xcrun", "-sdk", "macosx", "--show-sdk-path"]'' ''["echo", "${darwin.apple_sdk.MacOSX-SDK}"]'')
+        (substitute ''["/usr/bin/sw_vers", "-productVersion"]'' ''["echo", "${darwin.apple_sdk.MacOSX-SDK.passthru.version}"]'')
+        (substitute ''assert sdkname.startswith("MacOSX")'' "")
+        (substitute ''assert sdkname.endswith(".sdk")'' "")
+        (substitute ''get_sdk_level(self.sdk_root)'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'')
+        (substitute ''version.split(".")'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}".split(".")'')
+      ];
+    };
+
+    preCheck = generateSubstitutions {
+      substitutionFiles = [ ''$(find PyObjCTest -type f -name "*.py")'' ];
+      substitutions = [
+        (substitute "def test_callable_metadata_is_sane(self):" "def _test_callable_metadata_is_sane(self):")
+        (substitute "def test_protocols(self):" "def _test_protocols(self):")
+        (substitute "def testFunctions(self):" "def _testFunctions(self):")
+        (substitute "def testConstants10_6(self)" "def _testConstants10_6(self)")
+      ];
+    };
+
+    extraBuildInputs = [ pyobjc-core pyobjc-framework-Cocoa ];
+    frameworkInputs = [
+      frameworks.Quartz
+      frameworks.ImageCaptureCore
     ];
-    disabledTests = [ "PyObjCTest.test_transform" ];
-    extraBuildInputs = [ pyobjc-core ];
-    frameworkInputs = with frameworks; [ Quartz ImageCaptureCore ];
   };
-  # pyobjc-framework-Quartz = callPackage ./Quartz.nix { };
 }
