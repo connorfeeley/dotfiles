@@ -92,15 +92,15 @@
 
     displayManager = {
       # Log in automatically
-      # autoLogin = {
-      #   enable = config.dotfield.guardian.autoLogin;
-      #   user = config.dotfield.guardian.username;
-      # };
+      autoLogin = {
+        enable = config.dotfield.guardian.autoLogin;
+        user = config.dotfield.guardian.username;
+      };
 
       sessionCommands = ''
-          # Fix keyring unlock
-          ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
-        '';
+        # Fix keyring unlock
+        ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+      '';
     };
 
     # WM-only sessions usually don't handle XDG autostart files by default.
