@@ -44,9 +44,9 @@ let
       switchDoubleTap = 250
       switchCorners = none +top-left +top-right +bottom-left +bottom-right
       switchCornerSize = 0
-      keystroke(Shift+Control+PageDown) = ;switchInDirection(down)
-      keystroke(Shift+Control+PageUp) = ;switchInDirection(up)
-      keystroke(Shift+Control+Return) = ;toggleScreen
+      keystroke(Super+Control+PageDown) = ;switchInDirection(down)
+      keystroke(Super+Control+PageUp) = ;switchInDirection(up)
+      keystroke(Super+Control+Return) = ;toggleScreen
     end
   '';
 in
