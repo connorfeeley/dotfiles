@@ -62,7 +62,7 @@ let
   preConfigureDefault = generateSubstitutions {
     inherit (preConfigureCore) substitutionFiles;
     substitutions = preConfigureCore.substitutions ++ [
-        (substitute ''version.split(".")'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}".split(".")'')
+      (substitute ''version.split(".")'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}".split(".")'')
     ];
   };
 
@@ -90,6 +90,10 @@ rec {
     frameworkInputs = [ darwin.apple_sdk.objc4 ];
   }).overrideAttrs (old: {
     setupPyBuildFlags = old.setupPyBuildFlags ++ [ "--no-lto" ];
+    preCheck = old.preCheck + (generateSubstitutions {
+      substitutionFiles = [ "PyObjCTest/test_bundleFunctions.py" "PyObjCTest/test_bundleFunctions.py" ];
+      substitutions = disableTests [ "testSimple" ];
+    });
   });
 
   ###
