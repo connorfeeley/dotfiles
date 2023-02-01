@@ -5,6 +5,50 @@
 }:
 let
   inherit (pkgs.stdenv) isLinux;
+
+  configFile = pkgs.writeText "Barrier.conf" ''
+    section: screens
+      workstation:
+        halfDuplexCapsLock = false
+        halfDuplexNumLock = false
+        halfDuplexScrollLock = false
+        xtestIsXineramaUnaware = false
+        preserveFocus = false
+        switchCorners = none
+        switchCornerSize = 0
+      MacBook-Pro:
+        halfDuplexCapsLock = false
+        halfDuplexNumLock = false
+        halfDuplexScrollLock = false
+        xtestIsXineramaUnaware = false
+        preserveFocus = false
+        switchCorners = none
+        switchCornerSize = 0
+    end
+
+    section: aliases
+    end
+
+    section: links
+      workstation:
+        down = MacBook-Pro
+      MacBook-Pro:
+        up = workstation
+    end
+
+    section: options
+      relativeMouseMoves = false
+      screenSaverSync = true
+      win32KeepForeground = false
+      clipboardSharing = true
+      switchDoubleTap = 250
+      switchCorners = none +top-left +top-right +bottom-left +bottom-right
+      switchCornerSize = 0
+      keystroke(Shift+Control+PageDown) = ;switchInDirection(down)
+      keystroke(Shift+Control+PageUp) = ;switchInDirection(up)
+      keystroke(Shift+Control+Return) = ;toggleScreen
+    end
+  '';
 in
 {
   services.input-leap.server = {
@@ -13,6 +57,6 @@ in
     checkClientCert = false;
     address = ":24800";
     screenName = "workstation";
-    configFile = "/home/${config.dotfield.guardian.username}/.config/Debauchee/Barrier.conf";
+    inherit configFile;
   };
 }
