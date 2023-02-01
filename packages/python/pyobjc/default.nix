@@ -49,7 +49,7 @@ rec {
   # - pyobjc-framework-Quartz
 
   # nix-build --pure ~dots -A packages.aarch64-darwin.pyobjc.pyobjc-core --show-trace
-  pyobjc-core = mkPackage {
+  pyobjc-core = (mkPackage {
     pname = "pyobjc-core";
     pythonImportsCheck = [ "objc._objc" ];
 
@@ -73,11 +73,11 @@ rec {
         (substitute ''self.assertEqual(value, os.path.expanduser("~"))'' ''self.assertEqual(value, value)'')
       ];
     };
-  };
+  }).overrideAttrs (old: { setupPyBuildFlags = old.setupPyBuildFlags ++ [ "--no-lto" ]; });
 
   pyobjc-framework-Cocoa = mkPackage {
     pname = "pyobjc-framework-Cocoa";
-    pythonImportsCheck = [ "objc.Cocoa" ];
+    pythonImportsCheck = [ "Cocoa" ];
 
     preConfigure = generateSubstitutions {
       substitutionFiles = [ ''$(find . -type f -name "*.py")'' ];
@@ -87,15 +87,16 @@ rec {
         (substitute ''assert sdkname.startswith("MacOSX")'' "")
         (substitute ''assert sdkname.endswith(".sdk")'' "")
         (substitute ''get_sdk_level(self.sdk_root)'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}"'')
+        (substitute ''version.split(".")'' ''"${darwin.apple_sdk.MacOSX-SDK.passthru.version}".split(".")'' )
       ];
     };
 
-    preCheck = generateSubstitutions {
-      substitutionFiles = [ "PyObjCTest/test_bundleFunctions.py" ];
-      substitutions = [
-        (substitute ''self.assertEqual(value, os.path.expanduser("~"))'' ''self.assertEqual(value, value)'')
-      ];
-    };
+    # preCheck = generateSubstitutions {
+    #   substitutionFiles = [ "PyObjCTest/test_bundleFunctions.py" ];
+    #   substitutions = [
+    #     (substitute ''self.assertEqual(value, os.path.expanduser("~"))'' ''self.assertEqual(value, value)'')
+    #   ];
+    # };
 
     extraBuildInputs = [ pyobjc-core ];
     frameworkInputs = [ frameworks.Cocoa ];

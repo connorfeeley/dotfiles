@@ -41,9 +41,9 @@ python3Packages.buildPythonApplication rec {
 
   # List of flags passed to `setup.py build_ext` command.
   setupPyBuildFlags = [
-    "--no-warnings-as-errors"
+    # "--no-warnings-as-errors"
     "--inplace"
-    "--no-lto"
+    # "--no-lto"
     # "--sdk-root=${darwin.apple_sdk.MacOSX-SDK}"
   ];
 
