@@ -26,14 +26,6 @@ channels: final: prev:
     quartus-prime-lite
     ;
 
-  # FIXME: nix-zsh-completions are broken
-  # https://github.com/NixOS/nixpkgs/pull/202750/files
-  nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (_o: {
-    postPatch = ''
-      rm _nix
-    '';
-  });
-
   # Genarate info pages for nixpkgs
   # Source: github:aakropotkin/nixpkgs-doc
   nixpkgsDoc = prev.htmlDocs.nixpkgsManual.overrideAttrs (oldAttrs: {
