@@ -44,7 +44,7 @@ python3Packages.buildPythonApplication rec {
     # "--no-warnings-as-errors"
     "--inplace"
     # "--no-lto"
-    # "--sdk-root=${darwin.apple_sdk.MacOSX-SDK}"
+    "--sdk-root=${darwin.apple_sdk.MacOSX-SDK}"
   ];
 
   NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isGNU [ ]
