@@ -41,6 +41,8 @@ let
 
     IFS="$OIFS"
   '';
+
+  disableTests = builtins.map (test: substitute "def ${test}(self)" "def _${test}(self)");
 in
 rec {
   # Install order ():
@@ -93,13 +95,13 @@ rec {
 
     preCheck = generateSubstitutions {
       substitutionFiles = [ ''$(find PyObjCTest -type f -name "*.py")'' ];
-      substitutions = [
-        (substitute "def test_subclassing(self):" "def _test_subclassing(self):")
-        (substitute "def test_issue_272(self):" "def _test_issue_272(self):")
-        (substitute "def testGetting(self):" "def _testGetting(self):")
-        (substitute "def testSetting(self):" "def _testSetting(self):")
-        (substitute "def test_issue282(self):" "def _test_issue282(self):")
-        (substitute "def testFunctions(self):" "def _testFunctions(self):")
+      substitutions = disableTests [
+        "test_subclassing"
+        "test_issue_272"
+        "testGetting"
+        "testSetting"
+        "test_issue282"
+        "testFunctions"
       ];
     };
 
@@ -107,6 +109,7 @@ rec {
     frameworkInputs = [ frameworks.Cocoa ];
   };
 
+  # nix-build --pure $DOTFIELD_DIR -A packages.aarch64-darwin.pyobjc.pyobjc-framework-Quartz --show-trace --verbose --keep-failed
   pyobjc-framework-Quartz = mkPackage {
     pname = "pyobjc-framework-Quartz";
     pythonImportsCheck = [ "Quartz" ];
@@ -125,11 +128,11 @@ rec {
 
     preCheck = generateSubstitutions {
       substitutionFiles = [ ''$(find PyObjCTest -type f -name "*.py")'' ];
-      substitutions = [
-        (substitute "def test_callable_metadata_is_sane(self):" "def _test_callable_metadata_is_sane(self):")
-        (substitute "def test_protocols(self):" "def _test_protocols(self):")
-        (substitute "def testFunctions(self):" "def _testFunctions(self):")
-        (substitute "def testConstants10_6(self)" "def _testConstants10_6(self)")
+      substitutions = disableTests [
+        "test_callable_metadata_is_sane"
+        "test_protocols"
+        "testFunctions"
+        "testConstants10_6"
       ];
     };
 
