@@ -108,6 +108,7 @@ python3Packages.buildPythonApplication rec {
     description = "Python<->ObjC Interoperability Module";
     homepage = "https://github.com/ronaldoussoren/pyobjc";
     license = licenses.mit;
+    platforms = platforms.darwin;
     maintainers = with maintainers; [ cfeeley ];
   };
 }
