@@ -26,9 +26,10 @@ in
 
   importables = { inherit peers profiles roles; };
 
-  users =
-    let
-      mkHome = name: hmArgs: {
+  users = {
+    "cfeeley@cfeeley-laptop" =
+      let name = "cfeeley";
+      in hmArgs: {
         imports = with hmArgs.roles; (hmArgs.lib.flatten [ ] ++ (hmArgs.lib.flatten [
           workstation
           developer
@@ -43,8 +44,5 @@ in
           stateVersion = "22.05";
         };
       };
-    in
-    {
-      "cfeeley@cfeeley-laptop" = mkHome "cfeeley";
-    };
+  };
 }
