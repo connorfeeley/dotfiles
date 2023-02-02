@@ -263,6 +263,7 @@ in
   services.vscode-server.enable = true;
 
   services.ntopng.enable = true;
+  services.ntopng.httpPort = 9009;
 
   virtualisation.docker.daemon.settings.hosts = lib.mkIf config.virtualisation.docker.enable [ "unix:///var/run/docker.sock" "tcp://0.0.0.0:2375" ];
 }
