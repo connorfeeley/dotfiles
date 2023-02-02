@@ -22,7 +22,9 @@ let
     networking.common
     networking.tailscale
     networking.ssh-host
-  ]) ++ (with profiles; [ ]);
+  ]) ++ (with profiles; [
+    networking.geoip
+  ]);
 
   tangible =
     (with (collective.profiles); [
