@@ -1,9 +1,9 @@
-{ lib
+moduleArgs @ { config
+, lib
 , pkgs
-, config
-, osConfig
 , ...
-}: {
+}:
+{
   /*
     Setup docker CLI plugins:
     DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
@@ -15,7 +15,7 @@
     docker-buildx
     docker-credential-helpers
     buildkit
-  ] ++ lib.optionals osConfig.virtualisation.docker.enable [
+  ] ++ lib.optionals (moduleArgs.osConfig.virtualisation.docker.enable or false) [
     docker
     docker-compose
   ];
