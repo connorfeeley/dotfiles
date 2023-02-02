@@ -7,6 +7,7 @@
 , xorg
 , avahi
 , qtbase
+, qttools
 , mkDerivation
 , openssl
 , wrapGAppsHook
@@ -28,13 +29,13 @@
 
 mkDerivation rec {
   pname = "input-leap";
-  version = "2.4.0";
+  version = "2.5.0-pre";
 
   src = fetchFromGitHub {
     owner = "input-leap";
     repo = pname;
-    rev = "165a5c00a175128ee0afd95c15dd4a0e06d38f16";
-    sha256 = "sha256-eLNeWkNEKkxFBe7FSTfF0uQC5aTemfD2MQwWXYed3wI=";
+    rev = "68aac94193a721e4c20512434cf6ab40a2dd89a0";
+    sha256 = "sha256-LhpPbpX4MgEkay9Uctjw/UD1J/4nL0LDiLuu6ixTW8k=";
     fetchSubmodules = true;
   };
 
@@ -46,6 +47,7 @@ mkDerivation rec {
   buildInputs = [
     curl
     qtbase
+    qttools
   ] ++ lib.optionals stdenv.isLinux [
     xorg.libX11
     xorg.libXext
@@ -77,7 +79,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   postFixup = lib.optionalString stdenv.isLinux ''
-    substituteInPlace "$out/share/applications/barrier.desktop" --replace "Exec=barrier" "Exec=$out/bin/barrier"
+    substituteInPlace "$out/share/applications/input-leap.desktop" --replace "Exec=barrier" "Exec=$out/bin/input-leap"
   '';
 
   qtWrapperArgs = [
