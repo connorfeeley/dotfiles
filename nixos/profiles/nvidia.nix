@@ -34,7 +34,7 @@ lib.mkIf (!config.nixos-vm.enable) {
   };
 
   boot.plymouth = {
-    enable = true;
+    enable = false;
     theme = "breeze";
     font = "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.ttf";
   };
