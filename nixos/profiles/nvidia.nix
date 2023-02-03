@@ -6,7 +6,9 @@
 let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
-  nvStable = nvidiaPackages.stable;
+  nvStable = pkgs.nur.repos.arc.packages.nvidia-patch.override {
+    nvidia_x11 = nvidiaPackages.stable;
+  };
 
   xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in
