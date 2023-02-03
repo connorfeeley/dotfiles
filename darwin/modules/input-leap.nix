@@ -39,11 +39,11 @@ in
       input-leap-client = lib.mkIf cfg.client.enable {
         serviceConfig = {
           ProgramArguments = [
-            "${pkgs.input-leap}/Applications/Barrier.app/Contents/MacOS/barrierc"
+            "${pkgs.input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leapc"
             "--no-daemon"
             cfg.client.serverAddress
           ];
-          Label = "org.debauchee.com.barrierc";
+          Label = "org.debauchee.com.input-leapc";
           OnDemand = false;
           RunAtLoad = true;
         };
@@ -51,12 +51,12 @@ in
       input-leap-server = lib.mkIf cfg.server.enable {
         serviceConfig = {
           ProgramArguments = [
-            "${pkgs.input-leap}/Applications/Barrier.app/Contents/MacOS/barriers"
+            "${pkgs.input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leaps"
             "--no-daemon"
             "--config"
             cfg.server.configFile
           ];
-          Label = "org.debauchee.com.barriers";
+          Label = "org.debauchee.com.input-leaps";
           OnDemand = false;
           RunAtLoad = true;
         };
