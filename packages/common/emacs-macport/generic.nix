@@ -9,6 +9,7 @@
 { stdenv
 , lib
 , fetchurl
+, fetchFromBitbucket
 , fetchpatch
 , ncurses
 , xlibsWrapper
@@ -132,9 +133,11 @@ let
 
     patches = patches fetchpatch;
 
-    src = fetchurl {
-      url = "mirror://gnu/emacs/${name}.tar.xz";
-      inherit sha256;
+    src = fetchFromBitbucket {
+      owner = "mituharu";
+      repo = "emacs-mac";
+      rev = "b46a8aef96dbc2bbf0fccce6cee343aee5bd9528";
+      sha256 = "sha256-8qzOM5gPS9oVyl9qlqVRZmYrEIUp6j1rL0Py3cux7ek=";
     };
 
     enableParallelBuilding = true;
@@ -194,9 +197,9 @@ let
       ))
 
       (lib.optionalString (withMacport) ''
-        cp -r ${macportPatches}/. .
-        chmod -R +w .
-        patch -p1 < patch-mac
+        # cp -r ${macportPatches}/. .
+        # chmod -R +w .
+        # patch -p1 < patch-mac
 
         cp -r ${builtins.fetchTarball {
           url = "ftp://ftp.math.s.chiba-u.ac.jp/emacs/emacs-hires-icons-3.0.tar.gz";
