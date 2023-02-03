@@ -32,7 +32,8 @@ let
   '';
 in
 {
-  boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
+  # FIXME: broken with current kernel
+  # boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
   boot.kernelModules = [ "i2c-dev" ];
 
   # Also provides 'gddccontrol' GUI
