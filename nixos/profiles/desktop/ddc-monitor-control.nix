@@ -33,7 +33,7 @@ let
 in
 {
   boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
-  boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
+  boot.kernelModules = [ "i2c-dev" ];
 
   # Also provides 'gddccontrol' GUI
   services.ddccontrol.enable = true;
