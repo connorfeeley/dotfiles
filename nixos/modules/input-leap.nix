@@ -93,7 +93,7 @@ in
         restartTriggers = [ cfgC.configFile ];
 
         serviceConfig = {
-          ExecStart = ''${pkgs.barrier}/bin/barrierc --no-daemon ${optionalString (cfgC.screenName != "") "--name ${cfgC.screenName}"} ${cfgC.serverAddress}'';
+          ExecStart = ''${pkgs.input-leap}/bin/input-leapc --no-daemon ${optionalString (cfgC.screenName != "") "--name ${cfgC.screenName}"} ${cfgC.serverAddress}'';
           Restart = "always";
         };
       };
@@ -109,7 +109,7 @@ in
         restartTriggers = [ cfgS.configFile ];
 
         serviceConfig = {
-          ExecStart = ''${pkgs.barrier}/bin/barriers --config ${cfgS.configFile} --no-daemon ${optionalString (cfgS.address != "") " --address ${cfgS.address}"} ${optionalString (cfgS.screenName != "") "--name ${cfgS.screenName}"} ${optionalString (!cfgS.checkClientCert) "--disable-client-cert-checking"}'';
+          ExecStart = ''${pkgs.input-leap}/bin/input-leaps --config ${cfgS.configFile} --no-daemon ${optionalString (cfgS.address != "") " --address ${cfgS.address}"} ${optionalString (cfgS.screenName != "") "--name ${cfgS.screenName}"} ${optionalString (!cfgS.checkClientCert) "--disable-client-cert-checking"}'';
           Restart = "always";
         };
       };
