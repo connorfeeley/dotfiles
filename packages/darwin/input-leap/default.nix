@@ -39,11 +39,6 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = lib.optionals stdenv.isDarwin [
-    ./0001-darwin-ssl-libs.patch
-    ./0002-darwin-bundle.patch
-  ];
-
   buildInputs = [
     curl
     qtbase
@@ -77,6 +72,13 @@ mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
+
+  # Fix RPATH, and don't build the upstream MacOS bundle target automatically
+  preConfigure = lib.optionals stdenv.isDarwin ''
+    substituteInPlace CMakeLists.txt \
+      --replace 'set (CMAKE_INSTALL_RPATH "@loader_path/../Libraries;@loader_path/../Frameworks")' "" \
+      --replace "DEPENDS input-leap input-leaps input-leapc" ""
+  '';
 
   postFixup = lib.optionalString stdenv.isLinux ''
     substituteInPlace "$out/share/applications/input-leap.desktop" --replace "Exec=barrier" "Exec=$out/bin/input-leap"
