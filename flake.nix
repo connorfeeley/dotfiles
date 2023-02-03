@@ -372,7 +372,6 @@
           self.overlays."nixpkgs-darwin/emacs-plus"
           self.overlays."nixpkgs-darwin/macports"
           self.overlays."nixpkgs-darwin/input-leap"
-          self.overlays."nixpkgs-darwin/pyobjc"
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
           # FIXME(darwin): causes 'nix flake show' to error
@@ -418,7 +417,6 @@
                 native-youtube
                 emacs28Macport
                 input-leap
-                pyobjc
               ;
 
               # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
