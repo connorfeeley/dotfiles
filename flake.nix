@@ -199,6 +199,12 @@
             nix-init = inputs.nix-init.packages.${final.system}.default;
           }
         )
+
+        # 'prefer-remote-fetch' is an overlay that downloads sources on remote builders.
+        # This is useful when the evaluating machine has a slow upload (yay for Canadian telecom oligopolies)
+        # while the builder can fetch faster directly from the source.
+        (final: prev: (prev.prefer-remote-fetch final prev))
+
         (import ./overlays/tum-dse-config { inherit inputs; })
         (import ./overlays/python { inherit inputs; })
       ];
