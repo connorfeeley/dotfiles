@@ -1,3 +1,5 @@
+# Opening nixpkgs PR shortly - canonical source location is:
+# https://git.sr.ht/~cfeeley/nixpkgs/tree/feat/input-leap/item/pkgs/applications/misc/input-leap/default.nix
 { lib
 , stdenv
 , fetchFromGitHub
@@ -8,26 +10,23 @@
 , avahi
 , qtbase
 , qttools
-, mkDerivation
 , openssl
-, wrapGAppsHook
+, wrapQtAppsHook
 , avahiWithLibdnssdCompat ? avahi.override { withLibdnssdCompat = true; }
-, fetchpatch
 , gtest
+, gitUpdater
 
   # MacOS / darwin
-, darwin
 , ghc_filesystem
 , ApplicationServices
 , Carbon
 , Cocoa
 , CoreServices
 , ScreenSaver
-
-, gitUpdater
+, UserNotifications
 }:
 
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "input-leap";
   version = "2.5.0-pre";
 
@@ -39,10 +38,11 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook gtest qttools ];
+
   buildInputs = [
     curl
     qtbase
-    qttools
   ] ++ lib.optionals stdenv.isLinux [
     xorg.libX11
     xorg.libXext
@@ -53,31 +53,42 @@ mkDerivation rec {
     xorg.libSM
     avahiWithLibdnssdCompat
   ] ++ lib.optionals stdenv.isDarwin [
-    openssl
     ghc_filesystem
     ApplicationServices
     Carbon
     Cocoa
     CoreServices
     ScreenSaver
-  ] ++ lib.optionals (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications) [
-    darwin.apple_sdk.frameworks.UserNotifications
+    UserNotifications
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-    gtest
-  ];
+  patches = lib.optionals stdenv.isDarwin [ ./0001-darwin-ssl-libs.patch ];
 
   enableParallelBuilding = true;
+
+  cmakeFlags = [
+    # Don't use vendored gtest
+    "-DINPUTLEAP_USE_EXTERNAL_GTEST=ON"
+
+    # Build the tests (requires gtest)
+    "-DINPUTLEAP_BUILD_TESTS=ON"
+
+    # The bundling script is patched out, but we still want
+    # PkgInfo, Info.plist, and the icon copied to the bundle
+    "-DINPUTLEAP_BUILD_INSTALLER=ON"
+  ];
 
   # Fix RPATH, and don't build the upstream MacOS bundle target automatically
   preConfigure = lib.optionals stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
       --replace 'set (CMAKE_INSTALL_RPATH "@loader_path/../Libraries;@loader_path/../Frameworks")' "" \
-      --replace "DEPENDS input-leap input-leaps input-leapc" ""
+      --replace "DEPENDS input-leap input-leaps input-leapc" "" \
+      --replace "add_custom_target(InputLeap_MacOS ALL" "add_custom_target(InputLeap_MacOS" \
+      ${lib.optionalString stdenv.isDarwin
+        # Input leap assumes an older version of QT, which has deprecated pixmap-related functions
+        ''
+        --replace "-DGTEST_USE_OWN_TR1_TUPLE=1" "-DGTEST_USE_OWN_TR1_TUPLE=1 -Wno-deprecated-declarations"
+      ''}
   '';
 
   postFixup = lib.optionalString stdenv.isLinux ''
@@ -90,28 +101,18 @@ mkDerivation rec {
 
   postInstall = lib.optionals stdenv.isDarwin ''
     mkdir -p $out/Applications
-    cp -r bundle/Barrier.app $out/Applications/Barrier.app
+    cp -r bundle/InputLeap.app $out/Applications/InputLeap.app
 
     # Link binaries into the bundle so that they are added to system path
     mkdir -p $out/bin
-    ln -s $out/Applications/Barrier.app/Contents/MacOS/barrier $out/bin/barrier
-    ln -s $out/Applications/Barrier.app/Contents/MacOS/barrierc $out/bin/barrierc
-    ln -s $out/Applications/Barrier.app/Contents/MacOS/barriers $out/bin/barriers
+    ln -s $out/Applications/InputLeap.app/Contents/MacOS/input-leap  $out/bin/input-leap
+    ln -s $out/Applications/InputLeap.app/Contents/MacOS/input-leapc $out/bin/input-leapc
+    ln -s $out/Applications/InputLeap.app/Contents/MacOS/input-leaps $out/bin/input-leaps
   '';
 
-  cmakeFlags = [
-    # Don't use vendored gtest
-    "-DINPUTLEAP_USE_EXTERNAL_GTEST=ON"
+  doCheck = stdenv.isLinux;
 
-    # The bundling script is patched out, but we still want
-    # PkgInfo, Info.plist, and the icon copied to the bundle
-    "-DINPUTLEAP_BUILD_INSTALLER=ON"
-  ];
-
-  passthru.updateScript = gitUpdater {
-    url = "https://github.com/input-leap/input-leap.git";
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = {
     description = "Open-source KVM software";
@@ -125,6 +126,6 @@ mkDerivation rec {
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.phryneas lib.maintainers.cfeeley ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    mainProgram = "barrier";
+    mainProgram = "input-leap";
   };
 }
