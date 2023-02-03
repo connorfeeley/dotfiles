@@ -62,7 +62,7 @@
 
     ##: --- packages -----------------------------------------------------------
     nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-nil = { url = "github:oxalica/nil"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-nil = { url = "github:oxalica/nil"; };
     nix-init = { url = "github:nix-community/nix-init"; };
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -170,7 +170,6 @@
         gitignore.overlay
         nur.overlay
         nvfetcher.overlays.default
-        nix-nil.overlays.default
 
         ttc-subway-font.overlay
 
@@ -187,6 +186,7 @@
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
             inherit (packagesFrom inputs.prefmanager) prefmanager;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
+            inherit (packagesFrom inputs.nix-nil) nil;
             inherit (packagesFrom inputs.nix-alien) nix-alien;
             inherit (packagesFrom inputs.nix-alien) nix-index-update;
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
