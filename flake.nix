@@ -190,7 +190,7 @@
 
             # Personal packages
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
-            inherit (packagesFrom inputs.ttc-subway-font) ttc-subway-font bloor-yonge-font;
+            inherit (packagesFrom inputs.ttc-subway-font) ttc-subway bloor-yonge-font;
 
             nix-init = inputs.nix-init.packages.${final.system}.default;
           }
