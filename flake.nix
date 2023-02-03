@@ -55,6 +55,7 @@
     xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
     chatgpt-wrapper = { url = "git+https://git.sr.ht/~cfeeley/chatgpt-wrapper"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-darwin.follows = "nixpkgs-darwin"; };
     ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; }; # Private repo
+    nixpkgs-input-leap = { url = "sourcehut:~cfeeley/nixpkgs/feat/input-leap"; };
 
     ##: --- meta packages ------------------------------------------------------
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -113,6 +114,7 @@
     , xmonad-config
     , chatgpt-wrapper
     , ttc-subway-font
+    , nixpkgs-input-leap
     , emacs-overlay
     , nix-xilinx
     , nickel
@@ -191,6 +193,8 @@
             # Personal packages
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.ttc-subway-font) ttc-subway bloor-yonge-font;
+
+            inherit (inputs.nixpkgs-input-leap.legacyPackages.${final.system}) input-leap;
 
             nix-init = inputs.nix-init.packages.${final.system}.default;
           }

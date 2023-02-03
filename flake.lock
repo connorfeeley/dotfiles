@@ -2197,6 +2197,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-input-leap": {
+      "locked": {
+        "lastModified": 1675457376,
+        "narHash": "sha256-/sLDrSQ6V+tFcyTZAk7PTOwl2lhj9AqpESpWiQ5o6/Y=",
+        "owner": "~cfeeley",
+        "repo": "nixpkgs",
+        "rev": "b2b5476eb0e9a0069aac3acfcb715e0007f4e92b",
+        "type": "sourcehut"
+      },
+      "original": {
+        "owner": "~cfeeley",
+        "ref": "feat/input-leap",
+        "repo": "nixpkgs",
+        "type": "sourcehut"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -3019,6 +3035,7 @@
           "nixos-stable"
         ],
         "nixpkgs-darwin": "nixpkgs-darwin",
+        "nixpkgs-input-leap": "nixpkgs-input-leap",
         "nixvim": "nixvim",
         "nur": "nur",
         "nvfetcher": "nvfetcher",
