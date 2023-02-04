@@ -16,6 +16,8 @@
 
     ## === Media Tools ===
     # TODO: media should be it's own profile; +use hm module
+    ffmpeg-full #         <- Full ffmpeg with all codecs
+    handbrake #           <- Video transcoder
     chafa #               <- "terminal graphics for the 21st century"
     yt-dlp #              <- youtube-dl fork
     mpv
