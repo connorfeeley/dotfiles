@@ -18,7 +18,7 @@ let
       #   otherIcon = "gnu-head-icon";
       # }
       #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
-      then emacs28Macport
+      then emacsGitDarwin
       #: isLinux: emacs 28 (w/ native comp)
       else
         pkgs.emacs.override {
@@ -32,11 +32,11 @@ let
             glib-networking
             ;
 
+          withXwidgets = true;
           withGTK3 = true;
         };
     in
     emacs-pkg.override {
-      withXwidgets = true;
       withSQLite3 = true;
       withWebP = true;
     };

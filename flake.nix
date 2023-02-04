@@ -59,6 +59,7 @@
 
     ##: --- meta packages ------------------------------------------------------
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
+    darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
     nix-xilinx = { url = "gitlab:doronbehar/nix-xilinx"; };
 
     ##: --- packages -----------------------------------------------------------
@@ -116,6 +117,7 @@
     , ttc-subway-font
     , nixpkgs-input-leap
     , emacs-overlay
+    , darwin-emacs
     , nix-xilinx
     , nickel
     , nix-nil
@@ -197,6 +199,7 @@
             inherit (inputs.nixpkgs-input-leap.legacyPackages.${final.system}) input-leap;
 
             nix-init = inputs.nix-init.packages.${final.system}.default;
+            emacsGitDarwin = inputs.darwin-emacs.packages.${final.system}.default;
           }
         )
         (import ./overlays/tum-dse-config { inherit inputs; })
