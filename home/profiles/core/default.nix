@@ -25,6 +25,9 @@ in
     thefuck #            <- Corrects your previous console command
     mtr #                <- Traceroute and ping in a single tool
 
+    # WARNING: conflicts with moreutils
+    (lib.hiPrio parallel-full) #      <- GNU Parallel is a shell tool for executing jobs in parallel using one or more computers
+
     ## === Moreutils ===
     # Includes, of note:
     # - vipe: insert a text editor into a pipe
