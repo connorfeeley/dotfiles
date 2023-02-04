@@ -51,8 +51,6 @@ in
 
   name = "Dotfield";
 
-  packages = with pkgs; [ rnix-lsp nil ];
-
   commands =
     [
       # -- Utils --
