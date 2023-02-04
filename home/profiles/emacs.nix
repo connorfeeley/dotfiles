@@ -129,6 +129,11 @@ lib.mkMerge [
         vterm
         pdf-tools
         org-pdftools
+        tree-sitter
+        (epkgs.tree-sitter-langs.withPlugins (
+          _: pkgs.tree-sitter.allGrammars
+        ))
+        tsc
         parinfer-rust-mode
       ];
     };
