@@ -7,5 +7,6 @@
 
     # lsp server
     pyright
+    python3Packages.ipython
   ];
 }
