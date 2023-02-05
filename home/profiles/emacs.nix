@@ -32,8 +32,8 @@ let
             glib-networking
             ;
 
-          withXwidgets = true;
-          withGTK3 = true;
+          withXwidgets = false;
+          withGTK3 = false;
         };
     in
     emacs-pkg.override {
