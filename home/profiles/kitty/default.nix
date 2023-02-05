@@ -131,7 +131,7 @@ lib.mkMerge [
   {
     xdg.configFile =
       let chosenTheme = dark;
-          dark = mkThemeBuiltin "Brogrammer";
+          dark = mkThemeBuiltin "Doom_One";
           light = mkThemeBuiltin "Doom_One_Light";
       in {
         ###
