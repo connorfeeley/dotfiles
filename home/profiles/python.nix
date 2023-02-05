@@ -7,6 +7,8 @@
 
     # lsp server
     pyright
-    python3Packages.ipython
-  ];
+  ] ++ (with python3Packages; [
+    ipython
+    black
+  ]);
 }
