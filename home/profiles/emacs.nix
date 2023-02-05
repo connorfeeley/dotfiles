@@ -21,7 +21,7 @@ let
       then emacsGitDarwin
       #: isLinux: emacs 28 (w/ native comp)
       else
-        pkgs.emacs.override {
+        pkgs.emacsGit.override {
           inherit (pkgs)
             # For withGTK3:
             gtk3-x11
