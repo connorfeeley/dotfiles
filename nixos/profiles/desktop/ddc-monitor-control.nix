@@ -26,9 +26,9 @@ let
   '';
   scriptNighttime = pkgs.writeShellScriptBin "monitor-nighttime" ''
     # Control 0x10: brightness
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 33 dev:/dev/i2c-4 # center monitor
     ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 33 dev:/dev/i2c-5 # left monitor
     ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 33 dev:/dev/i2c-6 # right monitor
+    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 33 dev:/dev/i2c-7 # center monitor
   '';
 in
 {
