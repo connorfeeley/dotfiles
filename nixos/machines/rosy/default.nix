@@ -152,7 +152,6 @@ in
         linux
         emacs-config
       ])) ++ (with hmArgs.profiles; [
-        sync
         work
 
         desktop.xmonad
