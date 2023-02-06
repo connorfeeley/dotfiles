@@ -101,7 +101,8 @@ in
       { name = "gimp"; }
       { name = "zoom"; }
       { name = "timemachineeditor"; } # start backups in Time Machine at particular times
-      { name = "disk-inventory-x"; } # view
+      { name = "disk-inventory-x"; } # disk usage analyzer
+      { name = "trader-workstation"; } # Interactive Brokers TWS
     ];
 
     homebrew.masApps = {
