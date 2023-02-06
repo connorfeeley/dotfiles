@@ -52,6 +52,7 @@
     hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { flake-parts.follows = "flake-parts"; nix-darwin.follows = "darwin"; }; };
 
     ##: --- personal packages --------------------------------------------------
+    nurpkgs = { url = "github:connorfeeley/nurpkgs"; inputs.nixpkgs.follows = "nixpkgs"; };
     xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
     chatgpt-wrapper = { url = "git+https://git.sr.ht/~cfeeley/chatgpt-wrapper"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-darwin.follows = "nixpkgs-darwin"; };
     ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; }; # Private repo
@@ -112,6 +113,7 @@
     , deadnix
     , comma
     , rnix-lsp
+    , nurpkgs
     , xmonad-config
     , chatgpt-wrapper
     , ttc-subway-font
@@ -193,6 +195,7 @@
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
 
             # Personal packages
+            inherit (packagesFrom inputs.nurpkgs) apple_complete maclaunch;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.ttc-subway-font) ttc-subway bloor-yonge-font;
 

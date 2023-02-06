@@ -2773,6 +2773,26 @@
         "type": "github"
       }
     },
+    "nurpkgs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1675742235,
+        "narHash": "sha256-ASYz22YyyH54pu/Y00PgSd4xhT1odFYadYIoy0xMk3g=",
+        "owner": "connorfeeley",
+        "repo": "nurpkgs",
+        "rev": "529a89ca2f00b1e1a7125c3d5e277ebddd03e55e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "connorfeeley",
+        "repo": "nurpkgs",
+        "type": "github"
+      }
+    },
     "nvfetcher": {
       "inputs": {
         "flake-compat": "flake-compat_14",
@@ -3089,6 +3109,7 @@
         "nixpkgs-input-leap": "nixpkgs-input-leap",
         "nixvim": "nixvim",
         "nur": "nur",
+        "nurpkgs": "nurpkgs",
         "nvfetcher": "nvfetcher",
         "plasma-manager": "plasma-manager",
         "prefmanager": "prefmanager",
