@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
     just # <- Just a command wrapper
+    speedtest-cli
 
     ## === Data and Documents ===
     tidy-viewer #         <- Pretty-print CSV files
