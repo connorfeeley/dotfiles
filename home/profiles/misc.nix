@@ -31,6 +31,13 @@
 
     ## === Data Sync ===
     rclone
+
+    ## === Repo Scripts ===
+    nixos-rebuild-remote
+    dotfield-sync
+    dotfield-push
+    dotfield-rebuild
+    dotfield-doom
   ] ++ (lib.optionals pkgs.stdenv.isLinux [ ]);
 
   fonts.fontconfig.enable = true;

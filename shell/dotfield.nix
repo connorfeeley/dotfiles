@@ -68,10 +68,6 @@ in
       (utils lefthook)
 
       # -- Dotfield --
-      (dotfield scripts.dotfield-sync)
-      (dotfield scripts.dotfield-push)
-      (dotfield scripts.dotfield-rebuild)
-      (dotfield scripts.dotfield-doom)
       (dotfield scripts.dotfield-docs)
       (withCategory "dotfield" {
         name = "repl";

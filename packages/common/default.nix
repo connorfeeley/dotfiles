@@ -40,6 +40,52 @@ final: prev: {
 
   mdio-tools = final.callPackage ./mdio-tools.nix { };
 
+  dotfield-sync = prev.callPackage ./flake-scripts/dotfield-sync-repos.nix {
+    name = "dotfield-sync";
+    inherit (prev.nodePackages) git-run;
+  };
+
+  dotfield-push = prev.callPackage ./flake-scripts/dotfield-push-repos.nix {
+    name = "dotfield-push";
+    inherit (prev.nodePackages) git-run;
+  };
+
+  dotfield-rebuild =
+    let
+      extraPath = prev.lib.makeBinPath [ prev.nix-output-monitor ];
+      writeProgram = name: env: src:
+        prev.substituteAll ({
+          inherit name src;
+          inherit (prev.stdenv) shell;
+          path = "${extraPath}";
+          dir = "bin";
+          isExecutable = true;
+        } // env);
+    in
+    writeProgram "dotfield-rebuild"
+      {
+        nom = "${prev.nix-output-monitor}/bin/nom";
+      } ./flake-scripts/dotfield-rebuild.sh;
+
+  dotfield-doom =
+    let
+      extraPath = prev.lib.makeBinPath [ ];
+      writeProgram = name: env: src:
+        prev.substituteAll ({
+          inherit name src;
+          inherit (prev.stdenv) shell;
+          path = "${extraPath}";
+          dir = "bin";
+          isExecutable = true;
+        } // env);
+    in
+    writeProgram "dotfield-doom" { } ./flake-scripts/doom-rebuild.sh;
+
+  nixos-rebuild-remote = prev.callPackage ./flake-scripts/nixos-rebuild-remote.nix {
+    name = "nixos-rebuild-remote";
+    inherit (prev) writeShellApplication nixos-rebuild;
+  };
+
   # openssh =
   #   let
   #     # Fixed ssh-copy-id for old+new dropbear compatibility
