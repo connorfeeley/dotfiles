@@ -3,9 +3,24 @@ let
   inherit (config.dotfield) guardian;
 
   monitors = {
-    center = 1; # i2c-4
-    left = 2; # i2c-5
-    right = 3; # ic2-6
+    # Dell Ultrawide
+    U2917W = {
+      busNumbers = [ 4 ];
+      brightness.daytime = 100;
+      brightness.nighttime = 0;
+    };
+    # Samsung UHD (TN panel; brightness at night: the light of 1000 suns; flat)
+    U28E590 = {
+      busNumbers = [ 5 6 ];
+      brightness.daytime = 55;
+      brightness.nighttime = 33;
+    };
+    # Samsung UHD (VA panel; brightness during the day: similar to the brightness of a sketchy alley at night; curved)
+    U32R59x = {
+      busNumbers = [ 7 ];
+      brightness.daytime = 100;
+      brightness.nighttime = 33;
+    };
   };
 
   mkProfile = percentBrightness: ''
@@ -18,20 +33,33 @@ let
   daytimeProfile = pkgs.writeText "daytime-profile" (mkProfile 55);
   nighttimeProfile = pkgs.writeText "daytime-profile" (mkProfile 30);
 
-  scriptDaytime = pkgs.writeShellScriptBin "monitor-daytime" ''
+  setBrightness = i2cBus: brightness: ''
     # Control 0x10: brightness
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 100 dev:/dev/i2c-4 # center monitor
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w  55 dev:/dev/i2c-5 # left monitor
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w  55 dev:/dev/i2c-6 # right monitor
+    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w ${toString brightness} dev:/dev/i2c-${toString i2cBus}
   '';
-  scriptNighttime = pkgs.writeShellScriptBin "monitor-nighttime" ''
-    # Control 0x10: brightness
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 33 dev:/dev/i2c-5 # left monitor
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 33 dev:/dev/i2c-6 # right monitor
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w 33 dev:/dev/i2c-7 # center monitor
+
+  scriptDaytime = with monitors; pkgs.writeShellScriptBin "monitor-daytime" ''
+    ${lib.concatMapStringsSep "\n"
+    (bus: setBrightness bus U2917W.brightness.daytime) U2917W.busNumbers}
+
+    ${lib.concatMapStringsSep "\n"
+      (bus: setBrightness bus U28E590.brightness.daytime) U28E590.busNumbers}
+
+    ${lib.concatMapStringsSep "\n"
+    (bus: setBrightness bus U32R59x.brightness.daytime) U32R59x.busNumbers}
   '';
-in
-{
+
+  scriptNighttime = with monitors; pkgs.writeShellScriptBin "monitor-nighttime" ''
+    ${lib.concatMapStringsSep "\n"
+    (bus: setBrightness bus U2917W.brightness.nighttime) U2917W.busNumbers}
+
+    ${lib.concatMapStringsSep "\n"
+    (bus: setBrightness bus U28E590.brightness.nighttime) U28E590.busNumbers}
+
+    ${lib.concatMapStringsSep "\n"
+    (bus: setBrightness bus U32R59x.brightness.nighttime) U32R59x.busNumbers}
+  '';
+in {
   # FIXME: broken with current kernel
   # boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
   boot.kernelModules = [ "i2c-dev" ];
