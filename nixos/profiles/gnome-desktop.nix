@@ -58,25 +58,25 @@
       #   xkb-options=['${config.services.xserver.xkbOptions}']
       # '';
       flashback.enableMetacity = true;
-      # flashback.customSessions = [
-      #   rec {
-      #     wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
-      #       if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-      #           ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
-      #       fi
+      flashback.customSessions = [
+        rec {
+          wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
+            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+                ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
+            fi
 
-      #       ${pkgs.xmonad-config}/bin/xmonad &
-      #       waitPID=$!
+            ${pkgs.xmonad-config}/bin/xmonad &
+            waitPID=$!
 
-      #       if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-      #         ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
-      #       fi
-      #     '');
-      #     wmLabel = "xmonad-flashback";
-      #     wmName = "xmonad-flashback";
-      #     enableGnomePanel = true;
-      #   }
-      # ];
+            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+              ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
+            fi
+          '');
+          wmLabel = "xmonad-flashback";
+          wmName = "xmonad-flashback";
+          enableGnomePanel = true;
+        }
+      ];
       # sessionPath =
       #   let
       #     fildem-global-menu = pkgs.gnomeExtensions.fildem-global-menu.overrideAttrs (old: {
