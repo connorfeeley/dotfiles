@@ -4,20 +4,21 @@ moduleArgs @ { config
 , ...
 }:
 let
+  inherit (config.lib.dotfield) fsPath;
   inherit (config.networking) hostName;
+
+  nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in
 {
-  nix.nixPath = [
-    # TODO: This entry should be added automatically via FUP's `nix.linkInputs`
-    # and `nix.generateNixPathFromInputs` options, but currently that doesn't
-    # work because nix-darwin doesn't export packages, which FUP expects.
-    #
-    # This entry should be removed once the upstream issues are fixed.
-    #
-    # https://github.com/LnL7/nix-darwin/issues/277
-    # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/107
-    "darwin=/etc/nix/inputs/darwin"
-  ];
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      # TODO: is it really reasonable to set these all as defaults?
+      system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+    };
+
+    nixPath = [ "nixos-config=${nixosConfigPath}" ];
+  };
 
   # HACK: MacOS doesn't have an /etc/hostname file
   environment.etc."hostname".text = "${hostName}";
