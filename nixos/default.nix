@@ -50,6 +50,7 @@ in
         smart
 
         builder
+        collective.profiles.hercules-ci-agent
         # binary-cache
 
         mail
@@ -131,6 +132,7 @@ in
         (with roles; server) ++
         (with profiles; [
           builder
+          collective.profiles.hercules-ci-agent
 
           desktop.common
           login.gdm

@@ -49,7 +49,7 @@
     comma = { url = "github:nix-community/comma"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-index-database = { url = "github:Mic92/nix-index-database"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
-    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { flake-parts.follows = "flake-parts"; nix-darwin.follows = "darwin"; }; };
+    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { nixpkgs.follows = "nixpkgs"; flake-parts.follows = "flake-parts"; nix-darwin.follows = "darwin"; }; };
 
     ##: --- personal packages --------------------------------------------------
     nurpkgs = { url = "github:connorfeeley/nurpkgs"; inputs.nixpkgs.follows = "nixpkgs"; };
