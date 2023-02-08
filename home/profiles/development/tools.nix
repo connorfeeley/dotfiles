@@ -6,6 +6,8 @@ let
   inherit (config.lib) dotfield;
   configDir = dotfield.userConfigPath + "/zsh";
   toTOML = (pkgs.formats.toml { }).generate;
+
+  inherit (pkgs.stdenv) isLinux isAarch64;
 in
 {
   home.packages = with pkgs; [
@@ -27,7 +29,6 @@ in
     patchelf #        <- modify the dynamic linker and RPATH of ELF executables
     poetry #          <- sanest python package manager
     remake #          <- GNU Make with comprehensible tracing and a debugger
-    postman #         <- GNU Make with comprehensible tracing and a debugger
 
     ## === Nix Utilities ===
     nickel #        <- "Better configuration for less"
@@ -69,8 +70,10 @@ in
     alejandra
     cachix
     treefmt
-  ] ++ (lib.optionals pkgs.stdenv.isLinux [
+  ] ++ (lib.optionals isLinux [
     kgraphviewer #  <- KDE-flavoured Graphviz viewer
+  ]) ++ (lib.optionals (isLinux && !isAarch64) [
+    postman #         <- GNU Make with comprehensible tracing and a debugger
   ]);
 
   fonts.fontconfig.enable = true;
