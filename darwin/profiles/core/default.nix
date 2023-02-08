@@ -1,13 +1,9 @@
-moduleArgs @ { config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ...}:
 let
   inherit (config.lib.dotfield) fsPath;
   inherit (config.networking) hostName;
 
-  nixosConfigPath = "${fsPath}/lib/compat/nixos";
+  darwinConfigPath = "${fsPath}/lib/compat/darwin";
 in
 {
   nix = {
@@ -17,7 +13,7 @@ in
       system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     };
 
-    nixPath = [ "nixos-config=${nixosConfigPath}" ];
+    nixPath = [ "nixos-config=${darwinConfigPath}" ];
   };
 
   # HACK: MacOS doesn't have an /etc/hostname file
