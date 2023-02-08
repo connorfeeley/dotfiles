@@ -141,11 +141,4 @@ in
     latitude = 43.70011;
     longitude = -79.4163;
   };
-
-  # Include a link in the system closure containing a symlink to the source flake
-  # configuration that it was built from.
-  system.extraSystemBuilderCmds = ''
-    ln -s ${moduleArgs.self} $out/flake
-  '';
-
 }
