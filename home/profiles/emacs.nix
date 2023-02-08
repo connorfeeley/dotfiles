@@ -13,12 +13,13 @@ let
   emacsPackage =
     let
       emacs-pkg = with pkgs; if isDarwin
-      #: isDarwin: emacs-plus with native compilation from this repo
-      # then emacs-plus.override {
-      #   otherIcon = "gnu-head-icon";
-      # }
       #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
-      then emacsGitDarwin
+      then
+        emacsGitDarwin.overrideAttrs
+          (old: {
+            # Required for 'hammy' emacs package
+            buildInputs = old.buildInputs ++ [ pkgs.dbus ];
+          })
       #: isLinux: emacs 28 (w/ native comp)
       else
         pkgs.emacsGit.override {
@@ -36,10 +37,10 @@ let
           withGTK3 = false;
         };
     in
-    emacs-pkg.override {
+    (emacs-pkg.override {
       withSQLite3 = true;
       withWebP = true;
-    };
+    }).overrideAttrs (old: { separateDebugInfo = true; });
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
   doomRepoRev = "e96624926d724aff98e862221422cd7124a99c19";
@@ -139,12 +140,11 @@ lib.mkMerge [
     };
 
     services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
-      # Doom will take care of running the server.
       enable = lib.mkDefault true;
       defaultEditor = lib.mkForce true;
       socketActivation.enable = false;
       startWithUserSession = lib.mkDefault true; # implies socketActivitaion is disabled
-      client.enable = lib.mkDefault true; # Generate desktop file
+      client.enable = lib.mkDefault false; # Don't generate desktop file - just use e-wrapper
     };
 
     home.packages = with pkgs; [
