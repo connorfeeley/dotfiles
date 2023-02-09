@@ -71,7 +71,8 @@
         pop-gtk-theme
       ] ++ (with gnomeExtensions; [
         gnomeExtensions.pop-shell
-        gnomeExtensions.pop-launcher-super-key
+        gnomeExtensions.pop-theme-switcher
+        gnomeExtensions.remove-alttab-delay-v2
         gnomeExtensions.systemd-manager
         gnomeExtensions.kitsch
       ]);

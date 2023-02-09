@@ -38,7 +38,7 @@ with lib.hm.gvariant; {
     "org/gnome/desktop/input-sources" = {
       per-window = false;
       xkb-options = [ ];
-      sources = [ "('xkb', 'us+dvorak')" "('xkb', 'us')" ];
+      sources = [ (mkTuple [ "xkb" "us+dvorak" ])];
     };
 
     "org/gnome/desktop/interface" = {
