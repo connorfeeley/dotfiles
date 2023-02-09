@@ -58,7 +58,7 @@ with lib.hm.gvariant; {
     };
     "org/gnome/mutter" = {
       edge-tiling = true;
-      workspaces-only-on-primary = false;
+      workspaces-only-on-primary = true;
       dynamic-workspaces = false;
     };
     "org/gnome/desktop/wm/preferences" = {
