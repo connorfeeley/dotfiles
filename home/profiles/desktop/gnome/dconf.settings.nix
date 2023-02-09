@@ -148,8 +148,13 @@ with lib.hm.gvariant; {
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super><Shift>Return";
-      command = "kitty"; # TODO: use configured "default"
+      command = "kitty";
       name = "Open Kitty";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Super>p";
+      command = "rofi -show combi";
+      name = "Open Rofi";
     };
   };
 }
