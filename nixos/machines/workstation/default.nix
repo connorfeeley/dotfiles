@@ -173,8 +173,9 @@ in
   dotfield.guardian = {
     enable = true;
     username = "cfeeley";
-    autoLogin = true;
+    autoLogin = false;
   };
+  services.xserver.displayManager.defaultSession = "gnome"; # or gnome-flashback-xmonad-flashback
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";

@@ -34,8 +34,8 @@
     tracker-miners.enable = true; # Tracker miners, indexing services for Tracker search engine and metadata storage system.
   };
   services.gvfs.enable = true; # Virtual filesystem for Gnome
-  # programs.gnupg.agent.pinentryFlavor = "gnome3";
-  #
+  programs.gnupg.agent.pinentryFlavor = "gnome3";
+
   environment.systemPackages = [ pkgs.xmonad-config ];
 
   services.xserver = {
@@ -58,25 +58,54 @@
       #   xkb-options=['${config.services.xserver.xkbOptions}']
       # '';
       flashback.enableMetacity = true;
-      flashback.customSessions = [
-        rec {
-          wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
-            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-                ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
-            fi
 
-            ${pkgs.xmonad-config}/bin/xmonad &
-            waitPID=$!
+      sessionPath = with pkgs; [
+        appmenu-gtk3-module
+        tensorman
+        popsicle
+        firmware-manager
 
-            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-              ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
-            fi
-          '');
-          wmLabel = "xmonad-flashback";
-          wmName = "xmonad-flashback";
-          enableGnomePanel = true;
-        }
-      ];
+        pop-icon-theme
+        marwaita
+        marwaita-pop_os
+        pop-gtk-theme
+      ] ++ (with gnomeExtensions; [
+        gnomeExtensions.pop-shell
+        gnomeExtensions.pop-launcher-super-key
+        gnomeExtensions.systemd-manager
+        gnomeExtensions.better-osd-gnome
+        gnomeExtensions.kitsch
+      ]);
+      flashback.customSessions =
+        let
+          localPath = "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
+          defaultPath = "${pkgs.xmonad-config}/bin/xmonad";
+        in
+        [
+          {
+            wmName = "xmonad-flashback";
+            wmLabel = "XMonad flashback";
+            wmCommand = localPath;
+            enableGnomePanel = true;
+          }
+          (rec {
+            wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
+              if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+                  ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
+              fi
+
+              ${localPath} &
+              waitPID=$!
+
+              if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+                ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
+              fi
+            '');
+            wmLabel = "xmonad-flashback";
+            wmName = "XMonad-flashback-DBus";
+            enableGnomePanel = true;
+          })
+        ];
       # sessionPath =
       #   let
       #     fildem-global-menu = pkgs.gnomeExtensions.fildem-global-menu.overrideAttrs (old: {

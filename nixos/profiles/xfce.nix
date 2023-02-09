@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }: {
-  services.xserver.displayManager.defaultSession = "xfce";
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
   environment.systemPackages = with pkgs; [
     xfce.xfce4-whiskermenu-plugin
@@ -36,7 +35,7 @@
     };
   };
   services.redshift = {
-    enable = true;
+    enable = false;
     executable = "/bin/redshift-gtk";
 
     temperature.day = 5500;

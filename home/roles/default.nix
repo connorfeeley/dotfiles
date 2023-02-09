@@ -41,7 +41,7 @@ with profiles; let
   # Desktop packages
   graphical = [
     desktop.common
-    # desktop.gnome
+    desktop.gnome
     desktop.gui
     desktop.word-processing
     firefox

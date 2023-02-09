@@ -4,9 +4,6 @@
 , ...
 }: {
 
-  services.redshift = {
-    enable = true;
-  };
   services.autorandr = {
     enable = true;
     profiles = {
