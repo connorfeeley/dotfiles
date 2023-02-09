@@ -29,6 +29,7 @@ with lib.hm.gvariant; {
         "window-list@gnome-shell-extensions.gcampax.github.com"
         "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+        "remove-alt-tab-delay@daase.net"
       ];
     };
     # "org/gnome/shell/extensions/user-theme" = {
