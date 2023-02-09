@@ -14,18 +14,36 @@ with lib.hm.gvariant; {
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-        "appindicatorsupport@rgcjonas.gmail.com"
+        "apps-menu@gnome-shell-extensions.gcampax.github.com"
+        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+        "gsconnect@andyholmes.github.io"
+        "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
+        "native-window-placement@gnome-shell-extensions.gcampax.github.com"
+        "places-menu@gnome-shell-extensions.gcampax.github.com"
+        "pop-launcher-super-key@ManeLippert"
         "pop-shell@system76.com"
+        "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com"
+        "systemd-manager@hardpixel.eu"
+        "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "window-list@gnome-shell-extensions.gcampax.github.com"
+        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
       ];
     };
     # "org/gnome/shell/extensions/user-theme" = {
     #   name = config.gtk.theme.name;
     # };
+
+    "org/gnome/desktop/input-sources" = {
+      per-window = false;
+      xkb-options = [ ];
+      sources = [ "('xkb', 'us+dvorak')" "('xkb', 'us')" ];
+    };
+
     "org/gnome/desktop/interface" = {
-      monospace-font-name = "MesloLGS Nerd Font Mono 10";
-      color-scheme = "prefer-dark";
+      monospace-font-name = "Iosevka 10";
+      color-scheme = "prefer-light";
     };
     "org/gnome/desktop/background" = {
       primary-color = "#000000";
@@ -43,7 +61,7 @@ with lib.hm.gvariant; {
       dynamic-workspaces = false;
     };
     "org/gnome/desktop/wm/preferences" = {
-      num-workspaces = 4;
+      num-workspaces = 9;
       focus-mode = "sloppy";
     };
     "org/gnome/settings-daemon/plugins/color" = {
@@ -61,14 +79,14 @@ with lib.hm.gvariant; {
     };
     "org/gnome/desktop/wm/keybindings" = {
       minimize = [ "<Super>comma" ];
-      maximize = [ ];
+      maximize = [ "<Super>f" ];
       unmaximize = [ ];
-      switch-to-workspace-left = [ ];
-      switch-to-workspace-right = [ ];
+      switch-to-workspace-left = [ "<Super>e" ];
+      switch-to-workspace-right = [ "<Super>r" ];
       move-to-monitor-up = [ ];
       move-to-monitor-down = [ ];
-      move-to-monitor-left = [ ];
-      move-to-monitor-right = [ ];
+      move-to-monitor-left = [ "<Super><Shift>e" ];
+      move-to-monitor-right = [ "<Super><Shift>r" ];
       move-to-workspace-down = [ ];
       move-to-workspace-up = [ ];
       switch-to-workspace-down = [ "<Primary><Super>Down" "<Primary><Super>j" ];
@@ -79,10 +97,20 @@ with lib.hm.gvariant; {
       switch-to-workspace-2 = [ "<Super>2" ];
       switch-to-workspace-3 = [ "<Super>3" ];
       switch-to-workspace-4 = [ "<Super>4" ];
+      switch-to-workspace-5 = [ "<Super>5" ];
+      switch-to-workspace-6 = [ "<Super>6" ];
+      switch-to-workspace-7 = [ "<Super>7" ];
+      switch-to-workspace-8 = [ "<Super>8" ];
+      switch-to-workspace-9 = [ "<Super>9" ];
       move-to-workspace-1 = [ "<Super><Shift>1" ];
       move-to-workspace-2 = [ "<Super><Shift>2" ];
       move-to-workspace-3 = [ "<Super><Shift>3" ];
       move-to-workspace-4 = [ "<Super><Shift>4" ];
+      move-to-workspace-5 = [ "<Super><Shift>5" ];
+      move-to-workspace-6 = [ "<Super><Shift>6" ];
+      move-to-workspace-7 = [ "<Super><Shift>7" ];
+      move-to-workspace-8 = [ "<Super><Shift>8" ];
+      move-to-workspace-9 = [ "<Super><Shift>9" ];
     };
     "org/gnome/shell/keybindings" = {
       open-application-menu = [ ];
@@ -99,6 +127,7 @@ with lib.hm.gvariant; {
       switch-to-application-9 = [ ];
     };
     "org/gnome/mutter/keybindings" = {
+      switch-monitor = [ ];
       toggle-tiled-left = [ ];
       toggle-tiled-right = [ ];
     };
@@ -106,9 +135,9 @@ with lib.hm.gvariant; {
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
       ];
-      screensaver = "@as ['<Super>Escape']";
+      screensaver = "@as []";
       rotate-video-lock-static = [ ];
-      home = [ "<Super>e" ];
+      home = [ ];
       email = [ ];
       www = [ ];
       terminal = [ ];
@@ -117,9 +146,9 @@ with lib.hm.gvariant; {
       restore-shortcuts = [ ];
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super>z";
-      command = "alacritty"; # TODO: use configured "default"
-      name = "Open Alacritty";
+      binding = "<Super><Shift>Return";
+      command = "kitty"; # TODO: use configured "default"
+      name = "Open Kitty";
     };
   };
 }
