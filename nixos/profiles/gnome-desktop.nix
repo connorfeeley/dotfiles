@@ -70,11 +70,14 @@
         marwaita-pop_os
         pop-gtk-theme
       ] ++ (with gnomeExtensions; [
-        gnomeExtensions.pop-shell
-        gnomeExtensions.pop-theme-switcher
-        gnomeExtensions.remove-alttab-delay-v2
-        gnomeExtensions.systemd-manager
-        gnomeExtensions.kitsch
+        pop-shell
+        pop-theme-switcher
+        remove-alttab-delay-v2
+        systemd-manager
+
+        dash-to-dock
+        dash-to-dock-animator
+        blur-my-shell
       ]);
       flashback.customSessions =
         let
