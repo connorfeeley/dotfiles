@@ -161,13 +161,19 @@
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        # https://flake.parts/options/flake-parts-easyoverlay
+        inputs.flake-parts.flakeModules.easyOverlay
+
         ./nixos/flake-module.nix
       ];
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
+      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
       perSystem = { config, self', inputs', ... }: {
         # Per-system attributes can be defined here. The self' and inputs'
         # module parameters provide easy access to attributes of the same
         # system.
+        overlayAttrs = {
+          inherit (config.packages) figlet;
+        };
 
         packages.figlet = inputs'.nixpkgs.legacyPackages.figlet;
       };
