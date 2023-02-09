@@ -60,7 +60,7 @@ in
 
         desktop.common
         desktop.input-leap
-        login.sddm
+        login.gdm
         xorg
         # hm-xmonad
         kde

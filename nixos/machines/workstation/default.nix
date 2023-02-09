@@ -267,4 +267,11 @@ in
   services.ntopng.httpPort = 9009;
 
   virtualisation.docker.daemon.settings.hosts = lib.mkIf config.virtualisation.docker.enable [ "unix:///var/run/docker.sock" "tcp://0.0.0.0:2375" ];
+
+  # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
+  # Normally the machine will power down after 20 minutes if no user is logged in.
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 }
