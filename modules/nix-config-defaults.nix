@@ -35,7 +35,10 @@ let
     # If set to true, Nix automatically detects files in the store that have identical contents,
     # and replaces them with hard links to a single copy. This saves disk space.
     # If set to false (the default), you can still run nix-store –optimise to get rid of duplicate files.
-    auto-optimise-store = true;
+    # https://discourse.nixos.org/t/difference-between-nix-settings-auto-optimise-store-and-nix-optimise-automatic/25350/2
+    # Probably better off with nix.optimise.automatic (daily systemd timer to trigger store optimization),
+    # rather than after every build.
+    # auto-optimise-store = true;
   };
 
   developer = lib.mkDefault {
