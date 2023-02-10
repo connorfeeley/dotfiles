@@ -274,4 +274,41 @@ in
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
+
+  # Poll VPN endpoint every 5 minutes and send an alert if the VPN is unreachable
+  systemd.user = let name = "vpn-connection-monitor"; in {
+    services.${name} =
+      let
+        notify = "${pkgs.libnotify}/bin/notify-send --urgency=critical --category=network --app-name=${name}";
+        checkReachability = pkgs.writeShellScript "check-reachability" ''
+          if ! ${pkgs.socat}/bin/socat -v - TCP:rossvideo.com:80,connect-timeout=10; then
+            echo "Unreachable!"
+            ${notify} "${name}: VPN unreachable"
+          else
+            echo "Reachable."
+          fi
+        '';
+      in
+      {
+        description = "VPN status notification";
+
+        wantedBy = [ "graphical-session.target" ];
+        after = [ "network.target" "graphical-session.target" ];
+
+        path = [ pkgs.socat pkgs.libnotify ];
+
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = checkReachability;
+        };
+      };
+    timers.${name} = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "5m";
+        OnUnitActiveSec = "5m";
+        Unit = "vpn-connection-monitor.service";
+      };
+    };
+  };
 }
