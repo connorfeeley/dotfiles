@@ -60,6 +60,7 @@ with lib.hm.gvariant; {
       edge-tiling = true;
       workspaces-only-on-primary = true;
       dynamic-workspaces = false;
+      experminental-features = [ "x11-randr-fractional-scaling" ]; # Enable fractional scaling
     };
     "org/gnome/desktop/wm/preferences" = {
       num-workspaces = 9;
@@ -67,7 +68,7 @@ with lib.hm.gvariant; {
     };
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
-      night-light-temperature = "uint32 3500";
+      night-light-temperature = "uint32 3700";
       night-light-schedule-automatic = true;
     };
     "org/gnome/eog/ui" = {
@@ -117,15 +118,15 @@ with lib.hm.gvariant; {
       open-application-menu = [ ];
       toggle-message-tray = [ "<Super>v" ];
       toggle-overview = [ ];
-      switch-to-application-1 = [ ];
-      switch-to-application-2 = [ ];
-      switch-to-application-3 = [ ];
-      switch-to-application-4 = [ ];
-      switch-to-application-5 = [ ];
-      switch-to-application-6 = [ ];
-      switch-to-application-7 = [ ];
-      switch-to-application-8 = [ ];
-      switch-to-application-9 = [ ];
+      switch-to-application-1 = [ "<Super><Control>1" ];
+      switch-to-application-2 = [ "<Super><Control>2" ];
+      switch-to-application-3 = [ "<Super><Control>3" ];
+      switch-to-application-4 = [ "<Super><Control>4" ];
+      switch-to-application-5 = [ "<Super><Control>5" ];
+      switch-to-application-6 = [ "<Super><Control>6" ];
+      switch-to-application-7 = [ "<Super><Control>7" ];
+      switch-to-application-8 = [ "<Super><Control>8" ];
+      switch-to-application-9 = [ "<Super><Control>9" ];
     };
     "org/gnome/mutter/keybindings" = {
       switch-monitor = [ ];
@@ -140,8 +141,8 @@ with lib.hm.gvariant; {
       rotate-video-lock-static = [ ];
       home = [ ];
       email = [ ];
-      www = [ ];
-      terminal = [ ];
+      www = [ "firefox" ];
+      terminal = [ "kitty" ];
     };
     "org/gnome/mutter/wayland/keybindings" = {
       restore-shortcuts = [ ];

@@ -195,7 +195,7 @@
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
 
             # Personal packages
-            inherit (packagesFrom inputs.nurpkgs) apple_complete maclaunch;
+            inherit (packagesFrom inputs.nurpkgs) apple_complete maclaunch toronto-backgrounds;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.ttc-subway-font) ttc-subway bloor-yonge-font;
 

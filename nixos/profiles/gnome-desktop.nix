@@ -1,20 +1,19 @@
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   programs = {
     gnome-terminal.enable = true;
     gnome-disks.enable = true;
     kdeconnect.enable = true;
     kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
-    seahorse.enable = true; # Provides Seahorse, a Gnome application for managing keys and passwords
+    seahorse.enable =
+      true; # Provides Seahorse, a Gnome application for managing keys and passwords
   };
 
   services.gnome = {
     # Required for Firefox integration in home-manager
     gnome-browser-connector.enable = true;
     sushi.enable = true; # Quick previewer for Nautilus
-    at-spi2-core.enable = true; # Service for the Assistive Technologies available on the GNOME platform
+    at-spi2-core.enable =
+      true; # Service for the Assistive Technologies available on the GNOME platform
     core-developer-tools.enable = true;
     core-os-services.enable = true;
     core-shell.enable = true;
@@ -30,21 +29,46 @@
     gnome-settings-daemon.enable = true;
     gnome-user-share.enable = true;
     rygel.enable = true;
-    tracker.enable = true; # Search engine, search tool and metadata storage system.
-    tracker-miners.enable = true; # Tracker miners, indexing services for Tracker search engine and metadata storage system.
+    tracker.enable =
+      true; # Search engine, search tool and metadata storage system.
+    tracker-miners.enable =
+      true; # Tracker miners, indexing services for Tracker search engine and metadata storage system.
   };
   services.gvfs.enable = true; # Virtual filesystem for Gnome
   programs.gnupg.agent.pinentryFlavor = "gnome3";
 
-  environment.systemPackages = [ pkgs.xmonad-config ];
+  environment.systemPackages = with pkgs;
+    [ xmonad-config gnome.gnome-boxes ] ++ [
+      appmenu-gtk3-module
+      tensorman
+      popsicle
+      firmware-manager
+
+      pop-icon-theme
+      marwaita
+      marwaita-pop_os
+      pop-gtk-theme
+      toronto-backgrounds
+    ] ++ (with gnomeExtensions; [
+      pop-shell
+      pop-theme-switcher
+      remove-alttab-delay-v2
+      systemd-manager
+
+      dash-to-dock
+      dash-to-dock-animator
+      blur-my-shell
+      topiconsfix # Show tray icons in top bar
+      wallpaper-changer-continued
+
+      toronto-backgrounds
+    ]);
 
   services.xserver = {
     enable = true;
 
     # displayManager.job.preStart = "sleep 5";
-    displayManager.gdm = {
-      autoSuspend = false;
-    };
+    displayManager.gdm = { autoSuspend = false; };
 
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
@@ -52,63 +76,37 @@
     desktopManager.gnome = {
       enable = true;
       debug = true;
-      # extraGSettingsOverrides = ''
-      #   [org.gnome.desktop.input-sources]
-      #   sources=[('xkb', '${config.services.xserver.layout}')]
-      #   xkb-options=['${config.services.xserver.xkbOptions}']
-      # '';
       flashback.enableMetacity = true;
 
-      sessionPath = with pkgs; [
-        appmenu-gtk3-module
-        tensorman
-        popsicle
-        firmware-manager
+      flashback.customSessions = let
+        localPath =
+          "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
+        defaultPath = "${pkgs.xmonad-config}/bin/xmonad";
+      in [
+        {
+          wmName = "xmonad-flashback";
+          wmLabel = "XMonad flashback";
+          wmCommand = localPath;
+          enableGnomePanel = true;
+        }
+        (rec {
+          wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
+            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+                ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
+            fi
 
-        pop-icon-theme
-        marwaita
-        marwaita-pop_os
-        pop-gtk-theme
-      ] ++ (with gnomeExtensions; [
-        pop-shell
-        pop-theme-switcher
-        remove-alttab-delay-v2
-        systemd-manager
+            ${localPath} &
+            waitPID=$!
 
-        dash-to-dock
-        dash-to-dock-animator
-        blur-my-shell
-      ]);
-      flashback.customSessions =
-        let
-          localPath = "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
-          defaultPath = "${pkgs.xmonad-config}/bin/xmonad";
-        in
-        [
-          {
-            wmName = "xmonad-flashback";
-            wmLabel = "XMonad flashback";
-            wmCommand = localPath;
-            enableGnomePanel = true;
-          }
-          (rec {
-            wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
-              if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-                  ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
-              fi
-
-              ${localPath} &
-              waitPID=$!
-
-              if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-                ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
-              fi
-            '');
-            wmLabel = "xmonad-flashback";
-            wmName = "XMonad-flashback-DBus";
-            enableGnomePanel = true;
-          })
-        ];
+            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+              ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
+            fi
+          '');
+          wmLabel = "xmonad-flashback";
+          wmName = "XMonad-flashback-DBus";
+          enableGnomePanel = true;
+        })
+      ];
       # sessionPath =
       #   let
       #     fildem-global-menu = pkgs.gnomeExtensions.fildem-global-menu.overrideAttrs (old: {
