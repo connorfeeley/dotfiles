@@ -4,19 +4,19 @@
 }:
 let
   workstation = (with (collective.profiles); [
-      fonts.common
-      secrets
-      flox
-    ])
-    ++ (with profiles; [
-      distributed-build
+    fonts.common
+    secrets
+    flox
+  ])
+  ++ (with profiles; [
+    distributed-build
 
-      gui
-      emacs
-      development
-      virtualization.podman
-      system-defaults
-    ]);
+    gui
+    emacs
+    development
+    virtualization.podman
+    system-defaults
+  ]);
 
   server = (with (collective.profiles); [
     fonts.common

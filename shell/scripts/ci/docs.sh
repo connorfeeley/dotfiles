@@ -10,9 +10,9 @@ export PATH=@path@:$PATH
 
 # Generate a personal access token and export it as PRIVATE_BEARER_TOKEN:
 if [ -e /tmp/dotfield-readme-update-access-token.txt ]; then
-   PRIVATE_BEARER_TOKEN="$(cat /tmp/dotfield-readme-update-access-token.txt)"
+  PRIVATE_BEARER_TOKEN="$(cat /tmp/dotfield-readme-update-access-token.txt)"
 elif [ -f "/run/agenix/dotfield-readme-update-access-token" ]; then
-   PRIVATE_BEARER_TOKEN="$(cat "/run/agenix/dotfield-readme-update-access-token")"
+  PRIVATE_BEARER_TOKEN="$(cat "/run/agenix/dotfield-readme-update-access-token")"
 fi
 
 # ############################################################ #
@@ -52,7 +52,6 @@ pandoc /tmp/README.md -f gfm -t html5 -o /tmp/README.html
 #   -G --data-urlencode query='query { me { repository(name: "'$repo_name'") { id } } }' \
 #   https://git.sr.ht/query
 
-
 ###
 ### Regular usage
 ###
@@ -70,8 +69,8 @@ jq -sR '{
     }", "variables": {
       "id": '$repo_id',
       "readme": .
-    } }' < $readme \
-  | curl --oauth2-bearer $bearer_token \
+    } }' <$readme |
+  curl --oauth2-bearer "$bearer_token" \
     -H "Content-Type: application/json" \
     -d@- https://git.sr.ht/query
 
@@ -87,4 +86,4 @@ jq -sR '{
 #     -d@- https://git.sr.ht/query
 
 echo
-echo "Updated project README with $(wc -l < "$readme") lines"
+echo "Updated project README with $(wc -l <"$readme") lines"

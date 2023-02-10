@@ -27,7 +27,8 @@ let
     nix-eval-jobs
     nix-prefetch-git
     nix-build-uncached
-    nixos-rebuild # For remote nixos-rebuild on darwin
+    # For remote nixos-rebuild on darwin
+    nixos-rebuild
     ;
 
   inherit (pkgs.nodePackages)

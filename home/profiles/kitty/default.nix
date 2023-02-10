@@ -117,7 +117,7 @@ lib.mkMerge [
 
         # Include theme - symlink to either the selected dark or light theme
         include ${config.xdg.configHome}/kitty/current-theme.conf
-        '';
+      '';
     };
   }
   (lib.mkIf isDarwin {
@@ -130,10 +130,12 @@ lib.mkMerge [
   })
   {
     xdg.configFile =
-      let chosenTheme = dark;
-          dark = mkThemeBuiltin "Doom_One";
-          light = mkThemeBuiltin "Doom_One_Light";
-      in {
+      let
+        chosenTheme = dark;
+        dark = mkThemeBuiltin "Doom_One";
+        light = mkThemeBuiltin "Doom_One_Light";
+      in
+      {
         ###
         ### Theming
         ###

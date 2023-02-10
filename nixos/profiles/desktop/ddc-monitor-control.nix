@@ -59,7 +59,8 @@ let
     ${lib.concatMapStringsSep "\n"
     (bus: setBrightness bus U32R59x.brightness.nighttime) U32R59x.busNumbers}
   '';
-in {
+in
+{
   # FIXME: broken with current kernel
   # boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
   boot.kernelModules = [ "i2c-dev" ];

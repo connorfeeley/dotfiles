@@ -15,5 +15,5 @@ in
     xilinx-firmware
     xrt
     xrt-drivers
-  ;
+    ;
 }

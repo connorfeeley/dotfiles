@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   inherit (config.lib.dotfield) fsPath;
   inherit (config.networking) hostName;
