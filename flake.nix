@@ -197,17 +197,27 @@
             global.excludes = [ ];
           };
         };
+
+        # Attributes to add to overlays.default
         overlayAttrs = {
           inherit (config.packages) figlet;
         };
 
+        # Packages
         packages.figlet = inputs'.nixpkgs.legacyPackages.figlet;
-        apps.figlet = inputs'.nixpkgs.legacyPackages.figlet;
-        checks.figlet = inputs'.nixpkgs.legacyPackages.figlet;
+
+        # Applications
+        apps.figlet = {
+          type = "app";
+          program = inputs'.nixpkgs.legacyPackages.figlet;
+        };
+
         devShells = { };
+
+        checks.figlet = inputs'.nixpkgs.legacyPackages.figlet;
+
+        # Format with nixpkgs-fmt
         formatter = inputs'.nixpkgs.legacyPackages.nixpkgs-fmt;
-        # Attributes to add to overlays.default
-        overlayAttrs = { };
       };
       flake = {
         # The usual flake attributes can be defined here, including system-
