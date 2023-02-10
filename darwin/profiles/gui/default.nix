@@ -103,6 +103,7 @@ in
       { name = "timemachineeditor"; } # start backups in Time Machine at particular times
       { name = "disk-inventory-x"; } # disk usage analyzer
       { name = "trader-workstation"; } # Interactive Brokers TWS
+      { name = "microsoft-remote-desktop"; }
     ];
 
     homebrew.masApps = {
