@@ -19,7 +19,7 @@ let
     U32R59x = {
       busNumbers = [ 7 ];
       brightness.daytime = 100;
-      brightness.nighttime = 33;
+      brightness.nighttime = 55;
     };
   };
 
