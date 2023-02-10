@@ -166,6 +166,10 @@
 
         ./nixos/flake-module.nix
       ];
+
+      # Expose private flake values to the repl for inspection
+      debug = true;
+
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
       perSystem = { config, self', inputs', ... }: {
         # Per-system attributes can be defined here. The self' and inputs'
@@ -176,12 +180,20 @@
         };
 
         packages.figlet = inputs'.nixpkgs.legacyPackages.figlet;
+        apps.figlet = inputs'.nixpkgs.legacyPackages.figlet;
+        checks.figlet = inputs'.nixpkgs.legacyPackages.figlet;
+        devShells = { };
+        formatter = inputs'.nixpkgs.legacyPackages.nixpkgs-fmt;
+        # Attributes to add to overlays.default
+        overlayAttrs = { };
       };
       flake = {
         # The usual flake attributes can be defined here, including system-
         # agnostic ones like nixosModule and system-enumerating ones, although
         # those are more easily expressed in perSystem.
 
+        nixosConfigurations = { };
+        nixosModules = { };
       };
     };
 
