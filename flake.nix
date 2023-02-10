@@ -70,9 +70,9 @@
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nixvim = { url = "github:pta2002/nixvim"; inputs.nixpkgs.follows = "nixpkgs"; };
     prefmanager.url = "github:malob/prefmanager";
     tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
+    neovim-plusultra = { url = "github:jakehamilton/neovim"; };
 
     ##: --- other --------------------------------------------------------------
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
@@ -127,9 +127,9 @@
     , devenv
     , deploy
     , deploy-flake
-    , nixvim
     , prefmanager
     , tum-dse-config
+    , neovim-plusultra
     , flake-compat
     , dwarffs
     , base16-kitty
@@ -203,6 +203,7 @@
 
             nix-init = inputs.nix-init.packages.${final.system}.default;
             emacsGitDarwin = inputs.darwin-emacs.packages.${final.system}.default;
+            neovim-plusultra = inputs.neovim-plusultra.packages.${final.system}.neovim;
           }
         )
         (import ./overlays/tum-dse-config { inherit inputs; })
@@ -423,7 +424,7 @@
                 hammerspoon
                 native-youtube
                 emacs28Macport
-              ;
+                ;
 
               # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
               emacs28Macport-noNativeComp = pkgs.emacs28Macport.override { nativeComp = false; };
