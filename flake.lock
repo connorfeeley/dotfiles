@@ -1963,17 +1963,17 @@
         "nixpkgs": "nixpkgs_14"
       },
       "locked": {
-        "lastModified": 1675760622,
-        "narHash": "sha256-FbJNX5my5kBawdCtpgs7zHnYitLnYdxuXz2J6RopJVk=",
-        "owner": "doronbehar",
-        "repo": "nix-xilinx",
-        "rev": "dbece3e7e1fe83c7a7957d11d045f4c3a74df635",
-        "type": "gitlab"
+        "lastModified": 1676043832,
+        "narHash": "sha256-n+BNWQyyW35F4bVcoKIIVRRUpATc0pkQpef7+oJ9Hz0=",
+        "ref": "refs/heads/master",
+        "rev": "95bd418ec9f560df081dc6f10870138bb151f092",
+        "revCount": 196,
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/nix-xilinx"
       },
       "original": {
-        "owner": "doronbehar",
-        "repo": "nix-xilinx",
-        "type": "gitlab"
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/nix-xilinx"
       }
     },
     "nix_2": {

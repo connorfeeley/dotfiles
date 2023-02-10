@@ -61,7 +61,7 @@
     ##: --- meta packages ------------------------------------------------------
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
-    nix-xilinx = { url = "gitlab:doronbehar/nix-xilinx"; };
+    nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
 
     ##: --- packages -----------------------------------------------------------
     nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
