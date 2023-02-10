@@ -192,6 +192,9 @@ in
       dc = "diff --cached";
       ds = "diff --staged";
       amend = "commit --amend";
+      clone-for-worktrees =
+        let git-clone-bare-for-worktrees = pkgs.writeShellScript "git-clone-bare-for-worktrees" '''';
+        in "!sh ${git-clone-bare-for-worktrees}";
     };
 
     extraConfig = lib.mkMerge [
