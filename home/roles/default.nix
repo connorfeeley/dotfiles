@@ -45,7 +45,6 @@ with profiles; let
     desktop.gui
     desktop.word-processing
     firefox
-    chromium
     keyboard
     misc
     mpv
@@ -97,6 +96,7 @@ with profiles; let
   linux = [
     nixos.rofi
     nixos.development.tools
+    nixos.chromium
     virtualisation.docker
   ];
 

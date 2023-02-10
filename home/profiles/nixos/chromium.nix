@@ -1,18 +1,18 @@
 { lib, pkgs, ... }:
-
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-in
-# FIXME(darwin): broken
-lib.mkIf isLinux
-{
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   programs.chromium = {
     enable = true;
-    package = pkgs.chromium;
+    package = pkgs.microsoft-edge;
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # dark reader
       { id = "nngceckbapebfimnlniiiahkandclblb"; } # bitwarden
+      { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium-c
+      { id = "lanfdkkpgfjfdikkncbnojekcppdebfp"; } # canvas fingerprint defend
+      { id = "fhkphphbadjkepgfljndicmgdlndmoke"; } # font fingerprint defend
+      { id = "olnbjpaejebpnokblkepbphhembdicik"; } # webgl fingerprint defend
+      { id = "pcbjiidheaempljdefbdplebgdgpjcbe"; } # audio fingerprint defend
+      { id = "dhdgffkkebhmkfjojejmpbldmpobfkfo"; } # tampermonkey
       {
         # chromium web store
         id = "ocaahdebbfolfmndjeplogmgcagdmblk";
@@ -23,11 +23,6 @@ lib.mkIf isLinux
         };
         version = "1.4.0";
       }
-      { id = "lanfdkkpgfjfdikkncbnojekcppdebfp"; } # canvas fingerprint defend
-      { id = "fhkphphbadjkepgfljndicmgdlndmoke"; } # font fingerprint defend
-      { id = "olnbjpaejebpnokblkepbphhembdicik"; } # webgl fingerprint defend
-      { id = "pcbjiidheaempljdefbdplebgdgpjcbe"; } # audio fingerprint defend
-      { id = "dhdgffkkebhmkfjojejmpbldmpobfkfo"; } # tampermonkey
     ];
   };
 }
