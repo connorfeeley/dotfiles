@@ -212,7 +212,7 @@
           program = inputs'.nixpkgs.legacyPackages.figlet;
         };
 
-        devShells = { };
+        # devShells.default = { };
 
         checks.figlet = inputs'.nixpkgs.legacyPackages.figlet;
 
