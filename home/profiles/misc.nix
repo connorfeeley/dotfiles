@@ -6,8 +6,9 @@
   # most don't belong on a server, etc.
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
-    just # <- Just a command wrapper
+    just # <- Just a command runner
     speedtest-cli
+    asciiquarium
 
     ## === Data and Documents ===
     tidy-viewer #         <- Pretty-print CSV files
