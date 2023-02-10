@@ -37,11 +37,11 @@ let
     end
 
     section: options
-      relativeMouseMoves = false
+      relativeMouseMoves = true
       screenSaverSync = true
       win32KeepForeground = false
       clipboardSharing = true
-      switchDoubleTap = 250
+      switchDelay = 250
       switchCorners = none +top-left +top-right +bottom-left +bottom-right
       switchCornerSize = 0
       keystroke(Super+PageDown) = switchInDirection(down)
