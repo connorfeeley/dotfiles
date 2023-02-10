@@ -25,6 +25,7 @@ in
       profiles.virtualization.nixos-vm-host
 
       profiles.emacs # emacs-macport from homebrew
+      profiles.pulseaudio
     ];
   };
 
