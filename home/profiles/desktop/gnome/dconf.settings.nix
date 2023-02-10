@@ -30,6 +30,9 @@ with lib.hm.gvariant; {
         "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
         "remove-alt-tab-delay@daase.net"
+        "dash-to-dock@micxgx.gmail.com"
+        "blur-my-shell@aunetx"
+        "topiconsfix@aleskva@devnullmail.com"
       ];
     };
     # "org/gnome/shell/extensions/user-theme" = {
@@ -39,7 +42,7 @@ with lib.hm.gvariant; {
     "org/gnome/desktop/input-sources" = {
       per-window = false;
       xkb-options = [ ];
-      sources = [ (mkTuple [ "xkb" "us+dvorak" ])];
+      sources = [ (mkTuple [ "xkb" "us+dvorak" ]) ];
     };
 
     "org/gnome/desktop/interface" = {
