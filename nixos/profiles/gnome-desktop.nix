@@ -73,7 +73,6 @@
         gnomeExtensions.pop-shell
         gnomeExtensions.pop-launcher-super-key
         gnomeExtensions.systemd-manager
-        gnomeExtensions.better-osd-gnome
         gnomeExtensions.kitsch
       ]);
       flashback.customSessions =
