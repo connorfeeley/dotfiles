@@ -1320,7 +1320,7 @@
     },
     "git-ignore-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_19"
+        "nixpkgs": "nixpkgs_20"
       },
       "locked": {
         "lastModified": 1646480205,
@@ -1339,7 +1339,7 @@
     },
     "git-ignore-nix_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_20"
+        "nixpkgs": "nixpkgs_21"
       },
       "locked": {
         "lastModified": 1660459072,
@@ -1358,7 +1358,7 @@
     },
     "git-ignore-nix_3": {
       "inputs": {
-        "nixpkgs": "nixpkgs_21"
+        "nixpkgs": "nixpkgs_22"
       },
       "locked": {
         "lastModified": 1660459072,
@@ -1377,7 +1377,7 @@
     },
     "git-ignore-nix_4": {
       "inputs": {
-        "nixpkgs": "nixpkgs_22"
+        "nixpkgs": "nixpkgs_23"
       },
       "locked": {
         "lastModified": 1660459072,
@@ -2691,24 +2691,26 @@
     },
     "nixpkgs_18": {
       "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-C15oAtyupmLB3coZY7qzEHXjhtUx/+77olVdqVMruAg=",
-        "path": "/nix/store/0b1s6l5i9izifskg8kgc29jn5bzgdjnv-source",
-        "type": "path"
+        "lastModified": 1675545634,
+        "narHash": "sha256-TbQeQcM5TA/wIho6xtzG+inUfiGzUXi8ewwttiQWYJE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "0591d6b57bfeb55dfeec99a671843337bc2c3323",
+        "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs_19": {
       "locked": {
-        "lastModified": 1632846328,
-        "narHash": "sha256-sFi6YtlGK30TBB9o6CW7LG9mYHkgtKeWbSLAjjrNTX0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "2b71ddd869ad592510553d09fe89c9709fa26b2b",
-        "type": "github"
+        "lastModified": 0,
+        "narHash": "sha256-C15oAtyupmLB3coZY7qzEHXjhtUx/+77olVdqVMruAg=",
+        "path": "/nix/store/0b1s6l5i9izifskg8kgc29jn5bzgdjnv-source",
+        "type": "path"
       },
       "original": {
         "id": "nixpkgs",
@@ -2774,6 +2776,20 @@
       }
     },
     "nixpkgs_23": {
+      "locked": {
+        "lastModified": 1632846328,
+        "narHash": "sha256-sFi6YtlGK30TBB9o6CW7LG9mYHkgtKeWbSLAjjrNTX0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2b71ddd869ad592510553d09fe89c9709fa26b2b",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_24": {
       "locked": {
         "lastModified": 0,
         "narHash": "sha256-C15oAtyupmLB3coZY7qzEHXjhtUx/+77olVdqVMruAg=",
@@ -3263,6 +3279,7 @@
         "prefmanager": "prefmanager",
         "rnix-lsp": "rnix-lsp",
         "sops-nix": "sops-nix",
+        "treefmt-nix": "treefmt-nix",
         "ttc-subway-font": "ttc-subway-font",
         "tum-dse-config": "tum-dse-config",
         "xmonad-config": "xmonad-config"
@@ -3467,6 +3484,24 @@
       "original": {
         "owner": "numtide",
         "repo": "srvos",
+        "type": "github"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_18"
+      },
+      "locked": {
+        "lastModified": 1676025303,
+        "narHash": "sha256-LYs0309IqjzoygHLMfNVROV0MnUI5eT2M8+/bqFrhpo=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "3718741eacb10cc530a65e49a92e267338118c9d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     },
@@ -3698,7 +3733,7 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixpkgs": "nixpkgs_18",
+        "nixpkgs": "nixpkgs_19",
         "xmobar": "xmobar",
         "xmonad": "xmonad",
         "xmonad-contrib": "xmonad-contrib"
@@ -3745,7 +3780,7 @@
       "inputs": {
         "flake-utils": "flake-utils_29",
         "git-ignore-nix": "git-ignore-nix_4",
-        "nixpkgs": "nixpkgs_23",
+        "nixpkgs": "nixpkgs_24",
         "unstable": "unstable_2"
       },
       "locked": {
