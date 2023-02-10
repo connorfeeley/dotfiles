@@ -32,6 +32,7 @@
 
     ##: --- utilities ----------------------------------------------------------
     flake-utils.url = "github:numtide/flake-utils";
+    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
 
     ##: --- other packages -----------------------------------------------------
     nur.url = "github:nix-community/NUR";
@@ -163,6 +164,9 @@
       imports = [
         # https://flake.parts/options/flake-parts-easyoverlay
         inputs.flake-parts.flakeModules.easyOverlay
+        # Cachix pre-commit hooks: https://github.com/cachix/pre-commit-hooks.nix
+        inputs.pre-commit-hooks-nix.flakeModule
+
 
         ./nixos/flake-module.nix
       ];
