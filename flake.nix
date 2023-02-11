@@ -439,6 +439,13 @@
           x86_64-darwin = mkDarwinPackages "x86_64-darwin";
           aarch64-darwin = mkDarwinPackages "aarch64-darwin";
         };
+
+      templates =
+        let poetry2nix = { path = ./templates/poetry2nix; description = "poetry2nix template"; welcomeText = "Set project name: sed --in-place 's/poetry2nixTemplate/<project-name>/g' flake.nix"; };
+        in {
+          inherit poetry2nix;
+          default = poetry2nix;
+        };
     };
 
   # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
