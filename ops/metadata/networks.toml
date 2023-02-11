@@ -24,3 +24,6 @@ domain = "loop.garden"
 
 [cfeeley]
 domain = "cfeeley.org"
+
+[tailscale]
+domain = "elephant-vibes.ts.net"

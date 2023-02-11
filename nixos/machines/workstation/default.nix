@@ -311,4 +311,28 @@ in
       };
     };
   };
+
+  # Jellyfin reverse proxy
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    # other Nginx options
+    virtualHosts."${hostName}.${peers.networks.tailscale.domain}" = {
+      forceSSL = true;
+      # NOTE: path to certificate file - not the file itself, which we don't want added to the store
+      sslCertificate = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
+      sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
+
+      locations."/" = {
+        proxyPass = "http://0.0.0.0:9001";
+        proxyWebsockets = true; # needed if you need to use WebSocket
+        extraConfig =
+          # required when the target is also TLS server with multiple hosts
+          "proxy_ssl_server_name on;" +
+          # required when the server wants to use HTTP Authentication
+          "proxy_pass_header Authorization;";
+      };
+    };
+  };
 }
