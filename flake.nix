@@ -215,14 +215,14 @@
         # Packages
         packages.figlet = inputs'.nixpkgs.legacyPackages.figlet;
         packages.flake-benchmark =
-          let inherit (inputs'.nixpkgs.legacyPackages) runCommand nix hyperfine;
+          let inherit (inputs'.nixpkgs.legacyPackages) writeShellScriptBin nix hyperfine;
             # Command to benchmark
             check = "${nix}/bin/nix flake check ${self}";
             # Run the check command first to ensure the evaluation cache is populated
             # and necessary flake packages are built.
             benchmark = "${hyperfine}/bin/hyperfine --prepare '${check}' '${check}'";
           in
-          runCommand "flake-benchmark" { } benchmark;
+          writeShellScriptBin "flake-benchmark" benchmark;
 
         # Applications
         apps.figlet = {
