@@ -227,7 +227,7 @@
         # Applications
         apps.figlet = {
           type = "app";
-          program = inputs'.nixpkgs.legacyPackages.figlet;
+          program = "${inputs'.nixpkgs.legacyPackages.figlet}/bin/figlet";
         };
 
         # devShells.default = { };
