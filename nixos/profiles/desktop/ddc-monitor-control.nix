@@ -7,7 +7,7 @@ let
     U2917W = {
       busNumbers = [ 4 ];
       brightness.daytime = 100;
-      brightness.nighttime = 0;
+      brightness.nighttime = 40;
     };
     # Samsung UHD (TN panel; brightness at night: the light of 1000 suns; flat)
     U28E590 = {
