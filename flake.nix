@@ -166,46 +166,18 @@
       imports = [
         # https://flake.parts/options/flake-parts-easyoverlay
         inputs.flake-parts.flakeModules.easyOverlay
-        # Cachix pre-commit hooks: https://github.com/cachix/pre-commit-hooks.nix
-        inputs.pre-commit-hooks-nix.flakeModule
-        inputs.treefmt-nix.flakeModule
-        inputs.hercules-ci-effects.flakeModule
 
-        ./nixos/flake-module.nix
+        ./nix/flake-module.nix
       ];
 
       # Expose private flake values to the repl for inspection
       debug = true;
-
-      herculesCI = {
-        onSchedule.default.when = {
-          hour = 0;
-          minute = 5;
-        };
-      };
 
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
       perSystem = { config, self', inputs', ... }: {
         # Per-system attributes can be defined here. The self' and inputs'
         # module parameters provide easy access to attributes of the same
         # system.
-
-        pre-commit.settings.hooks.nixpkgs-fmt.enable = false;
-
-        treefmt = {
-          projectRootFile = "flake.nix";
-          # Use as the flake's 'nix fmt' formatter
-          flakeFormatter = true;
-          programs = {
-            shfmt.enable = true;
-            shellcheck.enable = true;
-            nixpkgs-fmt.enable = true;
-            black.enable = true;
-          };
-          settings = {
-            global.excludes = [ ];
-          };
-        };
 
         # Attributes to add to overlays.default
         overlayAttrs = {
@@ -231,11 +203,6 @@
         };
 
         # devShells.default = { };
-
-        checks.figlet = inputs'.nixpkgs.legacyPackages.figlet;
-
-        # Format with nixpkgs-fmt
-        formatter = inputs'.nixpkgs.legacyPackages.nixpkgs-fmt;
       };
       flake = {
         # The usual flake attributes can be defined here, including system-
