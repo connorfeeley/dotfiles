@@ -34,6 +34,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    hercules-ci-effects.url = "github:hercules-ci/hercules-ci-effects";
 
     ##: --- other packages -----------------------------------------------------
     nur.url = "github:nix-community/NUR";
@@ -168,12 +169,20 @@
         # Cachix pre-commit hooks: https://github.com/cachix/pre-commit-hooks.nix
         inputs.pre-commit-hooks-nix.flakeModule
         inputs.treefmt-nix.flakeModule
+        inputs.hercules-ci-effects.flakeModule
 
         ./nixos/flake-module.nix
       ];
 
       # Expose private flake values to the repl for inspection
       debug = true;
+
+      herculesCI = {
+        onSchedule.default.when = {
+          hour = 0;
+          minute = 5;
+        };
+      };
 
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
       perSystem = { config, self', inputs', ... }: {
