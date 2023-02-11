@@ -77,9 +77,19 @@ in
         allowedTCPPorts = [
           2049 # 2049: NFS
           5357 # wsdd
+
+          # UxPlay (AirPlay)
+          7000
+          7001
+          7100
         ];
         allowedUDPPorts = [
           3702 # wsdd
+
+          # UxPlay (AirPlay)
+          6000
+          6001
+          7011
         ];
       };
 
