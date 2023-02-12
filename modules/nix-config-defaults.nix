@@ -22,7 +22,7 @@ let
   recommended = lib.mkDefault {
     ### Set if understood
     # Enable "experimental" flakes support.
-    experimental-features = "nix-command flakes"; # Default: nix-command. Reasonable: nix-command flakes
+    experimental-features = "nix-command flakes repl-flake"; # Default: nix-command. Reasonable: nix-command flakes
 
     # If set to true, Nix will fall back to building from source if a binary substitute fails.
     # This is equivalent to the –fallback flag. The default is false.
