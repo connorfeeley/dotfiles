@@ -23,6 +23,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "aranet4" ];
 
   meta = with lib; {
+    mainProgram = "aranetctl";
     description = "Aranet4 Python client";
     homepage = "https://github.com/Anrijs/Aranet4-Python/archive/refs/tags/v2.1.3.tar.gz";
     license = licenses.mit;
