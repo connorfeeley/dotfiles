@@ -67,12 +67,12 @@ in
       # How often (in seconds) to poll for locks
       build-poll-interval = 1;
 
-      # FIXME: broken
-      # bash-prompt = "\[\e[00;34m\]λ \W \[\e[0m\]";
+      warn-dirty = false;
 
-      # Interesting!
-      # pre-build-hook = "";
-      # post-build-hook = "";
+      allow-import-from-derivation = true;
+
+      # TODO: add 'auto-allocate-uids discard-references'
+      experimental-features = [ "nix-command" "flakes" "repl-flake" "ca-derivations" ];
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -89,12 +89,6 @@ in
     gc = {
       automatic = false;
     };
-
-    extraOptions = ''
-      warn-dirty = false
-      allow-import-from-derivation = true
-      experimental-features = nix-command flakes repl-flake ca-derivations auto-allocate-uids discard-references
-    '';
 
     # FUP Options {{
     # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/166d6ebd9f0de03afc98060ac92cba9c71cfe550/lib/options.nix
