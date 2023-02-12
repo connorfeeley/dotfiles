@@ -93,7 +93,7 @@ in
     extraOptions = ''
       warn-dirty = false
       allow-import-from-derivation = true
-      experimental-features = nix-command flakes repl-flake ca-derivations discard-references
+      experimental-features = nix-command flakes repl-flake ca-derivations auto-allocate-uids discard-references
     '';
 
     # FUP Options {{
