@@ -337,17 +337,18 @@ in
       locations =
         let
           mkLocation = port: {
-            proxyPass = "http://0.0.0.0:${toString port}";
+            proxyPass = "http://0.0.0.0:${toString port}/";
             proxyWebsockets = true; # needed if you need to use WebSocket
-            extraConfig =
-              # required when the target is also TLS server with multiple hosts
-              "proxy_ssl_server_name on;" +
-              # required when the server wants to use HTTP Authentication
-              "proxy_pass_header Authorization;";
+            # extraConfig =
+            #   # required when the target is also TLS server with multiple hosts
+            #   "proxy_ssl_server_name on;" +
+            #   # required when the server wants to use HTTP Authentication
+            #   "proxy_pass_header Authorization;" +
           };
         in
         {
-          "/" = mkLocation 9001;
+          # FIXME: services are not playing nice with reverse proxy
+          "/qbittorrent/" = mkLocation 8080;
           "/jellyfin/" = mkLocation 9001;
           "/radarr/" = mkLocation 9002;
           "/sonarr/" = mkLocation 9003;
