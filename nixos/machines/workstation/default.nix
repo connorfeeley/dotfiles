@@ -334,15 +334,28 @@ in
       sslCertificate = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
       sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
 
-      locations."/" = {
-        proxyPass = "http://0.0.0.0:9001";
-        proxyWebsockets = true; # needed if you need to use WebSocket
-        extraConfig =
-          # required when the target is also TLS server with multiple hosts
-          "proxy_ssl_server_name on;" +
-          # required when the server wants to use HTTP Authentication
-          "proxy_pass_header Authorization;";
-      };
+      locations =
+        let
+          mkLocation = port: {
+            proxyPass = "http://0.0.0.0:${toString port}";
+            proxyWebsockets = true; # needed if you need to use WebSocket
+            extraConfig =
+              # required when the target is also TLS server with multiple hosts
+              "proxy_ssl_server_name on;" +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
+          };
+        in
+        {
+          "/" = mkLocation 9001;
+          "/jellyfin/" = mkLocation 9001;
+          "/radarr/" = mkLocation 9002;
+          "/sonarr/" = mkLocation 9003;
+          "/jackett/" = mkLocation 9004;
+          "/ntopng/" = mkLocation 9009;
+          "/grafana/" = mkLocation 9010;
+          "/prometheus/" = mkLocation 9011;
+        };
     };
   };
 }
