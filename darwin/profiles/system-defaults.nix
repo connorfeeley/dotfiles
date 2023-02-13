@@ -117,6 +117,7 @@ in
 
     AppleEnableMouseSwipeNavigateWithScrolls = true;
     AppleEnableSwipeNavigateWithScrolls = true;
+    AppleICUForce24HourTime = true;
   };
 
   # Prevent incessant nagging when opening downloaded apps.
