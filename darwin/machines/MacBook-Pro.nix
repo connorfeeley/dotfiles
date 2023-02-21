@@ -65,4 +65,6 @@ in
   age.secrets = {
     dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
   };
+
+  homebrew.casks = [{ name = "malwarebytes"; }];
 }
