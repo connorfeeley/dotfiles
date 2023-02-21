@@ -5,6 +5,7 @@
 }:
 let
   inherit (config.boot.kernelPackages) nvidiaPackages;
+  inherit (pkgs.stdenv) isAarch64;
 
   nvStable = pkgs.nur.repos.arc.packages.nvidia-patch.override {
     nvidia_x11 = nvidiaPackages.stable;
@@ -12,7 +13,7 @@ let
 
   xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in
-lib.mkIf (!config.nixos-vm.enable) {
+lib.mkIf (!isAarch64) {
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
