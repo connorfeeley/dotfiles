@@ -1,10 +1,9 @@
 { config
-, options
 , pkgs
 , lib
 , ...
 }:
-lib.mkIf (!options.virtualisation ? qemu) {
+lib.mkIf (!config.nixos-vm.enable) {
   environment.systemPackages = with pkgs; [
     discord
 

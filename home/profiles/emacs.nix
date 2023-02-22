@@ -182,10 +182,6 @@ lib.mkMerge [
 
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
-
-      # :lang nix
-      nixpkgs-fmt
-
       # :lang nix
       nixpkgs-fmt
 

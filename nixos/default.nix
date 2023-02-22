@@ -36,7 +36,6 @@ in
         ]);
     };
 
-    # workstation.system = "aarch64-linux";
     workstation.modules =
       #: ~ Modules ~
       [ dwarffs.nixosModules.dwarffs ] ++

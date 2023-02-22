@@ -8,7 +8,6 @@
 #
 # https://github.com/Mic92/nixos-shell/blob/55de7d4d449ff30cdde8b8fe484a86eef477245e/share/modules/nixos-shell-config.nix
 { config
-, inputs
 , lib
 , primaryUser
 , ...
@@ -35,8 +34,6 @@ in
       ];
 
       # Uncomment when building on Darwin
-      # nixpkgs.hostPlatform = "aarch64-linux";
-      # nixpkgs.pkgs = inputs.self.legacyPackages.${config.nixpkgs.system};
       # virtualisation.host.pkgs = import pkgs.path { system = "aarch64-darwin"; };
 
       # Kind of hacky way to answer the question "are we in a VM?"

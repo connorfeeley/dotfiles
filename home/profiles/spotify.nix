@@ -2,8 +2,7 @@
 , pkgs
 , ...
 }:
-let inherit (pkgs.stdenv.hostPlatform) isLinux isAarch64;
-in lib.mkIf (isLinux && !isAarch64) {
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   home.packages = with pkgs; [
     spotify
     spotify-tui

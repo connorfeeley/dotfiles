@@ -1,6 +1,5 @@
 { lib, pkgs, ... }:
-let inherit (pkgs.stdenv.hostPlatform) isLinux isAarch64;
-in lib.mkIf (isLinux && !isAarch64) {
+lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   programs.chromium = {
     enable = true;
     package = pkgs.microsoft-edge;
