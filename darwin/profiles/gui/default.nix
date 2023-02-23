@@ -25,6 +25,7 @@ in
       mysides #    <- manages macOS Finder sidebar favorites, tells hilarious jokes
 
       ferium # CLI program for managing Minecraft mods and modpacks
+      better-display # MacOS app for managing display settings
     ];
 
     services.karabiner-elements.enable = true;
