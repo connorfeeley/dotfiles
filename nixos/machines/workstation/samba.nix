@@ -99,4 +99,18 @@ in
       };
     };
   };
+
+  services.netatalk.enable = true;
+  services.netatalk.settings = {
+    Global = {
+      "uam list" = "uams_guest.so";
+    };
+    Homes = {"basedir regex" = "/home";
+      path = "afp-data";
+    };
+    tm_share = {
+      path = "/mnt/zfs/backup/time_machine";
+      "time machine" = "yes";
+    };
+  };
 }
