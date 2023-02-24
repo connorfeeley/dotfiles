@@ -54,6 +54,7 @@
       pop-theme-switcher
       remove-alttab-delay-v2
       systemd-manager
+      brightness-control-using-ddcutil
 
       dash-to-dock
       dash-to-dock-animator
