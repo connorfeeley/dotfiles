@@ -69,6 +69,8 @@ in
         # pantheon
 
         grafana
+
+        containers.jellyfin
       ]);
 
     workstation-wsl.modules =
