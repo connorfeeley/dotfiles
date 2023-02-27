@@ -14,6 +14,7 @@ with profiles; let
   developer = [
     direnv
     vim
+    jetbrains
     git
     shells.zsh
     shells.bash
