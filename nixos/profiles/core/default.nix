@@ -29,6 +29,7 @@ in
   boot.cleanTmpDir = lib.mkDefault true;
 
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
+  i18n.supportedLocales = [ "all" ];
 
   environment.enableAllTerminfo = true;
 
