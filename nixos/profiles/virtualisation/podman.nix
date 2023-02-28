@@ -18,7 +18,7 @@ in {
     enableNvidia = true;
     dockerCompat = !config.virtualisation.docker.enable;
     dockerSocket.enable = !config.virtualisation.docker.enable;
-    defaultNetwork.dnsname.enable = true;
+    defaultNetwork.settings.dns_enabled = true;
 
     # Allow remote access
     networkSocket.enable = false;
