@@ -7,7 +7,8 @@
     (with pkgs.jetbrains; [
       clion
       datagrip
-      gateway
+      # FIXME(2023-02-27): broken - download missing
+      # gateway
       goland
       idea-ultimate
       pycharm-professional
