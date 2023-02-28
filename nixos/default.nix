@@ -48,7 +48,6 @@ in
       (with profiles; [
         hardware.amd
         nvidia
-        hidpi
         virtualisation.vm-variant
         smart
 
@@ -85,7 +84,6 @@ in
       (with profiles; [
         hardware.amd
         nvidia
-        hidpi
         virtualisation.vm-variant
 
         builder
