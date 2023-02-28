@@ -129,7 +129,7 @@ in
   };
 
   # Enable networking and SSH server in initrd
-  boot.initrd = lib.mkIf (!options.virtualisation ? qemu) {
+  boot.initrd = {
     # Driver for MSI (motherboard) 2.5GbE interface
     availableKernelModules = [ "r8169" ];
 

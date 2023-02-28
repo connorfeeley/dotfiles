@@ -6,7 +6,8 @@
     nixpkgs.follows = "nixos-unstable";
 
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    nixpkgs-darwin.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
 
@@ -234,6 +235,7 @@
           "python2.7-pyjwt-1.7.1"
           "python3.10-poetry-1.2.2"
           "python3.10-certifi-2022.9.24"
+          "libressl-3.4.3" # prefmanager
         ];
       };
 

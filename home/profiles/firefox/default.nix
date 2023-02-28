@@ -194,45 +194,6 @@ in
             };
           };
 
-    # TODO: add zotero connector addon -- not available in upstream nur repo
-    extensions = with firefox-addons; [
-      (lib.mkIf isBukuEnabled bukubrow)
-      darkreader
-      old-reddit-redirect
-      org-capture
-      react-devtools
-      reddit-enhancement-suite
-      # TODO: set default preferences for this and others? is that possible?
-      tampermonkey
-      refined-github
-      return-youtube-dislikes
-      sidebery
-      sourcegraph
-      tab-session-manager
-      temporary-containers
-      tridactyl
-      ublock-origin
-
-      bitwarden
-      consent-o-matic
-      sponsorblock
-      sidebery
-      vimium
-
-      auto-tab-discard
-
-      (lib.mkIf isLinux plasma-integration)
-
-      ##: Themes {{
-
-      # TODO: add this to upstream repo
-      # arctic-nord-theme
-
-      theme-nord-polar-night
-
-      ##: }}
-    ];
-
     profiles.home = {
       id = 0;
 
@@ -244,6 +205,44 @@ in
         // lepton.settings.recommended
         // lepton.settings.optional;
 
+      # TODO: add zotero connector addon -- not available in upstream nur repo
+      extensions = with firefox-addons; [
+        (lib.mkIf isBukuEnabled bukubrow)
+        darkreader
+        old-reddit-redirect
+        org-capture
+        react-devtools
+        reddit-enhancement-suite
+        # TODO: set default preferences for this and others? is that possible?
+        tampermonkey
+        refined-github
+        return-youtube-dislikes
+        sidebery
+        sourcegraph
+        tab-session-manager
+        temporary-containers
+        tridactyl
+        ublock-origin
+
+        bitwarden
+        consent-o-matic
+        sponsorblock
+        sidebery
+        vimium
+
+        auto-tab-discard
+
+        (lib.mkIf isLinux plasma-integration)
+
+        ##: Themes {{
+
+        # TODO: add this to upstream repo
+        # arctic-nord-theme
+
+        theme-nord-polar-night
+
+        ##: }}
+      ];
       userChrome = ''
         ${styles.lepton.userChrome}
 

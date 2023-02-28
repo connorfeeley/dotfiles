@@ -2443,22 +2443,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-darwin": {
-      "locked": {
-        "lastModified": 1677367679,
-        "narHash": "sha256-pOMXi7F9tcHls06Qv+7XCPASTJeXu47Jhd0Pk9du8T4=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ea736343e4d4a052e023d54b23334cf685de479c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-22.11-darwin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-input-leap": {
       "locked": {
         "lastModified": 1676074068,
@@ -3328,7 +3312,9 @@
         "nixpkgs": [
           "nixos-unstable"
         ],
-        "nixpkgs-darwin": "nixpkgs-darwin",
+        "nixpkgs-darwin": [
+          "nixos-unstable"
+        ],
         "nixpkgs-input-leap": "nixpkgs-input-leap",
         "nur": "nur",
         "nurpkgs": "nurpkgs",
