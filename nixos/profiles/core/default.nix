@@ -43,7 +43,6 @@ in
     dosfstools
     efibootmgr
     gptfdisk
-    inetutils
     iputils
     mtr
     pciutils
