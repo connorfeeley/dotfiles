@@ -10,7 +10,6 @@ in
       ## === Uncategorized Packages ===
       hyperfine # <- Command-line benchmarking tool
       # chronologer # <- Visualize changes in benchmark timings over git history
-      clang
 
       ## === Local Development ===
       reuse # <- Tool for licensing compliance
