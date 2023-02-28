@@ -1,9 +1,6 @@
 # It's lonely in here.
-{ pkgs
-, ...
-}: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
-    nixops # <- Use Nix to operate on Nix OS operations.
     deploy-flake # <- Copy flake closure over SSH and switch target config
     deploy-rs # <- Rusty Nix deployment tool
     colmena # <- Another rusty Nix deployment tool

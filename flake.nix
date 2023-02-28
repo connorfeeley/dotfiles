@@ -236,8 +236,6 @@
           "python3.10-poetry-1.2.2"
           "python3.10-certifi-2022.9.24"
           "libressl-3.4.3" # prefmanager
-          "python-2.7.18.6" # nixops
-          "python2.7-certifi-2021.10.8" # nixops
         ];
       };
 
