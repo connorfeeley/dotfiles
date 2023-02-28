@@ -198,9 +198,6 @@ lib.mkMerge [
       # Linux-only (see conditional appends below):
       # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
 
-      # :lang python
-      python3Packages.debugpy
-
       # :tools magit
       gitAndTools.delta
 
@@ -297,6 +294,9 @@ lib.mkMerge [
       #: lang cpp
       (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
       cmake-language-server
+
+      # :lang python
+      python3Packages.debugpy
 
       #: lang graphql
       nodePackages.graphql-language-service-cli
