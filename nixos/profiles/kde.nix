@@ -67,5 +67,5 @@ in
       }];
   };
 
-  qt5.platformTheme = "gnome";
+  qt.platformTheme = "gnome";
 }
