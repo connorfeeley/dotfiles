@@ -19,7 +19,6 @@
     ## === Media Tools ===
     # TODO: media should be it's own profile; +use hm module
     ffmpeg-full #         <- Full ffmpeg with all codecs
-    handbrake #           <- Video transcoder
     chafa #               <- "terminal graphics for the 21st century"
     yt-dlp #              <- youtube-dl fork
     mpv
@@ -39,7 +38,9 @@
     dotfield-push
     dotfield-rebuild
     dotfield-doom
-  ] ++ (lib.optionals pkgs.stdenv.isLinux [ ]);
+  ] ++ (lib.optionals (pkgs.stdenv.isLinux) [
+    handbrake #           <- Video transcoder
+  ]);
 
   fonts.fontconfig.enable = true;
 
