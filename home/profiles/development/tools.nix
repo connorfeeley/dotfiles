@@ -69,7 +69,6 @@ in
       treefmt
     ] ++ (lib.optionals isLinux [
       kgraphviewer # <- KDE-flavoured Graphviz viewer
-      nix-linter
     ]) ++ (lib.optionals (isLinux && !isAarch64) [
       postman # <- GNU Make with comprehensible tracing and a debugger
     ]);
