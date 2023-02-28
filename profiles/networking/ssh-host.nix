@@ -6,10 +6,10 @@
 
     ports = [ (lib.our.peers.getSshPort config.networking.hostName) ];
     settings.PermitRootLogin = lib.mkDefault "prohibit-password";
-    forwardX11 = true;
+    settings.X11Forwarding = true;
 
     # NOTE: distinct from password authentication
-    kbdInteractiveAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
 
     extraConfig = ''
       # Possibly fix hanging SSH multiplexes

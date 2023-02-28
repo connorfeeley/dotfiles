@@ -78,7 +78,7 @@ in
     enable = lib.mkForce true;
 
     openFirewall = true;
-    passwordAuthentication = false;
+    settings.PasswordAuthentication = false;
     settings.PermitRootLogin = lib.mkDefault "prohibit-password";
 
     hostKeys = [
