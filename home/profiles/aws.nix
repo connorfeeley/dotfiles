@@ -1,8 +1,6 @@
-{ config
-, pkgs
-, ...
-}: {
-  home.packages = with pkgs; [ awscli2 ];
+{ config, pkgs, lib, ... }: {
+  # FIXME(2023-02-28): awscli is broken on darwin
+  home.packages = lib.mkIf pkgs.stdenv.isLinux (with pkgs; [ awscli2 ]);
 
   # aws-cli does not work well with xdg base directories
   # https://github.com/aws/aws-sdk/issues/30#issuecomment-532208981
