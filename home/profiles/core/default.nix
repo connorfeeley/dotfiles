@@ -52,6 +52,7 @@ in
       glances # <- System resource usage viewer
       ldns # <- 'drill' (like dig)
       smartmontools # <- Mah boy's wicked smaht
+      gsmartcontrol # <- ... even smahter with a GUI
       procs # <- pspspspsps here kitty ( ps replacement )
       diskonaut # <- Terminal visual disk space navigator
 
