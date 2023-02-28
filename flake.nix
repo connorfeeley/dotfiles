@@ -261,6 +261,7 @@
                 mints = self.packages.${final.system}.mints;
                 hammerspoon = self.packages.${final.system}.hammerspoon;
                 native-youtube = self.packages.${final.system}.native-youtube;
+                better-display = self.packages.${final.system}.better-display;
               })
             ];
         };
@@ -424,6 +425,7 @@
                 mints
                 hammerspoon
                 native-youtube
+                better-display
                 emacs28Macport
                 ;
 
