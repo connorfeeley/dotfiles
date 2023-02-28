@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 let
-  inherit (config.lib) dotfield;
-  configDir = dotfield.userConfigPath + "/zsh";
   toTOML = (pkgs.formats.toml { }).generate;
 
   inherit (pkgs.stdenv) isLinux isAarch64;
