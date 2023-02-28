@@ -67,5 +67,9 @@ in
     dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
   };
 
-  homebrew.casks = [{ name = "malwarebytes"; } { name = "nomachine"; }];
+  homebrew.casks = [
+    { name = "malwarebytes"; }
+    { name = "nomachine"; }
+    { name = "trader-workstation"; } # IBKR TWS
+  ];
 }
