@@ -34,6 +34,7 @@ with lib.hm.gvariant; {
         "dash-to-dock@micxgx.gmail.com"
         "blur-my-shell@aunetx"
         "topiconsfix@aleskva@devnullmail.com"
+        "display-brightness-ddcutil@themightydeity.github.com"
       ];
     };
     # "org/gnome/shell/extensions/user-theme" = {
