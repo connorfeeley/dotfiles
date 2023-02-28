@@ -42,7 +42,7 @@ in
     services.openssh = lib.mkDefault {
       enable = true;
       openFirewall = true;
-      # Authorized keys and permitRootLogin are set in ssh-host profile
+      # Authorized keys and PermitRootLogin are set in ssh-host profile
     };
 
     ###

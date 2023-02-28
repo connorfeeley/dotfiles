@@ -79,7 +79,7 @@ in
 
     openFirewall = true;
     passwordAuthentication = false;
-    permitRootLogin = lib.mkDefault "prohibit-password";
+    settings.PermitRootLogin = lib.mkDefault "prohibit-password";
 
     hostKeys = [
       {

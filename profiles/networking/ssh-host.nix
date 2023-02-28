@@ -5,7 +5,7 @@
     enable = lib.mkForce true;
 
     ports = [ (lib.our.peers.getSshPort config.networking.hostName) ];
-    permitRootLogin = lib.mkDefault "prohibit-password";
+    settings.PermitRootLogin = lib.mkDefault "prohibit-password";
     forwardX11 = true;
 
     # NOTE: distinct from password authentication
