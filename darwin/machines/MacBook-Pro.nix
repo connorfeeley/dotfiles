@@ -1,4 +1,5 @@
 { config
+, pkgs
 , lib
 , profiles
 , collective
@@ -66,5 +67,5 @@ in
     dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
   };
 
-  homebrew.casks = [{ name = "malwarebytes"; }];
+  homebrew.casks = [{ name = "malwarebytes"; } { name = "nomachine"; }];
 }
