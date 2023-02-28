@@ -25,6 +25,8 @@ in
       mysides #    <- manages macOS Finder sidebar favorites, tells hilarious jokes
 
       ferium # CLI program for managing Minecraft mods and modpacks
+      ckan # Mod manager for Kerbal Space Program
+
       better-display # MacOS app for managing display settings
     ];
 
@@ -57,6 +59,7 @@ in
         # defaults write org.gpgtools.common DisableKeychain -bool yes
       })
 
+      { name = "samba"; }
       { name = "freerdp"; }
       { name = "alerter"; } # like notify-send but for darwin
     ];
