@@ -57,7 +57,7 @@
       brightness-control-using-ddcutil
 
       dash-to-dock
-      dash-to-dock-animator
+      # dash-to-dock-animator
       blur-my-shell
       topiconsfix # Show tray icons in top bar
       wallpaper-changer-continued
