@@ -1,8 +1,4 @@
-{ config
-, pkgs
-, lib
-, ...
-}:
+{ config, pkgs, lib, ... }:
 lib.mkIf (!config.nixos-vm.enable) {
   environment.systemPackages = with pkgs; [
     discord

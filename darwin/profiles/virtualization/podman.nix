@@ -1,19 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-lib.mkMerge [
-  {
-    homebrew = {
-      brews = [{ name = "podman"; }];
-      casks = [{ name = "podman-desktop"; }];
-    };
+{ config, lib, pkgs, ... }:
+lib.mkMerge [{
+  homebrew = {
+    brews = [{ name = "podman"; }];
+    casks = [{ name = "podman-desktop"; }];
+  };
 
-    environment.variables = {
-      # DOCKER_HOST = "unix://$XDG_DATA_HOME/containers/podman/machine/podman-machine-default/podman.sock";
-    };
-  }
+  environment.variables = {
+    # DOCKER_HOST = "unix://$XDG_DATA_HOME/containers/podman/machine/podman-machine-default/podman.sock";
+  };
+}
 
   # Podman needs qemu, but the default machine isn't able to locate the right binaries by default.
   # (lib.mkIf isDarwin {

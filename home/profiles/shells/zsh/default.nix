@@ -1,43 +1,33 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isDarwin;
   inherit (config.lib) dotfield;
   configDir = dotfield.userConfigPath + "/zsh";
 
-  shellAliases =
-    (import ../abbrs.nix) //
-    (import ../aliases.nix) //
-    (if isDarwin then {
-      # Alias 'tailscale' to MAS Tailscale binary
-      tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+  shellAliases = (import ../abbrs.nix) // (import ../aliases.nix)
+    // (if isDarwin then {
+    # Alias 'tailscale' to MAS Tailscale binary
+    tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
 
-      # Time Machine backup normally runs as a low-profile process; run as high priority instead
-      tm_high_prio = "sudo sysctl debug.lowpri_throttle_enabled=0";
+    # Time Machine backup normally runs as a low-profile process; run as high priority instead
+    tm_high_prio = "sudo sysctl debug.lowpri_throttle_enabled=0";
 
-      # Reboot after FileVault unlock
-      reboot = "sudo fdesetup authrestart -user cfeeley -verbose";
-    } else { });
+    # Reboot after FileVault unlock
+    reboot = "sudo fdesetup authrestart -user cfeeley -verbose";
+  } else
+    { });
 in
 {
   imports = [ ../common.nix ];
 
-  home.packages = with pkgs; [
-    zsh
-    pure-prompt
-  ];
+  home.packages = with pkgs; [ zsh pure-prompt ];
 
   # Must be disabled for emacs-vterm integration to work.
   # Integration is handled manually in zsh.initExtra.
   programs.starship.enableZshIntegration = false;
 
   programs.zsh = {
-    inherit
-      shellAliases
-      ;
+    inherit shellAliases;
 
     enable = true;
     dotDir = ".config/zsh";
@@ -54,7 +44,8 @@ in
       expireDuplicatesFirst = false;
       extended = true; # Save timestamps
       ignoreDups = false; # Always insert into history
-      ignoreSpace = true; # Prepend command with a space to skip history insertion
+      ignoreSpace =
+        true; # Prepend command with a space to skip history insertion
 
       # Infinite history
       save = 1000000000;
@@ -80,18 +71,29 @@ in
         # { name = ""; tags = ""; }
 
         # WARNING: conflicts with 'programs.zsh.enableSyntaxHighlighting'
-        { name = "zdharma-continuum/fast-syntax-highlighting"; tags = [ "defer:2" ]; }
-        { name = "zsh-users/zsh-history-substring-search"; tags = [ "defer:3" ]; }
+        {
+          name = "zdharma-continuum/fast-syntax-highlighting";
+          tags = [ "defer:2" ];
+        }
+        {
+          name = "zsh-users/zsh-history-substring-search";
+          tags = [ "defer:3" ];
+        }
 
         { name = "zsh-users/zsh-autosuggestions"; }
         { name = "agkozak/zsh-z"; }
         { name = "marzocchi/zsh-notify"; }
         { name = "hlissner/zsh-autopair"; }
-        { name = "scriptingosx/mac-zsh-completions"; }
+        {
+          name = "scriptingosx/mac-zsh-completions";
+        }
 
         # Pure prompt
         { name = "mafredri/zsh-async"; }
-        { name = "sindresorhus/pure"; tags = [ "use:pure.zsh" "as:theme" ]; }
+        {
+          name = "sindresorhus/pure";
+          tags = [ "use:pure.zsh" "as:theme" ];
+        }
       ];
     };
 

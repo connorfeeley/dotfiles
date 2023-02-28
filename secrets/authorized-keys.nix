@@ -6,7 +6,4 @@ let
   macGpg = readFile ./ssh-macgpg.pub;
 in
 with hosts;
-[ yubiGpg macGpg ]
-++ workstation.keys
-++ MacBook-Pro.keys
-++ rosy.keys
+[ yubiGpg macGpg ] ++ workstation.keys ++ MacBook-Pro.keys ++ rosy.keys

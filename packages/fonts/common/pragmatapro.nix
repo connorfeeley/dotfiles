@@ -1,11 +1,6 @@
-{ stdenv
-, lib
-,
-}:
-let
-  version = "0829";
-in
-stdenv.mkDerivation {
+{ stdenv, lib, }:
+let version = "0829";
+in stdenv.mkDerivation {
   name = "pragmatapro-${version}";
   version = version;
 

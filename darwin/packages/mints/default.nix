@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "110";
 
   src = fetchzip {
-    url = "https://eclecticlightdotcom.files.wordpress.com/2022/12/mints${version}.zip";
+    url =
+      "https://eclecticlightdotcom.files.wordpress.com/2022/12/mints${version}.zip";
     sha256 = "sha256-I4FNe/QpxzPc/OvFzFgjQDWv9HwEWgPIOqfALM/z1rA=";
     stripRoot = false;
   };
@@ -16,7 +17,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A multifunction utility for viewing and exploring MacOS logs.";
+    description =
+      "A multifunction utility for viewing and exploring MacOS logs.";
     platforms = lib.platforms.darwin;
     homepage = "https://eclecticlight.co/mints-a-multifunction-utility/";
     license = lib.licenses.unfree;

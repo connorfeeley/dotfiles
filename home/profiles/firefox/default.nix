@@ -1,9 +1,4 @@
-moduleArgs @ { config
-, lib
-, pkgs
-, inputs
-, ...
-}:
+moduleArgs@{ config, lib, pkgs, inputs, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux isAarch64;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
@@ -12,11 +7,13 @@ let
 
   cfg = config.programs.firefox;
 
-  isBukuEnabled = config.programs.buku.enable && config.programs.buku.enableBrowserIntegration;
+  isBukuEnabled = config.programs.buku.enable
+    && config.programs.buku.enableBrowserIntegration;
 
   # via https://github.com/nix-community/home-manager/blob/e1f1160284198a68ea8c7fffbbb1436f99e46ef9/modules/programs/firefox.nix#L11-L20
 
-  hostName = moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
+  hostName =
+    moduleArgs.osConfig.networking.hostName or (builtins.getEnv "HOSTNAME");
   lepton = import ./lepton.nix;
 
   disableTelemetry = {
@@ -44,73 +41,72 @@ let
     "privacy.trackingprotection.socialtracking.enabled" = true;
   };
 
-  defaultSettings =
-    disableTelemetry
-    // {
-      "app.update.auto" = true;
-      "browser.bookmarks.showMobileBookmarks" = true;
-      "browser.ctrlTab.recentlyUsedOrder" = false;
-      "browser.proton.enabled" = true;
-      "browser.newtabpage.enabled" = true;
+  defaultSettings = disableTelemetry // {
+    "app.update.auto" = true;
+    "browser.bookmarks.showMobileBookmarks" = true;
+    "browser.ctrlTab.recentlyUsedOrder" = false;
+    "browser.proton.enabled" = true;
+    "browser.newtabpage.enabled" = true;
 
-      # Enable a real search bar on `about:home` instead of diverting focus to the address bar.
-      "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" =
-        false;
+    # Enable a real search bar on `about:home` instead of diverting focus to the address bar.
+    "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" =
+      false;
 
-      "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
-      "browser.search.region" = "US";
-      "browser.search.suggest.enabled" = true;
-      "browser.send_pings" = false;
-      "browser.startup.homepage" = "https://lobste.rs";
+    "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
+    "browser.search.region" = "US";
+    "browser.search.suggest.enabled" = true;
+    "browser.send_pings" = false;
+    "browser.startup.homepage" = "https://lobste.rs";
 
-      # 0 = Normal; 1 = Compact; 2 = Touch
-      "browser.uidensity" = 1;
+    # 0 = Normal; 1 = Compact; 2 = Touch
+    "browser.uidensity" = 1;
 
-      "browser.urlbar.placeholderName" = "…";
-      "browser.urlbar.showSearchSuggestionsFirst" = false;
-      "browser.urlbar.suggest.calculator" = true;
-      "browser.urlbar.suggest.history" = true;
+    "browser.urlbar.placeholderName" = "…";
+    "browser.urlbar.showSearchSuggestionsFirst" = false;
+    "browser.urlbar.suggest.calculator" = true;
+    "browser.urlbar.suggest.history" = true;
 
-      "devtools.theme" = config.colorscheme.kind;
+    "devtools.theme" = config.colorscheme.kind;
 
-      "extensions.pocket.enabled" = false;
+    "extensions.pocket.enabled" = false;
 
-      # Allow extensions to run on Mozilla domains.
-      # Required for Tridactyl and Dark Reader support on those pages.
-      # See https://github.com/tridactyl/tridactyl/issues/1800
-      "extensions.webextensions.restrictedDomains" = "";
+    # Allow extensions to run on Mozilla domains.
+    # Required for Tridactyl and Dark Reader support on those pages.
+    # See https://github.com/tridactyl/tridactyl/issues/1800
+    "extensions.webextensions.restrictedDomains" = "";
 
-      # FIXME: use global font defaults
-      "font.default.x-western" = "sans-serif";
-      "font.name.monospace.x-western" = themeFonts.mono.family;
-      "font.name.sans-serif.x-western" = themeFonts.sans.family;
-      "font.name.serif.x-western" = themeFonts.serif.family;
-      "font.size.monospace.x-western" = themeFonts.mono.size;
+    # FIXME: use global font defaults
+    "font.default.x-western" = "sans-serif";
+    "font.name.monospace.x-western" = themeFonts.mono.family;
+    "font.name.sans-serif.x-western" = themeFonts.sans.family;
+    "font.name.serif.x-western" = themeFonts.serif.family;
+    "font.size.monospace.x-western" = themeFonts.mono.size;
 
-      "identity.fxaccounts.account.device.name" = hostName;
+    "identity.fxaccounts.account.device.name" = hostName;
 
-      # CSS blur filter in v88+
-      "layout.css.backdrop-filter.enabled" = true;
+    # CSS blur filter in v88+
+    "layout.css.backdrop-filter.enabled" = true;
 
-      # Disable fingerprinting on AMO for Tridactyl.
-      # See https://github.com/tridactyl/tridactyl/issues/1800
-      "privacy.resistFingerprinting.block_mozAddonManager" = true;
+    # Disable fingerprinting on AMO for Tridactyl.
+    # See https://github.com/tridactyl/tridactyl/issues/1800
+    "privacy.resistFingerprinting.block_mozAddonManager" = true;
 
-      "security.enterprise_roots.enabled" = true;
-      "services.sync.declinedEngines" = "addons,prefs,creditcards,addresses,tabs,passwords";
-      "services.sync.engine.addons" = false;
-      "services.sync.engine.passwords" = false;
-      "services.sync.engine.prefs" = false;
-      "services.sync.engineStatusChanged.addons" = true;
-      "services.sync.engineStatusChanged.prefs" = true;
-      "signon.rememberSignons" = false;
+    "security.enterprise_roots.enabled" = true;
+    "services.sync.declinedEngines" =
+      "addons,prefs,creditcards,addresses,tabs,passwords";
+    "services.sync.engine.addons" = false;
+    "services.sync.engine.passwords" = false;
+    "services.sync.engine.prefs" = false;
+    "services.sync.engineStatusChanged.addons" = true;
+    "services.sync.engineStatusChanged.prefs" = true;
+    "signon.rememberSignons" = false;
 
-      # https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-context-properties
-      "svg.context-properties.content.enabled" = true;
+    # https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-context-properties
+    "svg.context-properties.content.enabled" = true;
 
-      # Enable custom stylesheets.
-      "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-    };
+    # Enable custom stylesheets.
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+  };
 
   styles = {
     dotfield = {
@@ -156,53 +152,49 @@ in
       if isDarwin
       # Handled by the Homebrew module
       # This populates a dummy package to satisfy the requirement
-      then pkgs.runCommand "firefox-0.0.0" { } "mkdir $out"
+      then
+        pkgs.runCommand "firefox-0.0.0" { } "mkdir $out"
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
       else
-        (pkgs.firefox.overrideAttrs
-          (oldAttrs: {
-            patches =
-              (oldAttrs.patches or [ ]) ++
-              [
-                (pkgs.fetchpatch {
-                  name = "mozilla-kde.patch";
-                  url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
-                  sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
-                })
-              ];
-          })).override
-          {
-            cfg = {
-              # Gnome shell native connector
-              enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
-              # Plasma browser integration
-              enablePlasmaBrowserIntegration = isLinux;
-              # Tridactyl native connector
-              enableTridactylNative = true;
-              # Enable Chromecast support (fx_cast)
-              enableFXCastBridge = !isAarch64;
-              # Buku bookmarking tool native connector
-              enableBukubrow = isBukuEnabled;
+        (pkgs.firefox.overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or [ ]) ++ [
+            (pkgs.fetchpatch {
+              name = "mozilla-kde.patch";
+              url =
+                "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
+              sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
+            })
+          ];
+        })).override {
+          cfg = {
+            # Gnome shell native connector
+            enableGnomeExtensions =
+              moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
+            # Plasma browser integration
+            enablePlasmaBrowserIntegration = isLinux;
+            # Tridactyl native connector
+            enableTridactylNative = true;
+            # Enable Chromecast support (fx_cast)
+            enableFXCastBridge = !isAarch64;
+            # Buku bookmarking tool native connector
+            enableBukubrow = isBukuEnabled;
 
-              extraPatches = [
-                (pkgs.fetchpatch {
-                  name = "mozilla-kde.patch";
-                  url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
-                  sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
-                })
-              ];
-            };
+            extraPatches = [
+              (pkgs.fetchpatch {
+                name = "mozilla-kde.patch";
+                url =
+                  "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
+                sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
+              })
+            ];
           };
+        };
 
     profiles.home = {
       id = 0;
 
-      settings =
-        defaultSettings
-        // privacySettings
-        // lepton.settings.required
-        // lepton.settings.theme.lepton
-        // lepton.settings.recommended
+      settings = defaultSettings // privacySettings // lepton.settings.required
+        // lepton.settings.theme.lepton // lepton.settings.recommended
         // lepton.settings.optional;
 
       # TODO: add zotero connector addon -- not available in upstream nur repo

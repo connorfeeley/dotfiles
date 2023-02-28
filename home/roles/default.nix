@@ -1,14 +1,10 @@
 { profiles }:
-with profiles; let
+with profiles;
+let
   ###: --- roles ---------------------------------------------------------------
 
   # SSH and shells
-  shell = [
-    shells.zsh
-    shells.fish
-    shells.bash
-    ssh
-  ];
+  shell = [ shells.zsh shells.fish shells.bash ssh ];
 
   # beep boop
   developer = [
@@ -32,12 +28,7 @@ with profiles; let
     vim
   ];
 
-  emacs-config = [
-    direnv
-    emacs
-    git
-    development.tools
-  ];
+  emacs-config = [ direnv emacs git development.tools ];
 
   # Desktop packages
   graphical = [
@@ -64,9 +55,7 @@ with profiles; let
   ];
 
   # Someone else's computer
-  server = [
-    ssh
-  ];
+  server = [ ssh ];
 
   # If I told you then I'd have to kill you
   trusted = [
@@ -84,55 +73,25 @@ with profiles; let
   ];
 
   # ∨ ¬ ∧
-  fpgadev = [
-    development.xilinx
-  ];
+  fpgadev = [ development.xilinx ];
 
   # Tools for network diagnostics, information gathering, reverse engineering, etc.
-  security = [
-    security-tools
-  ];
+  security = [ security-tools ];
 
   # OS-specific: Linux-only
-  linux = [
-    nixos.rofi
-    nixos.development.tools
-    nixos.chromium
-    virtualisation.docker
-  ];
+  linux =
+    [ nixos.rofi nixos.development.tools nixos.chromium virtualisation.docker ];
 
   # OS-specific: MacOS
-  macos = [
-    virtualisation.podman
-    darwin.search
-    darwin.dock-apps
-  ];
+  macos = [ virtualisation.podman darwin.search darwin.dock-apps ];
 
   ###: --- meta-roles ----------------------------------------------------------
   roles = {
-    inherit
-      shell
-      developer
-      emacs-config
-      graphical
-      personalised
-      server
-      trusted
-      webdev
-      fpgadev
-      security
-      linux
-      macos
-      ;
+    inherit shell developer emacs-config graphical personalised server trusted
+      webdev fpgadev security linux macos;
 
-    workstation =
-      shell
-      ++ developer
-      ++ graphical
-      ++ trusted
-      ++ webdev
-      ++ fpgadev
-      ++ security;
+    workstation = shell ++ developer ++ graphical ++ trusted ++ webdev
+      ++ fpgadev ++ security;
   };
 in
 roles

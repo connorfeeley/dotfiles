@@ -35,31 +35,36 @@ let
 
   setBrightness = i2cBus: brightness: ''
     # Control 0x10: brightness
-    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w ${toString brightness} dev:/dev/i2c-${toString i2cBus}
+    ${pkgs.ddccontrol}/bin/ddccontrol -r 0x10 -w ${
+      toString brightness
+    } dev:/dev/i2c-${toString i2cBus}
   '';
 
-  scriptDaytime = with monitors; pkgs.writeShellScriptBin "monitor-daytime" ''
-    ${lib.concatMapStringsSep "\n"
-    (bus: setBrightness bus U2917W.brightness.daytime) U2917W.busNumbers}
+  scriptDaytime = with monitors;
+    pkgs.writeShellScriptBin "monitor-daytime" ''
+      ${lib.concatMapStringsSep "\n"
+      (bus: setBrightness bus U2917W.brightness.daytime) U2917W.busNumbers}
 
-    ${lib.concatMapStringsSep "\n"
+      ${lib.concatMapStringsSep "\n"
       (bus: setBrightness bus U28E590.brightness.daytime) U28E590.busNumbers}
 
-    ${lib.concatMapStringsSep "\n"
-    (bus: setBrightness bus U32R59x.brightness.daytime) U32R59x.busNumbers}
-  '';
+      ${lib.concatMapStringsSep "\n"
+      (bus: setBrightness bus U32R59x.brightness.daytime) U32R59x.busNumbers}
+    '';
 
-  scriptNighttime = with monitors; pkgs.writeShellScriptBin "monitor-nighttime" ''
-    ${lib.concatMapStringsSep "\n"
-    (bus: setBrightness bus U2917W.brightness.nighttime) U2917W.busNumbers}
+  scriptNighttime = with monitors;
+    pkgs.writeShellScriptBin "monitor-nighttime" ''
+      ${lib.concatMapStringsSep "\n"
+      (bus: setBrightness bus U2917W.brightness.nighttime) U2917W.busNumbers}
 
-    ${lib.concatMapStringsSep "\n"
-    (bus: setBrightness bus U28E590.brightness.nighttime) U28E590.busNumbers}
+      ${lib.concatMapStringsSep "\n"
+      (bus: setBrightness bus U28E590.brightness.nighttime) U28E590.busNumbers}
 
-    ${lib.concatMapStringsSep "\n"
-    (bus: setBrightness bus U32R59x.brightness.nighttime) U32R59x.busNumbers}
-  '';
-in {
+      ${lib.concatMapStringsSep "\n"
+      (bus: setBrightness bus U32R59x.brightness.nighttime) U32R59x.busNumbers}
+    '';
+in
+{
   # FIXME: broken with current kernel
   # boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
   boot.kernelModules = [ "i2c-dev" ];

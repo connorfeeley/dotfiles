@@ -7,24 +7,10 @@
 ## Sources:
 #
 # https://github.com/Mic92/nixos-shell/blob/55de7d4d449ff30cdde8b8fe484a86eef477245e/share/modules/nixos-shell.nix
-{ config
-, lib
-, options
-, ...
-}:
+{ config, lib, options, ... }:
 let
-  inherit
-    (lib)
-    mkEnableOption
-    mkOption
-    ;
-  inherit
-    (lib.types)
-    attrsOf
-    bool
-    raw
-    str
-    ;
+  inherit (lib) mkEnableOption mkOption;
+  inherit (lib.types) attrsOf bool raw str;
 in
 {
   options.nixos-vm = {
@@ -51,7 +37,8 @@ in
       # default = "/persist/vm/${config.system.name}/data";
       # FIXME: hardcoded user path, yuck
       default = "/home/cfeeley/.local/share/vms/${config.system.name}/data";
-      description = "Directory on the host machine where the VM's data will live.";
+      description =
+        "Directory on the host machine where the VM's data will live.";
     };
 
     mounts = {

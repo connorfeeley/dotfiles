@@ -41,22 +41,17 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-  ];
+  buildInputs = [ glib gtk3 ];
 
   preConfigure = ''
     substituteInPlace meson_options.txt --replace "value: ['2','3']" "value: ['3']"
   '';
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "--prefix=${placeholder "out"}"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" "--prefix=${placeholder "out"}" ];
 
   PKG_CONFIG_GTK__3_0_LIBDIR = "${placeholder "out"}/lib";
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
+    "${placeholder "out"}/lib/systemd/user";
 
   postInstall = ''
     glib-compile-schemas "$out/share/glib-2.0/schemas"

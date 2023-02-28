@@ -1,8 +1,4 @@
-{ name
-, writeShellApplication
-, git
-, git-run
-}:
+{ name, writeShellApplication, git, git-run }:
 
 writeShellApplication {
   inherit name;

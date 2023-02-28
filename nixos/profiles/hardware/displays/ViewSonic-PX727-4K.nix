@@ -1,4 +1,4 @@
-##: ViewSonic PX727-4K Projector
+# #: ViewSonic PX727-4K Projector
 {
   # diag = w: h: sqrt(w^2 + h^2);
   # diagPx = diag 3840 2160;        => 4405.81

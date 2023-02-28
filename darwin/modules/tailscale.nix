@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkIf mkEnableOption;
 
@@ -13,12 +9,8 @@ in
     enable = mkEnableOption "Install Tailscale from the Mac App Store.";
   };
   config = mkIf cfg.enable {
-    homebrew.masApps = {
-      "Tailscale" = 1475387142;
-    };
+    homebrew.masApps = { "Tailscale" = 1475387142; };
 
-    networking.knownNetworkServices = [
-      "Tailscale Tunnel"
-    ];
+    networking.knownNetworkServices = [ "Tailscale Tunnel" ];
   };
 }

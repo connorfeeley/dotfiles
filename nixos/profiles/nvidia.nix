@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
@@ -38,7 +34,8 @@ lib.mkIf (!config.nixos-vm.enable) {
   boot.plymouth = {
     enable = false;
     theme = "breeze";
-    font = "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.ttf";
+    font =
+      "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.ttf";
   };
 
   hardware.opengl = {
@@ -49,8 +46,11 @@ lib.mkIf (!config.nixos-vm.enable) {
     driSupport32Bit = pkgs.stdenv.isx86_64;
   };
 
-  virtualisation.docker.enableNvidia = lib.mkIf config.virtualisation.docker.enable true;
-  virtualisation.podman.enableNvidia = lib.mkIf config.virtualisation.docker.enable true;
+  virtualisation.docker.enableNvidia =
+    lib.mkIf config.virtualisation.docker.enable true;
+  virtualisation.podman.enableNvidia =
+    lib.mkIf config.virtualisation.docker.enable true;
 
-  environment.systemPackages = with pkgs; [ nvtop ddcutil cudatoolkit linuxPackages.nvidia_x11 ] ++ xorgPackages;
+  environment.systemPackages = with pkgs;
+    [ nvtop ddcutil cudatoolkit linuxPackages.nvidia_x11 ] ++ xorgPackages;
 }

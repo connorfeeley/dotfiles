@@ -6,12 +6,9 @@
 # https://github.com/NixOS/nixpkgs/pull/153665/files
 # https://github.com/NixOS/nixpkgs/blob/d675eefdb0b4a0ad35caa5bd773b0dc01a3e72d9/nixos/modules/virtualisation/parallels-guest.nix
 # https://github.com/Builditluc/dotnix/tree/d5cd6906308b55c4e5548779ff4ba86e138f708e/hosts/prlnix
-{ config
-, lib
-, pkgs
-, ...
-}:
-with lib; let
+{ config, lib, pkgs, ... }:
+with lib;
+let
   prl-tools = config.hardware.parallels.package;
   aarch64 = pkgs.stdenv.hostPlatform.system == "aarch64-linux";
 in
@@ -71,10 +68,11 @@ in
     };
 
     hardware.opengl.package = prl-tools;
-    hardware.opengl.package32 = pkgs.pkgsi686Linux.linuxPackages.prl-tools.override {
-      libsOnly = true;
-      kernel = null;
-    };
+    hardware.opengl.package32 =
+      pkgs.pkgsi686Linux.linuxPackages.prl-tools.override {
+        libsOnly = true;
+        kernel = null;
+      };
     hardware.opengl.extraPackages = [ pkgs.mesa.drivers ];
     hardware.opengl.extraPackages32 = [ pkg.pkgsi686Linux.mesa.drivers ];
 
@@ -85,9 +83,16 @@ in
     boot.extraModulePackages = [ prl-tools ];
 
     boot.kernelModules =
-      if aarch64
-      then [ "prl_fs" "prl_fs_freeze" "prl_notifier" "prl_tg" ]
-      else [ "prl_fs" "prl_fs_freeze" "prl_tg" ];
+      if aarch64 then [
+        "prl_fs"
+        "prl_fs_freeze"
+        "prl_notifier"
+        "prl_tg"
+      ] else [
+        "prl_fs"
+        "prl_fs_freeze"
+        "prl_tg"
+      ];
 
     services.timesyncd.enable = false;
 
@@ -100,16 +105,17 @@ in
       };
     };
 
-    systemd.services.prlfsmountd = mkIf config.hardware.parallels.autoMountShares {
-      description = "Parallels Shared Folders Daemon";
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = rec {
-        ExecStart = "${prl-tools}/sbin/prlfsmountd ${PIDFile}";
-        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /media";
-        ExecStopPost = "${prl-tools}/sbin/prlfsmountd -u";
-        PIDFile = "/run/prlfsmountd.pid";
+    systemd.services.prlfsmountd =
+      mkIf config.hardware.parallels.autoMountShares {
+        description = "Parallels Shared Folders Daemon";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = rec {
+          ExecStart = "${prl-tools}/sbin/prlfsmountd ${PIDFile}";
+          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /media";
+          ExecStopPost = "${prl-tools}/sbin/prlfsmountd -u";
+          PIDFile = "/run/prlfsmountd.pid";
+        };
       };
-    };
 
     # FIXME: service broken
     # systemd.services.prlshprint = {
@@ -126,37 +132,27 @@ in
       prlcc = {
         description = "Parallels Control Center";
         wantedBy = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = "${prl-tools}/bin/prlcc";
-        };
+        serviceConfig = { ExecStart = "${prl-tools}/bin/prlcc"; };
       };
       prldnd = {
         description = "Parallels Control Center";
         wantedBy = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = "${prl-tools}/bin/prldnd";
-        };
+        serviceConfig = { ExecStart = "${prl-tools}/bin/prldnd"; };
       };
       prlcp = {
         description = "Parallels CopyPaste Tool";
         wantedBy = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = "${prl-tools}/bin/prlcp";
-        };
+        serviceConfig = { ExecStart = "${prl-tools}/bin/prlcp"; };
       };
       prlsga = {
         description = "Parallels Shared Guest Applications Tool";
         wantedBy = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = "${prl-tools}/bin/prlsga";
-        };
+        serviceConfig = { ExecStart = "${prl-tools}/bin/prlsga"; };
       };
       prlshprof = {
         description = "Parallels Shared Profile Tool";
         wantedBy = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = "${prl-tools}/bin/prlshprof";
-        };
+        serviceConfig = { ExecStart = "${prl-tools}/bin/prlshprof"; };
       };
     };
   };

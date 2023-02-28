@@ -49,8 +49,8 @@ in {
       #   "L /var/lib/jellyfin/data   - - - - /persist/var/lib/jellyfin/data"
       # ];
       networking.firewall.interfaces."bond0".allowedTCPPorts = [
-        8096 /*http*/
-        8920 /*https*/
+        8096 # http
+        8920 # https
       ];
     };
   };

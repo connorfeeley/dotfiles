@@ -79,35 +79,37 @@
       debug = true;
       flashback.enableMetacity = true;
 
-      flashback.customSessions = let
-        localPath =
-          "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
-        defaultPath = "${pkgs.xmonad-config}/bin/xmonad";
-      in [
-        {
-          wmName = "xmonad-flashback";
-          wmLabel = "XMonad flashback";
-          wmCommand = localPath;
-          enableGnomePanel = true;
-        }
-        (rec {
-          wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
-            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-                ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
-            fi
+      flashback.customSessions =
+        let
+          localPath =
+            "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
+          defaultPath = "${pkgs.xmonad-config}/bin/xmonad";
+        in
+        [
+          {
+            wmName = "xmonad-flashback";
+            wmLabel = "XMonad flashback";
+            wmCommand = localPath;
+            enableGnomePanel = true;
+          }
+          (rec {
+            wmCommand = toString (pkgs.writeShellScript "xmonad-flashback" ''
+              if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+                  ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:${wmLabel}" "string:$DESKTOP_AUTOSTART_ID"
+              fi
 
-            ${localPath} &
-            waitPID=$!
+              ${localPath} &
+              waitPID=$!
 
-            if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
-              ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
-            fi
-          '');
-          wmLabel = "xmonad-flashback";
-          wmName = "XMonad-flashback-DBus";
-          enableGnomePanel = true;
-        })
-      ];
+              if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+                ${pkgs.dbus.out}/bin/dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
+              fi
+            '');
+            wmLabel = "xmonad-flashback";
+            wmName = "XMonad-flashback-DBus";
+            enableGnomePanel = true;
+          })
+        ];
       # sessionPath =
       #   let
       #     fildem-global-menu = pkgs.gnomeExtensions.fildem-global-menu.overrideAttrs (old: {

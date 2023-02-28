@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.lib) mkOption;
   inherit (pkgs.lib.types) int str;
@@ -17,24 +13,54 @@ in
       font = {
         mono = {
           # FIXME: set a sensible default
-          family = mkOption { type = str; default = ""; };
-          weight = mkOption { type = int; default = normalWeight; };
-          size = mkOption { type = int; default = 13; };
+          family = mkOption {
+            type = str;
+            default = "";
+          };
+          weight = mkOption {
+            type = int;
+            default = normalWeight;
+          };
+          size = mkOption {
+            type = int;
+            default = 13;
+          };
         };
         sans = {
           # FIXME: set a sensible default
-          family = mkOption { type = str; default = ""; };
-          weight = mkOption { type = int; default = normalWeight; };
-          size = mkOption { type = int; default = 10; };
+          family = mkOption {
+            type = str;
+            default = "";
+          };
+          weight = mkOption {
+            type = int;
+            default = normalWeight;
+          };
+          size = mkOption {
+            type = int;
+            default = 10;
+          };
         };
         serif = {
           # FIXME: set a sensible default
-          family = mkOption { type = str; default = ""; };
-          weight = mkOption { type = int; default = normalWeight; };
-          size = mkOption { type = int; default = cfg.font.sans.size; };
+          family = mkOption {
+            type = str;
+            default = "";
+          };
+          weight = mkOption {
+            type = int;
+            default = normalWeight;
+          };
+          size = mkOption {
+            type = int;
+            default = cfg.font.sans.size;
+          };
         };
         # FIXME: ?
-        emoji.family = mkOption { type = str; default = ""; };
+        emoji.family = mkOption {
+          type = str;
+          default = "";
+        };
       };
     };
   };

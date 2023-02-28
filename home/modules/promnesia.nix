@@ -8,11 +8,7 @@
 #
 # https://github.com/GTrunSec/nixos-flk/blob/96ce0881a2185261758c0ad206d4149ad47d5b04/modules/nixos/promnesia/promnesia.nix
 # https://github.com/karlicoss/promnesia/issues/137
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 with lib; {
   options.services.promnesia = {
     enable = mkOption {
@@ -38,8 +34,7 @@ with lib; {
     };
     config = mkOption {
       description = "write resource to config.py";
-      default = ''
-      '';
+      default = "";
       type = types.str;
     };
 

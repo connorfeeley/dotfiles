@@ -1,22 +1,16 @@
-{ lib
-, stdenv
-, jq
-, sources
-, writeShellScriptBin
-, kitty
-,
-}:
+{ lib, stdenv, jq, sources, writeShellScriptBin, kitty, }:
 lib.makeExtensible (_self: {
   # FIXME: provide a better indication that there can be multiple kitty windows in
   # a single platform window. perhaps 'tab' is better suited?
   #
   # TODO: note that `kitty` is inherited from PATH here due to constant build
   # issues on darwin
-  getWindowByPlatformId = writeShellScriptBin "kitty-get-window-by-platform-id" ''
-    kitty @ --to $KITTY_SOCKET ls \
-      | ${jq}/bin/jq -r --argjson id "$1" \
-        '.[] | select(.platform_window_id==$id)'
-  '';
+  getWindowByPlatformId =
+    writeShellScriptBin "kitty-get-window-by-platform-id" ''
+      kitty @ --to $KITTY_SOCKET ls \
+        | ${jq}/bin/jq -r --argjson id "$1" \
+          '.[] | select(.platform_window_id==$id)'
+    '';
 
   # FIXME: this should depend on the yabai-sa-kickstart script because killing
   # Dock will unload the scripting addition...
@@ -35,10 +29,12 @@ lib.makeExtensible (_self: {
     installPhase = ''
       mkdir -p $out/lib/kitty/terminfo
       cp terminfo/k/kitty $out/share/terminfo/k
-      terminfo_src=${if stdenv.isDarwin then
-        ''"$out/Applications/kitty.app/Contents/Resources/terminfo"''
+      terminfo_src=${
+        if stdenv.isDarwin then
+          ''"$out/Applications/kitty.app/Contents/Resources/terminfo"''
         else
-        "$out/share/terminfo"}
+          "$out/share/terminfo"
+      }
 
       mkdir -p $terminfo/share
       mv "$terminfo_src" $terminfo/share/terminfo

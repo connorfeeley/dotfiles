@@ -1,14 +1,11 @@
-{ config
-, lib
-, pkgs
-, ...
-}: {
+{ config, lib, pkgs, ... }: {
   hardware.acpilight.enable = true;
 
   # NOTE: see https://source.mcwhirter.io/craige/mio-ops/src/branch/consensus/profiles/xmonad.nix
   # for an example config.
   programs = {
-    ssh.askPassword = pkgs.lib.mkForce "${pkgs.plasma5Packages.ksshaskpass.out}/bin/ksshaskpass";
+    ssh.askPassword = pkgs.lib.mkForce
+      "${pkgs.plasma5Packages.ksshaskpass.out}/bin/ksshaskpass";
     kdeconnect.enable = true;
     dconf.enable = true;
   };
@@ -99,7 +96,9 @@
 
       sessionCommands = ''
         # Fix keyring unlock
-        ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+        ${
+          lib.getBin pkgs.dbus
+        }/bin/dbus-update-activation-environment --systemd --all
       '';
     };
 
@@ -110,5 +109,6 @@
     displayManager.gdm.autoSuspend = false;
   };
 
-  programs.light.enable = true; # Backlight control for users in the 'video' group
+  programs.light.enable =
+    true; # Backlight control for users in the 'video' group
 }

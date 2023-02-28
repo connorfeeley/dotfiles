@@ -1,10 +1,4 @@
-{ config
-, lib
-, pkgs
-, inputs
-, primaryUser
-, ...
-}:
+{ config, lib, pkgs, inputs, primaryUser, ... }:
 let
   inherit (config.lib.dotfield.secrets) mkAgeSecret;
 
@@ -72,9 +66,7 @@ in
   imports = [ inputs.modded-minecraft-servers.module ];
 
   config = {
-    age.secrets = lib.mkMerge [
-      (mkAgeSecret "minecraft-rcon-password.txt")
-    ];
+    age.secrets = lib.mkMerge [ (mkAgeSecret "minecraft-rcon-password.txt") ];
     environment.systemPackages = with pkgs; [
       ferium # <- CLI program for managing Minecraft modpacks from Modrinth, CurseForge, and Github Releases
       mcrcon # <- Minecraft console client

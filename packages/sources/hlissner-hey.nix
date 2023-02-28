@@ -1,19 +1,10 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022 Connor Feeley
 # SPDX-License-Identifier: MIT
 
-{ lib
-, stdenv
-, makeWrapper
-, installShellFiles
-, ruby_2_7
-, sources
-, ...
-}:
+{ lib, stdenv, makeWrapper, installShellFiles, ruby_2_7, sources, ... }:
 
-let
-  inherit (stdenv.hostPlatform) isDarwin;
-in
-stdenv.mkDerivation {
+let inherit (stdenv.hostPlatform) isDarwin;
+in stdenv.mkDerivation {
   inherit (sources.hlissner-hey) version src;
   pname = "hey";
   nativeBuildInputs = [ makeWrapper installShellFiles ];
@@ -31,7 +22,9 @@ stdenv.mkDerivation {
           --replace '${shebangLines}' '#!/usr/bin/env ruby -S'
 
       substituteInPlace bin/hey \
-          --replace 'nixos-rebuild' '${if isDarwin then "darwin" else "nixos"}-rebuild'
+          --replace 'nixos-rebuild' '${
+            if isDarwin then "darwin" else "nixos"
+          }-rebuild'
     '';
 
   dontBuild = true;

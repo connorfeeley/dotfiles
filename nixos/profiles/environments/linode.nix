@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}: {
+{ pkgs, ... }: {
   # LISH compatibility
   boot.kernelParams = [ "console=ttyS0,19200n8" ];
   boot.loader.timeout = 10;
@@ -18,9 +16,5 @@
 
   # Diagnostic tools used by Linode support.
   # TODO: provide citation
-  environment.systemPackages = with pkgs; [
-    inetutils
-    mtr
-    sysstat
-  ];
+  environment.systemPackages = with pkgs; [ inetutils mtr sysstat ];
 }

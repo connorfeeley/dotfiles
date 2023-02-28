@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
-}:
+{ config, lib, pkgs, inputs, ... }:
 let
   inherit (inputs) base16-kitty nix-colors;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isAarch64;
@@ -19,18 +14,21 @@ let
     mkKeyValue = key: value:
       let
         value' =
-          if lib.isBool value
-          then (lib.hm.booleans.yesNo value)
-          else builtins.toString value;
+          if lib.isBool value then
+            (lib.hm.booleans.yesNo value)
+          else
+            builtins.toString value;
       in
       "${key} ${value'}";
   };
 
   mkTheme = name: import ./colors.nix nix-colors.colorSchemes.${name};
   mkTheme' = name: toKittyConfig (mkTheme name);
-  mkThemeBuiltin = name: pkgs.kitty-themes.outPath + "/themes/" + name + ".conf";
+  mkThemeBuiltin = name:
+    pkgs.kitty-themes.outPath + "/themes/" + name + ".conf";
 
-  mkFontFeatures = name: features: "font_features ${name} ${lib.concatStringsSep " " features}";
+  mkFontFeatures = name: features:
+    "font_features ${name} ${lib.concatStringsSep " " features}";
 
   mkFontFeatures' = family: styles: features:
     lib.concatMapStringsSep "\n"
@@ -51,18 +49,16 @@ let
     ''
       ${mkFontFeatures' "PragmataProMono" fontStyles fontFeatures}
     '';
+  # FIXME: reduce the amount of merging -> reduce complecity
 in
-# FIXME: reduce the amount of merging -> reduce complecity
 lib.mkMerge [
   (lib.mkIf isDarwin {
     # Handled by the Homebrew module
     # This populates a dummy package to satisfy the requirement
     programs.kitty.package = pkgs.runCommand "kitty-0.0.0" { } "mkdir $out";
 
-    programs.kitty.darwinLaunchOptions = [
-      "--single-instance"
-      "--listen-on=${socket}"
-    ];
+    programs.kitty.darwinLaunchOptions =
+      [ "--single-instance" "--listen-on=${socket}" ];
   })
 
   {
@@ -80,10 +76,7 @@ lib.mkMerge [
     programs.kitty = {
       enable = true;
       settings = settings // {
-        font_size =
-          if (isDarwin && isAarch64)
-          then "12"
-          else "16";
+        font_size = if (isDarwin && isAarch64) then "12" else "16";
         confirm_os_window_close = "0";
         # if (isDarwin)
         # then "1"
@@ -117,7 +110,7 @@ lib.mkMerge [
 
         # Include theme - symlink to either the selected dark or light theme
         include ${config.xdg.configHome}/kitty/current-theme.conf
-        '';
+      '';
     };
   }
   (lib.mkIf isDarwin {
@@ -130,10 +123,12 @@ lib.mkMerge [
   })
   {
     xdg.configFile =
-      let chosenTheme = dark;
-          dark = mkThemeBuiltin "Doom_One";
-          light = mkThemeBuiltin "Doom_One_Light";
-      in {
+      let
+        chosenTheme = dark;
+        dark = mkThemeBuiltin "Doom_One";
+        light = mkThemeBuiltin "Doom_One_Light";
+      in
+      {
         ###
         ### Theming
         ###

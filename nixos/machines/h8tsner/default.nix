@@ -1,25 +1,19 @@
-###
+# ##
 ### A hetzner VM for hosting a private modded minecraft server.
 ###
 # Useful flakes:
 # - https://github.com/Infinidoge/nix-minecraft
 # - https://github.com/mkaito/nixos-modded-minecraft-servers
 # FIXME: hardware config
-{ config
-, lib
-, pkgs
-, primaryUser
-, collective
-, ...
-}:
+{ config, lib, pkgs, primaryUser, collective, ... }:
 let
   inherit (config.dotfield) guardian;
 
   # Bootstrap sets up:
   # - enabling systemd-boot
   # - a 'nixos' NixOS and HM user
+  # https://github.com/nix-community/nixos-install-scripts/blob/master/hosters/hetzner-dedicated/hetzner-dedicated-wipe-and-install-nixos.sh
 in
-# https://github.com/nix-community/nixos-install-scripts/blob/master/hosters/hetzner-dedicated/hetzner-dedicated-wipe-and-install-nixos.sh
 {
   ### === networking ================================================================
 
@@ -69,29 +63,29 @@ in
   dotfield.guardian.username = "cfeeley";
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  users.users.root.hashedPassword =
+    "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
   # Authorized keys and PermitRootLogin set in ssh-host
   users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
-    hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    initialHashedPassword =
+      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    hashedPassword =
+      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
-    extraGroups =
-      [
-        "wheel"
-        "video"
-        "audio"
-        "networkmanager"
-        "dialout"
-        "cfeeley"
-        "secrets"
-        "wireshark"
-      ]
-      ++ (lib.optional config.services.mysql.enable "mysql")
-      ++ (lib.optional config.virtualisation.docker.enable "docker")
-      ++ (lib.optional config.virtualisation.podman.enable "podman")
-    ;
+    extraGroups = [
+      "wheel"
+      "video"
+      "audio"
+      "networkmanager"
+      "dialout"
+      "cfeeley"
+      "secrets"
+      "wireshark"
+    ] ++ (lib.optional config.services.mysql.enable "mysql")
+    ++ (lib.optional config.virtualisation.docker.enable "docker")
+    ++ (lib.optional config.virtualisation.podman.enable "podman");
 
     # Set user's shell
     shell = pkgs.fish;
@@ -99,8 +93,7 @@ in
 
   home-manager.users = {
     "${guardian.username}" = hmArgs: {
-      imports = with hmArgs.roles;
-        shell;
+      imports = with hmArgs.roles; shell;
 
       programs.termite.enable = false;
     };

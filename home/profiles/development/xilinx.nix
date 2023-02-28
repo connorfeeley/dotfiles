@@ -1,10 +1,7 @@
-{ pkgs
-, ...
-}:
+{ pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-  ];
+  home.packages = with pkgs; [ ];
 
   # FIXME: not portable; workstation machine only
   xdg.configFile."xilinx/nix.sh".text = ''

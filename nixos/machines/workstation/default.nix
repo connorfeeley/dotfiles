@@ -1,12 +1,4 @@
-{ config
-, options
-, lib
-, pkgs
-, profiles
-, primaryUser
-, collective
-, ...
-}:
+{ config, options, lib, pkgs, profiles, primaryUser, collective, ... }:
 let
   inherit (collective) peers;
   inherit (config.networking) hostName;
@@ -14,23 +6,18 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 in
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./zfs-root.nix
-    ./samba.nix
-  ];
+  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ];
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
   assertions = lib.mkIf (!options.virtualisation ? qemu) [{
     # Ensure eth0 (motherboard ethernet) is using DHCP and that
     # tailscale, tailscaleUnlock, initrd networking, and initrd SSH are enabled.
-    assertion =
-      config.networking.interfaces.eth0.useDHCP &&
-      config.services.tailscale.enable &&
-      config.remote-machine.boot.tailscaleUnlock.enable &&
-      config.boot.initrd.network.enable &&
-      config.boot.initrd.network.ssh.enable;
+    assertion = config.networking.interfaces.eth0.useDHCP
+      && config.services.tailscale.enable
+      && config.remote-machine.boot.tailscaleUnlock.enable
+      && config.boot.initrd.network.enable
+      && config.boot.initrd.network.ssh.enable;
     message = "Workstation may not be remotely accessible via tailscale.";
   }];
 
@@ -57,7 +44,8 @@ in
     latitude = 43.70011;
     longitude = -79.4163;
   };
-  environment.etc.timezone.source = "${pkgs.tzdata}/share/zoneinfo/${config.time.timeZone}";
+  environment.etc.timezone.source =
+    "${pkgs.tzdata}/share/zoneinfo/${config.time.timeZone}";
 
   ### === networking ===========================================================
 
@@ -123,10 +111,11 @@ in
   ### === Remote LUKS/ZFS Unlock  ============================================================
 
   # Enable tailscale in initrd
-  remote-machine.boot.tailscaleUnlock = lib.mkIf (!options.virtualisation ? qemu) {
-    enable = true;
-    tailscaleStatePath = "/etc/secrets/initrd/tailscale-luks-setup.state";
-  };
+  remote-machine.boot.tailscaleUnlock =
+    lib.mkIf (!options.virtualisation ? qemu) {
+      enable = true;
+      tailscaleStatePath = "/etc/secrets/initrd/tailscale-luks-setup.state";
+    };
 
   # Enable networking and SSH server in initrd
   boot.initrd = {
@@ -145,7 +134,11 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [ cryptsetup linuxPackages.usbip input-leap ];
+  environment.systemPackages = with pkgs; [
+    cryptsetup
+    linuxPackages.usbip
+    input-leap
+  ];
 
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
@@ -185,56 +178,54 @@ in
     username = "cfeeley";
     autoLogin = false;
   };
-  services.xserver.displayManager.defaultSession = "gnome"; # or gnome-flashback-xmonad-flashback
+  services.xserver.displayManager.defaultSession =
+    "gnome"; # or gnome-flashback-xmonad-flashback
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  users.users.root.hashedPassword =
+    "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
   users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
-    hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    initialHashedPassword =
+      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    hashedPassword =
+      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
-    extraGroups =
-      [
-        "wheel"
-        "video"
-        "audio"
-        "networkmanager"
-        "dialout"
-        "cfeeley"
-        "secrets"
-        "wireshark"
-      ]
-      ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
-      ++ (lib.optional config.services.mysql.enable "mysql")
-      ++ (lib.optional config.virtualisation.docker.enable "docker")
-      ++ (lib.optional config.virtualisation.podman.enable "podman")
-      ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
-      ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers")
-    ;
+    extraGroups = [
+      "wheel"
+      "video"
+      "audio"
+      "networkmanager"
+      "dialout"
+      "cfeeley"
+      "secrets"
+      "wireshark"
+    ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
+    ++ (lib.optional config.services.mysql.enable "mysql")
+    ++ (lib.optional config.virtualisation.docker.enable "docker")
+    ++ (lib.optional config.virtualisation.podman.enable "podman")
+    ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
+    ++ (lib.optional config.virtualisation.virtualbox.host.enable
+      "vboxusers");
     shell = pkgs.zsh;
   };
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; (lib.flatten [
-        personalised
-      ] ++ lib.optionals (!config.nixos-vm.enable) (lib.flatten [
-        workstation
-        developer
-        linux
-        emacs-config
-      ])) ++ (with hmArgs.profiles; [
-        sync
-        work
+      imports = with hmArgs.roles;
+        (lib.flatten [ personalised ] ++ lib.optionals (!config.nixos-vm.enable)
+          (lib.flatten [ workstation developer linux emacs-config ]))
+        ++ (with hmArgs.profiles; [
+          sync
+          work
 
-        desktop.xmonad
-        desktop.plasma
+          desktop.xmonad
+          desktop.plasma
 
-        # Systemd scripts
-        nixos.work
-      ]);
+          # Systemd scripts
+          nixos.work
+        ]);
     };
   };
 
@@ -268,7 +259,10 @@ in
   services.x2goserver.enable = true;
 
   age.secrets = {
-    dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
+    dotfield-readme-update-access-token = {
+      file = "${secretsDir}/dotfield-readme-update-access-token.txt.age";
+      group = secretsGroup;
+    };
   };
 
   services.vscode-server.enable = true;
@@ -276,7 +270,11 @@ in
   services.ntopng.enable = true;
   services.ntopng.httpPort = 9009;
 
-  virtualisation.docker.daemon.settings.hosts = lib.mkIf config.virtualisation.docker.enable [ "unix:///var/run/docker.sock" "tcp://0.0.0.0:2375" ];
+  virtualisation.docker.daemon.settings.hosts =
+    lib.mkIf config.virtualisation.docker.enable [
+      "unix:///var/run/docker.sock"
+      "tcp://0.0.0.0:2375"
+    ];
 
   # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
   # Normally the machine will power down after 20 minutes if no user is logged in.
@@ -286,41 +284,44 @@ in
   systemd.targets.hybrid-sleep.enable = false;
 
   # Poll VPN endpoint every 5 minutes and send an alert if the VPN is unreachable
-  systemd.user = let name = "vpn-connection-monitor"; in {
-    services.${name} =
-      let
-        notify = "${pkgs.libnotify}/bin/notify-send --urgency=critical --category=network --app-name=${name}";
-        checkReachability = pkgs.writeShellScript "check-reachability" ''
-          if ! ${pkgs.socat}/bin/socat -v - TCP:rossvideo.com:80,connect-timeout=10; then
-            echo "Unreachable!"
-            ${notify} "${name}: VPN unreachable"
-          else
-            echo "Reachable."
-          fi
-        '';
-      in
-      {
-        description = "VPN status notification";
+  systemd.user =
+    let name = "vpn-connection-monitor";
+    in {
+      services.${name} =
+        let
+          notify =
+            "${pkgs.libnotify}/bin/notify-send --urgency=critical --category=network --app-name=${name}";
+          checkReachability = pkgs.writeShellScript "check-reachability" ''
+            if ! ${pkgs.socat}/bin/socat -v - TCP:rossvideo.com:80,connect-timeout=10; then
+              echo "Unreachable!"
+              ${notify} "${name}: VPN unreachable"
+            else
+              echo "Reachable."
+            fi
+          '';
+        in
+        {
+          description = "VPN status notification";
 
-        wantedBy = [ "graphical-session.target" ];
-        after = [ "network.target" "graphical-session.target" ];
+          wantedBy = [ "graphical-session.target" ];
+          after = [ "network.target" "graphical-session.target" ];
 
-        path = [ pkgs.socat pkgs.libnotify ];
+          path = [ pkgs.socat pkgs.libnotify ];
 
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = checkReachability;
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = checkReachability;
+          };
+        };
+      timers.${name} = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnBootSec = "5m";
+          OnUnitActiveSec = "5m";
+          Unit = "vpn-connection-monitor.service";
         };
       };
-    timers.${name} = {
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnBootSec = "5m";
-        OnUnitActiveSec = "5m";
-        Unit = "vpn-connection-monitor.service";
-      };
     };
-  };
 
   # Jellyfin reverse proxy
   services.nginx = {
@@ -331,8 +332,10 @@ in
     virtualHosts."${hostName}.${peers.networks.tailscale.domain}" = {
       forceSSL = true;
       # NOTE: path to certificate file - not the file itself, which we don't want added to the store
-      sslCertificate = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
-      sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
+      sslCertificate =
+        "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
+      sslCertificateKey =
+        "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
 
       locations =
         let

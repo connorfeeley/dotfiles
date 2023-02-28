@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    neovim-plusultra
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ neovim-plusultra ]; }

@@ -1,8 +1,5 @@
 # https://jackson.dev/post/nix-reasonable-defaults/
-{ config
-, lib
-, ...
-}:
+{ config, lib, ... }:
 let
   always = lib.mkDefault {
     ### Almost always set
@@ -16,13 +13,14 @@ let
     # When free disk space in /nix/store drops below min-free during a build,
     # Nix performs a garbage-collection until max-free bytes are available or there is no more garbage.
     # A value of 0 (the default) disables this feature.
-    min-free = 128000000; #  Default: 0. Reasonable: 128 MB
+    min-free = 128000000; # Default: 0. Reasonable: 128 MB
     max-free = 1000000000; # Default: 0. Reasonable:   1 GB
   };
   recommended = lib.mkDefault {
     ### Set if understood
     # Enable "experimental" flakes support.
-    experimental-features = "nix-command flakes repl-flake"; # Default: nix-command. Reasonable: nix-command flakes
+    experimental-features =
+      "nix-command flakes repl-flake"; # Default: nix-command. Reasonable: nix-command flakes
 
     # If set to true, Nix will fall back to building from source if a binary substitute fails.
     # This is equivalent to the –fallback flag. The default is false.
@@ -58,9 +56,18 @@ let
 in
 {
   options.nix.reasonableDefaults = {
-    always.enable = lib.mkEnableOption "Nix settings that are always recommended." // { default = true; };
-    recommended.enable = lib.mkEnableOption "Nix settings that are strongly recommended." // { default = true; };
-    developer.enable = lib.mkEnableOption "Nix settings that are always recommended." // { default = true; };
+    always.enable =
+      lib.mkEnableOption "Nix settings that are always recommended." // {
+        default = true;
+      };
+    recommended.enable =
+      lib.mkEnableOption "Nix settings that are strongly recommended." // {
+        default = true;
+      };
+    developer.enable =
+      lib.mkEnableOption "Nix settings that are always recommended." // {
+        default = true;
+      };
   };
 
   config = {

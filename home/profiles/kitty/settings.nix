@@ -1,8 +1,4 @@
-{ lib
-, hasTwm
-, socket
-,
-}: {
+{ lib, hasTwm, socket, }: {
   # ET (don't) phone home
   update_check_interval = 0;
 

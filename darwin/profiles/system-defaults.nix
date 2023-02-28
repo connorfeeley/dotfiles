@@ -1,12 +1,6 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  inherit (pkgs.stdenv) isAarch64;
-in
-{
+{ config, lib, pkgs, ... }:
+let inherit (pkgs.stdenv) isAarch64;
+in {
   imports = [ ];
 
   # Use touchID for authorizing sudo; but only on Apple Silicon
@@ -23,14 +17,10 @@ in
 
   # Set arbitrary defaults
   system.defaults.CustomUserPreferences = {
-    "com.apple.dock" = {
-      "slow-motion-allowed" = true;
-    };
+    "com.apple.dock" = { "slow-motion-allowed" = true; };
 
     # Don't litter. (disable .DS_Store file creation)
-    "com.apple.desktopservices" = {
-      "DSDontWriteNetworkStores" = true;
-    };
+    "com.apple.desktopservices" = { "DSDontWriteNetworkStores" = true; };
   };
 
   system.defaults.smb = {
@@ -86,7 +76,7 @@ in
     NSTextShowsControlCharacters = true;
     # Disable the over-the-top focus ring animation
     # NSUseAnimatedFocusRing = false;
-    NSWindowResizeTime = 0.001;
+    NSWindowResizeTime = 1.0e-3;
     PMPrintingExpandedStateForPrint = true;
     PMPrintingExpandedStateForPrint2 = true;
     # Whether to hide the menu bar.

@@ -1,10 +1,7 @@
 # FIXME: use device labels for interop
-{ config
-, lib
-, pkgs
-, ...
-}: {
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+{ config, lib, pkgs, ... }: {
+  boot.initrd.availableKernelModules =
+    [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.extraModulePackages = [ ];
 
   boot.initrd.supportedFilesystems = [ "ext4" "zfs" ];
@@ -47,7 +44,10 @@
     enable = true;
     datasets = {
       ### ROOT: npool - single-SSD root pool
-      "npool/nixos/home" = { use_template = [ "hourly" ]; recursive = true; };
+      "npool/nixos/home" = {
+        use_template = [ "hourly" ];
+        recursive = true;
+      };
       "npool/nixos/home/dev" = { use_template = [ "daily" ]; };
       "npool/nixos/home/source" = { use_template = [ "daily" ]; };
       "npool/nixos/var" = { use_template = [ "hourly" ]; };
@@ -62,8 +62,14 @@
       "rpool/data/media" = { use_template = [ "daily" ]; };
 
       ### BACKUPS (also on 5-HDD pool)
-      "rpool/backup" = { use_template = [ "backup" ]; recursive = true; };
-      "rpool/backup/time_machine" = { use_template = [ "backup" ]; recursive = true; };
+      "rpool/backup" = {
+        use_template = [ "backup" ];
+        recursive = true;
+      };
+      "rpool/backup/time_machine" = {
+        use_template = [ "backup" ];
+        recursive = true;
+      };
     };
 
     templates = {

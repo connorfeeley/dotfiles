@@ -5,11 +5,7 @@
 # SPDX-License-Identifier: MIT
 #
 # https://github.com/GTrunSec/nixos-flk/blob/96ce0881a2185261758c0ad206d4149ad47d5b04/pkgs/python/HPI/default.nix
-{ lib
-, python3Packages
-, sources
-,
-}:
+{ lib, python3Packages, sources, }:
 python3Packages.buildPythonPackage rec {
   inherit (sources.HPI) pname version src;
 

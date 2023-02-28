@@ -1,7 +1,4 @@
-{ config
-, lib
-, ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.nixos-vm;
   mkVMDefault = lib.mkOverride 900;

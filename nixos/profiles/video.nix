@@ -1,8 +1,1 @@
-{ pkgs
-, ...
-}: {
-  environment.systemPackages = with pkgs; [
-    mpv
-    vlc
-  ];
-}
+{ pkgs, ... }: { environment.systemPackages = with pkgs; [ mpv vlc ]; }

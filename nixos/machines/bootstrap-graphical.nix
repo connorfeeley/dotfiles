@@ -1,5 +1,4 @@
-{ ...
-}: {
+{ ... }: {
   system.stateVersion = "22.11";
 
   boot.loader.systemd-boot.enable = true;
@@ -15,9 +14,8 @@
   };
 
   home-manager.users.cfeeley = hmArgs: {
-    imports =
-      (with hmArgs.roles; graphical) ++
-      (with hmArgs.profiles; [
+    imports = (with hmArgs.roles; graphical) ++ (with hmArgs.profiles;
+      [
         # desktop.xmonad
       ]);
   };

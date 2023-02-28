@@ -1,5 +1,4 @@
-{ ...
-}: {
+{ ... }: {
   hardware.video.hidpi.enable = true;
 
   # Larger console font

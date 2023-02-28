@@ -1,8 +1,4 @@
-{ config
-, lib
-, primaryUser
-, ...
-}: {
+{ config, lib, primaryUser, ... }: {
   users.users.root.openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
 
   services.openssh = {

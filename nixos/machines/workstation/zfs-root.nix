@@ -1,8 +1,4 @@
-{ config
-, options
-, lib
-, ...
-}:
+{ config, options, lib, ... }:
 # Don't configure ZFS for VMs
 lib.mkIf (!options.virtualisation ? qemu) {
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
@@ -30,66 +26,58 @@ lib.mkIf (!options.virtualisation ? qemu) {
     done
     rm -rf $ESP_MIRROR
   '';
-  boot.loader.grub.devices = [
-    "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T"
-  ];
+  boot.loader.grub.devices =
+    [ "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T" ];
 
   boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
 
-  fileSystems."/" =
-    {
-      device = "npool/nixos/root";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/" = {
+    device = "npool/nixos/root";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/home" =
-    {
-      device = "npool/nixos/home";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/home" = {
+    device = "npool/nixos/home";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/var/lib" =
-    {
-      device = "npool/nixos/var/lib";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/var/lib" = {
+    device = "npool/nixos/var/lib";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/var/log" =
-    {
-      device = "npool/nixos/var/log";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/var/log" = {
+    device = "npool/nixos/var/log";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "bpool/nixos/root";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/boot" = {
+    device = "bpool/nixos/root";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
   # EFI partion
-  fileSystems."/boot/efi" =
-    {
-      device = "/dev/disk/by-uuid/E342-9852"; # "-part1"
-      fsType = "vfat";
-      options = [ "x-systemd.idle-timeout=1min" "x-systemd.automount" "noauto" ];
-    };
+  fileSystems."/boot/efi" = {
+    device = "/dev/disk/by-uuid/E342-9852"; # "-part1"
+    fsType = "vfat";
+    options = [ "x-systemd.idle-timeout=1min" "x-systemd.automount" "noauto" ];
+  };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T-part4";
-      discardPolicy = "both";
-      randomEncryption = {
-        enable = true;
-        # Enable trim on SSD; this has security implications
-        allowDiscards = true;
-      };
-    }
-  ];
+  swapDevices = [{
+    device =
+      "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T-part4";
+    discardPolicy = "both";
+    randomEncryption = {
+      enable = true;
+      # Enable trim on SSD; this has security implications
+      allowDiscards = true;
+    };
+  }];
 
   # Fix podman on ZFS
   virtualisation.containers.storage.settings.storage.driver = "zfs";

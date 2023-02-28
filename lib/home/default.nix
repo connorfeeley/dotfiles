@@ -1,7 +1,4 @@
-moduleArgs @ { config
-, lib
-, ...
-}:
+moduleArgs@{ config, lib, ... }:
 let
   inherit (config.xdg) configHome;
 
@@ -17,7 +14,8 @@ in
     userConfigPath = srcPath + "/home/users/${defaultUsername}/config";
 
     features = rec {
-      hasPragPro = lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family;
+      hasPragPro =
+        lib.strings.hasPrefix "PragmataPro" config.theme.font.mono.family;
       hasSway = config.wayland.windowManager.sway.enable;
       hasTwm = sysLib.sys.hasTwm or hasSway;
       hasWayland = sysLib.sys.hasWayland or hasSway;

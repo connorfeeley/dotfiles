@@ -5,8 +5,8 @@ stdenv.mkDerivation {
   version = "dcd77d170822024ed7fc3c3781b3b77d1f076183";
   src = fetchFromGitHub {
     url = "https://extensions.gnome.org/extension-data/${
-          builtins.replaceStrings [ "@" ] [ "" ] uuid
-        }.v${builtins.toString version}.shell-extension.zip";
+        builtins.replaceStrings [ "@" ] [ "" ] uuid
+      }.v${builtins.toString version}.shell-extension.zip";
     inherit sha256;
     stripRoot = false;
     # The download URL may change content over time. This is because the

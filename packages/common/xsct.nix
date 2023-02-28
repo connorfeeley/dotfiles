@@ -1,16 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, buildFHSUserEnv
-, writeScript
-, autoPatchelfHook
-, pkgs
-}:
+{ lib, stdenv, fetchurl, buildFHSUserEnv, writeScript, autoPatchelfHook, pkgs }:
 let
   version = "${releaseMajor}-${releaseMinor}";
   releaseMajor = "2021";
   releaseMinor = "2";
-  url = "http://petalinux.xilinx.com/sswreleases/rel-v${releaseMajor}/xsct-trim/xsct-${releaseMajor}-${releaseMinor}.tar.xz";
+  url =
+    "http://petalinux.xilinx.com/sswreleases/rel-v${releaseMajor}/xsct-trim/xsct-${releaseMajor}-${releaseMinor}.tar.xz";
 
   xsct = stdenv.mkDerivation {
     pname = "xsct";
@@ -18,7 +12,8 @@ let
 
     src = fetchurl {
       inherit url;
-      sha256 = "b038e9f101c68ae691616d0976651e2be9d045e1a36d997bfe431c1526ab7a9c";
+      sha256 =
+        "b038e9f101c68ae691616d0976651e2be9d045e1a36d997bfe431c1526ab7a9c";
     };
 
     # Skip unpack
@@ -69,14 +64,22 @@ let
         #   result/XSCT-DELETEME/bin/unwrapped/lnx64.o/rdi_xsct: error while loading shared libraries: \
         #     /nix/store/qyjw1x8ym9hr4sizda517j3qp938207v-xsct-2021-2/lib/lnx64.o/libxv_isl_iostreams.so: \
         #     unexpected PLT reloc type 0xacd9aa30
-        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ctest" "libidn.so.11" "libidn.so"}
-        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cpack" "libidn.so.11" "libidn.so"}
-        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ccmake" "libidn.so.11" "libidn.so"}
-        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cmake" "libidn.so.11" "libidn.so"}
-        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cmake-gui" "libidn.so.11" "libidn.so"}
-        ${patchelfFixup "$out/lib/lnx64.o/libXidanePass.so" "libclang.so.3.9" "libclang.so"}
-        ${patchelfFixup "$out/lib/lnx64.o/librdi_ipservicestasks.so" "libpython3.8.so.1.0" "libpython3.8.so"}
-        ${patchelfFixup "$out/lib/lnx64.o/librdi_project.so" "libpython3.8.so.1.0" "libpython3.8.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ctest" "libidn.so.11"
+        "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cpack" "libidn.so.11"
+        "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/ccmake" "libidn.so.11"
+        "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cmake" "libidn.so.11"
+        "libidn.so"}
+        ${patchelfFixup "$out/tps/lnx64/cmake-3.3.2/bin/cmake-gui" "libidn.so.11"
+        "libidn.so"}
+        ${patchelfFixup "$out/lib/lnx64.o/libXidanePass.so" "libclang.so.3.9"
+        "libclang.so"}
+        ${patchelfFixup "$out/lib/lnx64.o/librdi_ipservicestasks.so"
+        "libpython3.8.so.1.0" "libpython3.8.so"}
+        ${patchelfFixup "$out/lib/lnx64.o/librdi_project.so" "libpython3.8.so.1.0"
+        "libpython3.8.so"}
 
         substituteInPlace $out/bin/ldlibpath.sh \
             --replace "lsb_release $1 2>/dev/null | sed 's/^.*:[ 	]*//' | tr '[:upper:]' '[:lower:]'" "echo nixos-suse-nixos"
@@ -101,7 +104,8 @@ let
     ];
 
     meta = with lib; {
-      homepage = "https://www.xilinx.com/htmldocs/xilinx2019_1/SDK_Doc/xsct/intro/xsct_introduction.html";
+      homepage =
+        "https://www.xilinx.com/htmldocs/xilinx2019_1/SDK_Doc/xsct/intro/xsct_introduction.html";
       description = "Xilinx Software Command-Line Tools";
       license = licenses.unfree;
       maintainers = [ maintainers.cfeeley ];
@@ -112,57 +116,60 @@ in
 buildFHSUserEnv rec {
   name = "xsct-wrapper"; # wrapped
 
-  targetPkgs = pkgs: with pkgs; [
-    xsct
+  targetPkgs = pkgs:
+    with pkgs; [
+      xsct
 
-    openssl
-    zlib
+      openssl
+      zlib
 
-    tcl
-    tclx
-    tcllib
+      tcl
+      tclx
+      tcllib
 
-    xorg.xlsclients
-    xorg.libXft
-    xorg.libXtst
-    xorg.libX11
-    xorg.libXScrnSaver
-    xorg.libXcursor
-    xorg.libXext
-    xorg.libXft
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXt
-    xorg.libXv
-    xorg.pixman
-    xorg.xorgproto
-    xvfb-run
-  ];
-  multiPkgs = pkgs: with pkgs; let
-    # This seems ugly - can we override `libpng = libpng12` for all `pkgs`?
-    # freetype = pkgs.freetype.override { libpng = libpng12; };
-    # fontconfig = pkgs.fontconfig.override { inherit freetype; };
-    # libXft = pkgs.xorg.libXft.override { inherit freetype fontconfig; };
-  in
-  [
-    # modelsim requirements
-    libxml2
-    ncurses5
-    unixODBC
-    # libXft
+      xorg.xlsclients
+      xorg.libXft
+      xorg.libXtst
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXcursor
+      xorg.libXext
+      xorg.libXft
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXt
+      xorg.libXv
+      xorg.pixman
+      xorg.xorgproto
+      xvfb-run
+    ];
+  multiPkgs = pkgs:
+    with pkgs;
+    let
+      # This seems ugly - can we override `libpng = libpng12` for all `pkgs`?
+      # freetype = pkgs.freetype.override { libpng = libpng12; };
+      # fontconfig = pkgs.fontconfig.override { inherit freetype; };
+      # libXft = pkgs.xorg.libXft.override { inherit freetype fontconfig; };
+    in
+    [
+      # modelsim requirements
+      libxml2
+      ncurses5
+      unixODBC
+      # libXft
 
-    # common requirements
-    freetype
-    fontconfig
-    libpng12
-    protobuf
-    xorg.libX11
-    xorg.libXext
-    xorg.libXrender
-    xorg.libXau
-    libudev0-shim
-    libxcrypt
-  ];
+      # common requirements
+      freetype
+      fontconfig
+      libpng12
+      protobuf
+      xorg.libX11
+      xorg.libXext
+      xorg.libXrender
+      xorg.libXau
+      libudev0-shim
+      libxcrypt
+    ];
 
   passthru = { inherit xsct; };
 
@@ -357,7 +364,8 @@ buildFHSUserEnv rec {
       cd $out
       ${lib.optionalString (executablesStr != "") "chmod +x ${executablesStr}"}
       # link into $out/bin so executables become available on $PATH
-      ${lib.optionalString (executablesStr != "") "ln --symbolic --relative --target-directory ./bin ${executablesStr}"}
+      ${lib.optionalString (executablesStr != "")
+      "ln --symbolic --relative --target-directory ./bin ${executablesStr}"}
       ln --symbolic --relative ${xsct} wrapped
     '';
 

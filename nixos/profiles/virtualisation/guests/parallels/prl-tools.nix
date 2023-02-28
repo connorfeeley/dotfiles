@@ -24,7 +24,8 @@
 , autoPatchelfHook
 ,
 }:
-assert (!libsOnly) -> kernel != null; let
+assert (!libsOnly) -> kernel != null;
+let
   aarch64 = stdenv.hostPlatform.system == "aarch64-linux";
   x86_64 = stdenv.hostPlatform.system == "x86_64-linux";
   i686 = stdenv.hostPlatform.system == "i686-linux";
@@ -37,14 +38,14 @@ stdenv.mkDerivation rec {
   # We download the full distribution to extract prl-tools-lin.iso from
   # => ${dmg}/Parallels\ Desktop.app/Contents/Resources/Tools/prl-tools-lin.iso
   src = fetchurl {
-    url = "https://download.parallels.com/desktop/v${prl_major}/${version}/ParallelsDesktop-${version}.dmg";
+    url =
+      "https://download.parallels.com/desktop/v${prl_major}/${version}/ParallelsDesktop-${version}.dmg";
     sha256 = "sha256-OyfjFPiaEjFWi3/RxX+lgRoXn1aFH3mEC/jr/pcHsqw=";
   };
 
   hardeningDisable = [ "pic" "format" ];
 
-  nativeBuildInputs =
-    [ p7zip undmg perl autoPatchelfHook ]
+  nativeBuildInputs = [ p7zip undmg perl autoPatchelfHook ]
     ++ lib.optionals (!libsOnly) [ makeWrapper ]
     ++ kernel.moduleBuildDependencies;
 
@@ -59,26 +60,25 @@ stdenv.mkDerivation rec {
   unpackPhase = assert (aarch64 || x86_64 || i686); ''
     undmg "${src}"
     export sourceRoot=prl-tools-build
-    7z x "Parallels Desktop.app/Contents/Resources/Tools/prl-tools-lin${lib.optionalString aarch64 "-arm"}.iso" -o$sourceRoot
+    7z x "Parallels Desktop.app/Contents/Resources/Tools/prl-tools-lin${
+      lib.optionalString aarch64 "-arm"
+    }.iso" -o$sourceRoot
     if test -z "$libsOnly"; then
       ( cd $sourceRoot/kmods; tar -xaf prl_mod.tar.gz )
     fi
   '';
 
   patches =
-    if lib.versionAtLeast kernel.version "5.17"
-    then [ ./prl-tools.patch ]
-    else [ ];
+    if lib.versionAtLeast kernel.version "5.17" then
+      [ ./prl-tools.patch ]
+    else
+      [ ];
 
-  kernelVersion =
-    if libsOnly
-    then ""
-    else lib.getVersion kernel.name;
+  kernelVersion = if libsOnly then "" else lib.getVersion kernel.name;
   kernelDir =
-    if libsOnly
-    then ""
-    else "${kernel.dev}/lib/modules/${kernelVersion}";
-  scriptPath = lib.concatStringsSep ":" (lib.optionals (!libsOnly) [ "${util-linux}/bin" "${gawk}/bin" ]);
+    if libsOnly then "" else "${kernel.dev}/lib/modules/${kernelVersion}";
+  scriptPath = lib.concatStringsSep ":"
+    (lib.optionals (!libsOnly) [ "${util-linux}/bin" "${gawk}/bin" ]);
 
   buildPhase = ''
     if test -z "$libsOnly"; then
@@ -102,19 +102,17 @@ stdenv.mkDerivation rec {
         cp prl_fs/SharedFolders/Guest/Linux/prl_fs/prl_fs.ko $out/lib/modules/${kernelVersion}/extra
         cp prl_fs_freeze/Snapshot/Guest/Linux/prl_freeze/prl_fs_freeze.ko $out/lib/modules/${kernelVersion}/extra
         cp prl_tg/Toolgate/Guest/Linux/prl_tg/prl_tg.ko $out/lib/modules/${kernelVersion}/extra
-        ${lib.optionalString aarch64
-      "cp prl_notifier/Installation/lnx/prl_notifier/prl_notifier.ko $out/lib/modules/${kernelVersion}/extra"}
+        ${
+          lib.optionalString aarch64
+          "cp prl_notifier/Installation/lnx/prl_notifier/prl_notifier.ko $out/lib/modules/${kernelVersion}/extra"
+        }
       )
     fi
 
     ( # tools
       cd tools/tools${
-      if aarch64
-      then "-arm64"
-      else if x86_64
-      then "64"
-      else "32"
-    }
+        if aarch64 then "-arm64" else if x86_64 then "64" else "32"
+      }
       mkdir -p $out/lib
 
       if test -z "$libsOnly"; then

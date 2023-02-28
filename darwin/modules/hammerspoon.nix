@@ -20,19 +20,23 @@ let
     };
   };
 
-  mkSpoonPackage = spoon: pkgs.stdenv.mkDerivation {
-    name = "hammerspoon-${spoon.name}-spoon";
-    buildCommand = ''
-      mkdir -p $out
-      cp -r ${cfg.spoonSources}/Source/${spoon.name}.spoon $out
-    '';
-  };
+  mkSpoonPackage = spoon:
+    pkgs.stdenv.mkDerivation {
+      name = "hammerspoon-${spoon.name}-spoon";
+      buildCommand = ''
+        mkdir -p $out
+        cp -r ${cfg.spoonSources}/Source/${spoon.name}.spoon $out
+      '';
+    };
 
   spoonPackages = map mkSpoonPackage cfg.spoons;
 
   spoonInitWrapper = pkgs.writeText "init.lua" ''
     -- Add spoons in the nix store to the search path
-    package.path = package.path .. ";" ..  hs.configdir .. ${lib.concatMapStringsSep " .. \";\" " (spoon: "${spoon}/?.spoon/init.lua") spoonPackages}
+    package.path = package.path .. ";" ..  hs.configdir .. ${
+      lib.concatMapStringsSep " .. \";\" " (spoon: "${spoon}/?.spoon/init.lua")
+      spoonPackages
+    }
   '';
 in
 {
@@ -50,9 +54,7 @@ in
         '';
       };
       spoons = mkOption {
-        type = types.listOf (types.submodule {
-          options = spoonSubmodule;
-        });
+        type = types.listOf (types.submodule { options = spoonSubmodule; });
         default = pkgs.hammerspoon.passthru.spoons;
         description = lib.mdDoc ''
           Spoons
@@ -70,7 +72,6 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.hammerspoon ];
-
 
     system.activationScripts.preActivation.text = ''
       mkdir -p ${cfg.configDirectory}

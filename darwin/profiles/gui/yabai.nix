@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
   inherit (config.lib) dotfield;
@@ -11,47 +7,30 @@ let
   configDir = "${dotfield.userConfigPath}/yabai";
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
 
-  defaults = {
-    padding = "6";
-  };
+  defaults = { padding = "6"; };
 
   mkArgString = lib.generators.toKeyValue {
     mkKeyValue = key: value:
       let
         value' =
-          if lib.isBool value
-          then
-            (
-              if value
-              then "on"
-              else "off"
-            )
-          else builtins.toString value;
+          if lib.isBool value then
+            (if value then "on" else "off")
+          else
+            builtins.toString value;
       in
       "${key}='${value'}' \\";
   };
 
-  mkRule = { app, ... } @ args:
-    let
-      args' =
-        lib.filterAttrs
-          (n: _: ! builtins.elem n [ "app" ])
-          args;
-    in
-    ''
+  mkRule = { app, ... }@args:
+    let args' = lib.filterAttrs (n: _: !builtins.elem n [ "app" ]) args;
+    in ''
       yabai -m rule --add app='${app}' ${mkArgString args'}
     '';
 
-  mkSignal =
-    { event
-    , action
-    , ...
-    } @ args:
+  mkSignal = { event, action, ... }@args:
     let
       args' =
-        lib.filterAttrs
-          (n: _: ! builtins.elem n [ "event" "action" ])
-          args;
+        lib.filterAttrs (n: _: !builtins.elem n [ "event" "action" ]) args;
     in
     ''
       yabai -m signal --add \
@@ -61,113 +40,107 @@ let
     '';
 
   mkRules = rules: lib.strings.concatMapStringsSep "\n" (x: mkRule x) rules;
-  mkSignals = signals: lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
+  mkSignals = signals:
+    lib.strings.concatMapStringsSep "\n" (x: mkSignal x) signals;
 
   # FIXME: avoid IFD -- add to a package derivation
-  mkScriptFromFile = name: (writeScriptBin "yabai-${name}"
-    (builtins.readFile "${configDir}/bin/${name}"));
+  mkScriptFromFile = name:
+    (writeScriptBin "yabai-${name}"
+      (builtins.readFile "${configDir}/bin/${name}"));
 
-  scriptsFromFiles = map (n: mkScriptFromFile n) [
-    "close-window"
-    "focus-direction"
-  ];
+  scriptsFromFiles =
+    map (n: mkScriptFromFile n) [ "close-window" "focus-direction" ];
 
-  scripts =
-    (builtins.listToAttrs (map
-      (drv: {
-        name = drv.name;
-        value = drv;
-      })
-      scriptsFromFiles))
-    // {
-      kickstart-sa = writeShellScriptBin "yabai-sa-kickstart" ''
-        #
-        # yabai-sa-kickstart
-        #
-        # Kickstart the scripting addition in case it fails to load.
-        #
+  scripts = (builtins.listToAttrs (map
+    (drv: {
+      name = drv.name;
+      value = drv;
+    })
+    scriptsFromFiles)) // {
+    kickstart-sa = writeShellScriptBin "yabai-sa-kickstart" ''
+      #
+      # yabai-sa-kickstart
+      #
+      # Kickstart the scripting addition in case it fails to load.
+      #
 
-        set -x
+      set -x
 
-        # See https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)#updating-to-latest-head
-        [[ $(sudo launchctl list | grep yabai-sa) ]] && {
-          sudo launchctl unload ${daemonPath}
-        }
-        sudo yabai --uninstall-sa
-        sudo yabai --install-sa
-        sudo launchctl load ${daemonPath}
+      # See https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)#updating-to-latest-head
+      [[ $(sudo launchctl list | grep yabai-sa) ]] && {
+        sudo launchctl unload ${daemonPath}
+      }
+      sudo yabai --uninstall-sa
+      sudo yabai --install-sa
+      sudo launchctl load ${daemonPath}
 
-        set +x
-      '';
+      set +x
+    '';
 
-      # Set padding and window gaps.
-      set-padding = writeShellScriptBin "yabai-set-padding" ''
-        #
-        # yabai-set-padding
-        #
-        # Usage:
-        #   yabai-set-padding [<padding-value>]
-        #   yabai-set-padding 6
-        #
-        # Note that environment variables may not be available when the
-        # config is loaded for the first time, so it's best to set the desired
-        # values explicitly as an initial fallback -- a default for the default.
-        #
+    # Set padding and window gaps.
+    set-padding = writeShellScriptBin "yabai-set-padding" ''
+      #
+      # yabai-set-padding
+      #
+      # Usage:
+      #   yabai-set-padding [<padding-value>]
+      #   yabai-set-padding 6
+      #
+      # Note that environment variables may not be available when the
+      # config is loaded for the first time, so it's best to set the desired
+      # values explicitly as an initial fallback -- a default for the default.
+      #
 
 
-        DEFAULT_PADDING="''${YABAI_PADDING_DEFAULT:-${defaults.padding}}"
+      DEFAULT_PADDING="''${YABAI_PADDING_DEFAULT:-${defaults.padding}}"
 
-        PADDING="''${1:-$DEFAULT_PADDING}"
+      PADDING="''${1:-$DEFAULT_PADDING}"
 
-        yabai -m config top_padding "$PADDING"
-        yabai -m config bottom_padding "$PADDING"
-        yabai -m config left_padding "$PADDING"
-        yabai -m config right_padding "$PADDING"
-        yabai -m config window_gap "$PADDING"
-      '';
+      yabai -m config top_padding "$PADDING"
+      yabai -m config bottom_padding "$PADDING"
+      yabai -m config left_padding "$PADDING"
+      yabai -m config right_padding "$PADDING"
+      yabai -m config window_gap "$PADDING"
+    '';
 
-      kludge = writeShellScriptBin "yabai-kludge" ''
-        #
-        # yabai-kludge
-        #
-        # For when things... get real bad.
-        #
-        # A useful implement when you load an outdated version of the yabai scripting
-        # addition and need to restore Dock.app to its original state.
-        #
-        # WARNING: This will erase any Dock settings, including icons, position, hide
-        # status, etc.
-        #
-        # TODO: Logging.
-        #
-        # Source:
-        #   https://forums.macrumors.com/threads/missing-dock-and-background-flashing-on-mavericks-gm.1650020/post-18213002
+    kludge = writeShellScriptBin "yabai-kludge" ''
+      #
+      # yabai-kludge
+      #
+      # For when things... get real bad.
+      #
+      # A useful implement when you load an outdated version of the yabai scripting
+      # addition and need to restore Dock.app to its original state.
+      #
+      # WARNING: This will erase any Dock settings, including icons, position, hide
+      # status, etc.
+      #
+      # TODO: Logging.
+      #
+      # Source:
+      #   https://forums.macrumors.com/threads/missing-dock-and-background-flashing-on-mavericks-gm.1650020/post-18213002
 
-        # Remove potentially-corrupted files.
-        ${toString (map (f: "rm $HOME/Library/Preferences/${f};") [
-          "com.apple.spaces.plist"
-          "com.apple.desktop.plist"
-          "com.apple.dock.plist"
-          "com.apple.dock.db"
-        ])}
+      # Remove potentially-corrupted files.
+      ${toString (map (f: "rm $HOME/Library/Preferences/${f};") [
+        "com.apple.spaces.plist"
+        "com.apple.desktop.plist"
+        "com.apple.dock.plist"
+        "com.apple.dock.db"
+      ])}
 
-        # Restart the dock.
-        killall Dock
-      '';
-    };
+      # Restart the dock.
+      killall Dock
+    '';
+  };
 
   # Get the store path to a yabai script by shortname.
   getScript = n: "${builtins.getAttr n scripts}/bin/yabai-${n}";
 in
 lib.mkIf false {
   environment.systemPackages =
-    map
-      (key: builtins.getAttr key scripts)
-      (builtins.attrNames scripts);
+    map (key: builtins.getAttr key scripts) (builtins.attrNames scripts);
 
-  environment.variables = {
-    YABAI_PADDING_DEFAULT = defaults.padding;
-  };
+  environment.variables = { YABAI_PADDING_DEFAULT = defaults.padding; };
 
   # FIXME: scoping these to a user path isn't possible without assumptions about the username
   # launchd.user.agents.yabai.serviceConfig = {
@@ -247,8 +220,7 @@ lib.mkIf false {
           (commonRules // { app = "^System Preferences$"; })
 
           # Prevent tiny file copy dialogs from claiming a space partition.
-          (commonRules
-            // {
+          (commonRules // {
             app = "^Finder$";
             title = "Copy";
           })
@@ -279,13 +251,11 @@ lib.mkIf false {
           }
         ];
 
-        signals = mkSignals [
-          {
-            event = "window_focused";
-            action = "yabai -m query --windows --window";
-            label = "log each focused window";
-          }
-        ];
+        signals = mkSignals [{
+          event = "window_focused";
+          action = "yabai -m query --windows --window";
+          label = "log each focused window";
+        }];
       in
       ''
         # Set window padding to default value.

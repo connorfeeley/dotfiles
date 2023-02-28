@@ -1,11 +1,4 @@
-{ stdenv
-, fetchurl
-, imake
-, gccmakedep
-, xorg
-, lib
-, ...
-}:
+{ stdenv, fetchurl, imake, gccmakedep, xorg, lib, ... }:
 stdenv.mkDerivation {
   name = "xantfarm";
   version = "1.0.0";
@@ -20,7 +13,8 @@ stdenv.mkDerivation {
   installTargets = [ "install" "install.man" ];
 
   meta = with lib; {
-    description = "Simulates an ant hill and displays it in the root X11 window.";
+    description =
+      "Simulates an ant hill and displays it in the root X11 window.";
     homepage = "https://acme.com/software/xantfarm";
     license = licenses.bsd2;
     maintainers = [ maintainers.cfeeley ];

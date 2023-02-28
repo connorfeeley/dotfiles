@@ -1,12 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isLinux;
-  myTheme =
-    with pkgs; stdenvNoCC.mkDerivation {
+  myTheme = with pkgs;
+    stdenvNoCC.mkDerivation {
       pname = "artim-dark";
       version = "unstable-2021-12-29";
 
@@ -32,7 +28,8 @@ let
       '';
 
       meta = {
-        description = "Dark theme deeply inspired by the Ayu Dark color palette";
+        description =
+          "Dark theme deeply inspired by the Ayu Dark color palette";
         homepage = "https://github.com/Mrcuve0/Aritim-Dark";
         license = with lib.licenses; [ gpl3Only ];
         platforms = lib.platforms.unix;
@@ -44,10 +41,7 @@ in
   ###
   ### KDE
   ###
-  environment.systemPackages = with pkgs; [
-    myTheme
-    variety
-  ];
+  environment.systemPackages = with pkgs; [ myTheme variety ];
   services.xserver.desktopManager.plasma5 = {
     enable = true;
     supportDDC = true;
@@ -59,20 +53,18 @@ in
     # defaultSession = "plasma+xmonad";
     session =
       let
-        localPath = "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
+        localPath =
+          "/home/cfeeley/source/xmonad-config/dist-newstyle/build/x86_64-linux/ghc-9.0.2/xmonad-config-0.1/x/xmonad/build/xmonad/xmonad";
         defaultPath = "${pkgs.xmonad-config}/bin/xmonad";
       in
-      [
-        {
-          manage = "desktop";
-          name = "plasma+xmonad";
-          start =
-            ''
-              export KDEWM=${localPath}
-              exec env KDEWM=${localPath} ${pkgs.plasma-workspace}/bin/startplasma-x11
-            '';
-        }
-      ];
+      [{
+        manage = "desktop";
+        name = "plasma+xmonad";
+        start = ''
+          export KDEWM=${localPath}
+          exec env KDEWM=${localPath} ${pkgs.plasma-workspace}/bin/startplasma-x11
+        '';
+      }];
   };
 
   qt5.platformTheme = "gnome";

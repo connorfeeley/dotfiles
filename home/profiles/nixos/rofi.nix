@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isLinux;
 
@@ -49,9 +45,7 @@ let
   };
 in
 lib.mkIf isLinux {
-  home.packages = [
-    rofi-adi1090x-themes
-  ];
+  home.packages = [ rofi-adi1090x-themes ];
 
   programs.rofi = {
     enable = true;
@@ -62,7 +56,16 @@ lib.mkIf isLinux {
     };
 
     pass.enable = config.programs.password-store.enable;
-    plugins = with pkgs; [ rofi-adi1090x-themes rofi-calc rofi-systemd rofi-top rofi-rbw rofi-menugen rofi-file-browser rofi-bluetooth ];
+    plugins = with pkgs; [
+      rofi-adi1090x-themes
+      rofi-calc
+      rofi-systemd
+      rofi-top
+      rofi-rbw
+      rofi-menugen
+      rofi-file-browser
+      rofi-bluetooth
+    ];
     font = "Toronto Subway 18";
     location = "center";
     cycle = true;

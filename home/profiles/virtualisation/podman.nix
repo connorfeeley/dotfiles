@@ -1,13 +1,7 @@
-{ config
-, osConfig
-, lib
-, pkgs
-, ...
-}:
-lib.mkMerge [
-  {
-    home.packages = with pkgs; [ podman podman-compose ];
-  }
+{ config, osConfig, lib, pkgs, ... }:
+lib.mkMerge [{
+  home.packages = with pkgs; [ podman podman-compose ];
+}
 
   # Podman needs qemu, but the default machine isn't able to locate the right binaries by default.
   # (lib.mkIf isDarwin {

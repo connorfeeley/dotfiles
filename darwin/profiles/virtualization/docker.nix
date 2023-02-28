@@ -1,12 +1,6 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  inherit (config.dotfield) guardian;
-in
-{
+{ config, lib, pkgs, ... }:
+let inherit (config.dotfield) guardian;
+in {
   homebrew = {
     # Docker CLI only
     # brews = [{ name = "docker"; }];
@@ -21,18 +15,17 @@ in
   users.groups.docker.members = [ "root" guardian.username ];
 
   environment.etc = {
-    "docker/daemon.json".source = pkgs.writeText "daemon.json" (builtins.toJSON {
-      hosts = [ "unix:///var/run/docker.sock" "tcp://workstation:2375" ];
-      builder = {
-        gc = {
-          defaultKeepStorage = "20GB";
-          enabled = true;
+    "docker/daemon.json".source = pkgs.writeText "daemon.json"
+      (builtins.toJSON {
+        hosts = [ "unix:///var/run/docker.sock" "tcp://workstation:2375" ];
+        builder = {
+          gc = {
+            defaultKeepStorage = "20GB";
+            enabled = true;
+          };
         };
-      };
-      experimental = false;
-      features = {
-        buildkit = true;
-      };
-    });
+        experimental = false;
+        features = { buildkit = true; };
+      });
   };
 }

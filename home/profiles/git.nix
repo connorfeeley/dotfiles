@@ -1,31 +1,21 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
-  inherit
-    (config.lib.dotfield.whoami)
-    email
-    fullName
-    githubUserName
-    pgpPublicKey
-    ;
+  inherit (config.lib.dotfield.whoami)
+    email fullName githubUserName pgpPublicKey;
 
   inherit (config.lib) dotfield;
   configDir = dotfield.userConfigPath + "/git";
 
-  enableSigning =
-    config.programs.gpg.enable
-    && config.services.gpg-agent.enable
+  enableSigning = config.programs.gpg.enable && config.services.gpg-agent.enable
     && "" != pgpPublicKey;
 
-  git-gpg-privacy = with pkgs; writeShellScriptBin "git-gpg-privacy" ''
-    # Epoch for today at 00:00:00
-    EPOCH_TODAY="$(date --date=$(date --iso-8601=date) +'%s')"
+  git-gpg-privacy = with pkgs;
+    writeShellScriptBin "git-gpg-privacy" ''
+      # Epoch for today at 00:00:00
+      EPOCH_TODAY="$(date --date=$(date --iso-8601=date) +'%s')"
 
-    ${gnupg}/bin/gpg2 --faked-system-time "$EPOCH_TODAY!" $@
-  '';
+      ${gnupg}/bin/gpg2 --faked-system-time "$EPOCH_TODAY!" $@
+    '';
 in
 {
   home.packages = with pkgs; [
@@ -43,9 +33,9 @@ in
     gitAndTools.tig
     gitAndTools.git-crypt
     gitAndTools.git-standup
-    gitAndTools.git-review #: tool to submit code reviews to Gerrit
-    gitAndTools.git-big-picture #: visualize Git repositories
-    nodePackages.git-run #: 'gr': a tool for managing multiple git repositories (github:mixu/gr)
+    gitAndTools.git-review # : tool to submit code reviews to Gerrit
+    gitAndTools.git-big-picture # : visualize Git repositories
+    nodePackages.git-run # : 'gr': a tool for managing multiple git repositories (github:mixu/gr)
 
     # # Other potentially interesting packages:
     # gitAndTools.git-machete #: github:VirtusLab/git-machete
@@ -179,14 +169,19 @@ in
       ci = "commit";
       st = "status";
       br = "branch";
-      latest = "for-each-ref --format='%(committerdate:iso8601) %(committerdate:relative) %(refname)' --sort -committerdate";
+      latest =
+        "for-each-ref --format='%(committerdate:iso8601) %(committerdate:relative) %(refname)' --sort -committerdate";
       hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
       type = "cat-file -t";
       dump = "cat-file -p";
-      lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      lga = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
-      l = "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      la = "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
+      lg =
+        "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      lga =
+        "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
+      l =
+        "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      la =
+        "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
       s = "status -sb";
       d = "diff";
       dc = "diff --cached";
@@ -195,133 +190,133 @@ in
       clone-for-worktrees =
         let
           # https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
-          git-clone-bare-for-worktrees = pkgs.writeShellScript "git-clone-bare-for-worktrees" ''
-            set -e
+          git-clone-bare-for-worktrees =
+            pkgs.writeShellScript "git-clone-bare-for-worktrees" ''
+              set -e
 
-            # Examples of call:
-            # git-clone-bare-for-worktrees git@github.com:name/repo.git
-            # => Clones to a /repo directory
-            #
-            # git-clone-bare-for-worktrees git@github.com:name/repo.git my-repo
-            # => Clones to a /my-repo directory
+              # Examples of call:
+              # git-clone-bare-for-worktrees git@github.com:name/repo.git
+              # => Clones to a /repo directory
+              #
+              # git-clone-bare-for-worktrees git@github.com:name/repo.git my-repo
+              # => Clones to a /my-repo directory
 
-            url=$1
-            basename=''${url##*/}
-            name=''${2:-''${basename%.*}}
+              url=$1
+              basename=''${url##*/}
+              name=''${2:-''${basename%.*}}
 
-            mkdir $name
-            cd "$name"
+              mkdir $name
+              cd "$name"
 
-            # Moves all the administrative git files (a.k.a $GIT_DIR) under .bare directory.
-            #
-            # Plan is to create worktrees as siblings of this directory.
-            # Example targeted structure:
-            # .bare
-            # main
-            # new-awesome-feature
-            # hotfix-bug-12
-            # ...
-            git clone --bare "$url" .bare
-            echo "gitdir: ./.bare" > .git
+              # Moves all the administrative git files (a.k.a $GIT_DIR) under .bare directory.
+              #
+              # Plan is to create worktrees as siblings of this directory.
+              # Example targeted structure:
+              # .bare
+              # main
+              # new-awesome-feature
+              # hotfix-bug-12
+              # ...
+              git clone --bare "$url" .bare
+              echo "gitdir: ./.bare" > .git
 
-            # Explicitly sets the remote origin fetch so we can fetch remote branches
-            git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+              # Explicitly sets the remote origin fetch so we can fetch remote branches
+              git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 
-            # Gets all branches from origin
-            git fetch origin
-          '';
+              # Gets all branches from origin
+              git fetch origin
+            '';
         in
         "!sh ${git-clone-bare-for-worktrees}";
     };
 
-    extraConfig = lib.mkMerge [
-      {
-        init.defaultBranch = "master";
-        github.user = githubUserName;
+    extraConfig = lib.mkMerge [{
+      init.defaultBranch = "master";
+      github.user = githubUserName;
 
-        # Environment variables will not be expanded -- this requires a path.
-        init.templateDir = "${dotfield.userConfigPath}/git/templates";
+      # Environment variables will not be expanded -- this requires a path.
+      init.templateDir = "${dotfield.userConfigPath}/git/templates";
 
-        # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
-        pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
+      # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+      pretty.nice =
+        "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
-        ##: Shorthands {{
-        url."https://github.com/" = {
-          insteadOf = "github:";
-          pushInsteadOf = "github:";
-        };
-        url."git@git.sr.ht:" = {
-          insteadOf = "srht:";
-          pushInsteadOf = "srht:";
-        };
-        url."git@srvvirgitlab.rossvideo.com:connectivity-sw/" = {
-          insteadOf = "srvvirgitlab:";
-          pushInsteadOf = "srvvirgitlab:";
-        };
-        ##: }}
-        ##: Remotes {{
-        fetch.recurseSubmodules = true;
-        push.default = "current";
-        apply.whitespace = "nowarn";
-        # Only enable this on a per-repo basis.
-        pull.rebase = false;
-        ##: }}
+      ##: Shorthands {{
+      url."https://github.com/" = {
+        insteadOf = "github:";
+        pushInsteadOf = "github:";
+      };
+      url."git@git.sr.ht:" = {
+        insteadOf = "srht:";
+        pushInsteadOf = "srht:";
+      };
+      url."git@srvvirgitlab.rossvideo.com:connectivity-sw/" = {
+        insteadOf = "srvvirgitlab:";
+        pushInsteadOf = "srvvirgitlab:";
+      };
+      ##: }}
+      ##: Remotes {{
+      fetch.recurseSubmodules = true;
+      push.default = "current";
+      apply.whitespace = "nowarn";
+      # Only enable this on a per-repo basis.
+      pull.rebase = false;
+      ##: }}
 
-        ##: Misc {{
-        # Opt-in to "features that make git the smoothest it can be"
-        # https://github.blog/2019-11-03-highlights-from-git-2-24/#feature-macros
-        feature.manyFiles = true;
-        ##: }}
+      ##: Misc {{
+      # Opt-in to "features that make git the smoothest it can be"
+      # https://github.blog/2019-11-03-highlights-from-git-2-24/#feature-macros
+      feature.manyFiles = true;
+      ##: }}
 
-        ##: Maintenance {{
-        maintenance = {
-          auto = true;
-          strategy = "incremental";
-        };
-        ##: }}
+      ##: Maintenance {{
+      maintenance = {
+        auto = true;
+        strategy = "incremental";
+      };
+      ##: }}
 
-        ##: rerere {{
-        rerere = {
-          enabled = true;
-          autoUpdate = true; # autostage files resolved by rerere
-        };
+      ##: rerere {{
+      rerere = {
+        enabled = true;
+        autoUpdate = true; # autostage files resolved by rerere
+      };
 
-        ##: Diff/Merge Tools {{
-        merge = {
-          conflictstyle = "diff3";
-          tool = "ediff";
-        };
+      ##: Diff/Merge Tools {{
+      merge = {
+        conflictstyle = "diff3";
+        tool = "ediff";
+      };
 
-        diff = {
-          algorithm = "minimal";
-          exif.textconv = "${pkgs.exiftool}/bin/exiftool";
-          # colorMoved = "default";
-          tool = "ediff";
-          # `plutil` is a darwin utility
-          plist.textconv = "plutil -convert xml1 -o -";
-        };
+      diff = {
+        algorithm = "minimal";
+        exif.textconv = "${pkgs.exiftool}/bin/exiftool";
+        # colorMoved = "default";
+        tool = "ediff";
+        # `plutil` is a darwin utility
+        plist.textconv = "plutil -convert xml1 -o -";
+      };
 
-        difftool = {
-          prompt = false;
-          ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE";
-          vscode.cmd = "code --wait --diff $LOCAL $REMOTE";
-        };
+      difftool = {
+        prompt = false;
+        ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE";
+        vscode.cmd = "code --wait --diff $LOCAL $REMOTE";
+      };
 
-        mergetool = {
-          prompt = false;
-          ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE $MERGED";
-          vscode.cmd = "code --wait $MERGED";
-        };
+      mergetool = {
+        prompt = false;
+        ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE $MERGED";
+        vscode.cmd = "code --wait $MERGED";
+      };
 
-        privacy = {
-          pattern = "hms";
-          replacements = true;
-          # "my own time" = 6PM - 9AM, apparently.
-          limit = "18-9";
-        };
-        ##: }}
-      }
-    ];
+      privacy = {
+        pattern = "hms";
+        replacements = true;
+        # "my own time" = 6PM - 9AM, apparently.
+        limit = "18-9";
+      };
+      ##: }}
+    }];
   };
 
   programs.gh = {

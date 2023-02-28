@@ -1,8 +1,4 @@
-{ lib
-, pkgs
-, peers
-, ...
-}:
+{ lib, pkgs, peers, ... }:
 let
   inherit (peers.hosts) cfeeley-laptop;
 
@@ -11,8 +7,16 @@ let
   gpgAgentForwards = {
     # if isDarwin: forward GPG-agent extra socket (~/.gnupg/S.gpg-agent.extra) to remote
     # if isLinux: forward GPG-agent extra socket (/run/user/1000/gnupg/S.gpg-agent.extra) to remote
-    host.address = if isDarwin then "/Users/cfeeley/.gnupg/S.gpg-agent.extra" else "/run/user/1000/gnupg/S.gpg-agent.extra";
-    bind.address = if isDarwin then "/run/user/1000/gnupg/S.gpg-agent.extra" else "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
+    host.address =
+      if isDarwin then
+        "/Users/cfeeley/.gnupg/S.gpg-agent.extra"
+      else
+        "/run/user/1000/gnupg/S.gpg-agent.extra";
+    bind.address =
+      if isDarwin then
+        "/run/user/1000/gnupg/S.gpg-agent.extra"
+      else
+        "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
   };
 
   # Creates a matchBlock for ${hostName}.
@@ -36,7 +40,8 @@ in
 
   programs.ssh = {
     enable = true;
-    forwardAgent = false; # SSH agent forwarding must be disabled to use gpg-agent forwarding
+    forwardAgent =
+      false; # SSH agent forwarding must be disabled to use gpg-agent forwarding
     serverAliveInterval = 5;
     serverAliveCountMax = 2;
     compression = false; # Slow
@@ -47,15 +52,36 @@ in
 
     matchBlocks = {
       ### Physical
-      "workstation" = mkMatchBlock { hostName = "workstation"; trusted = true; };
+      "workstation" = mkMatchBlock {
+        hostName = "workstation";
+        trusted = true;
+      };
       # "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "cryptsetup-askpass"; };
-      "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "zfs load-key -a && killall zfs"; };
-      "macbook-pro" = mkMatchBlock { hostName = "MacBook-Pro"; trusted = true; };
-      "cfeeley-laptop" = mkMatchBlock { hostName = "cfeeley-laptop"; trusted = true; } // { hostname = cfeeley-laptop.ipv4.address; };
-      "assuring-redshank" = { hostname = "assuring-redshank"; user = "ubuntu"; };
+      "workstation-luks" = {
+        user = "root";
+        extraOptions.RemoteCommand = "zfs load-key -a && killall zfs";
+      };
+      "macbook-pro" = mkMatchBlock {
+        hostName = "MacBook-Pro";
+        trusted = true;
+      };
+      "cfeeley-laptop" = mkMatchBlock
+        {
+          hostName = "cfeeley-laptop";
+          trusted = true;
+        } // {
+        hostname = cfeeley-laptop.ipv4.address;
+      };
+      "assuring-redshank" = {
+        hostname = "assuring-redshank";
+        user = "ubuntu";
+      };
 
       ### VMs (local)
-      "rosy" = mkMatchBlock { hostName = "rosy"; trusted = true; }; # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
+      "rosy" = mkMatchBlock {
+        hostName = "rosy";
+        trusted = true;
+      }; # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
 
       ### VMs (remote)
       "h8tsner" = mkMatchBlock { hostName = "h8tsner"; };
@@ -63,9 +89,7 @@ in
       ### Other
       "github.com" = {
         user = "git";
-        extraOptions = {
-          ControlMaster = "no";
-        };
+        extraOptions = { ControlMaster = "no"; };
       };
       "10.*.*.*" = {
         extraOptions = {

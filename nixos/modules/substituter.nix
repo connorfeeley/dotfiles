@@ -1,13 +1,12 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
 
   inherit (config.lib.dotfield.secrets) secretsDir;
 
-  workstation-priv = { file = "${secretsDir}/hosts/workstation/cache-priv-key.pem.age"; group = "nixbld"; };
+  workstation-priv = {
+    file = "${secretsDir}/hosts/workstation/cache-priv-key.pem.age";
+    group = "nixbld";
+  };
 
   cfg = config.substituter;
 in
@@ -23,9 +22,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    age.secrets = {
-      inherit workstation-priv;
-    };
+    age.secrets = { inherit workstation-priv; };
     nix = {
       settings = {
         secret-key-files = [ config.age.secrets.workstation-priv.path ];

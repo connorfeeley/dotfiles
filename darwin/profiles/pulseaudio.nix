@@ -1,6 +1,1 @@
-{ config, lib, pkgs, ... }:
-{
-  homebrew.brews = [
-    { name = "pulseaudio"; }
-  ];
-}
+{ config, lib, pkgs, ... }: { homebrew.brews = [{ name = "pulseaudio"; }]; }

@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (builtins) map;
   inherit (config.lib.fish) mkPlugin;
@@ -13,10 +9,7 @@ in
 {
   imports = [ ../common.nix ];
 
-  home.packages = with pkgs; [
-    fishPlugins.done
-    fishPlugins.forgit
-  ];
+  home.packages = with pkgs; [ fishPlugins.done fishPlugins.forgit ];
 
   programs.starship.enableFishIntegration = false;
 
@@ -24,16 +17,14 @@ in
     inherit
       # FIXME: watch out, some of these abbrs may have undesirable results when
       # expanded inline. needs review.
-      shellAbbrs
-      shellAliases
-      ;
+      shellAbbrs shellAliases;
 
     enable = true;
     autopair.enable = true;
     fifc.enable = false;
 
     plugins = map mkPlugin [
-      "replay" #        <- run bash commands replaying changes in fish
+      "replay" # <- run bash commands replaying changes in fish
       # "bass" #        <- use utilities written for bash in fish
       # "foreign-env" # <- import environment variables exported/modified in bash
       # "babelfish" #   <- translate bash scripts to fish

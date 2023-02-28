@@ -1,17 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, rpmextract
-, autoreconfHook
-, file
-, libjpeg
-, cups
-,
-}:
+{ lib, stdenv, fetchurl, rpmextract, autoreconfHook, file, libjpeg, cups, }:
 let
   version = "1.0.0";
   release = "201212w";
-  srcUrl = "https://download.ebz.epson.net/dsc/op/stable/SRPMS/epson-inkjet-printer-${release}-${version}-1lsb3.2.src.rpm";
+  srcUrl =
+    "https://download.ebz.epson.net/dsc/op/stable/SRPMS/epson-inkjet-printer-${release}-${version}-1lsb3.2.src.rpm";
 in
 stdenv.mkDerivation {
   pname = "epson_201212w";

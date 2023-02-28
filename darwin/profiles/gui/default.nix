@@ -1,28 +1,20 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (config.dotfield.guardian) username;
-  inherit (config.home-manager.users.${username}.services.gpg-agent) pinentryFlavor;
+  inherit (config.home-manager.users.${username}.services.gpg-agent)
+    pinentryFlavor;
 in
 {
-  imports = [
-    ./hammerspoon.nix
-    ./yabai.nix
-    ./xquartz.nix
-    ./safari.nix
-    ./orion.nix
-  ];
+  imports =
+    [ ./hammerspoon.nix ./yabai.nix ./xquartz.nix ./safari.nix ./orion.nix ];
 
   options = { };
   config = {
     environment.systemPackages = with pkgs; [
       gtk-mac-integration
       fontconfig # <- appease 'doom doctor'
-      dockutil #   <- command line utility for managing macOS dock items
-      mysides #    <- manages macOS Finder sidebar favorites, tells hilarious jokes
+      dockutil # <- command line utility for managing macOS dock items
+      mysides # <- manages macOS Finder sidebar favorites, tells hilarious jokes
 
       ferium # CLI program for managing Minecraft mods and modpacks
       ckan # Mod manager for Kerbal Space Program
@@ -68,14 +60,22 @@ in
       { name = "kitty"; }
       { name = "visual-studio-code"; }
 
-      { name = "utm-beta"; } # QEMU GUI with virtualisation support
+      {
+        name = "utm-beta";
+      } # QEMU GUI with virtualisation support
       # { name = "barrier"; } # Poor man's KVM
-      { name = "swiftbar"; } # Tweak the menu bar
+      {
+        name = "swiftbar";
+      } # Tweak the menu bar
       # { name = "hiddenbar"; } # Hide/toggle menu bar icon visibility
-      { name = "rectangle"; } # Resize windows with keyboard shortcuts and snap areas
+      {
+        name = "rectangle";
+      } # Resize windows with keyboard shortcuts and snap areas
       { name = "raycast"; } # Better search popup
 
-      { name = "bluesnooze"; } # Sleeping Mac = Bluetooth off
+      {
+        name = "bluesnooze";
+      } # Sleeping Mac = Bluetooth off
 
       # { name = "docker"; }
 
@@ -89,7 +89,9 @@ in
       { name = "nordvpn"; }
       { name = "private-internet-access"; }
 
-      { name = "vlc"; }
+      {
+        name = "vlc";
+      }
       # { name = "lulu"; }
       { name = "wireshark"; }
       { name = "stats"; }
@@ -103,7 +105,9 @@ in
       { name = "balenaetcher"; }
       { name = "gimp"; }
       { name = "zoom"; }
-      { name = "timemachineeditor"; } # start backups in Time Machine at particular times
+      {
+        name = "timemachineeditor";
+      } # start backups in Time Machine at particular times
       { name = "disk-inventory-x"; } # disk usage analyzer
       { name = "trader-workstation"; } # Interactive Brokers TWS
       { name = "microsoft-remote-desktop"; }

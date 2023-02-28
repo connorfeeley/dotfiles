@@ -1,15 +1,12 @@
-{ config
-, ...
-}:
+{ config, ... }:
 # Source: https://fy.blackhats.net.au/blog/html/2021/03/22/time_machine_on_samba_with_zfs.html
 
 # Server setup: sudo smbpasswd -a cfeeley
 # MacOS setup: tmutil setdestination smb://cfeeley:<password>@workstation/timemachine
-let
-  inherit (config.dotfield) guardian;
-in
-{
-  services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
+let inherit (config.dotfield) guardian;
+in {
+  services.samba-wsdd.enable =
+    true; # make shares visible for windows 10 clients
   services.samba = {
     enable = true;
     securityType = "user";
@@ -26,8 +23,7 @@ in
       hosts deny = 0.0.0.0/0
       guest account = nobody
       map to guest = bad user
-    '' + ''
-    '';
+    '' + "";
     shares = {
       global = {
         ### TIME MACHINE ###
@@ -102,10 +98,9 @@ in
 
   services.netatalk.enable = true;
   services.netatalk.settings = {
-    Global = {
-      "uam list" = "uams_guest.so";
-    };
-    Homes = {"basedir regex" = "/home";
+    Global = { "uam list" = "uams_guest.so"; };
+    Homes = {
+      "basedir regex" = "/home";
       path = "afp-data";
     };
     tm_share = {

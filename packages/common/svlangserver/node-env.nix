@@ -1,6 +1,15 @@
 # This file originates from node2nix
 
-{ lib, stdenv, nodejs, python2, pkgs, libtool, runCommand, writeTextFile, writeShellScript }:
+{ lib
+, stdenv
+, nodejs
+, python2
+, pkgs
+, libtool
+, runCommand
+, writeTextFile
+, writeShellScript
+}:
 
 let
   # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
@@ -21,8 +30,7 @@ let
   '';
 
   # Function that generates a TGZ file from a NPM project
-  buildNodeSourceDist =
-    { name, version, src, ... }:
+  buildNodeSourceDist = { name, version, src, ... }:
 
     stdenv.mkDerivation {
       name = "node-tarball-${name}-${version}";
@@ -91,24 +99,18 @@ let
   #
   # Only include dependencies if they don't exist. They may also be bundled in the package.
   includeDependencies = { dependencies }:
-    lib.optionalString (dependencies != [ ]) (
-      ''
-        mkdir -p node_modules
-        cd node_modules
-      ''
-      + (lib.concatMapStrings
-        (dependency:
-          ''
-            if [ ! -e "${dependency.packageName}" ]; then
-                ${composePackage dependency}
-            fi
-          ''
-        )
-        dependencies)
-      + ''
-        cd ..
-      ''
-    );
+    lib.optionalString (dependencies != [ ]) (''
+      mkdir -p node_modules
+      cd node_modules
+    '' + (lib.concatMapStrings
+      (dependency: ''
+        if [ ! -e "${dependency.packageName}" ]; then
+            ${composePackage dependency}
+        fi
+      '')
+      dependencies) + ''
+      cd ..
+    '');
 
   # Recursively composes the dependencies of a package
   composePackage = { packageName, src, dependencies ? [ ], ... }:
@@ -175,31 +177,39 @@ let
       };
     in
     ''
-      node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
+      node ${pinpointDependenciesFromPackageJSON} ${
+        if production then "production" else "development"
+      }
 
-      ${lib.optionalString (dependencies != [])
-        ''
-          if [ -d node_modules ]
-          then
-              cd node_modules
-              ${lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
-              cd ..
-          fi
-        ''}
+      ${lib.optionalString (dependencies != [ ]) ''
+        if [ -d node_modules ]
+        then
+            cd node_modules
+            ${
+              lib.concatMapStrings
+              (dependency: pinpointDependenciesOfPackage dependency)
+              dependencies
+            }
+            cd ..
+        fi
+      ''}
     '';
 
   # Recursively traverses all dependencies of a package and pinpoints all
   # dependencies in the package.json file to the versions that are actually
   # being used.
 
-  pinpointDependenciesOfPackage = { packageName, dependencies ? [ ], production ? true, ... }:
-    ''
+  pinpointDependenciesOfPackage =
+    { packageName, dependencies ? [ ], production ? true, ... }: ''
       if [ -d "${packageName}" ]
       then
           cd "${packageName}"
           ${pinpointDependencies { inherit dependencies production; }}
           cd ..
-          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+          ${
+            lib.optionalString (builtins.substring 0 1 packageName == "@")
+            "cd .."
+          }
       fi
     '';
 
@@ -333,9 +343,14 @@ let
     '';
   };
 
-  prepareAndInvokeNPM = { packageName, bypassCache, reconstructLock, npmFlags, production }:
+  prepareAndInvokeNPM =
+    { packageName, bypassCache, reconstructLock, npmFlags, production }:
     let
-      forceOfflineFlag = if bypassCache then "--offline" else "--registry http://www.example.com";
+      forceOfflineFlag =
+        if bypassCache then
+          "--offline"
+        else
+          "--registry http://www.example.com";
     in
     ''
       # Pinpoint the versions of all dependencies to the ones that are actually being used
@@ -377,14 +392,18 @@ let
         node ${addIntegrityFieldsScript}
       ''}
 
-      npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} rebuild
+      npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${
+        lib.optionalString production "--production"
+      } rebuild
 
       if [ "''${dontNpmInstall-}" != "1" ]
       then
           # NPM tries to download packages even when they already exist if npm-shrinkwrap is used.
           rm -f npm-shrinkwrap.json
 
-          npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} install
+          npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${
+            lib.optionalString production "--production"
+          } install
       fi
     '';
 
@@ -408,18 +427,28 @@ let
     }@args:
 
     let
-      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "preRebuild" "unpackPhase" "buildPhase" "meta" ];
+      extraArgs = removeAttrs args [
+        "name"
+        "dependencies"
+        "buildInputs"
+        "dontStrip"
+        "dontNpmInstall"
+        "preRebuild"
+        "unpackPhase"
+        "buildPhase"
+        "meta"
+      ];
     in
     stdenv.mkDerivation ({
       name = "${name}${if version == null then "" else "-${version}"}";
       buildInputs = [ tarWrapper python nodejs ]
         ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool
-        ++ buildInputs;
+        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
       inherit nodejs;
 
-      inherit dontStrip; # Stripping may fail a build for some package deployments
+      inherit
+        dontStrip; # Stripping may fail a build for some package deployments
       inherit dontNpmInstall preRebuild unpackPhase buildPhase;
 
       compositionScript = composePackage args;
@@ -437,7 +466,9 @@ let
         # Compose the package and all its dependencies
         source $compositionScriptPath
 
-        ${prepareAndInvokeNPM { inherit packageName bypassCache reconstructLock npmFlags production; }}
+        ${prepareAndInvokeNPM {
+          inherit packageName bypassCache reconstructLock npmFlags production;
+        }}
 
         # Create symlink to the deployed executable folder, if applicable
         if [ -d "$out/lib/node_modules/.bin" ]
@@ -496,18 +527,18 @@ let
     , ...
     }@args:
 
-    let
-      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];
-    in
-    stdenv.mkDerivation ({
-      name = "node-dependencies-${name}${if version == null then "" else "-${version}"}";
+    let extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];
+    in stdenv.mkDerivation ({
+      name = "node-dependencies-${name}${
+          if version == null then "" else "-${version}"
+        }";
 
       buildInputs = [ tarWrapper python nodejs ]
         ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool
-        ++ buildInputs;
+        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
-      inherit dontStrip; # Stripping may fail a build for some package deployments
+      inherit
+        dontStrip; # Stripping may fail a build for some package deployments
       inherit dontNpmInstall unpackPhase buildPhase;
 
       includeScript = includeDependencies { inherit dependencies; };
@@ -536,13 +567,17 @@ let
 
         # Go to the parent folder to make sure that all packages are pinpointed
         cd ..
-        ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+        ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+        "cd .."}
 
-        ${prepareAndInvokeNPM { inherit packageName bypassCache reconstructLock npmFlags production; }}
+        ${prepareAndInvokeNPM {
+          inherit packageName bypassCache reconstructLock npmFlags production;
+        }}
 
         # Expose the executables that were installed
         cd ..
-        ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+        ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+        "cd .."}
 
         mv ${packageName} lib
         ln -s $out/lib/node_modules/.bin $out/bin
@@ -551,21 +586,26 @@ let
 
   # Builds a development shell
   buildNodeShell =
-    { name
-    , version ? null
-    , dependencies ? [ ]
-    , buildInputs ? [ ]
-    , ...
-    }@args:
+    { name, version ? null, dependencies ? [ ], buildInputs ? [ ], ... }@args:
 
     let
       nodeDependencies = buildNodeDependencies args;
-      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "unpackPhase" "buildPhase" ];
+      extraArgs = removeAttrs args [
+        "name"
+        "dependencies"
+        "buildInputs"
+        "dontStrip"
+        "dontNpmInstall"
+        "unpackPhase"
+        "buildPhase"
+      ];
     in
     stdenv.mkDerivation ({
-      name = "node-shell-${name}${if version == null then "" else "-${version}"}";
+      name =
+        "node-shell-${name}${if version == null then "" else "-${version}"}";
 
-      buildInputs = [ python nodejs ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
+      buildInputs = [ python nodejs ] ++ lib.optional (stdenv.isLinux) utillinux
+        ++ buildInputs;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF

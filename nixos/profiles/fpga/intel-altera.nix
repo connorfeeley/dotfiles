@@ -1,9 +1,8 @@
-{ pkgs
-, ...
-}:
+{ pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    # quartus-prime-lite
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      # quartus-prime-lite
+    ];
 }

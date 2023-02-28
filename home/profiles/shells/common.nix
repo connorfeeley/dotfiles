@@ -1,12 +1,5 @@
-{ lib
-, pkgs
-, ...
-}:
-{
-  imports = [
-    ./fzf.nix
-    ./starship.nix
-  ];
+{ lib, pkgs, ... }: {
+  imports = [ ./fzf.nix ./starship.nix ];
 
   home.packages =
     let
@@ -32,9 +25,7 @@
       pkgs.emacsPackages.vterm
     ];
 
-  programs.bashmount = {
-    enable = true;
-  };
+  programs.bashmount = { enable = true; };
 
   programs.zoxide = {
     enable = true;

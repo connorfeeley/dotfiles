@@ -1,24 +1,18 @@
-moduleArgs @ { config
-, lib
-, pkgs
-, inputs
-, ...
-}:
+moduleArgs@{ config, lib, pkgs, inputs, ... }:
 let
   inherit (config.lib.dotfield) fsPath;
 
   sshHostPath =
-    if (moduleArgs.impermanence or false)
-    then "/persist/etc/ssh"
-    else "/etc/ssh";
+    if (moduleArgs.impermanence or false) then
+      "/persist/etc/ssh"
+    else
+      "/etc/ssh";
 
   # FIXME: is this accurate?
   nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in
 {
-  imports = [
-    inputs.envfs.nixosModules.envfs
-  ];
+  imports = [ inputs.envfs.nixosModules.envfs ];
 
   nix = {
     settings = {
@@ -73,12 +67,7 @@ in
   programs.bandwhich.enable = true;
 
   programs.git.enable = true;
-  programs.git.config = {
-    safe.directory = [
-      "/etc/nixos"
-      "/etc/dotfield"
-    ];
-  };
+  programs.git.config = { safe.directory = [ "/etc/nixos" "/etc/dotfield" ]; };
 
   programs.mtr.enable = true;
 

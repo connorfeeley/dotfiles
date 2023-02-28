@@ -1,7 +1,2 @@
-{ lib
-, pkgs
-, ...
-}:
-lib.mkIf pkgs.stdenv.isDarwin {
-  targets.darwin.search = "Google";
-}
+{ lib, pkgs, ... }:
+lib.mkIf pkgs.stdenv.isDarwin { targets.darwin.search = "Google"; }

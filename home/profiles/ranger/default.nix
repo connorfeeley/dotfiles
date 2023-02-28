@@ -1,12 +1,6 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-in
-{
+{ config, lib, pkgs, ... }:
+let inherit (config.lib.file) mkOutOfStoreSymlink;
+in {
   home.packages = with pkgs; [ ranger ];
 
   xdg.configFile = {

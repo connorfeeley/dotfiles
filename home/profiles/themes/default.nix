@@ -1,15 +1,9 @@
-{ pkgs
-, inputs
-, ...
-}:
+{ pkgs, inputs, ... }:
 let
   # Note that `builtins.getEnv` will only return an empty string unless running
   # an impure build. For that reason, a fallback value is necessary.
   envTheme = builtins.getEnv "DOTFIELD_THEME";
-  theme =
-    if envTheme != ""
-    then envTheme
-    else "synth-midnight-dark";
+  theme = if envTheme != "" then envTheme else "synth-midnight-dark";
 in
 {
   colorscheme = inputs.nix-colors.colorSchemes.${theme};
@@ -40,9 +34,10 @@ in
     DOTFIELD_EMACS_THEME_LIGHT = "modus-operandi";
   };
 
-  home.packages = with pkgs; [
-    (writeScriptBin "toggle-dark-mode" (builtins.readFile ./toggle-dark-mode))
-  ];
+  home.packages = with pkgs;
+    [
+      (writeScriptBin "toggle-dark-mode" (builtins.readFile ./toggle-dark-mode))
+    ];
 
   # https://github.com/nix-community/home-manager/blob/master/modules/misc/specialization.nix#blob-path
   # specialization = [];

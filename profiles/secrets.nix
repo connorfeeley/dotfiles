@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
 
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;

@@ -1,10 +1,6 @@
-{ config
-, ...
-}:
-let
-  inherit (config.dotfield) guardian;
-in
-{
+{ config, ... }:
+let inherit (config.dotfield) guardian;
+in {
   virtualisation.oci-containers.backend = "docker";
 
   virtualisation.docker = {

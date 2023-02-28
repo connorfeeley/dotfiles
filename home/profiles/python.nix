@@ -1,14 +1,10 @@
-{ pkgs
-, ...
-}: {
-  home.packages = with pkgs; [
-    # Overlay
-    # python-env
+{ pkgs, ... }: {
+  home.packages = with pkgs;
+    [
+      # Overlay
+      # python-env
 
-    # lsp server
-    pyright
-  ] ++ (with python3Packages; [
-    ipython
-    black
-  ]);
+      # lsp server
+      pyright
+    ] ++ (with python3Packages; [ ipython black ]);
 }

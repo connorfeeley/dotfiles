@@ -1,10 +1,4 @@
-{ config
-, pkgs
-, lib
-, profiles
-, collective
-, ...
-}:
+{ config, pkgs, lib, profiles, collective, ... }:
 let
   inherit (config.networking) hostName;
 
@@ -27,9 +21,9 @@ in
 
   home-manager.users = {
     "${config.dotfield.guardian.username}" = hmArgs: {
-      imports = with hmArgs.roles; workstation ++ macos ++ developer ++ emacs-config ++ (with hmArgs.profiles; [
-        work
-      ]);
+      imports = with hmArgs.roles;
+        workstation ++ macos ++ developer ++ emacs-config
+        ++ (with hmArgs.profiles; [ work ]);
 
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";
@@ -40,11 +34,8 @@ in
 
   networking.hostName = "MacBook-Pro";
 
-  networking.knownNetworkServices = [
-    "Wi-Fi"
-    "iPhone USB"
-    "Thunderbolt Bridge"
-  ];
+  networking.knownNetworkServices =
+    [ "Wi-Fi" "iPhone USB" "Thunderbolt Bridge" ];
 
   # Tailscale MAS App
   programs.tailscale.enable = true;
@@ -64,7 +55,10 @@ in
   };
 
   age.secrets = {
-    dotfield-readme-update-access-token = { file = "${secretsDir}/dotfield-readme-update-access-token.txt.age"; group = secretsGroup; };
+    dotfield-readme-update-access-token = {
+      file = "${secretsDir}/dotfield-readme-update-access-token.txt.age";
+      group = secretsGroup;
+    };
   };
 
   homebrew.casks = [

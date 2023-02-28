@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   pname = "native-youtube";
 
   src = fetchzip {
-    url = "https://github.com/Aayush9029/NativeYoutube/releases/download/v${version}/NativeYoutube.app.zip";
+    url =
+      "https://github.com/Aayush9029/NativeYoutube/releases/download/v${version}/NativeYoutube.app.zip";
     sha256 = "sha256-kzdM4Q3pKEcdPNRTIo+cC9Nd6m0um9+wd+hVp0kYpic=";
   };
 

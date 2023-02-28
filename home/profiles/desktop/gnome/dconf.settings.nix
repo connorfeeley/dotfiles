@@ -4,7 +4,8 @@
 let
   wallpaper = pkgs.fetchurl {
     # MacOS mojave wallpaper
-    url = "https://512pixels.net/downloads/macos-wallpapers-thumbs/10-14-Day-Thumb.jpg";
+    url =
+      "https://512pixels.net/downloads/macos-wallpapers-thumbs/10-14-Day-Thumb.jpg";
     sha256 = "01r92v0062c8mbnhi2vya40l6mmhqwa25g23a6qnqzqq4iw78v0v";
   };
 in
@@ -63,7 +64,8 @@ with lib.hm.gvariant; {
       edge-tiling = true;
       workspaces-only-on-primary = true;
       dynamic-workspaces = false;
-      experminental-features = [ "x11-randr-fractional-scaling" ]; # Enable fractional scaling
+      experminental-features =
+        [ "x11-randr-fractional-scaling" ]; # Enable fractional scaling
     };
     "org/gnome/desktop/wm/preferences" = {
       num-workspaces = 9;
@@ -74,14 +76,10 @@ with lib.hm.gvariant; {
       night-light-temperature = "uint32 3700";
       night-light-schedule-automatic = true;
     };
-    "org/gnome/eog/ui" = {
-      image-gallery = true;
-    };
+    "org/gnome/eog/ui" = { image-gallery = true; };
     # Enable and configure pop-shell
     # (see https://github.com/pop-os/shell/blob/master_jammy/scripts/configure.sh)
-    "org/gnome/shell/extensions/pop-shell" = {
-      active-hint = true;
-    };
+    "org/gnome/shell/extensions/pop-shell" = { active-hint = true; };
     "org/gnome/desktop/wm/keybindings" = {
       minimize = [ "<Super>comma" ];
       maximize = [ "<Super>f" ];
@@ -147,18 +145,18 @@ with lib.hm.gvariant; {
       www = [ "firefox" ];
       terminal = [ "kitty" ];
     };
-    "org/gnome/mutter/wayland/keybindings" = {
-      restore-shortcuts = [ ];
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super><Shift>Return";
-      command = "kitty";
-      name = "Open Kitty";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      binding = "<Super>p";
-      command = "rofi -show combi";
-      name = "Open Rofi";
-    };
+    "org/gnome/mutter/wayland/keybindings" = { restore-shortcuts = [ ]; };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+      {
+        binding = "<Super><Shift>Return";
+        command = "kitty";
+        name = "Open Kitty";
+      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
+      {
+        binding = "<Super>p";
+        command = "rofi -show combi";
+        name = "Open Rofi";
+      };
   };
 }

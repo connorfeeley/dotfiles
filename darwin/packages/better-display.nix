@@ -4,7 +4,8 @@ installApplication {
   appName = "BetterDisplay.app";
 
   src = fetchurl {
-    url = "https://github.com/waydabber/BetterDisplay/releases/download/v1.4.3/BetterDisplay-v1.4.3.dmg";
+    url =
+      "https://github.com/waydabber/BetterDisplay/releases/download/v1.4.3/BetterDisplay-v1.4.3.dmg";
     sha256 = "sha256-bio7I6HXyEoXiL/7UaxnyNVm93e/TO5WJEtv++3TUOo=";
   };
 

@@ -1,14 +1,7 @@
-{ lib
-, pkgs
-, ...
-}:
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
-in
-{
-  environment.systemPackages = with pkgs; [
-    (lib.mkIf isLinux font-manager)
-  ];
+{ lib, pkgs, ... }:
+let inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
+in {
+  environment.systemPackages = with pkgs; [ (lib.mkIf isLinux font-manager) ];
 
   fonts = {
     fontDir.enable = true;
@@ -45,8 +38,7 @@ in
         siji
 
         iosevka-bin
-      ]
-      ++ (lib.optionals isLinux [
+      ] ++ (lib.optionals isLinux [
         corefonts
         inconsolata
         liberation_ttf
@@ -55,9 +47,6 @@ in
         gentium
         ubuntu_font_family
         terminus_font
-      ])
-      ++ (lib.optionals isMacOS [
-        sf-pro
-      ]);
+      ]) ++ (lib.optionals isMacOS [ sf-pro ]);
   };
 }

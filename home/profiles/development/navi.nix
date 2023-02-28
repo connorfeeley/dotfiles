@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-{
+{ config, lib, pkgs, ... }: {
   # TUI for browsing cheatsheets
   programs.navi = {
     enable = true;

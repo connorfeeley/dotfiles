@@ -1,14 +1,12 @@
-{ self
-, config
-, lib
-, ...
-}:
+{ self, config, lib, ... }:
 let
   inherit (lib) filterAttrs mapAttrs attrValues flatten;
 
   allHosts = self.nixosConfigurations;
 
-  enabledExportersF = name: host: filterAttrs (k: v: v.enable == true) host.config.services.prometheus.exporters;
+  enabledExportersF = name: host:
+    filterAttrs (k: v: v.enable == true)
+      host.config.services.prometheus.exporters;
   enabledExporters = mapAttrs enabledExportersF allHosts;
 
   mkScrapeConfigExporter = hostname: ename: ecfg: {
@@ -26,10 +24,12 @@ let
     ];
   };
 
-  mkScrapeConfigHost = name: exporters: mapAttrs (mkScrapeConfigExporter name) exporters;
+  mkScrapeConfigHost = name: exporters:
+    mapAttrs (mkScrapeConfigExporter name) exporters;
   scrapeConfigsByHost = mapAttrs mkScrapeConfigHost enabledExporters;
 
-  autogenScrapeConfigs = flatten (map attrValues (attrValues scrapeConfigsByHost));
+  autogenScrapeConfigs =
+    flatten (map attrValues (attrValues scrapeConfigsByHost));
 in
 {
   services.grafana = {
@@ -44,15 +44,13 @@ in
     provision = {
       enable = true;
       # Set up the datasources
-      datasources.settings.datasources = [
-        {
-          name = "Prometheus";
-          type = "prometheus";
-          access = "proxy";
-          url = "http://localhost:${toString config.services.prometheus.port}";
-          isDefault = true;
-        }
-      ];
+      datasources.settings.datasources = [{
+        name = "Prometheus";
+        type = "prometheus";
+        access = "proxy";
+        url = "http://localhost:${toString config.services.prometheus.port}";
+        isDefault = true;
+      }];
     };
   };
   services.prometheus = {
@@ -77,29 +75,29 @@ in
       };
     };
 
-    scrapeConfigs = autogenScrapeConfigs ++
-      [
-        (
-          let
-            hostname = "h8tsner";
-            ename = "endlessh-go";
-            ecfg.port = 2112;
-          in
-          {
-            job_name = "${hostname}-${ename}";
-            static_configs = [{ targets = [ "${hostname}:${toString ecfg.port}" ]; }];
-            relabel_configs = [
-              {
-                target_label = "instance";
-                replacement = "${hostname}";
-              }
-              {
-                target_label = "job";
-                replacement = "${ename}";
-              }
-            ];
-          }
-        )
-      ];
+    scrapeConfigs = autogenScrapeConfigs ++ [
+      (
+        let
+          hostname = "h8tsner";
+          ename = "endlessh-go";
+          ecfg.port = 2112;
+        in
+        {
+          job_name = "${hostname}-${ename}";
+          static_configs =
+            [{ targets = [ "${hostname}:${toString ecfg.port}" ]; }];
+          relabel_configs = [
+            {
+              target_label = "instance";
+              replacement = "${hostname}";
+            }
+            {
+              target_label = "job";
+              replacement = "${ename}";
+            }
+          ];
+        }
+      )
+    ];
   };
 }

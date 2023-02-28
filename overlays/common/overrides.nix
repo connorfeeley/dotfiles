@@ -1,5 +1,4 @@
-channels: final: prev:
-{
+channels: final: prev: {
   __dontExport = true;
 
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
@@ -11,20 +10,12 @@ channels: final: prev:
   # FIXME: https://github.com/NixOS/nixpkgs/issues/175875
   httpie = prev.python3Packages.httpie;
 
-  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-    (
-      python-final: python-prev: {
-        inherit (prev) chatgpt-wrapper;
-      }
-    )
-  ];
+  pythonPackagesExtensions = prev.pythonPackagesExtensions
+    ++ [ (python-final: python-prev: { inherit (prev) chatgpt-wrapper; }) ];
 
   inherit (prev) installApplication;
 
-  inherit (channels.nixos-21-11)
-    sourcetrail
-    quartus-prime-lite
-    ;
+  inherit (channels.nixos-21-11) sourcetrail quartus-prime-lite;
 
   # Genarate info pages for nixpkgs
   # Source: github:aakropotkin/nixpkgs-doc

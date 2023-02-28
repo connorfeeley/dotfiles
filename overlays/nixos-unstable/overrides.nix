@@ -1,3 +1,1 @@
-channels: _final: _prev: {
-  __dontExport = true;
-}
+channels: _final: _prev: { __dontExport = true; }

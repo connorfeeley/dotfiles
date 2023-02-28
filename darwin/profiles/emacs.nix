@@ -19,26 +19,24 @@ let
             "$@"
       '';
 
-      infoPlist =
-        pkgs.writeText "Info.plist" (lib.generators.toPlist { } {
-          CFBundleName = appName;
-          CFBundleDisplayName = appName;
-          CFBundleExecutable = "emacsclient";
-          CFBundleIconFile = "Emacs";
-          CFBundleIdentifier = "org.gnu.${appName}";
-          CFBundleInfoDictionaryVersion = "6.0";
-          CFBundlePackageType = "APPL";
-          CFBundleVersion = emacsPackage.version;
-          CFBundleShortVersionString = emacsPackage.version;
-          CFBundleURLTypes = [
-            {
-              CFBundleURLName = "org-protocol handler";
-              CFBundleURLSchemes = "org-protocol";
-            }
-          ];
-        });
+      infoPlist = pkgs.writeText "Info.plist" (lib.generators.toPlist { } {
+        CFBundleName = appName;
+        CFBundleDisplayName = appName;
+        CFBundleExecutable = "emacsclient";
+        CFBundleIconFile = "Emacs";
+        CFBundleIdentifier = "org.gnu.${appName}";
+        CFBundleInfoDictionaryVersion = "6.0";
+        CFBundlePackageType = "APPL";
+        CFBundleVersion = emacsPackage.version;
+        CFBundleShortVersionString = emacsPackage.version;
+        CFBundleURLTypes = [{
+          CFBundleURLName = "org-protocol handler";
+          CFBundleURLSchemes = "org-protocol";
+        }];
+      });
 
-      icon = "${emacsPackage}/Applications/Emacs.app/Contents/Resources/Emacs.icns";
+      icon =
+        "${emacsPackage}/Applications/Emacs.app/Contents/Resources/Emacs.icns";
     in
     pkgs.runCommandNoCC "emacsclient-app" { } ''
       install -Dm644 "${infoPlist}" "$out/Applications/${appName}.app/Contents/Info.plist"
@@ -74,7 +72,8 @@ in
   services.emacs = {
     enable = false;
     package = emacsPackage;
-    additionalPath = [ "/Users/${config.dotfield.guardian.username}/.config/emacs/bin" ];
+    additionalPath =
+      [ "/Users/${config.dotfield.guardian.username}/.config/emacs/bin" ];
   };
 
   environment.systemPackages = [ emacsClientPackage ];

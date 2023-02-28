@@ -31,14 +31,16 @@
   nix = "nix --print-build-logs";
   nis = "nix search nixpkgs";
   nir = "nix run";
-  nix-stray-roots = ''nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory)"'';
-  nix-callpackage = ''(){ nix-build -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
+  nix-stray-roots = ''
+    nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory)"'';
+  nix-callpackage = ''
+    (){ nix-build -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
 
   rsc = "rsync -rav --progress";
 
   rl = "readlink -f";
 
-  procrg = ''(){ procs | rg --smart-case $@; }'';
+  procrg = "(){ procs | rg --smart-case $@; }";
 
   s = "ssh";
 }

@@ -1,16 +1,6 @@
-{ config
-, lib
-, modulesPath
-, pkgs
-, ...
-}:
+{ config, lib, modulesPath, pkgs, ... }:
 let
-  inherit (lib)
-    mkEnableOption
-    mkOption
-    mkDefault
-    types
-    ;
+  inherit (lib) mkEnableOption mkOption mkDefault types;
 
   cfg = config.environments.hetzner;
 in
@@ -18,12 +8,14 @@ in
   options = {
     environments.hetzner.enable = mkOption {
       type = types.bool;
-      description = "R/O (ish) flag indicating to home-manager that the target environment is a Hetzner VM.";
+      description =
+        "R/O (ish) flag indicating to home-manager that the target environment is a Hetzner VM.";
       default = true;
       readOnly = true;
     };
 
-    environments.hetzner.tarpit.enable = mkEnableOption "Enable the endlessh-go tarpit";
+    environments.hetzner.tarpit.enable =
+      mkEnableOption "Enable the endlessh-go tarpit";
   };
 
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
@@ -37,9 +29,13 @@ in
     ];
 
     boot.loader.grub.device = "/dev/sda";
-    boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "vmw_pvscsi" "xen_blkfront" ];
+    boot.initrd.availableKernelModules =
+      [ "ata_piix" "uhci_hcd" "vmw_pvscsi" "xen_blkfront" ];
     boot.initrd.kernelModules = [ "nvme" ];
-    fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
+    fileSystems."/" = {
+      device = "/dev/sda1";
+      fsType = "ext4";
+    };
 
     services.earlyoom.enable = true;
 
@@ -71,7 +67,8 @@ in
       # Listen for prometheus queries ONLY on the "internal" (to me) tailscale address.
       prometheus = {
         enable = true;
-        listenAddress = (lib.our.peers.getHost config.networking.hostName).tailscale;
+        listenAddress =
+          (lib.our.peers.getHost config.networking.hostName).tailscale;
         port = 2112;
       };
     };

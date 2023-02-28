@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:
 
-with lib;
-{
+with lib; {
   # xsession = {
   #   enable = true;
 

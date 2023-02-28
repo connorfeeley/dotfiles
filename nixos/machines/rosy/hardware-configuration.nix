@@ -8,15 +8,15 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/c31a1f64-1ce9-4c7a-9b8f-4bffd490176a";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/c31a1f64-1ce9-4c7a-9b8f-4bffd490176a";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/2B2E-B964";
-      fsType = "vfat";
-    };
+  fileSystems."/boot/efi" = {
+    device = "/dev/disk/by-uuid/2B2E-B964";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
@@ -31,5 +31,6 @@
   hardware.parallels.enable = true;
   # Parallels' printer sharing seems broken. I don't need it anyways.
   systemd.services.prlshprint.wantedBy = lib.mkForce [ ];
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "prl-tools" ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [ "prl-tools" ];
 }

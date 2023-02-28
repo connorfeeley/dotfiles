@@ -1,7 +1,4 @@
-{ config
-, ...
-}:
-{
+{ config, ... }: {
   imports = [
     ./guardian.nix
     # ./host.nix

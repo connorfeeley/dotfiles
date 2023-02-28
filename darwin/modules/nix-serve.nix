@@ -1,11 +1,15 @@
 # https://github.com/LnL7/nix-darwin/pull/385
 { config, pkgs, lib, ... }:
-let cfg = config.services.nix-serve; in
-{
+let cfg = config.services.nix-serve;
+in {
   options = {
-    services.nix-serve.enable = lib.mkEnableOption "nix-serve, the standalone Nix binary cache server";
+    services.nix-serve.enable =
+      lib.mkEnableOption "nix-serve, the standalone Nix binary cache server";
 
-    services.nix-serve.createUser = lib.mkEnableOption "If the nix-serve user and gruop should be created automatically" // { default = true; };
+    services.nix-serve.createUser = lib.mkEnableOption
+      "If the nix-serve user and gruop should be created automatically" // {
+      default = true;
+    };
 
     services.nix-serve.port = lib.mkOption {
       type = lib.types.port;
@@ -65,7 +69,9 @@ let cfg = config.services.nix-serve; in
     # -- nix-serve daemon --
     launchd.daemons.nix-serve = {
       script = ''
-        ${pkgs.nix-serve}/bin/nix-serve --listen ${cfg.bindAddress}:${toString cfg.port} cfg.extraParams;
+        ${pkgs.nix-serve}/bin/nix-serve --listen ${cfg.bindAddress}:${
+          toString cfg.port
+        } cfg.extraParams;
       '';
       path = [ config.nix.package.out pkgs.bzip2.bin ];
 

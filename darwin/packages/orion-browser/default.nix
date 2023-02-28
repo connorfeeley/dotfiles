@@ -1,10 +1,13 @@
 { lib, fetchurl, fetchzip, stdenv, installApplication, unzip, nix-info }:
 let
-  fetchOrion = { macosRelease, version, sha256 }: fetchurl {
-    url = "https://browser.kagi.com/updates/${macosRelease}/${toString version}.zip";
-    inherit sha256;
-    name = "orion-${macosRelease}-${toString version}.zip";
-  };
+  fetchOrion = { macosRelease, version, sha256 }:
+    fetchurl {
+      url = "https://browser.kagi.com/updates/${macosRelease}/${
+          toString version
+        }.zip";
+      inherit sha256;
+      name = "orion-${macosRelease}-${toString version}.zip";
+    };
 
   distVersions = {
     "12_0" = {

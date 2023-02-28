@@ -1,7 +1,4 @@
-{ ...
-}: {
+{ ... }: {
   modules = [ ];
-  exportedModules = [
-    ./dotfield.nix
-  ];
+  exportedModules = [ ./dotfield.nix ];
 }

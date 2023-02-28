@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   security.pam.services.gdm.enableGnomeKeyring = true;
   services.xserver = {
     displayManager.gdm = {

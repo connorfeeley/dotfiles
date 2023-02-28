@@ -18,9 +18,7 @@ buildPythonApplication rec {
     sha256 = "sha256-iVjKTMR3+hFE5PTwBSk0ZJIfPt7wY+F96hEJ3pZXESc=";
   };
 
-  patches = [
-    ./0001-fix-remove-typing-dependency.patch
-  ];
+  patches = [ ./0001-fix-remove-typing-dependency.patch ];
 
   python = "python39";
   # requirementsExtra = "typing-extensions";

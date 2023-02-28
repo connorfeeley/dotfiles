@@ -1,7 +1,4 @@
-{ lib
-, pkgs
-, ...
-}:
+{ lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isDarwin;
 
@@ -15,8 +12,10 @@ let
   trusted-substituters = substituters;
 
   nix-doc-path =
-    if isDarwin then "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib"
-    else "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
+    if isDarwin then
+      "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib"
+    else
+      "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
 in
 {
   environment.systemPackages = [ pkgs.nix-doc ];
@@ -45,10 +44,10 @@ in
 
       # Remote builders should fetch as many dependencies as possible,
       # rather than waiting for the current host to upload them.
-      builders-use-substitutes = true; #: default: false
+      builders-use-substitutes = true; # : default: false
 
       # Number of tail lines to print when a build fails
-      log-lines = 25; #: default: 10
+      log-lines = 25; # : default: 10
 
       # Whether to use the flake evaluation cache
       eval-cache = true;
@@ -57,7 +56,7 @@ in
       ignore-try = true;
 
       # Automatically collect garbage if free space drops below 1GiB
-      min-free = 1024 * 1024 * 1024; #: default: -1
+      min-free = 1024 * 1024 * 1024; # : default: -1
       # Garbage collect up to 10GiB when min-free is triggered
       max-free = 1024 * 1024 * 1024 * 10;
 
@@ -72,7 +71,8 @@ in
       allow-import-from-derivation = true;
 
       # TODO: add 'auto-allocate-uids discard-references'
-      experimental-features = [ "nix-command" "flakes" "repl-flake" "ca-derivations" ];
+      experimental-features =
+        [ "nix-command" "flakes" "repl-flake" "ca-derivations" ];
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -86,9 +86,7 @@ in
       plugin-files = nix-doc-path; # Plugins to be loaded by nix
     };
 
-    gc = {
-      automatic = false;
-    };
+    gc = { automatic = false; };
 
     # FUP Options {{
     # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/166d6ebd9f0de03afc98060ac92cba9c71cfe550/lib/options.nix

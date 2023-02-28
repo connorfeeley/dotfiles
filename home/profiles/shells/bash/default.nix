@@ -1,25 +1,14 @@
-{ config
-, pkgs
-, ...
-}:
-let
-  shellAliases =
-    (import ../abbrs.nix)
-    // (import ../aliases.nix);
-in
-{
+{ config, pkgs, ... }:
+let shellAliases = (import ../abbrs.nix) // (import ../aliases.nix);
+in {
   imports = [ ../common.nix ];
 
-  home.packages = with pkgs; [
-    bashInteractive
-  ];
+  home.packages = with pkgs; [ bashInteractive ];
 
   programs.starship.enableBashIntegration = false;
 
   programs.bash = {
-    inherit
-      shellAliases
-      ;
+    inherit shellAliases;
 
     enable = true;
     enableCompletion = true;

@@ -1,12 +1,6 @@
-{ config
-, pkgs
-, lib
-, ...
-}:
-let
-  inherit (config.dotfield) guardian;
-in
-{
+{ config, pkgs, lib, ... }:
+let inherit (config.dotfield) guardian;
+in {
   environment.systemPackages = [
     pkgs.arion
 
@@ -16,7 +10,8 @@ in
   ];
 
   virtualisation.oci-containers.backend = "podman";
-  virtualisation.containers.storage.settings.storage.driver = lib.mkIf (builtins.elem "zfs" config.boot.supportedFilesystems) "zfs";
+  virtualisation.containers.storage.settings.storage.driver =
+    lib.mkIf (builtins.elem "zfs" config.boot.supportedFilesystems) "zfs";
 
   virtualisation.podman = {
     enable = true;
@@ -32,10 +27,9 @@ in
     networkSocket.tls.cacert = "/etc/ssl/ca-cert.pem";
     networkSocket.tls.cert = "/etc/ssl/server-cert.pem";
 
-
     # ZFS storage backend
     extraPackages = [ pkgs.zfs ];
 
   };
-  users.extraUsers.${guardian.username}.extraGroups = ["podman"];
+  users.extraUsers.${guardian.username}.extraGroups = [ "podman" ];
 }

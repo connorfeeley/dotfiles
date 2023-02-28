@@ -9,12 +9,12 @@ let
   cfgS = config.services.input-leap.server;
 
 in
-
 {
   options = {
     services.input-leap = {
       client = {
-        enable = mkEnableOption (lib.mdDoc "the Input Leap client (receive keyboard and mouse events from a Input Leap server)");
+        enable = mkEnableOption (lib.mdDoc
+          "the Input Leap client (receive keyboard and mouse events from a Input Leap server)");
 
         screenName = mkOption {
           default = "";
@@ -35,12 +35,14 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Input Leap client should be started automatically.";
+          description = lib.mdDoc
+            "Whether the Input Leap client should be started automatically.";
         };
       };
 
       server = {
-        enable = mkEnableOption (lib.mdDoc "the Input Leap server (send keyboard and mouse events)");
+        enable = mkEnableOption
+          (lib.mdDoc "the Input Leap server (send keyboard and mouse events)");
 
         configFile = mkOption {
           type = types.path;
@@ -63,17 +65,18 @@ in
         autoStart = mkOption {
           default = false;
           type = types.bool;
-          description = lib.mdDoc "Whether the Input Leap server should be started automatically.";
+          description = lib.mdDoc
+            "Whether the Input Leap server should be started automatically.";
         };
         checkClientCert = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Input Leap server should check client certificates. If false, any client can connect.";
+          description = lib.mdDoc
+            "Whether the Input Leap server should check client certificates. If false, any client can connect.";
         };
       };
     };
   };
-
 
   ###### implementation
 
@@ -93,7 +96,9 @@ in
         restartTriggers = [ cfgC.configFile ];
 
         serviceConfig = {
-          ExecStart = ''${pkgs.input-leap}/bin/input-leapc --no-daemon ${optionalString (cfgC.screenName != "") "--name ${cfgC.screenName}"} ${cfgC.serverAddress}'';
+          ExecStart = "${pkgs.input-leap}/bin/input-leapc --no-daemon ${
+              optionalString (cfgC.screenName != "") "--name ${cfgC.screenName}"
+            } ${cfgC.serverAddress}";
           Restart = "always";
         };
       };
@@ -109,7 +114,15 @@ in
         restartTriggers = [ cfgS.configFile ];
 
         serviceConfig = {
-          ExecStart = ''${pkgs.input-leap}/bin/input-leaps --config ${cfgS.configFile} --no-daemon ${optionalString (cfgS.address != "") " --address ${cfgS.address}"} ${optionalString (cfgS.screenName != "") "--name ${cfgS.screenName}"} ${optionalString (!cfgS.checkClientCert) "--disable-client-cert-checking"}'';
+          ExecStart =
+            "${pkgs.input-leap}/bin/input-leaps --config ${cfgS.configFile} --no-daemon ${
+              optionalString (cfgS.address != "") " --address ${cfgS.address}"
+            } ${
+              optionalString (cfgS.screenName != "") "--name ${cfgS.screenName}"
+            } ${
+              optionalString (!cfgS.checkClientCert)
+              "--disable-client-cert-checking"
+            }";
           Restart = "always";
         };
       };

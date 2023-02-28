@@ -1,11 +1,6 @@
 channels: _final: _prev:
 let
-  inherit
-    (channels.nixos-unstable)
-    iosevka
-    iosevka-bin
-    nerdfonts
-    ;
+  inherit (channels.nixos-unstable) iosevka iosevka-bin nerdfonts;
   xtalVariantOverrides = builtins.readFile ./iosevka-xtal-variants.toml;
 in
 {
@@ -83,16 +78,23 @@ in
   iosevka-term = iosevka-bin.override { variant = "sgr-iosevka-term"; };
 
   iosevka-slab = iosevka-bin.override { variant = "sgr-iosevka-slab"; };
-  iosevka-fixed-slab = iosevka-bin.override { variant = "sgr-iosevka-fixed-slab"; };
-  iosevka-term-slab = iosevka-bin.override { variant = "sgr-iosevka-term-slab"; };
+  iosevka-fixed-slab =
+    iosevka-bin.override { variant = "sgr-iosevka-fixed-slab"; };
+  iosevka-term-slab =
+    iosevka-bin.override { variant = "sgr-iosevka-term-slab"; };
 
   iosevka-curly = iosevka-bin.override { variant = "sgr-iosevka-curly"; };
-  iosevka-fixed-curly = iosevka-bin.override { variant = "sgr-iosevka-fixed-curly"; };
-  iosevka-term-curly = iosevka-bin.override { variant = "sgr-iosevka-term-curly"; };
+  iosevka-fixed-curly =
+    iosevka-bin.override { variant = "sgr-iosevka-fixed-curly"; };
+  iosevka-term-curly =
+    iosevka-bin.override { variant = "sgr-iosevka-term-curly"; };
 
-  iosevka-curly-slab = iosevka-bin.override { variant = "sgr-iosevka-curly-slab"; };
-  iosevka-fixed-curly-slab = iosevka-bin.override { variant = "sgr-iosevka-fixed-curly-slab"; };
-  iosevka-term-curly-slab = iosevka-bin.override { variant = "sgr-iosevka-term-curly-slab"; };
+  iosevka-curly-slab =
+    iosevka-bin.override { variant = "sgr-iosevka-curly-slab"; };
+  iosevka-fixed-curly-slab =
+    iosevka-bin.override { variant = "sgr-iosevka-fixed-curly-slab"; };
+  iosevka-term-curly-slab =
+    iosevka-bin.override { variant = "sgr-iosevka-term-curly-slab"; };
 
   iosevka-aile = iosevka-bin.override { variant = "aile"; };
   iosevka-etoile = iosevka-bin.override { variant = "etoile"; };

@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin isAarch64;
@@ -12,30 +8,27 @@ let
 
   emacsPackage =
     let
-      emacs-pkg = with pkgs; if isDarwin
-      #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
-      then
-        emacsGitDarwin.overrideAttrs
-          (old: {
-            # Required for 'hammy' emacs package
-            buildInputs = old.buildInputs ++ [ pkgs.dbus ];
-          })
-      #: isLinux: emacs 28 (w/ native comp)
-      else
-        pkgs.emacsGit.override {
-          inherit (pkgs)
-            # For withGTK3:
-            gtk3-x11
-            gsettings-desktop-schemas
-            # For withXwidgets:
-            webkitgtk
-            wrapGAppsHook
-            glib-networking
-            ;
+      emacs-pkg = with pkgs;
+        if isDarwin
+        #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
+        then
+          emacsGitDarwin.overrideAttrs
+            (old: {
+              # Required for 'hammy' emacs package
+              buildInputs = old.buildInputs ++ [ pkgs.dbus ];
+            })
+        #: isLinux: emacs 28 (w/ native comp)
+        else
+          pkgs.emacsGit.override {
+            inherit (pkgs)
+              # For withGTK3:
+              gtk3-x11 gsettings-desktop-schemas
+              # For withXwidgets:
+              webkitgtk wrapGAppsHook glib-networking;
 
-          withXwidgets = false;
-          withGTK3 = false;
-        };
+            withXwidgets = false;
+            withGTK3 = false;
+          };
     in
     (emacs-pkg.override {
       withSQLite3 = true;
@@ -47,7 +40,8 @@ let
 
   emacsDir = "${configHome}/emacs";
 
-  e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${config.lib.dotfield.srcPath}/config/emacs/e");
+  e-wrapper = pkgs.writeShellScriptBin "e"
+    (builtins.readFile "${config.lib.dotfield.srcPath}/config/emacs/e");
 
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
@@ -82,9 +76,7 @@ lib.mkMerge [
       LSP_USE_PLISTS = "true";
     };
 
-    home.sessionPath = [
-      "${configHome}/emacs/bin"
-    ];
+    home.sessionPath = [ "${configHome}/emacs/bin" ];
 
     xdg.configFile."doom/modules/completion/corfu".source =
       mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
@@ -126,200 +118,199 @@ lib.mkMerge [
     programs.emacs = {
       enable = true;
       package = emacsPackage;
-      extraPackages = epkgs: with epkgs; [
-        vterm
-        pdf-tools
-        org-pdftools
-        tree-sitter
-        (epkgs.tree-sitter-langs.withPlugins (
-          _: pkgs.tree-sitter.allGrammars
-        ))
-        tsc
-        parinfer-rust-mode
-      ];
+      extraPackages = epkgs:
+        with epkgs; [
+          vterm
+          pdf-tools
+          org-pdftools
+          tree-sitter
+          (epkgs.tree-sitter-langs.withPlugins
+            (_: pkgs.tree-sitter.allGrammars))
+          tsc
+          parinfer-rust-mode
+        ];
     };
 
     services.emacs = lib.mkIf (!hostPlatform.isDarwin) {
       enable = lib.mkDefault true;
       defaultEditor = lib.mkForce true;
       socketActivation.enable = false;
-      startWithUserSession = lib.mkDefault true; # implies socketActivitaion is disabled
-      client.enable = lib.mkDefault false; # Don't generate desktop file - just use e-wrapper
+      startWithUserSession =
+        lib.mkDefault true; # implies socketActivitaion is disabled
+      client.enable =
+        lib.mkDefault false; # Don't generate desktop file - just use e-wrapper
     };
 
-    home.packages = with pkgs; [
-      python3Packages.pylatexenc
+    home.packages = with pkgs;
+      [
+        python3Packages.pylatexenc
 
-      # Emacsclient wrapper
-      e-wrapper
+        # Emacsclient wrapper
+        e-wrapper
 
-      ediff-tool
-      gnutls
-      (ripgrep.override { withPCRE2 = true; })
+        ediff-tool
+        gnutls
+        (ripgrep.override { withPCRE2 = true; })
 
-      fd # faster projectile indexing
-      imagemagick # for image-dired and emacs-gif-screencast
-      gifsicle
-      zstd # for undo-fu-session/undo-tree compression
-      feh
+        fd # faster projectile indexing
+        imagemagick # for image-dired and emacs-gif-screencast
+        gifsicle
+        zstd # for undo-fu-session/undo-tree compression
+        feh
 
-      figlet # prettier block comments
+        figlet # prettier block comments
 
-      #: vterm
-      cmake
+        #: vterm
+        cmake
 
-      #: org
-      graphviz
-      gnuplot
+        #: org
+        graphviz
+        gnuplot
 
-      # :lang lua
-      luaPackages.lua-lsp
+        # :lang lua
+        luaPackages.lua-lsp
 
-      #: parinfer
-      parinfer-rust
-      # emacs == vim... at least as far as the required parinfer library package is concerned
-      vimPlugins.parinfer-rust
+        #: parinfer
+        parinfer-rust
+        # emacs == vim... at least as far as the required parinfer library package is concerned
+        vimPlugins.parinfer-rust
 
-      # :lang latex & :lang org (latex previews)
-      texlive.combined.scheme-medium
-      # :lang nix
-      nixpkgs-fmt
+        # :lang latex & :lang org (latex previews)
+        texlive.combined.scheme-medium
+        # :lang nix
+        nixpkgs-fmt
 
-      # :lang sh
-      shellcheck # <- bash doesn't have to be scary
-      nodePackages.bash-language-server # <- lsp client for bash that loves dividing by zero
-      # Linux-only: bashdb # <- bash debugger
-      # zshdb # <- zsh debugger (FIXME: not packaged for nix)
+        # :lang sh
+        shellcheck # <- bash doesn't have to be scary
+        nodePackages.bash-language-server # <- lsp client for bash that loves dividing by zero
+        # Linux-only: bashdb # <- bash debugger
+        # zshdb # <- zsh debugger (FIXME: not packaged for nix)
 
-      # :lang cpp
-      # NOTE: lldb-14 is broken
-      llvmPackages_13.lldb # includes lldb-vscode
-      clang-tools
-      # Linux-only (see conditional appends below):
-      # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
+        # :lang cpp
+        # NOTE: lldb-14 is broken
+        llvmPackages_13.lldb # includes lldb-vscode
+        clang-tools
+        # Linux-only (see conditional appends below):
+        # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
 
-      # :tools magit
-      gitAndTools.delta
+        # :tools magit
+        gitAndTools.delta
 
-      # :tools pdf
-      # Use with (package! pdf-tools :built-in 'prefer)
-      emacsPackage.pkgs.pdf-tools
+        # :tools pdf
+        # Use with (package! pdf-tools :built-in 'prefer)
+        emacsPackage.pkgs.pdf-tools
 
-      ### ChatGPT
-      # Requires epc and github:mmabrouk/chatgpt-wrapper
-      python3Packages.chatgpt-wrapper
-      (pkgs.writeShellScriptBin "python-chatgpt-wrapper" ''
-        export PLAYWRIGHT_BROWSERS_PATH=${chatgpt-wrapper.playwrightBrowsers}
-        exec -a $0 ${pkgs.python3.withPackages (ps: with ps; [ epc chatgpt-wrapper ])}/bin/python $@
-      '')
+        ### ChatGPT
+        # Requires epc and github:mmabrouk/chatgpt-wrapper
+        python3Packages.chatgpt-wrapper
+        (pkgs.writeShellScriptBin "python-chatgpt-wrapper" ''
+          export PLAYWRIGHT_BROWSERS_PATH=${chatgpt-wrapper.playwrightBrowsers}
+          exec -a $0 ${
+            pkgs.python3.withPackages (ps: with ps; [ epc chatgpt-wrapper ])
+          }/bin/python $@
+        '')
 
-      # Treemacs
-      python3
+        # Treemacs
+        python3
 
-      # Fonts
-      emacs-all-the-icons-fonts
+        # Fonts
+        emacs-all-the-icons-fonts
 
-      # FIXME: sqlite binary unusable in org-roam and forge even after supplying
-      # them... so we let these packages compile the binary...
-      stdenv.cc
-      sqlite
+        # FIXME: sqlite binary unusable in org-roam and forge even after supplying
+        # them... so we let these packages compile the binary...
+        stdenv.cc
+        sqlite
 
-      editorconfig-core-c
+        editorconfig-core-c
 
-      ##: === writing ===
+        ##: === writing ===
 
-      # :checkers spell
-      (aspellWithDicts (ds: with ds; [
-        en
-        en-computers
-        en-science
-      ]))
-      (hunspellWithDicts (with hunspellDicts; [
-        hunspellDicts.en-ca-large
-      ]))
-      languagetool
+        # :checkers spell
+        (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
+        (hunspellWithDicts (with hunspellDicts; [ hunspellDicts.en-ca-large ]))
+        languagetool
 
-      # :tools lookup
-      wordnet
+        # :tools lookup
+        wordnet
 
-      # :tools copilot
-      nodejs-16_x # Copilot requires Node.js version 17 or below
+        # :tools copilot
+        nodejs-16_x # Copilot requires Node.js version 17 or below
 
-      ##: === lang/lsp ===
+        ##: === lang/lsp ===
 
-      #: docker
-      nodePackages.dockerfile-language-server-nodejs
-      #: terraform
-      terraform
-      terraform-ls
-      #: HTML/CSS/JSON/ESLint
-      nodePackages.vscode-langservers-extracted
-      #: css
-      nodePackages.vscode-css-languageserver-bin
-      #: js
-      nodePackages.eslint
-      nodePackages.typescript-language-server
-      #: json
-      nodePackages.vscode-json-languageserver
-      #: markdown
-      nodePackages.unified-language-server
-      #: python
-      pyright
-      #: C++
-      clang-tools
-      bear
-      #: nix
-      rnix-lsp
-      nil # ('nix-nil' from source repo)
-      #: sh
-      nodePackages.bash-language-server
-      #: toml
-      taplo-lsp
-      #: web-mode
-      nodePackages.js-beautify
-      nodePackages.stylelint
-      nodePackages.vscode-html-languageserver-bin
-      html-tidy
-      #: yaml
-      nodePackages.yaml-language-server
-      #: vimrc
-      nodePackages.vim-language-server
-    ] ++ (lib.optionals (isLinux && !isAarch64) [
-      scrot
-      peek
+        #: docker
+        nodePackages.dockerfile-language-server-nodejs
+        #: terraform
+        terraform
+        terraform-ls
+        #: HTML/CSS/JSON/ESLint
+        nodePackages.vscode-langservers-extracted
+        #: css
+        nodePackages.vscode-css-languageserver-bin
+        #: js
+        nodePackages.eslint
+        nodePackages.typescript-language-server
+        #: json
+        nodePackages.vscode-json-languageserver
+        #: markdown
+        nodePackages.unified-language-server
+        #: python
+        pyright
+        #: C++
+        clang-tools
+        bear
+        #: nix
+        rnix-lsp
+        nil # ('nix-nil' from source repo)
+        #: sh
+        nodePackages.bash-language-server
+        #: toml
+        taplo-lsp
+        #: web-mode
+        nodePackages.js-beautify
+        nodePackages.stylelint
+        nodePackages.vscode-html-languageserver-bin
+        html-tidy
+        #: yaml
+        nodePackages.yaml-language-server
+        #: vimrc
+        nodePackages.vim-language-server
+      ] ++ (lib.optionals (isLinux && !isAarch64) [
+        scrot
+        peek
 
-      # :lang sh
-      bashdb # <- bash debugger
+        # :lang sh
+        bashdb # <- bash debugger
 
-      #: lang cpp
-      (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
-      cmake-language-server
+        #: lang cpp
+        (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
+        cmake-language-server
 
-      # :lang python
-      python3Packages.debugpy
+        # :lang python
+        python3Packages.debugpy
 
-      #: lang graphql
-      nodePackages.graphql-language-service-cli
+        #: lang graphql
+        nodePackages.graphql-language-service-cli
 
-      #: fpga (bazel builds fail on darwin)
-      verible
-      verilator
-      svlangserver
-      svls
-      svlint
+        #: fpga (bazel builds fail on darwin)
+        verible
+        verilator
+        svlangserver
+        svls
+        svlint
 
-      # XWidgets WebKit
-      webkitgtk
-      glib
-      gtk3
-      glib-networking
-      gsettings-desktop-schemas
+        # XWidgets WebKit
+        webkitgtk
+        glib
+        gtk3
+        glib-networking
+        gsettings-desktop-schemas
 
-      # For emacs-everywhere
-      xorg.xwininfo
-      xdotool
-      xclip
-    ]);
+        # For emacs-everywhere
+        xorg.xwininfo
+        xdotool
+        xclip
+      ]);
 
     # Configure aspell
     xdg.configFile."aspell/aspell.conf" = {
@@ -331,17 +322,16 @@ lib.mkMerge [
       executable = false;
     };
   }
-  (lib.mkIf isLinux
-    {
-      # Register org-protocol as a handler for 'org-protocol://' links
-      xdg.desktopEntries.org-protocol = {
-        name = "org-protocol";
-        exec = "emacsclient %u";
-        comment = "Org protocol";
-        genericName = "org-protocol";
-        type = "Application";
-        mimeType = [ "x-scheme-handler/org-protocol" ];
-        noDisplay = true; # Register handler, but don't add application to menus
-      };
-    })
+  (lib.mkIf isLinux {
+    # Register org-protocol as a handler for 'org-protocol://' links
+    xdg.desktopEntries.org-protocol = {
+      name = "org-protocol";
+      exec = "emacsclient %u";
+      comment = "Org protocol";
+      genericName = "org-protocol";
+      type = "Application";
+      mimeType = [ "x-scheme-handler/org-protocol" ];
+      noDisplay = true; # Register handler, but don't add application to menus
+    };
+  })
 ]

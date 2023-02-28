@@ -14,8 +14,7 @@ let
   cfg = config.services.mbsync-darwin;
 
   mbsyncOptions = [ "--all" ] ++ optional (cfg.verbose) "--verbose"
-    ++ optional (cfg.configFile != "")
-    "--config ${cfg.configFile}";
+    ++ optional (cfg.configFile != "") "--config ${cfg.configFile}";
 in
 {
 
@@ -70,12 +69,11 @@ in
       enable = true;
       config = {
         Program = "${cfg.package}/bin/mbsync";
-        ProgramArguments =
-          [
-            "${concatStringsSep " " mbsyncOptions}"
-            (mkIf cfg.verbose "--verbose")
-            "${optionalString (cfg.postExec != "") cfg.postExec}"
-          ];
+        ProgramArguments = [
+          "${concatStringsSep " " mbsyncOptions}"
+          (mkIf cfg.verbose "--verbose")
+          "${optionalString (cfg.postExec != "") cfg.postExec}"
+        ];
         RunAtLoad = true;
         KeepAlive = false;
         StartInterval = cfg.startInterval;

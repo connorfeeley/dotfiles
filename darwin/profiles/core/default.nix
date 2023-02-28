@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   inherit (config.lib.dotfield) fsPath;
   inherit (config.networking) hostName;
@@ -41,16 +41,16 @@ in
       mas
       terminal-notifier
       darwin.trash
-      darwin.lsusb #       <- lsusb for MacOS
+      darwin.lsusb # <- lsusb for MacOS
 
-      prefmanager #        <- a tool for managing macOS defaults.
-      wifi-password #      <- what was that password again?
+      prefmanager # <- a tool for managing macOS defaults.
+      wifi-password # <- what was that password again?
 
-      macfuse-stubs #      <- MacOS port of FUSE
-      sshfs-fuse #         <- sshfs for MacOS
+      macfuse-stubs # <- MacOS port of FUSE
+      sshfs-fuse # <- sshfs for MacOS
       darwin.iproute2mac # <- MacOS implementation of iproute2
-      apple_complete #     <- bash completions for MacOS
-      maclaunch #          <- Manage your macOS startup items.
+      apple_complete # <- bash completions for MacOS
+      maclaunch # <- Manage your macOS startup items.
     ];
 
   # Recreate /run/current-system symlink after boot
@@ -69,7 +69,8 @@ in
     };
     global = {
       brewfile = true; # Use generated Brewfile in the nix store
-      autoUpdate = false; # Don't auto-update formulae when running brew manually
+      autoUpdate =
+        false; # Don't auto-update formulae when running brew manually
     };
     caskArgs = {
       require_sha = false; # Casks must have a checksum
@@ -77,18 +78,14 @@ in
       no_quarantine = true; # Disable quarantining of downloads
     };
 
-    masApps = {
-      "Tailscale" = 1475387142;
-    };
+    masApps = { "Tailscale" = 1475387142; };
     brews = [ ];
   };
 
   # Add homebrew and macports packages to PATH
   environment.systemPath = [ config.homebrew.brewPrefix "/opt/local/bin" ];
 
-  environment.pathsToLink = [
-    "/Applications"
-  ];
+  environment.pathsToLink = [ "/Applications" ];
 
   documentation = {
     # NOTE: All darwin-compatible documentation options are set in 'profiles/core'.

@@ -1,10 +1,4 @@
-{ config
-, osConfig
-, options
-, lib
-, pkgs
-, ...
-}:
+{ config, osConfig, options, lib, pkgs, ... }:
 
 with lib;
 
@@ -86,9 +80,7 @@ in
 
   # Use our local fork of these modules while still pending upstream changes.
   # This is necessary in order to avoid tracking `nixpkgs-unstable` to appease hm.
-  disabledModules = [
-    "services/gpg-agent.nix"
-  ];
+  disabledModules = [ "services/gpg-agent.nix" ];
 
   options = {
     services.gpg-agent = {
@@ -203,12 +195,10 @@ in
       };
 
       pinentryFlavor = mkOption {
-        type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
+        type = types.nullOr
+          (types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
         example = "gnome3";
-        default =
-          if isDarwin
-          then macPinentryFlavor
-          else "qt";
+        default = if isDarwin then macPinentryFlavor else "qt";
         description = ''
           Which pinentry interface to use. If not
           <literal>null</literal>, it sets
@@ -252,8 +242,9 @@ in
           ++ optional (cfg.maxCacheTtl != null)
           "max-cache-ttl ${toString cfg.maxCacheTtl}"
           ++ optional (cfg.maxCacheTtlSsh != null)
-          "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}"
-          ++ optional (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid")
+          "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}" ++ optional
+          (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac"
+            && cfg.pinentryFlavor != "touchid")
           "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry"
           # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
           ++ optional (cfg.pinentryFlavor == "mac")
@@ -262,10 +253,10 @@ in
           "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid"
           ++ [ cfg.extraConfig ]);
 
-      home.packages = optionals (cfg.pinentryFlavor != null) (
-        if isDarwin then [ pkgs.pinentry_mac ]
-        else [ pkgs.pinentry.${cfg.pinentryFlavor} ]
-      );
+      home.packages = optionals (cfg.pinentryFlavor != null) (if isDarwin then
+        [ pkgs.pinentry_mac ]
+      else
+        [ pkgs.pinentry.${cfg.pinentryFlavor} ]);
 
       programs.bash.initExtra = mkIf cfg.enableBashIntegration gpgInitStr;
       programs.zsh.initExtra = mkIf cfg.enableZshIntegration gpgInitStr;
@@ -276,7 +267,11 @@ in
 
     (mkIf (cfg.sshKeys != null) {
       # Trailing newlines are important
-      home.file.".gnupg/sshcontrol".text = concatMapStrings (s: "${s}\n") cfg.sshKeys;
+      home.file.".gnupg/sshcontrol".text = concatMapStrings
+        (s: ''
+          ${s}
+        '')
+        cfg.sshKeys;
     })
 
     # The systemd units below are direct translations of the
@@ -364,7 +359,10 @@ in
     ]))
 
     # Use GPG for SSH authorization
-    { home.sessionVariables.SSH_AUTH_SOCK = "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"; }
+    {
+      home.sessionVariables.SSH_AUTH_SOCK =
+        "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)";
+    }
 
     (mkIf pkgs.stdenv.hostPlatform.isDarwin (mkMerge [
       {

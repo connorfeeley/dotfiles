@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-{
+{ config, lib, pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     hlissner-hey
 
@@ -41,7 +36,5 @@
     whois
   ];
 
-  environment.shellAliases = {
-    ll = "${pkgs.exa} -l";
-  };
+  environment.shellAliases = { ll = "${pkgs.exa} -l"; };
 }

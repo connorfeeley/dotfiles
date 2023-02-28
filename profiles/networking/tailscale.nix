@@ -1,10 +1,8 @@
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   services.tailscale.enable = true;
 
-  networking.firewall.trustedInterfaces = [ config.services.tailscale.interfaceName ];
+  networking.firewall.trustedInterfaces =
+    [ config.services.tailscale.interfaceName ];
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.firewall.checkReversePath = "loose";
 

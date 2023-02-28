@@ -3,11 +3,7 @@
 # FIXME: currently results in a quick flash of lightdm (the default login
 # manager on nixos) before attempting to boot into the initial session or
 # loading the default session
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (config.lib.dotfield.sys) hasNvidia;
   inherit (config.lib.dotfield.home) hasWm;
@@ -28,17 +24,18 @@ let
   # that means there's no way to select them...
   sway-kiosk = command: ''
     ${pkgs.sway}/bin/sway ${swayFlags} --config \
-      ${pkgs.writeText "kiosk.config"
-      ''
-        output * bg #000000 solid_color
-        exec "${command}; ${pkgs.sway}/bin/swaymsg exit"
+      ${
+        pkgs.writeText "kiosk.config" ''
+          output * bg #000000 solid_color
+          exec "${command}; ${pkgs.sway}/bin/swaymsg exit"
 
-        bindsym Mod4+shift+e exec ${pkgs.sway}/bin/swaynag \
-          -t warning \
-          -m 'What do you want to do?' \
-          -b 'Poweroff' 'systemctl poweroff' \
-          -b 'Reboot' 'systemctl reboot'
-      ''};
+          bindsym Mod4+shift+e exec ${pkgs.sway}/bin/swaynag \
+            -t warning \
+            -m 'What do you want to do?' \
+            -b 'Poweroff' 'systemctl poweroff' \
+            -b 'Reboot' 'systemctl reboot'
+        ''
+      };
   '';
 
   sway = mkSession "sway" ''
@@ -63,12 +60,17 @@ in
     (lib.mkIf hasSway sway)
   ];
 
-  environment.etc."greetd/environments".text =
-    (lib.optionalString hasSway "${sway.name}\n")
-    + (lib.optionalString hasGnome "${gnome.name}\n")
-    + "fish\n"
-    + "bash\n"
-    + (lib.optionalString hasSteam "${steam-bigpicture.name}\n");
+  environment.etc."greetd/environments".text = (lib.optionalString hasSway ''
+    ${sway.name}
+  '') + (lib.optionalString hasGnome ''
+    ${gnome.name}
+  '') + ''
+    fish
+  '' + ''
+    bash
+  '' + (lib.optionalString hasSteam ''
+    ${steam-bigpicture.name}
+  '');
 
   services.greetd = {
     enable = true;

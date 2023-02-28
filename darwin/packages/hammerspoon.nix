@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   version = "0.9.96";
 
   src = fetchzip {
-    url = "https://github.com/Hammerspoon/hammerspoon/releases/download/${version}/Hammerspoon-${version}.zip";
+    url =
+      "https://github.com/Hammerspoon/hammerspoon/releases/download/${version}/Hammerspoon-${version}.zip";
     sha256 = "sha256-3euDPI0qJD3Nj7mUAUKDab/ZFQTcRVU68oNmQe+DxKQ=";
   };
 

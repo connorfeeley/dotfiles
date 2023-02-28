@@ -1,7 +1,4 @@
-{ lib
-, collective
-,
-}:
+{ lib, collective, }:
 lib.makeExtensible (_self: rec {
   # treesWithValue :: (String -> Any -> Bool) -> [String] -> AttrSet -> [String]
   #
@@ -22,8 +19,8 @@ lib.makeExtensible (_self: rec {
   # }; in
   # lib.treesWithValue (_: v: "gnome3" == v) ["services" "gpg-agent" "pinentryFlavor"] users
   # => [ "bar" ]
-  treesWithValue = pred: path: attrs: (builtins.attrNames
-    (lib.attrsets.filterAttrs
+  treesWithValue = pred: path: attrs:
+    (builtins.attrNames (lib.attrsets.filterAttrs
       (n: v: (pred n (lib.attrsets.getAttrFromPath path v)))
       attrs));
 
@@ -43,9 +40,7 @@ lib.makeExtensible (_self: rec {
   peers = rec {
     getHost = hostName: collective.peers.hosts.${hostName} or null;
     getNet = network:
-      if network != null
-      then collective.peers.networks.${network}
-      else false;
+      if network != null then collective.peers.networks.${network} else false;
 
     # If 'ssh_port' is set in hosts.toml for the supplied host, then use that; otherwise use port 22.
     getSshPort = hostName: (getHost hostName).ssh_port or 22;

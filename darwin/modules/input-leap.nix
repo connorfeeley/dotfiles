@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.input-leap;
-in
+let cfg = config.services.input-leap;
 
-{
+in {
   options = {
-    services.input-leap.enable = mkEnableOption "Enable Input Leap to share keyboard and mouse between computers";
+    services.input-leap.enable = mkEnableOption
+      "Enable Input Leap to share keyboard and mouse between computers";
 
     services.input-leap.client = {
       enable = mkEnableOption "Autostart Input Leap client daemon.";

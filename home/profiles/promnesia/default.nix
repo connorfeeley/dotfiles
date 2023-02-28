@@ -8,10 +8,7 @@
 #
 # https://github.com/GTrunSec/nixos-flk/blob/96ce0881a2185261758c0ad206d4149ad47d5b04/profiles/data/promnesia/default.nix
 # https://github.com/karlicoss/promnesia/issues/137
-{ pkgs
-, ...
-}:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [ promnesia ];
   # systemd.user.services.promnesia = {
   #   description = "promnesia Daemon";

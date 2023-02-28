@@ -1,24 +1,25 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isDarwin;
   inherit (lib) types mkIf mkEnableOption mkOption;
 
-  shellInit = shell: "source " + cfg.package + "/Applications/iTerm2.app/Contents/Resources/iterm2_shell_integration." + shell;
+  shellInit = shell:
+    "source " + cfg.package
+    + "/Applications/iTerm2.app/Contents/Resources/iterm2_shell_integration."
+    + shell;
 
   cfg = config.programs.iterm2;
 in
 {
   options.programs.iterm2 = {
-    enable = mkEnableOption "Enable the iTerm2 terminal emulator (system-wide).";
+    enable =
+      mkEnableOption "Enable the iTerm2 terminal emulator (system-wide).";
 
     package = mkOption {
       type = types.package;
       default =
-        if isDarwin then pkgs.iterm2
+        if isDarwin then
+          pkgs.iterm2
         else
           pkgs.iterm2.overrideAttrs (o: {
             # Remove the generated binary

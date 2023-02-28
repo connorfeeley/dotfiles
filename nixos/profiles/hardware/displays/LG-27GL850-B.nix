@@ -1,4 +1,4 @@
-##: LG-27GL850-B Monitor
+# #: LG-27GL850-B Monitor
 {
   # diag = w: h: sqrt(w^2 + h^2);
   # diagPx = diag 2560 1440;        => 2937.21

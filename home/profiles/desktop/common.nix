@@ -1,12 +1,6 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-in
-lib.mkIf isLinux {
+{ config, lib, pkgs, ... }:
+let inherit (pkgs.stdenv.hostPlatform) isLinux;
+in lib.mkIf isLinux {
   xdg.userDirs = {
     enable = true;
     createDirectories = true;

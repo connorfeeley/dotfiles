@@ -8,12 +8,7 @@
 #
 # https://github.com/GTrunSec/nixos-flk/blob/96ce0881a2185261758c0ad206d4149ad47d5b04/pkgs/python/promnesia/default.nix
 # https://github.com/karlicoss/promnesia/issues/137
-{ python3Packages
-, orgparse
-, hpi
-, sources
-,
-}:
+{ python3Packages, orgparse, hpi, sources, }:
 let
   mistletoe = python3Packages.buildPythonPackage rec {
     pname = "mistletoe";
@@ -46,10 +41,7 @@ let
       sha256 = "sha256-0GkXoCPOnt43Ef+rCe0aPsRHVRaq3oSjHdwXw50rLuU=";
     };
     doCheck = false;
-    propagatedBuildInputs = with python3Packages; [
-      sqlalchemy
-      setuptools_scm
-    ];
+    propagatedBuildInputs = with python3Packages; [ sqlalchemy setuptools_scm ];
   };
 
   urlextract = python3Packages.buildPythonPackage rec {

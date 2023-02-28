@@ -1,8 +1,4 @@
-{ options
-, config
-, lib
-, ...
-}:
+{ options, config, lib, ... }:
 let
   inherit (lib.types) nullOr str;
 
@@ -10,7 +6,8 @@ let
 in
 {
   options.dotfield.guardian = {
-    enable = lib.mkEnableOption "Whether to designate a guardian user for this system.";
+    enable = lib.mkEnableOption
+      "Whether to designate a guardian user for this system.";
     username = lib.mkOption {
       type = nullOr str;
       default = null;
@@ -19,13 +16,13 @@ in
         Name of the guardian user. Must be an existing non-system user.
       '';
     };
-    user = lib.mkOption {
-      readOnly = true;
-    };
-    autoLogin = lib.mkEnableOption "Whether to log the guardian user in automatically.";
+    user = lib.mkOption { readOnly = true; };
+    autoLogin =
+      lib.mkEnableOption "Whether to log the guardian user in automatically.";
   };
   config = lib.mkIf cfg.enable {
-    dotfield.guardian.user = lib.mkAliasDefinitions config.users.users.${cfg.username};
+    dotfield.guardian.user =
+      lib.mkAliasDefinitions config.users.users.${cfg.username};
     users.groups."wheel".members = [ cfg.username ];
   };
 }

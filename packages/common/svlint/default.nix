@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "svlint";
@@ -14,9 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-CAyFW+jTOLCQuHIYjdp9vujLIIjL2FXlCLsQiUyJ22o=";
   };
 
-  cargoPatches = [
-    ./0001-feat-generate-lockfile.patch
-  ];
+  cargoPatches = [ ./0001-feat-generate-lockfile.patch ];
 
   cargoSha256 = "sha256-uCYTYyzOShaTqJQwGb6DCX5zpzANLJ0/771Vo8lTQcQ=";
 

@@ -1,11 +1,7 @@
-{ lib
-, ...
-}:
+{ lib, ... }:
 
-let
-  mkPrompt = _sep: arr: lib.concatMapStrings (x: "$" + x) arr;
-in
-{
+let mkPrompt = _sep: arr: lib.concatMapStrings (x: "$" + x) arr;
+in {
   programs.starship = {
     enable = true;
 

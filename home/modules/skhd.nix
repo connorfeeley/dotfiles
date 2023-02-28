@@ -1,9 +1,6 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-with lib; let
+{ config, lib, pkgs, ... }:
+with lib;
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   cfg = config.services.skhd;
 in
@@ -49,12 +46,10 @@ in
 
   config = mkMerge [
     {
-      assertions = [
-        {
-          assertion = cfg.enable -> isDarwin;
-          message = "skhd is only supported on darwin";
-        }
-      ];
+      assertions = [{
+        assertion = cfg.enable -> isDarwin;
+        message = "skhd is only supported on darwin";
+      }];
     }
 
     (mkIf cfg.enable {
@@ -64,9 +59,7 @@ in
 
       xdg.configFile."skhd/skhdrc" = {
         source =
-          if cfg.configPath != null
-          then cfg.configPath
-          else cfg.keybindings;
+          if cfg.configPath != null then cfg.configPath else cfg.keybindings;
         onChange = "${cfg.package}/bin/skhd -r";
       };
 

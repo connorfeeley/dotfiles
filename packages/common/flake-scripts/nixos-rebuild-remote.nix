@@ -1,11 +1,8 @@
-{ name
-, writeShellApplication
-, nixos-rebuild
-}:
+{ name, writeShellApplication, nixos-rebuild }:
 
 writeShellApplication {
   inherit name;
-  runtimeInputs = [ nixos-rebuild];
+  runtimeInputs = [ nixos-rebuild ];
   text = ''
     # Check arguments and print usage
     [ $# -lt 1 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ] && echo "Usage: $0 <[user@]remote host> ARGS" && exit 1

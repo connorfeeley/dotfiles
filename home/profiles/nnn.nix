@@ -1,8 +1,4 @@
-moduleArgs @ { config
-, lib
-, pkgs
-, ...
-}:
+moduleArgs@{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) isMacOS;
 
@@ -10,7 +6,8 @@ let
 
   kittyCfg = config.programs.kitty;
 
-  isGraphical = isMacOS || (moduleArgs.osConfig.services.xserver.enable or false);
+  isGraphical = isMacOS
+    || (moduleArgs.osConfig.services.xserver.enable or false);
   enablePreviews = config.programs.tmux.enable || kittyCfg.enable;
 
   shellAliases = {
@@ -19,15 +16,7 @@ let
   };
 
   previewDeps = with pkgs;
-    [
-      bat
-      exa
-      file
-      man
-      mediainfo
-      pistol
-      unzip
-    ]
+    [ bat exa file man mediainfo pistol unzip ]
     ++ (lib.optionals (isGraphical && !isMacOS) [
       imagemagick
       ffmpeg
@@ -41,11 +30,8 @@ in
   programs.nnn = {
     enable = true;
     plugins.src = "${pkgs.nnn.src}/plugins";
-    plugins.mappings = {
-      p = "preview-tui";
-    };
-    extraPackages =
-      lib.optionals enablePreviews previewDeps;
+    plugins.mappings = { p = "preview-tui"; };
+    extraPackages = lib.optionals enablePreviews previewDeps;
   };
 
   home.sessionVariables = {

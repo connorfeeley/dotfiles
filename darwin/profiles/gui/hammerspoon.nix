@@ -1,7 +1,4 @@
-{ lib
-, config
-, ...
-}:
+{ lib, config, ... }:
 let
 
   inherit (config.lib) dotfield;
@@ -11,11 +8,10 @@ in
 {
   # homebrew.casks = [{ name = "hammerspoon"; }];
   services.hammerspoon.enable = false;
-  services.hammerspoon.spoons = [
-    { name = "AClock"; }
-    { name = "Cherry"; }
-  ];
-  services.hammerspoon.configDirectory = config.home-manager.users."${username}".home.homeDirectory + "/.hammerspoon";
+  services.hammerspoon.spoons = [{ name = "AClock"; } { name = "Cherry"; }];
+  services.hammerspoon.configDirectory =
+    config.home-manager.users."${username}".home.homeDirectory
+    + "/.hammerspoon";
 
   # Point Hammerspoon to its init file.
   # https://github.com/Hammerspoon/hammerspoon/pull/582

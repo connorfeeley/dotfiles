@@ -5,9 +5,7 @@ final: _prev: {
   };
   hpi = final.callPackage ./HPI { };
   orgparse = final.callPackage ./orgparse { };
-  promnesia = final.callPackage ./promnesia {
-    inherit (final) hpi orgparse;
-  };
+  promnesia = final.callPackage ./promnesia { inherit (final) hpi orgparse; };
   hdl_checker = final.callPackage ./hdl_checker {
     inherit (final.inputs.mach-nix.lib.${final.system}) buildPythonApplication;
   };

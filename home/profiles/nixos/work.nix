@@ -1,12 +1,11 @@
-{ pkgs
-, ...
-}:
-{
+{ pkgs, ... }: {
   ###
   ### Automatically shut off power bar at 8PM
   ###
   systemd.user.services.pwrbar-auto-off = {
-    Unit = { Description = "Automatically shutoff Ultrix from WiFi power bar"; };
+    Unit = {
+      Description = "Automatically shutoff Ultrix from WiFi power bar";
+    };
     Service = {
       Type = "oneshot";
       ExecStart = ''
@@ -15,7 +14,9 @@
     };
   };
   systemd.user.timers.pwrbar-auto-off = {
-    Unit = { Description = "Automatically shutoff Ultrix from WiFi power bar"; };
+    Unit = {
+      Description = "Automatically shutoff Ultrix from WiFi power bar";
+    };
     Timer = {
       Unit = "pwrbar-auto-off.service";
       OnCalendar = "*-*-* 20:00:00";

@@ -1,11 +1,8 @@
 # PragmataPro lives in a private repo (for licensing reasons). That makes it
 # easier to exclude from CI builds so that SSH keys aren't required.
-{ pkgs
-, ...
-}:
+{ pkgs, ... }:
 let
-  pragmataPro = pkgs.callPackage ../../packages/fonts/common/pragmatapro.nix { };
+  pragmataPro =
+    pkgs.callPackage ../../packages/fonts/common/pragmatapro.nix { };
 in
-{
-  fonts.fonts = [ pragmataPro ];
-}
+{ fonts.fonts = [ pragmataPro ]; }

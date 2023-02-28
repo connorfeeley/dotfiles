@@ -1,14 +1,6 @@
-{ lib
-, pkgs
-, ...
-}:
-let
-  inherit (pkgs)
-    stdenv
-    nix-output-monitor
-    ;
-in
-{
+{ lib, pkgs, ... }:
+let inherit (pkgs) stdenv nix-output-monitor;
+in {
   dotfield-docs =
     let
       extraPath = lib.makeBinPath (with pkgs; [ pandoc jq curl ]);

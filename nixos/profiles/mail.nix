@@ -1,16 +1,10 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (config.lib.dotfield.whoami) domain;
   inherit (config.lib.dotfield.secrets) mkAgeSecret;
 in
 {
-  age.secrets = lib.mkMerge [
-    (mkAgeSecret "fastmail.txt")
-  ];
+  age.secrets = lib.mkMerge [ (mkAgeSecret "fastmail.txt") ];
   programs.msmtp = {
     enable = true;
     setSendmail = true;

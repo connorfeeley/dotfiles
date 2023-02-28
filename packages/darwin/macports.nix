@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "macports-base-v${version}";
 
   src = fetchurl {
-    url = "https://github.com/macports/macports-base/releases/download/v${version}/MacPorts-${version}.tar.gz";
+    url =
+      "https://github.com/macports/macports-base/releases/download/v${version}/MacPorts-${version}.tar.gz";
     sha256 = "0yh036bjpmnscdgs4g9yc37hzayfxdjzy80a30qvd7ahhjvr2rqh";
   };
 
@@ -16,14 +17,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   # TODO: support x86_64-darwin as well
-  configureFlags = [
-    ''--with-universal-archs="arm64"''
-    "--with-no-root-privileges"
-  ];
+  configureFlags =
+    [ ''--with-universal-archs="arm64"'' "--with-no-root-privileges" ];
 
-  patches = [
-    ./0001-fix-don-t-use-BSD-chmod-syntax.patch
-  ];
+  patches = [ ./0001-fix-don-t-use-BSD-chmod-syntax.patch ];
 
   meta = {
     description = "";

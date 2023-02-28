@@ -1,15 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (config.lib.dotfield.sys) hasWayland;
 
-  firefoxPackage =
-    if hasWayland
-    then pkgs.firefox-wayland
-    else pkgs.firefox;
+  firefoxPackage = if hasWayland then pkgs.firefox-wayland else pkgs.firefox;
 in
 {
   services.getty.autologinUser = config.dotfield.guardian.username;
@@ -30,11 +23,8 @@ in
     MOZ_ENABLE_WAYLAND = lib.optionalString hasWayland "1";
   };
 
-  environment.systemPackages =
-    ([
-      firefoxPackage
-    ])
-    ++ (lib.optionals hasWayland (with pkgs; [
+  environment.systemPackages = ([ firefoxPackage ]) ++ (lib.optionals hasWayland
+    (with pkgs; [
       wl-clipboard
 
       # Grab images from a Wayland compositor

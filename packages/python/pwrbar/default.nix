@@ -1,24 +1,13 @@
-{ lib
-, stdenv
-, makeWrapper
-, zsh
-, python-kasa
-, ...
-}:
+{ lib, stdenv, makeWrapper, zsh, python-kasa, ... }:
 
 stdenv.mkDerivation {
   name = "pwrbar";
 
   src = ./.;
 
-  buildInputs = [
-    makeWrapper
-  ];
+  buildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [
-    zsh
-    python-kasa
-  ];
+  propagatedBuildInputs = [ zsh python-kasa ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,7 +22,8 @@ stdenv.mkDerivation {
   meta = {
     description = "Helper script for Kasa WiFi power bar";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+    platforms =
+      [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
     maintainers = [ ];
   };
 }

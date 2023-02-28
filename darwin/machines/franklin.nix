@@ -1,10 +1,4 @@
-{ config
-, lib
-, profiles
-, collective
-, ...
-}:
-{
+{ config, lib, profiles, collective, ... }: {
   ### === users ================================================================
 
   dotfield.guardian = {
@@ -28,11 +22,8 @@
 
   home-manager.users = {
     cfeeley = hmArgs: {
-      imports = with hmArgs.roles; server ++ shell ++ macos ++ (with hmArgs.profiles; [
-        sync
-        work
-        ops
-      ]);
+      imports = with hmArgs.roles;
+        server ++ shell ++ macos ++ (with hmArgs.profiles; [ sync work ops ]);
 
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";
@@ -47,11 +38,8 @@
 
   # FIXME: verify
   # $ networksetup -listallnetworkservices
-  networking.knownNetworkServices = [
-    "USB 10/100/1000 LAN"
-    "Wi-Fi"
-    "Thunderbolt Bridge"
-  ];
+  networking.knownNetworkServices =
+    [ "USB 10/100/1000 LAN" "Wi-Fi" "Thunderbolt Bridge" ];
 
   # Open source 'tailscaled' client
   services.tailscale = {
@@ -60,12 +48,8 @@
     magicDNS.enable = true;
   };
   # Use cloudflare DNS for fallback
-  networking.dns = [
-    "1.1.1.1"
-    "1.0.0.1"
-    "2606:4700:4700::1111"
-    "2606:4700:4700::1001"
-  ];
+  networking.dns =
+    [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
 
   ### === programs ================================================================
 
@@ -74,7 +58,5 @@
     withEnhancer = false;
   };
 
-  homebrew.masApps = {
-    "Xcode" = 497799835;
-  };
+  homebrew.masApps = { "Xcode" = 497799835; };
 }

@@ -1,18 +1,7 @@
-{ self
-, config
-, lib
-, pkgs
-, ...
-}:
-let
-  inherit (pkgs.stdenv) isDarwin;
-in
-{
-  imports = [
-    ../../lib/system
-    ./nix-config.nix
-    ./system-packages.nix
-  ];
+{ self, config, lib, pkgs, ... }:
+let inherit (pkgs.stdenv) isDarwin;
+in {
+  imports = [ ../../lib/system ./nix-config.nix ./system-packages.nix ];
 
   # TODO: can this be merged with the 'dotfield' lib?
   lib.our = self.lib;
@@ -21,9 +10,7 @@ in
     DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
     EDITOR = "e";
     KERNEL_NAME =
-      if pkgs.stdenv.hostPlatform.isDarwin
-      then "darwin"
-      else "linux";
+      if pkgs.stdenv.hostPlatform.isDarwin then "darwin" else "linux";
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     XDG_CACHE_HOME = "$HOME/.cache";
@@ -39,15 +26,9 @@ in
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
-  programs.tmux = {
-    enable = true;
-  };
+  programs.tmux = { enable = true; };
 
-  environment.shells = with pkgs; [
-    bashInteractive
-    fish
-    zsh
-  ];
+  environment.shells = with pkgs; [ bashInteractive fish zsh ];
 
   # Install completions for system packages.
   environment.pathsToLink = [
@@ -61,9 +42,7 @@ in
     enableBashCompletion = true;
   };
 
-  programs.bash = {
-    enableCompletion = true;
-  };
+  programs.bash = { enableCompletion = true; };
 
   programs.fish.enable = lib.mkDefault true;
 

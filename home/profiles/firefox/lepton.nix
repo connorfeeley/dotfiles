@@ -2,7 +2,8 @@
   settings = {
     required = {
       "browser.compactmode.show" = true;
-      "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
+      "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" =
+        false;
 
       # This setting has been removed in Firefox 97 but retained for ESR compatibility.
       # "browser.proton.enabled" = true;
@@ -173,7 +174,8 @@
       # "userChrome.tab.close_button_at_pinned" = true;
       # "userChrome.tab.close_button_at_pinned.always" = true;
       # "userChrome.tab.close_button_at_pinned.background" = true;
-      "userChrome.tab.close_button_at_hover.always" = true; # Need close_button_at_hover
+      "userChrome.tab.close_button_at_hover.always" =
+        true; # Need close_button_at_hover
       "userChrome.tab.sound_show_label" = true; # Need remove sound_hide_label
       # "userChrome.tab.centered_label" = true;
 

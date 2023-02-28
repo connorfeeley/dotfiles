@@ -40,10 +40,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook gtest qttools ];
 
-  buildInputs = [
-    curl
-    qtbase
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [ curl qtbase ] ++ lib.optionals stdenv.isLinux [
     xorg.libX11
     xorg.libXext
     xorg.libXrandr
@@ -84,20 +81,20 @@ stdenv.mkDerivation rec {
       --replace 'set (CMAKE_INSTALL_RPATH "@loader_path/../Libraries;@loader_path/../Frameworks")' "" \
       --replace "DEPENDS input-leap input-leaps input-leapc" "" \
       --replace "add_custom_target(InputLeap_MacOS ALL" "add_custom_target(InputLeap_MacOS" \
-      ${lib.optionalString stdenv.isDarwin
+      ${
+        lib.optionalString stdenv.isDarwin
         # Input leap assumes an older version of QT, which has deprecated pixmap-related functions
         ''
-        --replace "-DGTEST_USE_OWN_TR1_TUPLE=1" "-DGTEST_USE_OWN_TR1_TUPLE=1 -Wno-deprecated-declarations"
-      ''}
+          --replace "-DGTEST_USE_OWN_TR1_TUPLE=1" "-DGTEST_USE_OWN_TR1_TUPLE=1 -Wno-deprecated-declarations"
+        ''
+      }
   '';
 
   postFixup = lib.optionalString stdenv.isLinux ''
     substituteInPlace "$out/share/applications/input-leap.desktop" --replace "Exec=barrier" "Exec=$out/bin/input-leap"
   '';
 
-  qtWrapperArgs = [
-    ''--prefix PATH : ${lib.makeBinPath [ openssl ]}''
-  ];
+  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ openssl ]}" ];
 
   postInstall = lib.optionals stdenv.isDarwin ''
     mkdir -p $out/Applications

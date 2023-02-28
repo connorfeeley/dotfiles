@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     nodejs-16_x
     (yarn.override { nodejs = nodejs-16_x; })

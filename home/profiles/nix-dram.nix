@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}:
+{ pkgs, ... }:
 
 {
   #: Nix for lazy people; uses default-flake for 'nix <cmd> <default-flake>#' commands
@@ -13,8 +11,8 @@
   '';
 
   home.packages = with pkgs; [
-    nix-search #: pretty 'nix search <default-flake>#' interface
-    nix-nar-listing #: unclear what exactly this is for
+    nix-search # : pretty 'nix search <default-flake>#' interface
+    nix-nar-listing # : unclear what exactly this is for
 
     # NOTE: marked broken upstream
     # nix-dram-progress

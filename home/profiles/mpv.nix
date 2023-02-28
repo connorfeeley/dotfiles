@@ -1,7 +1,4 @@
-moduleArgs @ { config
-, lib
-, ...
-}:
+moduleArgs@{ config, lib, ... }:
 let
   inherit (config.lib.dotfield.features) hasWayland;
   hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
@@ -14,12 +11,8 @@ in
         ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
       }
-      (lib.mkIf hasNvidia {
-        hwdec = "vdpau";
-      })
-      (lib.mkIf hasWayland {
-        gpu-context = "wayland";
-      })
+      (lib.mkIf hasNvidia { hwdec = "vdpau"; })
+      (lib.mkIf hasWayland { gpu-context = "wayland"; })
     ];
   };
 

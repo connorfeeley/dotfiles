@@ -1,12 +1,4 @@
-{ config
-, lib
-, modulesPath
-, pkgs
-, profiles
-, primaryUser
-, collective
-, ...
-}:
+{ config, lib, modulesPath, pkgs, profiles, primaryUser, collective, ... }:
 let
   inherit (config.networking) hostName;
   inherit (config.dotfield) guardian;
@@ -16,9 +8,7 @@ let
   # - a 'nixos' NixOS and HM user
 in
 {
-  imports = [
-    "${modulesPath}/profiles/base.nix"
-  ];
+  imports = [ "${modulesPath}/profiles/base.nix" ];
 
   wsl = {
     enable = true;
@@ -72,10 +62,11 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      #  wget
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -118,29 +109,29 @@ in
   };
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword = "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
+  users.users.root.hashedPassword =
+    "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
   # Authorized keys and PermitRootLogin set in ssh-host
   users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword = "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
-    hashedPassword = "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
+    initialHashedPassword =
+      "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
+    hashedPassword =
+      "$6$yK0HXWogvyQ5c7qD$pGUcMhDn2W5stXFHPqxmKNdZjQkEHzQgqloWK5fZyOjpQXgJyZ3rKKsaW/.OhWE216AtjN/6PIvmgftQYwtiz.";
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
-    extraGroups =
-      [
-        "wheel"
-        "video"
-        "audio"
-        "networkmanager"
-        "dialout"
-        "cfeeley"
-        "secrets"
-        "wireshark"
-      ]
-      ++ (lib.optional config.services.mysql.enable "mysql")
-      ++ (lib.optional config.virtualisation.docker.enable "docker")
-      ++ (lib.optional config.virtualisation.podman.enable "podman")
-    ;
+    extraGroups = [
+      "wheel"
+      "video"
+      "audio"
+      "networkmanager"
+      "dialout"
+      "cfeeley"
+      "secrets"
+      "wireshark"
+    ] ++ (lib.optional config.services.mysql.enable "mysql")
+    ++ (lib.optional config.virtualisation.docker.enable "docker")
+    ++ (lib.optional config.virtualisation.podman.enable "podman");
 
     # Set user's shell
     shell = pkgs.zsh;
@@ -148,21 +139,18 @@ in
 
   home-manager.users = {
     "${guardian.username}" = hmArgs: {
-      imports = with hmArgs.roles; (lib.flatten [
-      ] ++ lib.optionals (!config.nixos-vm.enable) (lib.flatten [
-        workstation
-        developer
-        linux
-        emacs-config
-      ])) ++ (with hmArgs.profiles; [
-        sync
-        work
+      imports = with hmArgs.roles;
+        (lib.flatten [ ] ++ lib.optionals (!config.nixos-vm.enable)
+          (lib.flatten [ workstation developer linux emacs-config ]))
+        ++ (with hmArgs.profiles; [
+          sync
+          work
 
-        # desktop.xmonad
+          # desktop.xmonad
 
-        # Systemd scripts
-        nixos.work
-      ]);
+          # Systemd scripts
+          nixos.work
+        ]);
 
       programs.termite.enable = false;
     };
