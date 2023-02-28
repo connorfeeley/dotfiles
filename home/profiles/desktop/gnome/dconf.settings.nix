@@ -158,5 +158,8 @@ with lib.hm.gvariant; {
         command = "rofi -show combi";
         name = "Open Rofi";
       };
+
+    # Stop spamming "The system is going down for suspend NOW!". It isn't.
+    "org/gnome/settings-daemon/plugins/power".sleep-inactive-ac-type = "nothing";
   };
 }
