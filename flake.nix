@@ -72,7 +72,7 @@
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
-    prefmanager.url = "github:malob/prefmanager";
+    prefmanager = { url = "github:malob/prefmanager"; inputs.nixpkgs.follows = "nixpkgs"; };
     tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
 
@@ -231,11 +231,7 @@
         allowBroken = false;
 
         permittedInsecurePackages = [
-          # nixpkgs: pkgs/development/tools/poetry2nix/poetry2nix/mk-poetry-dep.nix
-          "python2.7-pyjwt-1.7.1"
-          "python3.10-poetry-1.2.2"
-          "python3.10-certifi-2022.9.24"
-          "libressl-3.4.3" # prefmanager
+          "libressl-3.4.3"
         ];
       };
 
