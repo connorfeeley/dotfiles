@@ -8,7 +8,7 @@ moduleArgs@{ config, lib, pkgs, ... }: {
   home.packages = with pkgs;
     [ docker-buildx docker-credential-helpers buildkit ] ++ lib.optionals
       (moduleArgs.osConfig.virtualisation.docker.enable or false) [
-      docker
-      docker-compose
+      # docker
+      # docker-compose
     ];
 }
