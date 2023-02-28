@@ -10,7 +10,6 @@ in
       ## === Uncategorized Packages ===
       hyperfine # <- Command-line benchmarking tool
       # chronologer # <- Visualize changes in benchmark timings over git history
-      (lib.lowPrio gcc9)
       clang
 
       ## === Local Development ===
