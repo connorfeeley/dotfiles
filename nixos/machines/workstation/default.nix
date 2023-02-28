@@ -313,14 +313,15 @@ in
             ExecStart = checkReachability;
           };
         };
-      timers.${name} = {
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnBootSec = "5m";
-          OnUnitActiveSec = "5m";
-          Unit = "vpn-connection-monitor.service";
-        };
-      };
+      # FIXME(2023-02-28): above job always thinks VPN is disconnected
+      # timers.${name} = {
+      #   wantedBy = [ "timers.target" ];
+      #   timerConfig = {
+      #     OnBootSec = "5m";
+      #     OnUnitActiveSec = "5m";
+      #     Unit = "vpn-connection-monitor.service";
+      #   };
+      # };
     };
 
   # Jellyfin reverse proxy
