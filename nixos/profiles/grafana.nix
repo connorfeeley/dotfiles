@@ -4,9 +4,7 @@ let
 
   allHosts = self.nixosConfigurations;
 
-  enabledExportersF = name: host:
-    filterAttrs (k: v: v.enable == true)
-      host.config.services.prometheus.exporters;
+  enabledExportersF = name: host: filterAttrs (k: v: lib.isBool v && v.enable) host.config.services.prometheus.exporters;
   enabledExporters = mapAttrs enabledExportersF allHosts;
 
   mkScrapeConfigExporter = hostname: ename: ecfg: {
