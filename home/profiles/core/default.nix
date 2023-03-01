@@ -52,7 +52,6 @@ in
       glances # <- System resource usage viewer
       ldns # <- 'drill' (like dig)
       smartmontools # <- Mah boy's wicked smaht
-      gsmartcontrol # <- ... even smahter with a GUI
       procs # <- pspspspsps here kitty ( ps replacement )
       diskonaut # <- Terminal visual disk space navigator
 
@@ -75,6 +74,7 @@ in
       bat-extras.prettybat # <- Pretty-print source code and highlight it with bat.
 
     ] ++ (lib.optionals pkgs.stdenv.isLinux [
+      gsmartcontrol # <- ... even smahter with a GUI
       ncdu # <- dua with more ncurses
       iotop # <- Terminal disk IO monitor
       psmisc # <- Useful utilities that use the proc filesystem
