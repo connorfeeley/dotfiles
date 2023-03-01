@@ -34,7 +34,7 @@ in lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [{
   programs.gpg = {
     enable = true;
 
-    mutableKeys = false;
+    mutableKeys = true;
     mutableTrust = false;
 
     publicKeys = [{
