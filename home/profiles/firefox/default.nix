@@ -190,7 +190,7 @@ in
           };
         };
 
-    profiles.home = {
+    profiles.home = lib.mkIf isLinux {
       id = 0;
 
       settings = defaultSettings // privacySettings // lepton.settings.required
