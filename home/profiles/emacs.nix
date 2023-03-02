@@ -124,10 +124,15 @@ lib.mkMerge [
           pdf-tools
           org-pdftools
           tree-sitter
-          (epkgs.tree-sitter-langs.withPlugins
+          (tree-sitter-langs.withPlugins
             (_: pkgs.tree-sitter.allGrammars))
           tsc
           parinfer-rust-mode
+          eldoc
+          eldoc-box
+          eglot
+          consult-eglot
+          flycheck-eglot
         ];
     };
 
