@@ -45,7 +45,7 @@ in
     serverAliveInterval = 5;
     serverAliveCountMax = 2;
     compression = false; # Slow
-    controlPersist = "5m";
+    controlPersist = "30s";
     controlMaster = "auto";
 
     includes = [ "~/.config/ssh/config.local" ];
