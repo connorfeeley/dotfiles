@@ -138,6 +138,7 @@ in
     cryptsetup
     linuxPackages.usbip
     input-leap
+    mstflint
   ];
 
   ### === Shares ============================================================
@@ -360,7 +361,16 @@ in
           "/ntopng/" = mkLocation 9009;
           "/grafana/" = mkLocation 9010;
           "/prometheus/" = mkLocation 9011;
+          "/rss/" = mkLocation 999;
         };
     };
+  };
+
+  services.freshrss = {
+    enable = true;
+    passwordFile = "/etc/secrets/freshrss-password.txt";
+
+    virtualHost = "${hostName}.${peers.networks.tailscale.domain}";
+    baseUrl = "https://${hostName}.${peers.networks.tailscale.domain}/rss";
   };
 }
