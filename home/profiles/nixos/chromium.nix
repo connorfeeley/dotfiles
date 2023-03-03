@@ -2,7 +2,8 @@
 lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   programs.chromium = {
     enable = true;
-    package = pkgs.microsoft-edge;
+    # Required for New Bing sidebar ("copilot")
+    package = pkgs.microsoft-edge-dev;
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # dark reader
