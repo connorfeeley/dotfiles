@@ -18,7 +18,7 @@ let
             })
         #: isLinux: emacs 28 (w/ native comp)
         else
-          pkgs.emacsGit.override {
+          pkgs.emacs.override {
             inherit (pkgs)
               # For withGTK3:
               gtk3-x11 gsettings-desktop-schemas
