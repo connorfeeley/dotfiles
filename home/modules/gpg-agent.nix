@@ -185,7 +185,6 @@ in
         type = types.lines;
         default = "";
         example = ''
-          allow-emacs-pinentry
           allow-loopback-pinentry
         '';
         description = ''
