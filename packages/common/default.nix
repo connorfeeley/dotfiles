@@ -24,17 +24,6 @@ final: prev: {
   svlint-local =
     throw "use svlint from nixpkgs; this is the flake-local derivation";
 
-  emacs28Macport =
-    final.darwin.apple_sdk_11_0.callPackage ./emacs-macport/macport.nix {
-      withMacport = true;
-      gconf = null;
-      inherit (final.darwin.apple_sdk_11_0.frameworks)
-        AppKit Carbon Cocoa IOKit OSAKit Quartz QuartzCore WebKit Security
-        UniformTypeIdentifiers ImageCaptureCore GSS ImageIO;
-      inherit (final.darwin) sigtool;
-      inherit (final) gmp;
-    };
-
   appmenu-gtk3-module = final.callPackage ./appmenu-gtk3-module.nix { };
 
   fildem-global-menu = final.callPackage ./fildem-global-menu.nix {

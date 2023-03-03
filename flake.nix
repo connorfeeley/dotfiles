@@ -145,6 +145,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
+    nixpkgs-overlay-tny = { url = "github:tnytown/nixpkgs-overlay-tny"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
 
     ##: --- packages -----------------------------------------------------------
@@ -288,8 +289,10 @@
 
         (final: _prev:
           let packagesFrom = inputAttr: inputAttr.packages.${final.system};
-          in {
+          in
+          {
             inherit (packagesFrom self.packages) emacs-plus;
+            inherit (packagesFrom inputs.nixpkgs-overlay-tny) emacsMacport;
             inherit (packagesFrom inputs.devenv) devenv;
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
@@ -472,9 +475,7 @@
         darwin-packages = nixpkgs.lib.composeManyExtensions [
           installApplication
 
-          self.overlays."nixpkgs-darwin/emacs28Macport"
           self.overlays."nixpkgs-darwin/emacs-plus"
-          self.overlays."nixpkgs-darwin/macports"
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
           # FIXME(darwin): causes 'nix flake show' to error
@@ -519,11 +520,7 @@
             {
               inherit (pkgs)
                 macports amphetamine-enhancer mints hammerspoon native-youtube
-                better-display emacs28Macport;
-
-              # - Should most likely not be used as part of a system configuration (use emacs28Macport instead)
-              emacs28Macport-noNativeComp =
-                pkgs.emacs28Macport.override { nativeComp = false; };
+                better-display;
             } // (builtins.mapAttrs
               (_n: v: pkgs.callPackage v { inherit (pkgs) installApplication; })
               (flattenTree (rakeLeaves ./darwin/packages)));

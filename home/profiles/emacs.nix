@@ -10,9 +10,8 @@ let
     let
       emacs-pkg = with pkgs;
         if isDarwin
-        #: isDarwin: emacs28Macport with native compilation from this repo (*IMPURE*)
         then
-          emacsGitDarwin.overrideAttrs
+          emacsMacport.overrideAttrs
             (old: {
               # Required for 'hammy' emacs package
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
@@ -26,14 +25,13 @@ let
               # For withXwidgets:
               webkitgtk wrapGAppsHook glib-networking;
 
-            withXwidgets = false;
             withGTK3 = false;
+            withXwidgets = false;
+            withSQLite3 = true;
+            withWebP = true;
           };
     in
-    (emacs-pkg.override {
-      withSQLite3 = true;
-      withWebP = true;
-    }).overrideAttrs (old: { separateDebugInfo = true; });
+    (emacs-pkg.override { }).overrideAttrs (old: { separateDebugInfo = true; });
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
   doomRepoRev = "e96624926d724aff98e862221422cd7124a99c19";
