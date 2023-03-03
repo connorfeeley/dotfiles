@@ -118,6 +118,7 @@ lib.mkMerge [
       package = emacsPackage;
       extraPackages = epkgs:
         with epkgs; [
+          tramp
           vterm
           pdf-tools
           org-pdftools
