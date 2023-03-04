@@ -81,7 +81,7 @@ in
 
       { name = "firefox"; }
       { name = "google-chrome"; }
-      { name = "microsoft-edge"; }
+      { name = "microsoft-edge-dev"; }
 
       { name = "microsoft-teams"; }
       { name = "microsoft-outlook"; }
