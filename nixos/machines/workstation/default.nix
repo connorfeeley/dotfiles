@@ -139,6 +139,7 @@ in
     linuxPackages.usbip
     input-leap
     mstflint
+    nixos-container
   ];
 
   ### === Shares ============================================================
@@ -240,6 +241,8 @@ in
     atopService.enable = true;
     atopRotateTimer.enable = true;
   };
+
+  programs.extra-container.enable = true;
 
   ###: --- module configuration ------------------------------------------------
   #: stylix
