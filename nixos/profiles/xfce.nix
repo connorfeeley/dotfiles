@@ -18,7 +18,7 @@
     redshift
   ];
   services.picom = {
-    enable = true;
+    enable = false;
     fade = true;
     inactiveOpacity = 0.9;
     shadow = false;
