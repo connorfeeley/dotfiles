@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 Connor Feeley
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 { config, lib, pkgs, ... }:
 let
   inherit (config.dotfield.guardian) username;
@@ -105,6 +109,7 @@ in
       { name = "balenaetcher"; }
       { name = "gimp"; }
       { name = "zoom"; }
+      { name = "calibre"; }
       {
         name = "timemachineeditor";
       } # start backups in Time Machine at particular times
