@@ -29,6 +29,15 @@ lib.mkIf (!options.virtualisation ? qemu) {
   boot.loader.grub.devices =
     [ "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANMFNB30863T" ];
 
+  boot.kernelParams = [
+    # https://github.com/openzfs/zfs/issues/10255#issuecomment-1067415974
+    # Max ARC (Adaptive Replacement Cache) size: 18GB
+    # "zfs.zfs_arc_max=${toString (18 * 1024 * 1024 * 1024)}" # 18 GB
+
+    # Target number of bytes the ARC should leave as free memory on the system
+    "zfs.zfs_arc_sys_free=${toString (3 * 1024 * 1024 * 1024)}" # 3 GiB
+  ];
+
   boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
 
   fileSystems."/" = {

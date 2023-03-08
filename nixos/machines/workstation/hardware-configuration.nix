@@ -12,9 +12,6 @@
     #      vulnerabilities. Don't copy this blindly! And especially not for
     #      mission critical or server/headless builds exposed to the world.
     "mitigations=off"
-
-    # Max ARC (Adaptive Replacement Cache) size: 12GB
-    # "zfs.zfs_arc_max=19327352832" # 18 GB
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
