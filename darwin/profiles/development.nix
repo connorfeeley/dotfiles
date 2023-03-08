@@ -4,7 +4,6 @@
     darwin.print-reexports
     undmg
     mints
-    busybox
     # FIXME(darwin): build failing as of 2022-12-13
     # darwin.ios-deploy
   ];
