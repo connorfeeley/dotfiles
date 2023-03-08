@@ -140,6 +140,7 @@ in
     input-leap
     mstflint
     nixos-container
+    procps
   ];
 
   ### === Shares ============================================================
