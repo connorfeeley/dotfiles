@@ -7,15 +7,8 @@ let
     "https://cfeeley.cachix.org"
   ];
   trusted-substituters = substituters;
-
-  nix-doc-path =
-    if isDarwin then
-      "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib"
-    else
-      "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
 in
 {
-  environment.systemPackages = [ pkgs.nix-doc ];
   nix = {
     package = pkgs.nixUnstable;
     settings = {
@@ -75,9 +68,6 @@ in
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cfeeley.cachix.org-1:b+RrHsy/4WWys2o6T4YyF66OhdiZUF/R/N46JcS0HJU="
       ];
-
-      # Load nix-doc pluign
-      plugin-files = nix-doc-path; # Plugins to be loaded by nix
     };
 
     gc = { automatic = false; };
