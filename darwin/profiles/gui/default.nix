@@ -110,6 +110,7 @@ in
       { name = "gimp"; }
       { name = "zoom"; }
       { name = "calibre"; }
+      { name = "sloth"; }
       {
         name = "timemachineeditor";
       } # start backups in Time Machine at particular times
