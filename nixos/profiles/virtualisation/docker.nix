@@ -10,6 +10,9 @@ in {
       data-root = "/var/lib/docker"; # "/mnt/ssd/docker";
     };
 
+    # FIXME: https://github.com/NixOS/nixpkgs/issues/158459
+    storageDriver = "zfs";
+
     # Fixes nixos hanging on shutdown for a few minutes
     liveRestore = false;
   };
