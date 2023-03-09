@@ -475,6 +475,7 @@
         darwin-packages = nixpkgs.lib.composeManyExtensions [
           installApplication
 
+          self.overlays."nixpkgs-darwin/macports"
           self.overlays."nixpkgs-darwin/emacs-plus"
         ];
         linux-packages = nixpkgs.lib.composeManyExtensions [
