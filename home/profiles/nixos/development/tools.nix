@@ -12,9 +12,10 @@ in {
       nur.repos.mic92.traceshark
     ] ++ lib.optionals (pkgs.stdenv.isLinux) [
       bashSnippets # <- Collection of small bash scripts; includes 'cheat' (cheat.sh)
-      elfutils # <- Handy tools like eu-stack
+      (elfutils.override { enableDebuginfod = true; }) # <- Handy tools like eu-stack
       ubootTools # <- tools for working with u-boot images
       ethtool
+      rr # Time-travelling debugging tool
     ] ++ lib.optionals (pkgs.stdenv.isLinux && !pkgs.stdenv.isAarch64) [
       devdocs-desktop # <- full-featured desktop app for DevDocs.io
       eclipses.eclipse-java # <- public struct Eclipse { public static void main(String[] args) { System.out.println("Hello World"); } } ... seriously?

@@ -31,7 +31,27 @@ let
             withWebP = true;
           };
     in
-    (emacs-pkg.override { }).overrideAttrs (old: { separateDebugInfo = true; });
+    (emacs-pkg.override { }).overrideAttrs (old: {
+      dontStrip = true;
+      separateDebugInfo = true;
+
+      patches = old.patches ++ [
+        # Reduce wall clock latency for sweep_conses by 50%
+        #   https://tdodge.consulting/blog/living-the-emacs-garbage-collection-dream
+        (pkgs.fetchpatch {
+          url = "https://github.com/tyler-dodge/emacs/commit/36d2a8d5a4f741ae99540e139fff2621bbacfbaa.patch";
+          sha256 = "sha256-/hJa8LIqaAutny6RX/x6a+VNpNET86So9xE8zdh27p8=";
+        })
+
+        # Process output from subprocesses continually
+        # (avoids 1024 byte bottleneck with subprocess output on MacOS)
+        #   https://tdodge.consulting/blog/eshell/background-output-thread
+        # (pkgs.fetchpatch {
+        #   url = "https://github.com/tyler-dodge/emacs/commit/b386047f311af495963ad6a25ddda128acc1d461.patch";
+        #   sha256 = "sha256-dRkiowEtu/oOLh29/b7VSXGKsV5qE0PxMWrox5/LRoM=";
+        # })
+      ];
+    });
 
   doomRepoUrl = "https://github.com/doomemacs/doomemacs";
   doomRepoRev = "e96624926d724aff98e862221422cd7124a99c19";
