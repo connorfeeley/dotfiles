@@ -5,9 +5,17 @@ let
 in
 lib.mkMerge [
   {
-    programs.password-store = lib.mkIf config.programs.gpg.enable {
+    home.packages = [ pkgs.ripasso-cursive pkgs.qtpass ];
+    programs.password-store = {
       enable = true;
-      package = pkgs.gopass; # Or passWithExtensions
+      package = pkgs.pass.withExtensions (exts: [
+        exts.pass-otp
+        exts.pass-audit
+        exts.pass-import
+        exts.pass-update
+        exts.pass-checkup
+        exts.pass-genphrase
+      ]);
       settings = {
         PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
         PASSWORD_STORE_KEY = pgpPublicKey;

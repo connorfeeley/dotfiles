@@ -62,7 +62,7 @@ let
     gpg
     # mail
     secrets.common
-    # secrets.password-store
+    secrets.password-store
     yubikey
   ];
 

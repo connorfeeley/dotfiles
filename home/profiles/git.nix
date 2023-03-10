@@ -61,6 +61,8 @@ in
     # Privacy
     gitAndTools.git-privacy
     git-gpg-privacy
+  ] ++ lib.optionals config.programs.password-store.enable [
+    pass-git-helper
   ];
 
   programs.git = {
