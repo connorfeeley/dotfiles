@@ -32,6 +32,11 @@
       metabigor
       socialscan # : CLI for querying username and email usage on online platforms
       poppler_utils # pdf rendering tools
+
+      ## === Passwords ===
+      pdfcrack
+      rarcrack
+      fcrackzip
     ] ++ (lib.optionals pkgs.stdenv.isLinux [
       ## === Reverse Engineering ===
       (binwalk.override { visualizationSupport = true; })
