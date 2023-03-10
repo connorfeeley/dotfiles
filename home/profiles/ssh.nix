@@ -36,7 +36,10 @@ let
   };
 in
 {
-  home.packages = with pkgs; [ autossh ];
+  home.packages = with pkgs; [
+    autossh
+    sshpass # enter SSH password automatically
+  ];
 
   programs.ssh = {
     enable = true;
