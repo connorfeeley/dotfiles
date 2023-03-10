@@ -167,31 +167,27 @@ in
     ];
 
     aliases = {
-      co = "checkout";
-      ci = "commit";
-      st = "status";
+      amend = "commit --amend";
       br = "branch";
-      latest =
-        "for-each-ref --format='%(committerdate:iso8601) %(committerdate:relative) %(refname)' --sort -committerdate";
-      hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
-      type = "cat-file -t";
-      dump = "cat-file -p";
-      lg =
-        "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      lga =
-        "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
-      l =
-        "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      la =
-        "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
-      s = "status -sb";
+      ci = "commit";
+      co = "checkout";
       d = "diff";
       dc = "diff --cached";
       ds = "diff --staged";
-      amend = "commit --amend";
+      dump = "cat-file -p";
+      hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
+      init-repo = "!git init && git commit --allow-empty --message 'Initial commit' && :";
+      l = "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      la = "log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
+      latest = "for-each-ref --format='%(committerdate:iso8601) %(committerdate:relative) %(refname)' --sort -committerdate";
+      lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      lga = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all";
+      s = "status -sb";
+      st = "status";
+      type = "cat-file -t";
       clone-for-worktrees =
+        # https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
         let
-          # https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
           git-clone-bare-for-worktrees =
             pkgs.writeShellScript "git-clone-bare-for-worktrees" ''
               set -e
