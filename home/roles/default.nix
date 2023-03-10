@@ -4,7 +4,7 @@ let
   ###: --- roles ---------------------------------------------------------------
 
   # SSH and shells
-  shell = [ shells.zsh shells.fish shells.bash ssh ];
+  shell = [ shells.zsh shells.fish shells.bash shells.nushell ssh ];
 
   # beep boop
   developer = [
