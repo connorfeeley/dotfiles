@@ -288,46 +288,46 @@ in
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
+  # FIXME(2023-02-28): always thinks VPN is disconnected
   # Poll VPN endpoint every 5 minutes and send an alert if the VPN is unreachable
-  systemd.user =
-    let name = "vpn-connection-monitor";
-    in {
-      services.${name} =
-        let
-          notify =
-            "${pkgs.libnotify}/bin/notify-send --urgency=critical --category=network --app-name=${name}";
-          checkReachability = pkgs.writeShellScript "check-reachability" ''
-            if ! ${pkgs.socat}/bin/socat -v - TCP:rossvideo.com:80,connect-timeout=10; then
-              echo "Unreachable!"
-              ${notify} "${name}: VPN unreachable"
-            else
-              echo "Reachable."
-            fi
-          '';
-        in
-        {
-          description = "VPN status notification";
+  # systemd.user =
+  #   let name = "vpn-connection-monitor";
+  #   in {
+  #     services.${name} =
+  #       let
+  #         notify =
+  #           "${pkgs.libnotify}/bin/notify-send --urgency=critical --category=network --app-name=${name}";
+  #         checkReachability = pkgs.writeShellScript "check-reachability" ''
+  #           if ! ${pkgs.socat}/bin/socat -v - TCP:rossvideo.com:80,connect-timeout=10; then
+  #             echo "Unreachable!"
+  #             ${notify} "${name}: VPN unreachable"
+  #           else
+  #             echo "Reachable."
+  #           fi
+  #         '';
+  #       in
+  #       {
+  #         description = "VPN status notification";
 
-          wantedBy = [ "graphical-session.target" ];
-          after = [ "network.target" "graphical-session.target" ];
+  #         wantedBy = [ "graphical-session.target" ];
+  #         after = [ "network.target" "graphical-session.target" ];
 
-          path = [ pkgs.socat pkgs.libnotify ];
+  #         path = [ pkgs.socat pkgs.libnotify ];
 
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = checkReachability;
-          };
-        };
-      # FIXME(2023-02-28): above job always thinks VPN is disconnected
-      # timers.${name} = {
-      #   wantedBy = [ "timers.target" ];
-      #   timerConfig = {
-      #     OnBootSec = "5m";
-      #     OnUnitActiveSec = "5m";
-      #     Unit = "vpn-connection-monitor.service";
-      #   };
-      # };
-    };
+  #         serviceConfig = {
+  #           Type = "oneshot";
+  #           ExecStart = checkReachability;
+  #         };
+  #       };
+  #     timers.${name} = {
+  #       wantedBy = [ "timers.target" ];
+  #       timerConfig = {
+  #         OnBootSec = "5m";
+  #         OnUnitActiveSec = "5m";
+  #         Unit = "vpn-connection-monitor.service";
+  #       };
+  #     };
+  #   };
 
   # Jellyfin reverse proxy
   services.nginx = {
