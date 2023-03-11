@@ -42,7 +42,6 @@ in
       nix-du # <- Analyze derivation and store size
       nox # <- Tools to make nix nicer to use
       zgrviewer # <- Graphviz/DOT viewer (often used with nix-du)
-      nixpkgs-update # <- swiss-army knife for updating nix packages
       nix-update # <- swiss-army knife for updating nix packages
       nix-bisect # <- Helper for bisecting nix builds
       devenv # <- Cachix's new 'devenv' tool
@@ -68,6 +67,7 @@ in
       cachix
       treefmt
     ] ++ (lib.optionals isLinux [
+      nixpkgs-update # <- swiss-army knife for updating nix packages
       kgraphviewer # <- KDE-flavoured Graphviz viewer
     ]) ++ (lib.optionals (isLinux && !isAarch64) [
       postman # <- GNU Make with comprehensible tracing and a debugger
