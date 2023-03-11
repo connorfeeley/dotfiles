@@ -17,5 +17,8 @@ in {
     liveRestore = false;
   };
 
+  # Local gitlab runner
+  services.gitlab-runner.enable = true;
+
   users.users.${guardian.username}.extraGroups = [ "docker" ];
 }
