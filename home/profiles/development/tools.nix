@@ -37,6 +37,7 @@ in
       nix-top # <- 'top' for nix builds
       nixos-option # <- Search nixos options
       nix-prefetch # <- Prefetch any fetcher function call
+      nurl # <- Generate  URL
       manix # <- nix documentation search
       nix-du # <- Analyze derivation and store size
       nox # <- Tools to make nix nicer to use
