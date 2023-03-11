@@ -33,8 +33,6 @@
   nir = "nix run";
   nix-stray-roots = ''
     nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory)"'';
-  nix-callpackage = ''
-    (){ nix-build -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
 
   rsc = "rsync -rav --progress";
 

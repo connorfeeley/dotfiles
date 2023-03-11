@@ -4,8 +4,9 @@ let
   inherit (config.lib) dotfield;
   configDir = dotfield.userConfigPath + "/zsh";
 
-  shellAliases = (import ../abbrs.nix) // (import ../aliases.nix)
-    // (if isDarwin then {
+  shellAliases = (import ../abbrs.nix) // (import ../aliases.nix) // {
+    nix-callpackage = ''(){ nix-build -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
+  } // (if isDarwin then {
     # Alias 'tailscale' to MAS Tailscale binary
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
 
