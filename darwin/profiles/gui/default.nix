@@ -111,6 +111,7 @@ in
       { name = "zoom"; }
       { name = "calibre"; }
       { name = "sloth"; }
+      { name = "talon"; }
       {
         name = "timemachineeditor";
       } # start backups in Time Machine at particular times
