@@ -198,6 +198,10 @@
       url = "github:pjones/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-update = {
+      url = "github:ryantm/nixpkgs-update";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -301,6 +305,7 @@
             inherit (packagesFrom inputs.nix-alien) nix-alien;
             inherit (packagesFrom inputs.nix-alien) nix-index-update;
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
+            inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
 
             # Personal packages
             inherit (packagesFrom inputs.nurpkgs)
