@@ -47,6 +47,29 @@ let
       ###
       ### Extra extensions from the marketplace (not available in nixpkgs)
       ###
+      # Talon voice
+      {
+        # https://marketplace.visualstudio.com/_apis/public/gallery/publishers/pokey/vsextensions/talon/0.2.0/vspackage
+        name = "talon";
+        publisher = "pokey";
+        version = "0.2.0";
+        sha256 = "sha256-BPc0jGGoKctANP4m305hoG9dgrhjxZtFdCdkTeWh/Xk=";
+      }
+      {
+        # https://marketplace.visualstudio.com/_apis/public/gallery/publishers/pokey/vsextensions/talon/0.2.0/vspackage
+        name = "cursorless";
+        publisher = "pokey";
+        version = "0.26.590";
+        sha256 = "sha256-hYeUaiUJa/PzpPobapD4+ppaRH+n0E8EAw9swJ0ZaVk=";
+      }
+      {
+        # https://marketplace.visualstudio.com/_apis/public/gallery/publishers/pokey/vsextensions/talon/0.2.0/vspackage
+        name = "vscode-talonscript";
+        publisher = "mrob95";
+        version = "0.3.14";
+        sha256 = "sha256-7obctmjguR5la5omzjO07pofTZ3t7pXq8jxAJ9GPq5M=";
+      }
+
       # Verilog
       {
         name = "svls-vscode";
