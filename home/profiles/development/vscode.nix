@@ -64,6 +64,13 @@ let
       }
       {
         # https://marketplace.visualstudio.com/_apis/public/gallery/publishers/pokey/vsextensions/talon/0.2.0/vspackage
+        name = "parse-tree";
+        publisher = "pokey";
+        version = "0.25.0";
+        sha256 = "sha256-MCRLCTAybBL7W85QedJmXi2ZJvOJa13oaUtoJwCJx7U=";
+      }
+      {
+        # https://marketplace.visualstudio.com/_apis/public/gallery/publishers/pokey/vsextensions/talon/0.2.0/vspackage
         name = "vscode-talonscript";
         publisher = "mrob95";
         version = "0.3.14";
