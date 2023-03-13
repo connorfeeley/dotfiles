@@ -2,8 +2,6 @@
 let inherit (config.dotfield) guardian;
 in {
   environment.systemPackages = [
-    pkgs.arion
-
     # Do install the docker CLI to talk to podman.
     # Not needed when virtualisation.docker.enable = true;
     pkgs.docker-client
