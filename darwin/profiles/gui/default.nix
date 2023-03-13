@@ -112,9 +112,11 @@ in
       { name = "calibre"; }
       { name = "sloth"; }
       { name = "talon"; }
-      {
-        name = "timemachineeditor";
-      } # start backups in Time Machine at particular times
+
+      { name = "launchcontrol"; }
+      { name = "backuploupe"; }
+
+      { name = "timemachineeditor"; } # start backups in Time Machine at particular times
       { name = "disk-inventory-x"; } # disk usage analyzer
       { name = "trader-workstation"; } # Interactive Brokers TWS
       { name = "microsoft-remote-desktop"; }
