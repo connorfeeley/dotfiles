@@ -156,7 +156,9 @@ in {
     QuitMenuItem = true;
     ShowPathbar = true;
     ShowStatusBar = true;
-    _FXShowPosixPathInTitle = false;
+    # Display the full folder path in the title bar.
+    # Required for Talon.
+    _FXShowPosixPathInTitle = true;
   };
 
   system.defaults.loginwindow = {
