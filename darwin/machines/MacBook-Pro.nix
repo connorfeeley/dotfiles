@@ -63,7 +63,6 @@ in
 
   homebrew.casks = [
     { name = "malwarebytes"; }
-    { name = "nomachine"; }
     { name = "trader-workstation"; } # IBKR TWS
     { name = "inkscape"; }
   ];
