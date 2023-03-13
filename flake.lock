@@ -3128,11 +3128,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1678223142,
-        "narHash": "sha256-hM16i+xpmb7+YkIy7Qt5+97E3ZPsBmzxhIjiB5Fvpr8=",
+        "lastModified": 1678688082,
+        "narHash": "sha256-03cLaQvSPgXqP2uJWsq6FJ3iNfitUo9oFLxUPhsHAmg=",
         "owner": "connorfeeley",
         "repo": "nurpkgs",
-        "rev": "ace2145762ac9569ec28ac0e1f0e4212c9295e44",
+        "rev": "fa8e616496e56d3b7bf872d9187aa48b67312360",
         "type": "github"
       },
       "original": {

@@ -85,9 +85,7 @@ in
         { name = "agkozak/zsh-z"; }
         { name = "marzocchi/zsh-notify"; }
         { name = "hlissner/zsh-autopair"; }
-        {
-          name = "scriptingosx/mac-zsh-completions";
-        }
+        { name = "scriptingosx/mac-zsh-completions"; }
 
         # Pure prompt
         { name = "mafredri/zsh-async"; }
