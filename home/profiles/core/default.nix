@@ -10,80 +10,79 @@ let
   zenithPackage = with pkgs; if hasNvidia then zenith-nvidia else zenith;
 in
 {
-  home.packages = with pkgs;
-    [
-      ## === Helpful Utilities ===
-      comma # <- Runs programs without installing them
-      tealdeer # <- A very fast implementation of tldr in Rust.
-      nix-output-monitor # <- Pretty nix { build, shell, develop }
-      thefuck # <- Corrects your previous console command
-      mtr # <- Traceroute and ping in a single tool
+  home.packages = with pkgs; [
+    lsof
+    ## === Helpful Utilities ===
+    comma # <- Runs programs without installing them
+    tealdeer # <- A very fast implementation of tldr in Rust.
+    nix-output-monitor # <- Pretty nix { build, shell, develop }
+    thefuck # <- Corrects your previous console command
+    mtr # <- Traceroute and ping in a single tool
 
-      # WARNING: conflicts with moreutils
-      (lib.hiPrio
-        parallel-full) # <- GNU Parallel is a shell tool for executing jobs in parallel using one or more computers
+    # WARNING: conflicts with moreutils
+    (lib.hiPrio parallel-full) # <- tool for executing jobs in parallel using one or more computers
 
-      ## === Moreutils ===
-      # Includes, of note:
-      # - vipe: insert a text editor into a pipe
-      # - parallel: run multiple jobs at once
-      # - pee: tee standard input to pipes
-      # - errno: look up errno names and descriptions
-      # - combine: combine the lines in two files using boolean operations
-      # - ifdata: get network interface info without parsing ifconfig output
-      # As well as:
-      # - chronic: runs a command quietly unless it fails
-      # - mispipe: pipe two commands, returning the exit status of the first
-      # - ifne: run a program if the standard input is not empty
-      # - isutf8: check if a file or standard input is utf-8
-      # - lckdo: execute a program with a lock held
-      # - sponge: soak up standard input and write to a file
-      # - ts: timestamp standard input
-      # - vidir: edit a directory in your text editor
-      # - zrun: automatically uncompress arguments to command
-      moreutils # <- Unix tools that nobody thought to write long ago when unix was young
+    ## === Moreutils ===
+    # Includes, of note:
+    # - vipe: insert a text editor into a pipe
+    # - parallel: run multiple jobs at once
+    # - pee: tee standard input to pipes
+    # - errno: look up errno names and descriptions
+    # - combine: combine the lines in two files using boolean operations
+    # - ifdata: get network interface info without parsing ifconfig output
+    # As well as:
+    # - chronic: runs a command quietly unless it fails
+    # - mispipe: pipe two commands, returning the exit status of the first
+    # - ifne: run a program if the standard input is not empty
+    # - isutf8: check if a file or standard input is utf-8
+    # - lckdo: execute a program with a lock held
+    # - sponge: soak up standard input and write to a file
+    # - ts: timestamp standard input
+    # - vidir: edit a directory in your text editor
+    # - zrun: automatically uncompress arguments to command
+    moreutils # <- Unix tools that nobody thought to write long ago when unix was young
 
-      ## === Sysadmin ===
-      du-dust # <- Like du but more intuitive.
-      duf # <- df with colours
-      dua # <- quick disk usage
-      entr # <- Run arbitrary commands when files change
-      lnav # <- Log file navigator
-      glances # <- System resource usage viewer
-      ldns # <- 'drill' (like dig)
-      smartmontools # <- Mah boy's wicked smaht
-      procs # <- pspspspsps here kitty ( ps replacement )
-      diskonaut # <- Terminal visual disk space navigator
+    ## === Sysadmin ===
+    du-dust # <- Like du but more intuitive.
+    duf # <- df with colours
+    dua # <- quick disk usage
+    entr # <- Run arbitrary commands when files change
+    lnav # <- Log file navigator
+    glances # <- System resource usage viewer
+    ldns # <- 'drill' (like dig)
+    smartmontools # <- Mah boy's wicked smaht
+    procs # <- pspspspsps here kitty ( ps replacement )
+    diskonaut # <- Terminal visual disk space navigator
 
-      ## === Networking Tools ===
-      mosh # <- SSH-like tool for unreliable connections
-      iperf3 # <- Test network bandwidth
-      bandwhich # <- Not a sandwhich; see [nethogs] ( bandwidth utilization tool )
-      # TODO: not packaged
-      # trippy # A network diagnostic tool
+    ## === Networking Tools ===
+    mosh # <- SSH-like tool for unreliable connections
+    iperf3 # <- Test network bandwidth
+    bandwhich # <- Not a sandwhich; see [nethogs] ( bandwidth utilization tool )
+    # TODO: not packaged
+    # trippy # A network diagnostic tool
 
-      ## === `bat` and friends ===
-      # A cat(1) clone with wings.
-      # (enabled via config option)
-      # Bash scripts that integrate bat with various command line tools.
-      # https://github.com/eth-p/bat-extras/
-      bat-extras.batman # <- Read system manual pages (man) using bat as the manual page formatter.
-      bat-extras.batgrep # <- Quickly search through and highlight files using ripgrep.
-      bat-extras.batdiff # <- Diff a file against the current git index, or display the diff between two files.
-      bat-extras.batwatch # <- Watch for changes in files or command output, and print them with bat.
-      bat-extras.prettybat # <- Pretty-print source code and highlight it with bat.
+    ## === `bat` and friends ===
+    # A cat(1) clone with wings.
+    # (enabled via config option)
+    # Bash scripts that integrate bat with various command line tools.
+    # https://github.com/eth-p/bat-extras/
+    bat-extras.batman # <- Read system manual pages (man) using bat as the manual page formatter.
+    bat-extras.batgrep # <- Quickly search through and highlight files using ripgrep.
+    bat-extras.batdiff # <- Diff a file against the current git index, or display the diff between two files.
+    bat-extras.batwatch # <- Watch for changes in files or command output, and print them with bat.
+    bat-extras.prettybat # <- Pretty-print source code and highlight it with bat.
 
-    ] ++ (lib.optionals pkgs.stdenv.isLinux [
-      gsmartcontrol # <- ... even smahter with a GUI
-      ncdu # <- dua with more ncurses
-      iotop # <- Terminal disk IO monitor
-      psmisc # <- Useful utilities that use the proc filesystem
-      kmon # <- Kernel manager and activity monitor
-      systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
-      sysz # <- fzf-style systemd TUI
-    ]) ++ (lib.optionals (!isAarch64) [
-      zenithPackage # <- Other system resource usage viewer
-    ]);
+  ] ++ (lib.optionals pkgs.stdenv.isLinux [
+    gsmartcontrol # <- ... even smahter with a GUI
+    ncdu # <- dua with more ncurses
+    iotop # <- Terminal disk IO monitor
+    psmisc # <- Useful utilities that use the proc filesystem
+    kmon # <- Kernel manager and activity monitor
+    systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
+    sysz # <- fzf-style systemd TUI
+  ]) ++ (lib.optionals (!isAarch64) [
+    zenithPackage # <- Other system resource usage viewer
+  ]);
 
   # Configure 'thefuck'
   programs.bash.initExtra = "eval $(thefuck --alias)";

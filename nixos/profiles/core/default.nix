@@ -53,6 +53,7 @@ in
     smem
     nethogs
     sshfs
+    lsof
 
     # FHS compat
     nix-alien

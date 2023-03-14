@@ -42,6 +42,7 @@ in
       terminal-notifier
       darwin.trash
       darwin.lsusb # <- lsusb for MacOS
+      lsof
 
       prefmanager # <- a tool for managing macOS defaults.
       wifi-password # <- what was that password again?
