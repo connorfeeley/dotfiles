@@ -147,6 +147,7 @@
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
     nixpkgs-overlay-tny = { url = "github:tnytown/nixpkgs-overlay-tny"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
+    nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
 
     ##: --- packages -----------------------------------------------------------
     nickel = {
@@ -242,6 +243,7 @@
     , emacs-overlay
     , darwin-emacs
     , nix-xilinx
+    , nixpkgs-doc
     , nickel
     , nix-nil
     , nix-init
@@ -290,6 +292,8 @@
         nvfetcher.overlays.default
 
         nix-xilinx.overlay
+
+        nixpkgs-doc.overlays.default # add info outputs to nixpkgs.htmlDocs.nixpkgsManual
 
         (final: _prev:
           let packagesFrom = inputAttr: inputAttr.packages.${final.system};

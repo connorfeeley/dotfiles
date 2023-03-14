@@ -2591,6 +2591,29 @@
         "type": "github"
       }
     },
+    "nixpkgs-doc": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": [
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1655686881,
+        "narHash": "sha256-fBFDQBJa9TCebBNL2qTmGue5asgnWMidAhmJHOINTVQ=",
+        "owner": "aakropotkin",
+        "repo": "nixpkgs-doc",
+        "rev": "eec45143b2b57e7f056ecb0a3328bc5a036f6bbf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aakropotkin",
+        "repo": "nixpkgs-doc",
+        "type": "github"
+      }
+    },
     "nixpkgs-fmt": {
       "inputs": {
         "fenix": "fenix_3",
@@ -3531,6 +3554,7 @@
         "nixpkgs-darwin": [
           "nixos-unstable"
         ],
+        "nixpkgs-doc": "nixpkgs-doc",
         "nixpkgs-input-leap": "nixpkgs-input-leap",
         "nixpkgs-overlay-tny": "nixpkgs-overlay-tny",
         "nixpkgs-update": "nixpkgs-update",
