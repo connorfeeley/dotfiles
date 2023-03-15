@@ -36,13 +36,13 @@ let
       haskell.haskell
 
       # Python
+      ms-python.python
       ms-pyright.pyright
 
       # Markdown
       yzhang.markdown-all-in-one
     ] ++ lib.optionals (pkgs.stdenv.isLinux && pkgs.stdenv.isx86_64) [
       ms-vscode.cpptools
-      ms-python.python
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       ###
       ### Extra extensions from the marketplace (not available in nixpkgs)
