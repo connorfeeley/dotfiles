@@ -69,6 +69,7 @@ in
     ] ++ (lib.optionals isLinux [
       nixpkgs-update # <- swiss-army knife for updating nix packages
       kgraphviewer # <- KDE-flavoured Graphviz viewer
+      strace # <- trace system calls and signals
     ]) ++ (lib.optionals (isLinux && !isAarch64) [
       postman # <- GNU Make with comprehensible tracing and a debugger
     ]);
