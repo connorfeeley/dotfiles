@@ -64,6 +64,7 @@ let
     secrets.common
     secrets.password-store
     yubikey
+    ledger
   ];
 
   # Web development :(
