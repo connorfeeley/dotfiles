@@ -74,7 +74,7 @@
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
 
     ##: --- other --------------------------------------------------------------
-    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
+    flake-compat = { url = "github:connorfeeley/flake-compat/sourcehut-support"; flake = false; };
     dwarffs.url = "github:edolstra/dwarffs";
     base16-kitty = { url = "github:kdrag0n/base16-kitty"; flake = false; };
     firefox-lepton = { url = "github:black7375/Firefox-UI-Fix"; flake = false; };
