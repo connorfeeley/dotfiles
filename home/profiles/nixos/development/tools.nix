@@ -7,6 +7,7 @@ in {
     [
       universal-ctags # <- Generates tag files in case of LSP bankrupcy
       bubblewrap # <- Believe it or not? Straight to jail.
+      node2nix # <- generate nix derivations from NPM packages
 
       nur.repos.mic92.gdb-dashboard
       nur.repos.mic92.traceshark
