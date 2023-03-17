@@ -141,6 +141,7 @@ in
     mstflint
     nixos-container
     procps
+    fwupd
   ];
 
   ### === Shares ============================================================
@@ -377,4 +378,5 @@ in
     virtualHost = "${hostName}.${peers.networks.tailscale.domain}";
     baseUrl = "https://${hostName}.${peers.networks.tailscale.domain}/rss";
   };
+  services.fwupd.enable = true;
 }
