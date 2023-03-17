@@ -7,6 +7,7 @@
       just # <- Just a command runner
       speedtest-cli
       asciiquarium
+      nodePackages.webtorrent-cli
 
       ## === Data and Documents ===
       tidy-viewer # <- Pretty-print CSV files
