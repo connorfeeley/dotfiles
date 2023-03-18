@@ -19,7 +19,7 @@ with lib;
 
   config = {
     # can be generated with: filter (drv: (builtins.tryEval (drv ? terminfo)).value) (attrValues pkgs)
-    environment.systemPackages = mkIf config.environment.enableAllTerminfo
+    environment.systemPackages = [ pkgs.ncurses.dev ] ++ (lib.optionals config.environment.enableAllTerminfo
       (map (x: x.terminfo) (with pkgs; [
         alacritty
         mtm
@@ -27,7 +27,7 @@ with lib;
         rxvt-unicode-unwrapped-emoji
         termite
         wezterm
-      ]));
+      ])));
 
     environment.pathsToLink =
       [ "/share/terminfo" "/Contents/Resources/terminfo" ];
