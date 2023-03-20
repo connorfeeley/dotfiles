@@ -28,7 +28,7 @@
   mkcd = "mkdir -p $1 && cd $1";
 
   # Nix aliases
-  nix = "nix --print-build-logs";
+  nix = "nix --print-build-logs --show-trace";
   nis = "nix search nixpkgs";
   nir = "nix run";
   nix-stray-roots = ''
