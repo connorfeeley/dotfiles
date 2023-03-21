@@ -72,7 +72,7 @@ in
 
         grafana
 
-        containers.jellyfin
+        # virtualisation.arion
       ]);
 
     workstation-wsl.modules =
