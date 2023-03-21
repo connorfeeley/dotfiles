@@ -20,6 +20,7 @@
       ffmpeg-full # <- Full ffmpeg with all codecs
       chafa # <- "terminal graphics for the 21st century"
       yt-dlp # <- youtube-dl fork
+      libgen-cli # <- query Library Genesis database
       mpv
 
       ## === Files ===
