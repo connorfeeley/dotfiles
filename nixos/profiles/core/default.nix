@@ -131,4 +131,6 @@ in
     latitude = 43.70011;
     longitude = -79.4163;
   };
+
+  programs.ccache.enable = true;
 }
