@@ -39,7 +39,6 @@ let
     firefox
     keyboard
     misc
-    mpv
     themes
   ];
 
@@ -52,6 +51,7 @@ let
     spotify
     zotero
     nnn # file manager
+    mpv
   ];
 
   # Someone else's computer
