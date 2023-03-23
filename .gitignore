@@ -26,3 +26,4 @@ flycheck_config.el
 /README.html
 /README.md
 /*.qcow2
+/.ssh-connection*/
