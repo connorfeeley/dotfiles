@@ -77,6 +77,15 @@ let
         sha256 = "sha256-7obctmjguR5la5omzjO07pofTZ3t7pXq8jxAJ9GPq5M=";
       }
 
+      # Copilot sidebar
+      {
+        name = "copilot-labs";
+        publisher = "GitHub";
+        version = "0.12.791";
+        sha256 = "sha256-3StswisTiG1e+LZeAuquIXlqaFj0Lzk4WNy+6Af4giw=";
+      }
+
+
       # Verilog
       {
         name = "svls-vscode";
