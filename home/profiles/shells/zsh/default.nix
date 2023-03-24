@@ -102,7 +102,6 @@ in
         unsetopt zle
         unsetopt prompt_cr
         unsetopt prompt_subst
-        unsetopt zle_bracketed_paste
         if whence -w precmd >/dev/null; then
             unfunction precmd
         fi
