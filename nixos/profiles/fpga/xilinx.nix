@@ -10,6 +10,8 @@ in {
     vitis
     xilinx-shell
 
+    (libusb.override { withExamples = true; }) # Provides fxload
+
     # Via nixpkgs
     xilinx-bootgen
     jtag-remote-server
@@ -58,10 +60,8 @@ in {
           ENV{SYSTEMD_WANTS}+="ddcci@$kernel.service"
       '';
     in
-    ''
-      # For monitor brightness control
-      ${ddc-rules}
-
+    # For monitor brightness control
+    ddc-rules + ''
       # ### 60-openocd.rules (partial) -- UDEV rules for Altera USB Blaster
       # # Altera USB Blaster
       ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6001", MODE="660", GROUP="plugdev", TAG+="uaccess"
