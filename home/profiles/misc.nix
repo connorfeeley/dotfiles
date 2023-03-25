@@ -8,6 +8,7 @@
       speedtest-cli
       asciiquarium
       nodePackages.webtorrent-cli
+      nix-search-cli
 
       ## === Data and Documents ===
       tidy-viewer # <- Pretty-print CSV files

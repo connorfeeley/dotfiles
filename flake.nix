@@ -72,6 +72,7 @@
     prefmanager = { url = "github:malob/prefmanager"; inputs.nixpkgs.follows = "nixpkgs"; };
     tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
+    nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- other --------------------------------------------------------------
     flake-compat = { url = "github:connorfeeley/flake-compat/sourcehut-support"; flake = false; };
@@ -131,6 +132,7 @@
     , prefmanager
     , tum-dse-config
     , neovim-plusultra
+    , nix-search-cli
     , flake-compat
     , dwarffs
     , base16-kitty
@@ -188,6 +190,7 @@
             inherit (packagesFrom inputs.nix-alien) nix-index-update;
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
             inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
+            inherit (packagesFrom inputs.nix-search-cli) nix-search-cli;
 
             # Personal packages
             inherit (packagesFrom inputs.nurpkgs)
