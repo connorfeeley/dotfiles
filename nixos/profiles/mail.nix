@@ -28,7 +28,8 @@ in
 
   environment.etc."aliases" = {
     text = ''
-      root: automated@cfeeley.org
+      root: automated+root@cfeeley.org
+      cfeeley: automated+cfeeley@cfeeley.org
     '';
     mode = "0644";
   };
