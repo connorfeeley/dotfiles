@@ -1,4 +1,24 @@
-final: prev: {
+final: prev:
+let
+  nixFlags = [
+    "--verbose"
+    "--show-trace"
+    "--print-build-logs"
+  ];
+  ### Nix 'aliases' (defined as executables so as to be usable from Emacs)
+  # 'nix'
+  n = prev.writeShellScriptBin "n" ''
+    exec ${prev.nix}/bin/nix ${builtins.concatStringsSep " " nixFlags} "$@"
+  '';
+  # 'nix build'
+  nb = prev.writeShellScriptBin "nb" ''
+    exec ${prev.nix}/bin/nix build ${builtins.concatStringsSep " " nixFlags} "$@"
+  '';
+in
+{
+  # Nix 'aliases'
+  inherit n nb;
+
   kitty-helpers =
     final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix { });
 

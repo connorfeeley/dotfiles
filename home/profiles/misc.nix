@@ -25,6 +25,8 @@
       rclone
 
       ## === Repo Scripts ===
+      (lib.hiPrio n)
+      (lib.hiPrio nb)
       nixos-rebuild-remote
       dotfield-sync
       dotfield-push
