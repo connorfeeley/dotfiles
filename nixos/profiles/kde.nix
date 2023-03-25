@@ -44,7 +44,6 @@ in
   environment.systemPackages = with pkgs; [ myTheme variety ];
   services.xserver.desktopManager.plasma5 = {
     enable = true;
-    supportDDC = true;
     useQtScaling = true;
     runUsingSystemd = false;
   };
