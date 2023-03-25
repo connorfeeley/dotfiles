@@ -15,6 +15,13 @@ let
             (old: {
               # Required for 'hammy' emacs package
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
+
+              # src = pkgs.fetchFromBitbucket {
+              #   owner = "mituharu";
+              #   repo = "emacs-mac";
+              #   rev = "42fd87989ff093c0d2eda071b18fa1de2d928775"; # 2023-03-25: tracking 'work' branch
+              #   hash = "sha256-ydaQAowcUOYc+i4TdoUrMVue+5zk+66SrhRYUUe0dAY=";
+              # };
             })
         #: isLinux: emacs 28 (w/ native comp)
         else
