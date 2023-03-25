@@ -1,25 +1,10 @@
-let
-  inherit (default.inputs.nixos-stable) lib;
-
-  default = (import ./lib/compat).defaultNix;
-
-  ciSystems =
-    [ "x86_64-darwin" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
-
-  filterSystems = lib.filterAttrs (system: _: lib.elem system ciSystems);
-
-  recurseIntoAttrsRecursive = lib.mapAttrs (_: v:
-    if lib.isAttrs v then
-      recurseIntoAttrsRecursive (lib.recurseIntoAttrs v)
-    else
-      v);
-
-  systemOutputs = lib.filterAttrs
-    (name: set:
-      lib.isAttrs set
-      && lib.any (system: set ? ${system} && name != "legacyPackages") ciSystems)
-    default.outputs;
-
-  ciDrvs = lib.mapAttrs (_: system: filterSystems system) systemOutputs;
-in
-(recurseIntoAttrsRecursive ciDrvs) // { shell = import ./shell.nix; }
+(import
+  (
+    let lock = builtins.fromJSON (builtins.readFile ./flake.lock); in
+    fetchTarball {
+      url = "https://github.com/connorfeeley/flake-compat/sourcehut-support/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
+      sha256 = lock.nodes.flake-compat.locked.narHash;
+    }
+  )
+  { src = ./.; }
+).defaultNix
