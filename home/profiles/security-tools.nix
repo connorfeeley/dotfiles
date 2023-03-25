@@ -60,7 +60,8 @@
       p0f # : passive OS detection based on SYN packets
       sn0int # : semi-automatic OSINT framework and package manager
       urlhunter # : a recon tool that allows searching on URLs that are exposed via shortener services
-      theharvester # : E-mails, subdomains and names harvester
+      # FIXME(2023-03-25): broken
+      # theharvester # : E-mails, subdomains and names harvester
 
       ## === Passwords ===
       thc-hydra
