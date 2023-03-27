@@ -190,7 +190,7 @@
             inherit (packagesFrom inputs.nix-alien) nix-index-update;
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
             inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
-            inherit (packagesFrom inputs.nix-search-cli) nix-search-cli;
+            inherit (packagesFrom inputs.nix-search-cli) nix-search;
 
             # Personal packages
             inherit (packagesFrom inputs.nurpkgs)
