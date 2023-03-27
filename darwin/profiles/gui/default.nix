@@ -112,6 +112,7 @@ in
       { name = "calibre"; }
       { name = "sloth"; }
       { name = "talon"; }
+      { name = "handbrake"; }
 
       { name = "launchcontrol"; }
       { name = "backuploupe"; }
