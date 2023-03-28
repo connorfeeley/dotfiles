@@ -160,9 +160,8 @@ in
           patches = (oldAttrs.patches or [ ]) ++ [
             (pkgs.fetchpatch {
               name = "mozilla-kde.patch";
-              url =
-                "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
-              sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
+              url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/46e263fe8a7f39c74f17438c7b9745bb6ac36172/mozilla-kde.patch";
+              hash = "sha256-oH1Y4KDdU5/Xs9sPJGAVu4NgxNM+YtJuKaHA3wY5y1o=";
             })
           ];
         })).override {
@@ -182,9 +181,8 @@ in
             extraPatches = [
               (pkgs.fetchpatch {
                 name = "mozilla-kde.patch";
-                url =
-                  "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/master/mozilla-kde.patch";
-                sha256 = "sha256-0kBpo7LB0OFEE4wjvNsnhlsmair2+R7zRkE84kbg7WU=";
+                url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/46e263fe8a7f39c74f17438c7b9745bb6ac36172/mozilla-kde.patch";
+                hash = "sha256-oH1Y4KDdU5/Xs9sPJGAVu4NgxNM+YtJuKaHA3wY5y1o=";
               })
             ];
           };
