@@ -10,7 +10,7 @@ in
 {
   lib.dotfield = rec {
     fsPath = toString "${configHome}/dotfield";
-    srcPath = toString ../../.;
+    srcPath = ../../.;
     userConfigPath = srcPath + "/home/users/${defaultUsername}/config";
 
     features = rec {
