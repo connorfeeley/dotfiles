@@ -145,7 +145,7 @@ keys = [ ]
 # age = "age1s0ckz3rka4zuutd00cn4px4yrkrq992cpejtvljsdvn5u25pkylqkfsrd0"
 
 [cfeeley-laptop.ipv4]
-address = "192.168.0.185"
+address = "192.168.0.54"
 
 [cfeeley-laptop.users.cfeeley]
 keys = [
