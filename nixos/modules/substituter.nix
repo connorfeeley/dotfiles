@@ -25,7 +25,7 @@ in
     age.secrets = { inherit workstation-priv; };
     nix = {
       settings = {
-        secret-key-files = [ config.age.secrets.workstation-priv.path ];
+        secret-key-files = [ config.age.secrets.workstation-priv.path "/etc/nix/cache-priv-key.pem" ];
       };
     };
   };
