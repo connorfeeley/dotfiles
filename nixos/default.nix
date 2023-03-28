@@ -53,7 +53,7 @@ in
 
         builder
         collective.profiles.hercules-ci-agent
-        # binary-cache
+        binary-cache
 
         mail
 
