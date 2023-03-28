@@ -23,7 +23,7 @@ in
     "${config.dotfield.guardian.username}" = hmArgs: {
       imports = with hmArgs.roles;
         workstation ++ macos ++ developer ++ emacs-config
-        ++ (with hmArgs.profiles; [ work ]);
+        ++ (with hmArgs.profiles; [ work media ]);
 
       home.username = hmArgs.lib.mkForce "cfeeley";
       home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";
