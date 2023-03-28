@@ -203,4 +203,6 @@ in
   };
 
   home.stateVersion = lib.mkDefault "22.05";
+
+  systemd.user.startServices = true;
 }

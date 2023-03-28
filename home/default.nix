@@ -35,7 +35,7 @@ in
         imports = with hmArgs.roles;
           (hmArgs.lib.flatten [ ]
           ++ (hmArgs.lib.flatten [ shell developer emacs-config graphical server trusted webdev fpgadev linux ]))
-          ++ (with hmArgs.profiles; [ shells.fish ]);
+          ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]);
         home = {
           username = hmArgs.lib.mkForce name;
           homeDirectory = hmArgs.lib.mkForce "/home/${name}";
