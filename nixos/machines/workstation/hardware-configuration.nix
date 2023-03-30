@@ -98,7 +98,7 @@
         monthly = 6;
         yearly = 0;
         autosnap = true;
-        autoprune = false;
+        autoprune = true;
       };
     };
   };
