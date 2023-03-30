@@ -142,6 +142,7 @@ in
     nixos-container
     procps
     fwupd
+    (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda;  })
   ];
 
   ### === Shares ============================================================
