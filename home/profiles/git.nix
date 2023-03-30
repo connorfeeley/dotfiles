@@ -239,6 +239,10 @@ in
       pretty.nice =
         "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
+      gitlab."srvvirgitlab.rossvideo.com/api/v4" = {
+        user = "cfeeley";
+      };
+
       ##: Shorthands {{
       url."https://github.com/" = {
         insteadOf = "github:";
