@@ -52,6 +52,7 @@ let
     zotero
     nnn # file manager
     mpv
+    media
   ];
 
   # Someone else's computer
