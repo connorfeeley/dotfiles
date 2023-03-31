@@ -1,12 +1,12 @@
 { pkgs, ... }: {
-  home.packages = with pkgs;
-    [
-      # Overlay
-      # python-env
+  home.packages = [
+    # General python environment
+    (pkgs.python3.withPackages (ps: with ps; [ ipython pip black pyflakes isort ]))
 
-      # lsp server
-      pyright
-      openai
-      # (openai-whisper.override ({ torch = pkgs.python3.pkgs.torchWithCuda; }))
-    ] ++ (with python3Packages; [ ipython black ]);
+    # LSP server
+    pkgs.pyright
+
+    pkgs.openai
+    # (openai-whisper.override ({ torch = pkgs.python3.pkgs.torchWithCuda; }))
+  ];
 }
