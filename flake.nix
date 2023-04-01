@@ -81,7 +81,8 @@
     firefox-lepton = { url = "github:black7375/Firefox-UI-Fix"; flake = false; };
     modded-minecraft-servers = { url = "github:mkaito/nixos-modded-minecraft-servers"; inputs.nixpkgs.follows = "nixpkgs"; };
     plasma-manager = { url = "github:pjones/plasma-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nixpkgs-update = { url = "github:ryantm/nixpkgs-update"; inputs.nixpkgs.follows = "nixpkgs"; };
+    mmdoc = { url = "github:ryantm/mmdoc"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nixpkgs-update = { url = "github:ryantm/nixpkgs-update"; inputs.nixpkgs.follows = "nixpkgs"; inputs.mmdoc.follows = "mmdoc"; };
   };
 
   outputs =
@@ -189,6 +190,7 @@
             inherit (packagesFrom inputs.nix-alien) nix-alien;
             inherit (packagesFrom inputs.nix-alien) nix-index-update;
             inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
+            inherit (packagesFrom inputs.mmdoc) mmdoc;
             inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
             inherit (packagesFrom inputs.nix-search-cli) nix-search;
 

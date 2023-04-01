@@ -35,6 +35,7 @@
       dotfield-doom
     ] ++ (lib.optionals (pkgs.stdenv.isLinux) [
       handbrake # <- Video transcoder
+      mmdoc # <- Markdown documentation generator
     ]);
 
   fonts.fontconfig.enable = true;
