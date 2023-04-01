@@ -46,6 +46,7 @@ in
       (with roles; graphical ++ tangible ++ virt ++ fpgadev ++ server) ++
       #: ~ Profiles ~
       (with profiles; [
+        core
         hardware.amd
         nvidia
         virtualisation.vm-variant
