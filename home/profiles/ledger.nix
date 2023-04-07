@@ -6,10 +6,16 @@
   home.packages = with pkgs; [
     ledger-autosync
     tmuxinator
+    hledger-ui
+    hledger-utils
+    hledger-web
+    hledger-interest
+    # hledger-iadd
+    hledger-check-fancyassertions
   ];
   programs.ledger = {
     enable = true;
-    package = pkgs.ledger;
+    package = pkgs.hledger;
     extraConfig = ''
       --sort date
       --effective
