@@ -105,6 +105,9 @@ in
       { name = "sloth"; }
       { name = "talon"; }
       { name = "handbrake"; }
+      { name = "transmission"; }
+      { name = "deluge"; }
+      { name = "nomachine"; }
 
       { name = "launchcontrol"; }
       { name = "backuploupe"; }
