@@ -85,7 +85,7 @@ let
     [ nixos.rofi nixos.development.tools nixos.chromium virtualisation.docker ];
 
   # OS-specific: MacOS
-  macos = [ virtualisation.podman darwin.search /*darwin.dock-apps*/ ];
+  macos = [ virtualisation.docker darwin.search /*darwin.dock-apps*/ ];
 
   ###: --- meta-roles ----------------------------------------------------------
   roles = {
