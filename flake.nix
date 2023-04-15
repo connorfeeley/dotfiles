@@ -53,7 +53,7 @@
     xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
     chatgpt-wrapper = { url = "git+https://git.sr.ht/~cfeeley/chatgpt-wrapper"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-darwin.follows = "nixpkgs-darwin"; };
     ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; }; # Private repo
-    nixpkgs-input-leap.url = "sourcehut:~cfeeley/nixpkgs/feat/input-leap";
+    nixpkgs-input-leap.url = "git+https://git.sr.ht/~cfeeley/nixpkgs?ref=feat/input-leap";
 
     ##: --- meta packages ------------------------------------------------------
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -75,7 +75,7 @@
     nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- other --------------------------------------------------------------
-    flake-compat = { url = "github:connorfeeley/flake-compat/sourcehut-support"; flake = false; };
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     dwarffs.url = "github:edolstra/dwarffs";
     base16-kitty = { url = "github:kdrag0n/base16-kitty"; flake = false; };
     firefox-lepton = { url = "github:black7375/Firefox-UI-Fix"; flake = false; };

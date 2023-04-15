@@ -2837,16 +2837,16 @@
       "locked": {
         "lastModified": 1676074068,
         "narHash": "sha256-Fx4FIGzlEtdSF482JKOgoyf2ktpRyvFKKbkZ9FBbyL4=",
-        "owner": "~cfeeley",
-        "repo": "nixpkgs",
+        "ref": "feat/input-leap",
         "rev": "c871f45d4382bb9f0ffa0628539f5f8e6c7d3458",
-        "type": "sourcehut"
+        "revCount": 450084,
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/nixpkgs"
       },
       "original": {
-        "owner": "~cfeeley",
         "ref": "feat/input-leap",
-        "repo": "nixpkgs",
-        "type": "sourcehut"
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/nixpkgs"
       }
     },
     "nixpkgs-lib": {
