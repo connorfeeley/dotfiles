@@ -11,32 +11,18 @@ let
       emacs-pkg = with pkgs;
         if isDarwin
         then
-          (emacsMacport.overrideAttrs
+          emacsMacport.overrideAttrs
             (old: {
-              buildInputs = old.buildInputs ++ [
-                # Required for 'hammy' emacs package
-                pkgs.dbus
-              ] ++ lib.optionals stdenv.isAarch64 [
-                # Required for aarch64 build
-                pkgs.darwin.apple_sdk.frameworks.CoreServices
-              ];
+              # Required for 'hammy' emacs package
+              buildInputs = old.buildInputs ++ [ pkgs.dbus ];
 
-              patches = old.patches ++ [
-                (pkgs.fetchpatch rec {
-                  name = "0002-mac-gui-loop-block-autorelease.patch";
-                  url = "https://raw.githubusercontent.com/tnytown/nixpkgs-overlay-tny/03deb1490dd98c93a7eb0939d4a9a0c136a6b159/pkgs/overrides/emacs-macport/${name}";
-                  hash = "sha256-CBELVTAWwgaXrnkTzMsYH9R18qBnFBFHMOaVeC/F+I8=";
-                })
-              ];
-
-              src = pkgs.fetchFromBitbucket {
-                owner = "mituharu";
-                repo = "emacs-mac";
-                rev = "bb741d4839b569f8c45577ba49fcd481449751ac"; # 2023-04-19: tracking 'work' branch
-                hash = "sha256-2l5PmayAf2xqKIsj+SG9r50NYMl6bWxtR06cPiEIFaE=";
-              };
-            })).override
-            { llvmPackages_6 = pkgs.llvmPackages_latest; }
+              # src = pkgs.fetchFromBitbucket {
+              #   owner = "mituharu";
+              #   repo = "emacs-mac";
+              #   rev = "42fd87989ff093c0d2eda071b18fa1de2d928775"; # 2023-03-25: tracking 'work' branch
+              #   hash = "sha256-ydaQAowcUOYc+i4TdoUrMVue+5zk+66SrhRYUUe0dAY=";
+              # };
+            })
         #: isLinux: emacs 28 (w/ native comp)
         else
           pkgs.emacs.override {
@@ -251,7 +237,7 @@ lib.mkMerge [
         (pkgs.writeShellScriptBin "python-chatgpt-wrapper" ''
           export PLAYWRIGHT_BROWSERS_PATH=${chatgpt-wrapper.playwrightBrowsers}
           exec -a $0 ${
-          pkgs.python3.withPackages (ps: with ps; [ epc chatgpt-wrapper ])
+            pkgs.python3.withPackages (ps: with ps; [ epc chatgpt-wrapper ])
           }/bin/python $@
         '')
 

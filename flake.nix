@@ -58,6 +58,7 @@
     ##: --- meta packages ------------------------------------------------------
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
+    nixpkgs-overlay-tny = { url = "github:tnytown/nixpkgs-overlay-tny"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
     nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
 
@@ -180,6 +181,7 @@
           in
           {
             inherit (packagesFrom self.packages) emacs-plus;
+            inherit (packagesFrom inputs.nixpkgs-overlay-tny) emacsMacport;
             inherit (packagesFrom inputs.devenv) devenv;
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;
