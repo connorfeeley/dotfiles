@@ -1,5 +1,17 @@
 # FIXME: use device labels for interop
 { config, lib, pkgs, ... }: {
+  # Windows
+  boot.loader.grub.extraEntries = ''
+    menuentry "Windows" {
+      insmod part_gpt
+      insmod fat
+      insmod search_fs_uuid
+      insmod chain
+      search --fs-uuid --set=root $FS_UUID
+      chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    }
+  '';
+
   boot.initrd.availableKernelModules =
     [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.extraModulePackages = [ ];
