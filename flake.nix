@@ -290,76 +290,7 @@
         (digga.lib.mkHomeConfigurations self.darwinConfigurations)
         (digga.lib.mkHomeConfigurations self.nixosConfigurations);
 
-      colmena = import ./colmena.nix { inherit nixpkgs inputs self; };
-
-      deploy.nodes = digga.lib.mkDeployNodes { } {
-        workstation = {
-          hostname = "workstation";
-          sshUser = "cfeeley";
-          remoteBuild = true;
-          fastConnection = true;
-          autoRollback = true;
-          magicRollback = true;
-          profiles.cfeeley = {
-            user = "cfeeley";
-            path = deploy.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.workstation;
-          };
-        };
-        rosy = {
-          hostname = "rosy";
-          sshUser = "cfeeley";
-          remoteBuild = true;
-          fastConnection = true;
-          autoRollback = true;
-          magicRollback = true;
-          profiles.system = {
-            user = "root";
-            path = deploy.lib.aarch64-linux.activate.nixos
-              self.nixosConfigurations.rosy;
-          };
-          profiles.cfeeley = {
-            user = "cfeeley";
-            path = deploy.lib.aarch64-linux.activate.home-manager
-              self.homeConfigurations."cfeeley@rosy";
-          };
-        };
-        h8tsner = {
-          hostname = "h8tsner";
-          sshUser = "root";
-          sshOpts = [ "-p" "26473" ];
-          fastConnection = false;
-          autoRollback = true;
-          magicRollback = true;
-          profiles.system = {
-            user = "root";
-            path = deploy.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.h8tsner;
-          };
-          profiles.cfeeley = {
-            user = "cfeeley";
-            path = deploy.lib.x86_64-linux.activate.home-manager
-              self.homeConfigurations."cfeeley@h8tsner";
-          };
-        };
-        # Deploy to 'cfeeley-laptop':
-        # - Recommended: deploy .#cfeeley-laptop -- --print-build-logs
-        # If there are nix eval errors, then we can tell 'deploy' to skip the flake checks:
-        # - Not recommended: deploy --skip-checks .#cfeeley-laptop -- --print-build-logs
-        cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
-          hostname = ipv4.address;
-          sshUser = "cfeeley";
-          fastConnection = true;
-          autoRollback = true;
-          magicRollback = true;
-          profilesOrder = [ "cfeeley" ];
-          profiles.cfeeley = {
-            user = "cfeeley";
-            path = deploy.lib.x86_64-linux.activate.home-manager
-              self.homeConfigurationsPortable.x86_64-linux."cfeeley@cfeeley-laptop";
-          };
-        };
-      };
+      deploy = import ./deploy.nix { inherit self collective deploy digga; };
 
       overlays = rec {
         # Helper function to install DMGs
