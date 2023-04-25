@@ -11,7 +11,7 @@ channels: final: prev: {
   httpie = prev.python3Packages.httpie;
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions
-    ++ [ (python-final: python-prev: { inherit (prev) chatgpt-wrapper; }) ];
+    ++ [ (python-final: python-prev: { }) ];
 
   inherit (prev) installApplication;
 
