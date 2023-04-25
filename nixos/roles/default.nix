@@ -21,7 +21,12 @@ let
 
   tangible =
     (with (collective.profiles); [ networking.common networking.tailscale ])
-    ++ (with profiles; [ audio bluetooth printers-scanners networking.wifi ]);
+    ++ (with profiles; [
+      audio
+      bluetooth
+      networking.wifi
+      /* printers-scanners */
+    ]);
 
   virt = with profiles; [
     virtualisation.libvirtd
