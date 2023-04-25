@@ -4,7 +4,6 @@
   description = "Application packaged using poetry2nix";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils = { url = "github:numtide/flake-utils"; };
     devshell = {
       url = "github:numtide/devshell";
@@ -63,34 +62,6 @@
           inherit system;
           overlays = [ self.overlays.default devshell.overlay ];
         };
-        inherit (pkgs) lib stdenv;
-
-        # NOTE: upstream playwright.browsers doesn't support aarch64-darwin because
-        # it's missing an outputHash for aarch64-darwin.
-        # Add it here.
-        playwrightBrowsersMac = nixpkgs.playwright.browsers.overrideAttrs
-          (oldAttrs: {
-            src = pkgs.runCommand "playwright-browsers-base"
-              {
-                outputHashMode = "recursive";
-                outputHashAlgo = "sha256";
-                outputHash = {
-                  x86_64-darwin =
-                    "0z2kww4iby1izkwn6z2ai94y87bkjvwak8awdmjm8sgg00pa9l1a";
-                  aarch64-darwin =
-                    "sha256-XxXBA5pPKmhoi0wwMSiohVCPCOCcOggPMQeaYtmzVz0=";
-                }.${system};
-              } ''
-              export PLAYWRIGHT_BROWSERS_PATH=$out
-              ${pkgs.playwright.driver}/bin/playwright install
-              rm -r $out/.links
-            '';
-          });
-        playwrightBrowsers =
-          if stdenv.isDarwin then
-            playwrightBrowsersMac
-          else
-            nixpkgs.playwright.browsers;
       in
       {
         devShells.default = pkgs.devshell.mkShell {
