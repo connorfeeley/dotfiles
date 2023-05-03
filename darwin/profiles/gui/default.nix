@@ -64,31 +64,22 @@ in
     homebrew.casks = [
       { name = "kitty"; }
       { name = "visual-studio-code"; }
-
       { name = "utm-beta"; } # QEMU GUI with virtualisation support
       # { name = "barrier"; } # Poor man's KVM
       { name = "swiftbar"; } # Tweak the menu bar
       # { name = "hiddenbar"; } # Hide/toggle menu bar icon visibility
       { name = "rectangle"; } # Resize windows with keyboard shortcuts and snap areas
       { name = "raycast"; } # Better search popup
-
       { name = "bluesnooze"; } # Sleeping Mac = Bluetooth off
-
       { name = "docker"; }
-
       { name = "firefox"; }
       { name = "google-chrome"; }
       { name = "microsoft-edge-dev"; }
-
       { name = "microsoft-teams"; }
       { name = "microsoft-outlook"; }
-
       { name = "nordvpn"; }
       { name = "private-internet-access"; }
-
-      {
-        name = "vlc";
-      }
+      { name = "vlc"; }
       { name = "lulu"; }
       { name = "wireshark"; }
       { name = "steam"; }
@@ -108,10 +99,9 @@ in
       { name = "transmission"; }
       { name = "deluge"; }
       { name = "nomachine"; }
-
+      { name = "db-browser-for-sqlite"; }
       { name = "launchcontrol"; }
       { name = "backuploupe"; }
-
       { name = "timemachineeditor"; } # start backups in Time Machine at particular times
       { name = "disk-inventory-x"; } # disk usage analyzer
       { name = "trader-workstation"; } # Interactive Brokers TWS
