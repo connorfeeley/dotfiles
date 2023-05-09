@@ -51,7 +51,6 @@
       toronto-backgrounds
     ] ++ (with gnomeExtensions; [
       pop-shell
-      pop-theme-switcher
       remove-alttab-delay-v2
       systemd-manager
       brightness-control-using-ddcutil
