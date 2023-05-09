@@ -10,6 +10,8 @@ in
 {
   imports = [ "${modulesPath}/profiles/base.nix" ];
 
+  boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
+
   wsl = {
     enable = true;
     wslConf.automount.root = "/mnt";
