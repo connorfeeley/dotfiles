@@ -42,7 +42,8 @@
       appmenu-gtk3-module
       tensorman
       popsicle
-      firmware-manager
+      # FIXME(2023-05-11): broken
+      # firmware-manager
 
       pop-icon-theme
       marwaita
