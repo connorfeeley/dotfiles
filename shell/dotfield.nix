@@ -8,7 +8,7 @@ let
     nvfetcher-bin deploy-rs deploy-flake nixpkgs-fmt cachix editorconfig-checker
     nixUnstable shellcheck shfmt terraform treefmt lefthook nix-output-monitor
     nixos-generators nix-eval-jobs nix-prefetch-git nix-build-uncached
-    nixos-rebuild# For remote nixos-rebuild on darwin
+    nixos-rebuild # For remote nixos-rebuild on darwin
     ;
 
   inherit (pkgs.nodePackages) prettier;
