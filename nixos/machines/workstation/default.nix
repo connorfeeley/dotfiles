@@ -13,7 +13,7 @@ in
   assertions = lib.mkIf (!options.virtualisation ? qemu) [{
     # Ensure eth0 (motherboard ethernet) is using DHCP and that
     # tailscale, tailscaleUnlock, initrd networking, and initrd SSH are enabled.
-    assertion = config.networking.interfaces.eth0.useDHCP
+    assertion = config.networking.interfaces.enp38s0.useDHCP
       && config.services.tailscale.enable
       && config.remote-machine.boot.tailscaleUnlock.enable
       && config.boot.initrd.network.enable
@@ -53,12 +53,12 @@ in
     let
       host = peers.hosts.${hostName};
       net = peers.networks.${host.network};
-      interface = "eth0";
+      interface = "enp38s0";
     in
     {
       useDHCP = false;
-      usePredictableInterfaceNames = false;
-      # interfaces.wlp6s0.useDHCP = true;
+      usePredictableInterfaceNames = true;
+      # interfaces.wlo1.useDHCP = true;
 
       firewall = {
         enable = true;
@@ -86,6 +86,7 @@ in
         inherit (net.ipv4) address;
       };
 
+      # Motherboard 2.5GbE
       interfaces.${interface} = {
         useDHCP = true;
         ipv4.addresses = [{
@@ -93,10 +94,27 @@ in
           inherit (net.ipv4) prefixLength;
         }];
       };
-      interfaces.eth1 = {
+
+      # USB (lab) 1GbE ethernet
+      interfaces.enp42s0f1u5u4u2 = {
         ipv4.addresses = [{
           address = "192.168.88.50";
           inherit (net.ipv4) prefixLength;
+        }];
+      };
+
+      # Mellanox 100GbE port 0
+      interfaces.enp36s0f0np0 = {
+        ipv4.addresses = [{
+          address = "192.168.20.50";
+          prefixLength = 24;
+        }];
+      };
+      # Mellanox 100GbE port 1
+      interfaces.enp36s0f0np1 = {
+        ipv4.addresses = [{
+          address = "192.168.21.50";
+          prefixLength = 24;
         }];
       };
     }
@@ -142,7 +160,7 @@ in
     nixos-container
     procps
     fwupd
-    (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda;  })
+    (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda; })
   ];
 
   ### === Shares ============================================================
