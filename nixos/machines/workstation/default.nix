@@ -24,7 +24,7 @@ in
   # Mount /tmp as tmpfs
   boot.tmpOnTmpfs = true;
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
 
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
