@@ -226,7 +226,7 @@
 
         allowBroken = false;
 
-        permittedInsecurePackages = [ "libressl-3.4.3" ];
+        permittedInsecurePackages = [ "libressl-3.4.3" "nodejs-16.20.0" ];
       };
 
       ###

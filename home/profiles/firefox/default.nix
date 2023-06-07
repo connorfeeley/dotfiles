@@ -142,7 +142,6 @@ in
 
   programs.buku = {
     enable = true;
-    enableTui = true;
     enableBrowserIntegration = true;
   };
 

@@ -19,6 +19,4 @@ final: prev: {
       cp bin/* $out/bin/
     '';
   };
-
-  hlissner-hey = final.callPackage ./hlissner-hey.nix { };
 }

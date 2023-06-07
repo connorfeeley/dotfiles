@@ -40,7 +40,6 @@
   environment.systemPackages = with pkgs;
     [ xmonad-config gnome.gnome-boxes ] ++ [
       appmenu-gtk3-module
-      tensorman
       popsicle
       # FIXME(2023-05-11): broken
       # firmware-manager

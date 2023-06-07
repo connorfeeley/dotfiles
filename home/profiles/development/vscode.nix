@@ -36,12 +36,12 @@ let
       haskell.haskell
 
       # Python
-      ms-python.python
       ms-pyright.pyright
 
       # Markdown
       yzhang.markdown-all-in-one
     ] ++ lib.optionals (pkgs.stdenv.isLinux && pkgs.stdenv.isx86_64) [
+      ms-python.python
       ms-vscode.cpptools
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       ###

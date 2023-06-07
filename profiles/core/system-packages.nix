@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    hlissner-hey
-
     ## === Essentials ===
     bashInteractive
     bat

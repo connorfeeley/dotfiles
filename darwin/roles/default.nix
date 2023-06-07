@@ -7,7 +7,7 @@ let
     gui
     emacs
     development
-    virtualization.docker
+    # virtualization.docker
     system-defaults
   ]);
 
@@ -16,7 +16,7 @@ let
     system-defaults
     distributed-build
 
-    virtualization.podman
+    # virtualization.podman
   ]);
 in
 { inherit workstation server; }

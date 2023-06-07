@@ -16,7 +16,6 @@ in
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     { home.packages = [ pkgs.buku ]; }
-    (lib.mkIf cfg.enableTui { home.packages = [ pkgs.bukut ]; })
     (lib.mkIf cfg.enableBrowserIntegration {
       home.packages = [ pkgs.bukubrow ];
     })
