@@ -296,6 +296,17 @@ lib.mkMerge [
         nodePackages.yaml-language-server
         #: vimrc
         nodePackages.vim-language-server
+
+        #: lang rescript
+        rescript
+        (pkgs.writeShellApplication {
+          name = "rescript-language-server";
+          runtimeInputs = [ nodejs vscode-extensions.chenglou92.rescript-vscode ];
+          text = ''
+            exec ${nodejs}/bin/node ${vscode-extensions.chenglou92.rescript-vscode}/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js "$@"
+          '';
+        })
+        nodejs
       ] ++ (lib.optionals (isLinux && !isAarch64) [
         scrot
         peek
@@ -319,10 +330,6 @@ lib.mkMerge [
         svlangserver
         svls
         svlint
-
-        #: lang rescript
-        rescript-compiler
-        vscode-extensions.chenglou92.rescript-vscode
 
         # XWidgets WebKit
         webkitgtk
