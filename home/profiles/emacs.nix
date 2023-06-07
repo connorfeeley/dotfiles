@@ -320,6 +320,10 @@ lib.mkMerge [
         svls
         svlint
 
+        #: lang rescript
+        rescript-compiler
+        vscode-extensions.chenglou92.rescript-vscode
+
         # XWidgets WebKit
         webkitgtk
         glib
