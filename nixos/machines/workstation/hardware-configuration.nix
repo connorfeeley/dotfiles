@@ -1,5 +1,11 @@
 # FIXME: use device labels for interop
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }:
+let
+  mft = (inputs.nurpkgs.packages.x86_64-linux.mft.override {
+    kernel = config.boot.kernelPackages.kernel;
+  });
+in
+{
   # Windows
   boot.loader.grub.extraEntries = ''
     menuentry "Windows" {
@@ -14,7 +20,11 @@
 
   boot.initrd.availableKernelModules =
     [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.extraModulePackages = [ ];
+
+  boot.extraModulePackages = [ mft ];
+  environment.etc = {
+    "mft".source = "${mft}/etc/mft";
+  };
 
   boot.initrd.supportedFilesystems = [ "ext4" "zfs" ];
   boot.supportedFilesystems = [ "ext4" "ntfs" "zfs" ];
@@ -132,6 +142,7 @@
   services.zfs.zed.enableMail = false;
 
   environment.systemPackages = with pkgs; [
+    mft # Mellanox firmware tools
     httm # Interactive, file-level Time Machine-like tool for ZFS/btrfs
     zpool-iostat-viz # "zpool iostats" for humans; find the slow parts of your ZFS pool
     ioztat # A storage load analysis tool for OpenZFS

@@ -194,7 +194,7 @@
 
             # Personal packages
             inherit (packagesFrom inputs.nurpkgs)
-              apple_complete maclaunch toronto-backgrounds mac-stats rescript-compiler;
+              apple_complete maclaunch toronto-backgrounds mac-stats rescript mft;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.ttc-subway-font)
               ttc-subway bloor-yonge-font;
