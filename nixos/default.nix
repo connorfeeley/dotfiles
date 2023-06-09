@@ -121,7 +121,7 @@ in
       modules = (with collective.profiles;
         [
           networking.ssh-host
-          # secrets
+          secrets
         ]) ++ (with roles; server) ++ (with profiles; [
         environments.hetzner-cloud
 
