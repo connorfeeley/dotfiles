@@ -3,7 +3,7 @@ collective:
 let
   inherit (inputs)
     agenix home-manager digga dwarffs nixos-vscode-server hercules-ci-agent
-    nixos-wsl;
+    nixos-wsl nurpkgs;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -51,6 +51,7 @@ in
         nvidia
         virtualisation.vm-variant
         smart
+        nurpkgs.nixosModules.mellanox
 
         builder
         collective.profiles.hercules-ci-agent
