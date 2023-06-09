@@ -174,8 +174,12 @@
 
         nixpkgs-doc.overlays.default # add info outputs to nixpkgs.htmlDocs.nixpkgsManual
 
+        # Personal overlay
+        nurpkgs.overlays.default
+
         (final: _prev:
-          let packagesFrom = inputAttr: inputAttr.packages.${final.system};
+          let packagesFrom = inputAttr:
+                inputAttr.packages.${final.system};
           in
           {
             inherit (packagesFrom self.packages) emacs-plus;
@@ -192,9 +196,6 @@
             inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
             inherit (packagesFrom inputs.nix-search-cli) nix-search;
 
-            # Personal packages
-            inherit (packagesFrom inputs.nurpkgs)
-              apple_complete maclaunch toronto-backgrounds mac-stats rescript mft;
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.ttc-subway-font)
               ttc-subway bloor-yonge-font;

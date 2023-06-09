@@ -1,9 +1,9 @@
 # FIXME: use device labels for interop
 { config, lib, pkgs, inputs, ... }:
 let
-  mft = (inputs.nurpkgs.packages.x86_64-linux.mft.override {
+  mft = pkgs.mft.override {
     kernel = config.boot.kernelPackages.kernel;
-  });
+  };
 in
 {
   # Windows
