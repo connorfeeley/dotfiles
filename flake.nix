@@ -10,6 +10,7 @@
     nixpkgs-darwin.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
+    nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     ##: --- system -------------------------------------------------------------
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
