@@ -1892,6 +1892,111 @@
         "type": "github"
       }
     },
+    "jh7100_ddrinit": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-pOlg3FtFdFhHHnE16izS26RkJ7RbQpglDKgpVRdyAso=",
+        "type": "file",
+        "url": "https://github.com/starfive-tech/JH7100_ddrinit/releases/download/ddrinit-2133-211102/ddrinit-2133-211102.bin.out"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/starfive-tech/JH7100_ddrinit/releases/download/ddrinit-2133-211102/ddrinit-2133-211102.bin.out"
+      }
+    },
+    "jh7100_recovery_binary": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-T3vqaelqwXiOqD8yRHw899A5GI2J+hU/5l5S3euIs2g=",
+        "type": "file",
+        "url": "https://github.com/starfive-tech/bootloader_recovery/releases/download/JH7100_recovery_binary/jh7100_recovery_boot.bin"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/starfive-tech/bootloader_recovery/releases/download/JH7100_recovery_binary/jh7100_recovery_boot.bin"
+      }
+    },
+    "jh7100_secondBoot": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-Ek8RK8t3y9JfpVfey1X9yZn9OIbOj/EJokUeWbZWZGU=",
+        "type": "file",
+        "url": "https://github.com/starfive-tech/JH7100_secondBoot/releases/download/bootloader-211102_VisionFive_JH7100/bootloader-JH7100-211102.bin.out"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/starfive-tech/JH7100_secondBoot/releases/download/bootloader-211102_VisionFive_JH7100/bootloader-JH7100-211102.bin.out"
+      }
+    },
+    "jh7110-kernel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1685361106,
+        "narHash": "sha256-g9pRqMlMHNWqhJrp09QOntxu7NqNnTbWGJNqVMMflxA=",
+        "owner": "starfive-tech",
+        "repo": "linux",
+        "rev": "d9eee31aaec51ade1641391836c1f07dd2151a4a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "starfive-tech",
+        "ref": "JH7110_VisionFive2_devel",
+        "repo": "linux",
+        "type": "github"
+      }
+    },
+    "jh7110_recovery_binary": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-WL2ltlIJoWQFrRxEQNYQdzBBj0qv9FnMWLHVZVzWzBQ=",
+        "type": "file",
+        "url": "https://github.com/starfive-tech/Tools/blob/bc6dc7e33e0c2466db0476b5043f0f77842f98f0/recovery/jh7110-recovery-20221205.bin?raw=true"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/starfive-tech/Tools/blob/bc6dc7e33e0c2466db0476b5043f0f77842f98f0/recovery/jh7110-recovery-20221205.bin?raw=true"
+      }
+    },
+    "jh7110_u-boot-bin": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-DfB8HpWv+/i+fdGvF6oGVVgc+A+LV5NA8PZ1JSOSuys=",
+        "type": "file",
+        "url": "https://github.com/starfive-tech/VisionFive2/releases/download/VF2_v2.8.0/visionfive2_fw_payload.img"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/starfive-tech/VisionFive2/releases/download/VF2_v2.8.0/visionfive2_fw_payload.img"
+      }
+    },
+    "jh7110_u-boot-spl-bin": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-Mgw6YUn69MNvgZFd1WvamF0N1ZjF35km76i1AknaAT8=",
+        "type": "file",
+        "url": "https://github.com/starfive-tech/VisionFive2/releases/download/VF2_v2.8.0/u-boot-spl.bin.normal.out"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/starfive-tech/VisionFive2/releases/download/VF2_v2.8.0/u-boot-spl.bin.normal.out"
+      }
+    },
+    "jh71xx-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676476523,
+        "narHash": "sha256-MNcwThytd7hPTYgXlKp1InSsKnqnNVM1Jh5YQKVpUJI=",
+        "owner": "xypron",
+        "repo": "jh71xx-tools",
+        "rev": "a4907831be56b42571696e71cb48e3b0b28aa46f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xypron",
+        "repo": "jh71xx-tools",
+        "type": "github"
+      }
+    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -3674,6 +3779,7 @@
         "sops-nix": "sops-nix",
         "ttc-subway-font": "ttc-subway-font",
         "tum-dse-config": "tum-dse-config",
+        "visionfive-nix": "visionfive-nix",
         "xmonad-config": "xmonad-config"
       }
     },
@@ -4144,6 +4250,51 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vendor-kernel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676239483,
+        "narHash": "sha256-1Tzo0vOMqCnItBfjY0QovvP0eCQSTbCjLPbaDqjl1Zc=",
+        "owner": "starfive-tech",
+        "repo": "linux",
+        "rev": "0e15216a6dc190314024ca2c11d8505865fdd1ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "starfive-tech",
+        "repo": "linux",
+        "type": "github"
+      }
+    },
+    "visionfive-nix": {
+      "inputs": {
+        "jh7100_ddrinit": "jh7100_ddrinit",
+        "jh7100_recovery_binary": "jh7100_recovery_binary",
+        "jh7100_secondBoot": "jh7100_secondBoot",
+        "jh7110-kernel": "jh7110-kernel",
+        "jh7110_recovery_binary": "jh7110_recovery_binary",
+        "jh7110_u-boot-bin": "jh7110_u-boot-bin",
+        "jh7110_u-boot-spl-bin": "jh7110_u-boot-spl-bin",
+        "jh71xx-tools": "jh71xx-tools",
+        "nixpkgs": [
+          "nixos-23-05"
+        ],
+        "vendor-kernel": "vendor-kernel"
+      },
+      "locked": {
+        "lastModified": 1686427118,
+        "narHash": "sha256-OPEp6slVR3TRIANSaa0IOT7LmrdpoSqkN53davAsMdE=",
+        "owner": "connorfeeley",
+        "repo": "visionfive-nix",
+        "rev": "b50eed97ca4eee8ad32185f25b97e2372dfec81c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "connorfeeley",
+        "repo": "visionfive-nix",
         "type": "github"
       }
     },

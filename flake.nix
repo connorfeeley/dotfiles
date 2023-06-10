@@ -83,6 +83,7 @@
     plasma-manager = { url = "github:pjones/plasma-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     mmdoc = { url = "github:ryantm/mmdoc"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixpkgs-update = { url = "github:ryantm/nixpkgs-update"; inputs.nixpkgs.follows = "nixpkgs"; inputs.mmdoc.follows = "mmdoc"; };
+    visionfive-nix = { url = "github:connorfeeley/visionfive-nix"; inputs.nixpkgs.follows = "nixos-23-05"; };
   };
 
   outputs =
