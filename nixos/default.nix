@@ -3,7 +3,7 @@ collective:
 let
   inherit (inputs)
     agenix home-manager digga dwarffs nixos-vscode-server hercules-ci-agent
-    nixos-wsl nurpkgs;
+    nixos-wsl nurpkgs visionfive-nix;
   inherit (inputs.flake-utils.lib.system) x86_64-linux aarch64-linux;
   inherit (digga.lib) importHosts importExportableModules rakeLeaves;
 
@@ -76,6 +76,17 @@ in
 
         # virtualisation.arion
       ]);
+
+    # visionfive2.system = "x86_64-linux";
+    visionfive2.modules = [
+      visionfive-nix.nixosModules.visionfive2-sd-image
+      # visionfive-nix.nixosModules.visionfive2-kernel
+      {
+        nixpkgs.crossSystem = {
+          system = "riscv64-linux";
+        };
+      }
+    ];
 
     workstation-wsl.modules =
       #: ~ Modules ~

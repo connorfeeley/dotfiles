@@ -146,13 +146,13 @@
       inherit (digga.lib) flattenTree importExportableModules rakeLeaves;
       inherit (flake-utils.lib) eachSystem;
       inherit (flake-utils.lib.system)
-        x86_64-linux aarch64-linux
-
+        x86_64-linux aarch64-linux riscv64-linux
         x86_64-darwin aarch64-darwin;
 
       supportedSystems = [
         x86_64-linux
         aarch64-linux
+        riscv64-linux
 
         x86_64-darwin
         aarch64-darwin
@@ -313,6 +313,15 @@
         ];
       };
     }) //
+    {
+      images = {
+        # visionfive-cross = self.nixosConfigurations.visionfive-cross.config.system.build.sdImage;
+        # visionfive-native = self.nixosConfigurations.visionfive-native.config.system.build.sdImage;
+
+        visionfive2-cross = self.nixosConfigurations.visionfive2.config.system.build.sdImage;
+        # visionfive2-native = self.nixosConfigurations.visionfive2-native.config.system.build.sdImage;
+      };
+    } //
     # Generate attrs for each system: (formatter.<system>)
     (eachSystem supportedSystems
       (system: { formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt; }))
