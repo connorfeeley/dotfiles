@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   programs.chromium = {
-    enable = false;
+    enable = true;
     package = pkgs.microsoft-edge;
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
