@@ -118,37 +118,42 @@ in
     #   ]);
 
     h8tsner = {
-      modules = (with collective.profiles;
-        [
+      modules =
+        (with collective.profiles; [
           networking.ssh-host
           secrets
-        ]) ++ (with roles; server) ++ (with profiles; [
-        environments.hetzner-cloud
+        ]) ++
+        (with roles; server) ++ (with profiles; [
+          environments.hetzner-cloud
 
-        minecraft.minecraft-server
-      ]);
+          minecraft.minecraft-server
+        ]);
     };
 
     rosy = {
       system = aarch64-linux;
-      modules = (with roles; server) ++ (with profiles; [
-        builder
-        collective.profiles.hercules-ci-agent
+      modules =
+        (with roles; server) ++
+        (with profiles; [
+          builder
+          collective.profiles.hercules-ci-agent
 
-        desktop.common
-        login.gdm
-        xorg
-        kde
-        gnome-desktop
-        xfce
-        # pantheon
-        # hm-xmonad
-      ]);
+          desktop.common
+          login.gdm
+          xorg
+          kde
+          gnome-desktop
+          xfce
+          # pantheon
+          # hm-xmonad
+        ]);
     };
 
     builder = {
       system = aarch64-linux;
-      modules = (with roles; server) ++ (with profiles; [ builder ]);
+      modules =
+        (with roles; server) ++
+        (with profiles; [ builder ]);
     };
   };
 
