@@ -307,6 +307,11 @@ lib.mkMerge [
           '';
         })
         nodejs
+
+        #: lang reasonml
+        vscode-extensions.freebroccolo.reasonml
+        ocamlPackages.merlin
+        ocamlPackages.lsp
       ] ++ (lib.optionals (isLinux && !isAarch64) [
         scrot
         peek
