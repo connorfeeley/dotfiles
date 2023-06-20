@@ -99,8 +99,8 @@ in
   system.stateVersion = "22.11"; # Did you read the comment?
 
   # Emulate x86_64-linux with QEMU
-  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
-  nix.settings.extra-platforms = [ "x86_64-linux" ];
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" "riscv64-linux" ];
+  nix.settings.extra-platforms = [ "x86_64-linux" "riscv64-linux" ];
 
   ### === users ================================================================
 
@@ -139,8 +139,7 @@ in
   home-manager.users = {
     "${guardian.username}" = hmArgs: {
       imports = with hmArgs.roles;
-        (lib.flatten [ ] ++ lib.optionals (!config.nixos-vm.enable)
-          (lib.flatten [ workstation developer linux emacs-config ]))
+        (lib.optionals (!config.nixos-vm.enable) (lib.flatten [ workstation developer linux emacs-config ]))
         ++ (with hmArgs.profiles; [
           work
 
