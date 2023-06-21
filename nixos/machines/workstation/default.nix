@@ -164,6 +164,8 @@ in
     (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda; })
   ];
 
+  programs.wireshark.enable = true;
+
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
     device = "/home/cfeeley";
@@ -230,8 +232,7 @@ in
     ++ (lib.optional config.virtualisation.docker.enable "docker")
     ++ (lib.optional config.virtualisation.podman.enable "podman")
     ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
-    ++ (lib.optional config.virtualisation.virtualbox.host.enable
-      "vboxusers");
+    ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
     shell = pkgs.zsh;
   };
 
