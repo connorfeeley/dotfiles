@@ -47,7 +47,7 @@
 
       ## === Networking ===
       aircrack-ng
-      wireshark
+      # wireshark
       mitmproxy
       proxychains
       udptunnel

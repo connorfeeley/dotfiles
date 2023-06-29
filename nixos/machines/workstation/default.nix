@@ -162,9 +162,11 @@ in
     procps
     fwupd
     (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda; })
+    linuxptp
   ];
 
   programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark;
 
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
