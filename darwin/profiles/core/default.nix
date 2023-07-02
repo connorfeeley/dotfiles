@@ -33,7 +33,7 @@ in
   environment.enableAllTerminfo = true;
 
   environment.systemPackages =
-    let apple_complete = (lib.lowPrio pkgs.apple_complete);
+    let apple_complete = (lib.lowPrio pkgs.darwinPackages.apple_complete);
     in with pkgs; [
       #  Swiss Army Knife for macOS
       # => https://github.com/rgcr/m-cli
@@ -51,7 +51,7 @@ in
       sshfs-fuse # <- sshfs for MacOS
       darwin.iproute2mac # <- MacOS implementation of iproute2
       apple_complete # <- bash completions for MacOS
-      maclaunch # <- Manage your macOS startup items.
+      darwinPackages.maclaunch # <- Manage your macOS startup items.
     ];
 
   # Recreate /run/current-system symlink after boot
