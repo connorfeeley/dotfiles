@@ -106,6 +106,7 @@ in
       { name = "disk-inventory-x"; } # disk usage analyzer
       { name = "trader-workstation"; } # Interactive Brokers TWS
       { name = "microsoft-remote-desktop"; }
+      { name = "pgadmin4"; }
     ];
 
     homebrew.masApps = {
