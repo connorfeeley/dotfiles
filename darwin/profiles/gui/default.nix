@@ -34,6 +34,7 @@ in
       { name = "homebrew/cask"; }
       { name = "homebrew/cask-versions"; }
       { name = "jorgelbg/tap"; } # pinentry-touchid
+      { name = "homebrew/services"; } # 'brew services' command
     ];
 
     homebrew.brews = [
@@ -59,6 +60,7 @@ in
       { name = "samba"; }
       { name = "freerdp"; }
       { name = "alerter"; } # like notify-send but for darwin
+      { name = "postgresql@14"; }
     ];
 
     homebrew.casks = [
