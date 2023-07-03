@@ -74,6 +74,9 @@ in
     };
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 2112 ];
 
+    # Bluesky feed
+    networking.firewall.allowedTCPPorts = [ 8000 ];
+
     ###
     ### Prometheus node
     ###
