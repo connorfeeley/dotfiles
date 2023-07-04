@@ -21,7 +21,7 @@ in
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   config = {
-    boot.tmp.cleanOnBoot = true;
+    boot.cleanTmpDir = true;
     zramSwap.enable = true;
     networking.hostName = "h8tsner";
     users.users.root.openssh.authorizedKeys.keys = [

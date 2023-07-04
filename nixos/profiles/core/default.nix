@@ -26,7 +26,7 @@ in
   };
 
   boot.loader.systemd-boot.consoleMode = "auto";
-  boot.tmp.cleanOnBoot = lib.mkDefault true;
+  boot.cleanTmpDir = lib.mkDefault true;
 
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
   i18n.supportedLocales = [ "all" ];
