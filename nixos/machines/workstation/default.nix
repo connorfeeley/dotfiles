@@ -22,8 +22,8 @@ in
   }];
 
   # Mount /tmp as tmpfs
-  boot.tmpOnTmpfs = true;
-  boot.tmpOnTmpfsSize = "75%"; # 75% of RAM
+  boot.tmp.useTmpfs = true;
+  boot.tmp.tmpfsSize = "75%"; # 75% of RAM
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
 
