@@ -6,6 +6,7 @@ let
 
   shellAliases = (import ../abbrs.nix) // (import ../aliases.nix) // {
     nix-callpackage = ''(){ nix-build -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
+    nix-callshell = ''(){ nix-shell -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
   } // (if isDarwin then {
     # Alias 'tailscale' to MAS Tailscale binary
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
