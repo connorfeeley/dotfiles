@@ -103,6 +103,22 @@ in
 
   system.stateVersion = "22.05";
 
+  # Bluesky feed
+  networking.firewall.allowedTCPPorts = [ 8000 443 3000 80 ];
+
+  services.nginx.enable = true;
+  services.nginx.virtualHosts."dev.cfeeley.org" = {
+    addSSL = true;
+    enableACME = true;
+    serverAliases = [ "dev.cfeeley.org" ];
+    root = "/var/www/dev.cfeeley.org";
+  };
+  security.acme = {
+    acceptTerms = true;
+    email = "admin@cfeeley.org";
+  };
+
+
   ### === hardware ================================================================
 
   # imports = [

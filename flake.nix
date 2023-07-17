@@ -46,7 +46,7 @@
     comma = { url = "github:nix-community/comma"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-index-database = { url = "github:Mic92/nix-index-database"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
-    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { nixpkgs.follows = "nixpkgs"; flake-parts.follows = "flake-parts"; nix-darwin.follows = "darwin"; }; };
+    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { nixpkgs.follows = "nixpkgs"; flake-parts.follows = "flake-parts"; }; };
     poetry2nix = { url = "github:nix-community/poetry2nix"; inputs = { nixpkgs.follows = "nixpkgs"; flake-utils.follows = "flake-utils"; }; };
 
     ##: --- personal packages --------------------------------------------------
@@ -229,7 +229,7 @@
 
         allowBroken = false;
 
-        permittedInsecurePackages = [ "libressl-3.4.3" "nodejs-16.20.0" ];
+        permittedInsecurePackages = [ "libressl-3.4.3" "nodejs-16.20.0" "nodejs-16.20.1" "nodejs-14.21.3" "openssl-1.1.1u" ];
       };
 
       ###
