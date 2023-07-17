@@ -62,7 +62,7 @@ in
       # interfaces.wlo1.useDHCP = true;
 
       firewall = {
-        enable = true;
+        enable = false;
         allowedTCPPorts = [
           2049 # 2049: NFS
           5357 # wsdd
@@ -123,6 +123,8 @@ in
 
   boot.kernel.sysctl = {
     "net.ipv6.route.max_size" = 2147483647; # Default: 4096
+    "net.ipv4.conf.default.rp_filter" = 2;
+    "net.ipv4.conf.all.rp_filter" = 2;
   };
 
   boot.kernelModules = [ "usbip" ];
@@ -236,6 +238,21 @@ in
     ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd")
     ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
     shell = pkgs.zsh;
+  };
+
+  users.users.sbuser = {
+    uid = 999;
+    group = "users";
+    # isNormalUser = true;
+    initialHashedPassword =
+      "$6$VsuLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    hashedPassword =
+      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
+    extraGroups = [
+      "users"
+    ];
+    shell = pkgs.bash;
   };
 
   home-manager.users = {
