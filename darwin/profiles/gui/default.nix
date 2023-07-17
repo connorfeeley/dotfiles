@@ -109,6 +109,7 @@ in
       { name = "trader-workstation"; } # Interactive Brokers TWS
       { name = "microsoft-remote-desktop"; }
       { name = "pgadmin4"; }
+      { name = "obs"; }
     ];
 
     homebrew.masApps = {
