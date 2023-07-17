@@ -26,6 +26,7 @@ in
       patchelf # <- modify the dynamic linker and RPATH of ELF executables
       poetry # <- sanest python package manager
       remake # <- GNU Make with comprehensible tracing and a debugger
+      nur.repos.foolnotion.cmake-init
 
       ## === Nix Utilities ===
       nickel # <- "Better configuration for less"
