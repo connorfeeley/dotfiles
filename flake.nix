@@ -3,12 +3,13 @@
 
   inputs = {
     ##: --- nixpkgs flavours ----------------------------------------------------------
-    nixpkgs.follows = "nixos-unstable";
+    nixpkgs.follows = "nixos-stable";
+    nixpkgs-darwin.follows = "nixos-stable";
 
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
-    nixpkgs-darwin.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    
     nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
 
@@ -70,7 +71,7 @@
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
     prefmanager = { url = "github:malob/prefmanager"; inputs.nixpkgs.follows = "nixpkgs"; };
-    tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
+    tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
     nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
 
