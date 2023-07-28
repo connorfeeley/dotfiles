@@ -15,6 +15,7 @@ let
             (old: {
               # Required for 'hammy' emacs package
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
+              nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.darwin.apple_sdk.frameworks.Accelerate ];
 
               # src = pkgs.fetchFromBitbucket {
               #   owner = "mituharu";
