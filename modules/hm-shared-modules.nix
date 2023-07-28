@@ -14,9 +14,8 @@ in
     manual.json.enable = true;
     news.display = "show";
 
-    # Necessary for home-manager to work with flakes, otherwise it will
-    # look for a nixpkgs channel.
-    home.stateVersion = "21.11";
+    # Necessary for home-manager to work with flakes, otherwise it will look for a nixpkgs channel.
+    home.stateVersion = "21.11"; # Version of *original* HM state.
 
     xdg.enable = true;
 
