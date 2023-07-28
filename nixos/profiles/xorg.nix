@@ -51,7 +51,8 @@
 
   services.xserver = {
     enable = true;
-    layout = "dvorak";
+    layout = "us";
+    xkbVariant = "dvorak";
     libinput.enable = false;
     enableTCP = true; # allow X server to accept TCP conn.
     updateDbusEnvironment = true; # update the DBus activation environment
