@@ -1,2 +1,7 @@
 { lib, pkgs, ... }:
-lib.mkMerge [{ home.packages = with pkgs; [ distrobox arion ]; }]
+
+{
+  home.packages = with pkgs;
+    (lib.optionals pkgs.stdenv.isLinux [ distrobox ]) ++
+    [ arion ];
+}
