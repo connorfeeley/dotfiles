@@ -11,7 +11,7 @@ in
 
   home-manager.sharedModules = [{
     programs.home-manager.enable = true;
-    manual.json.enable = true;
+    manual.json.enable = !pkgs.stdenv.isDarwin; # FIXME
     news.display = "show";
 
     # Necessary for home-manager to work with flakes, otherwise it will look for a nixpkgs channel.
