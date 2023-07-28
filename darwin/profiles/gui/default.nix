@@ -35,6 +35,7 @@ in
       { name = "homebrew/cask-versions"; }
       { name = "jorgelbg/tap"; } # pinentry-touchid
       { name = "homebrew/services"; } # 'brew services' command
+      { name = "apple/homebrew-apple"; } # game porting toolkit
     ];
 
     homebrew.brews = [
