@@ -2,9 +2,13 @@
 let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
-  nvStable = pkgs.nur.repos.arc.packages.nvidia-patch.override {
-    nvidia_x11 = nvidiaPackages.vulkan_beta; # FIXME: only using vulkan_beta since it satisfies nvidia_x11 being < v430
-  };
+  # FIXME(2023-07-28): broken on nixos-23.05
+  nvPackage = (pkgs.nur.repos.arc.packages.nvidia-patch.override {
+    # nvidia_x11 = nvidiaPackages.vulkan_beta; # FIXME: only using vulkan_beta since it satisfies nvidia_x11 being < v430
+  }).overrideAttrs (old: {
+    # meta.broken = false;
+    # meta.broken = lib.versionOlder nvidiaVersionSupported nvidia_x11.version;
+  });
 
   xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in
@@ -17,7 +21,7 @@ lib.mkIf (!config.nixos-vm.enable) {
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-    package = nvStable;
+    package = nvidiaPackages.beta;
     modesetting.enable = false;
     nvidiaSettings = true; # Enable nvidia-settings utility
     nvidiaPersistenced = false; # Don't run daemon to keep GPU state alive
