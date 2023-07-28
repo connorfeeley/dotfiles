@@ -1,4 +1,9 @@
+# SPDX-FileCopyrightText: 2023 Connor Feeley
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 moduleArgs@{ config, lib, pkgs, ... }:
+
 let inherit (config.lib.dag) entryAfter; in {
   # Setup docker CLI plugins:
   home.activation.setupDockerCLI = entryAfter [ "writeBoundary" ] ''

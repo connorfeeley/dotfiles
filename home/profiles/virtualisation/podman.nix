@@ -1,4 +1,9 @@
+# SPDX-FileCopyrightText: 2023 Connor Feeley
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 { config, osConfig, lib, pkgs, ... }:
+
 lib.mkMerge [{
   home.packages = with pkgs; [ podman podman-compose ];
 }
