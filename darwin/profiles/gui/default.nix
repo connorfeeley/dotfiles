@@ -24,7 +24,7 @@ in
       ckan # Mod manager for Kerbal Space Program
 
       better-display # MacOS app for managing display settings
-      darwinPackages.mac-stats # MacOS app for monitoring system stats (fork without telemetry)
+      # darwinPackages.mac-stats # MacOS app for monitoring system stats (fork without telemetry)
     ];
 
     services.karabiner-elements.enable = true;
@@ -111,6 +111,7 @@ in
       { name = "microsoft-remote-desktop"; }
       { name = "pgadmin4"; }
       { name = "obs"; }
+      { name = "stats"; }
     ];
 
     homebrew.masApps = {
