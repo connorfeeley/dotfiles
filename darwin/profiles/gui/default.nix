@@ -77,7 +77,7 @@ in
       { name = "docker"; }
       { name = "firefox"; }
       { name = "google-chrome"; }
-      { name = "microsoft-edge-dev"; }
+      { name = "microsoft-edge"; }
       { name = "microsoft-teams"; }
       { name = "microsoft-outlook"; }
       { name = "nordvpn"; }
