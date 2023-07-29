@@ -1,19 +1,24 @@
+# SPDX-FileCopyrightText: 2023 Connor Feeley
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 {
   description = "Dotfield";
 
   inputs = {
     ##: --- nixpkgs flavours ----------------------------------------------------------
-    nixpkgs.follows = "nixos-unstable";
+    nixpkgs.follows = "nixos-stable";
+    nixpkgs-darwin.follows = "nixos-stable";
 
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
-    nixpkgs-darwin.follows = "nixos-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    
     nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     ##: --- system -------------------------------------------------------------
-    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    home-manager = { url = "github:nix-community/home-manager/release-23.05"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     digga = { url = "github:divnix/digga"; inputs.nixpkgs.follows = "nixpkgs"; inputs.home-manager.follows = "home-manager"; inputs.darwin.follows = "darwin"; };
     nixos-wsl = { url = "github:nix-community/NixOS-WSL"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -46,7 +51,7 @@
     comma = { url = "github:nix-community/comma"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-index-database = { url = "github:Mic92/nix-index-database"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
-    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; inputs = { nixpkgs.follows = "nixpkgs"; flake-parts.follows = "flake-parts"; }; };
+    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; };
     poetry2nix = { url = "github:nix-community/poetry2nix"; inputs = { nixpkgs.follows = "nixpkgs"; flake-utils.follows = "flake-utils"; }; };
 
     ##: --- personal packages --------------------------------------------------
@@ -68,11 +73,13 @@
     nix-init = { url = "github:nix-community/nix-init"; };
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
-    deploy-flake = { url = "github:antifuchs/deploy-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
+    deploy-flake = { url = "github:antifuchs/deploy-flake"; };
     prefmanager = { url = "github:malob/prefmanager"; inputs.nixpkgs.follows = "nixpkgs"; };
-    tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.nixpkgs-unstable.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
+    tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
     nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
+    # TODO: currently using package from nur; should change nvidia profile to use this though
+    nvidia-patch = { url = "github:arcnmx/nvidia-patch.nix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- other --------------------------------------------------------------
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };

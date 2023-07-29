@@ -15,6 +15,7 @@ let
             (old: {
               # Required for 'hammy' emacs package
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
+              nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.darwin.apple_sdk.frameworks.Accelerate ];
 
               # src = pkgs.fetchFromBitbucket {
               #   owner = "mituharu";
@@ -298,15 +299,16 @@ lib.mkMerge [
         nodePackages.vim-language-server
 
         #: lang rescript
-        rescript
-        (pkgs.writeShellApplication {
-          name = "rescript-language-server";
-          runtimeInputs = [ nodejs vscode-extensions.chenglou92.rescript-vscode ];
-          text = ''
-            exec ${nodejs}/bin/node ${vscode-extensions.chenglou92.rescript-vscode}/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js "$@"
-          '';
-        })
-        nodejs
+        # FIXME(2023-07-27): version 3e9 of dune is not supported
+        # rescript
+        # (pkgs.writeShellApplication {
+        #   name = "rescript-language-server";
+        #   runtimeInputs = [ nodejs vscode-extensions.chenglou92.rescript-vscode ];
+        #   text = ''
+        #     exec ${nodejs}/bin/node ${vscode-extensions.chenglou92.rescript-vscode}/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js "$@"
+        #   '';
+        # })
+        # nodejs
 
         #: lang reasonml
         vscode-extensions.freebroccolo.reasonml

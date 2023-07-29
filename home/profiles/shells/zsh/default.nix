@@ -6,6 +6,7 @@ let
 
   shellAliases = (import ../abbrs.nix) // (import ../aliases.nix) // {
     nix-callpackage = ''(){ nix-build -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
+    nix-callshell = ''(){ nix-shell -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
   } // (if isDarwin then {
     # Alias 'tailscale' to MAS Tailscale binary
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
@@ -15,8 +16,10 @@ let
 
     # Reboot after FileVault unlock
     reboot = "sudo fdesetup authrestart -user cfeeley -verbose";
-  } else
-    { });
+  } else { });
+
+  # Flag to enable zprof
+  enableZprof = false;
 in
 {
   imports = [ ../common.nix ];
@@ -98,6 +101,10 @@ in
 
     # This is the top of $ZDOTDIR/.zshrc
     initExtraFirst = ''
+      ${
+        # Optionally enable zprof module; run 'zprof' after shell startup to see profiling results
+        lib.optionalString enableZprof "zmodload zsh/zprof"
+      }
       if [[ "$TERM" == "dumb" ]]; then
         unsetopt zle
         unsetopt prompt_cr

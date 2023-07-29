@@ -6,7 +6,6 @@ lib.mkIf (!options.virtualisation ? qemu) {
   boot.loader.grub.efiInstallAsRemovable = false;
   boot.loader.generationsDir.copyKernels = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.copyKernels = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.gfxmodeEfi = "2560x1440";
