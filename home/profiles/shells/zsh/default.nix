@@ -16,8 +16,10 @@ let
 
     # Reboot after FileVault unlock
     reboot = "sudo fdesetup authrestart -user cfeeley -verbose";
-  } else
-    { });
+  } else { });
+
+  # Flag to enable zprof
+  enableZprof = false;
 in
 {
   imports = [ ../common.nix ];
@@ -99,6 +101,10 @@ in
 
     # This is the top of $ZDOTDIR/.zshrc
     initExtraFirst = ''
+      ${
+        # Optionally enable zprof module; run 'zprof' after shell startup to see profiling results
+        lib.optionalString enableZprof "zmodload zsh/zprof"
+      }
       if [[ "$TERM" == "dumb" ]]; then
         unsetopt zle
         unsetopt prompt_cr
