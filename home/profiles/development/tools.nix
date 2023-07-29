@@ -51,8 +51,6 @@ in
       nix-eval-jobs # <- Parallel nix evaluator with a streamable json output
       nixpkgs-review # <- Review nixpkgs pull requests
       nixpkgs-pytools # <- Tools for removing the tedious nature of creating nixpkgs derivations
-      nix-update-source # <- Utility to automate updating of nix derivation sources
-      nix-update # <- Swiss-knife for updating nix packages
       nix-universal-prefetch # <- Uses nixpkgs fetchers to figure out hashes
       nix-tour # <- 'the tour of nix' from nixcloud.io/tour as offline version
       nix-build-uncached # <- A CI friendly wrapper around nix-build
