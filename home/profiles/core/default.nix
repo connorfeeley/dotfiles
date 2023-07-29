@@ -163,9 +163,9 @@ in
   home.enableNixpkgsReleaseCheck = true;
 
   manual = {
-    manpages.enable = !pkgs.stdenv.isDarwin; # FIXME
-    html.enable = !pkgs.stdenv.isDarwin; # FIXME
-    json.enable = !pkgs.stdenv.isDarwin; # FIXME
+    manpages.enable = true;
+    html.enable = true;
+    json.enable = true;
   };
 
   home.extraOutputsToInstall = [ "/share/zsh" ];
