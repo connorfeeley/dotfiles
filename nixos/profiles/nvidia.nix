@@ -2,11 +2,9 @@
 let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
-  # FIXME(2023-07-28): broken on nixos-23.05
   nvPackage = (pkgs.nur.repos.arc.packages.nvidia-patch.override {
     # nvidia_x11 = nvidiaPackages.vulkan_beta; # FIXME: only using vulkan_beta since it satisfies nvidia_x11 being < v430
   }).overrideAttrs (old: {
-    # meta.broken = false;
     # meta.broken = lib.versionOlder nvidiaVersionSupported nvidia_x11.version;
   });
 
@@ -21,7 +19,7 @@ lib.mkIf (!config.nixos-vm.enable) {
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-    package = nvidiaPackages.beta;
+    package = nvPackage;
     modesetting.enable = false;
     nvidiaSettings = true; # Enable nvidia-settings utility
     nvidiaPersistenced = false; # Don't run daemon to keep GPU state alive
@@ -38,8 +36,7 @@ lib.mkIf (!config.nixos-vm.enable) {
   boot.plymouth = {
     enable = false;
     theme = "breeze";
-    font =
-      "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.ttf";
+    font = "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.hardware";
   };
 
   hardware.opengl = {
