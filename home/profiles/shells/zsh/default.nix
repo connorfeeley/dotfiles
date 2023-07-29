@@ -35,7 +35,7 @@ in
     dotDir = ".config/zsh";
     enableCompletion = true;
     # NOTE: conflicts with 'zdharma/fast-syntax-highlighting'
-    syntaxHighlighting.enable = false;
+    enableSyntaxHighlighting = false;
     enableAutosuggestions = false;
     enableVteIntegration = true;
 
