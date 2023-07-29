@@ -3,7 +3,7 @@ let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
   nvPackage = (pkgs.nur.repos.arc.packages.nvidia-patch.override {
-    # nvidia_x11 = nvidiaPackages.vulkan_beta; # FIXME: only using vulkan_beta since it satisfies nvidia_x11 being < v430
+    nvidia_x11 = nvidiaPackages.stable; # FIXME: only using vulkan_beta since it satisfies nvidia_x11 being < v430
   }).overrideAttrs (old: {
     # meta.broken = lib.versionOlder nvidiaVersionSupported nvidia_x11.version;
   });
