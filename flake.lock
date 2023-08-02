@@ -2894,6 +2894,22 @@
         "type": "github"
       }
     },
+    "nixos-unstable-small": {
+      "locked": {
+        "lastModified": 1690986389,
+        "narHash": "sha256-hTTLBBWQ8OmU54Ue4OVJG6KgXQVkTApaWK2G//wSNVw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ab3f2b880179780307c33fed6818b7d069ad4619",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixos-vscode-server": {
       "inputs": {
         "flake-utils": "flake-utils_27",
@@ -3927,6 +3943,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
         "nixos-unstable": "nixos-unstable",
+        "nixos-unstable-small": "nixos-unstable-small",
         "nixos-vscode-server": "nixos-vscode-server",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": [

@@ -16,6 +16,6 @@ let inherit (config.lib.dag) entryAfter; in {
     [ docker-buildx docker-credential-helpers buildkit ] ++ lib.optionals
       (moduleArgs.osConfig.virtualisation.docker.enable or false) [
       # docker
-      # docker-compose
+      docker-compose
     ];
 }

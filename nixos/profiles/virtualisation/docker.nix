@@ -1,10 +1,11 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let inherit (config.dotfield) guardian;
 in {
   virtualisation.oci-containers.backend = "docker";
 
   virtualisation.docker = {
     enable = true;
+    package = pkgs.docker_24;
     daemon.settings = {
       # Default: /var/lib/docker
       data-root = "/var/lib/docker"; # "/mnt/ssd/docker";
@@ -19,6 +20,8 @@ in {
 
   # Local gitlab runner
   services.gitlab-runner.enable = true;
+
+  environment.systemPackages = [ pkgs.x11docker ];
 
   users.users.${guardian.username}.extraGroups = [ "docker" ];
 }

@@ -13,6 +13,7 @@
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
     
     nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
@@ -217,6 +218,10 @@
               inputs.darwin-emacs.packages.${final.system}.default;
             neovim-plusultra =
               inputs.neovim-plusultra.packages.${final.system}.neovim;
+
+            inherit (inputs.nixos-unstable-small.legacyPackages.${final.system}) docker_24;
+            docker = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker_24;
+            docker-compose = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker-compose;
           })
         (import ./overlays/tum-dse-config { inherit inputs; })
         (import ./overlays/python { inherit inputs; })
