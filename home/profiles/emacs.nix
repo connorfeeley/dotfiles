@@ -284,8 +284,6 @@ lib.mkMerge [
         #: nix
         rnix-lsp
         nil # ('nix-nil' from source repo)
-        #: sh
-        nodePackages.bash-language-server
         nixd
         #: toml
         taplo-lsp
