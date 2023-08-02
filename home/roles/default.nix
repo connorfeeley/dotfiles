@@ -50,7 +50,6 @@ let
     obs-studio
     spotify
     zotero
-    nnn # file manager
     mpv
     media
   ];
