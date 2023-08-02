@@ -286,6 +286,7 @@ lib.mkMerge [
         nil # ('nix-nil' from source repo)
         #: sh
         nodePackages.bash-language-server
+        nixd
         #: toml
         taplo-lsp
         #: web-mode

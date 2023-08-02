@@ -71,6 +71,7 @@
     ##: --- packages -----------------------------------------------------------
     nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-nil = { url = "github:oxalica/nil"; };
+    nixd = { url = "github:nix-community/nixd/1.2.0"; };
     nix-init = { url = "github:nix-community/nix-init"; };
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -134,6 +135,7 @@
     , nixpkgs-doc
     , nickel
     , nix-nil
+    , nixd
     , nix-init
     , devenv
     , deploy
@@ -205,6 +207,7 @@
             inherit (packagesFrom inputs.mmdoc) mmdoc;
             inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
             inherit (packagesFrom inputs.nix-search-cli) nix-search;
+            inherit (packagesFrom inputs.nixd) nixd;
 
             inherit (packagesFrom inputs.xmonad-config) xmonad-config;
             inherit (packagesFrom inputs.ttc-subway-font)
