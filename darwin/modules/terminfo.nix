@@ -17,9 +17,12 @@ with lib;
       '';
     };
 
-  config = {
+  config = lib.mkIf config.environment.enableAllTerminfo {
     # can be generated with: filter (drv: (builtins.tryEval (drv ? terminfo)).value) (attrValues pkgs)
-    environment.systemPackages = [ pkgs.ncurses.dev ] ++ (lib.optionals config.environment.enableAllTerminfo
+    environment.systemPackages = [
+      (lib.hiPrio pkgs.ncurses)
+      (lib.hiPrio pkgs.ncurses.dev)
+    ] ++ (lib.optionals config.environment.enableAllTerminfo
       (map (x: x.terminfo) (with pkgs; [
         alacritty
         mtm
@@ -29,12 +32,16 @@ with lib;
         wezterm
       ])));
 
-    environment.pathsToLink =
-      [ "/share/terminfo" "/Contents/Resources/terminfo" ];
+    environment.pathsToLink = [ "/Contents/Resources/terminfo" ];
 
     environment.etc.terminfo = {
       source = "${config.system.path}/share/terminfo";
     };
+
+    # environment.variables = {
+    #   "TERMINFO_DIRS" = "${config.system.path}/share/terminfo";
+    #     # lib.strings.makeSearchPathOutput "out" "share/terminfo" [ pkgs.ncurses ];
+    # };
 
     environment.extraInit = ''
       # reset TERM with new TERMINFO available (if any)
