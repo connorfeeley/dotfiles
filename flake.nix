@@ -71,7 +71,7 @@
     ##: --- packages -----------------------------------------------------------
     nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-nil = { url = "github:oxalica/nil"; };
-    nixd = { url = "github:nix-community/nixd/1.2.0"; };
+    nixd = { url = "github:nix-community/nixd"; };
     nix-init = { url = "github:nix-community/nix-init"; };
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
