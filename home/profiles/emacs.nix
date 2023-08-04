@@ -198,6 +198,7 @@ lib.mkMerge [
         #: org
         graphviz
         gnuplot
+        plantuml
 
         # :lang lua
         luaPackages.lua-lsp
