@@ -112,6 +112,7 @@ in
       { name = "pgadmin4"; }
       { name = "obs"; }
       { name = "stats"; }
+      { name = "x2goclient"; }
     ];
 
     homebrew.masApps = {
