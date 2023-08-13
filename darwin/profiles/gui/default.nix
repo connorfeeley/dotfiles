@@ -113,6 +113,7 @@ in
       { name = "obs"; }
       { name = "stats"; }
       { name = "x2goclient"; }
+      { name = "anki"; }
     ];
 
     homebrew.masApps = {
