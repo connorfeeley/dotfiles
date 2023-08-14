@@ -6,7 +6,7 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 in
 {
-  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ];
+  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ];
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
@@ -165,6 +165,7 @@ in
     fwupd
     (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda; })
     linuxptp
+    tigervnc
   ];
 
   programs.wireshark.enable = true;
@@ -372,7 +373,7 @@ in
 
   # Jellyfin reverse proxy
   services.nginx = {
-    enable = true;
+    enable = false;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     # other Nginx options
@@ -412,7 +413,7 @@ in
   };
 
   services.freshrss = {
-    enable = true;
+    enable = false;
     passwordFile = "/etc/secrets/freshrss-password.txt";
 
     virtualHost = "${hostName}.${peers.networks.tailscale.domain}";

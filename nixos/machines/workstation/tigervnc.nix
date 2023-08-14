@@ -33,7 +33,8 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Only allow connections from the same machine.
+          Only allow connections from the same machine
+.
 
           Disabling this option is definitely insecure, this module does not yet support any form of authentication and encryption. It is recommended that you use SSH tunneling to access the VNC server.
         '';
@@ -49,7 +50,7 @@ in
       noXStartup = mkOption {
         type = types.bool;
         default = false;
-        description = "Size of the desktop to be created.";
+        description = "If the -noxstartup flag should be passed to the server.";
       };
 
       xStartup = mkOption {
@@ -66,8 +67,11 @@ in
   config = mkIf cfg.enable {
 
     users.users.tigervnc = {
-      home = "/var/run/tigervnc";
+      isNormalUser = true;
+      group = "tigervnc";
+
       createHome = true;
+      home = "/var/run/tigervnc";
     };
 
     # For some reason, this can't be a user service?
@@ -77,6 +81,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       environment.HOME = "/var/run/tigervnc";
+      path = [ pkgs.xorg.xinit ];
       serviceConfig = {
         # Log to stderr so the logs are visible via systemctl/journalctl
         ExecStart = ''
