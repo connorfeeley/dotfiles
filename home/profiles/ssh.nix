@@ -115,6 +115,11 @@ in
           KexAlgorithms = "+diffie-hellman-group1-sha1";
           HostKeyAlgorithms = "+ssh-rsa";
           Port = "22";
+
+          # Use 'throughput' QoS setting for non-interactive sessions
+          # default: "af21 cs1" (af21: low-latency data - interactive sessions; cs1: lower effort - non-interactive sessions)
+          IPQoS = "af21 throughput";
+
           # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
           # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
           # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
