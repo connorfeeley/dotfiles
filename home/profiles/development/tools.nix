@@ -27,6 +27,7 @@ in
       poetry # <- sanest python package manager
       remake # <- GNU Make with comprehensible tracing and a debugger
       nur.repos.foolnotion.cmake-init
+      sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
 
       ## === Nix Utilities ===
       nickel # <- "Better configuration for less"

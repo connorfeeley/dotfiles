@@ -20,6 +20,5 @@ in {
     ] ++ lib.optionals (pkgs.stdenv.isLinux && !pkgs.stdenv.isAarch64) [
       devdocs-desktop # <- full-featured desktop app for DevDocs.io
       eclipses.eclipse-java # <- public struct Eclipse { public static void main(String[] args) { System.out.println("Hello World"); } } ... seriously?
-      sourcetrail # <- Rest in peace sourcetrail, the best C++ exploration tool ever to live.
     ];
 }
