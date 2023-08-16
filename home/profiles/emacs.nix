@@ -20,8 +20,8 @@ let
               # src = pkgs.fetchFromBitbucket {
               #   owner = "mituharu";
               #   repo = "emacs-mac";
-              #   rev = "42fd87989ff093c0d2eda071b18fa1de2d928775"; # 2023-03-25: tracking 'work' branch
-              #   hash = "sha256-ydaQAowcUOYc+i4TdoUrMVue+5zk+66SrhRYUUe0dAY=";
+              #   rev = "cfefdd21a9116b68bae915693efcaaa4e474a2b9"; # 2023-08-15: tracking 'work' branch
+              #   hash = "sha256-mRBhYmhBDXWUZn8soVEfEWLtudDBSmZgZ0zNxQQ8yW0=";
               # };
             })
         #: isLinux: emacs 28 (w/ native comp)
