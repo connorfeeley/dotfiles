@@ -2820,16 +2820,13 @@
       "locked": {
         "lastModified": 1659446231,
         "narHash": "sha256-hekabNdTdgR/iLsgce5TGWmfIDZ86qjPhxDg/8TlzhE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
+        "path": "/nix/store/9ks8076lanzwp09dmwy5r3racihsc1ip-source",
         "rev": "eabc38219184cc3e04a974fe31857d8e0eac098d",
-        "type": "github"
+        "type": "path"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-21.11",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixos-21-11",
+        "type": "indirect"
       }
     },
     "nixos-23-05": {

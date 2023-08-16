@@ -15,8 +15,6 @@ channels: final: prev: {
 
   inherit (prev) installApplication;
 
-  inherit (channels.nixos-21-11) sourcetrail quartus-prime-lite;
-
   # Genarate info pages for nixpkgs
   # Source: github:aakropotkin/nixpkgs-doc
   nixpkgsDoc = prev.htmlDocs.nixpkgsManual.overrideAttrs (oldAttrs: {

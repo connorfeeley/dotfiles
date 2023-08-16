@@ -15,7 +15,6 @@
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
     
-    nixos-21-11.url = "github:NixOS/nixpkgs/nixos-21.11"; # Last release w/ sourcetrail
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     ##: --- system -------------------------------------------------------------
