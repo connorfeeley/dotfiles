@@ -17,12 +17,14 @@ let
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
               nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.darwin.apple_sdk.frameworks.Accelerate ];
 
-              # src = pkgs.fetchFromBitbucket {
-              #   owner = "mituharu";
-              #   repo = "emacs-mac";
-              #   rev = "cfefdd21a9116b68bae915693efcaaa4e474a2b9"; # 2023-08-15: tracking 'work' branch
-              #   hash = "sha256-mRBhYmhBDXWUZn8soVEfEWLtudDBSmZgZ0zNxQQ8yW0=";
-              # };
+              version = "29.1";
+
+              src = pkgs.fetchFromBitbucket {
+                owner = "mituharu";
+                repo = "emacs-mac";
+                rev = "d3df5662c63d49b17cf9805e7de8bb1d338af808"; # 2023-08-17: tracking 'work' branch
+                hash = "sha256-UVqFiqx7hR9J/kjyDU6WaACsaZigEGADC/REzxWW7+g=";
+              };
             })
         #: isLinux: emacs 28 (w/ native comp)
         else
