@@ -45,6 +45,10 @@ let
       dontStrip = true;
       separateDebugInfo = true;
 
+
+      # Compile native ELisp files ahead of time (emacs 29+)
+      configureFlags = old.configureFlags ++ lib.optional (lib.versionAtLeast old.version "29") [ "--with-native-compilation=aot" ];
+
       patches = old.patches ++ [
         # Reduce wall clock latency for sweep_conses by 50%
         #   https://tdodge.consulting/blog/living-the-emacs-garbage-collection-dream
