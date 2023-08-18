@@ -26,9 +26,9 @@ let
                 hash = "sha256-UVqFiqx7hR9J/kjyDU6WaACsaZigEGADC/REzxWW7+g=";
               };
             })
-        #: isLinux: emacs 28 (w/ native comp)
+        #: isLinux: emacs 29 (w/ native comp)
         else
-          pkgs.emacs.override {
+          pkgs.emacs29.override {
             inherit (pkgs)
               # For withGTK3:
               gtk3-x11 gsettings-desktop-schemas
