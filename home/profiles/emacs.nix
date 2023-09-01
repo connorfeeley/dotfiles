@@ -215,6 +215,7 @@ lib.mkMerge [
 
         # :lang latex & :lang org (latex previews)
         texlive.combined.scheme-medium
+        groff
         # :lang nix
         nixpkgs-fmt
 
