@@ -195,7 +195,7 @@
           in
           {
             inherit (packagesFrom self.packages) emacs-plus;
-            inherit (packagesFrom inputs.nixpkgs-overlay-tny) emacsMacport;
+            inherit (packagesFrom inputs.nixpkgs-overlay-tny) emacs29-macport;
             inherit (packagesFrom inputs.devenv) devenv;
             inherit (packagesFrom inputs.deploy) deploy-rs;
             inherit (packagesFrom inputs.deploy-flake) deploy-flake;

@@ -11,13 +11,11 @@ let
       emacs-pkg = with pkgs;
         if isDarwin
         then
-          emacsMacport.overrideAttrs
+          emacs29-macport.overrideAttrs
             (old: {
               # Required for 'hammy' emacs package
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
               nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.darwin.apple_sdk.frameworks.Accelerate ];
-
-              version = "29.1";
 
               src = pkgs.fetchFromBitbucket {
                 owner = "mituharu";
