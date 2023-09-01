@@ -10,11 +10,13 @@
     nixpkgs.follows = "nixos-stable";
     nixpkgs-darwin.follows = "nixos-stable";
 
-    nixos-stable.url = "https://flakehub.com/f/NixOS/nixpkgs/~0.2305.tar.gz";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
     
+    nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
+
     ##: --- system -------------------------------------------------------------
     home-manager = { url = "github:nix-community/home-manager/release-23.05"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -89,7 +91,7 @@
     plasma-manager = { url = "github:pjones/plasma-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     mmdoc = { url = "github:ryantm/mmdoc"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixpkgs-update = { url = "github:ryantm/nixpkgs-update"; inputs.nixpkgs.follows = "nixpkgs"; inputs.mmdoc.follows = "mmdoc"; };
-    visionfive-nix = { url = "github:connorfeeley/visionfive-nix"; inputs.nixpkgs.follows = "nixos-stable"; };
+    visionfive-nix = { url = "github:connorfeeley/visionfive-nix"; inputs.nixpkgs.follows = "nixos-23-05"; };
   };
 
   outputs =
