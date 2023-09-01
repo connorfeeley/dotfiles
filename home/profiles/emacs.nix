@@ -22,8 +22,8 @@ let
               src = pkgs.fetchFromBitbucket {
                 owner = "mituharu";
                 repo = "emacs-mac";
-                rev = "d3df5662c63d49b17cf9805e7de8bb1d338af808"; # 2023-08-17: tracking 'work' branch
-                hash = "sha256-UVqFiqx7hR9J/kjyDU6WaACsaZigEGADC/REzxWW7+g=";
+                rev = "719b04b75fd30f39d2de973081036784a9fbc8f2"; # 2023-08-28: tracking 'work' branch
+                hash = "sha256-mRBhYmhBDXWUZn8soVEfEWLtudDBSmZgZ0zNxQQ8yW0=";
               };
             })
         #: isLinux: emacs 29 (w/ native comp)
