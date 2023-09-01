@@ -14,7 +14,7 @@
     # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
-    
+
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     ##: --- system -------------------------------------------------------------
@@ -189,8 +189,9 @@
         nurpkgs.overlays.default
 
         (final: _prev:
-          let packagesFrom = inputAttr:
-                inputAttr.packages.${final.system};
+          let
+            packagesFrom = inputAttr:
+              inputAttr.packages.${final.system};
           in
           {
             inherit (packagesFrom self.packages) emacs-plus;
@@ -243,7 +244,11 @@
 
         allowBroken = false;
 
-        permittedInsecurePackages = [ "libressl-3.4.3" "nodejs-16.20.0" "nodejs-16.20.1" "nodejs-14.21.3" "openssl-1.1.1u" ];
+        permittedInsecurePackages = [
+          "nodejs-16.20.2"
+          "nodejs-14.21.3"
+          "openssl-1.1.1v"
+        ];
       };
 
       ###
