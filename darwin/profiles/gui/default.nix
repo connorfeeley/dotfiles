@@ -114,6 +114,7 @@ in
       { name = "stats"; }
       { name = "x2goclient"; }
       { name = "anki"; }
+      { name = "teamviewer"; }
     ];
 
     homebrew.masApps = {

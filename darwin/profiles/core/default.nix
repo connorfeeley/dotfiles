@@ -52,6 +52,7 @@ in
       darwin.iproute2mac # <- MacOS implementation of iproute2
       apple_complete # <- bash completions for MacOS
       darwinPackages.maclaunch # <- Manage your macOS startup items.
+      unixtools.nettools
     ];
 
   # Recreate /run/current-system symlink after boot
