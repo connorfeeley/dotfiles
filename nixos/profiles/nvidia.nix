@@ -19,7 +19,7 @@ lib.mkIf (!config.nixos-vm.enable) {
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-    package = nvPackage;
+    package = nvidiaPackages.stable;
     modesetting.enable = false;
     nvidiaSettings = true; # Enable nvidia-settings utility
     nvidiaPersistenced = false; # Don't run daemon to keep GPU state alive
