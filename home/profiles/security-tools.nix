@@ -28,7 +28,6 @@
       ssh-audit
 
       ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
-      maigret
       metabigor
       socialscan # : CLI for querying username and email usage on online platforms
       poppler_utils # pdf rendering tools
@@ -71,5 +70,7 @@
     ]) ++ (lib.optionals (!pkgs.stdenv.isLinux && !pkgs.stdenv.isAarch64) [
       ## === Reverse Engineering ===
       cutter
+      ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
+      maigret
     ]);
 }
