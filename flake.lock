@@ -3867,11 +3867,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693531734,
-        "narHash": "sha256-KA1yMPi4lKSpBZgqI2/hvwGApyMhKx4WcD7jMRTu45w=",
+        "lastModified": 1694005200,
+        "narHash": "sha256-VkqyXO5AbSZcDqDLpd2DBShO51cRNCu9wQitzMBzmP8=",
         "owner": "connorfeeley",
         "repo": "nurpkgs",
-        "rev": "0e5e8d898f61cc58533c7225a272bd84dea0e932",
+        "rev": "e1101d3ad2e00c207f451dc7adce35b50d25e49d",
         "type": "github"
       },
       "original": {
