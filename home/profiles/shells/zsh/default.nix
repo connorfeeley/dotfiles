@@ -24,7 +24,7 @@ in
 {
   imports = [ ../common.nix ];
 
-  home.packages = with pkgs; [ zsh pure-prompt ];
+  home.packages = with pkgs; [ zsh pure-prompt github-copilot-cli ];
 
   # Must be disabled for emacs-vterm integration to work.
   # Integration is handled manually in zsh.initExtra.
@@ -140,6 +140,10 @@ in
           PURE_PROMPT_SYMBOL="λ"
           # prompt pure
         '';
+        github-copilot-cli-config = ''
+          ### GitHub Copilot CLI
+          eval "$(${pkgs.github-copilot-cli}/bin/github-copilot-cli alias -- "$0")"
+          '';
         zsh-notify-config = ''
           ### zsh-notify config
           zstyle ':notify:*' error-title "Command failed"
@@ -187,6 +191,8 @@ in
         # source $DOTFIELD_DIR/lib/color.sh
         source ${configDir + "/functions.zsh"}
         source ${configDir + "/options.zsh"}
+
+        ${github-copilot-cli-config}
 
         ${zsh-notify-config}
       '';
