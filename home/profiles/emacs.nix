@@ -35,7 +35,8 @@ let
               # For withXwidgets:
               webkitgtk wrapGAppsHook glib-networking;
 
-            withGTK3 = false;
+            withGTK3 = true;
+            withPgtk = false; # Doesn't play nice with X11 - just use GTK3 instead
             withXwidgets = true;
             withSQLite3 = true;
             withWebP = true;
