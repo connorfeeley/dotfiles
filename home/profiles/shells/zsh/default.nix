@@ -48,8 +48,7 @@ in
       expireDuplicatesFirst = false;
       extended = true; # Save timestamps
       ignoreDups = false; # Always insert into history
-      ignoreSpace =
-        true; # Prepend command with a space to skip history insertion
+      ignoreSpace = true; # Prepend command with a space to skip history insertion
 
       # Infinite history
       save = 1000000000;
@@ -126,6 +125,13 @@ in
     initExtraBeforeCompInit = ''
       # # Init completion manually
       # autoload compinit; compinit -u
+
+      ${lib.optionalString isDarwin ''
+        # Add homebrew completions to fpath
+        # (includes completions for 'brew', although those are also available in
+        # /opt/homebrew/completions/zsh)
+        fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+      ''}
     '';
 
     # After plugin init and history init in $ZDOTDIR/.zshrc
