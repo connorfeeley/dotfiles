@@ -156,16 +156,16 @@ lib.mkMerge [
           vterm
           pdf-tools
           org-pdftools
-          tree-sitter
-          (tree-sitter-langs.withPlugins
-            (_: pkgs.tree-sitter.allGrammars))
-          tsc
           parinfer-rust-mode
           eldoc
           eldoc-box
           eglot
           consult-eglot
           flycheck-eglot
+          # Treesitter
+          treesit-grammars.with-all-grammars
+          # https://discourse.nixos.org/t/packages-required-to-get-emacs-typescript-ts-mode-to-work/31225/7
+          # "You definitely should NOT install the external emacsPackages.tree-sitter unless you really know what you’re doing."
         ];
     };
 
