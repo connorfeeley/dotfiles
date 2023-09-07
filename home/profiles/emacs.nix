@@ -16,6 +16,9 @@ let
               # Required for 'hammy' emacs package
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
 
+              # Nixpkgs derivation only supports XWidgets with GTK, but Macport supports it natively.
+              configureFlags = old.configureFlags ++ [ "--with-xwidgets" ];
+
               src = pkgs.fetchFromBitbucket {
                 owner = "mituharu";
                 repo = "emacs-mac";
@@ -33,7 +36,7 @@ let
               webkitgtk wrapGAppsHook glib-networking;
 
             withGTK3 = false;
-            withXwidgets = false;
+            withXwidgets = true;
             withSQLite3 = true;
             withWebP = true;
           };
