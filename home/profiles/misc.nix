@@ -24,6 +24,7 @@
 
       ## === Data Sync ===
       rclone
+      inetutils # <- ftp, rcp, etc.
 
       ## === Repo Scripts ===
       (lib.hiPrio n)
