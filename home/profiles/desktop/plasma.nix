@@ -210,7 +210,7 @@
       "systemsettings.desktop"."powerdevilprofilesconfig" = [ ];
       "systemsettings.desktop"."screenlocker" = [ ];
     };
-    files = {
+    configFile = {
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
       "baloofilerc"."General"."dbVersion" = 2;
       "baloofilerc"."General"."exclude filters" =
