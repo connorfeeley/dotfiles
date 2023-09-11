@@ -6,7 +6,7 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 in
 {
-  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ];
+  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ./dhcp.nix ];
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
