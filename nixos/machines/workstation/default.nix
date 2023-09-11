@@ -421,8 +421,9 @@ in
   };
   services.fwupd.enable = true;
 
-  services.postgresql = {
+  services.postgresql = rec {
     enable = true;
     package = pkgs.postgresql_14;
+    extraPlugins = with package; [ postgis pg_repack ];
   };
 }
