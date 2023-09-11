@@ -420,4 +420,9 @@ in
     baseUrl = "https://${hostName}.${peers.networks.tailscale.domain}/rss";
   };
   services.fwupd.enable = true;
+
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_14;
+  };
 }
