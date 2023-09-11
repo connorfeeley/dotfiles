@@ -25,10 +25,22 @@ let
                 rev = "719b04b75fd30f39d2de973081036784a9fbc8f2"; # 2023-08-28: tracking 'work' branch
                 hash = "sha256-mRBhYmhBDXWUZn8soVEfEWLtudDBSmZgZ0zNxQQ8yW0=";
               };
+
+              patches = old.patches ++ [
+                # Process output from subprocesses continually
+                # (avoids 1024 byte bottleneck with subprocess output on MacOS)
+                #   https://tdodge.consulting/blog/eshell/background-output-thread
+                # NOTE: applied patch to latest emacs-mac and fixed conflicts
+                ./0001-Buffer-process-output-on-a-separate-thread.patch
+                (pkgs.fetchpatch {
+                  url = "https://github.com/tyler-dodge/emacs/commit/3f49c824f23b2fa4ce5512f80abdb0888a73c4a1.patch";
+                  sha256 = "sha256-ShQsS9ixc15cyrPGYDLxbbsgySK4JUuCSqk6+XE0U4Q=";
+                })
+              ];
             })
         #: isLinux: emacs 29 (w/ native comp)
         else
-          pkgs.emacs29.override {
+          (pkgs.emacs29.override {
             inherit (pkgs)
               # For withGTK3:
               gtk3-x11 gsettings-desktop-schemas
@@ -40,7 +52,15 @@ let
             withXwidgets = true;
             withSQLite3 = true;
             withWebP = true;
-          };
+          }).overrideAttrs (old: {
+            patches = old.patches ++ [
+              # https://www.reddit.com/r/emacs/comments/usghki/living_the_eshell_dream_a_reduction_in_latency/i9sehrv/
+              (pkgs.fetchpatch {
+                url = "https://github.com/geza-herman/emacs/commit/784a9fd3d511b7f6794f713a8d0b1370ab1b2401.patch";
+                sha256 = "sha256-4riuLyoW8/ovz4GmI1l2Plkz6Cyz0aVUIwHBVyn7nBc=";
+              })
+            ];
+          });
     in
     (emacs-pkg.override { }).overrideAttrs (old: {
       dontStrip = true;
@@ -57,14 +77,6 @@ let
           url = "https://github.com/tyler-dodge/emacs/commit/36d2a8d5a4f741ae99540e139fff2621bbacfbaa.patch";
           sha256 = "sha256-/hJa8LIqaAutny6RX/x6a+VNpNET86So9xE8zdh27p8=";
         })
-
-        # Process output from subprocesses continually
-        # (avoids 1024 byte bottleneck with subprocess output on MacOS)
-        #   https://tdodge.consulting/blog/eshell/background-output-thread
-        # (pkgs.fetchpatch {
-        #   url = "https://github.com/tyler-dodge/emacs/commit/b386047f311af495963ad6a25ddda128acc1d461.patch";
-        #   sha256 = "sha256-dRkiowEtu/oOLh29/b7VSXGKsV5qE0PxMWrox5/LRoM=";
-        # })
       ];
     });
 
