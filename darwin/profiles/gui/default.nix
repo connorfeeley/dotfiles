@@ -31,7 +31,6 @@ in
 
     homebrew.taps = [
       { name = "FelixKratz/formulae"; }
-      { name = "homebrew/cask"; }
       { name = "homebrew/cask-versions"; }
       { name = "jorgelbg/tap"; } # pinentry-touchid
       { name = "homebrew/services"; } # 'brew services' command
