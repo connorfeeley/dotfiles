@@ -19,6 +19,7 @@ in
       fontconfig # <- appease 'doom doctor'
       dockutil # <- command line utility for managing macOS dock items
       mysides # <- manages macOS Finder sidebar favorites, tells hilarious jokes
+      dbeaver # <- GUI database manager
 
       ferium # CLI program for managing Minecraft mods and modpacks
       ckan # Mod manager for Kerbal Space Program
