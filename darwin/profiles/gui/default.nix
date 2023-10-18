@@ -62,6 +62,7 @@ in
       { name = "freerdp"; }
       { name = "alerter"; } # like notify-send but for darwin
       { name = "postgresql@15"; }
+      { name = "wordnet"; } # for doom emacs 'lookup'
     ];
 
     homebrew.casks = [
