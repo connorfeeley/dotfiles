@@ -1,11 +1,11 @@
-{ config, pkgs, lib, profiles, collective, ... }:
+{ config, pkgs, lib, collective, ... }:
 let
   inherit (config.networking) hostName;
 
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 in
 {
-  imports = [ profiles.pulseaudio ];
+  # imports = [ profiles.pulseaudio ];
   ### === users ================================================================
 
   dotfield.guardian = {

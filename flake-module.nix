@@ -5,5 +5,8 @@
 
 {
   imports = [
+    ./flake-modules/overlays.nix
+    ./flake-modules/collective.nix
+    ./flake-modules/darwin.nix
   ];
 }
