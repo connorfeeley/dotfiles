@@ -22,6 +22,7 @@ in
             # system = "x86_64-linux";  # or set nixpkgs.hostPlatform in a module.
             specialArgs = {
               inherit self' self inputs';
+              collective = config.collective;
             };
             modules = [
               inputs.agenix.nixosModules.age
@@ -32,6 +33,9 @@ in
 
               nixosModules.MacBook-Pro
               profiles.emacs
+              profiles.pulseaudio
+              profiles.virtualization.nixos-vm-host
+              # collective.profiles.hercules-ci-agent
             ];
           });
       };
@@ -57,10 +61,6 @@ in
               # workstation ++
               [
                 # collective.profiles.hercules-ci-agent
-                # profiles.virtualization.nixos-vm-host
-
-                # profiles.emacs # emacs-macport from homebrew
-                # profiles.pulseaudio
               ]
             );
 
