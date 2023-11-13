@@ -22,7 +22,6 @@ in
             # system = "x86_64-linux";  # or set nixpkgs.hostPlatform in a module.
             specialArgs = {
               inherit self' self inputs';
-              collective = config.collective;
             };
             modules = [
               inputs.agenix.nixosModules.age
@@ -35,7 +34,7 @@ in
               profiles.emacs
               profiles.pulseaudio
               profiles.virtualization.nixos-vm-host
-              # collective.profiles.hercules-ci-agent
+              self.collective.profiles.hercules-ci-agent
             ];
           });
       };
