@@ -11,34 +11,73 @@ let
       emacs-pkg = with pkgs;
         if isDarwin
         then
-          emacs29-macport.overrideAttrs
+        # emacs29-macport.overrideAttrs
+        #   (old: {
+        #     # Required for 'hammy' emacs package
+        #     buildInputs = old.buildInputs ++ [ pkgs.dbus ];
+
+        #     # Nixpkgs derivation only supports XWidgets with GTK, but Macport supports it natively.
+        #     configureFlags = old.configureFlags ++ [ "--with-xwidgets" ];
+
+        #     src = pkgs.fetchFromBitbucket {
+        #       owner = "mituharu";
+        #       repo = "emacs-mac";
+        #       rev = "e163731063974a64e0c640e561e06a934264818a"; # 2023-08-28: tracking 'work' branch
+        #       hash = "sha256-HlJa1mdOUe5vBP0P7nxk0WiPDGjSt2WiEh4JmZlRq+8=";
+        #     };
+
+        #     patches = old.patches ++ [
+        #       # Process output from subprocesses continually
+        #       # (avoids 1024 byte bottleneck with subprocess output on MacOS)
+        #       #   https://tdodge.consulting/blog/eshell/background-output-thread
+        #       # NOTE: applied patch to latest emacs-mac and fixed conflicts
+        #       # ./0001-Buffer-process-output-on-a-separate-thread.patch
+        #       # (pkgs.fetchpatch {
+        #       #   url = "https://github.com/tyler-dodge/emacs/commit/3f49c824f23b2fa4ce5512f80abdb0888a73c4a1.patch";
+        #       #   sha256 = "sha256-ShQsS9ixc15cyrPGYDLxbbsgySK4JUuCSqk6+XE0U4Q=";
+        #       # })
+        #     ];
+        #   })
+        #: isLinux: emacs 29 (w/ native comp)
+          (pkgs.emacs29.override {
+            withGTK3 = true;
+            withPgtk = false; # Doesn't play nice with X11 - just use GTK3 instead
+            withXwidgets = !pkgs.webkitgtk.meta.broken;
+            withSQLite3 = true;
+            withWebP = true;
+          }).overrideAttrs
             (old: {
               # Required for 'hammy' emacs package
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
+              patches =
+                let
+                  emacsPlusRev = "c28150477651c03b55048f9f3edc82caec861a73";
+                in
+                (old.patches or [ ])
+                ++ [
+                  # Fix OS window role (needed for window managers like yabai)
+                  (fetchpatch {
+                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-28/fix-window-role.patch";
+                    hash = "sha256-+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=";
+                  })
+                  # Use poll instead of select to get file descriptors
+                  (fetchpatch {
+                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-29/poll.patch";
+                    hash = "sha256-jN9MlD8/ZrnLuP2/HUXXEVVd6A+aRZNYFdZF8ReJGfY=";
+                  })
+                  # Enable rounded window with no decoration
+                  (fetchpatch {
+                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-29/round-undecorated-frame.patch";
+                    hash = "sha256-uYIxNTyfbprx5mCqMNFVrBcLeo+8e21qmBE3lpcnd+4=";
+                  })
+                  # Make Emacs aware of OS-level light/dark mode
+                  (fetchpatch {
+                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-28/system-appearance.patch";
+                    hash = "sha256-oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=";
+                  })
+                ];
 
-              # Nixpkgs derivation only supports XWidgets with GTK, but Macport supports it natively.
-              configureFlags = old.configureFlags ++ [ "--with-xwidgets" ];
-
-              src = pkgs.fetchFromBitbucket {
-                owner = "mituharu";
-                repo = "emacs-mac";
-                rev = "719b04b75fd30f39d2de973081036784a9fbc8f2"; # 2023-08-28: tracking 'work' branch
-                hash = "sha256-mRBhYmhBDXWUZn8soVEfEWLtudDBSmZgZ0zNxQQ8yW0=";
-              };
-
-              patches = old.patches ++ [
-                # Process output from subprocesses continually
-                # (avoids 1024 byte bottleneck with subprocess output on MacOS)
-                #   https://tdodge.consulting/blog/eshell/background-output-thread
-                # NOTE: applied patch to latest emacs-mac and fixed conflicts
-                ./0001-Buffer-process-output-on-a-separate-thread.patch
-                (pkgs.fetchpatch {
-                  url = "https://github.com/tyler-dodge/emacs/commit/3f49c824f23b2fa4ce5512f80abdb0888a73c4a1.patch";
-                  sha256 = "sha256-ShQsS9ixc15cyrPGYDLxbbsgySK4JUuCSqk6+XE0U4Q=";
-                })
-              ];
             })
-        #: isLinux: emacs 29 (w/ native comp)
         else
           (pkgs.emacs29.override {
             inherit (pkgs)
@@ -160,7 +199,7 @@ lib.mkMerge [
     #     ${git} -C ${emacsDir} reset --hard ${doomRepoRev}
     #   '';
 
-    programs.emacs = {
+    programs.emacs = lib.mkIf (!hostPlatform.isDarwin) {
       enable = true;
       package = emacsPackage;
       extraPackages = epkgs:
@@ -207,6 +246,9 @@ lib.mkMerge [
         gifsicle
         zstd # for undo-fu-session/undo-tree compression
         feh
+        w3m # for browsing haddock from within emacs
+        nodePackages.vega-cli
+        nodePackages.vega-lite
 
         figlet # prettier block comments
 

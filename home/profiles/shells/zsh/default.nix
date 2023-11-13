@@ -20,11 +20,18 @@ let
 
   # Flag to enable zprof
   enableZprof = false;
+
+  # This is marked as unfree, and even though
+  github-copilot-cli = pkgs.github-copilot-cli.overrideAttrs (oldAttrs: {
+    license.free = true;
+  });
+
+  enableGitHubCopilot = false;
 in
 {
   imports = [ ../common.nix ];
 
-  home.packages = with pkgs; [ zsh pure-prompt github-copilot-cli ];
+  home.packages = [ pkgs.zsh pkgs.pure-prompt ] ++ lib.optional enableGitHubCopilot github-copilot-cli;
 
   # Must be disabled for emacs-vterm integration to work.
   # Integration is handled manually in zsh.initExtra.
@@ -146,9 +153,9 @@ in
           PURE_PROMPT_SYMBOL="λ"
           # prompt pure
         '';
-        github-copilot-cli-config = ''
+        github-copilot-cli-config = lib.optionalString enableGitHubCopilot  ''
           ### GitHub Copilot CLI
-          eval "$(${pkgs.github-copilot-cli}/bin/github-copilot-cli alias -- "$0")"
+          eval "$(${github-copilot-cli}/bin/github-copilot-cli alias -- "$0")"
           '';
         zsh-notify-config = ''
           ### zsh-notify config

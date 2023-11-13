@@ -28,6 +28,7 @@ in
       remake # <- GNU Make with comprehensible tracing and a debugger
       nur.repos.foolnotion.cmake-init
       sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
+      terraformer # <- CLI tool to generate terraform files from existing infrastructure (reverse Terraform)
 
       ## === Nix Utilities ===
       nickel # <- "Better configuration for less"
@@ -40,6 +41,7 @@ in
       nix-top # <- 'top' for nix builds
       nixos-option # <- Search nixos options
       nix-prefetch # <- Prefetch any fetcher function call
+      nix-prefetch-git # <- Prefetch git repositories
       nurl # <- Generate  URL
       manix # <- nix documentation search
       nix-du # <- Analyze derivation and store size

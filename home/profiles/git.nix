@@ -228,7 +228,11 @@ in
         "!sh ${git-clone-bare-for-worktrees}";
     };
 
+    attributes = [ ",*.org   diff=org" ]; # org-mode diffing
+
     extraConfig = lib.mkMerge [{
+      diff.org.xfuncname = "^(\\*+ +.*)$"; # org-mode diffing
+
       init.defaultBranch = "master";
       github.user = githubUserName;
 

@@ -36,6 +36,8 @@ in
       { name = "jorgelbg/tap"; } # pinentry-touchid
       { name = "homebrew/services"; } # 'brew services' command
       { name = "apple/homebrew-apple"; } # game porting toolkit
+      { name = "d12frosted/emacs-plus"; }
+      { name = "railwaycat/emacsmacport"; }
     ];
 
     homebrew.brews = [
@@ -63,6 +65,8 @@ in
       { name = "alerter"; } # like notify-send but for darwin
       { name = "postgresql@15"; }
       { name = "wordnet"; } # for doom emacs 'lookup'
+      # { name = "emacs-plus@29"; args = [ "with-dbus" "with-xwidgets"  "with-native-comp" "with-poll" ]; link = true; } # emacs-plus
+      { name = "emacs-mac"; args = [ "with-starter" "with-librsvg" "with-dbus" "with-mac-metal" "with-xwidgets"  "with-native-comp" ]; link = true; } # macport
     ];
 
     homebrew.casks = [
@@ -74,7 +78,7 @@ in
       # { name = "hiddenbar"; } # Hide/toggle menu bar icon visibility
       { name = "rectangle"; } # Resize windows with keyboard shortcuts and snap areas
       { name = "raycast"; } # Better search popup
-      { name = "bluesnooze"; } # Sleeping Mac = Bluetooth off
+      # { name = "bluesnooze"; } # Sleeping Mac = Bluetooth off
       { name = "docker"; }
       { name = "firefox"; }
       { name = "google-chrome"; }
