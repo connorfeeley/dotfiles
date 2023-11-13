@@ -20,14 +20,21 @@ in
   };
 
   home-manager.users = {
-    "${config.dotfield.guardian.username}" = hmArgs: {
-      imports = with hmArgs.roles;
-        workstation ++ macos ++ developer ++ emacs-config
-        ++ (with hmArgs.profiles; [ work media sync aws ]);
+    "${config.dotfield.guardian.username}" = {
+      # imports = with hmArgs.roles;
+      #   (hmArgs.lib.flatten [ ]
+      #   ++ (hmArgs.lib.flatten [ shell developer emacs-config graphical server trusted webdev fpgadev linux ]))
+      #   ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
+      # (with hmArgs.roles;
+      # workstation ++ macos ++ developer ++ emacs-config
+      # ++ (with hmArgs.profiles; [ work media sync aws ]));
+      imports = [ ../../home/modules/iterm2.nix ];
 
-      home.username = hmArgs.lib.mkForce "cfeeley";
-      home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";
-
+      home = {
+        username = "cfeeley";
+        homeDirectory = lib.mkForce "/Users/cfeeley";
+        stateVersion = "22.05";
+      };
       programs.iterm2.enable = true;
     };
   };

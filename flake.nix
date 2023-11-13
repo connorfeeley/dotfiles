@@ -22,8 +22,8 @@
     darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     digga = { url = "github:divnix/digga"; inputs.nixpkgs.follows = "nixpkgs"; inputs.home-manager.follows = "home-manager"; inputs.darwin.follows = "darwin"; };
     nixos-wsl = { url = "github:nix-community/NixOS-WSL"; inputs.nixpkgs.follows = "nixpkgs"; };
-    agenix.url = "github:montchr/agenix/darwin-support";
-    sops-nix = { url = "github:pogobanane/sops-nix/feat/home-manager-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
+    agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
+    # sops-nix = { url = "github:pogobanane/sops-nix/feat/home-manager-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # : ~~~ FHS compat ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,11 +52,11 @@
     nix-index-database = { url = "github:Mic92/nix-index-database"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
     hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; };
-    poetry2nix = { url = "github:nix-community/poetry2nix"; inputs = { nixpkgs.follows = "nixpkgs"; flake-utils.follows = "flake-utils"; }; };
+    poetry2nix = { url = "github:nix-community/poetry2nix"; inputs = { nixpkgs.follows = "nixpkgs"; }; };
 
     ##: --- personal packages --------------------------------------------------
     nurpkgs = { url = "github:connorfeeley/nurpkgs"; inputs.nixpkgs.follows = "nixpkgs"; };
-    xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
+    xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; };
     ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; }; # Private repo
     nixpkgs-input-leap.url = "git+https://git.sr.ht/~cfeeley/nixpkgs?ref=feat/input-leap";
 
@@ -64,7 +64,7 @@
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
     nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
-    # nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
+    nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
 
     ##: --- packages -----------------------------------------------------------
     nix-nil = { url = "github:oxalica/nil"; };
@@ -92,66 +92,66 @@
     visionfive-nix = { url = "github:connorfeeley/visionfive-nix"; inputs.nixpkgs.follows = "nixos-23-05"; };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , nixos-stable
-    , nixpkgs-darwin
-    , nixos-unstable
-    , nixos-21-11
-    , home-manager
-    , darwin
-    , digga
-    , agenix
-    , nixos-hardware
-    , nix-alien
-    , nix-autobahn
-    , envfs
-    , flake-utils
-    , flake-parts
-    , nix-darwin
-    , nur
-    , nixos-generators
-    , nvfetcher
-    , arion
-    , nix-serve-ng
-    , nixago
-    , nixos-vscode-server
-    , mach-nix
-    , gitignore
-    , nix-colors
-    , deadnix
-    , comma
-    , rnix-lsp
-    , nurpkgs
-    , xmonad-config
-    , ttc-subway-font
-    , nixpkgs-input-leap
-    , emacs-overlay
-    , darwin-emacs
-    , nix-xilinx
-    , nixpkgs-doc
-    , nix-nil
-    , nixd
-    , nix-init
-    , devenv
-    , deploy
-    , deploy-flake
-    , prefmanager
-    , tum-dse-config
-    , neovim-plusultra
-    , nix-search-cli
-    , flake-compat
-    , dwarffs
-    , base16-kitty
-    , firefox-lepton
-    , modded-minecraft-servers
-    , plasma-manager
-    , ...
-    }@inputs:
+  outputs = inputs@{ flake-parts, ... }:
+    # { self
+    # , nixpkgs
+    # , nixos-stable
+    # , nixpkgs-darwin
+    # , nixos-unstable
+    # , nixos-21-11
+    # , home-manager
+    # , darwin
+    # , digga
+    # , agenix
+    # , nixos-hardware
+    # , nix-alien
+    # , nix-autobahn
+    # , envfs
+    # , flake-utils
+    # , flake-parts
+    # , nix-darwin
+    # , nur
+    # , nixos-generators
+    # , nvfetcher
+    # , arion
+    # , nix-serve-ng
+    # , nixago
+    # , nixos-vscode-server
+    # , mach-nix
+    # , gitignore
+    # , nix-colors
+    # , deadnix
+    # , comma
+    # , rnix-lsp
+    # , nurpkgs
+    # , xmonad-config
+    # , ttc-subway-font
+    # , nixpkgs-input-leap
+    # , emacs-overlay
+    # , darwin-emacs
+    # , nix-xilinx
+    # , nixpkgs-doc
+    # , nix-nil
+    # , nixd
+    # , nix-init
+    # , devenv
+    # , deploy
+    # , deploy-flake
+    # , prefmanager
+    # , tum-dse-config
+    # , neovim-plusultra
+    # , nix-search-cli
+    # , flake-compat
+    # , dwarffs
+    # , base16-kitty
+    # , firefox-lepton
+    # , modded-minecraft-servers
+    # , plasma-manager
+    # , ...
+    # }@inputs:
     (flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true;
-      systems = nixpkgs.lib.systems.flakeExposed;
+      systems = inputs.nixpkgs.lib.systems.flakeExposed;
       imports = [
         # Import this repo's modules.
         ./flake-module.nix
@@ -159,7 +159,11 @@
       flake = {
         # Put your original flake attributes here.
       };
-      perSystem = { config, ... }: {
+      perSystem = { config, pkgs, inputs', ... }:
+      let
+        installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
+      in {
+        packages.amphetamine-enhancer = pkgs.callPackage ./darwin/packages/amphetamine-enhancer.nix { inherit installApplication; };
       };
     });
     # (digga.lib.mkFlake {

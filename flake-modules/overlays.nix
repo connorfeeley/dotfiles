@@ -14,7 +14,7 @@ let
 
   # FIXME: split this to shared/nixos/darwin-specific
   overlays = [
-    inputs.agenix.overlay
+    inputs.agenix.overlays.default
     inputs.emacs-overlay.overlay
     inputs.gitignore.overlay
     inputs.nur.overlay
@@ -52,8 +52,7 @@ let
         inherit (packagesFrom inputs.ttc-subway-font)
           ttc-subway bloor-yonge-font;
 
-        inherit (inputs.nixpkgs-input-leap.legacyPackages.${final.system})
-          input-leap;
+        inherit (packagesFrom inputs.nixpkgs-input-leap) input-leap;
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
         emacsGitDarwin =
@@ -67,14 +66,12 @@ let
 
         # Broken on nixos-23.05
         inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
+
+        inherit (packagesFrom self.packages) amphetamine-enhancer;
       })
-    (import ../overlays/tum-dse-config { inherit inputs; })
-    (import ../overlays/python { inherit inputs; })
-  ] ++ commonImports;
+  ];
 
   commonImports = [
-    (inputs.digga.lib.importOverlays ../overlays/common)
-    (inputs.digga.lib.importOverlays ../packages)
   ];
 in
 {
@@ -90,7 +87,7 @@ in
         #     # ... things you need to patch ...
         #   })
         # ];
-        config = { };
+        config = { nixpkgs.config.allowUnfree = true; };
       };
     };
   };

@@ -1,7 +1,6 @@
-{ peers, ... }:
-{ self, ... }:
+{ inputs, ... }:
 let
-  inherit (self.inputs)
+  inherit (inputs)
     digga nix-colors nixos-vscode-server nix-index-database plasma-manager
     sops-nix;
   inherit (digga.lib) importExportableModules rakeLeaves;
@@ -25,8 +24,6 @@ in
     plasma-manager.homeManagerModules.plasma-manager
     (_: { imports = [ ../lib/home ]; })
   ];
-
-  importables = { inherit peers profiles roles; };
 
   users = {
     "cfeeley@cfeeley-laptop" =

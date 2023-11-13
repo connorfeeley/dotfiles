@@ -16,17 +16,21 @@ in
   config = {
     flake = rec {
       darwinConfigurations = {
-        MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ config, inputs', ... }:
-          inputs.nix-darwin.lib.darwinSystem {
+        MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, ... }:
+          inputs.darwin.lib.darwinSystem {
             # system is not needed with freshly generated hardware-configuration.nix
             # system = "x86_64-linux";  # or set nixpkgs.hostPlatform in a module.
+            specialArgs = {
+              inherit self' self inputs';
+            };
             modules = [
-              nixosModules.MacBook-Pro
               inputs.agenix.nixosModules.age
-              inputs.home-manager.nixosModules.home-manager
+              inputs.home-manager.darwinModules.home-manager
               ../darwin/modules/amphetamine.nix
               ../darwin/modules/tailscale.nix
               ../darwin/modules/input-leap.nix
+
+              nixosModules.MacBook-Pro
             ];
           });
         # moduleWithSystem (
@@ -37,18 +41,13 @@ in
       };
       nixosModules.MacBook-Pro =
         (moduleWithSystem (
-          perSystem@{ config, pkgs, lib, profiles, collective }:
+          perSystem@{ config, inputs, pkgs, lib, profiles, collective }:
           darwin@{ ... }:
           let
             roles = import ../darwin/roles { inherit collective profiles; };
           in
           {
-            # nixpkgs.hostPlatform = system;
-
-            # lib = import ../lib {
-            #   inherit collective;
-            #   lib = inputs.digga.lib // inputs.nixos-unstable.lib;
-            # };
+            nixpkgs.hostPlatform = "aarch64-darwin";
 
             imports = [
               ../lib/system
@@ -56,7 +55,6 @@ in
               ../profiles/core/system-packages.nix
               ../profiles/secrets.nix
               ../modules/dotfield/guardian.nix
-
               ../darwin/machines/MacBook-Pro.nix
             ] ++ (
               with roles;
@@ -81,9 +79,9 @@ in
           }
         ));
       # specialArgs.profiles = inputs.digga.lib.rakeLeaves ../profiles;
-      specialArgs = {
-        rosettaPkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
-      };
+      # specialArgs = {
+      #   rosettaPkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
+      # };
     };
 
     perSystem = { self', system, config, pkgs, ... }: {

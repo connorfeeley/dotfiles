@@ -14,7 +14,6 @@ installApplication {
       "Add new abilities to the macOS keep-awake utility, Amphetamine.";
     platforms = lib.platforms.darwin;
     homepage = "https://github.com/x74353/Amphetamine-Enhancer";
-    license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.cfeeley ];
   };
 }
