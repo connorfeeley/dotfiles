@@ -237,170 +237,183 @@
         (digga.lib.importOverlays ./packages)
       ];
     in
-    (digga.lib.mkFlake {
-      inherit self inputs supportedSystems;
-
-      channelsConfig = {
-        allowUnfree = true;
-        allowUnsupportedSystem = false;
-
-        allowBroken = false;
-
-        permittedInsecurePackages = [
-          "nodejs-16.20.2"
-          "nodejs-14.21.3"
-          "openssl-1.1.1v"
-        ];
-      };
-
-      ###
-      ### Overlay & Channel Configuration
-      ###
-      channels = {
-        nixos-stable = {
-          inherit overlays;
-          imports = commonImports
-          ++ [ (digga.lib.importOverlays ./overlays/stable) ];
-        };
-        nixpkgs-darwin = {
-          imports = commonImports ++ [
-            (digga.lib.importOverlays ./overlays/nixpkgs-darwin)
-            (digga.lib.importOverlays ./overlays/stable)
-          ];
-          overlays = overlays ++ [
-            (final: _prev: {
-              amphetamine-enhancer =
-                self.packages.${final.system}.amphetamine-enhancer;
-              mints = self.packages.${final.system}.mints;
-              hammerspoon = self.packages.${final.system}.hammerspoon;
-              native-youtube = self.packages.${final.system}.native-youtube;
-              better-display = self.packages.${final.system}.better-display;
-            })
-          ];
-        };
-        nixos-unstable = {
-          inherit overlays;
-
-          imports = commonImports
-          ++ [ (digga.lib.importOverlays ./overlays/nixos-unstable) ];
-        };
-      };
-
-      sharedOverlays = [
-        (_final: prev: {
-          __dontExport = true;
-          inherit inputs;
-          lib = prev.lib.extend (_lfinal: _lprev: { our = self.lib; });
-        })
+    (flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
+      systems = nixpkgs.lib.systems.flakeExposed;
+      imports = [
+        # Import this repo's modules.
+        ./flake-module.nix
       ];
-
-      ###
-      ### Other attributes
-      ###
-      lib = import ./lib {
-        inherit collective;
-        lib = digga.lib // nixos-unstable.lib;
+      flake = {
+        # Put your original flake attributes here.
       };
-
-      nixos = import ./nixos collective;
-      darwin = import ./darwin collective;
-      home = import ./home collective;
-
-      devshell = ./shell;
-
-      homeConfigurations = digga.lib.mergeAny
-        (digga.lib.mkHomeConfigurations self.darwinConfigurations)
-        (digga.lib.mkHomeConfigurations self.nixosConfigurations);
-
-      deploy = import ./deploy.nix { inherit self collective deploy digga; };
-
-      overlays = rec {
-        # Helper function to install DMGs
-        installApplication = self.overlays."nixpkgs-darwin/installApplication";
-        darwin-packages = nixpkgs.lib.composeManyExtensions [
-          installApplication
-
-          self.overlays."nixpkgs-darwin/macports"
-          self.overlays."nixpkgs-darwin/emacs-plus"
-        ];
-        linux-packages = nixpkgs.lib.composeManyExtensions [
-          # FIXME(darwin): causes 'nix flake show' to error
-          # self.overlays."nixos-stable/xmonad-config"
-
-          self.overlays."nixos-stable/xsct"
-          self.overlays."nixos-stable/mdio-tools"
-          self.overlays."nixos-stable/aranet4"
-          # self.overlays."nixos-stable/fildem-global-menu"
-        ];
+      perSystem = { config, ... }: {
       };
-    }) //
-    {
-      images = {
-        # visionfive-cross = self.nixosConfigurations.visionfive-cross.config.system.build.sdImage;
-        # visionfive-native = self.nixosConfigurations.visionfive-native.config.system.build.sdImage;
+    });
+    # (digga.lib.mkFlake {
+    #   inherit self inputs supportedSystems;
 
-        visionfive2-cross = self.nixosConfigurations.visionfive2.config.system.build.sdImage;
-        # visionfive2-native = self.nixosConfigurations.visionfive2-native.config.system.build.sdImage;
-      };
-    } //
-    # Generate attrs for each system: (formatter.<system>)
-    (eachSystem supportedSystems
-      (system: { formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt; }))
-    //
-    # Generate attrs for each system: (formatter.<system>)
-    {
-      packages =
-        let
-          mkLinuxPackages = system:
-            let
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [ self.overlays.linux-packages ];
-                config.allowUnfree = true;
-              };
-            in
-            {
-              # FIXME(darwin): causes 'nix flake show' to error
-              inherit (pkgs) xsct mdio-tools aranet4;
-            };
+    #   channelsConfig = {
+    #     allowUnfree = true;
+    #     allowUnsupportedSystem = false;
 
-          mkDarwinPackages = system:
-            let
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [ self.overlays.darwin-packages ];
-                config.allowUnfree = true;
-              };
-            in
-            {
-              inherit (pkgs)
-                macports amphetamine-enhancer mints hammerspoon native-youtube
-                better-display;
-            } // (builtins.mapAttrs
-              (_n: v: pkgs.callPackage v { inherit (pkgs) installApplication; })
-              (flattenTree (rakeLeaves ./darwin/packages)));
-        in
-        {
-          x86_64-linux = mkLinuxPackages "x86_64-linux";
-          aarch64-linux = mkLinuxPackages "aarch64-linux";
-          x86_64-darwin = mkDarwinPackages "x86_64-darwin";
-          aarch64-darwin = mkDarwinPackages "aarch64-darwin";
-        };
+    #     allowBroken = false;
 
-      templates =
-        let
-          poetry2nix = {
-            path = ./templates/poetry2nix;
-            description = "poetry2nix template";
-            welcomeText =
-              "Set project name: sed --in-place 's/poetry2nixTemplate/<project-name>/g' flake.nix";
-          };
-        in
-        {
-          inherit poetry2nix;
-          default = poetry2nix;
-        };
-    };
+    #     permittedInsecurePackages = [
+    #       "nodejs-16.20.2"
+    #       "nodejs-14.21.3"
+    #       "openssl-1.1.1v"
+    #     ];
+    #   };
+
+    #   ###
+    #   ### Overlay & Channel Configuration
+    #   ###
+    #   channels = {
+    #     nixos-stable = {
+    #       inherit overlays;
+    #       imports = commonImports
+    #       ++ [ (digga.lib.importOverlays ./overlays/stable) ];
+    #     };
+    #     nixpkgs-darwin = {
+    #       imports = commonImports ++ [
+    #         (digga.lib.importOverlays ./overlays/nixpkgs-darwin)
+    #         (digga.lib.importOverlays ./overlays/stable)
+    #       ];
+    #       overlays = overlays ++ [
+    #         (final: _prev: {
+    #           amphetamine-enhancer =
+    #             self.packages.${final.system}.amphetamine-enhancer;
+    #           mints = self.packages.${final.system}.mints;
+    #           hammerspoon = self.packages.${final.system}.hammerspoon;
+    #           native-youtube = self.packages.${final.system}.native-youtube;
+    #           better-display = self.packages.${final.system}.better-display;
+    #         })
+    #       ];
+    #     };
+    #     nixos-unstable = {
+    #       inherit overlays;
+
+    #       imports = commonImports
+    #       ++ [ (digga.lib.importOverlays ./overlays/nixos-unstable) ];
+    #     };
+    #   };
+
+    #   sharedOverlays = [
+    #     (_final: prev: {
+    #       __dontExport = true;
+    #       inherit inputs;
+    #       lib = prev.lib.extend (_lfinal: _lprev: { our = self.lib; });
+    #     })
+    #   ];
+
+    #   ###
+    #   ### Other attributes
+    #   ###
+    #   lib = import ./lib {
+    #     inherit collective;
+    #     lib = digga.lib // nixos-unstable.lib;
+    #   };
+
+    #   nixos = import ./nixos collective;
+    #   darwin = import ./darwin collective;
+    #   home = import ./home collective;
+
+    #   devshell = ./shell;
+
+    #   homeConfigurations = digga.lib.mergeAny
+    #     (digga.lib.mkHomeConfigurations self.darwinConfigurations)
+    #     (digga.lib.mkHomeConfigurations self.nixosConfigurations);
+
+    #   deploy = import ./deploy.nix { inherit self collective deploy digga; };
+
+    #   overlays = rec {
+    #     # Helper function to install DMGs
+    #     installApplication = self.overlays."nixpkgs-darwin/installApplication";
+    #     darwin-packages = nixpkgs.lib.composeManyExtensions [
+    #       installApplication
+
+    #       self.overlays."nixpkgs-darwin/macports"
+    #       self.overlays."nixpkgs-darwin/emacs-plus"
+    #     ];
+    #     linux-packages = nixpkgs.lib.composeManyExtensions [
+    #       # FIXME(darwin): causes 'nix flake show' to error
+    #       # self.overlays."nixos-stable/xmonad-config"
+
+    #       self.overlays."nixos-stable/xsct"
+    #       self.overlays."nixos-stable/mdio-tools"
+    #       self.overlays."nixos-stable/aranet4"
+    #       # self.overlays."nixos-stable/fildem-global-menu"
+    #     ];
+    #   };
+    # }) //
+    # {
+    #   images = {
+    #     # visionfive-cross = self.nixosConfigurations.visionfive-cross.config.system.build.sdImage;
+    #     # visionfive-native = self.nixosConfigurations.visionfive-native.config.system.build.sdImage;
+
+    #     visionfive2-cross = self.nixosConfigurations.visionfive2.config.system.build.sdImage;
+    #     # visionfive2-native = self.nixosConfigurations.visionfive2-native.config.system.build.sdImage;
+    #   };
+    # } //
+    # # Generate attrs for each system: (formatter.<system>)
+    # (eachSystem supportedSystems
+    #   (system: { formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt; }))
+    # //
+    # # Generate attrs for each system: (formatter.<system>)
+    # {
+    #   packages =
+    #     let
+    #       mkLinuxPackages = system:
+    #         let
+    #           pkgs = import nixpkgs {
+    #             inherit system;
+    #             overlays = [ self.overlays.linux-packages ];
+    #             config.allowUnfree = true;
+    #           };
+    #         in
+    #         {
+    #           # FIXME(darwin): causes 'nix flake show' to error
+    #           inherit (pkgs) xsct mdio-tools aranet4;
+    #         };
+
+    #       mkDarwinPackages = system:
+    #         let
+    #           pkgs = import nixpkgs {
+    #             inherit system;
+    #             overlays = [ self.overlays.darwin-packages ];
+    #             config.allowUnfree = true;
+    #           };
+    #         in
+    #         {
+    #           inherit (pkgs)
+    #             macports amphetamine-enhancer mints hammerspoon native-youtube
+    #             better-display;
+    #         } // (builtins.mapAttrs
+    #           (_n: v: pkgs.callPackage v { inherit (pkgs) installApplication; })
+    #           (flattenTree (rakeLeaves ./darwin/packages)));
+    #     in
+    #     {
+    #       x86_64-linux = mkLinuxPackages "x86_64-linux";
+    #       aarch64-linux = mkLinuxPackages "aarch64-linux";
+    #       x86_64-darwin = mkDarwinPackages "x86_64-darwin";
+    #       aarch64-darwin = mkDarwinPackages "aarch64-darwin";
+    #     };
+
+    #   templates =
+    #     let
+    #       poetry2nix = {
+    #         path = ./templates/poetry2nix;
+    #         description = "poetry2nix template";
+    #         welcomeText =
+    #           "Set project name: sed --in-place 's/poetry2nixTemplate/<project-name>/g' flake.nix";
+    #       };
+    #     in
+    #     {
+    #       inherit poetry2nix;
+    #       default = poetry2nix;
+    #     };
+    # };
 
   # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
   nixConfig.extra-experimental-features = "nix-command flakes";
