@@ -18,7 +18,7 @@ in
       darwinConfigurations = {
         MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, ... }:
           let
-            roles = import ../darwin/roles { inherit (self) collective; profiles = self.collective.darwinProfiles; };
+            roles = import ../darwin/roles { inherit (self) collective; };
           in
           inputs.darwin.lib.darwinSystem {
             # system is not needed with freshly generated hardware-configuration.nix
