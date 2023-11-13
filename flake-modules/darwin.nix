@@ -16,7 +16,7 @@ in
   config = {
     flake = rec {
       darwinConfigurations = {
-        MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, ... }:
+        MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, profiles, ... }:
           inputs.darwin.lib.darwinSystem {
             # system is not needed with freshly generated hardware-configuration.nix
             # system = "x86_64-linux";  # or set nixpkgs.hostPlatform in a module.
@@ -31,21 +31,17 @@ in
               ../darwin/modules/input-leap.nix
 
               nixosModules.MacBook-Pro
+              profiles.emacs
             ];
           });
-        # moduleWithSystem (
-        #   perSystem@{ config, pkgs, lib, profiles, collective }:
-        #   darwin@{ ... }:
-        #   import ../darwin/machines/MacBook-Pro.nix { inherit config pkgs lib profiles collective; }
-        # );
       };
       nixosModules.MacBook-Pro =
         (moduleWithSystem (
-          perSystem@{ config, inputs, pkgs, lib, profiles, collective }:
+          perSystem@{ config, inputs, pkgs, lib, collective }:
           darwin@{ ... }:
-          let
-            roles = import ../darwin/roles { inherit collective profiles; };
-          in
+          # let
+          #   roles = import ../darwin/roles { inherit collective profiles; };
+          # in
           {
             nixpkgs.hostPlatform = "aarch64-darwin";
 
@@ -57,7 +53,7 @@ in
               ../modules/dotfield/guardian.nix
               ../darwin/machines/MacBook-Pro.nix
             ] ++ (
-              with roles;
+              # with roles;
               # workstation ++
               [
                 # collective.profiles.hercules-ci-agent
@@ -85,7 +81,7 @@ in
     };
 
     perSystem = { self', system, config, pkgs, ... }: {
-      # _module.args.profiles = inputs.digga.lib.rakeLeaves ../profiles;
+      _module.args.profiles = inputs.digga.lib.rakeLeaves ../darwin/profiles;
     };
   };
 }
