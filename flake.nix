@@ -39,7 +39,7 @@
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
     arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
+    # nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
     nixago = { url = "github:nix-community/nixago"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-vscode-server = { url = "github:msteen/nixos-vscode-server"; inputs.nixpkgs.follows = "nixpkgs"; };
 
@@ -64,10 +64,9 @@
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
     nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
-    nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
+    # nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
 
     ##: --- packages -----------------------------------------------------------
-    nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-nil = { url = "github:oxalica/nil"; };
     nixd = { url = "github:nix-community/nixd"; };
     nix-init = { url = "github:nix-community/nix-init"; };
@@ -132,7 +131,6 @@
     , darwin-emacs
     , nix-xilinx
     , nixpkgs-doc
-    , nickel
     , nix-nil
     , nixd
     , nix-init
@@ -151,22 +149,6 @@
     , plasma-manager
     , ...
     }@inputs:
-    let
-      inherit (digga.lib) flattenTree importExportableModules rakeLeaves;
-      inherit (flake-utils.lib) eachSystem;
-      inherit (flake-utils.lib.system)
-        x86_64-linux aarch64-linux riscv64-linux
-        x86_64-darwin aarch64-darwin;
-
-      supportedSystems = [
-        x86_64-linux
-        aarch64-linux
-        riscv64-linux
-
-        x86_64-darwin
-        aarch64-darwin
-      ];
-    in
     (flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true;
       systems = nixpkgs.lib.systems.flakeExposed;

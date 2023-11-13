@@ -31,7 +31,6 @@ in
       terraformer # <- CLI tool to generate terraform files from existing infrastructure (reverse Terraform)
 
       ## === Nix Utilities ===
-      nickel # <- "Better configuration for less"
       nvfetcher-bin # <- Generate nix sources expression for the latest version of packages
       nix-init # <- Generate Nix packages from URLs with hash prefetching, dependency inference, license detection, and more
       nix-template # <- Make creating nix expressions easy
