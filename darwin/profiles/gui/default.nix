@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-{ config, lib, pkgs, ... }:
+{ self', config, lib, pkgs, ... }:
 let
   inherit (config.dotfield.guardian) username;
   inherit (config.home-manager.users.${username}.services.gpg-agent)
@@ -24,7 +24,7 @@ in
       ferium # CLI program for managing Minecraft mods and modpacks
       ckan # Mod manager for Kerbal Space Program
 
-      better-display # MacOS app for managing display settings
+      self'.packages.better-display # MacOS app for managing display settings
       # darwinPackages.mac-stats # MacOS app for monitoring system stats (fork without telemetry)
     ];
 

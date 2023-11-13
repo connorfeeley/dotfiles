@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, self', ... }: {
   environment.systemPackages = with pkgs; [
     darwin.DarwinTools
     darwin.print-reexports
     undmg
-    mints
+    self'.packages.mints
     # FIXME(darwin): build failing as of 2022-12-13
     # darwin.ios-deploy
   ];

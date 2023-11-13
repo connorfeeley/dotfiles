@@ -27,6 +27,8 @@ let
     # Personal overlay
     inputs.nurpkgs.overlays.default
 
+    (import ../packages/fonts/common)
+
     (final: _prev:
       let
         packagesFrom = inputAttr:
@@ -68,6 +70,8 @@ let
         inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
 
         inherit (packagesFrom self.packages) amphetamine-enhancer;
+        inherit (packagesFrom self.packages) hammerspoon;
+        inherit (packagesFrom self.packages) mints;
       })
   ];
 
@@ -78,7 +82,7 @@ in
   config = {
     flake = { };
 
-    perSystem = { self', system, config, pkgs, ... }: {
+    perSystem = { self', system, config, pkgs, ... }: rec {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
         inherit overlays;

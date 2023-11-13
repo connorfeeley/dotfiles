@@ -164,6 +164,9 @@
         installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
       in {
         packages.amphetamine-enhancer = pkgs.callPackage ./darwin/packages/amphetamine-enhancer.nix { inherit installApplication; };
+        packages.hammerspoon = pkgs.callPackage ./darwin/packages/hammerspoon.nix { };
+        packages.mints = pkgs.callPackage ./darwin/packages/mints { };
+        packages.better-display = pkgs.callPackage ./darwin/packages/better-display.nix { inherit installApplication; };
       };
     });
     # (digga.lib.mkFlake {

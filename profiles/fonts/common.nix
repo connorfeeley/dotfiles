@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ inputs', lib, pkgs, ... }:
 let inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
 in {
   environment.systemPackages = with pkgs; [ (lib.mkIf isLinux font-manager) ];
@@ -10,7 +10,6 @@ in {
         b612
         barlow
         emacs-all-the-icons-fonts
-        symbola
         fira
         ibm-plex
         inter
@@ -24,8 +23,8 @@ in {
         noto-fonts-cjk
         noto-fonts-emoji
 
-        ttc-subway
-        bloor-yonge-font
+        inputs'.ttc-subway-font.packages.ttc-subway
+        inputs'.ttc-subway-font.packages.bloor-yonge-font
 
         (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
@@ -47,6 +46,6 @@ in {
         gentium
         ubuntu_font_family
         terminus_font
-      ]) ++ (lib.optionals isMacOS [ sf-pro ]);
+      ]) ++ (lib.optionals isMacOS [ ]);
   };
 }
