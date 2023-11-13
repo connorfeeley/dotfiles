@@ -1,10 +1,8 @@
-{ self, config, lib, pkgs, ... }:
-let inherit (pkgs.stdenv) isDarwin;
-in {
+{ config, lib, pkgs, ... }:
+{
   imports = [ ../../lib/system ./nix-config.nix ./system-packages.nix ];
 
   # TODO: can this be merged with the 'dotfield' lib?
-  lib.our = self.lib;
 
   environment.variables = {
     DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";

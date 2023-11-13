@@ -27,18 +27,21 @@ in
               inherit self' self inputs';
             };
             modules = [
-              inputs.agenix.nixosModules.age
+              inputs.agenix.nixosModules.age # `nixosModules` is correct, even for darwin
               inputs.home-manager.darwinModules.home-manager
               ../darwin/modules/amphetamine.nix
               ../darwin/modules/tailscale.nix
               ../darwin/modules/input-leap.nix
               ../darwin/modules/hammerspoon.nix
 
-              nixosModules.MacBook-Pro
               self.collective.darwinProfiles.emacs
               self.collective.darwinProfiles.pulseaudio
               self.collective.darwinProfiles.virtualization.nixos-vm-host
               self.collective.profiles.hercules-ci-agent
+              self.collective.profiles.core
+              inputs.hercules-ci-agent.darwinModules.agent-service
+
+              nixosModules.MacBook-Pro
             ] ++ roles.workstation;
           });
       };
