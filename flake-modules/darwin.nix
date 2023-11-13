@@ -16,9 +16,9 @@ in
   config = {
     flake = rec {
       darwinConfigurations = {
-        MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, profiles, ... }:
+        MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, ... }:
           let
-            roles = import ../darwin/roles { inherit (self) collective; inherit profiles; };
+            roles = import ../darwin/roles { inherit (self) collective; profiles = self.collective.darwinProfiles; };
           in
           inputs.darwin.lib.darwinSystem {
             # system is not needed with freshly generated hardware-configuration.nix
@@ -35,9 +35,9 @@ in
               ../darwin/modules/hammerspoon.nix
 
               nixosModules.MacBook-Pro
-              profiles.emacs
-              profiles.pulseaudio
-              profiles.virtualization.nixos-vm-host
+              self.collective.darwinProfiles.emacs
+              self.collective.darwinProfiles.pulseaudio
+              self.collective.darwinProfiles.virtualization.nixos-vm-host
               self.collective.profiles.hercules-ci-agent
             ] ++ roles.workstation;
           });
