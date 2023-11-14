@@ -48,7 +48,7 @@ let
         inherit (packagesFrom inputs.devenv) devenv;
         inherit (packagesFrom inputs.deploy) deploy-rs;
         inherit (packagesFrom inputs.deploy-flake) deploy-flake;
-        inherit (packagesFrom inputs.prefmanager) prefmanager;
+        # inherit (packagesFrom inputs.prefmanager) prefmanager;
         inherit (packagesFrom inputs.nix-nil) nil;
         inherit (packagesFrom inputs.nix-alien) nix-alien;
         inherit (packagesFrom inputs.nix-alien) nix-index-update;

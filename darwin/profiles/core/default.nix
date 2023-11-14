@@ -44,7 +44,7 @@ in
       darwin.lsusb # <- lsusb for MacOS
       lsof
 
-      prefmanager # <- a tool for managing macOS defaults.
+      # prefmanager # <- a tool for managing macOS defaults.
       wifi-password # <- what was that password again?
 
       macfuse-stubs # <- MacOS port of FUSE
