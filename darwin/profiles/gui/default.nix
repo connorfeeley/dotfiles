@@ -70,7 +70,6 @@ in
     ];
 
     homebrew.casks = [
-      { name = "kitty"; }
       { name = "visual-studio-code"; }
       { name = "utm-beta"; } # QEMU GUI with virtualisation support
       # { name = "barrier"; } # Poor man's KVM
