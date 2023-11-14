@@ -247,8 +247,6 @@ lib.mkMerge [
         zstd # for undo-fu-session/undo-tree compression
         feh
         w3m # for browsing haddock from within emacs
-        nodePackages.vega-cli
-        nodePackages.vega-lite
 
         figlet # prettier block comments
 
