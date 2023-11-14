@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-{ self, lib, inputs, flake-parts-lib, moduleWithSystem, withSystem, ... }:
+{ self, lib, collective, inputs, flake-parts-lib, moduleWithSystem, withSystem, ... }:
 
 let
   inherit (flake-parts-lib)
@@ -29,7 +29,7 @@ let
 
     (import ../packages/fonts/common)
 
-    (final: _prev:
+    (final: prev:
       let
         packagesFrom = inputAttr:
           inputAttr.packages.${final.system};
@@ -72,7 +72,14 @@ let
         inherit (packagesFrom self.packages) amphetamine-enhancer;
         inherit (packagesFrom self.packages) hammerspoon;
         inherit (packagesFrom self.packages) mints;
+
+        lib = prev.lib.extend (_lfinal: _lprev: {
+          our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
+        });
       })
+    (import ../packages/common)
+    (import ../packages/sources)
+    inputs.nur.overlay
   ];
 
   commonImports = [
@@ -80,19 +87,30 @@ let
 in
 {
   config = {
-    flake = { };
-
-    perSystem = { self', system, config, pkgs, ... }: rec {
-      _module.args.pkgs = import inputs.nixpkgs {
+    flake.overlays.cfeeley-overlay = overlays;
+    flake.pkgsets = {
+      pkgs' = system: (import inputs.nixpkgs {
         inherit system;
         inherit overlays;
-        # overlays = [
-        #   (final: prev: {
-        #     # ... things you need to patch ...
-        #   })
-        # ];
-        config = { nixpkgs.config.allowUnfree = true; };
-      };
+        config = {
+          nixpkgs.config.allowUnfree = true;
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+
+          permittedInsecurePackages = [
+            "nodejs-16.20.2"
+          ];
+        };
+      });
     };
+
+    perSystem = { self', system, config, pkgs, ... }:
+      let pkgs' = self.pkgsets.pkgs' system;
+      in {
+        _module.args = {
+          pkgs = pkgs';
+          lib = pkgs'.lib // { hm = inputs.home-manager.lib; };
+        };
+      };
   };
 }

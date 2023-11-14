@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let inherit (pkgs.stdenv) isLinux;
 in {
   services.vscode-server.enable = lib.mkIf isLinux true;
@@ -9,8 +9,8 @@ in {
       bubblewrap # <- Believe it or not? Straight to jail.
       node2nix # <- generate nix derivations from NPM packages
 
-      nur.repos.mic92.gdb-dashboard
-      nur.repos.mic92.traceshark
+      config.nur.repos.mic92.gdb-dashboard
+      config.nur.repos.mic92.traceshark
     ] ++ lib.optionals (pkgs.stdenv.isLinux) [
       bashSnippets # <- Collection of small bash scripts; includes 'cheat' (cheat.sh)
       (elfutils.override { enableDebuginfod = true; }) # <- Handy tools like eu-stack

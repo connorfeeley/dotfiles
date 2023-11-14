@@ -11,18 +11,25 @@ let
     mkOption
     mkPackageOption
     types;
+
+  collective = {
+    modules = builtins.attrValues (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ../modules));
+    peers = import ../ops/metadata/peers.nix;
+    profiles = inputs.digga.lib.rakeLeaves ../profiles;
+    darwinProfiles = inputs.digga.lib.rakeLeaves ../darwin/profiles;
+    hmArgs = {
+      profiles = inputs.digga.lib.rakeLeaves ../home/profiles;
+      roles = import ../home/roles { inherit (self) collective; };
+      modules = builtins.attrValues (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ../home/modules));
+    };
+  };
 in
 {
   config = {
     flake = {
-      collective = {
-        modules = inputs.digga.lib.importExportableModules ../modules;
-        peers = import ../ops/metadata/peers.nix;
-        profiles = inputs.digga.lib.rakeLeaves ../profiles;
-        darwinProfiles = inputs.digga.lib.rakeLeaves ../darwin/profiles;
-      };
-    };
+      inherit collective;
 
-    perSystem = { self', system, config, pkgs, ... }: { };
+      flake-lib = import ../lib { inherit collective; lib = inputs.nixpkgs.lib; };
+    };
   };
 }

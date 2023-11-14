@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ inputs', self', lib, pkgs, ... }: {
   # FIXME: most of these should NOT be considered part of "core"
   # most don't belong on a server, etc.
   home.packages = with pkgs;
@@ -8,7 +8,7 @@
       speedtest-cli
       asciiquarium
       nodePackages.webtorrent-cli
-      nix-search
+      inputs'.nix-search-cli.packages.nix-search
 
       ## === Data and Documents ===
       tidy-viewer # <- Pretty-print CSV files
@@ -27,13 +27,13 @@
       inetutils # <- ftp, rcp, etc.
 
       ## === Repo Scripts ===
-      (lib.hiPrio n)
-      (lib.hiPrio nb)
-      nixos-rebuild-remote
-      dotfield-sync
-      dotfield-push
-      dotfield-rebuild
-      dotfield-doom
+      # (lib.hiPrio n)
+      # (lib.hiPrio nb)
+      # nixos-rebuild-remote
+      # dotfield-sync
+      # dotfield-push
+      # dotfield-rebuild
+      # dotfield-doom
     ] ++ (lib.optionals (pkgs.stdenv.isLinux) [
       handbrake # <- Video transcoder
       mmdoc # <- Markdown documentation generator

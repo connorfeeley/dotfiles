@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs', config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin isAarch64;
@@ -346,7 +346,7 @@ lib.mkMerge [
         #: nix
         rnix-lsp
         nil # ('nix-nil' from source repo)
-        nixd
+        inputs'.nixd.packages.nixd
         #: toml
         taplo-lsp
         #: web-mode

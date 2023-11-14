@@ -1,7 +1,7 @@
 { inputs', lib, pkgs, ... }:
 let inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
 in {
-  environment.systemPackages = with pkgs; [ (lib.mkIf isLinux font-manager) ];
+  environment.systemPackages = lib.optionals isLinux [ pkgs.font-manager ];
 
   fonts = {
     fontDir.enable = true;
@@ -24,8 +24,8 @@ in {
         noto-fonts-cjk
         noto-fonts-emoji
 
-        inputs'.ttc-subway-font.packages.ttc-subway
-        inputs'.ttc-subway-font.packages.bloor-yonge-font
+        # inputs'.ttc-subway-font.packages.ttc-subway
+        # inputs'.ttc-subway-font.packages.bloor-yonge-font
 
         (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 

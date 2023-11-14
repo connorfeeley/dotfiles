@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, inputs, ... }:
 let
   inherit (inputs)
     digga nix-colors nixos-vscode-server nix-index-database plasma-manager
@@ -6,10 +6,10 @@ let
   inherit (digga.lib) importExportableModules rakeLeaves;
 
   homeModules = importExportableModules ./modules;
-  profiles = rakeLeaves ./profiles;
-  roles = import ./roles { inherit profiles; };
 
-  defaultProfiles = with profiles;
+  inherit (self.collective) hmArgs;
+
+  defaultProfiles = with hmArgs.profiles;
     [
       core # pretty hardcore bruh
     ];

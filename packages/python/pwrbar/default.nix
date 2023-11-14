@@ -1,4 +1,4 @@
-{ lib, stdenv, makeWrapper, zsh, python-kasa, ... }:
+{ lib, stdenv, makeWrapper, zsh, python3Packages, ... }:
 
 stdenv.mkDerivation {
   name = "pwrbar";
@@ -7,7 +7,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [ zsh python-kasa ];
+  propagatedBuildInputs = [ zsh python3Packages.python-kasa ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 
   preFixup = ''
     wrapProgram $out/bin/pwrbar \
-      --prefix PATH : ${python-kasa}/bin
+      --prefix PATH : ${python3Packages.python-kasa}/bin
   '';
 
   meta = {

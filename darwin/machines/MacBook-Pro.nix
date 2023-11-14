@@ -1,8 +1,10 @@
-{ config, pkgs, lib, collective, ... }:
+{ self, self', system, config, pkgs, lib, inputs', ... }:
 let
   inherit (config.networking) hostName;
 
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+
+  inherit (self.collective) hmArgs;
 in
 {
   # imports = [ profiles.pulseaudio ];
@@ -19,16 +21,39 @@ in
     gid = 20;
   };
 
+  # home-manager.modules = [
+  #   self.inputs.nix-colors.homeManagerModules.default
+  #   self.inputs.sops-nix.homeManagerModules.sops
+  #   self.inputs.nix-colors.homeManagerModule
+  #   self.inputs.nixos-vscode-server.nixosModules.home
+  #   self.inputs.nix-index-database.hmModules.nix-index
+  #   self.inputs.plasma-manager.homeManagerModules.plasma-manager
+  # ];
   home-manager.users = {
     "${config.dotfield.guardian.username}" = {
-      # imports = with hmArgs.roles;
-      #   (hmArgs.lib.flatten [ ]
-      #   ++ (hmArgs.lib.flatten [ shell developer emacs-config graphical server trusted webdev fpgadev linux ]))
-      #   ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
-      # (with hmArgs.roles;
-      # workstation ++ macos ++ developer ++ emacs-config
-      # ++ (with hmArgs.profiles; [ work media sync aws ]));
-      imports = [ ../../home/modules/iterm2.nix ];
+      imports = with hmArgs.roles;
+        (lib.flatten [
+          hmArgs.profiles.core
+          (_: { imports = [ ../../lib/home ]; })
+          hmArgs.modules
+        ] ++ [
+          self.inputs.nur.hmModules.nur
+
+          self.inputs.nix-colors.homeManagerModules.default
+          self.inputs.sops-nix.homeManagerModules.sops
+          self.inputs.nix-colors.homeManagerModule
+          self.inputs.nixos-vscode-server.nixosModules.home
+          self.inputs.nix-index-database.hmModules.nix-index
+          self.inputs.plasma-manager.homeManagerModules.plasma-manager
+        ]
+        ++ (lib.flatten [ shell developer emacs-config graphical server trusted webdev fpgadev linux ]))
+        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
+        (with hmArgs.roles;
+        workstation ++ macos ++ developer ++ emacs-config
+        ++ (with hmArgs.profiles; [ work media sync aws ]));
+
+      # imports = [ ../../home/modules/iterm2.nix ];
+      _module.args.inputs = self.inputs;
 
       home = {
         username = "cfeeley";

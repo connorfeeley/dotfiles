@@ -1,5 +1,5 @@
-{ profiles }:
-with profiles;
+{ collective }:
+with collective.hmArgs.profiles;
 let
   ###: --- roles ---------------------------------------------------------------
 

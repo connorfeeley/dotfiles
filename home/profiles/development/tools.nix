@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs', config, pkgs, ... }:
 let
   toTOML = (pkgs.formats.toml { }).generate;
 
@@ -26,12 +26,12 @@ in
       patchelf # <- modify the dynamic linker and RPATH of ELF executables
       poetry # <- sanest python package manager
       remake # <- GNU Make with comprehensible tracing and a debugger
-      nur.repos.foolnotion.cmake-init
-      sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
+      config.nur.repos.foolnotion.cmake-init
+      inputs'.nurpkgs.packages.sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
       terraformer # <- CLI tool to generate terraform files from existing infrastructure (reverse Terraform)
 
       ## === Nix Utilities ===
-      nvfetcher-bin # <- Generate nix sources expression for the latest version of packages
+      inputs'.nvfetcher.packages.default # <- Generate nix sources expression for the latest version of packages
       nix-init # <- Generate Nix packages from URLs with hash prefetching, dependency inference, license detection, and more
       nix-template # <- Make creating nix expressions easy
       nix-diff # <- Explain why two Nix derivations differ
@@ -48,7 +48,7 @@ in
       zgrviewer # <- Graphviz/DOT viewer (often used with nix-du)
       nix-update # <- swiss-army knife for updating nix packages
       nix-bisect # <- Helper for bisecting nix builds
-      devenv # <- Cachix's new 'devenv' tool
+      inputs'.devenv.packages.devenv # <- Cachix's new 'devenv' tool
       vulnix # <- Scan nix (store) paths for CVEs
       nix-eval-jobs # <- Parallel nix evaluator with a streamable json output
       nixpkgs-review # <- Review nixpkgs pull requests
