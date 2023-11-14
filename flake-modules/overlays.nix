@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-{ self, lib, collective, inputs, flake-parts-lib, moduleWithSystem, withSystem, ... }:
+{ self, lib, config, collective, inputs, flake-parts-lib, moduleWithSystem, withSystem, ... }:
 
 let
   inherit (flake-parts-lib)
@@ -27,8 +27,16 @@ let
     # Personal overlay
     inputs.nurpkgs.overlays.default
 
-    (import ../packages/fonts/common)
+    packagesOverlay
 
+    inputs.nur.overlay
+
+    # (import ../packages/fonts/common)
+    # (import ../packages/common)
+    # (import ../packages/sources)
+  ];
+
+  packagesOverlay =
     (final: prev:
       let
         packagesFrom = inputAttr:
@@ -36,7 +44,7 @@ let
       in
       {
         inherit (packagesFrom self.packages) emacs-plus;
-        inherit (inputs.nixos-unstable.legacyPackages.${final.system}) emacs29-macport;
+        # inherit (inputs.nixos-unstable.legacyPackages.${final.system}) emacs29-macport;
         inherit (packagesFrom inputs.devenv) devenv;
         inherit (packagesFrom inputs.deploy) deploy-rs;
         inherit (packagesFrom inputs.deploy-flake) deploy-flake;
@@ -69,29 +77,28 @@ let
         # Broken on nixos-23.05
         inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
 
-        inherit (packagesFrom self.packages) amphetamine-enhancer;
-        inherit (packagesFrom self.packages) hammerspoon;
-        inherit (packagesFrom self.packages) mints;
+        inherit (packagesFrom self) amphetamine-enhancer;
+        inherit (packagesFrom self) hammerspoon;
+        inherit (packagesFrom self) mints;
+        inherit (packagesFrom self) ediff-tool;
+        inherit (packagesFrom self) git-submodule-rewrite;
 
         lib = prev.lib.extend (_lfinal: _lprev: {
           our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
         });
-      })
-    (import ../packages/common)
-    (import ../packages/sources)
-    inputs.nur.overlay
-  ];
+      });
 
   commonImports = [
   ];
 in
 {
-  config = {
-    flake.overlays.cfeeley-overlay = overlays;
+  config = rec {
+    flake.all-overlays.cfeeley-overlay = overlays;
+    flake.overlays.packagesOverlay = packagesOverlay;
     flake.pkgsets = {
       pkgs' = system: (import inputs.nixpkgs {
         inherit system;
-        inherit overlays;
+        overlays = flake.all-overlays.cfeeley-overlay;
         config = {
           nixpkgs.config.allowUnfree = true;
           allowUnfree = true;
@@ -107,6 +114,7 @@ in
     perSystem = { self', system, config, pkgs, ... }:
       let pkgs' = self.pkgsets.pkgs' system;
       in {
+        overlayAttrs = config.packages;
         _module.args = {
           pkgs = pkgs';
           lib = pkgs'.lib // { hm = inputs.home-manager.lib; };

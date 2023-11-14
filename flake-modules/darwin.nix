@@ -102,7 +102,6 @@ in
       in
       {
         _module.args = {
-          pkgs = pkgs';
           flake-lib = import ../lib {
             inherit collective;
             lib = inputs.digga.lib // pkgs'.lib;

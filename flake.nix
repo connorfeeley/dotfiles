@@ -101,16 +101,10 @@
         # Import this repo's modules.
         ./flake-modules
       ];
-      flake =
-        # Put your original flake attributes here.
+
+      perSystem = { config, pkgs, inputs', ... }:
         let
           mkLinuxPackages = system:
-            let
-              pkgs = import inputs.nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
-              };
-            in
             {
               # FIXME(darwin): causes 'nix flake show' to error
               inherit (pkgs) xsct mdio-tools aranet4;
@@ -118,33 +112,83 @@
 
           mkDarwinPackages = system:
             let
-              pkgs = import inputs.nixpkgs {
-                inherit system;
-                # overlays = [ self.overlays.darwin-packages ];
-                config.allowUnfree = true;
-              };
               installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
-            in
-            {
-              inherit installApplication;
-              inherit (pkgs)
-                macports amphetamine-enhancer mints hammerspoon native-youtube
-                better-display;
-            } // (builtins.mapAttrs
-              (_n: v: pkgs.callPackage v { inherit installApplication; })
-              (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages)))
-            // (builtins.mapAttrs
-              (_n: v: pkgs.callPackage v { })
-              (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python)));
+              darwinPackages = pkgs.lib.makeScope pkgs.newScope (self:
+                let inherit (self) callPackage;
+                  darwinPackages = builtins.mapAttrs
+                    (_n: v: callPackage v { inherit installApplication; })
+                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
+                  sourcePackages = import ./packages/sources { inherit callPackage; inherit (pkgs) stdenv; };
+                    #builtins.mapAttrs
+                    # (_n: v: callPackage v { })
+                    # (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/sources));
+                  commonPackages = import ./packages/common { inherit callPackage pkgs; inherit (pkgs) nodePackages; };
+                  pythonPackages = builtins.mapAttrs
+                    (_n: v: callPackage v { })
+                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
+                in
+                darwinPackages // sourcePackages // commonPackages // pythonPackages
+                # sourcePackages
+
+                # {inherit darwinPackages sourcePackages commonPackages pythonPackages;}
+              );
+            in darwinPackages;
         in
         {
-          packages = {
-            x86_64-linux = mkLinuxPackages "x86_64-linux";
-            aarch64-linux = mkLinuxPackages "aarch64-linux";
-            x86_64-darwin = mkDarwinPackages "x86_64-darwin";
-            aarch64-darwin = mkDarwinPackages "aarch64-darwin";
-          };
+          packages =
+            if pkgs.stdenv.isLinux then
+              mkLinuxPackages config.system
+            else
+              mkDarwinPackages config.system;
         };
+      # flake =
+      #   # Put your original flake attributes here.
+      #   let
+      #     mkLinuxPackages = system:
+      #       let
+      #         pkgs = import inputs.nixpkgs {
+      #           inherit system;
+      #           config.allowUnfree = true;
+      #         };
+      #       in
+      #       {
+      #         # FIXME(darwin): causes 'nix flake show' to error
+      #         inherit (pkgs) xsct mdio-tools aranet4;
+      #       };
+
+      #     mkDarwinPackages = system:
+      #       let
+      #         pkgs = import inputs.nixpkgs {
+      #           inherit system;
+      #           # overlays = [ self.overlays.darwin-packages ];
+      #           config.allowUnfree = true;
+      #         };
+      #         installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
+      #       in
+      #       {
+      #         inherit installApplication;
+      #         inherit (pkgs)
+      #           macports amphetamine-enhancer mints hammerspoon native-youtube
+      #           better-display;
+      #       } // (builtins.mapAttrs
+      #         (_n: v: pkgs.callPackage v { inherit installApplication; })
+      #         (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages)))
+      #       // (builtins.mapAttrs
+      #         (_n: v: pkgs.callPackage v { })
+      #         (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python)))
+      #   // (builtins.mapAttrs
+      #     (_n: v: pkgs.callPackage v { })
+      #     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages)));
+
+      #   in
+      #   {
+      #     packages = {
+      #       x86_64-linux = mkLinuxPackages "x86_64-linux";
+      #       aarch64-linux = mkLinuxPackages "aarch64-linux";
+      #       x86_64-darwin = mkDarwinPackages "x86_64-darwin";
+      #       aarch64-darwin = mkDarwinPackages "aarch64-darwin";
+      #     };
+      #   };
     });
   # (digga.lib.mkFlake {
   #   inherit self inputs supportedSystems;

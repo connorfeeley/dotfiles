@@ -62,11 +62,6 @@ lib.mkMerge [
   })
 
   {
-    home.packages = with pkgs; [
-      kitty-helpers.getWindowByPlatformId
-      (lib.mkIf isDarwin kitty-helpers.setAppIcon)
-    ];
-
     home.sessionVariables = {
       KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
       # FIXME: necessary?
