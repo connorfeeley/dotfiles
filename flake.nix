@@ -11,7 +11,6 @@
     nixpkgs-darwin.follows = "nixos-stable";
 
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
-    # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
 
@@ -109,7 +108,6 @@
             let
               pkgs = import inputs.nixpkgs {
                 inherit system;
-                # overlays = [ self.overlays.linux-packages ];
                 config.allowUnfree = true;
               };
             in
@@ -147,38 +145,6 @@
             aarch64-darwin = mkDarwinPackages "aarch64-darwin";
           };
         };
-      # perSystem = { config, pkgs, inputs', ... }:
-      #   let
-      #     installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
-      #     mkDarwinPackages = system:
-      #       let
-      #         pkgs = import inputs.nixpkgs {
-      #           inherit system;
-      #           # overlays = [ self.overlays.darwin-packages ];
-      #           config.allowUnfree = true;
-      #         };
-      #       in
-      #       {
-      #         inherit (pkgs)
-      #           macports amphetamine-enhancer mints hammerspoon native-youtube
-      #           better-display;
-      #       } // (builtins.mapAttrs
-      #         (_n: v: pkgs.callPackage v { inherit (pkgs) installApplication; })
-      #         (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages)));
-      #     #     in
-      #     #     {
-      #     #       x86_64-linux = mkLinuxPackages "x86_64-linux";
-      #     #       aarch64-linux = mkLinuxPackages "aarch64-linux";
-      #     #       x86_64-darwin = mkDarwinPackages "x86_64-darwin";
-      #     #       aarch64-darwin = mkDarwinPackages "aarch64-darwin";
-      #     #     };
-      #   in
-      #   {
-      #     packages.amphetamine-enhancer = pkgs.callPackage ./darwin/packages/amphetamine-enhancer.nix { inherit installApplication; };
-      #     packages.hammerspoon = pkgs.callPackage ./darwin/packages/hammerspoon.nix { };
-      #     packages.mints = pkgs.callPackage ./darwin/packages/mints { };
-      #     packages.better-display = pkgs.callPackage ./darwin/packages/better-display.nix { inherit installApplication; };
-      #   };
     });
   # (digga.lib.mkFlake {
   #   inherit self inputs supportedSystems;
