@@ -43,7 +43,9 @@ in
               ../darwin/modules/tailscale.nix
               ../darwin/modules/input-leap.nix
               ../darwin/modules/hammerspoon.nix
+              ../darwin/modules/terminfo.nix
 
+              self.collective.darwinProfiles.core
               self.collective.darwinProfiles.emacs
               self.collective.darwinProfiles.pulseaudio
               self.collective.darwinProfiles.virtualization.nixos-vm-host
