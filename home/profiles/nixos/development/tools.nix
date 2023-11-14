@@ -6,13 +6,13 @@ in {
   home.packages = with pkgs;
     [
       universal-ctags # <- Generates tag files in case of LSP bankrupcy
-      bubblewrap # <- Believe it or not? Straight to jail.
       node2nix # <- generate nix derivations from NPM packages
 
-      config.nur.repos.mic92.gdb-dashboard
       config.nur.repos.mic92.traceshark
     ] ++ lib.optionals (pkgs.stdenv.isLinux) [
+      config.nur.repos.mic92.gdb-dashboard
       bashSnippets # <- Collection of small bash scripts; includes 'cheat' (cheat.sh)
+      bubblewrap # <- Believe it or not? Straight to jail.
       (elfutils.override { enableDebuginfod = true; }) # <- Handy tools like eu-stack
       ubootTools # <- tools for working with u-boot images
       ethtool

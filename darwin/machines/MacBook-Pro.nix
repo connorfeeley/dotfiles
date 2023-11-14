@@ -46,11 +46,10 @@ in
           self.inputs.nix-index-database.hmModules.nix-index
           self.inputs.plasma-manager.homeManagerModules.plasma-manager
         ]
-        ++ (lib.flatten [ shell developer emacs-config graphical server trusted webdev fpgadev linux ]))
         ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
         (with hmArgs.roles;
         workstation ++ macos ++ developer ++ emacs-config
-        ++ (with hmArgs.profiles; [ work media sync aws ]));
+        ++ (with hmArgs.profiles; [ work media sync aws ])));
 
       # imports = [ ../../home/modules/iterm2.nix ];
       _module.args.inputs = self.inputs;
