@@ -45,7 +45,7 @@
   # Treat option as alt; however can't insert unicode characters with cmd+key.
   macos_option_as_alt = true;
   # Save space by putting the title in the top menubar
-  macos_show_window_title_in = "menubar";
+  # macos_show_window_title_in = "menubar";
   macos_menubar_title_max_length = 40;
   # Hide the kitty window's title bar on macOS.
   # macos_hide_titlebar = true;
@@ -59,8 +59,8 @@
   #: }}}
 
   #: Keyboard shortcuts {{{
-  # This is the default value.
-  # kitty_mod = "ctrl+shift";
+  # Default value: "ctrl+shift"
+  kitty_mod = "ctrl+opt+cmd";
   #: }}}
 
   # Prevent input latency.

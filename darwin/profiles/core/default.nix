@@ -67,7 +67,6 @@ in
     enable = true;
     onActivation = {
       upgrade = false;
-      cleanup = "zap";
     };
     global = {
       brewfile = true; # Use generated Brewfile in the nix store

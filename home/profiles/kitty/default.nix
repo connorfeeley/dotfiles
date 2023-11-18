@@ -53,12 +53,6 @@ let
 in
 lib.mkMerge [
   (lib.mkIf isDarwin {
-    # Handled by the Homebrew module
-    # This populates a dummy package to satisfy the requirement
-    # programs.kitty.package = pkgs.runCommand "kitty-0.0.0" { } "mkdir $out";
-
-    programs.kitty.darwinLaunchOptions =
-      [ "--single-instance" "--listen-on=${socket}" ];
   })
 
   {
@@ -114,7 +108,17 @@ lib.mkMerge [
       # Enabled confirm_os_window_close on darwin as a stop-gap.
       "ctrl+shift+w" = "no_op";
       "kitty_mod+w" = "no_op";
+      "cmd+c" = "copy_to_clipboard";
+      "cmd+v" = "paste_from_clipboard";
     };
+
+    # Handled by the Homebrew module
+    # This populates a dummy package to satisfy the requirement
+    # programs.kitty.package = pkgs.runCommand "kitty-0.0.0" { } "mkdir $out";
+
+    programs.kitty.darwinLaunchOptions =
+      [ "--single-instance" "--listen-on=${socket}" ];
+
   })
   {
     xdg.configFile =
