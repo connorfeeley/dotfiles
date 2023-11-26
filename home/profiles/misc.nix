@@ -9,6 +9,7 @@
       asciiquarium
       nodePackages.webtorrent-cli
       inputs'.nix-search-cli.packages.nix-search
+      dogdns
 
       ## === Data and Documents ===
       tidy-viewer # <- Pretty-print CSV files
