@@ -69,6 +69,9 @@ in
     enable = true;
     package = pkgs.gitAndTools.gitFull;
 
+    # Enable Large File Storage.
+    lfs.enable = true;
+
     userEmail = email;
     userName = fullName;
 
