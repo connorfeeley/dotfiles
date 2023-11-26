@@ -44,7 +44,6 @@ in
               ../darwin/modules/input-leap.nix
               ../darwin/modules/hammerspoon.nix
               ../darwin/modules/terminfo.nix
-              ../darwin/modules/nix-key.nix
 
               self.collective.darwinProfiles.core
               self.collective.darwinProfiles.emacs
