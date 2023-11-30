@@ -68,7 +68,7 @@
     nixpkgs.follows = "nixos-stable";
     nixpkgs-darwin.follows = "nixos-stable";
 
-    nixos-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
 
