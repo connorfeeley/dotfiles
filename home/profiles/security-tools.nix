@@ -20,7 +20,7 @@
       ## === Networking ===
       arping
       nmap
-      ncrack
+      # ncrack
       wpscan
       socat
       tcpreplay
@@ -37,7 +37,7 @@
       ## === Passwords ===
       pdfcrack
       rarcrack
-      fcrackzip
+      # fcrackzip
     ] ++ (lib.optionals pkgs.stdenv.isLinux [
       ## === Reverse Engineering ===
       (binwalk.override { visualizationSupport = true; })

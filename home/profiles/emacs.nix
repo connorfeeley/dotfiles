@@ -279,8 +279,7 @@ lib.mkMerge [
         # zshdb # <- zsh debugger (FIXME: not packaged for nix)
 
         # :lang cpp
-        # NOTE: lldb-14 is broken
-        llvmPackages_13.lldb # includes lldb-vscode
+        llvmPackages.lldb # includes lldb-vscode
         clang-tools
         # Linux-only (see conditional appends below):
         # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
@@ -313,10 +312,10 @@ lib.mkMerge [
         languagetool
 
         # :tools lookup
-        wordnet
+        # wordnet
 
         # :tools copilot
-        nodejs-16_x # Copilot requires Node.js version 17 or below
+        nodejs
 
         ##: === lang/lsp ===
 
@@ -340,7 +339,7 @@ lib.mkMerge [
         pyright
         #: C++
         clang-tools
-        bear
+        # bear
         #: nix
         rnix-lsp
         nil # ('nix-nil' from source repo)

@@ -50,8 +50,8 @@
   # programs.ncspot = {}; # spotify thingy
 
   programs.bottom.enable = true;
-  programs.exa.enable = true;
-  programs.exa.enableAliases = true;
+  programs.eza.enable = true;
+  programs.eza.enableAliases = true;
   programs.jq.enable = true;
   programs.pandoc.enable = true;
   programs.tealdeer.enable = true;

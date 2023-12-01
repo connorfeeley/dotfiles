@@ -10,7 +10,7 @@ let
   developer = [
     direnv
     vim
-    jetbrains
+    # jetbrains
     git
     shells.zsh
     shells.bash

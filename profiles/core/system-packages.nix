@@ -6,7 +6,7 @@
     binutils
     cacert
     coreutils-full
-    exa
+    eza
     fd
     dua
     duf
@@ -31,8 +31,8 @@
     curl
     nmap
     wget
-    whois
+    # whois
   ];
 
-  environment.shellAliases = { ll = "${pkgs.exa} -l"; };
+  environment.shellAliases = { ll = "${pkgs.eza} -l"; };
 }

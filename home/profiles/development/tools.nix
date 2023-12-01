@@ -27,7 +27,7 @@ in
       poetry # <- sanest python package manager
       remake # <- GNU Make with comprehensible tracing and a debugger
       config.nur.repos.foolnotion.cmake-init
-      inputs'.nurpkgs.packages.sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
+      # inputs'.nurpkgs.packages.sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
       terraformer # <- CLI tool to generate terraform files from existing infrastructure (reverse Terraform)
 
       ## === Nix Utilities ===
@@ -43,7 +43,7 @@ in
       nix-prefetch-git # <- Prefetch git repositories
       nurl # <- Generate  URL
       manix # <- nix documentation search
-      nix-du # <- Analyze derivation and store size
+      # nix-du # <- Analyze derivation and store size
       nox # <- Tools to make nix nicer to use
       zgrviewer # <- Graphviz/DOT viewer (often used with nix-du)
       nix-update # <- swiss-army knife for updating nix packages
