@@ -25,7 +25,7 @@ in
             # system is not needed with freshly generated hardware-configuration.nix
             # system = "x86_64-linux";  # or set nixpkgs.hostPlatform in a module.
             specialArgs = rec {
-              inherit self' self inputs';
+              inherit self' self inputs' inputs;
               pkgs = self.pkgsets.pkgs' "aarch64-darwin";
 
               # flake-lib = import ../lib {
@@ -71,6 +71,7 @@ in
             ] ++ roles.workstation;
           });
       };
+
       nixosModules.MacBook-Pro =
         (moduleWithSystem (
           perSystem@{ system, config, inputs, pkgs, lib, collective }:
