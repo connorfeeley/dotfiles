@@ -72,6 +72,7 @@ lib.mkMerge [
         # else "0";
         # 85% opacity
         background_opacity = if isDarwin then "0.85" else "1.0";
+        dynamic_background_opacity = true;
       };
       # // (lib.mkForce modus-vivendi-faint); # force kitty colorscheme (also set by stylix)
       keybindings = {
