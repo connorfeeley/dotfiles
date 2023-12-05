@@ -27,6 +27,8 @@ in
       self'.packages.better-display # MacOS app for managing display settings
       # darwinPackages.mac-stats # MacOS app for monitoring system stats (fork without telemetry)
       emacsPackages.pdf-tools
+
+      kitty
     ];
 
     services.karabiner-elements.enable = true;
