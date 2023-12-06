@@ -3821,11 +3821,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1695906000,
-        "narHash": "sha256-l0Y4gDHFlSvHsdwjJ1nsTAiyO03yClk+7OaiIrjy31s=",
+        "lastModified": 1701871200,
+        "narHash": "sha256-aDDNFq0EqfZ+bWh1lBzlAPCYwOHwCc43YKRVdFCv4Z0=",
         "owner": "connorfeeley",
         "repo": "nurpkgs",
-        "rev": "cd590a476f329ee2be85286eb6a7e19e7fca74d8",
+        "rev": "ca3dd1a0d678f96315691afcfd97c30ca2c51fac",
         "type": "github"
       },
       "original": {
