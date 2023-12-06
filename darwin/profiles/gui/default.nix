@@ -83,7 +83,6 @@ in
       # { name = "bluesnooze"; } # Sleeping Mac = Bluetooth off
       { name = "docker"; }
       { name = "firefox"; }
-      { name = "google-chrome"; }
       { name = "microsoft-edge"; }
       { name = "microsoft-teams"; }
       { name = "microsoft-outlook"; }
