@@ -20,7 +20,7 @@
   "....." = "cd ../../../..";
   "......" = "cd ../../../../..";
 
-  tree = "exa --tree";
+  tree = "eza --tree";
 
   # Flush DNS cache
   flushdns = "dscacheutil -flushcache";
