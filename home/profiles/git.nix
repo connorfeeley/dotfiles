@@ -325,7 +325,12 @@ in
         limit = "18-9";
       };
       ##: }}
-    }];
+    }
+      (lib.mkIf pkgs.stdenv.isDarwin {
+        # Not supported on NixOS
+        core.fsmonitor = true;
+        fsmonitor.socketDir = "${configDir}/fsmonitor";
+      })];
   };
 
   programs.gh = {
