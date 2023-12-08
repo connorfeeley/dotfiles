@@ -8,5 +8,6 @@
     ./overlays.nix
     ./collective.nix
     ./darwin.nix
+    ./linux.nix
   ];
 }

@@ -1,12 +1,14 @@
-{ config, options, lib, pkgs, profiles, primaryUser, collective, ... }:
+{ self, config, options, lib, pkgs, primaryUser, ... }:
 let
-  inherit (collective) peers;
+  inherit (self.collective) peers;
   inherit (config.networking) hostName;
 
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+
+  inherit (self.collective) hmArgs;
 in
 {
-  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ./dhcp.nix ];
+  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ];
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
@@ -256,21 +258,36 @@ in
     shell = pkgs.bash;
   };
 
+
   home-manager.users = {
-    cfeeley = hmArgs: {
+    "${config.dotfield.guardian.username}" = {
       imports = with hmArgs.roles;
-        (lib.flatten [ personalised ] ++ lib.optionals (!config.nixos-vm.enable)
-          (lib.flatten [ workstation developer linux emacs-config ]))
-        ++ (with hmArgs.profiles; [
-          sync
-          work
+        (lib.flatten [
+          hmArgs.profiles.core
+          (_: { imports = [ ../../../lib/home ]; })
+          hmArgs.modules
+        ] ++ [
+          self.inputs.nur.hmModules.nur
 
-          desktop.xmonad
-          desktop.plasma
+          self.inputs.nix-colors.homeManagerModules.default
+          self.inputs.sops-nix.homeManagerModules.sops
+          self.inputs.nix-colors.homeManagerModule
+          self.inputs.nixos-vscode-server.nixosModules.home
+          self.inputs.nix-index-database.hmModules.nix-index
+          self.inputs.plasma-manager.homeManagerModules.plasma-manager
+        ]
+        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
+        (with hmArgs.roles;
+        workstation ++ personalised ++ developer ++ linux ++ emacs-config
+        ++ (with hmArgs.profiles; [ work media sync aws desktop.xmonad desktop.plasma nixos.work])));
 
-          # Systemd scripts
-          nixos.work
-        ]);
+      _module.args.inputs = self.inputs;
+
+      home = {
+        username = "cfeeley";
+        homeDirectory = lib.mkForce "/home/cfeeley";
+        stateVersion = "22.05";
+      };
     };
   };
 

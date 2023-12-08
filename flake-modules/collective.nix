@@ -17,6 +17,7 @@ let
     peers = import ../ops/metadata/peers.nix;
     profiles = inputs.digga.lib.rakeLeaves ../profiles;
     darwinProfiles = inputs.digga.lib.rakeLeaves ../darwin/profiles;
+    nixosProfiles = inputs.digga.lib.rakeLeaves ../nixos/profiles;
     hmArgs = {
       profiles = inputs.digga.lib.rakeLeaves ../home/profiles;
       roles = import ../home/roles { inherit (self) collective; };
