@@ -85,7 +85,6 @@ in
       { name = "firefox"; }
       { name = "microsoft-teams"; }
       { name = "microsoft-outlook"; }
-      { name = "nordvpn"; }
       { name = "private-internet-access"; }
       { name = "vlc"; }
       { name = "lulu"; }
