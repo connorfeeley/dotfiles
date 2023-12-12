@@ -77,12 +77,6 @@ let
         # Broken on nixos-23.05
         inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
 
-        inherit (packagesFrom self) amphetamine-enhancer;
-        inherit (packagesFrom self) hammerspoon;
-        inherit (packagesFrom self) mints;
-        inherit (packagesFrom self) ediff-tool;
-        inherit (packagesFrom self) git-submodule-rewrite;
-
         lib = prev.lib.extend (_lfinal: _lprev: {
           our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
         });

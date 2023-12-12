@@ -1,4 +1,4 @@
-{ inputs', config, lib, pkgs, ... }:
+{ inputs', self', config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin isAarch64;
@@ -237,7 +237,7 @@ lib.mkMerge [
         # Emacsclient wrapper
         e-wrapper
 
-        ediff-tool
+        self'.packages.ediff-tool
         gnutls
         (ripgrep.override { withPCRE2 = true; })
 
@@ -392,7 +392,6 @@ lib.mkMerge [
         #: fpga (bazel builds fail on darwin)
         verible
         verilator
-        svlangserver
         svls
         svlint
 

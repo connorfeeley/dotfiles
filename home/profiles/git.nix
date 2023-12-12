@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ self', config, lib, pkgs, ... }:
 let
   inherit (config.lib.dotfield.whoami)
     email fullName githubUserName pgpPublicKey;
@@ -19,13 +19,12 @@ let
 in
 {
   home.packages = with pkgs; [
-    ediff-tool
+    self'.packages.ediff-tool
     exiftool # EXIF diff handler
     git-cliff
     git-filter-repo # Replaces git-filter-branch
     bfg-repo-cleaner # Like git-filter-repo
     git-sizer # Analyze shape of repository
-    git-submodule-rewrite
     gitAndTools.hut # Sourcehut CLI
     gitAndTools.hub # GitHub CLI
     gitAndTools.glab # GitLab CLI
@@ -308,13 +307,13 @@ in
 
       difftool = {
         prompt = false;
-        ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE";
+        ediff.cmd = "${self'.packages.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE";
         vscode.cmd = "code --wait --diff $LOCAL $REMOTE";
       };
 
       mergetool = {
         prompt = false;
-        ediff.cmd = "${pkgs.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE $MERGED";
+        ediff.cmd = "${self'.packages.ediff-tool}/bin/ediff-tool $LOCAL $REMOTE $MERGED";
         vscode.cmd = "code --wait $MERGED";
       };
 

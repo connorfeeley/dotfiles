@@ -16,22 +16,31 @@
 
       perSystem = { config, pkgs, inputs', ... }:
         let
-          mkLinuxPackages = system: {
-            inherit (pkgs) xsct mdio-tools aranet4;
-          };
-
-          mkDarwinPackages = system:
+          mkLinuxPackages = system:
             let
               pk = pkgs.lib.makeScope pkgs.newScope (self:
                 let inherit (self) callPackage;
-                  installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
-                  darwinPackages = builtins.mapAttrs
-                    (_n: v: callPackage v { inherit installApplication; })
-                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
                   sourcePackages = import ./packages/sources { inherit callPackage; inherit (pkgs) stdenv; };
                   commonPackages = import ./packages/common { inherit callPackage pkgs; inherit (pkgs) nodePackages; };
                   pythonPackages = builtins.mapAttrs
                     (_n: v: callPackage v { })
+                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
+                in
+                  sourcePackages // commonPackages // pythonPackages
+              );
+              in pk;
+          mkDarwinPackages = system:
+            let
+              pk = pkgs.lib.makeScope pkgs.newScope (self:
+                let
+                  installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
+                  darwinPackages = builtins.mapAttrs
+                    (_n: v: self.callPackage v { inherit installApplication; })
+                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
+                  sourcePackages = import ./packages/sources { inherit (self) callPackage; inherit (pkgs) stdenv; };
+                  commonPackages = import ./packages/common { inherit (self) callPackage pkgs; inherit (pkgs) nodePackages; };
+                  pythonPackages = builtins.mapAttrs
+                    (_n: v: self.callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
                 in
                 darwinPackages // sourcePackages // commonPackages // pythonPackages

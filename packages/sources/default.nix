@@ -10,13 +10,4 @@
       cp bin/* $out/bin/
     '';
   };
-
-  git-submodule-rewrite = stdenv.mkDerivation {
-    name = "git-submodule-rewrite";
-    src = ./git-submodule-rewrite;
-    installPhase = ''
-      mkdir -p $out/bin
-      cp bin/* $out/bin/
-    '';
-  };
 }

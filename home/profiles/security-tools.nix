@@ -39,6 +39,9 @@
       rarcrack
       # fcrackzip
     ] ++ (lib.optionals pkgs.stdenv.isLinux [
+      ## === Hardware ===
+      qFlipper
+
       ## === Reverse Engineering ===
       (binwalk.override { visualizationSupport = true; })
       radare2

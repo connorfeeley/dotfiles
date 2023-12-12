@@ -57,6 +57,7 @@ in
       host = peers.hosts.${hostName};
       net = peers.networks.${host.network};
       interface = "enp38s0";
+      hostName = "workstation";
     in
     {
       useDHCP = false;

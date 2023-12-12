@@ -19,28 +19,6 @@ in
   # Nix 'aliases'
   inherit n nb;
 
-  svlangserver-unwrapped =
-    (callPackage ./svlangserver { }).package.override {
-      src = builtins.fetchGit {
-        url = "https://github.com/imc-trading/svlangserver.git";
-        ref = "master";
-        rev = "7f53c7f3394447bdd06de9566cd7240aa6cf0c8e";
-      };
-      nodejs = pkgs.nodejs-14_x;
-    };
-
-  svlangserver = pkgs.writeShellApplication {
-    name = "svlangserver";
-    text = with pkgs;
-      "exec ${svlangserver-unwrapped.nodejs}/bin/node ${svlangserver-unwrapped}/lib/node_modules/@imc-trading/svlangserver/bin/main.js";
-    runtimeInputs = with pkgs; [ nodejs-14_x svlangserver-unwrapped ];
-  };
-
-  svls-local =
-    throw "use svls from nixpkgs; this is the flake-local derivation";
-  svlint-local =
-    throw "use svlint from nixpkgs; this is the flake-local derivation";
-
   xsct = callPackage ./xsct.nix { };
 
   xantfarm = callPackage ./xantfarm.nix { };
