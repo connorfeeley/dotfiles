@@ -281,7 +281,7 @@ in
         ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
         (with hmArgs.roles;
         workstation ++ personalised ++ developer ++ linux ++ emacs-config
-        ++ (with hmArgs.profiles; [ work media sync aws desktop.xmonad desktop.plasma nixos.work])));
+          ++ (with hmArgs.profiles; [ work media sync aws desktop.xmonad desktop.plasma nixos.work ])));
 
       _module.args.inputs = self.inputs;
 
@@ -445,17 +445,27 @@ in
     package = pkgs.postgresql_14;
     extraPlugins = with package.pkgs; [ postgis pg_repack ];
 
-    ensureUsers = [{
-      name = "cfeeley";
-      ensurePermissions = {
-        "ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
-      };
-      ensureClauses = {
-        superuser = true;
-        createrole = true;
-        createdb = true;
-      };
-    }];
+    ensureDatabases = [ "cfeeley" "haskbike" ];
+    ensureUsers = [
+      {
+        name = "cfeeley";
+        ensureDBOwnership = true;
+        ensureClauses = {
+          superuser = true;
+          createrole = true;
+          createdb = true;
+        };
+      }
+      {
+        name = "haskbike";
+        ensureDBOwnership = true;
+        ensureClauses = {
+          superuser = true;
+          createrole = true;
+          createdb = true;
+        };
+      }
+    ];
 
     enableTCPIP = true;
     authentication = lib.mkOverride 10 ''
