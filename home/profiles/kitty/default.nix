@@ -53,20 +53,9 @@ let
 in
 lib.mkMerge [
   (lib.mkIf isDarwin {
-    # Handled by the Homebrew module
-    # This populates a dummy package to satisfy the requirement
-    programs.kitty.package = pkgs.runCommand "kitty-0.0.0" { } "mkdir $out";
-
-    programs.kitty.darwinLaunchOptions =
-      [ "--single-instance" "--listen-on=${socket}" ];
   })
 
   {
-    home.packages = with pkgs; [
-      kitty-helpers.getWindowByPlatformId
-      (lib.mkIf isDarwin kitty-helpers.setAppIcon)
-    ];
-
     home.sessionVariables = {
       KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
       # FIXME: necessary?
@@ -83,6 +72,7 @@ lib.mkMerge [
         # else "0";
         # 85% opacity
         background_opacity = if isDarwin then "0.85" else "1.0";
+        dynamic_background_opacity = true;
       };
       # // (lib.mkForce modus-vivendi-faint); # force kitty colorscheme (also set by stylix)
       keybindings = {
@@ -102,8 +92,8 @@ lib.mkMerge [
         "kitty_mod+l" = "next_layout";
       };
       font = {
-        name = lib.mkForce "Iosevka Extended";
-        size = 18;
+        name = lib.mkForce "Iosevka Term";
+        size = 10;
       };
       extraConfig = ''
         ${lib.optionalString hasPragPro pragmataProExtras}
@@ -119,7 +109,17 @@ lib.mkMerge [
       # Enabled confirm_os_window_close on darwin as a stop-gap.
       "ctrl+shift+w" = "no_op";
       "kitty_mod+w" = "no_op";
+      "cmd+c" = "copy_to_clipboard";
+      "cmd+v" = "paste_from_clipboard";
     };
+
+    # Handled by the Homebrew module
+    # This populates a dummy package to satisfy the requirement
+    # programs.kitty.package = pkgs.runCommand "kitty-0.0.0" { } "mkdir $out";
+
+    programs.kitty.darwinLaunchOptions =
+      [ "--single-instance" "--listen-on=${socket}" ];
+
   })
   {
     xdg.configFile =

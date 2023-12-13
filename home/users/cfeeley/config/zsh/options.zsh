@@ -8,7 +8,7 @@ select-word-style bash
 WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
 
 # ls et al.
-# AUTO_LS_COMMANDS="exa --oneline"
+# AUTO_LS_COMMANDS="eza --oneline"
 # AUTO_LS_NEWLINE=false
 
 

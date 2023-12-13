@@ -1,0 +1,1 @@
+{"eval":{"depth":10,"target":{"args":["-f","default.nix"],"installable":"nixosConfigurations.workstation"}},"formatting":{"command":"nixpkgs-fmt"},"options":{"enable":true,"target":{"args":[],"installable":".#nixosConfigurations.workstation.options"}}}

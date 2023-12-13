@@ -3,26 +3,92 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 {
-  description = "Dotfield";
+  outputs = inputs@{ flake-parts, ... }:
+    (flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
+      systems = inputs.nixpkgs.lib.systems.flakeExposed;
+      imports = [
+        inputs.flake-parts.flakeModules.easyOverlay
+
+        # Import this repo's modules.
+        ./flake-modules
+      ];
+
+      perSystem = { config, pkgs, inputs', ... }:
+        let
+          mkLinuxPackages = system:
+            let
+              pk = pkgs.lib.makeScope pkgs.newScope (self:
+                let inherit (self) callPackage;
+                  sourcePackages = import ./packages/sources { inherit callPackage; inherit (pkgs) stdenv; };
+                  commonPackages = import ./packages/common { inherit callPackage pkgs; inherit (pkgs) nodePackages; };
+                  pythonPackages = builtins.mapAttrs
+                    (_n: v: callPackage v { })
+                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
+                in
+                  sourcePackages // commonPackages // pythonPackages
+              );
+              in pk;
+          mkDarwinPackages = system:
+            let
+              pk = pkgs.lib.makeScope pkgs.newScope (self:
+                let
+                  installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
+                  darwinPackages = builtins.mapAttrs
+                    (_n: v: self.callPackage v { inherit installApplication; })
+                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
+                  sourcePackages = import ./packages/sources { inherit (self) callPackage; inherit (pkgs) stdenv; };
+                  commonPackages = import ./packages/common { inherit (self) callPackage pkgs; inherit (pkgs) nodePackages; };
+                  pythonPackages = builtins.mapAttrs
+                    (_n: v: self.callPackage v { })
+                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
+                in
+                darwinPackages // sourcePackages // commonPackages // pythonPackages
+              );
+            in
+            pk;
+        in
+        {
+          packages =
+            if pkgs.stdenv.isLinux
+            then mkLinuxPackages config.system
+            else mkDarwinPackages config.system;
+        };
+    });
+
+  # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
+  nixConfig = {
+    extra-experimental-features = "nix-command flakes";
+    extra-substituters = [
+      "https://cache.nixos.org/"
+      "https://nix-community.cachix.org"
+      "https://cfeeley.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cfeeley.cachix.org-1:b+RrHsy/4WWys2o6T4YyF66OhdiZUF/R/N46JcS0HJU="
+    ];
+  };
+
+  description = "My life in Nix.";
 
   inputs = {
     ##: --- nixpkgs flavours ----------------------------------------------------------
     nixpkgs.follows = "nixos-stable";
     nixpkgs-darwin.follows = "nixos-stable";
 
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
-    # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
 
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     ##: --- system -------------------------------------------------------------
-    home-manager = { url = "github:nix-community/home-manager/release-23.05"; inputs.nixpkgs.follows = "nixpkgs"; };
+    home-manager = { url = "github:nix-community/home-manager/release-23.11"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     digga = { url = "github:divnix/digga"; inputs.nixpkgs.follows = "nixpkgs"; inputs.home-manager.follows = "home-manager"; inputs.darwin.follows = "darwin"; };
     nixos-wsl = { url = "github:nix-community/NixOS-WSL"; inputs.nixpkgs.follows = "nixpkgs"; };
-    agenix.url = "github:montchr/agenix/darwin-support";
+    agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     sops-nix = { url = "github:pogobanane/sops-nix/feat/home-manager-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -39,7 +105,7 @@
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
     arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
+    # nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
     nixago = { url = "github:nix-community/nixago"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-vscode-server = { url = "github:msteen/nixos-vscode-server"; inputs.nixpkgs.follows = "nixpkgs"; };
 
@@ -52,11 +118,11 @@
     nix-index-database = { url = "github:Mic92/nix-index-database"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
     hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; };
-    poetry2nix = { url = "github:nix-community/poetry2nix"; inputs = { nixpkgs.follows = "nixpkgs"; flake-utils.follows = "flake-utils"; }; };
+    poetry2nix = { url = "github:nix-community/poetry2nix"; inputs = { nixpkgs.follows = "nixpkgs"; }; };
 
     ##: --- personal packages --------------------------------------------------
     nurpkgs = { url = "github:connorfeeley/nurpkgs"; inputs.nixpkgs.follows = "nixpkgs"; };
-    xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; inputs.flake-utils.follows = "flake-utils"; };
+    xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; };
     ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; }; # Private repo
     nixpkgs-input-leap.url = "git+https://git.sr.ht/~cfeeley/nixpkgs?ref=feat/input-leap";
 
@@ -67,14 +133,13 @@
     nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
 
     ##: --- packages -----------------------------------------------------------
-    nickel = { url = "github:tweag/nickel"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-nil = { url = "github:oxalica/nil"; };
     nixd = { url = "github:nix-community/nixd"; };
     nix-init = { url = "github:nix-community/nix-init"; };
     devenv = { url = "github:cachix/devenv/v0.5"; };
     deploy = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-flake = { url = "github:antifuchs/deploy-flake"; };
-    prefmanager = { url = "github:malob/prefmanager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    # prefmanager = { url = "github:malob/prefmanager"; inputs.nixpkgs.follows = "nixpkgs"; };
     tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
     nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -90,327 +155,5 @@
     plasma-manager = { url = "github:pjones/plasma-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     mmdoc = { url = "github:ryantm/mmdoc"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixpkgs-update = { url = "github:ryantm/nixpkgs-update"; inputs.nixpkgs.follows = "nixpkgs"; inputs.mmdoc.follows = "mmdoc"; };
-    visionfive-nix = { url = "github:connorfeeley/visionfive-nix"; inputs.nixpkgs.follows = "nixos-23-05"; };
   };
-
-  outputs =
-    { self
-    , nixpkgs
-    , nixos-stable
-    , nixpkgs-darwin
-    , nixos-unstable
-    , nixos-21-11
-    , home-manager
-    , darwin
-    , digga
-    , agenix
-    , nixos-hardware
-    , nix-alien
-    , nix-autobahn
-    , envfs
-    , flake-utils
-    , flake-parts
-    , nur
-    , nixos-generators
-    , nvfetcher
-    , arion
-    , nix-serve-ng
-    , nixago
-    , nixos-vscode-server
-    , mach-nix
-    , gitignore
-    , nix-colors
-    , deadnix
-    , comma
-    , rnix-lsp
-    , nurpkgs
-    , xmonad-config
-    , ttc-subway-font
-    , nixpkgs-input-leap
-    , emacs-overlay
-    , darwin-emacs
-    , nix-xilinx
-    , nixpkgs-doc
-    , nickel
-    , nix-nil
-    , nixd
-    , nix-init
-    , devenv
-    , deploy
-    , deploy-flake
-    , prefmanager
-    , tum-dse-config
-    , neovim-plusultra
-    , nix-search-cli
-    , flake-compat
-    , dwarffs
-    , base16-kitty
-    , firefox-lepton
-    , modded-minecraft-servers
-    , plasma-manager
-    , ...
-    }@inputs:
-    let
-      inherit (digga.lib) flattenTree importExportableModules rakeLeaves;
-      inherit (flake-utils.lib) eachSystem;
-      inherit (flake-utils.lib.system)
-        x86_64-linux aarch64-linux riscv64-linux
-        x86_64-darwin aarch64-darwin;
-
-      supportedSystems = [
-        x86_64-linux
-        aarch64-linux
-        riscv64-linux
-
-        x86_64-darwin
-        aarch64-darwin
-      ];
-
-      collective = {
-        modules = importExportableModules ./modules;
-        peers = import ./ops/metadata/peers.nix;
-        profiles = rakeLeaves ./profiles;
-      };
-
-      # FIXME: split this to shared/nixos/darwin-specific
-      overlays = [
-        agenix.overlay
-        emacs-overlay.overlay
-        gitignore.overlay
-        nur.overlay
-        nvfetcher.overlays.default
-
-        nix-xilinx.overlay
-
-        nixpkgs-doc.overlays.default # add info outputs to nixpkgs.htmlDocs.nixpkgsManual
-
-        # Personal overlay
-        nurpkgs.overlays.default
-
-        (final: _prev:
-          let
-            packagesFrom = inputAttr:
-              inputAttr.packages.${final.system};
-          in
-          {
-            inherit (packagesFrom self.packages) emacs-plus;
-            inherit (inputs.nixos-unstable.legacyPackages.${final.system}) emacs29-macport;
-            inherit (packagesFrom inputs.devenv) devenv;
-            inherit (packagesFrom inputs.deploy) deploy-rs;
-            inherit (packagesFrom inputs.deploy-flake) deploy-flake;
-            inherit (packagesFrom inputs.prefmanager) prefmanager;
-            inherit (packagesFrom inputs.nix-nil) nil;
-            inherit (packagesFrom inputs.nix-alien) nix-alien;
-            inherit (packagesFrom inputs.nix-alien) nix-index-update;
-            inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
-            inherit (packagesFrom inputs.mmdoc) mmdoc;
-            inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
-            inherit (packagesFrom inputs.nix-search-cli) nix-search;
-            inherit (packagesFrom inputs.nixd) nixd;
-
-            inherit (packagesFrom inputs.xmonad-config) xmonad-config;
-            inherit (packagesFrom inputs.ttc-subway-font)
-              ttc-subway bloor-yonge-font;
-
-            inherit (inputs.nixpkgs-input-leap.legacyPackages.${final.system})
-              input-leap;
-
-            nix-init = inputs.nix-init.packages.${final.system}.default;
-            emacsGitDarwin =
-              inputs.darwin-emacs.packages.${final.system}.default;
-            neovim-plusultra =
-              inputs.neovim-plusultra.packages.${final.system}.neovim;
-
-            inherit (inputs.nixos-unstable-small.legacyPackages.${final.system}) docker_24;
-            docker = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker_24;
-            docker-compose = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker-compose;
-
-            # Broken on nixos-23.05
-            inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
-          })
-        (import ./overlays/tum-dse-config { inherit inputs; })
-        (import ./overlays/python { inherit inputs; })
-      ];
-
-      commonImports = [
-        (digga.lib.importOverlays ./overlays/common)
-        (digga.lib.importOverlays ./packages)
-      ];
-    in
-    (digga.lib.mkFlake {
-      inherit self inputs supportedSystems;
-
-      channelsConfig = {
-        allowUnfree = true;
-        allowUnsupportedSystem = false;
-
-        allowBroken = false;
-
-        permittedInsecurePackages = [
-          "nodejs-16.20.2"
-          "nodejs-14.21.3"
-          "openssl-1.1.1v"
-        ];
-      };
-
-      ###
-      ### Overlay & Channel Configuration
-      ###
-      channels = {
-        nixos-stable = {
-          inherit overlays;
-          imports = commonImports
-          ++ [ (digga.lib.importOverlays ./overlays/stable) ];
-        };
-        nixpkgs-darwin = {
-          imports = commonImports ++ [
-            (digga.lib.importOverlays ./overlays/nixpkgs-darwin)
-            (digga.lib.importOverlays ./overlays/stable)
-          ];
-          overlays = overlays ++ [
-            (final: _prev: {
-              amphetamine-enhancer =
-                self.packages.${final.system}.amphetamine-enhancer;
-              mints = self.packages.${final.system}.mints;
-              hammerspoon = self.packages.${final.system}.hammerspoon;
-              native-youtube = self.packages.${final.system}.native-youtube;
-              better-display = self.packages.${final.system}.better-display;
-            })
-          ];
-        };
-        nixos-unstable = {
-          inherit overlays;
-
-          imports = commonImports
-          ++ [ (digga.lib.importOverlays ./overlays/nixos-unstable) ];
-        };
-      };
-
-      sharedOverlays = [
-        (_final: prev: {
-          __dontExport = true;
-          inherit inputs;
-          lib = prev.lib.extend (_lfinal: _lprev: { our = self.lib; });
-        })
-      ];
-
-      ###
-      ### Other attributes
-      ###
-      lib = import ./lib {
-        inherit collective;
-        lib = digga.lib // nixos-unstable.lib;
-      };
-
-      nixos = import ./nixos collective;
-      darwin = import ./darwin collective;
-      home = import ./home collective;
-
-      devshell = ./shell;
-
-      homeConfigurations = digga.lib.mergeAny
-        (digga.lib.mkHomeConfigurations self.darwinConfigurations)
-        (digga.lib.mkHomeConfigurations self.nixosConfigurations);
-
-      deploy = import ./deploy.nix { inherit self collective deploy digga; };
-
-      overlays = rec {
-        # Helper function to install DMGs
-        installApplication = self.overlays."nixpkgs-darwin/installApplication";
-        darwin-packages = nixpkgs.lib.composeManyExtensions [
-          installApplication
-
-          self.overlays."nixpkgs-darwin/macports"
-          self.overlays."nixpkgs-darwin/emacs-plus"
-        ];
-        linux-packages = nixpkgs.lib.composeManyExtensions [
-          # FIXME(darwin): causes 'nix flake show' to error
-          # self.overlays."nixos-stable/xmonad-config"
-
-          self.overlays."nixos-stable/xsct"
-          self.overlays."nixos-stable/mdio-tools"
-          self.overlays."nixos-stable/aranet4"
-          # self.overlays."nixos-stable/fildem-global-menu"
-        ];
-      };
-    }) //
-    {
-      images = {
-        # visionfive-cross = self.nixosConfigurations.visionfive-cross.config.system.build.sdImage;
-        # visionfive-native = self.nixosConfigurations.visionfive-native.config.system.build.sdImage;
-
-        visionfive2-cross = self.nixosConfigurations.visionfive2.config.system.build.sdImage;
-        # visionfive2-native = self.nixosConfigurations.visionfive2-native.config.system.build.sdImage;
-      };
-    } //
-    # Generate attrs for each system: (formatter.<system>)
-    (eachSystem supportedSystems
-      (system: { formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt; }))
-    //
-    # Generate attrs for each system: (formatter.<system>)
-    {
-      packages =
-        let
-          mkLinuxPackages = system:
-            let
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [ self.overlays.linux-packages ];
-                config.allowUnfree = true;
-              };
-            in
-            {
-              # FIXME(darwin): causes 'nix flake show' to error
-              inherit (pkgs) xsct mdio-tools aranet4;
-            };
-
-          mkDarwinPackages = system:
-            let
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [ self.overlays.darwin-packages ];
-                config.allowUnfree = true;
-              };
-            in
-            {
-              inherit (pkgs)
-                macports amphetamine-enhancer mints hammerspoon native-youtube
-                better-display;
-            } // (builtins.mapAttrs
-              (_n: v: pkgs.callPackage v { inherit (pkgs) installApplication; })
-              (flattenTree (rakeLeaves ./darwin/packages)));
-        in
-        {
-          x86_64-linux = mkLinuxPackages "x86_64-linux";
-          aarch64-linux = mkLinuxPackages "aarch64-linux";
-          x86_64-darwin = mkDarwinPackages "x86_64-darwin";
-          aarch64-darwin = mkDarwinPackages "aarch64-darwin";
-        };
-
-      templates =
-        let
-          poetry2nix = {
-            path = ./templates/poetry2nix;
-            description = "poetry2nix template";
-            welcomeText =
-              "Set project name: sed --in-place 's/poetry2nixTemplate/<project-name>/g' flake.nix";
-          };
-        in
-        {
-          inherit poetry2nix;
-          default = poetry2nix;
-        };
-    };
-
-  # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
-  nixConfig.extra-experimental-features = "nix-command flakes";
-  nixConfig.extra-substituters = [
-    "https://cache.nixos.org/"
-    "https://nix-community.cachix.org"
-    "https://cfeeley.cachix.org"
-  ];
-  nixConfig.extra-trusted-public-keys = [
-    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    "cfeeley.cachix.org-1:b+RrHsy/4WWys2o6T4YyF66OhdiZUF/R/N46JcS0HJU="
-  ];
 }

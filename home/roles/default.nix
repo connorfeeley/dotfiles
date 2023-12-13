@@ -1,5 +1,5 @@
-{ profiles }:
-with profiles;
+{ collective }:
+with collective.hmArgs.profiles;
 let
   ###: --- roles ---------------------------------------------------------------
 
@@ -10,7 +10,7 @@ let
   developer = [
     direnv
     vim
-    jetbrains
+    # jetbrains
     git
     shells.zsh
     shells.bash

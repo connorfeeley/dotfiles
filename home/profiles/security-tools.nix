@@ -5,6 +5,8 @@
     [
       ## === Reverse Engineering ===
       (binwalk.override { visualizationSupport = pkgs.stdenv.isLinux; })
+      quark-engine
+      jre
 
       ## === Crypto-Stego ===
       ccrypt
@@ -18,7 +20,7 @@
       ## === Networking ===
       arping
       nmap
-      ncrack
+      # ncrack
       wpscan
       socat
       tcpreplay
@@ -35,8 +37,11 @@
       ## === Passwords ===
       pdfcrack
       rarcrack
-      fcrackzip
+      # fcrackzip
     ] ++ (lib.optionals pkgs.stdenv.isLinux [
+      ## === Hardware ===
+      qFlipper
+
       ## === Reverse Engineering ===
       (binwalk.override { visualizationSupport = true; })
       radare2

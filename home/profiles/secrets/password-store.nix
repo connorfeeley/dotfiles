@@ -24,7 +24,6 @@ lib.mkMerge [
   }
   (lib.mkIf (!isDarwin) {
     services.pass-secret-service.enable = true;
-    services.password-store-sync.enable = true;
   })
   (lib.mkIf config.programs.firefox.enable {
     programs.browserpass.enable = true;

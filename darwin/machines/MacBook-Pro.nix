@@ -1,11 +1,13 @@
-{ config, pkgs, lib, profiles, collective, ... }:
+{ self, self', system, config, pkgs, lib, inputs', ... }:
 let
   inherit (config.networking) hostName;
 
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+
+  inherit (self.collective) hmArgs;
 in
 {
-  imports = [ profiles.pulseaudio ];
+  # imports = [ profiles.pulseaudio ];
   ### === users ================================================================
 
   dotfield.guardian = {
@@ -19,15 +21,44 @@ in
     gid = 20;
   };
 
+  # home-manager.modules = [
+  #   self.inputs.nix-colors.homeManagerModules.default
+  #   self.inputs.sops-nix.homeManagerModules.sops
+  #   self.inputs.nix-colors.homeManagerModule
+  #   self.inputs.nixos-vscode-server.nixosModules.home
+  #   self.inputs.nix-index-database.hmModules.nix-index
+  #   self.inputs.plasma-manager.homeManagerModules.plasma-manager
+  # ];
   home-manager.users = {
-    "${config.dotfield.guardian.username}" = hmArgs: {
+    "${config.dotfield.guardian.username}" = {
       imports = with hmArgs.roles;
+        (lib.flatten [
+          hmArgs.profiles.core
+          (_: { imports = [ ../../lib/home ]; })
+          hmArgs.modules
+        ] ++ [
+          self.inputs.nur.hmModules.nur
+
+          self.inputs.nix-colors.homeManagerModules.default
+          self.inputs.sops-nix.homeManagerModules.sops
+          self.inputs.nix-colors.homeManagerModule
+          self.inputs.nixos-vscode-server.nixosModules.home
+          self.inputs.nix-index-database.hmModules.nix-index
+          self.inputs.plasma-manager.homeManagerModules.plasma-manager
+        ]
+        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
+        (with hmArgs.roles;
         workstation ++ macos ++ developer ++ emacs-config
-        ++ (with hmArgs.profiles; [ work media sync aws ]);
+        ++ (with hmArgs.profiles; [ work media sync aws ])));
 
-      home.username = hmArgs.lib.mkForce "cfeeley";
-      home.homeDirectory = hmArgs.lib.mkForce "/Users/cfeeley";
+      # imports = [ ../../home/modules/iterm2.nix ];
+      _module.args.inputs = self.inputs;
 
+      home = {
+        username = "cfeeley";
+        homeDirectory = lib.mkForce "/Users/cfeeley";
+        stateVersion = "22.05";
+      };
       programs.iterm2.enable = true;
     };
   };

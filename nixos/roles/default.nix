@@ -1,11 +1,11 @@
-{ collective, profiles, }:
+{ collective }:
 let
   graphical = (with collective.profiles; [
     fonts.common
     networking.ssh-host
     secrets
     # fonts.pragmatapro # TODO: remove
-  ]) ++ (with profiles; [
+  ]) ++ (with collective.nixosProfiles; [
     desktop.common
     desktop.ddc-monitor-control
     video
@@ -17,18 +17,18 @@ let
     networking.common
     networking.tailscale
     networking.ssh-host
-  ]) ++ (with profiles; [ networking.geoip ]);
+  ]) ++ (with collective.nixosProfiles; [ networking.geoip ]);
 
   tangible =
     (with (collective.profiles); [ networking.common networking.tailscale ])
-    ++ (with profiles; [
+    ++ (with collective.nixosProfiles; [
       audio
       bluetooth
       networking.wifi
       /* printers-scanners */
     ]);
 
-  virt = with profiles; [
+  virt = with collective.nixosProfiles; [
     virtualisation.libvirtd
     virtualisation.docker
     virtualisation.podman
@@ -36,6 +36,6 @@ let
     # virtualisation.virtualbox
   ];
 
-  fpgadev = with profiles; [ fpga.intel-altera fpga.xilinx ];
+  fpgadev = with collective.nixosProfiles; [ fpga.intel-altera fpga.xilinx ];
 in
 { inherit graphical server tangible virt fpgadev; }

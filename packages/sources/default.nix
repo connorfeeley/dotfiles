@@ -1,19 +1,10 @@
-final: prev: {
+{callPackage, stdenv, ...}: {
   # nvfetcher sources
-  sources = prev.callPackage ./_sources/generated.nix { };
+  sources = callPackage ./_sources/generated.nix { };
 
-  ediff-tool = final.stdenv.mkDerivation rec {
+  ediff-tool = stdenv.mkDerivation {
     name = "ediff-tool";
-    src = final.gitignoreSource ./ediff-tool;
-    installPhase = ''
-      mkdir -p $out/bin
-      cp bin/* $out/bin/
-    '';
-  };
-
-  git-submodule-rewrite = final.stdenv.mkDerivation {
-    name = "git-submodule-rewrite";
-    src = final.gitignoreSource ./git-submodule-rewrite;
+    src = ./ediff-tool;
     installPhase = ''
       mkdir -p $out/bin
       cp bin/* $out/bin/

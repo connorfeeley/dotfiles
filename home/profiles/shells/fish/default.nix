@@ -14,21 +14,9 @@ in
   programs.starship.enableFishIntegration = false;
 
   programs.fish = {
-    inherit
-      # FIXME: watch out, some of these abbrs may have undesirable results when
-      # expanded inline. needs review.
-      shellAbbrs shellAliases;
+    inherit shellAbbrs shellAliases;
 
     enable = true;
-    autopair.enable = true;
-    fifc.enable = false;
-
-    plugins = map mkPlugin [
-      "replay" # <- run bash commands replaying changes in fish
-      # "bass" #        <- use utilities written for bash in fish
-      # "foreign-env" # <- import environment variables exported/modified in bash
-      # "babelfish" #   <- translate bash scripts to fish
-    ];
 
     functions = {
       __fish_command_not_found_handler = {

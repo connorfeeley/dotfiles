@@ -21,7 +21,6 @@ stdenv.mkDerivation rec {
       "A multifunction utility for viewing and exploring MacOS logs.";
     platforms = lib.platforms.darwin;
     homepage = "https://eclecticlight.co/mints-a-multifunction-utility/";
-    license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.cfeeley ];
   };
 }

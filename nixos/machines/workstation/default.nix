@@ -1,12 +1,14 @@
-{ config, options, lib, pkgs, profiles, primaryUser, collective, ... }:
+{ self, config, options, lib, pkgs, primaryUser, ... }:
 let
-  inherit (collective) peers;
-  inherit (config.networking) hostName;
+  inherit (self.collective) peers;
+  hostName = "workstation";
 
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+
+  inherit (self.collective) hmArgs;
 in
 {
-  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ./dhcp.nix ];
+  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ];
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
@@ -25,7 +27,7 @@ in
   boot.tmp.useTmpfs = true;
   boot.tmp.tmpfsSize = "75%"; # 75% of RAM
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+  # boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
 
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
@@ -50,13 +52,15 @@ in
 
   ### === networking ===========================================================
 
-  networking = lib.mkIf (!config.nixos-vm.enable) (
+  networking = (
     let
-      host = peers.hosts.${hostName};
+      host = peers.hosts.workstation;
       net = peers.networks.${host.network};
       interface = "enp38s0";
+      hostName = "workstation";
     in
     {
+      inherit hostName;
       useDHCP = false;
       usePredictableInterfaceNames = true;
       # interfaces.wlo1.useDHCP = true;
@@ -158,12 +162,12 @@ in
   environment.systemPackages = with pkgs; [
     cryptsetup
     linuxPackages.usbip
-    input-leap
+    # input-leap
     mstflint
     nixos-container
     procps
     fwupd
-    (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda; })
+    openai-whisper
     linuxptp
     tigervnc
   ];
@@ -256,28 +260,43 @@ in
     shell = pkgs.bash;
   };
 
+
   home-manager.users = {
-    cfeeley = hmArgs: {
+    "${config.dotfield.guardian.username}" = {
       imports = with hmArgs.roles;
-        (lib.flatten [ personalised ] ++ lib.optionals (!config.nixos-vm.enable)
-          (lib.flatten [ workstation developer linux emacs-config ]))
-        ++ (with hmArgs.profiles; [
-          sync
-          work
+        (lib.flatten [
+          hmArgs.profiles.core
+          (_: { imports = [ ../../../lib/home ]; })
+          hmArgs.modules
+        ] ++ [
+          self.inputs.nur.hmModules.nur
 
-          desktop.xmonad
-          desktop.plasma
+          self.inputs.nix-colors.homeManagerModules.default
+          self.inputs.sops-nix.homeManagerModules.sops
+          self.inputs.nix-colors.homeManagerModule
+          self.inputs.nixos-vscode-server.nixosModules.home
+          self.inputs.nix-index-database.hmModules.nix-index
+          self.inputs.plasma-manager.homeManagerModules.plasma-manager
+        ]
+        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
+        (with hmArgs.roles;
+        workstation ++ personalised ++ developer ++ linux ++ emacs-config
+        ++ (with hmArgs.profiles; [ work media sync aws desktop.xmonad desktop.plasma nixos.work])));
 
-          # Systemd scripts
-          nixos.work
-        ]);
+      _module.args.inputs = self.inputs;
+
+      home = {
+        username = "cfeeley";
+        homeDirectory = lib.mkForce "/home/cfeeley";
+        stateVersion = "22.05";
+      };
     };
   };
 
   programs.htop.enable = true;
 
   programs.atop = {
-    enable = true;
+    enable = false;
     atopgpu.enable = true;
     netatop.enable = true;
     setuidWrapper.enable = true;
@@ -303,7 +322,7 @@ in
     port = 9134;
   };
 
-  services.x2goserver.enable = true;
+  services.x2goserver.enable = false;
 
   age.secrets = {
     dotfield-readme-update-access-token = {

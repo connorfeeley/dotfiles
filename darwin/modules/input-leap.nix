@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ inputs', config, lib, ... }:
 
 with lib;
 
 let cfg = config.services.input-leap;
-
+input-leap = inputs'.nixpkgs-input-leap.legacyPackages.input-leap;
 in {
   options = {
     services.input-leap.enable = mkEnableOption
@@ -32,13 +32,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.input-leap ];
+    environment.systemPackages = [ input-leap ];
 
     launchd.user.agents = {
       input-leap-client = lib.mkIf cfg.client.enable {
         serviceConfig = {
           ProgramArguments = [
-            "${pkgs.input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leapc"
+            "${input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leapc"
             "--no-daemon"
             cfg.client.serverAddress
           ];
@@ -50,7 +50,7 @@ in {
       input-leap-server = lib.mkIf cfg.server.enable {
         serviceConfig = {
           ProgramArguments = [
-            "${pkgs.input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leaps"
+            "${input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leaps"
             "--no-daemon"
             "--config"
             cfg.server.configFile

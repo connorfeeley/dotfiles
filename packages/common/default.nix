@@ -1,4 +1,4 @@
-final: prev:
+{pkgs, callPackage, nodePackages, ...}:
 let
   nixFlags = [
     "--verbose"
@@ -7,72 +7,35 @@ let
   ];
   ### Nix 'aliases' (defined as executables so as to be usable from Emacs)
   # 'nix'
-  n = prev.writeShellScriptBin "n" ''
-    exec ${prev.nix}/bin/nix ${builtins.concatStringsSep " " nixFlags} "$@"
+  n = pkgs.writeShellScriptBin "n" ''
+    exec ${pkgs.nix}/bin/nix ${builtins.concatStringsSep " " nixFlags} "$@"
   '';
   # 'nix build'
-  nb = prev.writeShellScriptBin "nb" ''
-    exec ${prev.nix}/bin/nix build ${builtins.concatStringsSep " " nixFlags} "$@"
+  nb = pkgs.writeShellScriptBin "nb" ''
+    exec ${pkgs.nix}/bin/nix build ${builtins.concatStringsSep " " nixFlags} "$@"
   '';
 in
 {
   # Nix 'aliases'
   inherit n nb;
 
-  kitty-helpers =
-    final.lib.recurseIntoAttrs (final.callPackage ./kitty-helpers.nix { });
+  xsct = callPackage ./xsct.nix { };
 
-  svlangserver-unwrapped =
-    (final.callPackage ./svlangserver { }).package.override {
-      src = builtins.fetchGit {
-        url = "https://github.com/imc-trading/svlangserver.git";
-        ref = "master";
-        rev = "7f53c7f3394447bdd06de9566cd7240aa6cf0c8e";
-      };
-      nodejs = final.nodejs-14_x;
-    };
+  xantfarm = callPackage ./xantfarm.nix { };
 
-  svlangserver = final.writeShellApplication {
-    name = "svlangserver";
-    text = with final;
-      "exec ${svlangserver-unwrapped.nodejs}/bin/node ${svlangserver-unwrapped}/lib/node_modules/@imc-trading/svlangserver/bin/main.js";
-    runtimeInputs = with final; [ nodejs-14_x svlangserver-unwrapped ];
-  };
+  mdio-tools = callPackage ./mdio-tools.nix { };
 
-  svls-local =
-    throw "use svls from nixpkgs; this is the flake-local derivation";
-  svlint-local =
-    throw "use svlint from nixpkgs; this is the flake-local derivation";
+  dotfield-sync = callPackage ./flake-scripts/dotfield-sync-repos.nix { };
 
-  appmenu-gtk3-module = final.callPackage ./appmenu-gtk3-module.nix { };
-
-  fildem-global-menu = final.callPackage ./fildem-global-menu.nix {
-    inherit (final) lib stdenv fetchFromGitHub;
-  };
-
-  xsct = final.callPackage ./xsct.nix { };
-
-  xantfarm = final.callPackage ./xantfarm.nix { };
-
-  mdio-tools = final.callPackage ./mdio-tools.nix { };
-
-  dotfield-sync = prev.callPackage ./flake-scripts/dotfield-sync-repos.nix {
-    name = "dotfield-sync";
-    inherit (prev.nodePackages) git-run;
-  };
-
-  dotfield-push = prev.callPackage ./flake-scripts/dotfield-push-repos.nix {
-    name = "dotfield-push";
-    inherit (prev.nodePackages) git-run;
-  };
+  dotfield-push = callPackage ./flake-scripts/dotfield-push-repos.nix { };
 
   dotfield-rebuild =
     let
-      extraPath = prev.lib.makeBinPath [ prev.nix-output-monitor ];
+      extraPath = pkgs.lib.makeBinPath [ pkgs.nix-output-monitor ];
       writeProgram = name: env: src:
-        prev.substituteAll ({
+        pkgs.substituteAll ({
           inherit name src;
-          inherit (prev.stdenv) shell;
+          inherit (pkgs.stdenv) shell;
           path = "${extraPath}";
           dir = "bin";
           isExecutable = true;
@@ -80,16 +43,16 @@ in
     in
     writeProgram "dotfield-rebuild"
       {
-        nom = "${prev.nix-output-monitor}/bin/nom";
+        nom = "${pkgs.nix-output-monitor}/bin/nom";
       } ./flake-scripts/dotfield-rebuild.sh;
 
   dotfield-doom =
     let
-      extraPath = prev.lib.makeBinPath [ ];
+      extraPath = pkgs.lib.makeBinPath [ ];
       writeProgram = name: env: src:
-        prev.substituteAll ({
+        pkgs.substituteAll ({
           inherit name src;
-          inherit (prev.stdenv) shell;
+          inherit (pkgs.stdenv) shell;
           path = "${extraPath}";
           dir = "bin";
           isExecutable = true;
@@ -98,16 +61,16 @@ in
     writeProgram "dotfield-doom" { } ./flake-scripts/doom-rebuild.sh;
 
   nixos-rebuild-remote =
-    prev.callPackage ./flake-scripts/nixos-rebuild-remote.nix {
+    callPackage ./flake-scripts/nixos-rebuild-remote.nix {
       name = "nixos-rebuild-remote";
-      inherit (prev) writeShellApplication nixos-rebuild;
+      inherit (pkgs) writeShellApplication nixos-rebuild;
     };
 
   # openssh =
   #   let
   #     # Fixed ssh-copy-id for old+new dropbear compatibility
   #     ssh-copy-id =
-  #       final.stdenv.mkDerivation {
+  #       pkgs.stdenv.mkDerivation {
   #         name = "ssh-copy-id";
   #         src = ./ssh-copy-id;
   #         installPhase = ''
@@ -117,10 +80,10 @@ in
   #         '';
   #       };
   #   in
-  #   final.symlinkJoin {
+  #   pkgs.symlinkJoin {
   #     name = "openssh";
-  #     paths = [ prev.openssh ssh-copy-id ];
-  #     buildInputs = [ final.makeWrapper ];
+  #     paths = [ pkgs.openssh ssh-copy-id ];
+  #     buildInputs = [ pkgs.makeWrapper ];
   #   };
 
   ##: third-party scripts ------------------------------------------------------

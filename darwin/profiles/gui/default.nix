@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-{ config, lib, pkgs, ... }:
+{ self', config, lib, pkgs, ... }:
 let
   inherit (config.dotfield.guardian) username;
   inherit (config.home-manager.users.${username}.services.gpg-agent)
@@ -24,8 +24,11 @@ in
       ferium # CLI program for managing Minecraft mods and modpacks
       ckan # Mod manager for Kerbal Space Program
 
-      better-display # MacOS app for managing display settings
+      self'.packages.better-display # MacOS app for managing display settings
       # darwinPackages.mac-stats # MacOS app for monitoring system stats (fork without telemetry)
+      emacsPackages.pdf-tools
+
+      kitty
     ];
 
     services.karabiner-elements.enable = true;
@@ -67,10 +70,10 @@ in
       { name = "wordnet"; } # for doom emacs 'lookup'
       # { name = "emacs-plus@29"; args = [ "with-dbus" "with-xwidgets"  "with-native-comp" "with-poll" ]; link = true; } # emacs-plus
       { name = "emacs-mac"; args = [ "with-starter" "with-librsvg" "with-dbus" "with-mac-metal" "with-xwidgets"  "with-native-comp" ]; link = true; } # macport
+      { name = "ghcup"; }
     ];
 
     homebrew.casks = [
-      { name = "kitty"; }
       { name = "visual-studio-code"; }
       { name = "utm-beta"; } # QEMU GUI with virtualisation support
       # { name = "barrier"; } # Poor man's KVM
@@ -81,11 +84,8 @@ in
       # { name = "bluesnooze"; } # Sleeping Mac = Bluetooth off
       { name = "docker"; }
       { name = "firefox"; }
-      { name = "google-chrome"; }
-      { name = "microsoft-edge"; }
       { name = "microsoft-teams"; }
       { name = "microsoft-outlook"; }
-      { name = "nordvpn"; }
       { name = "private-internet-access"; }
       { name = "vlc"; }
       { name = "lulu"; }
@@ -121,6 +121,7 @@ in
       { name = "anki"; }
       { name = "teamviewer"; }
       { name = "arc"; } # browser
+      { name = "qflipper"; } # flipper zero
     ];
 
     homebrew.masApps = {

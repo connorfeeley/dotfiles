@@ -1,7 +1,7 @@
-{ lib, pkgs, ... }:
+{ inputs', lib, pkgs, ... }:
 let inherit (pkgs.stdenv.hostPlatform) isLinux isMacOS;
 in {
-  environment.systemPackages = with pkgs; [ (lib.mkIf isLinux font-manager) ];
+  environment.systemPackages = lib.optionals isLinux [ pkgs.font-manager ];
 
   fonts = {
     fontDir.enable = true;
@@ -10,7 +10,7 @@ in {
         b612
         barlow
         emacs-all-the-icons-fonts
-        symbola
+        # symbola
         fira
         ibm-plex
         inter
@@ -20,12 +20,12 @@ in {
         merriweather
         alegreya
 
-        noto-fonts
-        noto-fonts-cjk
-        noto-fonts-emoji
+        # noto-fonts
+        # noto-fonts-cjk
+        # noto-fonts-emoji
 
-        ttc-subway
-        bloor-yonge-font
+        # inputs'.ttc-subway-font.packages.ttc-subway
+        # inputs'.ttc-subway-font.packages.bloor-yonge-font
 
         (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
@@ -47,6 +47,6 @@ in {
         gentium
         ubuntu_font_family
         terminus_font
-      ]) ++ (lib.optionals isMacOS [ sf-pro ]);
+      ]) ++ (lib.optionals isMacOS [ ]);
   };
 }

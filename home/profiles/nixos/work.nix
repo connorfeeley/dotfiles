@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, self', ... }: {
   ###
   ### Automatically shut off power bar at 8PM
   ###
@@ -9,7 +9,7 @@
     Service = {
       Type = "oneshot";
       ExecStart = ''
-        ${pkgs.runtimeShell} -l -c "${pkgs.pwrbar}/bin/pwrbar off"
+        ${pkgs.runtimeShell} -l -c "${self'.packages.pwrbar}/bin/pwrbar off"
       '';
     };
   };

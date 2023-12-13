@@ -1,6 +1,6 @@
-{ lib, pkgs, peers, ... }:
+{ self, lib, pkgs, ... }:
 let
-  inherit (peers.hosts) cfeeley-laptop;
+  inherit (self.collective.peers.hosts) cfeeley-laptop;
 
   inherit (pkgs.stdenv) isDarwin;
 
@@ -22,7 +22,7 @@ let
   # Creates a matchBlock for ${hostName}.
   # For ${trusted} hosts, enable trusted X11 forwarding and forward the GPG agent socket.
   mkMatchBlock = { hostName, trusted ? false }: {
-    port = lib.our.peers.getSshPort hostName;
+    port = self.flake-lib.peers.getSshPort hostName;
 
     # Emacs vterm environment variables
     extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";

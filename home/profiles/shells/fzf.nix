@@ -8,8 +8,7 @@ in
     enable = true;
 
     enableZshIntegration = true;
-    # fish integration may be handled by the fifc plugin
-    enableFishIntegration = !config.programs.fish.fifc.enable;
+    enableFishIntegration = true;
 
     tmux.enableShellIntegration = config.programs.tmux.enable;
 

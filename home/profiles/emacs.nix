@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs', self', config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) hostPlatform;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin isAarch64;
@@ -237,7 +237,7 @@ lib.mkMerge [
         # Emacsclient wrapper
         e-wrapper
 
-        ediff-tool
+        self'.packages.ediff-tool
         gnutls
         (ripgrep.override { withPCRE2 = true; })
 
@@ -247,8 +247,6 @@ lib.mkMerge [
         zstd # for undo-fu-session/undo-tree compression
         feh
         w3m # for browsing haddock from within emacs
-        nodePackages.vega-cli
-        nodePackages.vega-lite
 
         figlet # prettier block comments
 
@@ -281,8 +279,7 @@ lib.mkMerge [
         # zshdb # <- zsh debugger (FIXME: not packaged for nix)
 
         # :lang cpp
-        # NOTE: lldb-14 is broken
-        llvmPackages_13.lldb # includes lldb-vscode
+        llvmPackages.lldb # includes lldb-vscode
         clang-tools
         # Linux-only (see conditional appends below):
         # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
@@ -315,10 +312,10 @@ lib.mkMerge [
         languagetool
 
         # :tools lookup
-        wordnet
+        # wordnet
 
         # :tools copilot
-        nodejs-16_x # Copilot requires Node.js version 17 or below
+        nodejs
 
         ##: === lang/lsp ===
 
@@ -342,11 +339,11 @@ lib.mkMerge [
         pyright
         #: C++
         clang-tools
-        bear
+        # bear
         #: nix
         rnix-lsp
         nil # ('nix-nil' from source repo)
-        nixd
+        inputs'.nixd.packages.nixd
         #: toml
         taplo-lsp
         #: web-mode
@@ -395,7 +392,6 @@ lib.mkMerge [
         #: fpga (bazel builds fail on darwin)
         verible
         verilator
-        svlangserver
         svls
         svlint
 

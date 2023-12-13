@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ self', config, lib, pkgs, ... }:
 let cfg = config.programs.amphetamine;
 in {
   options.programs.amphetamine = {
@@ -12,7 +12,7 @@ in {
     (lib.mkIf cfg.enable { homebrew.masApps = { "Amphetamine" = 937984704; }; })
 
     (lib.mkIf cfg.withEnhancer {
-      environment.systemPackages = with pkgs; [ amphetamine-enhancer ];
+      environment.systemPackages = [ self'.packages.amphetamine-enhancer ];
     })
   ]);
 }

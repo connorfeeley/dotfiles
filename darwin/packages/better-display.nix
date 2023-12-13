@@ -13,7 +13,6 @@ installApplication {
     description = "Unlock your displays on your Mac";
     platforms = lib.platforms.darwin;
     homepage = "https://github.com/waydabber/BetterDisplay";
-    license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.cfeeley ];
   };
 }

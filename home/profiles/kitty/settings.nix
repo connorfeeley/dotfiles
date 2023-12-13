@@ -59,12 +59,12 @@
   #: }}}
 
   #: Keyboard shortcuts {{{
-  # This is the default value.
-  # kitty_mod = "ctrl+shift";
+  # Default value: "ctrl+shift"
+  kitty_mod = "ctrl+opt+cmd";
   #: }}}
 
   # Prevent input latency.
-  sync_to_monitor = false;
+  # sync_to_monitor = false;
 
   # Ding ding
   enable_audio_bell = true;

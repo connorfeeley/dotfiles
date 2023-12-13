@@ -6,7 +6,7 @@ function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 # ls on cd
-chpwd_ls() { exa --group-directories-first; }
+chpwd_ls() { eza --group-directories-first; }
 add-zsh-hook -Uz chpwd chpwd_ls
 
 # start new sessions from most recent dir

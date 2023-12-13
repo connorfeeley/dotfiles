@@ -57,7 +57,8 @@
                       "^org\\.vim\\.",
                       "^org\\.gnu\\.Emacs",
                       "^co\\.zeit\\.hyper",
-                      "^com.googlecode.iterm2"
+                      "^com.googlecode.iterm2",
+                      "^net.kovidgoyal.kitty"
                     ],
                     "type": "frontmost_application_unless"
                   }

@@ -1,7 +1,7 @@
-{ collective, profiles, }:
+{ collective }:
 let
-  workstation = (with (collective.profiles); [ fonts.common secrets flox ])
-    ++ (with profiles; [
+  workstation = (with collective.profiles; [ fonts.common secrets flox ])
+    ++ (with collective.darwinProfiles; [
     distributed-build
 
     gui
@@ -11,8 +11,8 @@ let
     system-defaults
   ]);
 
-  server = (with (collective.profiles); [ fonts.common secrets flox ])
-    ++ (with profiles; [
+  server = (with collective.profiles; [ fonts.common secrets flox ])
+    ++ (with collective.darwinProfiles; [
     system-defaults
     distributed-build
 

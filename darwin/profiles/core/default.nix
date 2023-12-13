@@ -8,7 +8,7 @@ in
 {
   nix = {
     settings = {
-      auto-optimise-store = true;
+      auto-optimise-store = false; # Causes /nix/store/.links errors
       # TODO: is it really reasonable to set these all as defaults?
       system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     };
@@ -44,7 +44,7 @@ in
       darwin.lsusb # <- lsusb for MacOS
       lsof
 
-      prefmanager # <- a tool for managing macOS defaults.
+      # prefmanager # <- a tool for managing macOS defaults.
       wifi-password # <- what was that password again?
 
       macfuse-stubs # <- MacOS port of FUSE
@@ -67,7 +67,6 @@ in
     enable = true;
     onActivation = {
       upgrade = false;
-      cleanup = "zap";
     };
     global = {
       brewfile = true; # Use generated Brewfile in the nix store
