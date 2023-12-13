@@ -39,8 +39,8 @@
 
   environment.systemPackages = with pkgs;
     [ xmonad-config gnome.gnome-boxes ] ++ [
-      appmenu-gtk3-module
-      popsicle
+      # appmenu-gtk3-module
+      # popsicle
       # FIXME(2023-05-11): broken
       # firmware-manager
 
@@ -59,7 +59,7 @@
       # dash-to-dock-animator
       blur-my-shell
       topiconsfix # Show tray icons in top bar
-      wallpaper-changer-continued
+      # wallpaper-changer-continued
 
       toronto-backgrounds
     ]);

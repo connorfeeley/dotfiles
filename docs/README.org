@@ -969,27 +969,5 @@ export DOTFIELD_DIR=path:///mnt/home/cfeeley/.config/dotfield
 nixos-install --verbose --flake $DOTFIELD_DIR#workstation
 #+end_src
 
-* Recovery
-As root:
-#+begin_src shell
-sudo su
-
-zpool import -a
-zpool import -f rpool
-zpool import -f npool
-
-zfs load-key -a
-
-mount -t zfs -o zfsutil npool/nixos/root /mnt
-mount -t zfs -o zfsutil npool/nixos/home /mnt/home/cfeeley
-mount -t zfs -o zfsutil bpool/nixos/root /mnt/boot
-
-nixos-enter --root /mnt/zfs/
-
-nixos-rebuild --install-bootloader --flake .#workstation switch
-
-zpool export -a
-
-#+end_src
 * TODOs
 ** TODO 2023-08-01: Remove ~home/profiles/nnn.nix~ (file manager)

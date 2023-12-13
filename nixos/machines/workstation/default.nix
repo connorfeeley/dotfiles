@@ -1,7 +1,7 @@
 { self, config, options, lib, pkgs, primaryUser, ... }:
 let
   inherit (self.collective) peers;
-  inherit (config.networking) hostName;
+  hostName = "workstation";
 
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 
@@ -27,7 +27,7 @@ in
   boot.tmp.useTmpfs = true;
   boot.tmp.tmpfsSize = "75%"; # 75% of RAM
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+  # boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
 
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
@@ -52,14 +52,15 @@ in
 
   ### === networking ===========================================================
 
-  networking = lib.mkIf (!config.nixos-vm.enable) (
+  networking = (
     let
-      host = peers.hosts.${hostName};
+      host = peers.hosts.workstation;
       net = peers.networks.${host.network};
       interface = "enp38s0";
       hostName = "workstation";
     in
     {
+      inherit hostName;
       useDHCP = false;
       usePredictableInterfaceNames = true;
       # interfaces.wlo1.useDHCP = true;
@@ -161,12 +162,12 @@ in
   environment.systemPackages = with pkgs; [
     cryptsetup
     linuxPackages.usbip
-    input-leap
+    # input-leap
     mstflint
     nixos-container
     procps
     fwupd
-    (openai-whisper.override { torch = pkgs.python3.pkgs.torchWithCuda; })
+    openai-whisper
     linuxptp
     tigervnc
   ];
@@ -295,7 +296,7 @@ in
   programs.htop.enable = true;
 
   programs.atop = {
-    enable = true;
+    enable = false;
     atopgpu.enable = true;
     netatop.enable = true;
     setuidWrapper.enable = true;
@@ -321,7 +322,7 @@ in
     port = 9134;
   };
 
-  services.x2goserver.enable = true;
+  services.x2goserver.enable = false;
 
   age.secrets = {
     dotfield-readme-update-access-token = {
