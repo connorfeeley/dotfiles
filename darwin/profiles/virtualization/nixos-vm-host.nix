@@ -1,7 +1,14 @@
 { lib, inputs, pkgs, ... }:
 let
+  builder-service = "system/org.nixos.linux-builder";
   restartBuilderScript = pkgs.writeShellScriptBin "restart-builder" ''
-    sudo launchctl kickstart -k system/org.nixos.linux-builder
+    sudo launchctl kickstart -k ${builder-service}
+  '';
+  stopBuilderScript = pkgs.writeShellScriptBin "stop-builder" ''
+    sudo launchctl stop ${builder-service}
+  '';
+  startBuilderScript = pkgs.writeShellScriptBin "start-builder" ''
+    sudo launchctl kickstart -k ${builder-service}
   '';
 in
 {
@@ -34,5 +41,5 @@ in
       });
   };
 
-  environment.systemPackages = [ restartBuilderScript ];
+  environment.systemPackages = [ restartBuilderScript stopBuilderScript startBuilderScript ];
 }
