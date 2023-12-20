@@ -132,7 +132,6 @@ in
       "node_modules"
 
       # Logs and databases
-      "*.sql"
       "*.sqlite"
       ".log"
 
