@@ -106,7 +106,6 @@ in
       { name = "handbrake"; }
       { name = "transmission"; }
       { name = "deluge"; }
-      { name = "nomachine"; }
       { name = "db-browser-for-sqlite"; }
       { name = "launchcontrol"; }
       { name = "backuploupe"; }
