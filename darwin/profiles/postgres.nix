@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2023 Connor Feeley
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+{ config, pkgs, ... }:
+
+{
+  services.postgres = {
+    enable = true;
+    package = pkgs.postgresql_16;
+    extraPlugins = with config.services.postgres.package; [
+      pg_cron
+      pg_partman
+      postgis
+      timescaledb
+      timescaledb_toolkit
+    ];
+    initdbArgs = [ "--locale=C" "--encoding=UTF8" "--data-checksums" "--allow-group-access" ];
+    ensureDatabases = [ "haskbike" ];
+    ensureUsers = [
+      {
+        name = "haskbike";
+        ensurePermissions = { "haskbike" = "ALL"; };
+      }
+      {
+        name = "cfeeley";
+        ensurePermissions = { "haskbike" = "ALL"; };
+      }
+    ];
+  };
+}

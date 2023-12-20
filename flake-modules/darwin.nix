@@ -48,6 +48,7 @@ in
               self.collective.darwinProfiles.core
               self.collective.darwinProfiles.emacs
               self.collective.darwinProfiles.pulseaudio
+              self.collective.darwinProfiles.postgres
               self.collective.darwinProfiles.virtualization.nixos-vm-host
               self.collective.profiles.hercules-ci-agent
               self.collective.profiles.core
