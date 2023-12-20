@@ -25,11 +25,13 @@ default:
 
 # build current host
 build:
-  {{if os() == "linux" { "nixos"  } else { "darwin"  } }}-rebuild build --verbose --print-build-logs --show-trace --flake .#$(hostname)
+  nom build .#{{if os() == "linux" { "nixos"  } else { "darwin"  } }}Configurations.$(hostname).config.system.build.toplevel
 
 # switch current host
-switch:
-  {{if os() == "linux" { "sudo nixos"  } else { "darwin"  } }}-rebuild switch --verbose --print-build-logs --show-trace --flake .#$(hostname)
+switch: build
+  sudo nix-env -p /nix/var/nix/profiles/system --set $(readlink ./result)
+  sudo /nix/var/nix/profiles/system/activate
+
 
 test:
   echo {{if os() == "linux" { "sudo nixos"  } else { "darwin"  } }}
