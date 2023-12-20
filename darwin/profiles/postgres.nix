@@ -5,15 +5,15 @@
 { config, pkgs, ... }:
 
 {
-  services.postgres = {
+  services.postgresql = rec {
     enable = true;
     package = pkgs.postgresql_16;
-    extraPlugins = with config.services.postgres.package; [
+    extraPlugins = with package.pkgs; [
       pg_cron
       pg_partman
       postgis
-      timescaledb
-      timescaledb_toolkit
+      # timescaledb # broken
+      # timescaledb_toolkit # broken
     ];
     initdbArgs = [ "--locale=C" "--encoding=UTF8" "--data-checksums" "--allow-group-access" ];
     ensureDatabases = [ "haskbike" ];
