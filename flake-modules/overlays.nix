@@ -80,6 +80,15 @@ let
         lib = prev.lib.extend (_lfinal: _lprev: {
           our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
         });
+
+        # Disable gnome keyring ssh-agent - breaks GPG agent SSH integration by setting SSH_AUTH_SOCK.
+        gnome = prev.gnome.overrideScope' (gfinal: gprev: {
+          gnome-keyring = gprev.gnome-keyring.overrideAttrs (oldAttrs: {
+            configureFlags = oldAttrs.configureFlags or [ ] ++ [
+              "--disable-ssh-agent"
+            ];
+          });
+        });
       });
 
   commonImports = [
