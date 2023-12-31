@@ -327,6 +327,27 @@
     },
     "devshell": {
       "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_6"
+      },
+      "locked": {
+        "lastModified": 1701787589,
+        "narHash": "sha256-ce+oQR4Zq9VOsLoh9bZT8Ip9PaMLcjjBUHVPzW5d7Cw=",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "44ddedcbcfc2d52a76b64fb6122f209881bd3e1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "devshell",
+        "type": "github"
+      }
+    },
+    "devshell_2": {
+      "inputs": {
         "flake-utils": "flake-utils_5",
         "nixpkgs": [
           "digga",
@@ -353,7 +374,7 @@
           "darwin"
         ],
         "deploy": "deploy_2",
-        "devshell": "devshell",
+        "devshell": "devshell_2",
         "flake-compat": "flake-compat_5",
         "flake-utils": "flake-utils_6",
         "flake-utils-plus": "flake-utils-plus",
@@ -1052,7 +1073,7 @@
     },
     "flake-utils_11": {
       "inputs": {
-        "systems": "systems_9"
+        "systems": "systems_10"
       },
       "locked": {
         "lastModified": 1694529238,
@@ -1070,7 +1091,7 @@
     },
     "flake-utils_12": {
       "inputs": {
-        "systems": "systems_10"
+        "systems": "systems_11"
       },
       "locked": {
         "lastModified": 1685518550,
@@ -1088,7 +1109,7 @@
     },
     "flake-utils_13": {
       "inputs": {
-        "systems": "systems_11"
+        "systems": "systems_12"
       },
       "locked": {
         "lastModified": 1685518550,
@@ -1106,7 +1127,7 @@
     },
     "flake-utils_14": {
       "inputs": {
-        "systems": "systems_12"
+        "systems": "systems_13"
       },
       "locked": {
         "lastModified": 1694529238,
@@ -1124,7 +1145,7 @@
     },
     "flake-utils_15": {
       "inputs": {
-        "systems": "systems_13"
+        "systems": "systems_14"
       },
       "locked": {
         "lastModified": 1694529238,
@@ -1157,7 +1178,7 @@
     },
     "flake-utils_17": {
       "inputs": {
-        "systems": "systems_14"
+        "systems": "systems_15"
       },
       "locked": {
         "lastModified": 1689068808,
@@ -1175,7 +1196,7 @@
     },
     "flake-utils_18": {
       "inputs": {
-        "systems": "systems_15"
+        "systems": "systems_16"
       },
       "locked": {
         "lastModified": 1694529238,
@@ -1301,7 +1322,7 @@
     },
     "flake-utils_25": {
       "inputs": {
-        "systems": "systems_16"
+        "systems": "systems_17"
       },
       "locked": {
         "lastModified": 1681202837,
@@ -1319,7 +1340,7 @@
     },
     "flake-utils_26": {
       "inputs": {
-        "systems": "systems_17"
+        "systems": "systems_18"
       },
       "locked": {
         "lastModified": 1701680307,
@@ -1352,7 +1373,7 @@
     },
     "flake-utils_28": {
       "inputs": {
-        "systems": "systems_18"
+        "systems": "systems_19"
       },
       "locked": {
         "lastModified": 1692799911,
@@ -1370,7 +1391,7 @@
     },
     "flake-utils_29": {
       "inputs": {
-        "systems": "systems_19"
+        "systems": "systems_20"
       },
       "locked": {
         "lastModified": 1694529238,
@@ -1541,7 +1562,7 @@
     },
     "flake-utils_7": {
       "inputs": {
-        "systems": "systems_6"
+        "systems": "systems_7"
       },
       "locked": {
         "lastModified": 1701680307,
@@ -1559,7 +1580,7 @@
     },
     "flake-utils_8": {
       "inputs": {
-        "systems": "systems_7"
+        "systems": "systems_8"
       },
       "locked": {
         "lastModified": 1701680307,
@@ -2050,7 +2071,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_8"
+        "systems": "systems_9"
       },
       "locked": {
         "lastModified": 1694733981,
@@ -3755,7 +3776,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_20",
+        "systems": "systems_21",
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
@@ -3916,6 +3937,7 @@
         "deploy": "deploy",
         "deploy-flake": "deploy-flake",
         "devenv": "devenv",
+        "devshell": "devshell",
         "digga": "digga",
         "dwarffs": "dwarffs",
         "emacs-overlay": "emacs-overlay",
@@ -4321,6 +4343,21 @@
       }
     },
     "systems_20": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_21": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

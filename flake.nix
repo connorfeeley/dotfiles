@@ -12,6 +12,7 @@
 
         # Import this repo's modules.
         ./flake-modules
+        inputs.devshell.flakeModule
       ];
 
       perSystem = { config, pkgs, inputs', ... }:
@@ -26,9 +27,10 @@
                     (_n: v: callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
                 in
-                  sourcePackages // commonPackages // pythonPackages
+                sourcePackages // commonPackages // pythonPackages
               );
-              in pk;
+            in
+            pk;
           mkDarwinPackages = system:
             let
               pk = pkgs.lib.makeScope pkgs.newScope (self:
@@ -53,6 +55,8 @@
             if pkgs.stdenv.isLinux
             then mkLinuxPackages config.system
             else mkDarwinPackages config.system;
+
+          devshells.default = ./shell/dotfield.nix;
         };
     });
 
@@ -102,6 +106,7 @@
     ##: --- utilities ----------------------------------------------------------
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts = { url = "github:hercules-ci/flake-parts"; };
+    devshell = { url = "github:numtide/devshell"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     nur.url = "github:nix-community/NUR";
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
