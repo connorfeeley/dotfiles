@@ -114,6 +114,7 @@ in
               ../nixos/machines/workstation
 
 
+              ../modules/fup-options.nix
               ../modules/nixos-vm
               ../nixos/modules/boot-unlock.nix
               # ../nixos/modules/input-leap.nix

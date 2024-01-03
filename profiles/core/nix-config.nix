@@ -72,11 +72,9 @@ in
 
     gc = { automatic = false; };
 
-    # FUP Options {{
-    # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/166d6ebd9f0de03afc98060ac92cba9c71cfe550/lib/options.nix
-    # linkInputs = true;
-    # generateRegistryFromInputs = true;
-    # generateNixPathFromInputs = true;
-    # }}
+    # FUP options.nix vendored at ../../modules/fup-options.nix
+    linkInputs = true;
+    generateRegistryFromInputs = true;
+    generateNixPathFromInputs = true;
   };
 }
