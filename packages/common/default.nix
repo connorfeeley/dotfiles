@@ -1,4 +1,4 @@
-{pkgs, callPackage, nodePackages, ...}:
+{ pkgs, callPackage, nodePackages, ... }:
 let
   nixFlags = [
     "--verbose"
@@ -24,41 +24,6 @@ in
   xantfarm = callPackage ./xantfarm.nix { };
 
   mdio-tools = callPackage ./mdio-tools.nix { };
-
-  dotfield-sync = callPackage ./flake-scripts/dotfield-sync-repos.nix { };
-
-  dotfield-push = callPackage ./flake-scripts/dotfield-push-repos.nix { };
-
-  dotfield-rebuild =
-    let
-      extraPath = pkgs.lib.makeBinPath [ pkgs.nix-output-monitor ];
-      writeProgram = name: env: src:
-        pkgs.substituteAll ({
-          inherit name src;
-          inherit (pkgs.stdenv) shell;
-          path = "${extraPath}";
-          dir = "bin";
-          isExecutable = true;
-        } // env);
-    in
-    writeProgram "dotfield-rebuild"
-      {
-        nom = "${pkgs.nix-output-monitor}/bin/nom";
-      } ./flake-scripts/dotfield-rebuild.sh;
-
-  dotfield-doom =
-    let
-      extraPath = pkgs.lib.makeBinPath [ ];
-      writeProgram = name: env: src:
-        pkgs.substituteAll ({
-          inherit name src;
-          inherit (pkgs.stdenv) shell;
-          path = "${extraPath}";
-          dir = "bin";
-          isExecutable = true;
-        } // env);
-    in
-    writeProgram "dotfield-doom" { } ./flake-scripts/doom-rebuild.sh;
 
   nixos-rebuild-remote =
     callPackage ./flake-scripts/nixos-rebuild-remote.nix {

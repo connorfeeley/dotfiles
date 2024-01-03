@@ -27,7 +27,7 @@
                     (_n: v: callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
                 in
-                sourcePackages // commonPackages // pythonPackages
+                pkgs.lib.filterAttrs (n: v: n != "callPackage") (sourcePackages // commonPackages // pythonPackages)
               );
             in
             pk;
@@ -45,16 +45,18 @@
                     (_n: v: self.callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
                 in
-                darwinPackages // sourcePackages // commonPackages // pythonPackages
+                pkgs.lib.filterAttrs (n: v: n != "callPackage") (darwinPackages // sourcePackages // commonPackages // pythonPackages)
               );
             in
             pk;
         in
         {
           packages =
-            if pkgs.stdenv.isLinux
-            then mkLinuxPackages config.system
-            else mkDarwinPackages config.system;
+            pkgs.lib.filterAttrs (n: v: ! pkgs.lib.elem n [ "callPackage" "default" ])
+              (if pkgs.stdenv.isLinux
+              then mkLinuxPackages config.system
+              else mkDarwinPackages config.system
+              );
 
           devshells.default = ./shell/dotfield.nix;
         };
