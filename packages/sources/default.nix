@@ -1,4 +1,4 @@
-{callPackage, stdenv, ...}: {
+{ callPackage, stdenv, ... }: {
   # nvfetcher sources
   sources = callPackage ./_sources/generated.nix { };
 

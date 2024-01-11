@@ -6,8 +6,6 @@ let
   inherit (config.lib) dotfield;
 
   hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
-
-  zenithPackage = with pkgs; if hasNvidia then zenith-nvidia else zenith;
 in
 {
   home.packages = with pkgs; [
@@ -81,7 +79,6 @@ in
     systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
     sysz # <- fzf-style systemd TUI
   ]) ++ (lib.optionals (!isAarch64) [
-    zenithPackage # <- Other system resource usage viewer
   ]);
 
   # Configure 'thefuck'

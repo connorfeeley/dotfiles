@@ -12,6 +12,7 @@
 
         # Import this repo's modules.
         ./flake-modules
+        inputs.devshell.flakeModule
       ];
 
       perSystem = { config, pkgs, inputs', ... }:
@@ -26,9 +27,10 @@
                     (_n: v: callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
                 in
-                  sourcePackages // commonPackages // pythonPackages
+                pkgs.lib.filterAttrs (n: v: n != "callPackage") (sourcePackages // commonPackages // pythonPackages)
               );
-              in pk;
+            in
+            pk;
           mkDarwinPackages = system:
             let
               pk = pkgs.lib.makeScope pkgs.newScope (self:
@@ -43,16 +45,20 @@
                     (_n: v: self.callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
                 in
-                darwinPackages // sourcePackages // commonPackages // pythonPackages
+                pkgs.lib.filterAttrs (n: v: n != "callPackage") (darwinPackages // sourcePackages // commonPackages // pythonPackages)
               );
             in
             pk;
         in
         {
           packages =
-            if pkgs.stdenv.isLinux
-            then mkLinuxPackages config.system
-            else mkDarwinPackages config.system;
+            pkgs.lib.filterAttrs (n: v: ! pkgs.lib.elem n [ "callPackage" "default" ])
+              (if pkgs.stdenv.isLinux
+              then mkLinuxPackages config.system
+              else mkDarwinPackages config.system
+              );
+
+          devshells.default = ./shell/dotfield.nix;
         };
     });
 
@@ -63,10 +69,12 @@
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://cfeeley.cachix.org"
+      "https://cuda-maintainers.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cfeeley.cachix.org-1:b+RrHsy/4WWys2o6T4YyF66OhdiZUF/R/N46JcS0HJU="
+      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
   };
 
@@ -100,6 +108,7 @@
     ##: --- utilities ----------------------------------------------------------
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts = { url = "github:hercules-ci/flake-parts"; };
+    devshell = { url = "github:numtide/devshell"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     nur.url = "github:nix-community/NUR";
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };

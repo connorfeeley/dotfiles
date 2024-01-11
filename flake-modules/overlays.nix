@@ -62,7 +62,7 @@ let
         inherit (packagesFrom inputs.ttc-subway-font)
           ttc-subway bloor-yonge-font;
 
-        inherit (packagesFrom inputs.nixpkgs-input-leap) input-leap;
+        # inherit (packagesFrom inputs.nixpkgs-input-leap) input-leap;
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
         emacsGitDarwin =
@@ -79,6 +79,15 @@ let
 
         lib = prev.lib.extend (_lfinal: _lprev: {
           our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
+        });
+
+        # Disable gnome keyring ssh-agent - breaks GPG agent SSH integration by setting SSH_AUTH_SOCK.
+        gnome = prev.gnome.overrideScope' (gfinal: gprev: {
+          gnome-keyring = gprev.gnome-keyring.overrideAttrs (oldAttrs: {
+            configureFlags = oldAttrs.configureFlags or [ ] ++ [
+              "--disable-ssh-agent"
+            ];
+          });
         });
       });
 

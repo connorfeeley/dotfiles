@@ -43,6 +43,7 @@ in
               inputs.nurpkgs.nixosModules.mellanox
 
               self.collective.nixosProfiles.core
+              self.collective.nixosProfiles.xorg
               # self.collective.nixosProfiles.emacs
               # self.collective.nixosProfiles.pulseaudio
               # self.collective.nixosProfiles.virtualization.nixos-vm-host
@@ -65,7 +66,36 @@ in
                   ];
                 };
               })
-            ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev;
+            ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev ++ (with self.collective.nixosProfiles; [
+              core
+              hardware.amd
+              nvidia
+              virtualisation.vm-variant
+              smart
+
+              builder
+              # binary-cache
+
+              mail
+
+              workstations.flatpak
+              games
+
+              desktop.common
+              # desktop.input-leap
+              login.gdm
+              xorg
+              # hm-xmonad
+              kde
+              gnome-desktop
+              xfce
+              # pantheon
+
+              grafana
+
+              # virtualisation.arion
+
+            ]);
           });
       };
 
@@ -84,9 +114,10 @@ in
               ../nixos/machines/workstation
 
 
+              ../modules/fup-options.nix
               ../modules/nixos-vm
               ../nixos/modules/boot-unlock.nix
-              ../nixos/modules/input-leap.nix
+              # ../nixos/modules/input-leap.nix
               ../nixos/modules/substituter.nix
             ];
           }

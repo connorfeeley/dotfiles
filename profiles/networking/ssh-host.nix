@@ -1,10 +1,10 @@
-{ config, lib, primaryUser, ... }: {
+{ self, config, lib, primaryUser, ... }: {
   users.users.root.openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
 
   services.openssh = {
     enable = lib.mkForce true;
 
-    ports = [ (lib.our.peers.getSshPort config.networking.hostName) ];
+    ports = [ (self.flake-lib.peers.getSshPort config.networking.hostName) ];
     settings.PermitRootLogin = lib.mkDefault "prohibit-password";
     settings.X11Forwarding = true;
 

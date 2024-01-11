@@ -74,7 +74,7 @@ in
       strace # <- trace system calls and signals
       unetbootin # <- Create bootable Live USB drives for a variety of Linux distributions
     ]) ++ (lib.optionals (isLinux && !isAarch64) [
-      postman # <- GNU Make with comprehensible tracing and a debugger
+      # postman # <- GNU Make with comprehensible tracing and a debugger
     ]);
 
   fonts.fontconfig.enable = true;

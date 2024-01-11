@@ -145,6 +145,18 @@ in
     enableBrowserIntegration = true;
   };
 
+  # TODO: these are actually NixOS options, not home-manager.
+  # programs.firefox.nativeMessagingHosts.packages = with pkgs; [
+  #   # Buku bookmarking tool native connector
+  #   (lib.optional isBukuEnabled bukubrow)
+  #   # Tridactyl native connector
+  #   tridactyl-native
+  #   # Plasma browser integration
+  #   (lib.optional isLinux plasma-browser-integration)
+  #   # Enable Chromecast support (fx_cast)
+  #   (lib.optional (!isAarch64) fx-cast-bridge)
+  # ];
+
   programs.firefox = {
     enable = true;
     package =
@@ -168,14 +180,6 @@ in
             # Gnome shell native connector
             enableGnomeExtensions =
               moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
-            # Plasma browser integration
-            enablePlasmaBrowserIntegration = isLinux;
-            # Tridactyl native connector
-            enableTridactylNative = true;
-            # Enable Chromecast support (fx_cast)
-            enableFXCastBridge = !isAarch64;
-            # Buku bookmarking tool native connector
-            enableBukubrow = isBukuEnabled;
 
             extraPatches = [
               (pkgs.fetchpatch {
