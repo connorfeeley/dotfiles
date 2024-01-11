@@ -43,6 +43,7 @@ in
 
               self.collective.nixosProfiles.core
               self.collective.nixosProfiles.xorg
+              self.collective.nixosProfiles.wine
               # self.collective.nixosProfiles.emacs
               # self.collective.nixosProfiles.pulseaudio
               # self.collective.nixosProfiles.virtualization.nixos-vm-host
