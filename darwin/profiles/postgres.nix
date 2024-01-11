@@ -16,16 +16,18 @@
       # timescaledb_toolkit # broken
     ];
     initdbArgs = [ "--locale=C" "--encoding=UTF8" "--data-checksums" "--allow-group-access" ];
-    ensureDatabases = [ "haskbike" ];
-    ensureUsers = [
-      {
-        name = "haskbike";
-        ensurePermissions = { "haskbike" = "ALL"; };
-      }
-      {
-        name = "cfeeley";
-        ensurePermissions = { "haskbike" = "ALL"; };
-      }
-    ];
+    # "warning: Currently nix-darwin does not support postgresql initialScript, ensureDatabases, or ensureUsers".
+
+    # ensureDatabases = [ "haskbike" ];
+    # ensureUsers = [
+    #   {
+    #     name = "haskbike";
+    #     ensurePermissions = { "haskbike" = "ALL"; };
+    #   }
+    #   {
+    #     name = "cfeeley";
+    #     ensurePermissions = { "haskbike" = "ALL"; };
+    #   }
+    # ];
   };
 }
