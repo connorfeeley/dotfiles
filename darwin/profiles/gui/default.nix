@@ -121,6 +121,7 @@ in
       { name = "teamviewer"; }
       { name = "arc"; } # browser
       { name = "qflipper"; } # flipper zero
+      { name = "cirrus"; } # iCloud debugger
     ];
 
     homebrew.masApps = {
