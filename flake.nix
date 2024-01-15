@@ -126,7 +126,6 @@
     comma = { url = "github:nix-community/comma"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-index-database = { url = "github:Mic92/nix-index-database"; inputs.nixpkgs.follows = "nixpkgs"; };
     rnix-lsp = { url = "github:nix-community/rnix-lsp"; inputs.nixpkgs.follows = "nixpkgs"; };
-    hercules-ci-agent = { url = "github:hercules-ci/hercules-ci-agent"; };
     poetry2nix = { url = "github:nix-community/poetry2nix"; inputs = { nixpkgs.follows = "nixpkgs"; }; };
 
     ##: --- personal packages --------------------------------------------------

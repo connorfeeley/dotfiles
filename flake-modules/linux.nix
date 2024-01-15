@@ -37,7 +37,6 @@ in
             modules = [
               inputs.agenix.nixosModules.age
               inputs.home-manager.nixosModules.home-manager
-              inputs.hercules-ci-agent.nixosModules.agent-service
               inputs.nur.nixosModules.nur
               inputs.nixos-vscode-server.nixosModules.default
               inputs.nurpkgs.nixosModules.mellanox
@@ -47,7 +46,6 @@ in
               # self.collective.nixosProfiles.emacs
               # self.collective.nixosProfiles.pulseaudio
               # self.collective.nixosProfiles.virtualization.nixos-vm-host
-              self.collective.profiles.hercules-ci-agent
               self.collective.profiles.core
 
               nixosModules.workstation

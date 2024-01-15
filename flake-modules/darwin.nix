@@ -36,7 +36,6 @@ in
             modules = [
               inputs.agenix.nixosModules.age # `nixosModules` is correct, even for darwin
               inputs.home-manager.darwinModules.home-manager
-              inputs.hercules-ci-agent.darwinModules.agent-service
               inputs.nur.nixosModules.nur
 
               ../darwin/modules/amphetamine.nix
@@ -50,7 +49,6 @@ in
               self.collective.darwinProfiles.pulseaudio
               self.collective.darwinProfiles.postgres
               self.collective.darwinProfiles.virtualization.nixos-vm-host
-              self.collective.profiles.hercules-ci-agent
               self.collective.profiles.core
 
               nixosModules.MacBook-Pro
