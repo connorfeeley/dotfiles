@@ -4,6 +4,7 @@
 
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    element-desktop # Matrix client
+    element-desktop # <- Matrix client
+    dbeaver # <- GUI database manager
   ];
 }
