@@ -134,7 +134,17 @@ in
               # ../profiles/core/system-packages.nix
               ../profiles/secrets.nix
               # ../modules/dotfield/guardian.nix
-              ({ ... }: { })
+              ../nixos/modules/media-dl.nix
+              ({ config, ... }:
+                let inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+                in {
+                  age.secrets = {
+                    openvpn-auth-file = {
+                      file = "${secretsDir}/openvpn-auth-file.txt.age";
+                      group = secretsGroup;
+                    };
+                  };
+                })
             ];
           }
         ));
