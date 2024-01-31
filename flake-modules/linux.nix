@@ -121,6 +121,24 @@ in
             ];
           }
         ));
+
+      nixosModules.media-dl =
+        (moduleWithSystem (
+          perSystem@{ system, config, inputs, pkgs, lib, collective }:
+          nixos@{ ... }:
+          {
+            nixpkgs.config.allowUnfree = true;
+            imports = [
+              # ../lib/system
+              # ../profiles/core/nix-config.nix
+              # ../profiles/core/system-packages.nix
+              ../profiles/secrets.nix
+              # ../modules/dotfield/guardian.nix
+              ({ ... }: { })
+            ];
+          }
+        ));
+
       specialArgs = {
         # rosettaPkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
       };

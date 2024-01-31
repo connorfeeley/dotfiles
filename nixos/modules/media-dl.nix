@@ -1,14 +1,9 @@
+{ authFile }:
+
 {
   services.openvpn.servers = {
     pia = {
       autoStart = true;
-      # Note that this is bad security practise, because the details
-      # will be available in the nix store for everyone to see.
-      # https://nixos.wiki/wiki/Comparison_of_secret_managing_schemes
-      authUserPass = {
-        username = "<redacted>";
-        password = "<redacted>";
-      };
       # Most of these options came from the OVPN file from the generator
       config = ''
         client
@@ -24,7 +19,7 @@
         tls-client
         remote-cert-tls server
 
-        auth-user-pass
+        auth-user-pass ${authFile}
         compress
         verb 1
         reneg-sec 0
