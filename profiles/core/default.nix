@@ -10,7 +10,7 @@
     KERNEL_NAME =
       if pkgs.stdenv.hostPlatform.isDarwin then "darwin" else "linux";
     LANG = "en_US.UTF-8";
-    LC_ALL = "en_US.UTF-8";
+    # LC_ALL = "en_US.UTF-8"; # don't set; breaks distrobox and other things
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
@@ -23,6 +23,10 @@
     # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
+
+  environment.systemPackages = with pkgs; [
+    glibcLocales
+  ];
 
   programs.tmux = { enable = true; };
 
