@@ -113,7 +113,7 @@ let
       userChrome = ''
         /* Load Dotfield customisations. */
         /* Note: the entire content of this file is copied below, so the file itself isn't imported. */
-        /* @import url("${toString ./userChrome.css}"); */
+        @import url("${toString ./userChrome.css}");
 
         * {
           font-family: ${themeFonts.mono.family}, monospace !important;
