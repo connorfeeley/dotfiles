@@ -121,6 +121,34 @@ in
             ];
           }
         ));
+
+      nixosModules.media-dl =
+        (moduleWithSystem (
+          perSystem@{ system, config, inputs, pkgs, lib, collective }:
+          nixos@{ ... }:
+          {
+            nixpkgs.config.allowUnfree = true;
+            imports = [
+              # ../lib/system
+              # ../profiles/core/nix-config.nix
+              # ../profiles/core/system-packages.nix
+              ../profiles/secrets.nix
+              # ../modules/dotfield/guardian.nix
+              ../nixos/modules/media-dl.nix
+              ({ config, ... }:
+                let inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+                in {
+                  age.secrets = {
+                    openvpn-auth-file = {
+                      file = "${secretsDir}/openvpn-auth-file.txt.age";
+                      group = secretsGroup;
+                    };
+                  };
+                })
+            ];
+          }
+        ));
+
       specialArgs = {
         # rosettaPkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
       };

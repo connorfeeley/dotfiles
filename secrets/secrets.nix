@@ -31,4 +31,7 @@ in
 
   # Mail app password
   "fastmail.txt.age".publicKeys = users ++ systems;
+
+  # OpenVPN credentials
+  "openvpn-auth-file.txt.age".publicKeys = users ++ systems;
 }

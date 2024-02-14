@@ -391,45 +391,66 @@ in
   #   };
 
   # Jellyfin reverse proxy
-  services.nginx = {
-    enable = false;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    # other Nginx options
-    virtualHosts."${hostName}.${peers.networks.tailscale.domain}" = {
-      forceSSL = true;
-      # NOTE: path to certificate file - not the file itself, which we don't want added to the store
-      sslCertificate =
-        "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
-      sslCertificateKey =
-        "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
-
-      locations =
-        let
-          mkLocation = port: {
-            proxyPass = "http://0.0.0.0:${toString port}/";
-            proxyWebsockets = true; # needed if you need to use WebSocket
-            # extraConfig =
-            #   # required when the target is also TLS server with multiple hosts
-            #   "proxy_ssl_server_name on;" +
-            #   # required when the server wants to use HTTP Authentication
-            #   "proxy_pass_header Authorization;" +
-          };
-        in
-        {
-          # FIXME: services are not playing nice with reverse proxy
-          "/qbittorrent/" = mkLocation 8080;
-          "/jellyfin/" = mkLocation 9001;
-          "/radarr/" = mkLocation 9002;
-          "/sonarr/" = mkLocation 9003;
-          "/jackett/" = mkLocation 9004;
-          "/ntopng/" = mkLocation 9009;
-          "/grafana/" = mkLocation 9010;
-          "/prometheus/" = mkLocation 9011;
-          "/rss/" = mkLocation 999;
-        };
+  # Enable NGINX as a reverse proxy, with LetsEncrypt.
+  services.nginx.enable = true;
+  services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
+    forceSSL = true;
+    # NOTE: path to certificate file - not the file itself, which we don't want added to the store
+    sslCertificate = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
+    sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
+    kTLS = true; # TLS in the kernel.
+    # root = "/var/www/bikes.cfeeley.org";
+    locations."/" = {
+      proxyPass = "http://localhost:8082";
+      proxyWebsockets = true; # needed if you need to use WebSocket
+      extraConfig = "client_max_body_size 10G;" +
+        # required when the target is also TLS server with multiple hosts
+        "proxy_ssl_server_name on;" +
+        # required when the server wants to use HTTP Authentication
+        "proxy_pass_header Authorization;"
+      ;
     };
   };
+  # services.nginx = {
+  #   enable = false;
+  #   recommendedProxySettings = true;
+  #   recommendedTlsSettings = true;
+  #   # other Nginx options
+  #   virtualHosts."${hostName}.${peers.networks.tailscale.domain}" = {
+  #     forceSSL = true;
+  #     # NOTE: path to certificate file - not the file itself, which we don't want added to the store
+  #     sslCertificate =
+  #       "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
+  #     sslCertificateKey =
+  #       "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
+
+  #     locations =
+  #       let
+  #         mkLocation = port: {
+  #           proxyPass = "http://0.0.0.0:${toString port}/";
+  #           proxyWebsockets = true; # needed if you need to use WebSocket
+  #           extraConfig =
+  #             # required when the target is also TLS server with multiple hosts
+  #             "proxy_ssl_server_name on;" +
+  #             # required when the server wants to use HTTP Authentication
+  #             "proxy_pass_header Authorization;" +
+
+  #         };
+  #       in
+  #       {
+  #         # FIXME: services are not playing nice with reverse proxy
+  #         "/qbittorrent/" = mkLocation 8080;
+  #         "/jellyfin/" = mkLocation 9001;
+  #         "/radarr/" = mkLocation 9002;
+  #         "/sonarr/" = mkLocation 9003;
+  #         "/jackett/" = mkLocation 9004;
+  #         "/ntopng/" = mkLocation 9009;
+  #         "/grafana/" = mkLocation 9010;
+  #         "/prometheus/" = mkLocation 9011;
+  #         "/rss/" = mkLocation 999;
+  #       };
+  #   };
+  # };
 
   services.freshrss = {
     enable = false;
@@ -442,9 +463,10 @@ in
 
   services.postgresql = rec {
     enable = true;
-    package = pkgs.postgresql_14;
+    package = pkgs.postgresql_16;
     extraPlugins = with package.pkgs; [ postgis pg_repack ];
 
+    # NOTE: comment out ensureDatabases and ensureUsers before upgrading version.
     ensureDatabases = [ "cfeeley" "haskbike" ];
     ensureUsers = [
       {

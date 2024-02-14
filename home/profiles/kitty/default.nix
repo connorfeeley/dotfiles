@@ -4,6 +4,8 @@ let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isAarch64;
   inherit (config.lib.dotfield.features) hasTwm hasPragPro;
 
+  inherit (pkgs.stdenv) isLinux;
+
   socket = "unix:/tmp/kitty-socket";
 
   settings = import ./settings.nix { inherit lib hasTwm socket; };
@@ -73,6 +75,8 @@ lib.mkMerge [
         # 85% opacity
         background_opacity = if isDarwin then "0.85" else "1.0";
         dynamic_background_opacity = true;
+
+        kitty_mod = lib.mkIf isLinux "ctrl+shift";
       };
       # // (lib.mkForce modus-vivendi-faint); # force kitty colorscheme (also set by stylix)
       keybindings = {
