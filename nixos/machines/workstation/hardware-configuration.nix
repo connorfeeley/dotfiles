@@ -52,10 +52,7 @@
     enable = true;
     datasets = {
       ### ROOT: npool - single-SSD root pool
-      "npool/nixos/home" = {
-        use_template = [ "hourly" ];
-        recursive = true;
-      };
+      "npool/nixos/home" = { use_template = [ "hourly" ]; };
       "npool/nixos/home/dev" = { use_template = [ "daily" ]; };
       "npool/nixos/home/source" = { use_template = [ "daily" ]; };
       "npool/nixos/var" = { use_template = [ "hourly" ]; };
@@ -91,7 +88,7 @@
         autosnap = true;
         autoprune = true;
       };
-      # Media: only snapshot daily
+      # Daily: daily snapshots
       "daily" = {
         frequently = 0;
         hourly = 0;
@@ -104,7 +101,7 @@
       # Backup: keep long-term
       "backup" = {
         frequently = 0;
-        hourly = 36;
+        hourly = 0;
         daily = 14;
         monthly = 6;
         yearly = 0;
@@ -134,5 +131,9 @@
     httm # Interactive, file-level Time Machine-like tool for ZFS/btrfs
     zpool-iostat-viz # "zpool iostats" for humans; find the slow parts of your ZFS pool
     ioztat # A storage load analysis tool for OpenZFS
+    (pkgs.writeShellScriptBin "monitor-sanoid"
+      ''
+        ${config.systemd.services.sanoid.serviceConfig.ExecStart} --monitor-health
+      '')
   ];
 }
