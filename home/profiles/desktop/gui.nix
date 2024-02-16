@@ -2,9 +2,11 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [
-    element-desktop # <- Matrix client
     dbeaver # <- GUI database manager
+  ] ++ lib.optionals pkgs.stdenv.isLinux [
+    # Broken on MacOS
+    element-desktop # <- Matrix client
   ];
 }
