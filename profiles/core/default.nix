@@ -1,4 +1,5 @@
 { config, lib, pkgs, ... }:
+let inherit (pkgs.stdenv) isLinux; in
 {
   imports = [ ../../lib/system ./nix-config.nix ./system-packages.nix ];
 
@@ -24,7 +25,7 @@
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; lib.mkIf isLinux [
     glibcLocales
   ];
 
