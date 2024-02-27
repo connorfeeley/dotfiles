@@ -236,6 +236,7 @@ in
       "cfeeley"
       "secrets"
       "wireshark"
+      "sbuser"
     ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
     ++ (lib.optional config.services.mysql.enable "mysql")
     ++ (lib.optional config.virtualisation.docker.enable "docker")
@@ -247,7 +248,7 @@ in
 
   users.users.sbuser = {
     uid = 999;
-    group = "users";
+    group = "sbuser";
     # isNormalUser = true;
     initialHashedPassword =
       "$6$VsuLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
@@ -259,7 +260,10 @@ in
     ];
     shell = pkgs.bash;
   };
-
+  users.groups.sbuser = {
+    members = [ "sbuser" ];
+    gid = 999;
+  };
 
   home-manager.users = {
     "${config.dotfield.guardian.username}" = {
