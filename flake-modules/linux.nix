@@ -148,10 +148,6 @@ in
             ];
           }
         ));
-
-      specialArgs = {
-        # rosettaPkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
-      };
     };
     perSystem = { self, self', system, config, pkgs, collective, ... }:
       let

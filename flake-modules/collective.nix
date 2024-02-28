@@ -31,6 +31,10 @@ in
       inherit collective;
 
       flake-lib = import ../lib { inherit collective; lib = inputs.nixpkgs.lib; };
+
+      specialArgs = {
+        rosettaPkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
+      };
     };
   };
 }
