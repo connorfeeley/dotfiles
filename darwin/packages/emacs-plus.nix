@@ -1,4 +1,4 @@
-{ emacsNativeComp
+{ emacs-unstable
 , fetchurl
 , fetchFromGitHub
 , lib
@@ -64,7 +64,7 @@ let
     sha256 = iconSources."${otherIcon}";
   };
 in
-emacsNativeComp.overrideAttrs (o: {
+emacs-unstable.overrideAttrs (o: {
   pname = "emacsPlusNativeComp";
 
   # https://github.com/cmacrae/emacs/blob/03b4223e56e10a6d88faa151c5804d30b8680cca/flake.nix#L75

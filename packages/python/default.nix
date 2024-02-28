@@ -1,6 +1,6 @@
-final: _prev: {
-  aranet4 = final.callPackage ./aranet4 { };
-  pwrbar = final.callPackage ./pwrbar { };
-  orgparse = final.callPackage ./orgparse { };
-  promnesia = final.callPackage ./promnesia { inherit (final) hpi orgparse; };
-}
+{ pkgs, lib }:
+
+lib.makeScope pkgs.newScope (self: with self; {
+  aranet4 = callPackage ./aranet4 { };
+  pwrbar = callPackage ./pwrbar { };
+})

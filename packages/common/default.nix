@@ -1,4 +1,4 @@
-{ pkgs, callPackage, nodePackages, ... }:
+{ pkgs, callPackage, ... }:
 let
   nixFlags = [
     "--verbose"

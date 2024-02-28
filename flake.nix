@@ -4,7 +4,7 @@
 
 {
   outputs = inputs@{ flake-parts, ... }:
-    (flake-parts.lib.mkFlake { inherit inputs; } {
+    (flake-parts.lib.mkFlake { inherit inputs; } ({ config, flake-parts-lib, getSystem, inputs, lib, options, ... }: {
       debug = true;
       systems = inputs.nixpkgs.lib.systems.flakeExposed;
       imports = [
@@ -15,52 +15,44 @@
         inputs.devshell.flakeModule
       ];
 
-      perSystem = { config, pkgs, inputs', ... }:
+      perSystem = { config, pkgs, inputs', system, ... }:
         let
-          mkLinuxPackages = system:
-            let
-              pk = pkgs.lib.makeScope pkgs.newScope (self:
-                let
-                  sourcePackages = import ./packages/sources { inherit (pkgs) callPackage; inherit pkgs; };
-                  commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (self) callPackage; };
-                  pythonPackages = builtins.mapAttrs
-                    (_n: v: self.callPackage v { })
-                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
-                in
-                pkgs.lib.filterAttrs (n: v: n != "callPackage") (sourcePackages // commonPackages // pythonPackages)
-              );
-            in
-            pk;
-          mkDarwinPackages = system:
-            let
-              pk = pkgs.lib.makeScope pkgs.newScope (self:
-                let
-                  installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
-                  darwinPackages = builtins.mapAttrs
-                    (_n: v: self.callPackage v { inherit installApplication; })
-                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
-                  sourcePackages = import ./packages/sources { inherit (pkgs) callPackage; inherit pkgs; };
-                  commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (self) callPackage; };
-                  pythonPackages = builtins.mapAttrs
-                    (_n: v: self.callPackage v { })
-                    (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
-                in
-                pkgs.lib.filterAttrs (n: v: n != "callPackage") (darwinPackages // sourcePackages // commonPackages // pythonPackages)
-              );
-            in
-            pk;
+          mkPackages =  pkgs.lib.makeScope pkgs.newScope (self:
+              let
+                commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (pkgs) callPackage; };
+                pythonPackages = pkgs.lib.recurseIntoAttrs (pkgs.python3.pkgs.callPackage ./packages/python { });
+
+                installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
+                darwinPackages = builtins.mapAttrs
+                  (_n: v: pkgs.callPackage v { inherit installApplication; })
+                  (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
+              in
+              (filterSystem (commonPackages // pythonPackages // darwinPackages)));
+
+          # Only packages available on the system.
+          filterSystem = attrs: pkgs.lib.filterAttrs (n: v: pkgs.lib.meta.availableOn { inherit system; } v) attrs;
+
+          # Filter out attributes from newScope.
+          filterPackages = attrs: pkgs.lib.filterAttrs
+            (n: v: ! pkgs.lib.elem n [
+              "packages"
+              "callPackage"
+              "default"
+              "newScope"
+              "override"
+              "overrideScope"
+              "overrideScope'"
+              "recurseForDerivations"
+              "overrideDerivation"
+            ])
+            attrs;
         in
         {
-          packages =
-            pkgs.lib.filterAttrs (n: v: ! pkgs.lib.elem n [ "packages" "callPackage" "default" "newScope" "overrideScope" "overrideScope'" ])
-              (if pkgs.stdenv.isLinux
-              then mkLinuxPackages config.system
-              else mkDarwinPackages config.system
-              );
+          packages = filterPackages mkPackages;
 
           devshells.default = ./shell/dotfield.nix;
         };
-    });
+    }));
 
   # Automatic nix.conf settings (accepted automatically when 'accept-flake-config = true')
   nixConfig = {
