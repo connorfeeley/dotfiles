@@ -20,11 +20,11 @@
           mkLinuxPackages = system:
             let
               pk = pkgs.lib.makeScope pkgs.newScope (self:
-                let inherit (self) callPackage;
-                  sourcePackages = import ./packages/sources { inherit callPackage; inherit (pkgs) stdenv; };
-                  commonPackages = import ./packages/common { inherit callPackage pkgs; inherit (pkgs) nodePackages; };
+                let
+                  sourcePackages = import ./packages/sources { inherit (pkgs) callPackage; inherit pkgs; };
+                  commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (self) callPackage; };
                   pythonPackages = builtins.mapAttrs
-                    (_n: v: callPackage v { })
+                    (_n: v: self.callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
                 in
                 pkgs.lib.filterAttrs (n: v: n != "callPackage") (sourcePackages // commonPackages // pythonPackages)
@@ -39,8 +39,8 @@
                   darwinPackages = builtins.mapAttrs
                     (_n: v: self.callPackage v { inherit installApplication; })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
-                  sourcePackages = import ./packages/sources { inherit (self) callPackage; inherit (pkgs) stdenv; };
-                  commonPackages = import ./packages/common { inherit (self) callPackage pkgs; inherit (pkgs) nodePackages; };
+                  sourcePackages = import ./packages/sources { inherit (pkgs) callPackage; inherit pkgs; };
+                  commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (self) callPackage; };
                   pythonPackages = builtins.mapAttrs
                     (_n: v: self.callPackage v { })
                     (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./packages/python));
@@ -52,7 +52,7 @@
         in
         {
           packages =
-            pkgs.lib.filterAttrs (n: v: ! pkgs.lib.elem n [ "callPackage" "default" ])
+            pkgs.lib.filterAttrs (n: v: ! pkgs.lib.elem n [ "packages" "callPackage" "default" "newScope" "overrideScope" "overrideScope'" ])
               (if pkgs.stdenv.isLinux
               then mkLinuxPackages config.system
               else mkDarwinPackages config.system
