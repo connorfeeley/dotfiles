@@ -109,6 +109,7 @@
     # nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
     nixago = { url = "github:nix-community/nixago"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-vscode-server = { url = "github:msteen/nixos-vscode-server"; inputs.nixpkgs.follows = "nixpkgs"; };
+    extra-container = { url = "github:erikarvstedt/extra-container"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- sources ------------------------------------------------------------
     mach-nix.url = "github:DavHau/mach-nix/refs/tags/3.5.0";
