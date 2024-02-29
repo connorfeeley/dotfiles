@@ -33,10 +33,9 @@ in
 
   ediff-tool = pkgs.stdenv.mkDerivation {
     name = "ediff-tool";
-    src = ./ediff-tool;
     installPhase = ''
       mkdir -p $out/bin
-      cp bin/* $out/bin/
+      cp ${./ediff-tool} $out/bin/
     '';
   };
 
