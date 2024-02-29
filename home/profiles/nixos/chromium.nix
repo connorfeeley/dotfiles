@@ -2,7 +2,7 @@
 lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   programs.chromium = {
     enable = true;
-    package = pkgs.microsoft-edge;
+    package = pkgs.ungoogled-chromium;
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # dark reader
