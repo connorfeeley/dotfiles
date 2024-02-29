@@ -31,13 +31,7 @@ in
       inherit (pkgs) writeShellApplication nixos-rebuild;
     };
 
-  ediff-tool = pkgs.stdenv.mkDerivation {
-    name = "ediff-tool";
-    installPhase = ''
-      mkdir -p $out/bin
-      cp ${./ediff-tool} $out/bin/
-    '';
-  };
+  ediff-tool = pkgs.writeShellScriptBin "ediff-tool" (builtins.readFile ./ediff-tool);
 
   # openssh =
   #   let
