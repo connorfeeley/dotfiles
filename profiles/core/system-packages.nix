@@ -34,5 +34,9 @@
     # whois
   ];
 
-  environment.shellAliases = { ll = "${pkgs.eza} -l"; };
+  environment.shellAliases = {
+    ll = "${pkgs.eza} -l";
+    rgi = "${pkgs.ripgrep} --no-ignore";
+    fdi = "${pkgs.fd} --no-ignore";
+  };
 }
