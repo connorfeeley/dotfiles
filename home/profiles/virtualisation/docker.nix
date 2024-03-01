@@ -18,4 +18,9 @@ let inherit (config.lib.dag) entryAfter; in {
       # docker
       docker-compose
     ];
+
+  # Aliases
+  programs.zsh.shellAliases = {
+    dcr = "docker compose run --rm";
+  };
 }
