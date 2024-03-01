@@ -31,8 +31,6 @@
   nix = "nix --print-build-logs --show-trace";
   nis = "nix search nixpkgs";
   nir = "nix run";
-  nix-stray-roots = ''
-    nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory)"'';
 
   rsc = "rsync -rav --progress";
 

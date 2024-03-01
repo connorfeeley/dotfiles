@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isDarwin;
 
@@ -77,4 +77,14 @@ in
     generateRegistryFromInputs = true;
     generateNixPathFromInputs = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    (writeShellApplication {
+      name = "nix-stray-roots";
+      runtimeInputs = [ config.nix.package pkgs.gnugrep ];
+      text = ''
+        nix-store --gc --print-roots | grep -E --color=auto -v "^(/nix/var|/run/\w+-system|\{memory)"
+      '';
+    })
+  ];
 }
