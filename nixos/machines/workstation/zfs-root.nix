@@ -33,7 +33,7 @@ lib.mkIf (!options.virtualisation ? qemu) {
   boot.kernelParams = [
     # https://github.com/openzfs/zfs/issues/10255#issuecomment-1067415974
     # Max ARC (Adaptive Replacement Cache) size: 18GB
-    "zfs.zfs_arc_max=${toString (12 * 1024 * 1024 * 1024)}" # 12 GB
+    "zfs.zfs_arc_max=${toString (18 * 1024 * 1024 * 1024)}" # 12 GB
 
     # Target number of bytes the ARC should leave as free memory on the system
     "zfs.zfs_arc_sys_free=${toString (3 * 1024 * 1024 * 1024)}" # 3 GiB
