@@ -224,14 +224,15 @@ lib.mkMerge [
       enable = lib.mkDefault true;
       defaultEditor = lib.mkForce true;
       socketActivation.enable = false;
-      startWithUserSession =
-        lib.mkDefault true; # implies socketActivitaion is disabled
-      client.enable =
-        lib.mkDefault false; # Don't generate desktop file - just use e-wrapper
+      startWithUserSession = lib.mkDefault true; # implies socketActivitaion is disabled
+      client.enable = lib.mkDefault false; # Don't generate desktop file - just use e-wrapper
     };
 
     home.packages = with pkgs;
       [
+        # Emacs LSP booster binary
+        emacs-lsp-booster
+
         python3Packages.pylatexenc
 
         # Emacsclient wrapper

@@ -16,6 +16,7 @@ let
   overlays = [
     inputs.agenix.overlays.default
     inputs.emacs-overlay.overlay
+    inputs.emacs-lsp-booster.overlays.default
     inputs.gitignore.overlay
     inputs.nur.overlay
     inputs.nvfetcher.overlays.default

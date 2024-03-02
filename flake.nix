@@ -134,6 +134,7 @@
     nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
 
     ##: --- packages -----------------------------------------------------------
+    emacs-lsp-booster.url = "github:slotThe/emacs-lsp-booster-flake";
     nix-nil = { url = "github:oxalica/nil"; };
     nixd = { url = "github:nix-community/nixd"; };
     nix-init = { url = "github:nix-community/nix-init"; };
