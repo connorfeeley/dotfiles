@@ -468,7 +468,12 @@ in
   services.postgresql = rec {
     enable = true;
     package = pkgs.postgresql_16;
-    extraPlugins = with package.pkgs; [ postgis pg_repack ];
+    extraPlugins = with package.pkgs; [ pg_partman pg_cron postgis pg_repack ];
+
+    settings = {
+      "cron.database_name" = "haskbike";
+      shared_preload_libraries = "pg_cron";
+    };
 
     # NOTE: comment out ensureDatabases and ensureUsers before upgrading version.
     ensureDatabases = [ "cfeeley" "haskbike" ];
