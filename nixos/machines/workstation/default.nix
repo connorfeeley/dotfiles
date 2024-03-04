@@ -468,11 +468,32 @@ in
   services.postgresql = rec {
     enable = true;
     package = pkgs.postgresql_16;
-    extraPlugins = with package.pkgs; [ pg_partman pg_cron postgis pg_repack ];
+    extraPlugins = with package.pkgs; [ pg_partman pg_cron postgis pg_repack postgis timescaledb ];
 
     settings = {
       "cron.database_name" = "haskbike";
-      shared_preload_libraries = "pg_cron";
+      shared_preload_libraries = "pg_cron,timescaledb";
+
+      # Recommended settings for TimescaleDB (timescaledb-tune)
+      shared_buffers = "8006MB";
+      effective_cache_size = "24019MB";
+      maintenance_work_mem = "2047MB";
+      work_mem = "3416kB";
+      "timescaledb.max_background_workers" = "16";
+      max_worker_processes = "43";
+      max_parallel_workers_per_gather = "12";
+      max_parallel_workers = "24";
+      wal_buffers = "16MB";
+      min_wal_size = "512MB";
+      max_wal_size = "1GB";
+      default_statistics_target = "100";
+      random_page_cost = "1.1";
+      checkpoint_completion_target = "0.9";
+      max_connections = "100";
+      max_locks_per_transaction = "256";
+      autovacuum_max_workers = "10";
+      autovacuum_naptime = "10";
+      effective_io_concurrency = "256";
     };
 
     # NOTE: comment out ensureDatabases and ensureUsers before upgrading version.
