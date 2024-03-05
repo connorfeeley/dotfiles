@@ -24,8 +24,8 @@ default:
   @just --choose
 
 # build current host
-build:
-  nom build .#{{if os() == "linux" { "nixos"  } else { "darwin"  } }}Configurations.$(hostname).config.system.build.toplevel
+build *ARGS:
+  nom build .#{{if os() == "linux" { "nixos"  } else { "darwin"  } }}Configurations.$(hostname).config.system.build.toplevel {{ARGS}}
 
 # switch current host
 switch: build
