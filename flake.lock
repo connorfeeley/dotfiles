@@ -2528,17 +2528,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1709802133,
-        "narHash": "sha256-2vgUiP0wpq6FbgTyL3bQJ80pmvREKX09nvKI73RwRAM=",
-        "owner": "doronbehar",
-        "repo": "nix-xilinx",
-        "rev": "64a3e66c7975f71eaa25edbdbcafeaa082fa26b6",
-        "type": "gitlab"
+        "lastModified": 1709845021,
+        "narHash": "sha256-nvIulGSpU/h5eK379AaiS016K8PKG+uV65RRVYcu4x4=",
+        "ref": "refs/heads/master",
+        "rev": "21f618ecc4f32c89f3558a3a7b40705d11c6d0e1",
+        "revCount": 481,
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/nix-xilinx"
       },
       "original": {
-        "owner": "doronbehar",
-        "repo": "nix-xilinx",
-        "type": "gitlab"
+        "type": "git",
+        "url": "https://git.sr.ht/~cfeeley/nix-xilinx"
       }
     },
     "nix_2": {
