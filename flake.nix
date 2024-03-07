@@ -130,7 +130,8 @@
     ##: --- meta packages ------------------------------------------------------
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
-    nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
+    # nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; };
+    nix-xilinx = { url = "gitlab:doronbehar/nix-xilinx"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
 
     ##: --- packages -----------------------------------------------------------
