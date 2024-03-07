@@ -108,21 +108,20 @@
 
     # Don't autosuspend from GDM
     displayManager.gdm.autoSuspend = false;
-
-    # REALLY don't autosuspend.
-    services.xserver.displayManager.gdm.autoSuspend = false;
-    security.polkit.extraConfig = ''
-      polkit.addRule(function(action, subject) {
-          if (action.id == "org.freedesktop.login1.suspend" ||
-              action.id == "org.freedesktop.login1.suspend-multiple-sessions" ||
-              action.id == "org.freedesktop.login1.hibernate" ||
-              action.id == "org.freedesktop.login1.hibernate-multiple-sessions")
-          {
-              return polkit.Result.NO;
-          }
-      });
-    '';
   };
+
+  # REALLY don't autosuspend.
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+        if (action.id == "org.freedesktop.login1.suspend" ||
+            action.id == "org.freedesktop.login1.suspend-multiple-sessions" ||
+            action.id == "org.freedesktop.login1.hibernate" ||
+            action.id == "org.freedesktop.login1.hibernate-multiple-sessions")
+        {
+            return polkit.Result.NO;
+        }
+    });
+  '';
 
   programs.light.enable =
     true; # Backlight control for users in the 'video' group
