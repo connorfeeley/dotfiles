@@ -115,9 +115,6 @@ lib.mkIf (!options.virtualisation ? qemu) {
       "npool/nixos/home/source" = { use_template = [ "daily" ]; };
       "npool/nixos/var" = { use_template = [ "hourly" ]; };
 
-      ### BOOT: bpool - single-SSD boot pool
-      "bpool/nixos/home" = { use_template = [ "hourly" ]; };
-
       ### rpool: 5-disk spinning rust pool
       "rpool/root/nixos" = { use_template = [ "hourly" ]; };
       "rpool/home" = { use_template = [ "hourly" ]; };
