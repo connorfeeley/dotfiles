@@ -98,6 +98,7 @@ in
           inherit (host.ipv4) address;
           inherit (net.ipv4) prefixLength;
         }];
+        wakeOnLan.enable = true; # Enable Wake-on-LAN (default: magic packet)
       };
 
       # USB (lab) 1GbE ethernet
