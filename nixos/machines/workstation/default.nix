@@ -212,7 +212,7 @@ in
   dotfield.guardian = {
     enable = true;
     username = "cfeeley";
-    autoLogin = false;
+    autoLogin = true;
   };
   services.xserver.displayManager.defaultSession =
     "gnome"; # or gnome-flashback-xmonad-flashback
