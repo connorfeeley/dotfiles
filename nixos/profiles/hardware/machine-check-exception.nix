@@ -10,7 +10,6 @@ in {
     # Hardware monitoring
     lm_sensors
     # Hardware monitoring daemon
-    rasdaemon
   ];
 
 
