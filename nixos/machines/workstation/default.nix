@@ -212,7 +212,7 @@ in
   dotfield.guardian = {
     enable = true;
     username = "cfeeley";
-    autoLogin = true;
+    autoLogin = false; # Enabling this dumped me to a TTY.
   };
   services.xserver.displayManager.defaultSession =
     "gnome"; # or gnome-flashback-xmonad-flashback

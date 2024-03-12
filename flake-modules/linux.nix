@@ -70,6 +70,7 @@ in
               hardware.amd
               nvidia
               virtualisation.vm-variant
+              hidpi
               smart
 
               builder
