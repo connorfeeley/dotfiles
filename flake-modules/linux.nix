@@ -94,6 +94,7 @@ in
 
               # virtualisation.arion
 
+              hardware.machine-check-exception
             ]);
           });
       };
