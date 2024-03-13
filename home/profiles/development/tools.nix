@@ -26,7 +26,7 @@ in
       patchelf # <- modify the dynamic linker and RPATH of ELF executables
       poetry # <- sanest python package manager
       remake # <- GNU Make with comprehensible tracing and a debugger
-      config.nur.repos.foolnotion.cmake-init
+      # config.nur.repos.foolnotion.cmake-init
       inputs'.nurpkgs.packages.sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
       terraformer # <- CLI tool to generate terraform files from existing infrastructure (reverse Terraform)
 

@@ -76,7 +76,6 @@ in
     iotop # <- Terminal disk IO monitor
     psmisc # <- Useful utilities that use the proc filesystem
     kmon # <- Kernel manager and activity monitor
-    systeroid # <- A more powerful alternative to sysctl(8) with a terminal user interface
     sysz # <- fzf-style systemd TUI
   ]) ++ (lib.optionals (!isAarch64) [
   ]);

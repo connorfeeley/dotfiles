@@ -63,7 +63,7 @@ let
         inherit (packagesFrom inputs.ttc-subway-font)
           ttc-subway bloor-yonge-font;
 
-        # inherit (packagesFrom inputs.nixpkgs-input-leap) input-leap;
+        # Build fails on nixpkgs-23.11-darwin
         input-leap = inputs.nixos-unstable.legacyPackages.${final.system}.input-leap;
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
@@ -111,6 +111,7 @@ in
 
           permittedInsecurePackages = [
             "nodejs-16.20.2"
+            "nix-2.15.3"
           ];
         };
       });
