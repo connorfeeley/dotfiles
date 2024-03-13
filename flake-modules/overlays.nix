@@ -64,6 +64,7 @@ let
           ttc-subway bloor-yonge-font;
 
         # inherit (packagesFrom inputs.nixpkgs-input-leap) input-leap;
+        input-leap = inputs.nixos-unstable.legacyPackages.${final.system}.input-leap;
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
         emacsGitDarwin =

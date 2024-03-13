@@ -82,7 +82,7 @@ in
               games
 
               desktop.common
-              # desktop.input-leap
+              desktop.input-leap
               login.gdm
               xorg
               # hm-xmonad
@@ -118,7 +118,7 @@ in
               ../modules/fup-options.nix
               ../modules/nixos-vm
               ../nixos/modules/boot-unlock.nix
-              # ../nixos/modules/input-leap.nix
+              ../nixos/modules/input-leap.nix
               ../nixos/modules/substituter.nix
             ];
           }
