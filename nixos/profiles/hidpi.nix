@@ -1,6 +1,4 @@
 { lib, ... }: {
-  hardware.video.hidpi.enable = true;
-
   # Larger console font
   # console.font = lib.mkDefault "latarcyrheb-sun32";
 
