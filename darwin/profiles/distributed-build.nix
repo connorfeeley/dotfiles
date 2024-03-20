@@ -21,7 +21,7 @@ in {
           "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
         sshUser = config.dotfield.guardian.username;
         # 12 desktop cores, times two (versus times 1 for a laptop)" seems like a reasonable relative speed factor.
-        speedFactor = 12 * 2;
+        speedFactor = 12;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       }
       ### NixOS VM (Parallels)
