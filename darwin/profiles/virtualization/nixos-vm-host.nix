@@ -34,12 +34,13 @@ in
     enable = true;
     maxJobs = 8;
     speedFactor = 8 * 2;
+    ephemeral = true;
 
     # Extra config for builder.
     config = ({ pkgs, ... }: {
       environment.systemPackages = [ pkgs.nixos-rebuild pkgs.btop pkgs.nix-top ];
 
-      virtualisation.darwin-builder.diskSize = 40 * 1024;
+      virtualisation.darwin-builder.diskSize = 60 * 1024;
       virtualisation.darwin-builder.memorySize = 4096 * 2;
       virtualisation.cores = 8;
 
