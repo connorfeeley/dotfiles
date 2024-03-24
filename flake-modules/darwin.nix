@@ -82,6 +82,7 @@ in
               ../profiles/core/nix-config.nix
               ../profiles/core/system-packages.nix
               ../profiles/secrets.nix
+              ../modules/nix-config-defaults.nix
               ../modules/dotfield/guardian.nix
               ../modules/fup-options.nix
               ../darwin/machines/MacBook-Pro.nix

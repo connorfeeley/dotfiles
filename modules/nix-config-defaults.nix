@@ -13,7 +13,7 @@ let
     # When free disk space in /nix/store drops below min-free during a build,
     # Nix performs a garbage-collection until max-free bytes are available or there is no more garbage.
     # A value of 0 (the default) disables this feature.
-    min-free = 128000000; # Default: 0. Reasonable: 128 MB
+    min-free = 128000000;  # Default: 0. Reasonable: 128 MB
     max-free = 1000000000; # Default: 0. Reasonable:   1 GB
   };
   recommended = lib.mkDefault {
