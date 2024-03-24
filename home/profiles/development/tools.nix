@@ -43,7 +43,7 @@ in
       nix-prefetch-git # <- Prefetch git repositories
       nurl # <- Generate  URL
       manix # <- nix documentation search
-      # nix-du # <- Analyze derivation and store size
+      nix-du # <- Analyze derivation and store size
       nox # <- Tools to make nix nicer to use
       zgrviewer # <- Graphviz/DOT viewer (often used with nix-du)
       nix-update # <- swiss-army knife for updating nix packages
