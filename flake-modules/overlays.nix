@@ -65,6 +65,7 @@ let
 
         # Build fails on nixpkgs-23.11-darwin
         input-leap = inputs.nixos-unstable.legacyPackages.${final.system}.input-leap;
+        nix-du = inputs.nixos-unstable.legacyPackages.${final.system}.nix-du;
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
         emacsGitDarwin =
