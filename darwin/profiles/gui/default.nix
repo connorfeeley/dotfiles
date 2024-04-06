@@ -120,7 +120,8 @@ in
       { name = "teamviewer"; }
       { name = "arc"; } # browser
       { name = "qflipper"; } # flipper zero
-      { name = "cirrus"; } # iCloud debugger
+      { name = "cirrus"; }  # iCloud debugger
+      { name = "element"; } # Matrix client
     ];
 
     homebrew.masApps = {
