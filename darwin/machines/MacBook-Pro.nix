@@ -49,7 +49,7 @@ in
         ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
         (with hmArgs.roles;
         workstation ++ macos ++ developer ++ emacs-config
-        ++ (with hmArgs.profiles; [ work media sync aws ])));
+          ++ (with hmArgs.profiles; [ work media sync aws ])));
 
       # imports = [ ../../home/modules/iterm2.nix ];
       _module.args.inputs = self.inputs;
@@ -70,6 +70,11 @@ in
 
   # Tailscale MAS App
   programs.tailscale.enable = true;
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   programs.amphetamine = {
     enable = true;
