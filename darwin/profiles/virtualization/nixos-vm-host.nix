@@ -45,6 +45,13 @@ in
       virtualisation.cores = 8;
 
       users.users.builder.openssh.authorizedKeys.keys = (self.collective.peers.hosts.MacBook-Pro).keys;
+      services.openssh.enable = true;
+      programs.ssh.extraConfig = ''
+        Host bikes.cfeeley.org
+            User root
+            Port 26473
+            IdentityFile ~/.config/ssh/tailscale-haskbike-bridge.pem
+      '';
     });
   };
 
