@@ -1,5 +1,7 @@
 { self, config, lib, ... }:
 let
+  inherit (self.collective) peers;
+
   inherit (lib) filterAttrs mapAttrs attrValues flatten;
 
   allHosts = self.nixosConfigurations;
@@ -47,13 +49,22 @@ in
     provision = {
       enable = true;
       # Set up the datasources
-      datasources.settings.datasources = [{
-        name = "Prometheus";
-        type = "prometheus";
-        access = "proxy";
-        url = "http://localhost:${toString config.services.prometheus.port}";
-        isDefault = true;
-      }];
+      datasources.settings.datasources = [
+        {
+          name = "Prometheus";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://localhost:${toString config.services.prometheus.port}";
+          isDefault = true;
+        }
+        {
+          name = "prometheus-bikes";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://haskbike-ec2.${peers.networks.${peers.hosts.haskbike-ec2.network}.domain}:9090";
+          isDefault = false;
+        }
+      ];
     };
   };
 
@@ -138,9 +149,6 @@ in
         reject_old_samples = true;
         reject_old_samples_max_age = "168h";
       };
-      # ruler = {
-      #   alertmanager_url = "http://localhost:9093";
-      # };
       analytics = {
         reporting_enabled = false;
       };
@@ -158,6 +166,7 @@ in
       positions.filename = "/tmp/positions.yaml";
       clients = [
         { url = "http://127.0.0.1:${toString lokiPort}/loki/api/v1/push"; }
+        { url = "http://haskbike-ec2.${peers.networks.${peers.hosts.haskbike-ec2.network}.domain}:${toString lokiPort}/loki/api/v1/push"; name = "loki-bikes"; }
       ];
       scrape_configs = [
         {
@@ -167,6 +176,22 @@ in
             labels = {
               job = "systemd-journal";
               host = "127.0.0.1";
+            };
+          };
+          relabel_configs = [
+            {
+              source_labels = [ "__journal__systemd_unit" ];
+              target_label = "unit";
+            }
+          ];
+        }
+        {
+          job_name = "journal-bikes";
+          journal = {
+            max_age = "24h";
+            labels = {
+              job = "systemd-journal-bikes";
+              host = "haskbike-ec2.${peers.networks.${peers.hosts.haskbike-ec2.network}.domain}";
             };
           };
           relabel_configs = [
