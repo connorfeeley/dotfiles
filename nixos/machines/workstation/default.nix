@@ -286,7 +286,7 @@ in
         ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
         (with hmArgs.roles;
         workstation ++ personalised ++ developer ++ linux ++ emacs-config
-          ++ (with hmArgs.profiles; [ work media sync aws desktop.xmonad desktop.plasma nixos.work ])));
+          ++ (with hmArgs.profiles; [ work media sync aws desktop.xmonad nixos.work ])));
 
       _module.args.inputs = self.inputs;
 

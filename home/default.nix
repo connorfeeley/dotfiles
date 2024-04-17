@@ -21,7 +21,6 @@ in
     nix-colors.homeManagerModule
     nixos-vscode-server.nixosModules.home
     nix-index-database.hmModules.nix-index
-    plasma-manager.homeManagerModules.plasma-manager
     (_: { imports = [ ../lib/home ]; })
   ];
 
