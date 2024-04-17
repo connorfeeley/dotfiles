@@ -54,8 +54,8 @@ with lib.hm.gvariant; {
     "org/gnome/desktop/background" = {
       primary-color = "#000000";
       secondary-color = "#000000";
-      picture-uri = "file://${wallpaper}";
-      picture-uri-dark = "file://${wallpaper}";
+      # picture-uri = "file://${wallpaper}";
+      # picture-uri-dark = "file://${wallpaper}";
     };
     "org/gnome/desktop/peripherals/touchpad" = {
       tap-to-click = true;
