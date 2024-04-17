@@ -113,6 +113,8 @@ in
     };
   };
 
+  programs.bottom.enable = true;
+
   programs.less.enable = true;
   programs.man.enable = true;
   programs.info.enable = true;
