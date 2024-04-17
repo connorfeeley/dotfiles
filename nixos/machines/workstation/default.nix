@@ -528,6 +528,8 @@ in
       # type database DBuser origin-address auth-method
       # IPv4
       host   all      all     127.0.0.1/32   trust
+      # Tailscale
+      host   all      all     100.0.0.0/8    trust
       # IPv6
       host all        all     ::1/128        trust
 
