@@ -159,3 +159,10 @@ keys = [
 ##
 [bootstrap-graphical]
 network = "cfeeley"
+
+##
+## === HASKBIKE SERVERS ===
+##
+[haskbike-ec2]
+network = "tailscale"
+tailscale = "100.64.147.108"
