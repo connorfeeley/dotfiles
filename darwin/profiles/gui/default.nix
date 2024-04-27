@@ -122,6 +122,10 @@ in
       { name = "qflipper"; } # flipper zero
       { name = "cirrus"; }  # iCloud debugger
       { name = "element"; } # Matrix client
+
+      # LibreOffice
+      { name = "libreoffice"; }
+      { name = "libreoffice-language-pack"; }
     ];
 
     homebrew.masApps = {
