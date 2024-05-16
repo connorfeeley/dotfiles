@@ -347,6 +347,11 @@ in
       "tcp://0.0.0.0:2375"
     ];
 
+
+  environment.shellAliases = {
+    ip = "${pkgs.iproute} -c";
+  };
+
   # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
   # Normally the machine will power down after 20 minutes if no user is logged in.
   systemd.targets.sleep.enable = false;
