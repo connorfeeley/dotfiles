@@ -257,11 +257,11 @@ in
       else
         [ pkgs.pinentry.${cfg.pinentryFlavor} ]);
 
-      # programs.bash.initExtra = mkIf cfg.enableBashIntegration gpgInitStr;
-      # programs.zsh.initExtra = mkIf cfg.enableZshIntegration gpgInitStr;
-      # programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration ''
-      #   set -gx GPG_TTY (tty)
-      # '';
+      programs.bash.initExtra = mkIf cfg.enableBashIntegration gpgInitStr;
+      programs.zsh.initExtra = mkIf cfg.enableZshIntegration gpgInitStr;
+      programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration ''
+        set -gx GPG_TTY (tty)
+      '';
     }
 
     (mkIf (cfg.sshKeys != null) {
