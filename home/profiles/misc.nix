@@ -18,6 +18,7 @@
       htmlq # <- Like jq, but for HTML
       csvkit # <- CSV file processing utilities
       pdftk # <- PDF toolkit
+      inputs'.nurpkgs.packages.pdftocgen # <- PDF table of contents generator
 
       ## === Files ===
       file
