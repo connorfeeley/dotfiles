@@ -65,11 +65,13 @@ in
 
   networking.hostName = "MacBook-Pro";
 
-  networking.knownNetworkServices =
-    [ "Wi-Fi" "iPhone USB" "Thunderbolt Bridge" ];
+  networking.knownNetworkServices = [ "Wi-Fi" "iPhone USB" "Thunderbolt Bridge" ];
 
   # Tailscale MAS App
   programs.tailscale.enable = true;
+
+  # Tailscale (open-source, CLI-only)
+  # services.tailscale.enable = true;
 
   programs.direnv = {
     enable = true;
