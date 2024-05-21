@@ -36,10 +36,13 @@
 
   networking.hostName = "franklin";
 
-  # FIXME: verify
-  # $ networksetup -listallnetworkservices
-  networking.knownNetworkServices =
-    [ "USB 10/100/1000 LAN" "Wi-Fi" "Thunderbolt Bridge" ];
+  # networksetup -listallnetworkservices
+  networking.knownNetworkServices = [
+    "USB 10/100/1000 LAN"
+    "Wi-Fi"
+    "Thunderbolt Bridge"
+    "Tailscale Tunnel"
+  ];
 
   # Open source 'tailscaled' client
   services.tailscale = {
