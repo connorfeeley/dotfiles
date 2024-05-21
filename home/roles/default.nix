@@ -60,6 +60,7 @@ let
   # If I told you then I'd have to kill you
   trusted = [
     gpg
+    gpg-unlock
     mail
     secrets.common
     secrets.password-store
