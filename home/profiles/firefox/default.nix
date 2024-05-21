@@ -162,20 +162,23 @@ in
               url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/46e263fe8a7f39c74f17438c7b9745bb6ac36172/mozilla-kde.patch";
               hash = "sha256-oH1Y4KDdU5/Xs9sPJGAVu4NgxNM+YtJuKaHA3wY5y1o=";
             })
+
+            # Emacs keybindings for the search bar: https://www.reddit.com/r/emacs/comments/iefqu2/remapping_ctrln_and_ctrlp_for_searchbar/
+            (pkgs.fetchpatch {
+              name = "remap_open_new_window_and_print_to_ALT_N_and_ALT_P.patch";
+              url = "https://raw.githubusercontent.com/natask/firefox-tor-remap-C-n-and-C-p-for-search-bar-navigation/58603b9911ee037d94cb6329250301fe6a511e0c/remap_open_new_window_and_print_to_ALT_N_and_ALT_P.patch";
+              hash = "sha256-VS9NyqRzw+vklNTgHhooh3NunlZdM2BO8GOce36Ww8E=";
+            })
+            (pkgs.fetchpatch {
+              name = "navigating_up_and_down_with_C-p_C-n.patch";
+              url = "https://raw.githubusercontent.com/natask/firefox-tor-remap-C-n-and-C-p-for-search-bar-navigation/58603b9911ee037d94cb6329250301fe6a511e0c/navigating_up_and_down_with_C-p_C-n.patch";
+              hash = "sha256-kaAZg1Zhlrj23JeupgLrJs4YXZN1XreVRM8KnsyQsTw=";
+            })
           ];
         })).override {
           cfg = {
             # Gnome shell native connector
-            enableGnomeExtensions =
-              moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
-
-            extraPatches = [
-              (pkgs.fetchpatch {
-                name = "mozilla-kde.patch";
-                url = "https://raw.githubusercontent.com/openSUSE/firefox-maintenance/46e263fe8a7f39c74f17438c7b9745bb6ac36172/mozilla-kde.patch";
-                hash = "sha256-oH1Y4KDdU5/Xs9sPJGAVu4NgxNM+YtJuKaHA3wY5y1o=";
-              })
-            ];
+            enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
           };
         };
 
