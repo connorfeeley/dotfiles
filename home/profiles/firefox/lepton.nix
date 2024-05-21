@@ -30,8 +30,7 @@
       "userChrome.tab.connect_to_window" = true; # Original, Photon
       "userChrome.tab.color_like_toolbar" = true; # Original, Photon
       "userChrome.tab.lepton_like_padding" = true; # Original
-      # FIXME: typo?
-      "userChrome.tab.dynamic_separtor" = true; # Original, Proton
+      "userChrome.tab.dynamic_separator" = true; # Original, Proton
       "userChrome.tab.newtab_button_like_tab" = true; # Original
       "userChrome.tab.box_shadow" = true;
       "userChrome.tab.bottom_rounded_corner" = true;
