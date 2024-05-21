@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  inherit (pkgs.stdenv) isLinux;
+  switchDelay = "0" /* "250" */;
 
   configFile = pkgs.writeText "Barrier.conf" ''
     section: screens
@@ -37,7 +37,7 @@ let
       screenSaverSync = true
       win32KeepForeground = false
       clipboardSharing = true
-      switchDelay = 250
+      switchDelay = ${switchDelay}
       switchCorners = none +top-left +top-right +bottom-left +bottom-right
       switchCornerSize = 0
       keystroke(Shift+PageDown) = switchInDirection(down)
