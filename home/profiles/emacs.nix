@@ -270,7 +270,6 @@ lib.mkMerge [
         # :lang cpp
         llvmPackages.lldb # includes lldb-vscode
         clang-tools
-        bear # BuildEAR
         python3Packages.compiledb
         # Linux-only (see conditional appends below):
         # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
@@ -373,6 +372,7 @@ lib.mkMerge [
         #: lang cpp
         (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
         cmake-language-server
+        bear # BuildEAR
 
         # :lang python
         python3Packages.debugpy
