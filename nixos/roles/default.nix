@@ -4,7 +4,6 @@ let
     fonts.common
     networking.ssh-host
     secrets
-    # fonts.pragmatapro # TODO: remove
   ]) ++ (with collective.nixosProfiles; [
     desktop.common
     desktop.ddc-monitor-control
