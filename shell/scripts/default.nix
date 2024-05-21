@@ -1,5 +1,5 @@
 { lib, pkgs, ... }:
-let inherit (pkgs) stdenv nix-output-monitor;
+let inherit (pkgs) stdenv;
 in {
   dotfield-docs =
     let
