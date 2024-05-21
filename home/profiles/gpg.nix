@@ -26,6 +26,7 @@ in lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [{
     defaultCacheTtlSsh = 10 * 60 * 60;
 
     extraConfig = ''
+      allow-emacs-pinentry
       allow-loopback-pinentry
     '';
   };
