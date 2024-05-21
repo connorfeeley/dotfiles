@@ -40,7 +40,7 @@
     Unit = { Description = "Backup ~/dev directory nightly"; };
     Timer = {
       Unit = "dev-backup.service";
-      OnCalendar = "*-*-* 20:00:00";
+      OnCalendar = "*-*-* 15:00:00";
     };
     Install = { WantedBy = [ "timers.target" ]; };
   };
