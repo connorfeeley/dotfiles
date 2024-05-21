@@ -1,11 +1,11 @@
 { pkgs, self', ... }: {
   environment.systemPackages = with pkgs; [
+    self'.packages.mints
+
     darwin.DarwinTools
     darwin.print-reexports
     undmg
-    self'.packages.mints
-    # FIXME(darwin): build failing as of 2022-12-13
-    # darwin.ios-deploy
+    darwin.ios-deploy
   ];
 
   homebrew = {
