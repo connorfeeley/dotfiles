@@ -5,9 +5,6 @@ with lib;
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-  # Configure the pinentryFlavor to use on MacOS
-  macPinentryFlavor = "mac";
-
   cfg = config.services.gpg-agent;
   gpgPkg = config.programs.gpg.package;
 
@@ -204,7 +201,10 @@ in
       pinentryFlavor = mkOption {
         type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
         example = "gnome3";
-        default = if isDarwin then macPinentryFlavor else "qt";
+        default =
+          if isDarwin
+          then "mac"
+          else "gtk2";
         description = ''
           Which pinentry interface to use. If not
           <literal>null</literal>, it sets
