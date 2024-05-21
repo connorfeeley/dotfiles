@@ -170,6 +170,14 @@ in
         '';
       };
 
+      allowPresetPassphrase = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          This option allows the use of <option>gpg-preset-passphrase</option> to seed the internal cache of gpg-agent with passphrases.
+        '';
+      };
+
       enableScDaemon = mkOption {
         type = types.bool;
         default = true;
@@ -194,8 +202,7 @@ in
       };
 
       pinentryFlavor = mkOption {
-        type = types.nullOr
-          (types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
+        type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
         example = "gnome3";
         default = if isDarwin then macPinentryFlavor else "qt";
         description = ''
@@ -230,48 +237,37 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      home.file."${homedir}/gpg-agent.conf".text = concatStringsSep "\n"
-        (optional (cfg.enableSshSupport) "enable-ssh-support"
-          ++ optional (!cfg.grabKeyboardAndMouse) "no-grab"
-          ++ optional (!cfg.enableScDaemon) "disable-scdaemon"
-          ++ optional (cfg.defaultCacheTtl != null)
-          "default-cache-ttl ${toString cfg.defaultCacheTtl}"
-          ++ optional (cfg.defaultCacheTtlSsh != null)
-          "default-cache-ttl-ssh ${toString cfg.defaultCacheTtlSsh}"
-          ++ optional (cfg.maxCacheTtl != null)
-          "max-cache-ttl ${toString cfg.maxCacheTtl}"
-          ++ optional (cfg.maxCacheTtlSsh != null)
-          "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}" ++ optional
-          (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac"
-            && cfg.pinentryFlavor != "touchid")
-          "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry"
-          # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
-          ++ optional (cfg.pinentryFlavor == "mac")
-          "pinentry-program /opt/homebrew/bin/pinentry-mac"
-          ++ optional (cfg.pinentryFlavor == "touchid")
-          "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid"
-          ++ [ cfg.extraConfig ]);
+      home.file."${homedir}/gpg-agent.conf".text = (concatStringsSep "\n" [
+        (optionalString (cfg.enableSshSupport) "enable-ssh-support")
+        (if (!cfg.grabKeyboardAndMouse) then "no-grab" else "grab")
+        (optionalString (cfg.allowPresetPassphrase) "allow-preset-passphrase")
+        (optionalString (!cfg.enableScDaemon) "disable-scdaemon")
+        (optionalString (cfg.defaultCacheTtl != null) "default-cache-ttl ${toString cfg.defaultCacheTtl}")
+        (optionalString (cfg.defaultCacheTtlSsh != null) "default-cache-ttl-ssh ${toString cfg.defaultCacheTtlSsh}")
+        (optionalString (cfg.maxCacheTtl != null) "max-cache-ttl ${toString cfg.maxCacheTtl}")
+        (optionalString (cfg.maxCacheTtlSsh != null) "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}")
+        (optionalString (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid") "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
 
-      home.packages = optionals (cfg.pinentryFlavor != null) (if isDarwin then
-        [ pkgs.pinentry_mac ]
-      else
-        [ pkgs.pinentry.${cfg.pinentryFlavor} ]);
+        # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
+        (optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
+        (optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid")
+      ]) + cfg.extraConfig;
+
+      home.packages = optionals (cfg.pinentryFlavor != null) (
+        if isDarwin
+        then [ pkgs.pinentry_mac ]
+        else [ pkgs.pinentry.${cfg.pinentryFlavor} ]
+      );
 
       programs.bash.initExtra = mkIf cfg.enableBashIntegration gpgInitStr;
       programs.zsh.initExtra = mkIf cfg.enableZshIntegration gpgInitStr;
       programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration ''
         set -gx GPG_TTY (tty)
       '';
-    }
 
-    (mkIf (cfg.sshKeys != null) {
       # Trailing newlines are important
-      home.file.".gnupg/sshcontrol".text = concatMapStrings
-        (s: ''
-          ${s}
-        '')
-        cfg.sshKeys;
-    })
+      home.file.".gnupg/sshcontrol".text = mkIf (cfg.sshKeys != null) (concatMapStrings (s: '' ${s} '') cfg.sshKeys);
+    }
 
     # The systemd units below are direct translations of the
     # descriptions in the
