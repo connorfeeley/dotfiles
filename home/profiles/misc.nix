@@ -16,6 +16,8 @@
       xsv # <- A fast CSV command line toolkit
       python3Packages.yq # <- jq wrapper for YAML/XML/TOML documents
       htmlq # <- Like jq, but for HTML
+      csvkit # <- CSV file processing utilities
+      pdftk # <- PDF toolkit
 
       ## === Files ===
       file
