@@ -45,12 +45,7 @@
 
   fonts.fontconfig.enable = true;
 
-  # TODO: check these out
-  # services.etebase = {};
-  # services.etebase.sync = {};
-  # services.flameshot = {};
-  # services.hound = ...
-  # programs.ncspot = {}; # spotify thingy
+  programs.ncspot.enable = true; # Spotify ncurses client
 
   programs.bottom.enable = true;
   programs.eza.enable = true;
