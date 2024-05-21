@@ -23,6 +23,9 @@ export JUST_LOG := log
 default:
   @just --choose
 
+nixos-rebuild *ARGS:
+  sudo nixos-rebuild --print-build-logs --keep-going --show-trace --verbose {{ARGS}}
+
 # build current host
 build *ARGS:
   nom build .#{{if os() == "linux" { "nixos"  } else { "darwin"  } }}Configurations.$(hostname).config.system.build.toplevel {{ARGS}}
@@ -31,7 +34,6 @@ build *ARGS:
 switch: build
   sudo nix-env -p /nix/var/nix/profiles/system --set $(readlink ./result)
   sudo /nix/var/nix/profiles/system/activate
-
 
 test:
   echo {{if os() == "linux" { "sudo nixos"  } else { "darwin"  } }}
