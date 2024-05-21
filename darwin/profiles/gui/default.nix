@@ -128,6 +128,8 @@ in
       { name = "libreoffice-language-pack"; }
 
       { name = "whisky"; } # Games on MacOS
+
+      { name = "notunes"; } # Prevent Apple Music from launching
     ];
 
     homebrew.masApps = {
