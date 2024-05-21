@@ -21,6 +21,9 @@ in {
 
     # Don't litter. (disable .DS_Store file creation)
     "com.apple.desktopservices" = { "DSDontWriteNetworkStores" = true; };
+
+    # Set replacement for iTunes / Apple Music
+    "digital.twisted.noTunes" = { "replacement" = "/Applications/Spotify.app"; };
   };
 
   system.defaults.smb = {
