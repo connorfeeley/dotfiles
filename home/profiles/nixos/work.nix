@@ -1,6 +1,6 @@
 { pkgs, self', ... }: {
   ###
-  ### Automatically shut off power bar at 8PM
+  ### Automatically shut off power bar at 6PM
   ###
   systemd.user.services.pwrbar-auto-off = {
     Unit = {
@@ -19,7 +19,7 @@
     };
     Timer = {
       Unit = "pwrbar-auto-off.service";
-      OnCalendar = "*-*-* 20:00:00";
+      OnCalendar = "*-*-* 18:00:00";
     };
     Install = { WantedBy = [ "timers.target" ]; };
   };
