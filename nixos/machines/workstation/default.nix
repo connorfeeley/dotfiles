@@ -8,7 +8,7 @@ let
   inherit (self.collective) hmArgs;
 in
 {
-  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./samba.nix ./tigervnc.nix ];
+  imports = [ ./hardware-configuration.nix ./zfs-root.nix ./mellanox.nix ./samba.nix ./tigervnc.nix ];
 
   # OKAY: make sure I don't bork my system remotely!
   # Bork bork: https://www.youtube.com/watch?v=i1H0leZhXcY
@@ -52,7 +52,7 @@ in
 
   ### === networking ===========================================================
 
-  networking = (
+  networking =
     let
       host = peers.hosts.workstation;
       net = peers.networks.${host.network};
@@ -108,23 +108,7 @@ in
           inherit (net.ipv4) prefixLength;
         }];
       };
-
-      # Mellanox 100GbE port 0
-      # interfaces.enp36s0f0np0 = {
-      #   ipv4.addresses = [{
-      #     address = "192.168.21.50";
-      #     prefixLength = 24;
-      #   }];
-      # };
-      # Mellanox 100GbE port 1
-      # interfaces.enp36s0f0np1 = {
-      #   ipv4.addresses = [{
-      #     address = "192.168.20.50";
-      #     prefixLength = 24;
-      #   }];
-      # };
-    }
-  );
+    };
 
   boot.kernel.sysctl = {
     "net.ipv6.route.max_size" = 2147483647; # Default: 4096
