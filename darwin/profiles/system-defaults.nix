@@ -19,7 +19,7 @@ in {
   system.defaults.CustomUserPreferences = {
     "com.apple.dock" = { "slow-motion-allowed" = true; };
 
-    # Don't litter. (disable .DS_Store file creation)
+    # Don't litter. (disable .DS_Store file creation on network drives)
     "com.apple.desktopservices" = { "DSDontWriteNetworkStores" = true; };
 
     # Set replacement for iTunes / Apple Music
