@@ -126,6 +126,8 @@ in
       # LibreOffice
       { name = "libreoffice"; }
       { name = "libreoffice-language-pack"; }
+
+      { name = "whisky"; } # Games on MacOS
     ];
 
     homebrew.masApps = {
