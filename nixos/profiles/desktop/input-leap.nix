@@ -40,8 +40,8 @@ let
       switchDelay = 250
       switchCorners = none +top-left +top-right +bottom-left +bottom-right
       switchCornerSize = 0
-      keystroke(Super+PageDown) = switchInDirection(down)
-      keystroke(Super+PageUp) = switchInDirection(up)
+      keystroke(Shift+PageDown) = switchInDirection(down)
+      keystroke(Shift+PageUp) = switchInDirection(up)
       keystroke(Super+Control+Return) = toggleScreen
     end
   '';
