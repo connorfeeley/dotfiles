@@ -115,8 +115,6 @@ let
       # WARNING: This will erase any Dock settings, including icons, position, hide
       # status, etc.
       #
-      # TODO: Logging.
-      #
       # Source:
       #   https://forums.macrumors.com/threads/missing-dock-and-background-flashing-on-mavericks-gm.1650020/post-18213002
 
@@ -155,8 +153,6 @@ lib.mkIf false {
 
     config = {
       external_bar = false;
-
-      # TODO: set based on external bar config
       # if barCfg.enable
       # then
       #   let
@@ -182,7 +178,6 @@ lib.mkIf false {
       mouse_follows_focus = "off";
 
       # `autoraise` will override the effect of `window_topmost`
-      # TODO: `autoraise` behavior was substatially improved in v4.0.0 -- check it out again
       focus_follows_mouse = "off";
       mouse_modifier = "fn";
       mouse_action1 = "move";

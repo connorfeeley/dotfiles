@@ -86,7 +86,6 @@ in
       hammerspoon-server = lib.mkIf cfg.daemon.enable {
         serviceConfig = {
           ProgramArguments = [
-            # TODO
             "${pkgs.hammerspoon}/Applications/Hammerspoon.app/Contents/MacOS/Hammerspoon"
             "--no-daemon"
             "--config"

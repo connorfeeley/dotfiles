@@ -21,8 +21,6 @@ in
   virtualisation.vmVariant = { lib, pkgs, ... }: {
     imports = [
       ./vm-filesystems.nix
-      # TODO: nothing here yet
-      # ./vm-networking.nix
     ];
 
     # Uncomment when building on Darwin

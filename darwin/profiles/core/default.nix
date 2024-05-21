@@ -9,7 +9,6 @@ in
   nix = {
     settings = {
       auto-optimise-store = false; # Causes /nix/store/.links errors
-      # TODO: is it really reasonable to set these all as defaults?
       system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     };
 

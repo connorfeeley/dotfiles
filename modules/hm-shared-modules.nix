@@ -6,7 +6,7 @@ in
 {
   environment.systemPackages = [ homeManagerPackage ];
 
-  # TODO: right location for this?
+  # TODO: consider moving this to a more appropriate location
   home-manager.backupFileExtension = "backup";
 
   home-manager.sharedModules = [{
@@ -18,9 +18,5 @@ in
     home.stateVersion = "21.11"; # Version of *original* HM state.
 
     xdg.enable = true;
-
-    # TODO: what benefit does symlinking this provide?
-    # xdg.configFile."nix/registry.json".text =
-    #   config.environment.etc."nix/registry.json".text;
   }];
 }

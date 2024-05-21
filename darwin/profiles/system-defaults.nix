@@ -5,7 +5,6 @@ in {
   security.pam.enableSudoTouchIdAuth = isAarch64;
 
   system.defaults = {
-    # TODO: why disabled? caused an error?
     # GlobalPreferences".com.apple.sound.beep.sound = "Funk";
 
     # universalaccess = {

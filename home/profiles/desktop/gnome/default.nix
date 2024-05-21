@@ -13,8 +13,5 @@
 
     # https://github.com/NixOS/nixpkgs/issues/174099
     services.gnome-keyring.enable = false;
-
-    # TODO
-    # services.pulseeffects = ...
   };
 }

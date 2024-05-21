@@ -3,8 +3,6 @@ let inherit (pkgs.stdenv) isLinux; in
 {
   imports = [ ../../lib/system ./nix-config.nix ./system-packages.nix ];
 
-  # TODO: can this be merged with the 'dotfield' lib?
-
   environment.variables = {
     DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
     EDITOR = "e";

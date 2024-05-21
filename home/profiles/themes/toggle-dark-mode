@@ -13,7 +13,6 @@
   return 1
 }
 
-# TODO: point shellcheck to something
 # shellcheck disable=SC1091
 # . "${XDG_CONFIG_HOME}/bash/env"
 

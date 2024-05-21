@@ -133,7 +133,6 @@ in
 
     (mkIf (isAttrs cfg.tray && cfg.tray.enable) {
       assertions = [{
-        # TODO: test
         assertion = isLinux;
         message = ''
           The 'services.syncthing.tray' option is not available on darwin.
@@ -176,7 +175,6 @@ in
         };
       };
       assertions = [{
-        # TODO: test
         assertion = isLinux;
         message = ''
           The 'services.syncthing.tray' option is not available on darwin.

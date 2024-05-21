@@ -60,7 +60,7 @@ in
 
       allow-import-from-derivation = true;
 
-      # TODO: add 'auto-allocate-uids discard-references'
+      # TODO: consider adding 'auto-allocate-uids discard-references'
       experimental-features =
         [ "nix-command" "flakes" "repl-flake" "ca-derivations" ];
 

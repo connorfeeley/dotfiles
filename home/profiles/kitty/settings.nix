@@ -3,7 +3,6 @@
   update_check_interval = 0;
 
   adjust_line_height = "110%";
-  # TODO: why?
   box_drawing_scale = "0.001, 1, 1.5, 2";
 
   #: Cursor customization {{{

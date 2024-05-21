@@ -24,7 +24,6 @@
     # };
 
     theme.lepton = {
-      # TODO: describe values/options
       "layout.css.prefers-color-scheme.content-override" = 3;
       "userChrome.icon.panel_full" = true; # Original, Proton
       "userChrome.tab.connect_to_window" = true; # Original, Photon
@@ -72,7 +71,6 @@
       "userChrome.theme.built_in_contrast" = true;
       "userChrome.theme.system_default" = true;
       "userChrome.theme.proton_color" = true;
-      # TODO: enforce rule deps with warnings
       "userChrome.theme.proton_chrome" = true; # Need proton_color
       "userChrome.theme.fully_color" = true; # Need proton_color
       "userChrome.theme.fully_dark" = true; # Need proton_color

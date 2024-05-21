@@ -123,7 +123,7 @@ in
       "Steam Link" = 1246969117;
 
       # Live broadcasts of the legislature of the province of Ontario, Canada.
-      # FIXME: this is an iPad app, which 'mas' doesn't seem to handle correctly.
+      # NOTE: This is an iPad app, which 'mas' doesn't seem to handle correctly.
       # "Parlance" = 1520014900;
     };
   };

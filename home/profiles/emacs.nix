@@ -165,18 +165,6 @@ lib.mkMerge [
     xdg.configFile."doom/modules/completion/corfu".source =
       mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
 
-    ## Doom Bootloader.
-    #: <https://github.com/doomemacs/doomemacs/commit/5b6b204bcbcf69d541c49ca55a2d5c3604f04dad>
-    # FIXME: profiles seem broken
-    # xdg.configFile."emacs/profiles/doom".source =
-    #   mkOutOfStoreSymlink "${profilesPath}/doom";
-    # xdg.configFile."emacs/profiles/xtallos".source =
-    #   mkOutOfStoreSymlink "${profilesPath}/xtallos";
-
-    # FIXME: use doom profile loader once issues are fixed upstream
-    # xdg.configFile."doom".source =
-    #   mkOutOfStoreSymlink "${profilesPath}/doom";
-
     # Install Doom imperatively to make use of its CLI.
     # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
     # due to the number of oddities it introduces.

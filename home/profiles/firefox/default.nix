@@ -145,18 +145,6 @@ in
     enableBrowserIntegration = true;
   };
 
-  # TODO: these are actually NixOS options, not home-manager.
-  # programs.firefox.nativeMessagingHosts.packages = with pkgs; [
-  #   # Buku bookmarking tool native connector
-  #   (lib.optional isBukuEnabled bukubrow)
-  #   # Tridactyl native connector
-  #   tridactyl-native
-  #   # Plasma browser integration
-  #   (lib.optional isLinux plasma-browser-integration)
-  #   # Enable Chromecast support (fx_cast)
-  #   (lib.optional (!isAarch64) fx-cast-bridge)
-  # ];
-
   programs.firefox = {
     enable = true;
     package =
@@ -198,7 +186,6 @@ in
         // lepton.settings.theme.lepton // lepton.settings.recommended
         // lepton.settings.optional;
 
-      # TODO: add zotero connector addon -- not available in upstream nur repo
       extensions = with firefox-addons; [
         (lib.mkIf isBukuEnabled bukubrow)
         darkreader
@@ -206,7 +193,6 @@ in
         org-capture
         react-devtools
         reddit-enhancement-suite
-        # TODO: set default preferences for this and others? is that possible?
         tampermonkey
         refined-github
         return-youtube-dislikes
@@ -228,9 +214,6 @@ in
         (lib.mkIf isLinux plasma-integration)
 
         ##: Themes {{
-
-        # TODO: add this to upstream repo
-        # arctic-nord-theme
 
         theme-nord-polar-night
 

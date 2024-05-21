@@ -17,8 +17,7 @@ in {
         systems = [ "x86_64-linux" "aarch64-linux" "i686-linux" ];
         # Base64-encoded ed25519 public host key of builder:
         #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
-        publicHostKey =
-          "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
         sshUser = config.dotfield.guardian.username;
         # 12 desktop cores, times two (versus times 1 for a laptop)" seems like a reasonable relative speed factor.
         speedFactor = 12;
@@ -32,8 +31,7 @@ in {
         # Base64-encoded ed25519 public host key of builder:
         #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
         # publicHostKey = (collective.peers.hosts.rosy).keys.0;
-        publicHostKey =
-          "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUdndzd2Slpoa1E1bU1PekxUVXROeHdwbStNc2VFWUJSY0V4YUUwTnZaZG4gcm9vdEByb3N5Cg==";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUdndzd2Slpoa1E1bU1PekxUVXROeHdwbStNc2VFWUJSY0V4YUUwTnZaZG4gcm9vdEByb3N5Cg==";
 
         sshUser = config.dotfield.guardian.username;
         # sshKey = config.age.secrets."workstation-luks/ssh_host_ed25519_key".path;

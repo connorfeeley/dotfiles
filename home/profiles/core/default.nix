@@ -56,8 +56,7 @@ in
     mosh # <- SSH-like tool for unreliable connections
     iperf3 # <- Test network bandwidth
     bandwhich # <- Not a sandwhich; see [nethogs] ( bandwidth utilization tool )
-    # TODO: not packaged
-    # trippy # A network diagnostic tool
+    trippy # A network diagnostic tool
 
     ## === `bat` and friends ===
     # A cat(1) clone with wings.
@@ -170,11 +169,6 @@ in
 
   home.sessionVariables = {
     DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
-
-    # Default is "1". But when typeset in PragmataPro that leaves no space
-    # between the icon and its filename.
-    # FIXME: enable when pragpro enabled
-    # EXA_ICON_SPACING = "2";
 
     Z_DATA = "$XDG_DATA_HOME/z";
     Z_OWNER = username;

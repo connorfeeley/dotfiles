@@ -15,6 +15,5 @@
   networking.interfaces.eth0.useDHCP = true;
 
   # Diagnostic tools used by Linode support.
-  # TODO: provide citation
   environment.systemPackages = with pkgs; [ inetutils mtr sysstat ];
 }

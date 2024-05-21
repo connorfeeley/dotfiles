@@ -75,7 +75,6 @@ in
           KeepAlive = true;
           ProcessType = "Interactive";
 
-          # TODO: make these paths configurable
           StandardOutPath = "${config.xdg.cacheHome}/skhd.out.log";
           StandardErrorPath = "${config.xdg.cacheHome}/skhd.err.log";
         };
