@@ -145,7 +145,6 @@
     tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
     nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
-    # TODO: currently using package from nur; should change nvidia profile to use this though
     nvidia-patch = { url = "github:arcnmx/nvidia-patch.nix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- other --------------------------------------------------------------

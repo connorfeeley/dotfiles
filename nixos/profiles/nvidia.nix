@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs', ... }:
 let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
-  nvPackage = (pkgs.nur.repos.arc.packages.nvidia-patch.override {
+  inherit (inputs'.nvidia-patch.packages) nvidia-patch;
+
+  nvPackage = (nvidia-patch.override {
     nvidia_x11 = nvidiaPackages.stable; # FIXME: only using vulkan_beta since it satisfies nvidia_x11 being < v430
   }).overrideAttrs (old: {
     meta.broken = false;
