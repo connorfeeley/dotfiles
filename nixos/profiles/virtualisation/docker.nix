@@ -18,9 +18,6 @@ in {
     liveRestore = false;
   };
 
-  # Local gitlab runner
-  services.gitlab-runner.enable = true;
-
   environment.systemPackages = [ pkgs.x11docker ];
 
   users.users.${guardian.username}.extraGroups = [ "docker" ];
