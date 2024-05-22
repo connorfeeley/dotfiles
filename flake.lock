@@ -2919,6 +2919,22 @@
     },
     "nixos-stable": {
       "locked": {
+        "lastModified": 1716218643,
+        "narHash": "sha256-i/E7gzQybvcGAYDRGDl39WL6yVk30Je/NXypBz6/nmM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a8695cbd09a7ecf3376bd62c798b9864d20f86ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixos-stable-darwin": {
+      "locked": {
         "lastModified": 1716292277,
         "narHash": "sha256-248jDA6qGlyKvNWf8ar44xQRNxc/FmEibBTfoYeTH5Y=",
         "owner": "NixOS",
@@ -3950,15 +3966,16 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
+        "nixos-stable-darwin": "nixos-stable-darwin",
         "nixos-unstable": "nixos-unstable",
         "nixos-unstable-small": "nixos-unstable-small",
         "nixos-vscode-server": "nixos-vscode-server",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": [
-          "nixos-stable"
+          "nixos-stable-darwin"
         ],
         "nixpkgs-darwin": [
-          "nixos-stable"
+          "nixos-stable-darwin"
         ],
         "nixpkgs-doc": "nixpkgs-doc",
         "nixpkgs-input-leap": "nixpkgs-input-leap",

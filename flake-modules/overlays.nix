@@ -80,6 +80,9 @@ let
         # Broken on nixos-23.05
         inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
 
+        # Not in nixpkgs-23.11-darwin cache
+        inherit (inputs.nixos-stable.legacyPackages.${final.system}) chromium;
+
         lib = prev.lib.extend (_lfinal: _lprev: {
           our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
         });
