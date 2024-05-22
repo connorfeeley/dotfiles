@@ -61,7 +61,8 @@ in
       allow-import-from-derivation = true;
 
       # TODO: consider adding 'auto-allocate-uids discard-references'
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features =
+        [ "nix-command" "flakes" "repl-flake" "ca-derivations" ];
 
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
