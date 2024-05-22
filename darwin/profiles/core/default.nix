@@ -13,6 +13,9 @@ in
     };
 
     nixPath = [ "nixos-config=${darwinConfigPath}" ];
+
+    daemonProcessType = "Interactive";
+    daemonIOLowPriority = false;
   };
 
   # HACK: MacOS doesn't have an /etc/hostname file

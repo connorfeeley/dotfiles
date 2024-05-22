@@ -50,11 +50,13 @@ in {
         case "$DEVICE_IFACE" in
           enp36s0f0np0)
             logger "$DEVICE_IFACE: setting FEC to RS, speed to 100G"
+            ${mft}/bin/mst start
             ${mft}/bin/mlxlink -d /dev/mst/mt4121_pciconf0   --fec RS --fec_speed 100G
             ${pkgs.ethtool}/bin/ethtool -s ''${DEVICE_IFACE} speed 100000 duplex full autoneg off
             ;;
           enp36s0f0np1)
             logger "$DEVICE_IFACE: setting FEC to RS, speed to 100G"
+            ${mft}/bin/mst start
             ${mft}/bin/mlxlink -d /dev/mst/mt4121_pciconf0.1 --fec RS --fec_speed 100G
             ${pkgs.ethtool}/bin/ethtool -s ''${DEVICE_IFACE} speed 100000 duplex full autoneg off
             ;;

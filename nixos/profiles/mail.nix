@@ -16,7 +16,7 @@ in
       tls_starttls = false;
       port = 465;
       from = "automated@cfeeley.org";
-      host = "mail.messagingengine.com";
+      host = "smtp.fastmail.com";
       passwordeval = "cat ${config.age.secrets."fastmail.txt".path}";
       user = "connor@cfeeley.org";
     };

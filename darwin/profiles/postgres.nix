@@ -11,7 +11,7 @@
     extraPlugins = with package.pkgs; [
       pg_cron
       pg_partman
-      postgis
+      # postgis # broken
       # timescaledb # broken
       # timescaledb_toolkit # broken
     ];

@@ -27,7 +27,7 @@ in
   boot.tmp.useTmpfs = true;
   boot.tmp.tmpfsSize = "75%"; # 75% of RAM
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
@@ -267,10 +267,22 @@ in
           self.inputs.nix-index-database.hmModules.nix-index
           self.inputs.plasma-manager.homeManagerModules.plasma-manager
         ]
-        ++ (with hmArgs.profiles; [ core shells.fish desktop.vnc ]) ++
-        (with hmArgs.roles;
-        workstation ++ personalised ++ developer ++ linux ++ emacs-config
-          ++ (with hmArgs.profiles; [ work gstreamer media sync aws desktop.xmonad nixos.work ])));
+        ### Roles
+        ++ (with hmArgs.roles; workstation ++ personalised ++ developer ++ linux ++ emacs-config)
+        ### Profiles
+        ++ (with hmArgs.profiles; [
+          core
+          shells.fish
+          desktop.vnc
+          work
+          nixos.chromium
+          gstreamer
+          media
+          sync
+          aws
+          desktop.xmonad
+          nixos.work
+        ]));
 
       _module.args.inputs = self.inputs;
 

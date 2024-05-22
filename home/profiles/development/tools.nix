@@ -54,7 +54,6 @@ in
       nixpkgs-review # <- Review nixpkgs pull requests
       nixpkgs-pytools # <- Tools for removing the tedious nature of creating nixpkgs derivations
       nix-universal-prefetch # <- Uses nixpkgs fetchers to figure out hashes
-      nix-tour # <- 'the tour of nix' from nixcloud.io/tour as offline version
       nix-build-uncached # <- A CI friendly wrapper around nix-build
 
       ## === Linters + Formatters ===

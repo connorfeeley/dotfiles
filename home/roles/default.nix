@@ -81,8 +81,7 @@ let
   security = [ security-tools ];
 
   # OS-specific: Linux-only
-  linux =
-    [ nixos.rofi nixos.development.tools nixos.chromium virtualisation.docker ];
+  linux = [ nixos.rofi nixos.development.tools virtualisation.docker ];
 
   # OS-specific: MacOS
   macos = [ virtualisation.docker darwin.search /*darwin.dock-apps*/ ];
