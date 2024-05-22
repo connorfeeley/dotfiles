@@ -38,8 +38,7 @@
     [ xmonad-config gnome.gnome-boxes ] ++ [
       # appmenu-gtk3-module
       # popsicle
-      # FIXME(2023-05-11): broken
-      # firmware-manager
+      firmware-manager
 
       pop-icon-theme
       marwaita
