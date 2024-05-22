@@ -241,8 +241,7 @@ in
       init.templateDir = "${dotfield.userConfigPath}/git/templates";
 
       # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
-      pretty.nice =
-        "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
+      pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";
 
       gitlab."srvvirgitlab.rossvideo.com/api/v4" = {
         user = "cfeeley";
