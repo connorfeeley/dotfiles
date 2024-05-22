@@ -25,6 +25,9 @@ in
 
   mdio-tools = callPackage ./mdio-tools.nix { };
 
+
+  nomos-rebuild = callPackage ./flake-scripts/nomos-rebuild.nix { };
+
   nixos-rebuild-remote =
     callPackage ./flake-scripts/nixos-rebuild-remote.nix {
       name = "nixos-rebuild-remote";
