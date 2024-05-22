@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   programs = {
     gnome-terminal.enable = true;
     gnome-disks.enable = true;
@@ -12,8 +12,7 @@
     # Required for Firefox integration in home-manager
     gnome-browser-connector.enable = true;
     sushi.enable = true; # Quick previewer for Nautilus
-    at-spi2-core.enable =
-      true; # Service for the Assistive Technologies available on the GNOME platform
+    at-spi2-core.enable = true; # Service for the Assistive Technologies available on the GNOME platform
     core-developer-tools.enable = true;
     core-os-services.enable = true;
     core-shell.enable = true;
@@ -22,20 +21,18 @@
     games.enable = true;
     glib-networking.enable = true;
     gnome-initial-setup.enable = true;
-    gnome-keyring.enable = true;
+    gnome-keyring.enable = lib.mkForce false;
     gnome-online-accounts.enable = true;
     gnome-online-miners.enable = true;
     gnome-remote-desktop.enable = true;
     gnome-settings-daemon.enable = true;
     gnome-user-share.enable = true;
     rygel.enable = true;
-    tracker.enable =
-      true; # Search engine, search tool and metadata storage system.
-    tracker-miners.enable =
-      true; # Tracker miners, indexing services for Tracker search engine and metadata storage system.
+    tracker.enable = true; # Search engine, search tool and metadata storage system.
+    tracker-miners.enable = true; # Tracker miners, indexing services for Tracker search engine and metadata storage system.
   };
   services.gvfs.enable = true; # Virtual filesystem for Gnome
-  programs.gnupg.agent.pinentryFlavor = "gnome3";
+  programs.gnupg.agent.pinentryFlavor = "gtk2";
 
   environment.systemPackages = with pkgs;
     [ xmonad-config gnome.gnome-boxes ] ++ [

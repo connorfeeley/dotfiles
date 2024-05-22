@@ -123,6 +123,8 @@
     });
   '';
 
-  programs.light.enable =
-    true; # Backlight control for users in the 'video' group
+  programs.light.enable = true; # Backlight control for users in the 'video' group
+
+  # Allow pinentry-gnome3 to work on non-GNOME systems.
+  services.dbus.packages = [ pkgs.gcr ];
 }
