@@ -27,7 +27,7 @@ in
   boot.tmp.useTmpfs = true;
   boot.tmp.tmpfsSize = "75%"; # 75% of RAM
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
