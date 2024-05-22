@@ -81,7 +81,10 @@ let
         inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
 
         # Not in nixpkgs-23.11-darwin cache
-        inherit (inputs.nixos-stable.legacyPackages.${final.system}) chromium;
+        inherit (inputs.nixos-stable.legacyPackages.${final.system})
+          chromium
+          element-desktop
+          ;
 
         lib = prev.lib.extend (_lfinal: _lprev: {
           our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
