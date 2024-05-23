@@ -120,6 +120,7 @@ in
               ../nixos/modules/boot-unlock.nix
               ../nixos/modules/input-leap.nix
               ../nixos/modules/substituter.nix
+              ../nixos/modules/audio.nix
             ];
           }
         ));

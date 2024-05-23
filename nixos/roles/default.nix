@@ -21,7 +21,6 @@ let
   tangible =
     (with (collective.profiles); [ networking.common networking.tailscale ])
     ++ (with collective.nixosProfiles; [
-      audio
       bluetooth
       networking.wifi
       /* printers-scanners */

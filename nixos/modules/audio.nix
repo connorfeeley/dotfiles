@@ -1,5 +1,10 @@
-{ pkgs, ... }: {
+# SPDX-FileCopyrightText: 2024 Connor Feeley
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+{ pkgs, lib, ... }: {
   sound.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa = {
@@ -8,7 +13,13 @@
     };
     pulse.enable = true;
   };
-  hardware.pulseaudio.enable = false;
+
+  hardware.pulseaudio = {
+    enable = false;
+    extraClientConf = ''
+      default-server = 192.168.0.208
+    '';
+  };
 
   security.rtkit.enable = true;
 
@@ -16,6 +27,7 @@
     # easyeffects
     pavucontrol
     alsa-utils
+    pulseaudio
     pulseaudio-ctl
 
     espeak
