@@ -2,34 +2,57 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-{ pkgs, lib, ... }: {
-  sound.enable = true;
+{ config, pkgs, lib, ... }:
+let
+  inherit (lib) mkEnableOption mkOption types;
 
-  services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
+  cfg = config.remotePulseAudioServer;
+in
+{
+  options.remotePulseAudioServer = {
+    enable = mkEnableOption "Default to a remote pulseaudio server (over TCP).";
+    serverAddress = mkOption {
+      type = types.str;
+      example = lib.literalMD "192.168.0.208";
+      description = "Hostname for the virtual machine.";
     };
-    pulse.enable = true;
   };
 
-  hardware.pulseaudio = {
-    enable = false;
-    extraClientConf = ''
-      default-server = 192.168.0.208
-    '';
+  config = {
+    sound.enable = true;
+
+    services.pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+    };
+
+    hardware.pulseaudio = {
+      enable = false;
+
+      zeroconf = {
+        discovery.enable = true;
+        publish.enable = true;
+      };
+
+      extraClientConf = lib.mkIf cfg.enable ''
+        default-server = ${cfg.serverAddress}
+      '';
+    };
+
+    security.rtkit.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      # easyeffects
+      pavucontrol
+      alsa-utils
+      pulseaudio
+      pulseaudio-ctl
+
+      espeak
+    ];
   };
-
-  security.rtkit.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    # easyeffects
-    pavucontrol
-    alsa-utils
-    pulseaudio
-    pulseaudio-ctl
-
-    espeak
-  ];
 }
