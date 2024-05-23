@@ -106,6 +106,8 @@ in
           nixos@{ ... }:
           {
             nixpkgs.config.allowUnfree = true;
+            nixpkgs.config.cudaSupport = true;
+
             imports = [
               ../lib/system
               ../profiles/core/nix-config.nix
