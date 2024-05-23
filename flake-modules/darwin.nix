@@ -50,6 +50,7 @@ in
               collective.profiles.darwin.pulseaudio
               collective.profiles.darwin.postgres
               collective.profiles.darwin.virtualization.nixos-vm-host
+              collective.profiles.darwin.networking.tools
               collective.profiles.global.core
 
               nixosModules.MacBook-Pro

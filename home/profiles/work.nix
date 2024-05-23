@@ -7,6 +7,7 @@ in {
       dtc # device tree compiler
 
       self'.packages.pwrbar # control Kasa WiFi powerbar
+      python3Packages.python-kasa
     ] ++ lib.optionals isLinux (with pkgs; [
       remmina # RDP/VNC client
       freerdp

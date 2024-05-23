@@ -7,7 +7,6 @@ let
   inherit (self.collective) hmArgs;
 in
 {
-  # imports = [ profiles.pulseaudio ];
   ### === users ================================================================
 
   dotfield.guardian = {

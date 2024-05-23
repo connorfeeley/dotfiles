@@ -41,7 +41,7 @@ in
   ###
   ### KDE
   ###
-  environment.systemPackages = with pkgs; [ myTheme variety ];
+  environment.systemPackages = [ myTheme ];
   services.xserver.desktopManager.plasma5 = {
     enable = true;
     useQtScaling = true;
