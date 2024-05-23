@@ -65,7 +65,8 @@ in
                   ];
                 };
               })
-            ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev ++ (with self.collective.nixosProfiles; [
+            ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev ++
+            (with self.collective.nixosProfiles; [
               core
               hardware.amd
               nvidia
@@ -95,7 +96,7 @@ in
 
               # virtualisation.arion
 
-              hardware.machine-check-exception
+              # hardware.machine-check-exception
             ]);
           });
       };
