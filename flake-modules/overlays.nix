@@ -77,9 +77,6 @@ let
         docker = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker_24;
         docker-compose = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker-compose;
 
-        # Broken on nixos-23.05
-        inherit (inputs.nixos-unstable.legacyPackages.${final.system}) github-copilot-cli;
-
         # Not in nixpkgs-23.11-darwin cache
         inherit (inputs.nixos-stable.legacyPackages.${final.system})
           chromium
