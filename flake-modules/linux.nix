@@ -117,16 +117,14 @@ in
 
             imports = [
               ../lib/system
-              ../profiles/core/nix-config.nix
-              ../profiles/core/system-packages.nix
-              ../profiles/secrets.nix
-              ../modules/dotfield/guardian.nix
+              collective.profiles.global.core
+              collective.profiles.global.secrets
+              collective.modules.global.dotfield.guardian
+
               ../nixos/machines/workstation
 
-
-              ../modules/fup-options.nix
-              ../modules/nixos-vm
-
+              collective.modules.global.nixos-vm
+              collective.modules.global.fup-options
               collective.modules.nixos.boot-unlock
               collective.modules.nixos.input-leap
               collective.modules.nixos.substituter
@@ -145,7 +143,7 @@ in
               # ../lib/system
               # ../profiles/core/nix-config.nix
               # ../profiles/core/system-packages.nix
-              ../profiles/secrets.nix
+              collective.profiles.global.secrets
               # ../modules/dotfield/guardian.nix
               collective.modules.nixos.media-dl
               ({ config, ... }:

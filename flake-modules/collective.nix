@@ -16,8 +16,8 @@ let
 
     profiles = {
       global = inputs.digga.lib.rakeLeaves ../profiles;
-      darwin = inputs.digga.lib.rakeLeaves ../darwin/profiles;
       nixos = inputs.digga.lib.rakeLeaves ../nixos/profiles;
+      darwin = inputs.digga.lib.rakeLeaves ../darwin/profiles;
     };
 
     roles = {

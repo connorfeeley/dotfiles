@@ -80,12 +80,11 @@ in
             nixpkgs.config.allowUnfree = true;
             imports = [
               ../lib/system
-              ../profiles/core/nix-config.nix
-              ../profiles/core/system-packages.nix
-              ../profiles/secrets.nix
-              ../modules/nix-config-defaults.nix
-              ../modules/dotfield/guardian.nix
-              ../modules/fup-options.nix
+              collective.profiles.global.core
+              collective.profiles.global.secrets
+              collective.modules.global.nix-config-defaults
+              collective.modules.global.dotfield.guardian
+              collective.modules.global.fup-options
               ../darwin/machines/MacBook-Pro.nix
             ];
           }
