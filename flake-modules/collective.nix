@@ -13,11 +13,16 @@ let
     types;
 
   collective = {
-    modules = builtins.attrValues (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ../modules));
     peers = import ../ops/metadata/peers.nix;
+
+    modules = builtins.attrValues (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ../modules));
+    nixosModules = inputs.digga.lib.rakeLeaves ../nixos/modules;
+    darwinModules = inputs.digga.lib.rakeLeaves ../darwin/modules;
+
     profiles = inputs.digga.lib.rakeLeaves ../profiles;
     darwinProfiles = inputs.digga.lib.rakeLeaves ../darwin/profiles;
     nixosProfiles = inputs.digga.lib.rakeLeaves ../nixos/profiles;
+
     hmArgs = {
       profiles = inputs.digga.lib.rakeLeaves ../home/profiles;
       roles = import ../home/roles { inherit (self) collective; };

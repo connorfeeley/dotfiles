@@ -11,6 +11,8 @@ let
     mkOption
     mkPackageOption
     types;
+
+  inherit (self) collective;
 in
 {
   config = {
@@ -19,7 +21,7 @@ in
         MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, ... }:
           let
             system = "aarch64-darwin";
-            roles = import ../darwin/roles { inherit (self) collective; };
+            roles = import ../darwin/roles { inherit collective; };
           in
           inputs.darwin.lib.darwinSystem {
             # system is not needed with freshly generated hardware-configuration.nix
@@ -29,7 +31,7 @@ in
               pkgs = self.pkgsets.pkgs' "aarch64-darwin";
 
               # flake-lib = import ../lib {
-              #   inherit (self) collective;
+              #   inherit collective;
               #   lib = inputs.digga.lib // pkgs.lib;
               # };
             };
@@ -38,18 +40,18 @@ in
               inputs.home-manager.darwinModules.home-manager
               inputs.nur.nixosModules.nur
 
-              ../darwin/modules/amphetamine.nix
-              ../darwin/modules/tailscale.nix
-              ../darwin/modules/input-leap.nix
-              ../darwin/modules/hammerspoon.nix
-              ../darwin/modules/terminfo.nix
+              collective.darwinModules.amphetamine
+              collective.darwinModules.tailscale
+              collective.darwinModules.input-leap
+              collective.darwinModules.hammerspoon
+              collective.darwinModules.terminfo
 
-              self.collective.darwinProfiles.core
-              self.collective.darwinProfiles.emacs
-              self.collective.darwinProfiles.pulseaudio
-              self.collective.darwinProfiles.postgres
-              self.collective.darwinProfiles.virtualization.nixos-vm-host
-              self.collective.profiles.core
+              collective.darwinProfiles.core
+              collective.darwinProfiles.emacs
+              collective.darwinProfiles.pulseaudio
+              collective.darwinProfiles.postgres
+              collective.darwinProfiles.virtualization.nixos-vm-host
+              collective.profiles.core
 
               nixosModules.MacBook-Pro
               ({ ... }: {
@@ -73,7 +75,7 @@ in
 
       nixosModules.MacBook-Pro =
         (moduleWithSystem (
-          perSystem@{ system, config, inputs, pkgs, lib, collective }:
+          perSystem@{ system, config, inputs, pkgs, lib, self }:
           darwin@{ ... }:
           {
             nixpkgs.config.allowUnfree = true;

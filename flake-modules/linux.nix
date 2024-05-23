@@ -11,6 +11,8 @@ let
     mkOption
     mkPackageOption
     types;
+
+  inherit (self) collective;
 in
 {
   config = {
@@ -19,7 +21,7 @@ in
         workstation = withSystem "x86_64-linux" (ctx@{ self', inputs', config, ... }:
           let
             system = "x86_64-linux";
-            roles = import ../nixos/roles { inherit (self) collective; };
+            roles = import ../nixos/roles { inherit collective; };
           in
           inputs.nixpkgs.lib.nixosSystem {
             # system is not needed with freshly generated hardware-configuration.nix
@@ -30,7 +32,7 @@ in
               primaryUser.authorizedKeys = import ../secrets/authorized-keys.nix;
 
               # flake-lib = import ../lib {
-              #   inherit (self) collective;
+              #   inherit collective;
               #   lib = inputs.digga.lib // pkgs.lib;
               # };
             };
@@ -41,13 +43,13 @@ in
               inputs.nixos-vscode-server.nixosModules.default
               inputs.nurpkgs.nixosModules.mellanox
 
-              self.collective.nixosProfiles.core
-              self.collective.nixosProfiles.xorg
-              self.collective.nixosProfiles.wine
-              # self.collective.nixosProfiles.emacs
-              # self.collective.nixosProfiles.pulseaudio
-              # self.collective.nixosProfiles.virtualization.nixos-vm-host
-              self.collective.profiles.core
+              collective.nixosProfiles.core
+              collective.nixosProfiles.xorg
+              collective.nixosProfiles.wine
+              # collective.nixosProfiles.emacs
+              # collective.nixosProfiles.pulseaudio
+              # collective.nixosProfiles.virtualization.nixos-vm-host
+              collective.profiles.core
 
               nixosModules.workstation
               ({ ... }: {
@@ -66,7 +68,7 @@ in
                 };
               })
             ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev ++
-            (with self.collective.nixosProfiles; [
+            (with collective.nixosProfiles; [
               core
               hardware.amd
               nvidia
@@ -103,7 +105,7 @@ in
 
       nixosModules.workstation =
         (moduleWithSystem (
-          perSystem@{ system, config, inputs, pkgs, lib, collective }:
+          perSystem@{ system, config, inputs, pkgs, lib, self }:
           nixos@{ ... }:
           {
             nixpkgs.config.allowUnfree = true;
@@ -120,17 +122,18 @@ in
 
               ../modules/fup-options.nix
               ../modules/nixos-vm
-              ../nixos/modules/boot-unlock.nix
-              ../nixos/modules/input-leap.nix
-              ../nixos/modules/substituter.nix
-              ../nixos/modules/audio.nix
+
+              collective.nixosModules.boot-unlock
+              collective.nixosModules.input-leap
+              collective.nixosModules.substituter
+              collective.nixosModules.audio
             ];
           }
         ));
 
       nixosModules.media-dl =
         (moduleWithSystem (
-          perSystem@{ system, config, inputs, pkgs, lib, collective }:
+          perSystem@{ system, config, inputs, pkgs, lib, self }:
           nixos@{ ... }:
           {
             nixpkgs.config.allowUnfree = true;
@@ -140,7 +143,7 @@ in
               # ../profiles/core/system-packages.nix
               ../profiles/secrets.nix
               # ../modules/dotfield/guardian.nix
-              ../nixos/modules/media-dl.nix
+              collective.nixosModules.media-dl
               ({ config, ... }:
                 let inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
                 in {
