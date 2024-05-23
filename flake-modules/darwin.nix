@@ -49,6 +49,7 @@ in
               self.collective.darwinProfiles.pulseaudio
               self.collective.darwinProfiles.postgres
               self.collective.darwinProfiles.virtualization.nixos-vm-host
+              self.collective.darwinProfiles.networking.tools
               self.collective.profiles.core
 
               nixosModules.MacBook-Pro
