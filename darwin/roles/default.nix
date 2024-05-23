@@ -1,7 +1,7 @@
 { collective }:
 let
-  workstation = (with collective.profiles; [ fonts.common secrets flox ])
-    ++ (with collective.darwinProfiles; [
+  workstation = (with collective.profiles.global; [ fonts.common secrets flox ])
+    ++ (with collective.profiles.darwin; [
     system-defaults
     distributed-build
 
@@ -12,8 +12,8 @@ let
     # virtualization.docker
   ]);
 
-  server = (with collective.profiles; [ fonts.common secrets flox ])
-    ++ (with collective.darwinProfiles; [
+  server = (with collective.profiles.global; [ fonts.common secrets flox ])
+    ++ (with collective.profiles.darwin; [
     system-defaults
     distributed-build
 

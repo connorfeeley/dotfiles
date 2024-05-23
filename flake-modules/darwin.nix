@@ -40,18 +40,18 @@ in
               inputs.home-manager.darwinModules.home-manager
               inputs.nur.nixosModules.nur
 
-              collective.darwinModules.amphetamine
-              collective.darwinModules.tailscale
-              collective.darwinModules.input-leap
-              collective.darwinModules.hammerspoon
-              collective.darwinModules.terminfo
+              collective.modules.darwin.amphetamine
+              collective.modules.darwin.tailscale
+              collective.modules.darwin.input-leap
+              collective.modules.darwin.hammerspoon
+              collective.modules.darwin.terminfo
 
-              collective.darwinProfiles.core
-              collective.darwinProfiles.emacs
-              collective.darwinProfiles.pulseaudio
-              collective.darwinProfiles.postgres
-              collective.darwinProfiles.virtualization.nixos-vm-host
-              collective.profiles.core
+              collective.profiles.darwin.core
+              collective.profiles.darwin.emacs
+              collective.profiles.darwin.pulseaudio
+              collective.profiles.darwin.postgres
+              collective.profiles.darwin.virtualization.nixos-vm-host
+              collective.profiles.global.core
 
               nixosModules.MacBook-Pro
               ({ ... }: {

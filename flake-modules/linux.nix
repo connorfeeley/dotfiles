@@ -43,13 +43,13 @@ in
               inputs.nixos-vscode-server.nixosModules.default
               inputs.nurpkgs.nixosModules.mellanox
 
-              collective.nixosProfiles.core
-              collective.nixosProfiles.xorg
-              collective.nixosProfiles.wine
-              # collective.nixosProfiles.emacs
-              # collective.nixosProfiles.pulseaudio
-              # collective.nixosProfiles.virtualization.nixos-vm-host
-              collective.profiles.core
+              collective.profiles.nixos.core
+              collective.profiles.nixos.xorg
+              collective.profiles.nixos.wine
+              # collective.profiles.nixos.emacs
+              # collective.profiles.nixos.pulseaudio
+              # collective.profiles.nixos.virtualization.nixos-vm-host
+              collective.profiles.global.core
 
               nixosModules.workstation
               ({ ... }: {
@@ -68,7 +68,7 @@ in
                 };
               })
             ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev ++
-            (with collective.nixosProfiles; [
+            (with collective.profiles.nixos; [
               core
               hardware.amd
               nvidia
@@ -123,10 +123,10 @@ in
               ../modules/fup-options.nix
               ../modules/nixos-vm
 
-              collective.nixosModules.boot-unlock
-              collective.nixosModules.input-leap
-              collective.nixosModules.substituter
-              collective.nixosModules.audio
+              collective.modules.nixos.boot-unlock
+              collective.modules.nixos.input-leap
+              collective.modules.nixos.substituter
+              collective.modules.nixos.audio
             ];
           }
         ));
@@ -143,7 +143,7 @@ in
               # ../profiles/core/system-packages.nix
               ../profiles/secrets.nix
               # ../modules/dotfield/guardian.nix
-              collective.nixosModules.media-dl
+              collective.modules.nixos.media-dl
               ({ config, ... }:
                 let inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
                 in {
