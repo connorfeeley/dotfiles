@@ -5,23 +5,31 @@
 { self, lib, inputs, flake-parts-lib, moduleWithSystem, withSystem, ... }:
 
 let
-  inherit (flake-parts-lib)
-    mkPerSystemOption;
-  inherit (lib)
-    mkOption
-    mkPackageOption
-    types;
-
   collective = {
     peers = import ../ops/metadata/peers.nix;
 
-    modules = builtins.attrValues (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ../modules));
-    nixosModules = inputs.digga.lib.rakeLeaves ../nixos/modules;
-    darwinModules = inputs.digga.lib.rakeLeaves ../darwin/modules;
+    modules = {
+      global = inputs.digga.lib.rakeLeaves ../modules;
+      nixos = inputs.digga.lib.rakeLeaves ../nixos/modules;
+      darwin = inputs.digga.lib.rakeLeaves ../darwin/modules;
+    };
 
-    profiles = inputs.digga.lib.rakeLeaves ../profiles;
-    darwinProfiles = inputs.digga.lib.rakeLeaves ../darwin/profiles;
-    nixosProfiles = inputs.digga.lib.rakeLeaves ../nixos/profiles;
+    profiles = {
+      global = inputs.digga.lib.rakeLeaves ../profiles;
+      nixos = inputs.digga.lib.rakeLeaves ../nixos/profiles;
+      darwin = inputs.digga.lib.rakeLeaves ../darwin/profiles;
+    };
+
+    roles = {
+      nixos = import ../nixos/roles { inherit (self) collective; };
+      darwin = import ../darwin/roles { inherit (self) collective; };
+      home = import ../home/roles { inherit (self) collective; };
+    };
+
+    machines = {
+      nixos = inputs.digga.lib.rakeLeaves ../nixos/machines;
+      darwin = inputs.digga.lib.rakeLeaves ../darwin/machines;
+    };
 
     hmArgs = {
       profiles = inputs.digga.lib.rakeLeaves ../home/profiles;

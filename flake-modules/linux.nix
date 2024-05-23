@@ -21,7 +21,6 @@ in
         workstation = withSystem "x86_64-linux" (ctx@{ self', inputs', config, ... }:
           let
             system = "x86_64-linux";
-            roles = import ../nixos/roles { inherit collective; };
           in
           inputs.nixpkgs.lib.nixosSystem {
             # system is not needed with freshly generated hardware-configuration.nix
@@ -43,13 +42,13 @@ in
               inputs.nixos-vscode-server.nixosModules.default
               inputs.nurpkgs.nixosModules.mellanox
 
-              collective.nixosProfiles.core
-              collective.nixosProfiles.xorg
-              collective.nixosProfiles.wine
-              # collective.nixosProfiles.emacs
-              # collective.nixosProfiles.pulseaudio
-              # collective.nixosProfiles.virtualization.nixos-vm-host
-              collective.profiles.core
+              collective.profiles.nixos.core
+              collective.profiles.nixos.xorg
+              collective.profiles.nixos.wine
+              # collective.profiles.nixos.emacs
+              # collective.profiles.nixos.pulseaudio
+              # collective.profiles.nixos.virtualization.nixos-vm-host
+              collective.profiles.global.core
 
               nixosModules.workstation
               ({ ... }: {
@@ -67,8 +66,13 @@ in
                   ];
                 };
               })
-            ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev ++
-            (with collective.nixosProfiles; [
+            ]
+            ++ collective.roles.nixos.graphical
+            ++ collective.roles.nixos.server
+            ++ collective.roles.nixos.tangible
+            ++ collective.roles.nixos.virt
+            ++ collective.roles.nixos.fpgadev
+            ++ (with collective.profiles.nixos; [
               core
               hardware.amd
               nvidia
@@ -113,20 +117,19 @@ in
 
             imports = [
               ../lib/system
-              ../profiles/core/nix-config.nix
-              ../profiles/core/system-packages.nix
-              ../profiles/secrets.nix
-              ../modules/dotfield/guardian.nix
-              ../nixos/machines/workstation
 
+              collective.profiles.global.core
+              collective.profiles.global.secrets
+              collective.modules.global.dotfield.guardian
 
-              ../modules/fup-options.nix
-              ../modules/nixos-vm
+              collective.machines.nixos.workstation
 
-              collective.nixosModules.boot-unlock
-              collective.nixosModules.input-leap
-              collective.nixosModules.substituter
-              collective.nixosModules.audio
+              collective.modules.global.nixos-vm
+              collective.modules.global.fup-options
+              collective.modules.nixos.boot-unlock
+              collective.modules.nixos.input-leap
+              collective.modules.nixos.substituter
+              collective.modules.nixos.audio
             ];
           }
         ));
@@ -138,12 +141,11 @@ in
           {
             nixpkgs.config.allowUnfree = true;
             imports = [
-              # ../lib/system
-              # ../profiles/core/nix-config.nix
-              # ../profiles/core/system-packages.nix
-              ../profiles/secrets.nix
-              # ../modules/dotfield/guardian.nix
-              collective.nixosModules.media-dl
+              ../lib/system
+
+              collective.profiles.global.secrets
+              collective.modules.nixos.media-dl
+
               ({ config, ... }:
                 let inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
                 in {
@@ -163,8 +165,10 @@ in
         pkgs' = import inputs.nixpkgs {
           inherit system;
           inherit (self.overlays) cfeeley-overlay;
+
           config = {
             nixpkgs.config.allowUnfree = true;
+
             nixpkgs.overlays = self.overlays.cfeeley-overlay;
           };
         };

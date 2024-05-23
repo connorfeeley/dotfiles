@@ -21,7 +21,6 @@ in
         MacBook-Pro = withSystem "aarch64-darwin" (ctx@{ self', inputs', config, ... }:
           let
             system = "aarch64-darwin";
-            roles = import ../darwin/roles { inherit collective; };
           in
           inputs.darwin.lib.darwinSystem {
             # system is not needed with freshly generated hardware-configuration.nix
@@ -40,18 +39,19 @@ in
               inputs.home-manager.darwinModules.home-manager
               inputs.nur.nixosModules.nur
 
-              collective.darwinModules.amphetamine
-              collective.darwinModules.tailscale
-              collective.darwinModules.input-leap
-              collective.darwinModules.hammerspoon
-              collective.darwinModules.terminfo
+              collective.modules.darwin.amphetamine
+              collective.modules.darwin.tailscale
+              collective.modules.darwin.input-leap
+              collective.modules.darwin.hammerspoon
+              collective.modules.darwin.terminfo
 
-              collective.darwinProfiles.core
-              collective.darwinProfiles.emacs
-              collective.darwinProfiles.pulseaudio
-              collective.darwinProfiles.postgres
-              collective.darwinProfiles.virtualization.nixos-vm-host
-              collective.profiles.core
+              collective.profiles.darwin.core
+              collective.profiles.darwin.emacs
+              collective.profiles.darwin.pulseaudio
+              collective.profiles.darwin.postgres
+              collective.profiles.darwin.virtualization.nixos-vm-host
+              collective.profiles.darwin.networking.tools
+              collective.profiles.global.core
 
               nixosModules.MacBook-Pro
               ({ ... }: {
@@ -69,7 +69,7 @@ in
                   ];
                 };
               })
-            ] ++ roles.workstation;
+            ] ++ collective.roles.darwin.workstation;
           });
       };
 
@@ -81,13 +81,15 @@ in
             nixpkgs.config.allowUnfree = true;
             imports = [
               ../lib/system
-              ../profiles/core/nix-config.nix
-              ../profiles/core/system-packages.nix
-              ../profiles/secrets.nix
-              ../modules/nix-config-defaults.nix
-              ../modules/dotfield/guardian.nix
-              ../modules/fup-options.nix
-              ../darwin/machines/MacBook-Pro.nix
+
+              collective.profiles.global.core
+              collective.profiles.global.secrets
+
+              collective.modules.global.nix-config-defaults
+              collective.modules.global.dotfield.guardian
+              collective.modules.global.fup-options
+
+              collective.machines.darwin.MacBook-Pro
             ];
           }
         ));
