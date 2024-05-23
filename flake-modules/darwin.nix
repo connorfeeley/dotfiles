@@ -81,12 +81,15 @@ in
             nixpkgs.config.allowUnfree = true;
             imports = [
               ../lib/system
+
               collective.profiles.global.core
               collective.profiles.global.secrets
+
               collective.modules.global.nix-config-defaults
               collective.modules.global.dotfield.guardian
               collective.modules.global.fup-options
-              ../darwin/machines/MacBook-Pro.nix
+
+              collective.machines.darwin.MacBook-Pro
             ];
           }
         ));

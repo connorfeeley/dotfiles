@@ -117,11 +117,12 @@ in
 
             imports = [
               ../lib/system
+
               collective.profiles.global.core
               collective.profiles.global.secrets
               collective.modules.global.dotfield.guardian
 
-              ../nixos/machines/workstation
+              collective.machines.nixos.workstation
 
               collective.modules.global.nixos-vm
               collective.modules.global.fup-options
@@ -140,12 +141,11 @@ in
           {
             nixpkgs.config.allowUnfree = true;
             imports = [
-              # ../lib/system
-              # ../profiles/core/nix-config.nix
-              # ../profiles/core/system-packages.nix
+              ../lib/system
+
               collective.profiles.global.secrets
-              # ../modules/dotfield/guardian.nix
               collective.modules.nixos.media-dl
+
               ({ config, ... }:
                 let inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
                 in {
@@ -165,8 +165,10 @@ in
         pkgs' = import inputs.nixpkgs {
           inherit system;
           inherit (self.overlays) cfeeley-overlay;
+
           config = {
             nixpkgs.config.allowUnfree = true;
+
             nixpkgs.overlays = self.overlays.cfeeley-overlay;
           };
         };
