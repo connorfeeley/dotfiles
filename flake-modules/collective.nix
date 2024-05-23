@@ -20,6 +20,12 @@ let
       nixos = inputs.digga.lib.rakeLeaves ../nixos/profiles;
     };
 
+    roles = {
+      nixos = import ../nixos/roles { inherit (self) collective; };
+      darwin = import ../darwin/roles { inherit (self) collective; };
+      home = import ../home/roles { inherit (self) collective; };
+    };
+
     hmArgs = {
       profiles = inputs.digga.lib.rakeLeaves ../home/profiles;
       roles = import ../home/roles { inherit (self) collective; };

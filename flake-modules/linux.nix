@@ -21,7 +21,6 @@ in
         workstation = withSystem "x86_64-linux" (ctx@{ self', inputs', config, ... }:
           let
             system = "x86_64-linux";
-            roles = import ../nixos/roles { inherit collective; };
           in
           inputs.nixpkgs.lib.nixosSystem {
             # system is not needed with freshly generated hardware-configuration.nix
@@ -67,8 +66,13 @@ in
                   ];
                 };
               })
-            ] ++ roles.graphical ++ roles.server ++ roles.tangible ++ roles.virt ++ roles.fpgadev ++
-            (with collective.profiles.nixos; [
+            ]
+            ++ collective.roles.nixos.graphical
+            ++ collective.roles.nixos.server
+            ++ collective.roles.nixos.tangible
+            ++ collective.roles.nixos.virt
+            ++ collective.roles.nixos.fpgadev
+            ++ (with collective.profiles.nixos; [
               core
               hardware.amd
               nvidia
