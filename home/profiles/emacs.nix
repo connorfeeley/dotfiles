@@ -124,8 +124,7 @@ let
 
   emacsDir = "${configHome}/emacs";
 
-  e-wrapper = pkgs.writeShellScriptBin "e"
-    (builtins.readFile "${config.lib.dotfield.srcPath}/config/emacs/e");
+  e-wrapper = pkgs.writeShellScriptBin "e" (builtins.readFile "${config.lib.dotfield.srcPath}/config/emacs/e");
 
   doom-corfu = pkgs.fetchgit {
     url = "https://git.sr.ht/~gagbo/doom-config";
@@ -162,8 +161,7 @@ lib.mkMerge [
 
     home.sessionPath = [ "${configHome}/emacs/bin" ];
 
-    xdg.configFile."doom/modules/completion/corfu".source =
-      mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
+    xdg.configFile."doom/modules/completion/corfu".source = mkOutOfStoreSymlink "${doom-corfu}/modules/completion/corfu";
 
     # Install Doom imperatively to make use of its CLI.
     # While <github:nix-community/nix-doom-emacs> exists, it is not recommended
