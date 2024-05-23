@@ -117,6 +117,7 @@ in
   };
 
   boot.kernelModules = [ "usbip" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.usbip ];
 
   ### === Remote LUKS/ZFS Unlock  ============================================================
 
