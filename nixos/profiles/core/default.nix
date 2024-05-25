@@ -17,8 +17,6 @@ in
   nix = {
     settings = {
       auto-optimise-store = true;
-      # TODO: is it really reasonable to set these all as defaults?
-      system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     };
 
     nixPath = [ "nixos-config=${nixosConfigPath}" ];

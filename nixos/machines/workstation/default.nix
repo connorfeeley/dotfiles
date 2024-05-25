@@ -35,6 +35,10 @@ in
 
   system.stateVersion = "22.05";
 
+  nix.settings = {
+    system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  };
+
   ### === timezone ============================================================
 
   time = {
