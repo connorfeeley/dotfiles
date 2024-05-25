@@ -9,10 +9,7 @@ let
 
   inherit (self.collective) hmArgs;
 
-  defaultProfiles = with hmArgs.profiles;
-    [
-      core # pretty hardcore bruh
-    ];
+  defaultProfiles =  [ hmArgs.profiles.core ];
 in
 {
   imports = [ homeModules ];
@@ -28,10 +25,9 @@ in
     "cfeeley@cfeeley-laptop" =
       let name = "cfeeley";
       in hmArgs: {
-        imports = with hmArgs.roles;
-          (hmArgs.lib.flatten [ ]
-          ++ (hmArgs.lib.flatten [ shell developer emacs-config graphical server trusted webdev fpgadev linux ]))
-          ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]);
+        imports =
+          (with hmArgs.roles; hmArgs.lib.flatten [ shell developer emacs-config graphical server trusted webdev fpgadev linux ]) ++
+          (with hmArgs.profiles; [ shells.fish desktop.vnc ]);
         home = {
           username = hmArgs.lib.mkForce name;
           homeDirectory = hmArgs.lib.mkForce "/home/${name}";

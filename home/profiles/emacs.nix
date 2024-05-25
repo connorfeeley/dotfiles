@@ -256,8 +256,6 @@ lib.mkMerge [
         # :lang latex & :lang org (latex previews)
         texlive.combined.scheme-medium
         groff
-        # :lang nix
-        nixpkgs-fmt
 
         # :lang sh
         shellcheck # <- bash doesn't have to be scary
@@ -328,11 +326,6 @@ lib.mkMerge [
         #: C++
         clang-tools
         # bear
-        #: nix
-        rnix-lsp
-        nil # ('nix-nil' from source repo)
-        inputs'.nixd.packages.nixd
-        nixfmt-rfc-style
         #: toml
         taplo-lsp
         #: web-mode

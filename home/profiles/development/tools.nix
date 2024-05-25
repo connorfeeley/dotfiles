@@ -5,6 +5,8 @@ let
   inherit (pkgs.stdenv) isLinux isAarch64;
 in
 {
+  development.nix.enable = true;
+
   home.packages = with pkgs;
     [
       ## === Uncategorized Packages ===
@@ -63,7 +65,6 @@ in
       statix
       deadnix
       nixpkgs-fmt
-      nixfmt
       alejandra
       cachix
       treefmt

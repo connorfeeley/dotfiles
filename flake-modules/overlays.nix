@@ -68,7 +68,8 @@ let
           docker-compose
           input-leap
           nix-du
-          nixfmt-rfc-style;
+          nixfmt-rfc-style
+        ;
         docker = final.docker_24;
 
         # Not in nixpkgs-23.11-darwin cache
