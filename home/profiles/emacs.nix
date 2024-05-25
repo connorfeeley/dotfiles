@@ -332,6 +332,7 @@ lib.mkMerge [
         rnix-lsp
         nil # ('nix-nil' from source repo)
         inputs'.nixd.packages.nixd
+        nixfmt-rfc-style
         #: toml
         taplo-lsp
         #: web-mode
