@@ -32,8 +32,8 @@ in
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
-  environment.systemPackages = with pkgs; lib.mkIf isLinux [
-    glibcLocales
+  environment.systemPackages = lib.mkIf isLinux [
+    pkgs.glibcLocales
   ];
 
   programs.tmux = { enable = true; };
