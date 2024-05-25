@@ -1,15 +1,10 @@
 moduleArgs@{ config, lib, pkgs, inputs, ... }:
 let
-  inherit (config.lib.dotfield) fsPath;
-
   sshHostPath =
     if (moduleArgs.impermanence or false) then
       "/persist/etc/ssh"
     else
       "/etc/ssh";
-
-  # FIXME: is this accurate?
-  nixosConfigPath = "${fsPath}/lib/compat/nixos";
 in
 {
   imports = [ inputs.envfs.nixosModules.envfs ];
@@ -19,7 +14,6 @@ in
       auto-optimise-store = true;
     };
 
-    nixPath = [ "nixos-config=${nixosConfigPath}" ];
     optimise.automatic = true;
   };
 

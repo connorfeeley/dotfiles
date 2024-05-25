@@ -1,9 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (config.lib.dotfield) fsPath;
   inherit (config.networking) hostName;
-
-  darwinConfigPath = "${fsPath}/lib/compat/darwin";
 in
 {
   nix = {
@@ -11,8 +8,6 @@ in
       auto-optimise-store = false; # Causes /nix/store/.links errors
       system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     };
-
-    nixPath = [ "nixos-config=${darwinConfigPath}" ];
 
     daemonProcessType = "Interactive";
     daemonIOLowPriority = false;

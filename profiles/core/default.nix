@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }:
-let inherit (pkgs.stdenv) isLinux; in
+{ config, lib, pkgs, inputs, ... }:
+let
+  inherit (pkgs.stdenv) isLinux isDarwin;
+
+  inherit (config.lib.dotfield) fsPath;
+  nixPath = [
+    (lib.optionalString isLinux "nixos-config=${fsPath}/lib/compat/nixos")
+    (lib.optionalString isDarwin "darwin-config=${fsPath}/lib/compat/darwin")
+  ];
+in
 {
   imports = [ ../../lib/system ./nix-config.nix ./system-packages.nix ];
 
@@ -57,5 +65,9 @@ let inherit (pkgs.stdenv) isLinux; in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+  };
+
+  nix = {
+    inherit nixPath;
   };
 }
