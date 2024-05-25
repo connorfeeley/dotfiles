@@ -40,45 +40,39 @@ let
   packagesOverlay =
     (final: prev:
       let
-        packagesFrom = inputAttr:
-          inputAttr.packages.${final.system};
+        packagesFrom = inputAttr: inputAttr.packages.${final.system};
+        legacyPackagesFrom = inputAttr: inputAttr.legacyPackages.${final.system};
       in
       {
+        # inherit (packagesFrom inputs.prefmanager) prefmanager;
         inherit (packagesFrom self.packages) emacs-plus;
-        # inherit (inputs.nixos-unstable.legacyPackages.${final.system}) emacs29-macport;
         inherit (packagesFrom inputs.devenv) devenv;
         inherit (packagesFrom inputs.deploy) deploy-rs;
         inherit (packagesFrom inputs.deploy-flake) deploy-flake;
-        # inherit (packagesFrom inputs.prefmanager) prefmanager;
         inherit (packagesFrom inputs.nix-nil) nil;
-        inherit (packagesFrom inputs.nix-alien) nix-alien;
-        inherit (packagesFrom inputs.nix-alien) nix-index-update;
+        inherit (packagesFrom inputs.nix-alien) nix-alien nix-index-update;
         inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
         inherit (packagesFrom inputs.mmdoc) mmdoc;
         inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
         inherit (packagesFrom inputs.nix-search-cli) nix-search;
         inherit (packagesFrom inputs.nixd) nixd;
-
         inherit (packagesFrom inputs.xmonad-config) xmonad-config;
-        inherit (packagesFrom inputs.ttc-subway-font)
-          ttc-subway bloor-yonge-font;
-
-        # Build fails on nixpkgs-23.11-darwin
-        input-leap = inputs.nixos-unstable.legacyPackages.${final.system}.input-leap;
-        nix-du = inputs.nixos-unstable.legacyPackages.${final.system}.nix-du;
+        inherit (packagesFrom inputs.ttc-subway-font) ttc-subway bloor-yonge-font;
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
-        emacsGitDarwin =
-          inputs.darwin-emacs.packages.${final.system}.default;
-        neovim-plusultra =
-          inputs.neovim-plusultra.packages.${final.system}.neovim;
+        emacsGitDarwin = inputs.darwin-emacs.packages.${final.system}.default;
+        neovim-plusultra = inputs.neovim-plusultra.packages.${final.system}.neovim;
 
-        inherit (inputs.nixos-unstable-small.legacyPackages.${final.system}) docker_24;
-        docker = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker_24;
-        docker-compose = inputs.nixos-unstable-small.legacyPackages.${final.system}.docker-compose;
+        inherit (legacyPackagesFrom inputs.nixos-unstable)
+          docker_24
+          docker-compose
+          input-leap
+          nix-du
+          nixfmt-rfc-style;
+        docker = final.docker_24;
 
         # Not in nixpkgs-23.11-darwin cache
-        inherit (inputs.nixos-stable.legacyPackages.${final.system})
+        inherit (legacyPackagesFrom inputs.nixos-stable)
           chromium
           element-desktop
           ;
@@ -96,9 +90,6 @@ let
           });
         });
       });
-
-  commonImports = [
-  ];
 in
 {
   config = rec {
