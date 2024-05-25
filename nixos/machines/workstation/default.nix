@@ -322,6 +322,9 @@ in
 
   substituter.enable = true;
 
+  # Enable attic nix cache
+  services.cache.enable = true;
+
   # Enable ZFS exporter
   services.prometheus.exporters.zfs = {
     enable = true;
