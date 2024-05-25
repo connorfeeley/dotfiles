@@ -90,11 +90,9 @@ in
 
               desktop.common
               desktop.input-leap
-              login.gdm
               xorg
               # hm-xmonad
               kde
-              gnome-desktop
               xfce
               # pantheon
 
@@ -103,6 +101,9 @@ in
               # virtualisation.arion
 
               # hardware.machine-check-exception
+
+              # login.gdm
+              # gnome-desktop
             ]);
           });
       };
