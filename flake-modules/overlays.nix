@@ -25,6 +25,8 @@ let
 
     inputs.nixpkgs-doc.overlays.default # add info outputs to nixpkgs.htmlDocs.nixpkgsManual
 
+    inputs.attic.overlays.default # Self-hosted, S3-backed Nix cache
+
     # Personal overlay
     inputs.nurpkgs.overlays.default
 
