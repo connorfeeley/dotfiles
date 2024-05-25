@@ -4,6 +4,7 @@ let
 
   inherit (config.lib.dotfield) fsPath;
   nixPath = [
+    "nixpkgs=${inputs.nixpkgs}"
     (lib.optionalString isLinux "nixos-config=${fsPath}/lib/compat/nixos")
     (lib.optionalString isDarwin "darwin-config=${fsPath}/lib/compat/darwin")
   ];
