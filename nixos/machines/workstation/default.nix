@@ -6,6 +6,8 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 
   inherit (self.collective) hmArgs;
+
+  hashedPassword = "$6$VsuLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
 in
 {
   imports = [ ./hardware-configuration.nix ./zfs-root.nix ./mellanox.nix ./samba.nix ./tigervnc.nix ];
@@ -203,19 +205,14 @@ in
     username = "cfeeley";
     autoLogin = false; # Enabling this dumped me to a TTY.
   };
-  services.xserver.displayManager.defaultSession =
-    "gnome"; # or gnome-flashback-xmonad-flashback
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword =
-    "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  users.users.root.hashedPassword = hashedPassword;
   users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword =
-      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
-    hashedPassword =
-      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    initialHashedPassword = hashedPassword;
+    hashedPassword = hashedPassword;
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     extraGroups = [
       "wheel"
@@ -240,10 +237,8 @@ in
     uid = 999;
     group = "sbuser";
     # isNormalUser = true;
-    initialHashedPassword =
-      "$6$VsuLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
-    hashedPassword =
-      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    initialHashedPassword = hashedPassword;
+    hashedPassword = hashedPassword;
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     extraGroups = [
       "users"
@@ -360,12 +355,22 @@ in
     ip = "${pkgs.iproute} -c";
   };
 
-  # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
-  # Normally the machine will power down after 20 minutes if no user is logged in.
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
+  systemd.targets = {
+    # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
+    # Normally the machine will power down after 20 minutes if no user is logged in.
+    sleep.enable = false;
+    sleep.unitConfig.DefaultDependencies = false;
+
+    suspend.enable = false;
+    suspend.unitConfig.DefaultDependencies = false;
+
+    hibernate.enable = false;
+    hibernate.unitConfig.DefaultDependencies = false;
+
+    hybrid-sleep.enable = false;
+    hybrid-sleep.unitConfig.DefaultDependencies = false;
+  };
+  powerManagement.enable = false;
 
   # FIXME(2023-02-28): always thinks VPN is disconnected
   # Poll VPN endpoint every 5 minutes and send an alert if the VPN is unreachable
