@@ -128,7 +128,7 @@ in
               collective.modules.global.nixos-vm
               collective.modules.global.fup-options
 
-              collective.modules.nixos.boot-unlock
+              collective.modules.nixos.remote-unlock
               collective.modules.nixos.input-leap
               collective.modules.nixos.substituter
               collective.modules.nixos.audio
