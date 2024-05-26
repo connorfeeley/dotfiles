@@ -132,7 +132,7 @@ in
               collective.modules.nixos.input-leap
               collective.modules.nixos.substituter
               collective.modules.nixos.audio
-              collective.modules.nixos.cache
+              collective.modules.global.cache
             ];
           }
         ));
