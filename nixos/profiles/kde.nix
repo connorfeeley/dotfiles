@@ -1,12 +1,15 @@
-{ config, lib, pkgs, ... }:
+# SPDX-FileCopyrightText: 2024 Connor Feeley
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+{ lib, pkgs, ... }:
 let
-  inherit (pkgs.stdenv) isLinux;
-  myTheme = with pkgs;
-    stdenvNoCC.mkDerivation {
+  myTheme =
+    pkgs.stdenvNoCC.mkDerivation {
       pname = "artim-dark";
       version = "unstable-2021-12-29";
 
-      src = fetchFromGitHub {
+      src = pkgs.fetchFromGitHub {
         owner = "Mrcuve0";
         repo = "Aritim-Dark";
         rev = "99cd330a1ab4814260e28f15431e3338a1103668";
@@ -45,7 +48,6 @@ in
 
   services.xserver.displayManager.sddm = {
     enable = true;
-    theme = "Aritim-Dark";
   };
 
   services.xserver.desktopManager.plasma5 = {
