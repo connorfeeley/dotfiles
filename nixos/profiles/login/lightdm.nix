@@ -7,11 +7,8 @@
   security.pam.services.sddm.enableGnomeKeyring = true;
 
   services.xserver = {
-    displayManager.sddm = {
+    displayManager.lightdm = {
       enable = true;
-      enableHidpi = true;
-      autoNumlock = true;
-      # settings = { Autologin = { Session = "plasma.desktop"; User = "john"; } ; };
     };
   };
 }

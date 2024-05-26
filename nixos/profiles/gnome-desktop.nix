@@ -4,8 +4,7 @@
     gnome-disks.enable = true;
     kdeconnect.enable = true;
     kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
-    seahorse.enable =
-      true; # Provides Seahorse, a Gnome application for managing keys and passwords
+    seahorse.enable = true; # Provides Seahorse, a Gnome application for managing keys and passwords
   };
 
   services.gnome = {
