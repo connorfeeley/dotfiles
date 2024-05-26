@@ -7,7 +7,8 @@ let
 
   inherit (self.collective) hmArgs;
 
-  hashedPassword = "$6$VsuLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+
 in
 {
   imports = [ ./hardware-configuration.nix ./zfs-root.nix ./mellanox.nix ./samba.nix ./tigervnc.nix ];
