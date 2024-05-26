@@ -3,18 +3,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 { inputs, config, lib, pkgs, ... }:
-let
-  cfg = config.services.cache;
 
-  # TODO
-  storageS3 = {
-    type = "s3";
-    bucket = "cfeeley-nixpkgs-cache";
-    region = "auto";
-    endpoint = "https://58f2f5e716707689e3cf7b16c1efcf28.r2.cloudflarestorage.com/cfeeley-nixpkgs-cache";
-  };
-in
-{
+# TODO: https://github.com/zhaofengli/attic/issues/114
+let cfg = config.services.cache;
+in {
   imports = [ inputs.attic.nixosModules.atticd ];
 
   options.services.cache = {
@@ -62,8 +54,13 @@ in
           max-size = 256 * 1024; # 256 KiB
         };
 
-        # Storage
-        storage = lib.mkIf cfg.enableCloudflareS3 storageS3;
+        # Storage configuration
+        storage = lib.mkIf cfg.enableCloudflareS3 {
+          type = "s3";
+          bucket = "cfeeley-nixpkgs-cache";
+          region = "auto";
+          endpoint = "https://58f2f5e716707689e3cf7b16c1efcf28.r2.cloudflarestorage.com/cfeeley-nixpkgs-cache";
+        };
 
         # Garbage collection
         garbage-collection = {
@@ -88,8 +85,8 @@ in
     services.nginx = {
       enable = true;
       virtualHosts."workstation.elephant-vibes.ts.net" = {
-        locations."/services/cache" = {
-          proxyPass = "http://localhost:9090";
+        locations."/services/cache/" = {
+          proxyPass = "http://localhost:9090/";
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             "client_max_body_size 10G;" +
