@@ -89,6 +89,10 @@ in
               collective.modules.global.dotfield.guardian
               collective.modules.global.fup-options
 
+              # Attic
+              collective.modules.darwin.attic
+              collective.modules.global.cache
+
               collective.machines.darwin.MacBook-Pro
             ];
           }
