@@ -416,6 +416,12 @@ in
   # Jellyfin reverse proxy
   # Enable NGINX as a reverse proxy, with LetsEncrypt.
   services.nginx.enable = true;
+  services.nginx.recommendedOptimisation = true;
+  services.nginx.recommendedProxySettings = true;
+  services.nginx.recommendedTlsSettings = true;
+  services.nginx.recommendedGzipSettings = true;
+  services.nginx.recommendedBrotliSettings = true;
+  services.nginx.recommendedZstdSettings = true;
   services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
     forceSSL = true;
     # NOTE: path to certificate file - not the file itself, which we don't want added to the store
