@@ -5,11 +5,11 @@
 { ... }:
 {
   services.xserver = {
-    displayManager = {
-      sddm.enable = true;
-      sddm.enableHidpi = true;
-      sddm.autoNumlock = true;
-      # sddm.settings = { Autologin = { Session = "plasma.desktop"; User = "john"; } ; };
+    displayManager.sddm = {
+      enable = true;
+      enableHidpi = true;
+      autoNumlock = true;
+      # settings = { Autologin = { Session = "plasma.desktop"; User = "john"; } ; };
       theme = "Aritim-Dark";
     };
   };
