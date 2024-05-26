@@ -10,7 +10,6 @@
       enableHidpi = true;
       autoNumlock = true;
       # settings = { Autologin = { Session = "plasma.desktop"; User = "john"; } ; };
-      theme = "Aritim-Dark";
     };
   };
 }
