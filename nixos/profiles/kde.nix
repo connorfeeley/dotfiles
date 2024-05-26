@@ -42,6 +42,12 @@ in
   ### KDE
   ###
   environment.systemPackages = [ myTheme ];
+
+  services.xserver.displayManager.sddm = {
+    enable = true;
+    theme = "Aritim-Dark";
+  };
+
   services.xserver.desktopManager.plasma5 = {
     enable = true;
     useQtScaling = true;
