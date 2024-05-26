@@ -12,7 +12,6 @@ in {
   options.services.cache = {
     enable = lib.mkEnableOption "Serve an S3-backed Nix cache using attic";
     enableCloudflareS3 = lib.mkEnableOption "Enable Cloudflare S3 storage";
-    enablePostgres = lib.mkEnableOption "Enable Cloudflare S3 storage";
   };
 
   config = lib.mkIf cfg.enable {

@@ -15,12 +15,12 @@ in {
   ];
 
   options.services.cache = {
-    enable = lib.mkEnableOption "Serve an S3-backed Nix cache using attic";
-    enableCloudflareS3 = lib.mkEnableOption "Enable Cloudflare S3 storage";
     enablePostgres = lib.mkEnableOption "Enable Cloudflare S3 storage";
   };
 
   config = lib.mkIf cfg.enable {
+
+    environment.systemPackages = [ pkgs.attic ];
     services.postgresql = lib.mkIf cfg.enablePostgres {
       # Configure a PostgreSQL database for attic
       enable = true;
@@ -35,10 +35,14 @@ in {
     services.nginx = {
       enable = true;
       virtualHosts."workstation.elephant-vibes.ts.net" = {
-        locations."/services/cache/" = {
-          proxyPass = "http://localhost:9090/";
+        locations."/cache" = {
+          extraConfig = "return 302 /cache/;";
+        };
+        locations."/" = {
+          proxyPass = "http://[::]:9090";
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
+            # "rewrite ^/services/cache(.*) /$1 break;" + # remove the /services/cache prefix
             "client_max_body_size 10G;" +
             # required when the target is also TLS server with multiple hosts
             "proxy_ssl_server_name on;" +
