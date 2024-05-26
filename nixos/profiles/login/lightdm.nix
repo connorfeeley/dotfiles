@@ -4,11 +4,19 @@
 
 { ... }:
 {
-  security.pam.services.sddm.enableGnomeKeyring = true;
-
-  services.xserver = {
-    displayManager.lightdm = {
+  security.pam.services = {
+    login.gnupg = {
       enable = true;
+      noAutostart = true;
     };
+
+    lightdm.gnupg = {
+      enable = true;
+      noAutostart = true;
+    };
+  };
+
+  services.xserver.displayManager.lightdm = {
+    enable = true;
   };
 }
