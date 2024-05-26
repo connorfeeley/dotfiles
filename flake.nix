@@ -77,15 +77,15 @@
     nixpkgs.follows = "nixos-stable-darwin";
     nixpkgs-darwin.follows = "nixos-stable-darwin";
 
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nixos-stable-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos-stable-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
 
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     ##: --- system -------------------------------------------------------------
-    home-manager = { url = "github:nix-community/home-manager/release-23.11"; inputs.nixpkgs.follows = "nixpkgs"; };
+    home-manager = { url = "github:nix-community/home-manager/release-24.05"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     digga = { url = "github:divnix/digga"; inputs.nixpkgs.follows = "nixpkgs"; inputs.home-manager.follows = "home-manager"; inputs.darwin.follows = "darwin"; };
     nixos-wsl = { url = "github:nix-community/NixOS-WSL"; inputs.nixpkgs.follows = "nixpkgs"; };
