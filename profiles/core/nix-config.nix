@@ -10,7 +10,7 @@ let
 in
 {
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
     settings = {
       inherit substituters trusted-substituters;
 
