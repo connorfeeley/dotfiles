@@ -7,8 +7,6 @@
 # TODO: https://github.com/zhaofengli/attic/issues/114
 let cfg = config.services.cache;
 in {
-  imports = [ inputs.attic.nixosModules.atticd ];
-
   options.services.cache = {
     enable = lib.mkEnableOption "Serve an S3-backed Nix cache using attic";
     enableCloudflareS3 = lib.mkEnableOption "Enable Cloudflare S3 storage";
