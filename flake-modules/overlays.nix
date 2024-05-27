@@ -25,6 +25,9 @@ let
 
     inputs.nixpkgs-doc.overlays.default # add info outputs to nixpkgs.htmlDocs.nixpkgsManual
 
+    # WARNING: the overlay doesn't work on darwin.
+    # inputs.attic.overlays.default # Self-hosted, S3-backed Nix cache
+
     # Personal overlay
     inputs.nurpkgs.overlays.default
 
@@ -58,6 +61,7 @@ let
         inherit (packagesFrom inputs.nixd) nixd;
         inherit (packagesFrom inputs.xmonad-config) xmonad-config;
         inherit (packagesFrom inputs.ttc-subway-font) ttc-subway bloor-yonge-font;
+        inherit (packagesFrom inputs.attic) attic attic-server attic-client; # Using this instead of overlay for darwin compatibility
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
         emacsGitDarwin = inputs.darwin-emacs.packages.${final.system}.default;

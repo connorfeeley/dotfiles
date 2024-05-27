@@ -34,7 +34,7 @@ let
   unlock-gpg = pkgs.writeShellScriptBin "unlock-gpg" ''
     echo "Enter password for GPG key:"
     stty -echo
-    gpg --decrypt ${encryptedFile}
+    gpg --pinentry-mode loopback --decrypt ${encryptedFile}
     stty echo
   '';
 in

@@ -4,8 +4,7 @@
     gnome-disks.enable = true;
     kdeconnect.enable = true;
     kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
-    seahorse.enable =
-      true; # Provides Seahorse, a Gnome application for managing keys and passwords
+    seahorse.enable = true; # Provides Seahorse, a Gnome application for managing keys and passwords
   };
 
   services.gnome = {
@@ -65,9 +64,11 @@
 
     # displayManager.job.preStart = "sleep 5";
     displayManager.gdm = { autoSuspend = false; };
+    displayManager.defaultSession = "gnome"; # or gnome-flashback-xmonad-flashback
 
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
+
 
     desktopManager.gnome = {
       enable = true;

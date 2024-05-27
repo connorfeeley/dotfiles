@@ -83,6 +83,9 @@
             echo "echo 'Use cryptsetup-askpass to unlock!'" >> /root/.profile
             echo "echo 'Use \"zfs load-key -a && killall zfs\" to unlock!'" >> /root/.profile
 
+            echo "echo 'Use cryptsetup-askpass to unlock!'"
+            echo "echo 'Use \"zfs load-key -a && killall zfs\" to unlock!'"
+
             if pgrep -x "zfs" > /dev/null
             then
               zfs load-key -a

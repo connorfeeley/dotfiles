@@ -90,11 +90,9 @@ in
 
               desktop.common
               desktop.input-leap
-              login.gdm
               xorg
               # hm-xmonad
               kde
-              gnome-desktop
               xfce
               # pantheon
 
@@ -103,6 +101,10 @@ in
               # virtualisation.arion
 
               # hardware.machine-check-exception
+
+              login.lightdm
+              # login.gdm
+              # gnome-desktop
             ]);
           });
       };
@@ -126,10 +128,12 @@ in
 
               collective.modules.global.nixos-vm
               collective.modules.global.fup-options
-              collective.modules.nixos.boot-unlock
+
+              collective.modules.nixos.remote-unlock
               collective.modules.nixos.input-leap
               collective.modules.nixos.substituter
               collective.modules.nixos.audio
+              collective.modules.nixos.cache
             ];
           }
         ));

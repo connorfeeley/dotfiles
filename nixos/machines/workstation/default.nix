@@ -6,6 +6,9 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 
   inherit (self.collective) hmArgs;
+
+  hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+
 in
 {
   imports = [ ./hardware-configuration.nix ./zfs-root.nix ./mellanox.nix ./samba.nix ./tigervnc.nix ];
@@ -203,19 +206,14 @@ in
     username = "cfeeley";
     autoLogin = false; # Enabling this dumped me to a TTY.
   };
-  services.xserver.displayManager.defaultSession =
-    "gnome"; # or gnome-flashback-xmonad-flashback
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword =
-    "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+  users.users.root.hashedPassword = hashedPassword;
   users.users.cfeeley = {
     uid = 1000;
     isNormalUser = true;
-    initialHashedPassword =
-      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
-    hashedPassword =
-      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    initialHashedPassword = hashedPassword;
+    hashedPassword = hashedPassword;
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     extraGroups = [
       "wheel"
@@ -240,10 +238,8 @@ in
     uid = 999;
     group = "sbuser";
     # isNormalUser = true;
-    initialHashedPassword =
-      "$6$VsuLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
-    hashedPassword =
-      "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
+    initialHashedPassword = hashedPassword;
+    hashedPassword = hashedPassword;
     openssh.authorizedKeys.keys = primaryUser.authorizedKeys;
     extraGroups = [
       "users"
@@ -322,6 +318,13 @@ in
 
   substituter.enable = true;
 
+  # Enable attic Nix cache
+  services.cache = {
+    enable = true;
+    enableCloudflareS3 = true;
+    enablePostgres = true;
+  };
+
   # Enable ZFS exporter
   services.prometheus.exporters.zfs = {
     enable = true;
@@ -353,12 +356,22 @@ in
     ip = "${pkgs.iproute} -c";
   };
 
-  # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
-  # Normally the machine will power down after 20 minutes if no user is logged in.
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
+  systemd.targets = {
+    # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
+    # Normally the machine will power down after 20 minutes if no user is logged in.
+    sleep.enable = false;
+    sleep.unitConfig.DefaultDependencies = false;
+
+    suspend.enable = false;
+    suspend.unitConfig.DefaultDependencies = false;
+
+    hibernate.enable = false;
+    hibernate.unitConfig.DefaultDependencies = false;
+
+    hybrid-sleep.enable = false;
+    hybrid-sleep.unitConfig.DefaultDependencies = false;
+  };
+  powerManagement.enable = false;
 
   # FIXME(2023-02-28): always thinks VPN is disconnected
   # Poll VPN endpoint every 5 minutes and send an alert if the VPN is unreachable
@@ -404,6 +417,12 @@ in
   # Jellyfin reverse proxy
   # Enable NGINX as a reverse proxy, with LetsEncrypt.
   services.nginx.enable = true;
+  services.nginx.recommendedOptimisation = true;
+  services.nginx.recommendedProxySettings = true;
+  services.nginx.recommendedTlsSettings = true;
+  services.nginx.recommendedGzipSettings = true;
+  services.nginx.recommendedBrotliSettings = true;
+  services.nginx.recommendedZstdSettings = true;
   services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
     forceSSL = true;
     # NOTE: path to certificate file - not the file itself, which we don't want added to the store
@@ -411,16 +430,16 @@ in
     sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
     kTLS = true; # TLS in the kernel.
     # root = "/var/www/bikes.cfeeley.org";
-    locations."/" = {
-      proxyPass = "http://localhost:8082";
-      proxyWebsockets = true; # needed if you need to use WebSocket
-      extraConfig = "client_max_body_size 10G;" +
-        # required when the target is also TLS server with multiple hosts
-        "proxy_ssl_server_name on;" +
-        # required when the server wants to use HTTP Authentication
-        "proxy_pass_header Authorization;"
-      ;
-    };
+    # locations."/foo/" = {
+    #   proxyPass = "http://localhost:8082";
+    #   proxyWebsockets = true; # needed if you need to use WebSocket
+    #   extraConfig = "client_max_body_size 10G;" +
+    #     # required when the target is also TLS server with multiple hosts
+    #     "proxy_ssl_server_name on;" +
+    #     # required when the server wants to use HTTP Authentication
+    #     "proxy_pass_header Authorization;"
+    #   ;
+    # };
   };
   # services.nginx = {
   #   enable = false;

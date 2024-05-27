@@ -43,5 +43,5 @@ deploy host="cfeeley-laptop":
   deploy --skip-checks --remote-build .#cfeeley-laptop -- --show-trace --print-build-logs --verbose
 
 deploy-workstation action="build":
-  Running "nixos-rebuild {{action}} on workstation"
-  nixos-rebuild {{action}} --fast --flake .#workstation --target-host workstation --build-host root@workstation --builders 'ssh-ng://workstation x86_64-linux,aarch64-linux'
+  echo "Running nixos-rebuild {{action}} on workstation"
+  nixos-rebuild {{action}} --fast --target-host root@workstation --build-host root@workstation --flake ".#workstation"

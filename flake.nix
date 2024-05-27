@@ -147,6 +147,7 @@
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
     nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvidia-patch = { url = "github:arcnmx/nvidia-patch.nix"; inputs.nixpkgs.follows = "nixpkgs"; };
+    attic = { url = "github:zhaofengli/attic"; }; #  Build fails when overriding nixpkgs
 
     ##: --- other --------------------------------------------------------------
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
