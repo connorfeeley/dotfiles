@@ -17,7 +17,6 @@ in
     home.packages = [
       # :lang nix
       pkgs.nixpkgs-fmt
-      pkgs.rnix-lsp
       pkgs.nil # ('nix-nil' from source repo)
       inputs'.nixd.packages.nixd
       pkgs.nixfmt-rfc-style
