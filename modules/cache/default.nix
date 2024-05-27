@@ -2,17 +2,27 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-{ inputs, config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
-# TODO: https://github.com/zhaofengli/attic/issues/114
-let cfg = config.services.cache;
-in {
+let
+  inherit (config.lib.dotfield.secrets) secretsDir;
+
+  cfg = config.services.cache;
+
+  attic-cache-secrets = {
+    file = "${secretsDir}/hosts/workstation/cache-priv-key.pem.age";
+    group = config.services.atticd.group;
+  };
+in
+{
   options.services.cache = {
     enable = lib.mkEnableOption "Serve an S3-backed Nix cache using attic";
     enableCloudflareS3 = lib.mkEnableOption "Enable Cloudflare S3 storage";
   };
 
   config = lib.mkIf cfg.enable {
+    age.secrets = { inherit attic-cache-secrets; };
+
     services.atticd = {
       enable = true;
 
@@ -20,7 +30,7 @@ in {
       # ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64="output of: <openssl rand 64 | base64 -w0>"
       # AWS_ACCESS_KEY_ID="<cloudflare access key>"
       # AWS_SECRET_ACCESS_KEY="<cloudflare secret key>"
-      credentialsFile = "/etc/secrets/atticd.env";
+      credentialsFile = config.age.secrets.attic-cache-secrets.path;
 
       settings = {
         listen = "[::]:9090";
@@ -56,7 +66,7 @@ in {
           type = "s3";
           bucket = "cfeeley-nixpkgs-cache";
           region = "auto";
-          endpoint = "https://58f2f5e716707689e3cf7b16c1efcf28.r2.cloudflarestorage.com/cfeeley-nixpkgs-cache";
+          endpoint = "https://58f2f5e716707689e3cf7b16c1efcf28.r2.cloudflarestorage.com";
         };
 
         # Garbage collection

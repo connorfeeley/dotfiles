@@ -34,4 +34,7 @@ in
 
   # OpenVPN credentials
   "openvpn-auth-file.txt.age".publicKeys = users ++ systems;
+
+  # Attic cache secrets
+  "hosts/workstation/attic-cache-secrets.txt.age".publicKeys = users ++ systems;
 }
