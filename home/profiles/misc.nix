@@ -35,7 +35,7 @@
       # (lib.hiPrio n)
       # (lib.hiPrio nb)
       # nixos-rebuild-remote
-      self'.packages.nomos-rebuild
+      # self'.packages.nomos-rebuild
       # dotfield-sync
       # dotfield-push
       # dotfield-rebuild
