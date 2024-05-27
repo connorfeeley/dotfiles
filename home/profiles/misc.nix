@@ -23,6 +23,7 @@
       ## === Files ===
       file
       mediainfo
+      zip
       unzip
       pigz
 
