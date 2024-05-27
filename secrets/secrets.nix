@@ -36,5 +36,5 @@ in
   "openvpn-auth-file.txt.age".publicKeys = users ++ systems;
 
   # Attic cache secrets
-  "hosts/workstation/attic-cache-secrets.txt.age".publicKeys = users ++ systems;
+  "hosts/workstation/attic-cache-secrets.env.age".publicKeys = users ++ systems;
 }

@@ -10,7 +10,7 @@ let
   cfg = config.services.cache;
 
   attic-cache-secrets = {
-    file = "${secretsDir}/hosts/workstation/cache-priv-key.pem.age";
+    file = "${secretsDir}/hosts/workstation/attic-cache-secrets.env.age";
     group = config.services.atticd.group;
   };
 in
