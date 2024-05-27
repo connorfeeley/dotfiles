@@ -51,7 +51,8 @@
 
   programs.bottom.enable = true;
   programs.eza.enable = true;
-  programs.eza.enableAliases = true;
+  programs.eza.enableBashIntegration = true;
+  programs.eza.enableZshIntegration = true;
   programs.jq.enable = true;
   programs.pandoc.enable = true;
   programs.tealdeer.enable = true;
