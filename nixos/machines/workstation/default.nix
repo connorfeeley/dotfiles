@@ -34,6 +34,8 @@ in
 
   boot.crashDump.enable = true;
 
+  boot.kernelParams = [ "processor.max_cstate=5" ];
+
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
   # };
@@ -156,7 +158,7 @@ in
 
   environment.systemPackages = with pkgs; [
     cryptsetup
-    linuxPackages.usbip
+    config.boot.kernelPackages.usbip
     # input-leap
     mstflint
     nixos-container
