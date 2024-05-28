@@ -34,7 +34,8 @@ in
 
   boot.crashDump.enable = true;
 
-  boot.kernelParams = [ "processor.max_cstate=5" ];
+  # Trying to fix freezing on idle: https://wiki.archlinux.org/title/Ryzen#Soft_lock_freezing
+  boot.kernelParams = [ "processor.max_cstate=5" "rcu_nocbs=0-23" ];
 
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
