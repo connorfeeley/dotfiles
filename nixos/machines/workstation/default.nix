@@ -32,6 +32,8 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  boot.crashDump.enable = true;
+
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
   # };
