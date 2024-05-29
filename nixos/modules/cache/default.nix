@@ -5,7 +5,15 @@
 { self, inputs, config, lib, pkgs, ... }:
 
 # TODO: https://github.com/zhaofengli/attic/issues/114
-let cfg = config.services.cache;
+let
+  inherit (config.lib.dotfield.secrets) secretsDir;
+
+  cfg = config.services.cache;
+
+  attic-config-toml = {
+    file = "${secretsDir}/attic-config.toml.age";
+    group = "nixbld";
+  };
 in {
   imports = [
     # Upstream attic module
@@ -64,8 +72,13 @@ in {
         set -f # disable globbing
         export IFS=' '
 
+        echo "Writing attic config"
+        mkdir -p $HOME/.config/attic
+        cp ${attic-config-toml.file} $HOME/.config/attic/config.toml
+
         echo "Uploading paths to attic" $OUT_PATHS
-        exec ${pkgs.attic}/bin/attic push cfeeley $OUT_PATHS $DRV_PATH
+        echo "Uploading derivations to attic" $DRV_PATHS
+        exec ${pkgs.attic}/bin/attic push workstation:cfeeley $OUT_PATHS $DRV_PATH
       '';
     };
   };
