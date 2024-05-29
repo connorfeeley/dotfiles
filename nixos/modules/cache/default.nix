@@ -10,8 +10,12 @@ in {
   imports = [
     # Upstream attic module
     inputs.attic.nixosModules.atticd
+
     # Flake-local global module (sets options)
     self.collective.modules.global.cache
+
+    # Queued build hook
+    inputs.queued-build-hook.nixosModules.queued-build-hook
   ];
 
   options.services.cache = {
@@ -51,6 +55,18 @@ in {
           ;
         };
       };
+    };
+
+    queued-build-hook = {
+      enable = true;
+      postBuildScriptContent = ''
+        set -eu
+        set -f # disable globbing
+        export IFS=' '
+
+        echo "Uploading paths to attic" $OUT_PATHS
+        exec ${pkgs.attic}/bin/attic push cfeeley $OUT_PATHS $DRV_PATH
+      '';
     };
   };
 }
