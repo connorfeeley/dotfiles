@@ -273,6 +273,8 @@ in
       # Opt-in to "features that make git the smoothest it can be"
       # https://github.blog/2019-11-03-highlights-from-git-2-24/#feature-macros
       feature.manyFiles = true;
+      # Workaround https://github.com/NixOS/nix/issues/10026
+      index.skipHash = false;
       ##: }}
 
       ##: Maintenance {{
