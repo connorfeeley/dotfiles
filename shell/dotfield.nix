@@ -6,10 +6,12 @@ let
     rage agenix ssh-to-age sops
     # sops-pgp-hook
     nvfetcher-bin deploy-rs deploy-flake nixpkgs-fmt cachix editorconfig-checker
-    nixUnstable shellcheck shfmt terraform treefmt lefthook nix-output-monitor
+    shellcheck shfmt terraform treefmt lefthook nix-output-monitor
     nixos-generators nix-eval-jobs nix-prefetch-git nix-build-uncached
     nixos-rebuild # For remote nixos-rebuild on darwin
     ;
+
+    nix = pkgs.nixVersions.latest;
 
   inherit (pkgs.nodePackages) prettier;
 
@@ -37,7 +39,6 @@ in
     (utils nix-eval-jobs)
     (utils nix-prefetch-git)
     (utils nix-build-uncached)
-    (utils nixUnstable)
     (utils deploy-rs)
     (utils deploy-flake)
     (utils terraform)
@@ -49,7 +50,7 @@ in
     (withCategory "dotfield" {
       name = "repl";
       help = "Launch repl";
-      command = "${nixUnstable}/bin/nix repl $PRJ_ROOT/repl.nix";
+      command = "${nix}/bin/nix repl $PRJ_ROOT/repl.nix";
     })
     (withCategory "dotfield" {
       category = "dotfield";
@@ -93,8 +94,8 @@ in
             if pkgs.stdenv.isLinux then "nixos-rebuild" else "darwin-rebuild";
         in
         ''
-          ${nixUnstable}/bin/nix flake show --print-build-logs && \
-            ${nixUnstable}/bin/nix flake check --print-build-logs && \
+          ${nix}/bin/nix flake show --print-build-logs && \
+            ${nix}/bin/nix flake check --print-build-logs && \
             ${rebuild} build --flake .#$HOSTNAME --print-build-logs
         '';
     })

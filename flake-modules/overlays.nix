@@ -70,11 +70,15 @@ let
         inherit (legacyPackagesFrom inputs.nixos-unstable)
           docker_24
           docker-compose
-          input-leap
           nix-du
           nixfmt-rfc-style
-        ;
+          ;
         docker = final.docker_24;
+
+        # Broken upstream on darwin
+        inherit (legacyPackagesFrom inputs.nixpkgs-input-leap)
+          input-leap
+          ;
 
         # Not in nixpkgs-23.11-darwin cache
         inherit (legacyPackagesFrom inputs.nixos-stable)

@@ -32,6 +32,11 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  boot.crashDump.enable = true;
+
+  # Trying to fix freezing on idle: https://wiki.archlinux.org/title/Ryzen#Soft_lock_freezing
+  boot.kernelParams = [ "processor.max_cstate=5" "rcu_nocbs=0-23" ];
+
   # virtualisation.vmVariant = {
   #   virtualisation.graphics = true;
   # };
@@ -154,7 +159,7 @@ in
 
   environment.systemPackages = with pkgs; [
     cryptsetup
-    linuxPackages.usbip
+    config.boot.kernelPackages.usbip
     # input-leap
     mstflint
     nixos-container

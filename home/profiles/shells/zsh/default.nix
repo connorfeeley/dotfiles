@@ -45,7 +45,7 @@ in
     enableCompletion = true;
     # NOTE: conflicts with 'zdharma/fast-syntax-highlighting'
     syntaxHighlighting.enable = false;
-    enableAutosuggestions = false;
+    autosuggestion.enable = false;
     enableVteIntegration = true;
 
     defaultKeymap = "emacs"; # One of "emacs", "vicmd", "viins"

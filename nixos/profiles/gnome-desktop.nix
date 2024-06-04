@@ -140,7 +140,7 @@
       # sessionPath =
       #   let
       #     gnome-flashback-xmonad = pkgs.callPackage
-      #       ({ stdenv, gnome3, bash, haskellPackages, glib, wrapGAppsHook, xmonad-config }: stdenv.mkDerivation {
+      #       ({ stdenv, gnome3, bash, haskellPackages, glib, wrapGAppsHook3, xmonad-config }: stdenv.mkDerivation {
       #         name = "gnome-flashback-xmonad";
 
       #         buildInputs = [ gnome3.gnome-flashback gnome3.gnome-panel bash haskellPackages.xmonad glib ];

@@ -26,7 +26,8 @@ in
   mdio-tools = callPackage ./mdio-tools.nix { };
 
 
-  nomos-rebuild = callPackage ./flake-scripts/nomos-rebuild.nix { };
+  # FIXME: (2024-05-26): derivation changed upstream
+  # nomos-rebuild = callPackage ./flake-scripts/nomos-rebuild.nix { };
 
   nixos-rebuild-remote =
     callPackage ./flake-scripts/nixos-rebuild-remote.nix {

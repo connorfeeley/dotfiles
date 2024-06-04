@@ -5,13 +5,26 @@
 { self, inputs, config, lib, pkgs, ... }:
 
 # TODO: https://github.com/zhaofengli/attic/issues/114
-let cfg = config.services.cache;
-in {
+let
+  inherit (config.lib.dotfield.secrets) secretsDir;
+
+  cfg = config.services.cache;
+
+  attic-config-toml = {
+    file = "${secretsDir}/attic-config.toml.age";
+    group = "nixbld";
+  };
+in
+{
   imports = [
     # Upstream attic module
     inputs.attic.nixosModules.atticd
+
     # Flake-local global module (sets options)
     self.collective.modules.global.cache
+
+    # Queued build hook
+    inputs.queued-build-hook.nixosModules.queued-build-hook
   ];
 
   options.services.cache = {
@@ -51,6 +64,38 @@ in {
           ;
         };
       };
+    };
+
+    age.secrets = { inherit attic-config-toml; };
+
+    queued-build-hook = {
+      enable = true;
+      postBuildScriptContent = ''
+        set -eu
+        set -f # disable globbing
+        export IFS=' '
+
+
+        export HOME="$RUNTIME_DIRECTORY"
+        ls -al $HOME
+        cat ${config.age.secrets.attic-config-toml.path}
+
+
+        echo "Writing attic config"
+        mkdir -p $HOME/.config/attic
+        cp ${config.age.secrets.attic-config-toml.path} $HOME/.config/attic/config.toml
+
+        echo "Uploading paths to attic" $OUT_PATHS
+        echo "Uploading derivations to attic" $DRV_PATHS
+        exec ${pkgs.attic}/bin/attic push workstation:cfeeley $OUT_PATHS $DRV_PATH
+      '';
+    };
+
+    systemd.services.async-nix-post-build-hook.serviceConfig = {
+      Group = lib.mkForce "nixbld";
+      RuntimeDirectory = "async-nix-post-build-hook";
+      RuntimeDirectoryMode = "0700";
+      WorkingDirectory = "%t/async-nix-post-build-hook";
     };
   };
 }

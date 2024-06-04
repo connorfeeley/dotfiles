@@ -1,18 +1,17 @@
-{ inputs', config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.services.input-leap;
-input-leap = inputs'.nixpkgs-input-leap.legacyPackages.input-leap;
-in {
+let
+  cfg = config.services.input-leap;
+in
+{
   options = {
-    services.input-leap.enable = mkEnableOption
+    services.input-leap.enable = lib.mkEnableOption
       "Enable Input Leap to share keyboard and mouse between computers";
 
     services.input-leap.client = {
-      enable = mkEnableOption "Autostart Input Leap client daemon.";
-      serverAddress = mkOption {
-        type = types.str;
+      enable = lib.mkEnableOption "Autostart Input Leap client daemon.";
+      serverAddress = lib.mkOption {
+        type = lib.types.str;
         description = lib.mdDoc ''
           The server address is of the form: [hostname][:port].  The
           hostname must be the address or hostname of the server.  The
@@ -22,23 +21,23 @@ in {
     };
 
     services.input-leap.server = {
-      enable = mkEnableOption "Autostart Input Leap server daemon.";
-      configFile = mkOption {
+      enable = lib.mkEnableOption "Autostart Input Leap server daemon.";
+      configFile = lib.mkOption {
         description = "The IP address or hostname of the server to connect to";
-        type = types.path;
+        type = lib.types.path;
         example = "/Users/me/";
       };
     };
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = [ input-leap ];
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.input-leap ];
 
     launchd.user.agents = {
       input-leap-client = lib.mkIf cfg.client.enable {
         serviceConfig = {
           ProgramArguments = [
-            "${input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leapc"
+            "${pkgs.input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leapc"
             "--no-daemon"
             cfg.client.serverAddress
           ];
@@ -50,7 +49,7 @@ in {
       input-leap-server = lib.mkIf cfg.server.enable {
         serviceConfig = {
           ProgramArguments = [
-            "${input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leaps"
+            "${pkgs.input-leap}/Applications/InputLeap.app/Contents/MacOS/input-leaps"
             "--no-daemon"
             "--config"
             cfg.server.configFile

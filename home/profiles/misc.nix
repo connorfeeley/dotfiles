@@ -16,7 +16,8 @@
       xsv # <- A fast CSV command line toolkit
       python3Packages.yq # <- jq wrapper for YAML/XML/TOML documents
       htmlq # <- Like jq, but for HTML
-      csvkit # <- CSV file processing utilities
+      # FIXME(2024-05-26): broken
+      # csvkit # <- CSV file processing utilities
       pdftk # <- PDF toolkit
       inputs'.nurpkgs.packages.pdftocgen # <- PDF table of contents generator
 
@@ -35,7 +36,7 @@
       # (lib.hiPrio n)
       # (lib.hiPrio nb)
       # nixos-rebuild-remote
-      self'.packages.nomos-rebuild
+      # self'.packages.nomos-rebuild
       # dotfield-sync
       # dotfield-push
       # dotfield-rebuild
@@ -51,7 +52,8 @@
 
   programs.bottom.enable = true;
   programs.eza.enable = true;
-  programs.eza.enableAliases = true;
+  programs.eza.enableBashIntegration = true;
+  programs.eza.enableZshIntegration = true;
   programs.jq.enable = true;
   programs.pandoc.enable = true;
   programs.tealdeer.enable = true;

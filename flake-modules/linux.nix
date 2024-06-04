@@ -93,7 +93,7 @@ in
               xorg
               # hm-xmonad
               kde
-              xfce
+              # xfce
               # pantheon
 
               grafana

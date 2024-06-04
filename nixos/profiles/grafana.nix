@@ -130,22 +130,26 @@ in
         configs = [
           {
             from = "2022-05-06";
-            store = "boltdb";
+            store = "tsdb";
             object_store = "filesystem";
-            schema = "v11";
+            schema = "v13";
             index = {
               prefix = "index_";
-              period = "48h";
+              period = "24h";
             };
           }
         ];
       };
+      compactor.working_directory = "/tmp/loki/compactor";
       storage_config = {
+        tsdb_shipper = {
+          cache_location = "/tmp/loki/cache";
+          active_index_directory = "/tmp/loki/index";
+        };
         boltdb.directory = "/tmp/loki/index";
         filesystem.directory = "/tmp/loki/chunks";
       };
       limits_config = {
-        enforce_metric_name = false;
         reject_old_samples = true;
         reject_old_samples_max_age = "168h";
       };

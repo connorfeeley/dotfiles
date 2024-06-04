@@ -54,6 +54,5 @@ lib.mkIf (!config.nixos-vm.enable) {
   virtualisation.podman.enableNvidia =
     lib.mkIf config.virtualisation.docker.enable true;
 
-  environment.systemPackages = with pkgs;
-    [ nvtop ddcutil cudatoolkit linuxPackages.nvidia_x11 ] ++ xorgPackages;
+  environment.systemPackages = [ pkgs.nvtop pkgs.ddcutil pkgs.cudatoolkit config.boot.kernelPackages.nvidia_x11 ] ++ xorgPackages;
 }

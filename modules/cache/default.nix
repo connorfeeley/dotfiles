@@ -11,7 +11,7 @@ let
 
   attic-cache-secrets = {
     file = "${secretsDir}/hosts/workstation/attic-cache-secrets.env.age";
-    group = config.services.atticd.group;
+    owner = config.services.atticd.user;
   };
 in
 {

@@ -37,4 +37,7 @@ in
 
   # Attic cache secrets
   "hosts/workstation/attic-cache-secrets.env.age".publicKeys = users ++ systems;
+
+  # Attic cache config
+  "attic-config.toml.age".publicKeys = users ++ systems;
 }

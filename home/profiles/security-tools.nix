@@ -21,7 +21,6 @@
       arping
       nmap
       # ncrack
-      wpscan
       socat
       tcpreplay
       tcpdump
@@ -58,6 +57,7 @@
       macchanger
       spike # Network protocol fuzzer
       thc-ipv6 # IPv6 attack toolkit
+      wpscan
 
       ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
       cloudbrute # : automated infrastructure discovery
