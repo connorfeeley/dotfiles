@@ -145,7 +145,6 @@ in
         filesystem.directory = "/tmp/loki/chunks";
       };
       limits_config = {
-        enforce_metric_name = false;
         reject_old_samples = true;
         reject_old_samples_max_age = "168h";
       };
