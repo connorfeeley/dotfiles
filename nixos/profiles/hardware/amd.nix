@@ -11,4 +11,6 @@ lib.mkIf (!config.nixos-vm.enable) {
       linux = config.boot.kernelPackages.kernel;
     })
   ];
+
+  programs.ryzen-monitor-ng.enable = true;
 }
