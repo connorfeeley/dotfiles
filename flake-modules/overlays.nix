@@ -70,7 +70,6 @@ let
         inherit (legacyPackagesFrom inputs.nixos-unstable)
           docker_24
           docker-compose
-          input-leap
           nix-du
           nixfmt-rfc-style
         ;
