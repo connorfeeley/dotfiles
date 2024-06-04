@@ -7,10 +7,11 @@
   ###
   ### KDE
   ###
-  services.xserver.desktopManager.plasma5 = {
+  services.xserver.desktopManager.plasma6 = {
     enable = true;
-    useQtScaling = true;
-    runUsingSystemd = false;
+    # FIXME: does not exist for plasma6, only plasma5
+    # useQtScaling = true;
+    # runUsingSystemd = false;
   };
 
   qt.platformTheme = "gnome";
