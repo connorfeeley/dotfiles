@@ -49,10 +49,16 @@ lib.mkIf (!config.nixos-vm.enable) {
     driSupport32Bit = pkgs.stdenv.isx86_64;
   };
 
-  virtualisation.docker.enableNvidia =
-    lib.mkIf config.virtualisation.docker.enable true;
-  virtualisation.podman.enableNvidia =
-    lib.mkIf config.virtualisation.docker.enable true;
+  # Work around black screen issue on boot: https://github.com/NixOS/nixpkgs/issues/295218
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
+
+  virtualisation.docker.enableNvidia = config.virtualisation.docker.enable;
+  virtualisation.podman.enableNvidia = config.virtualisation.docker.enable;
 
   environment.systemPackages = [ pkgs.nvtop pkgs.ddcutil pkgs.cudatoolkit config.boot.kernelPackages.nvidia_x11 ] ++ xorgPackages;
 }
