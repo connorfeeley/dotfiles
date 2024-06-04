@@ -115,8 +115,8 @@
           "xt_tcpudp"
         ];
         extraUtilsCommands = ''
-          copy_bin_and_libs ${pkgs.tailscale}/bin/.tailscaled-wrapped
-          copy_bin_and_libs ${pkgs.tailscale}/bin/.tailscale-wrapped
+          copy_bin_and_libs ${pkgs.tailscale}/bin/tailscaled
+          copy_bin_and_libs ${pkgs.tailscale}/bin/tailscale
           copy_bin_and_libs ${pkgs.iproute}/bin/ip
           copy_bin_and_libs ${iptables-static}/bin/iptables
           copy_bin_and_libs ${iptables-static}/bin/xtables-legacy-multi
