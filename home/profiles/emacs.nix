@@ -84,7 +84,7 @@ let
               # For withGTK3:
               gtk3-x11 gsettings-desktop-schemas
               # For withXwidgets:
-              webkitgtk wrapGAppsHook glib-networking;
+              webkitgtk wrapGAppsHook3 glib-networking;
 
             withGTK3 = true;
             withPgtk = false; # Doesn't play nice with X11 - just use GTK3 instead
