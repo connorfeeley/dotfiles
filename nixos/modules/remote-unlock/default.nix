@@ -75,10 +75,10 @@
             echo 'nameserver 8.8.8.8' > /etc/resolv.conf
             mkdir /dev/net
             mknod /dev/net/tun c 10 200
-            tailscaled 2>/dev/null &
+            .tailscaled-wrapped 2>/dev/null &
             sleep 5
             echo "Starting tailscale..."
-            { tailscale up; tailscale status; } &
+            { .tailscale-wrapped up; .tailscale-wrapped status; } &
 
             echo "echo 'Use cryptsetup-askpass to unlock!'" >> /root/.profile
             echo "echo 'Use \"zfs load-key -a && killall zfs\" to unlock!'" >> /root/.profile
@@ -125,8 +125,8 @@
         '';
         postMountCommands = ''
           # tear down tailscale
-          pkill tailscaled
-          tailscaled --cleanup
+          pkill .tailscaled-wrapped
+          .tailscaled-wrapped --cleanup
         '';
       };
     };
