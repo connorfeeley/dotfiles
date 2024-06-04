@@ -5,7 +5,7 @@
   # for an example config.
   programs = {
     ssh.askPassword = pkgs.lib.mkForce
-      "${pkgs.plasma6Packages.ksshaskpass.out}/bin/ksshaskpass";
+      "${pkgs.plasma5Packages.ksshaskpass.out}/bin/ksshaskpass";
     kdeconnect.enable = true;
     dconf.enable = true;
   };
