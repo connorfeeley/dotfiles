@@ -14,4 +14,5 @@
   };
 
   qt.platformTheme = "gnome";
+  qt.style = "adwaita";
 }
