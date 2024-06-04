@@ -9,8 +9,7 @@ in {
   ];
 
   virtualisation.oci-containers.backend = "podman";
-  virtualisation.containers.storage.settings.storage.driver =
-    lib.mkIf (builtins.elem "zfs" config.boot.supportedFilesystems) "zfs";
+  virtualisation.containers.storage.settings = lib.mkIf config.boot.supportedFilesystems.zfs { storage.driver = "zfs"; };
 
   virtualisation.podman = {
     enable = true;
