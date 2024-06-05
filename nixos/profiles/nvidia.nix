@@ -21,12 +21,15 @@ lib.mkIf (!config.nixos-vm.enable) {
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-    package = nvidiaPackages.stable;
-    modesetting.enable = false;
+    package = nvidiaPackages.production;
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+
+    open = false;
+
     nvidiaSettings = true; # Enable nvidia-settings utility
     nvidiaPersistenced = false; # Don't run daemon to keep GPU state alive
-    # Prevent display corruption upon wake from a suspended or hibernated state.
-    powerManagement.enable = true;
 
     # "Whether to force-enable the full composition pipeline. This sometimes fixes
     # screen tearing issues. This has been reported to reduce the performance of
@@ -37,7 +40,6 @@ lib.mkIf (!config.nixos-vm.enable) {
 
   boot.plymouth = {
     enable = false;
-    theme = "breeze";
     font = "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.hardware";
   };
 
