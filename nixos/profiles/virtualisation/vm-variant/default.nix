@@ -48,6 +48,10 @@ in
     # each node with a UUID, it would be confusing and chaotic to have multiple
     # nodes default to the same name.
     networking.hostName = lib.mkVMOverride cfg.hostName;
+    networking.hostId = lib.mkVMOverride "5679a857";
+    boot.initrd.secrets = lib.mkVMOverride { };
+
+    remote-machine.boot.tailscaleUnlock.enable = lib.mkVMOverride false;
 
     networking.firewall.enable = mkVMDefault false;
     services.openssh.enable = mkVMDefault true;

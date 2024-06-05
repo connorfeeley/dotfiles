@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs', ... }:
+{ config, options, lib, pkgs, inputs', ... }:
 let
   inherit (config.boot.kernelPackages) nvidiaPackages;
 
@@ -12,7 +12,7 @@ let
 
   xorgPackages = with pkgs.xorg; [ xhost xauth xinit xeyes ];
 in
-lib.mkIf (!config.nixos-vm.enable) {
+lib.mkIf (!options.virtualisation ? qemu) {
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 

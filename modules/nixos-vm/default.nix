@@ -22,6 +22,8 @@ in
       description = "Hostname for the virtual machine.";
     };
 
+    remote-machine.boot.tailscaleUnlock.enable = false;
+
     peerConfig = mkOption {
       type = attrsOf raw;
       default = { };

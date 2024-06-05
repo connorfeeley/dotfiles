@@ -37,10 +37,6 @@ in
   # Trying to fix freezing on idle: https://wiki.archlinux.org/title/Ryzen#Soft_lock_freezing
   boot.kernelParams = [ "processor.max_cstate=5" "rcu_nocbs=0-23" ];
 
-  # virtualisation.vmVariant = {
-  #   virtualisation.graphics = true;
-  # };
-
   system.stateVersion = "22.05";
 
   nix.settings = {
@@ -73,8 +69,11 @@ in
     in
     {
       inherit hostName;
+
+      hostId = "5679a857"; # Required for ZFS, but doesn't matter otherwise.
+
       useDHCP = false;
-      usePredictableInterfaceNames = true;
+      usePredictableInterfaceNames = lib.mkDefault true;
       # interfaces.wlo1.useDHCP = true;
 
       firewall = {
@@ -134,9 +133,8 @@ in
   ### === Remote LUKS/ZFS Unlock  ============================================================
 
   # Enable tailscale in initrd
-  remote-machine.boot.tailscaleUnlock =
-    lib.mkIf (!options.virtualisation ? qemu) {
-      enable = true;
+  remote-machine.boot.tailscaleUnlock = {
+      enable = !options.virtualisation ? qemu;
       tailscaleStatePath = "/etc/secrets/initrd/tailscale-luks-setup.state";
     };
 

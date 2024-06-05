@@ -95,7 +95,6 @@ lib.mkIf (!options.virtualisation ? qemu) {
   ###
   ### ZFS
   ###
-  networking.hostId = "5679a857";
   # NOTE: use latest Linux kernel that works with ZFS
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
