@@ -102,7 +102,7 @@ in
 
               # hardware.machine-check-exception
 
-              login.lightdm
+              login.sddm
               # login.gdm
               # gnome-desktop
             ]);
