@@ -19,10 +19,6 @@ in
   };
 
   virtualisation.vmVariant = { lib, pkgs, ... }: {
-    imports = [
-      ./vm-filesystems.nix
-    ];
-
     # Uncomment when building on Darwin
     # virtualisation.host.pkgs = import pkgs.path { system = "aarch64-darwin"; };
 
@@ -39,8 +35,13 @@ in
         ipv6 = null;
       });
 
-    # Prefer a graphical QEMU window if the display server is enabled.
-    virtualisation.graphics = mkVMDefault config.services.xserver.enable;
+    virtualisation = {
+      diskSize = 100000;
+      memorySize = 8192;
+      cores = 3;
+      # Prefer a graphical QEMU window if the display server is enabled.
+      graphics = mkVMDefault config.services.xserver.enable;
+    };
 
     # Distinguish the guest system's hostname from the host system's hostname.
     # Especially important for workstations where document/data sync may occur.
