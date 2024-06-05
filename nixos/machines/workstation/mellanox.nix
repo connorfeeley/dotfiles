@@ -13,6 +13,7 @@ in {
   networking = {
     interfaces = {
       # Mellanox 100GbE port 0
+      enp36s0f0np0.useDHCP = false;
       enp36s0f0np0.ipv4 = {
         addresses = [{
           address = "192.168.20.50";
@@ -28,6 +29,7 @@ in {
       };
 
       # Mellanox 100GbE port 1
+      enp36s0f0np1.useDHCP = false;
       enp36s0f0np1.ipv4 = {
         addresses = [{
           address = "192.168.21.50";
