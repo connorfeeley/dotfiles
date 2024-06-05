@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 let
   inherit (pkgs.lib.our) treesWithEnabledLeaf;
 
@@ -73,11 +73,10 @@ in
         ? config.programs.sway.enable);
 
       # Whether the system has any features indicating a Wayland session.
-      hasWayland =
-        config.services.xserver.displayManager.gdm.wayland or (pkgs.stdenv.isLinux
-          ? config.programs.sway.enable);
+      hasWayland = config.services.xserver.displayManager.gdm.wayland or (pkgs.stdenv.isLinux ? config.programs.sway.enable);
 
-      notVm = !config.nixos-vm.enable;
+      isVm = options.virtualisation ? qemu;
+      notVm = !options.virtualisation ? qemu;
     };
 
     home = { inherit userConfigPath hasEnabledModule hasWm; };

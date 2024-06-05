@@ -6,6 +6,7 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 
   inherit (self.collective) hmArgs;
+  inherit (config.lib.dotfield.sys) notVm;
 
   hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
 
@@ -139,7 +140,7 @@ in
     };
 
   # Enable networking and SSH server in initrd
-  boot.initrd = {
+  boot.initrd = lib.mkIf notVm {
     # Driver for MSI (motherboard) 2.5GbE interface
     availableKernelModules = [ "r8169" ];
 
