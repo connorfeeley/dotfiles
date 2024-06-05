@@ -1,7 +1,7 @@
 { self, inputs, ... }:
 let
   inherit (inputs)
-    digga nix-colors nixos-vscode-server nix-index-database plasma-manager
+    digga nix-colors nixos-vscode-server nix-index-database
     sops-nix;
   inherit (digga.lib) importExportableModules rakeLeaves;
 

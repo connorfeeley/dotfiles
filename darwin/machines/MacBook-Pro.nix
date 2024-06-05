@@ -43,7 +43,6 @@ in
           self.inputs.nix-colors.homeManagerModule
           self.inputs.nixos-vscode-server.nixosModules.home
           self.inputs.nix-index-database.hmModules.nix-index
-          self.inputs.plasma-manager.homeManagerModules.plasma-manager
         ]
         ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
         (with hmArgs.roles;

@@ -2169,27 +2169,6 @@
     "home-manager_4": {
       "inputs": {
         "nixpkgs": [
-          "plasma-manager",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1714377222,
-        "narHash": "sha256-UsDsjWCKlWn8vbXi8Zza9Hkq3xyk8fpvFNo2VM5S74E=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "2af7c78b7bb9cf18406a193eba13ef9f99388f49",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager_5": {
-      "inputs": {
-        "nixpkgs": [
           "tum-dse-config",
           "nixpkgs"
         ]
@@ -3970,27 +3949,6 @@
         "type": "github"
       }
     },
-    "plasma-manager": {
-      "inputs": {
-        "home-manager": "home-manager_4",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1717443725,
-        "narHash": "sha256-bvhTezHwQlC80TnfphJL0Fsjnz6u69bkCkqhgMHK5vY=",
-        "owner": "pjones",
-        "repo": "plasma-manager",
-        "rev": "82da66c417fc9775675fd6ffd6fffa7dce2e3f28",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pjones",
-        "repo": "plasma-manager",
-        "type": "github"
-      }
-    },
     "poetry2nix": {
       "inputs": {
         "flake-utils": "flake-utils_30",
@@ -4234,7 +4192,6 @@
         "nurpkgs": "nurpkgs",
         "nvfetcher": "nvfetcher",
         "nvidia-patch": "nvidia-patch",
-        "plasma-manager": "plasma-manager",
         "poetry2nix": "poetry2nix",
         "queued-build-hook": "queued-build-hook",
         "sops-nix": "sops-nix",
@@ -4919,7 +4876,7 @@
           "flake-parts"
         ],
         "flake-registry": "flake-registry",
-        "home-manager": "home-manager_5",
+        "home-manager": "home-manager_4",
         "nix-index-database": "nix-index-database_3",
         "nixos-anywhere": "nixos-anywhere",
         "nixos-generators": "nixos-generators_2",
