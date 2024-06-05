@@ -220,7 +220,7 @@ in
       };
 
       enableBashIntegration = lib.mkEnableOption "Bash integration" // {
-        default = false;
+        default = true;
       };
 
       enableZshIntegration = lib.mkEnableOption "Zsh integration" // {
