@@ -49,11 +49,12 @@
       '';
     };
 
+  services.libinput.enable = false;
+
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbVariant = "dvorak";
-    libinput.enable = false;
+    xkb.layout = "us";
+    xkb.variant = "dvorak";
     enableTCP = true; # allow X server to accept TCP conn.
     updateDbusEnvironment = true; # update the DBus activation environment
 

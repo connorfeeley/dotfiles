@@ -7,7 +7,7 @@
         dconf2nix
       ];
 
-    qt.platformTheme = "gnome";
+    qt.platformTheme.name = "adwaita";
     qt.style.package = pkgs.adwaita-qt;
     qt.style.name = "adwaita";
 

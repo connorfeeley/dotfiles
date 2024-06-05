@@ -89,7 +89,7 @@ in
 
   security.pam = {
     # Allow passwordless sudo within an SSH session.
-    enableSSHAgentAuth = true;
+    sshAgentAuth.enable = true;
 
     # Raise number of allowed open file descriptors
     loginLimits = [{
