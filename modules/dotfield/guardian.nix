@@ -17,8 +17,7 @@ in
       '';
     };
     user = lib.mkOption { readOnly = true; };
-    autoLogin =
-      lib.mkEnableOption "Whether to log the guardian user in automatically.";
+    autoLogin = lib.mkEnableOption "Whether to log the guardian user in automatically.";
   };
   config = lib.mkIf cfg.enable {
     dotfield.guardian.user =
