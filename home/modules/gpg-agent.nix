@@ -1,7 +1,5 @@
 { config, osConfig, options, lib, pkgs, ... }:
 
-with lib;
-
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
@@ -13,7 +11,7 @@ let
   gpgInitStr = ''
     GPG_TTY="$(tty)"
     export GPG_TTY
-  '' + optionalString cfg.enableSshSupport
+  '' + lib.optionalString cfg.enableSshSupport
     "${gpgPkg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null";
 
   # mimic `gpgconf` output for use in `systemd` unit definitions.
@@ -23,7 +21,7 @@ let
   sockRelPath = dir:
     let
       hash =
-        substring 0 24 (hexStringToBase32 (builtins.hashString "sha1" homedir));
+        lib.substring 0 24 (hexStringToBase32 (builtins.hashString "sha1" homedir));
     in
     if homedir == options.programs.gpg.homedir.default then
       "gnupg/${dir}"
@@ -37,13 +35,13 @@ let
   hexStringToBase32 =
     let
       mod = a: b: a - a / b * b;
-      pow2 = elemAt [ 1 2 4 8 16 32 64 128 256 ];
-      splitChars = s: init (tail (splitString "" s));
+      pow2 = lib.elemAt [ 1 2 4 8 16 32 64 128 256 ];
+      splitChars = s: lib.init (lib.tail (lib.splitString "" s));
 
       base32Alphabet = splitChars "ybndrfg8ejkmcpqxot1uwisza345h769";
-      hexToIntTable = listToAttrs (genList
+      hexToIntTable = lib.listToAttrs (lib.genList
         (x: {
-          name = toLower (toHexString x);
+          name = lib.toLower (lib.toHexString x);
           value = x;
         }) 16);
 
@@ -60,7 +58,7 @@ let
           extraBits = bufBits' - 5;
         in
         if bufBits >= 5 then {
-          ret = ret + elemAt base32Alphabet (buf' / pow2 extraBits);
+          ret = ret + lib.elemAt base32Alphabet (buf' / pow2 extraBits);
           buf = mod buf' (pow2 extraBits);
           bufBits = bufBits' - 5;
         } else {
@@ -69,11 +67,11 @@ let
           bufBits = bufBits';
         };
     in
-    hexString: (foldl' go initState (splitChars hexString)).ret;
+    hexString: (lib.foldl' go initState (splitChars hexString)).ret;
 
 in
 {
-  meta.maintainers = [ maintainers.rycee ];
+  meta.maintainers = [ lib.maintainers.rycee ];
 
   # Use our local fork of these modules while still pending upstream changes.
   # This is necessary in order to avoid tracking `nixpkgs-unstable` to appease hm.
@@ -81,10 +79,10 @@ in
 
   options = {
     services.gpg-agent = {
-      enable = mkEnableOption "GnuPG private key agent";
+      enable = lib.mkEnableOption "GnuPG private key agent";
 
-      defaultCacheTtl = mkOption {
-        type = types.nullOr types.int;
+      defaultCacheTtl = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
         description = ''
           Set the time a cache entry is valid to the given number of
@@ -92,8 +90,8 @@ in
         '';
       };
 
-      defaultCacheTtlSsh = mkOption {
-        type = types.nullOr types.int;
+      defaultCacheTtlSsh = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
         description = ''
           Set the time a cache entry used for SSH keys is valid to the
@@ -101,8 +99,8 @@ in
         '';
       };
 
-      maxCacheTtl = mkOption {
-        type = types.nullOr types.int;
+      maxCacheTtl = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
         description = ''
           Set the maximum time a cache entry is valid to n seconds. After this
@@ -112,8 +110,8 @@ in
         '';
       };
 
-      maxCacheTtlSsh = mkOption {
-        type = types.nullOr types.int;
+      maxCacheTtlSsh = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
         description = ''
           Set the maximum time a cache entry used for SSH keys is valid to n
@@ -123,24 +121,24 @@ in
         '';
       };
 
-      enableSshSupport = mkOption {
-        type = types.bool;
+      enableSshSupport = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to use the GnuPG key agent for SSH keys.
         '';
       };
 
-      sshKeys = mkOption {
-        type = types.nullOr (types.listOf types.str);
+      sshKeys = lib.mkOption {
+        type = lib.types.nullOr (lib.types.listOf lib.types.str);
         default = null;
         description = ''
           Which GPG keys (by keygrip) to expose as SSH keys.
         '';
       };
 
-      enableExtraSocket = mkOption {
-        type = types.bool;
+      enableExtraSocket = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable extra socket of the GnuPG key agent (useful for GPG
@@ -148,16 +146,16 @@ in
         '';
       };
 
-      verbose = mkOption {
-        type = types.bool;
+      verbose = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to produce verbose output.
         '';
       };
 
-      grabKeyboardAndMouse = mkOption {
-        type = types.bool;
+      grabKeyboardAndMouse = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = ''
           Tell the pinentry to grab the keyboard and mouse. This
@@ -167,16 +165,16 @@ in
         '';
       };
 
-      allowPresetPassphrase = mkOption {
-        type = types.bool;
+      allowPresetPassphrase = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = ''
           This option allows the use of <option>gpg-preset-passphrase</option> to seed the internal cache of gpg-agent with passphrases.
         '';
       };
 
-      enableScDaemon = mkOption {
-        type = types.bool;
+      enableScDaemon = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = ''
           Make use of the scdaemon tool. This option has the effect of
@@ -186,8 +184,8 @@ in
         '';
       };
 
-      extraConfig = mkOption {
-        type = types.lines;
+      extraConfig = lib.mkOption {
+        type = lib.types.lines;
         default = "";
         example = ''
           allow-loopback-pinentry
@@ -198,8 +196,8 @@ in
         '';
       };
 
-      pinentryFlavor = mkOption {
-        type = types.nullOr (types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
+      pinentryFlavor = lib.mkOption {
+        type = lib.types.nullOr (lib.types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
         example = "gnome3";
         default =
           if isDarwin
@@ -221,52 +219,52 @@ in
         '';
       };
 
-      enableBashIntegration = mkEnableOption "Bash integration" // {
+      enableBashIntegration = lib.mkEnableOption "Bash integration" // {
         default = false;
       };
 
-      enableZshIntegration = mkEnableOption "Zsh integration" // {
+      enableZshIntegration = lib.mkEnableOption "Zsh integration" // {
         default = true;
       };
 
-      enableFishIntegration = mkEnableOption "Fish integration" // {
+      enableFishIntegration = lib.mkEnableOption "Fish integration" // {
         default = true;
       };
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      home.file."${homedir}/gpg-agent.conf".text = (concatStringsSep "\n" [
-        (optionalString (cfg.enableSshSupport) "enable-ssh-support")
+      home.file."${homedir}/gpg-agent.conf".text = (lib.concatStringsSep "\n" [
+        (lib.optionalString (cfg.enableSshSupport) "enable-ssh-support")
         (if (!cfg.grabKeyboardAndMouse) then "no-grab" else "grab")
-        (optionalString (cfg.allowPresetPassphrase) "allow-preset-passphrase")
-        (optionalString (!cfg.enableScDaemon) "disable-scdaemon")
-        (optionalString (cfg.defaultCacheTtl != null) "default-cache-ttl ${toString cfg.defaultCacheTtl}")
-        (optionalString (cfg.defaultCacheTtlSsh != null) "default-cache-ttl-ssh ${toString cfg.defaultCacheTtlSsh}")
-        (optionalString (cfg.maxCacheTtl != null) "max-cache-ttl ${toString cfg.maxCacheTtl}")
-        (optionalString (cfg.maxCacheTtlSsh != null) "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}")
-        (optionalString (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid") "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
+        (lib.optionalString (cfg.allowPresetPassphrase) "allow-preset-passphrase")
+        (lib.optionalString (!cfg.enableScDaemon) "disable-scdaemon")
+        (lib.optionalString (cfg.defaultCacheTtl != null) "default-cache-ttl ${toString cfg.defaultCacheTtl}")
+        (lib.optionalString (cfg.defaultCacheTtlSsh != null) "default-cache-ttl-ssh ${toString cfg.defaultCacheTtlSsh}")
+        (lib.optionalString (cfg.maxCacheTtl != null) "max-cache-ttl ${toString cfg.maxCacheTtl}")
+        (lib.optionalString (cfg.maxCacheTtlSsh != null) "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}")
+        (lib.optionalString (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid") "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
 
         # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
-        (optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
-        (optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid")
+        (lib.optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
+        (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid")
       ]) + cfg.extraConfig;
 
-      home.packages = optionals (cfg.pinentryFlavor != null) (
+      home.packages = lib.optionals (cfg.pinentryFlavor != null) (
         if isDarwin
         then [ pkgs.pinentry_mac ]
         else [ pkgs.pinentry.${cfg.pinentryFlavor} ]
       );
 
-      programs.bash.initExtra = mkIf cfg.enableBashIntegration gpgInitStr;
-      programs.zsh.initExtra = mkIf cfg.enableZshIntegration gpgInitStr;
-      programs.fish.interactiveShellInit = mkIf cfg.enableFishIntegration ''
+      programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration gpgInitStr;
+      programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration gpgInitStr;
+      programs.fish.interactiveShellInit = lib.mkIf cfg.enableFishIntegration ''
         set -gx GPG_TTY (tty)
       '';
 
       # Trailing newlines are important
-      home.file.".gnupg/sshcontrol".text = mkIf (cfg.sshKeys != null) (concatMapStrings (s: '' ${s} '') cfg.sshKeys);
+      home.file.".gnupg/sshcontrol".text = lib.mkIf (cfg.sshKeys != null) (lib.concatMapStrings (s: '' ${s} '') cfg.sshKeys);
     }
 
     # The systemd units below are direct translations of the
@@ -275,7 +273,7 @@ in
     #   ${gpgPkg}/share/doc/gnupg/examples/systemd-user
     #
     # directory.
-    (mkIf (pkgs.stdenv.hostPlatform.isLinux) (mkMerge [
+    (lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) (lib.mkMerge [
       {
         systemd.user.services.gpg-agent = {
           Unit = {
@@ -289,7 +287,7 @@ in
 
           Service = {
             ExecStart = "${gpgPkg}/bin/gpg-agent --supervised"
-              + optionalString cfg.verbose " --verbose";
+              + lib.optionalString cfg.verbose " --verbose";
             ExecReload = "${gpgPkg}/bin/gpgconf --reload gpg-agent";
             Environment = [ "GNUPGHOME=${homedir}" ];
           };
@@ -312,7 +310,7 @@ in
         };
       }
 
-      (mkIf cfg.enableSshSupport {
+      (lib.mkIf cfg.enableSshSupport {
         systemd.user.sockets.gpg-agent-ssh = {
           Unit = {
             Description = "GnuPG cryptographic agent (ssh-agent emulation)";
@@ -332,7 +330,7 @@ in
         };
       })
 
-      (mkIf cfg.enableExtraSocket {
+      (lib.mkIf cfg.enableExtraSocket {
         systemd.user.sockets.gpg-agent-extra = {
           Unit = {
             Description =
@@ -359,14 +357,14 @@ in
         "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)";
     }
 
-    (mkIf pkgs.stdenv.hostPlatform.isDarwin (mkMerge [
+    (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (lib.mkMerge [
       {
         launchd.agents.gpg-agent = {
           enable = true;
           config = {
             Program = "${gpgPkg}/bin/gpg-agent";
             ProgramArguments =
-              [ "--supervised" (mkIf cfg.verbose "--verbose") ];
+              [ "--supervised" (lib.mkIf cfg.verbose "--verbose") ];
             RunAtLoad = true;
             EnvironmentVariables = { GNUPGHOME = homedir; };
             KeepAlive.SuccessfulExit = false;
@@ -378,7 +376,7 @@ in
           };
         };
       }
-      (mkIf cfg.enableSshSupport {
+      (lib.mkIf cfg.enableSshSupport {
         launchd.agents.gpg-agent-ssh = {
           enable = true;
           config = {
