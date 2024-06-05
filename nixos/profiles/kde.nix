@@ -7,13 +7,26 @@
   ###
   ### KDE
   ###
-  services.xserver.desktopManager.plasma6 = {
-    enable = true;
+  services.desktopManager.plasma6 = {
+    enable = false;
     # FIXME: does not exist for plasma6, only plasma5
     # useQtScaling = true;
     # runUsingSystemd = false;
   };
 
-  qt.platformTheme = "gnome";
-  qt.style = "adwaita";
+  services.xserver.desktopManager.plasma5 = {
+    enable = true;
+    useQtScaling = true;
+    runUsingSystemd = false;
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "kde";
+    style = "adwaita";
+  };
+
+  # Set the default session to plasma (Wayland)
+  # Otherwise: "plasmax11" for X11
+  services.xserver.displayManager.defaultSession = "plasma";
 }
