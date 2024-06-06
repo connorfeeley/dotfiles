@@ -12,7 +12,7 @@ let
 
   attic-config-toml = {
     file = "${secretsDir}/attic-config.toml.age";
-    group = "nixbld";
+    owner = "cfeeley";
   };
 in
 {
@@ -68,34 +68,49 @@ in
 
     age.secrets = { inherit attic-config-toml; };
 
-    queued-build-hook = {
-      enable = true;
-      postBuildScriptContent = ''
+    nix.settings = {
+      post-build-hook = pkgs.writeShellScript "hook" ''
         set -eu
         set -f # disable globbing
         export IFS=' '
 
-
-        export HOME="$RUNTIME_DIRECTORY"
-        ls -al $HOME
-        cat ${config.age.secrets.attic-config-toml.path}
-
-
-        echo "Writing attic config"
-        mkdir -p $HOME/.config/attic
-        cp ${config.age.secrets.attic-config-toml.path} $HOME/.config/attic/config.toml
-
         echo "Uploading paths to attic" $OUT_PATHS
-        echo "Uploading derivations to attic" $DRV_PATHS
+        echo "Uploading derivations to attic" $DRV_PATH
         exec ${pkgs.attic}/bin/attic push workstation:cfeeley $OUT_PATHS $DRV_PATH
       '';
     };
 
-    systemd.services.async-nix-post-build-hook.serviceConfig = {
-      Group = lib.mkForce "nixbld";
-      RuntimeDirectory = "async-nix-post-build-hook";
-      RuntimeDirectoryMode = "0700";
-      WorkingDirectory = "%t/async-nix-post-build-hook";
-    };
+    # Can test post-build-hook with:
+    # nix-build --expr '(import <nixpkgs> {}).writeText "example" (builtins.toString builtins.currentTime)'
+  #   queued-build-hook = {
+  #     enable = true;
+  #     postBuildScript = pkgs.writeShellScript "hook" ''
+  #       set -eu
+  #       set -f # disable globbing
+  #       export IFS=' '
+
+  #       set -x
+
+  #       echo "Uploading paths to attic" $OUT_PATHS
+  #       echo "Uploading derivations to attic" $DRV_PATH
+  #       exec ${pkgs.attic}/bin/attic push workstation:cfeeley "$OUT_PATHS" "$DRV_PATH"
+  #     '';
+  #   };
+
+  #   systemd.services.async-nix-post-build-hook.environment = {
+  #     LANG = "en_US.UTF-8";
+  #     LC_ALL = "en_US.UTF-8";
+  #   };
+  #   systemd.services.async-nix-post-build-hook.serviceConfig = {
+  #     # StandardOutput = "file:/var/log/async-nix-post-build-hook.log";
+  #     # Environment = "LANGUAGE=en_US.UTF-8";
+  #     # DynamicUser = lib.mkForce false;
+  #     User = lib.mkForce "cfeeley";
+  #     # Group = lib.mkForce "cfeeley";
+  #     # LoadCredential = null;
+  #     # RuntimeDirectory = "async-nix-post-build-hook";
+  #     # RuntimeDirectoryMode = "0700";
+  #     # WorkingDirectory = "%t/async-nix-post-build-hook";
+  #   };
   };
 }
