@@ -28,5 +28,5 @@
 
   # Set the default session to plasma (Wayland)
   # Otherwise: "plasmax11" for X11
-  services.displayManager.defaultSession = "plasma";
+  services.displayManager.defaultSession = "plasmax11";
 }
