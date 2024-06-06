@@ -60,7 +60,7 @@ lib.mkIf (!options.virtualisation ? qemu) {
   ];
 
   virtualisation.docker.enableNvidia = config.virtualisation.docker.enable;
-  virtualisation.podman.enableNvidia = config.virtualisation.docker.enable;
+  virtualisation.containers.cdi.dynamic.nvidia.enable = config.virtualisation.podman.enable;
 
   environment.systemPackages = [ pkgs.nvtop pkgs.ddcutil pkgs.cudatoolkit config.boot.kernelPackages.nvidia_x11 ] ++ xorgPackages;
 }

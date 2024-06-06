@@ -10,7 +10,6 @@ in {
 
   virtualisation.oci-containers.backend = "podman";
   virtualisation.containers.storage.settings = lib.mkIf config.boot.supportedFilesystems.zfs { storage.driver = "zfs"; };
-  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
 
   virtualisation.podman = {
     enable = true;
