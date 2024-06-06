@@ -8,14 +8,11 @@
   ### KDE
   ###
   services.desktopManager.plasma6 = {
-    enable = false;
-    # FIXME: does not exist for plasma6, only plasma5
-    # useQtScaling = true;
-    # runUsingSystemd = false;
+    enable = true;
   };
 
   services.xserver.desktopManager.plasma5 = {
-    enable = true;
+    enable = false;
     useQtScaling = true;
     runUsingSystemd = false;
   };
