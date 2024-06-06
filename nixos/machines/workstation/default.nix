@@ -374,7 +374,7 @@ in
     hybrid-sleep.enable = false;
     hybrid-sleep.unitConfig.DefaultDependencies = false;
   };
-  powerManagement.enable = false;
+  powerManagement.enable = true;
 
   # FIXME(2023-02-28): always thinks VPN is disconnected
   # Poll VPN endpoint every 5 minutes and send an alert if the VPN is unreachable
