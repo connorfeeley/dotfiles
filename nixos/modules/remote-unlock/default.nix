@@ -111,6 +111,8 @@
         ];
         extraUtilsCommands = ''
           copy_bin_and_libs ${pkgs.tailscale}/bin/.tailscaled-wrapped
+          ln -sf tailscaled $out/bin/tailscale
+          ln -sf .tailscaled-wrapped $out/bin/.tailscale-wrapped
           copy_bin_and_libs ${pkgs.tailscale}/bin/tailscale
           copy_bin_and_libs ${pkgs.tailscale}/bin/tailscaled
           copy_bin_and_libs ${pkgs.iproute}/bin/ip
