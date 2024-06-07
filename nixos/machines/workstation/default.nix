@@ -325,6 +325,7 @@ in
   nix.caches = {
     enable = true;
     attic.enable = true;
+    attic.upload.enable = true;
     cachix.enable = true;
   };
 

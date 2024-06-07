@@ -68,18 +68,6 @@ in
 
     age.secrets = { inherit attic-config-toml; };
 
-    nix.settings = {
-      post-build-hook = pkgs.writeShellScript "hook" ''
-        set -eu
-        set -f # disable globbing
-        export IFS=' '
-
-        echo "Uploading paths to attic" $OUT_PATHS
-        echo "Uploading derivations to attic" $DRV_PATH
-        exec ${pkgs.attic}/bin/attic push workstation:cfeeley $OUT_PATHS $DRV_PATH
-      '';
-    };
-
     # Can test post-build-hook with:
     # nix-build --expr '(import <nixpkgs> {}).writeText "example" (builtins.toString builtins.currentTime)'
   #   queued-build-hook = {
