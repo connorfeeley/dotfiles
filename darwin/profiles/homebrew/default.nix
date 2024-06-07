@@ -12,7 +12,6 @@ in
   config = {
     homebrew.taps = [
       { name = "FelixKratz/formulae"; }
-      { name = "homebrew/cask-versions"; }
       { name = "jorgelbg/tap"; } # pinentry-touchid
       { name = "homebrew/services"; } # 'brew services' command
       { name = "apple/homebrew-apple"; } # game porting toolkit
@@ -42,7 +41,8 @@ in
 
       { name = "samba"; }
       { name = "freerdp"; }
-      { name = "alerter"; } # like notify-send but for darwin
+      # Broken
+      # { name = "alerter"; } # like notify-send but for darwin
       { name = "postgresql@15"; }
       { name = "wordnet"; } # for doom emacs 'lookup'
       # { name = "emacs-plus@29"; args = [ "with-dbus" "with-xwidgets"  "with-native-comp" "with-poll" ]; link = true; } # emacs-plus
@@ -52,7 +52,7 @@ in
 
     homebrew.casks = [
       { name = "visual-studio-code"; }
-      { name = "utm-beta"; } # QEMU GUI with virtualisation support
+      { name = "utm@beta"; } # QEMU GUI with virtualisation support
       # { name = "barrier"; } # Poor man's KVM
       { name = "swiftbar"; } # Tweak the menu bar
       # { name = "hiddenbar"; } # Hide/toggle menu bar icon visibility
@@ -108,6 +108,8 @@ in
       { name = "whisky"; } # Games on MacOS
 
       { name = "notunes"; } # Prevent Apple Music from launching
+
+      { name = "bartender"; }
     ];
 
     homebrew.masApps = {
@@ -121,6 +123,11 @@ in
       "Bitwarden" = 1352778147; # MAS version can integrate w/ FF for biometrics
 
       "Steam Link" = 1246969117;
+
+      "Apple Configurator" = 1037126344;
+      "Apple Developer" = 640199958;
+
+      "Microsoft Remote Desktop" = 1295203466;
 
       # Live broadcasts of the legislature of the province of Ontario, Canada.
       # NOTE: This is an iPad app, which 'mas' doesn't seem to handle correctly.
