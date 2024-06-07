@@ -51,13 +51,14 @@ let
 in
 {
   home.sessionVariables = {
-    KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
+    # KITTY_CONFIG_DIRECTORY = "${config.xdg.configHome}/kitty";
     # FIXME: necessary?
     KITTY_SOCKET = socket;
   };
 
   programs.kitty = {
     enable = true;
+    shellIntegration.mode = "no-rc";
     settings = settings // {
       font_size = if (isDarwin && isAarch64) then "12" else "12";
       confirm_os_window_close = "0";

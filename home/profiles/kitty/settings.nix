@@ -68,6 +68,5 @@
   # Ding ding
   enable_audio_bell = true;
 
-  # Automatic shell integration
-  shell_integration = true;
+  # Automatic shell integration is set by programs.kitty.shellIntegration config
 }
