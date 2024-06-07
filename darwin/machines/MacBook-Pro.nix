@@ -5,6 +5,8 @@ let
   inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
 
   inherit (self.collective) hmArgs;
+
+  inherit (hmArgs) roles;
 in
 {
   ### === users ================================================================
@@ -30,7 +32,7 @@ in
   # ];
   home-manager.users = {
     "${config.dotfield.guardian.username}" = {
-      imports = with hmArgs.roles;
+      imports =
         (lib.flatten [
           hmArgs.profiles.core
           (_: { imports = [ ../../lib/home ]; })
@@ -44,10 +46,8 @@ in
           self.inputs.nixos-vscode-server.nixosModules.home
           self.inputs.nix-index-database.hmModules.nix-index
         ]
-        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc ]) ++
-        (with hmArgs.roles;
-        workstation ++ macos ++ developer ++ emacs-config
-          ++ (with hmArgs.profiles; [ work media sync aws ])));
+        ++ (with roles; workstation ++ macos ++ trusted ++ webdev ++ security ++ developer ++ emacs-config)
+        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc work media sync aws ]));
 
       # imports = [ ../../home/modules/iterm2.nix ];
       _module.args.inputs = self.inputs;
@@ -64,6 +64,13 @@ in
   networking.hostName = "MacBook-Pro";
 
   networking.knownNetworkServices = [ "Wi-Fi" "iPhone USB" "Thunderbolt Bridge" ];
+
+  # Use personal caches
+  nix.caches = {
+    enable = true;
+    attic.enable = true;
+    cachix.enable = true;
+  };
 
   # Tailscale MAS App
   programs.tailscale.enable = true;

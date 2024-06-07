@@ -123,6 +123,7 @@ in
               collective.profiles.global.core
               collective.profiles.global.secrets
               collective.modules.global.dotfield.guardian
+              collective.modules.global.nix.caches
 
               collective.machines.nixos.workstation
 

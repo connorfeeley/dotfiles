@@ -66,8 +66,6 @@ in
       deadnix
       nixpkgs-fmt
       alejandra
-      cachix
-      attic-client
       treefmt
     ] ++ (lib.optionals isLinux [
       # nixpkgs-update # <- swiss-army knife for updating nix packages

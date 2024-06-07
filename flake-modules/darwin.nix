@@ -88,6 +88,7 @@ in
               collective.modules.global.nix-config-defaults
               collective.modules.global.dotfield.guardian
               collective.modules.global.fup-options
+              collective.modules.global.nix.caches
 
               # Attic
               collective.modules.darwin.attic

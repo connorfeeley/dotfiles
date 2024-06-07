@@ -321,6 +321,13 @@ in
 
   substituter.enable = true;
 
+  # Use personal caches
+  nix.caches = {
+    enable = true;
+    attic.enable = true;
+    cachix.enable = true;
+  };
+
   # Enable attic Nix cache
   services.cache = {
     enable = true;
