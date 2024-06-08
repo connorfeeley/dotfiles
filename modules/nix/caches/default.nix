@@ -6,6 +6,9 @@
 
 let
   cfg = config.nix.caches;
+
+  inherit (config.dotfield.guardian) username;
+  homedir = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
 in
 {
   options.nix.caches = {
@@ -39,6 +42,8 @@ in
         set -f # disable globbing
         export IFS=' '
 
+        # Attic only searches for $XDG_CONFIG_DIR/attic/config.toml
+        export HOME=${homedir}
         exec ${pkgs.attic}/bin/attic push workstation:cfeeley $OUT_PATHS $DRV_PATH
       '');
     };
