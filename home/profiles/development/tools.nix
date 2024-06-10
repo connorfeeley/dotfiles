@@ -6,6 +6,7 @@ let
 in
 {
   development.nix.enable = true;
+  development.rust.enable = true;
 
   home.packages = with pkgs;
     [
