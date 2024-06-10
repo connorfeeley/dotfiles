@@ -13,6 +13,7 @@ let
   attic-config-toml = {
     file = "${secretsDir}/attic-config.toml.age";
     owner = "cfeeley";
+    group = "nixbld";
   };
 in
 {
@@ -89,16 +90,39 @@ in
   #     LANG = "en_US.UTF-8";
   #     LC_ALL = "en_US.UTF-8";
   #   };
-  #   systemd.services.async-nix-post-build-hook.serviceConfig = {
-  #     # StandardOutput = "file:/var/log/async-nix-post-build-hook.log";
-  #     # Environment = "LANGUAGE=en_US.UTF-8";
-  #     # DynamicUser = lib.mkForce false;
-  #     User = lib.mkForce "cfeeley";
-  #     # Group = lib.mkForce "cfeeley";
-  #     # LoadCredential = null;
-  #     # RuntimeDirectory = "async-nix-post-build-hook";
-  #     # RuntimeDirectoryMode = "0700";
-  #     # WorkingDirectory = "%t/async-nix-post-build-hook";
-  #   };
+    systemd.services.async-nix-post-build-hook.serviceConfig = {
+      # StandardOutput = "file:/var/log/async-nix-post-build-hook.log";
+      # Environment = "LANGUAGE=en_US.UTF-8";
+      # DynamicUser = lib.mkForce false;
+      User = lib.mkForce "cfeeley";
+      Group = lib.mkForce "cfeeley";
+      # LoadCredential = null;
+      # RuntimeDirectory = "async-nix-post-build-hook";
+      # RuntimeDirectoryMode = "0700";
+      # WorkingDirectory = "%t/async-nix-post-build-hook";
+    };
+
+    queued-build-hook = {
+      enable = true;
+      credentials = {
+        # ssh-key = builtins.toString ciPrivateKey;
+      };
+      postBuildScriptContent =
+        let
+          uploadPathsScript = pkgs.writeShellApplication {
+            name = "upload-paths";
+            runtimeInputs = [ pkgs.attic pkgs.openssh ];
+            text = ''
+              set -eu
+              set -f # disable globbing
+              export IFS=' '
+
+              # shellcheck disable=SC2086 # intentional word splitting
+              exec ${pkgs.attic}/bin/attic push --config-path ${config.age.secrets.attic-config-toml.path} workstation:cfeeley $OUT_PATHS $DRV_PATH
+            '';
+          };
+        in
+        "${uploadPathsScript}/bin/upload-paths";
+    };
   };
 }

@@ -37,15 +37,15 @@ in
       ];
 
       # Automatically upload to attic cache
-      post-build-hook = lib.mkIf cfg.attic.upload.enable (pkgs.writeShellScript "hook" ''
-        set -eu
-        set -f # disable globbing
-        export IFS=' '
+      # post-build-hook = lib.mkIf cfg.attic.upload.enable (pkgs.writeShellScript "hook" ''
+      #   set -eu
+      #   set -f # disable globbing
+      #   export IFS=' '
 
-        # Attic only searches for $XDG_CONFIG_DIR/attic/config.toml
-        export HOME=${homedir}
-        exec ${pkgs.attic}/bin/attic push workstation:cfeeley $OUT_PATHS $DRV_PATH
-      '');
+      #   # Attic only searches for $XDG_CONFIG_DIR/attic/config.toml
+      #   export HOME=${homedir}
+      #   exec ${pkgs.attic}/bin/attic push workstation:cfeeley $OUT_PATHS $DRV_PATH
+      # '');
     };
   };
 }
