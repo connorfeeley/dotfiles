@@ -117,7 +117,6 @@
     extra-container = { url = "github:erikarvstedt/extra-container"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- sources ------------------------------------------------------------
-    mach-nix.url = "github:DavHau/mach-nix/refs/tags/3.5.0";
     gitignore.url = "github:hercules-ci/gitignore.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
     deadnix = { url = "github:astro/deadnix/refs/tags/v1.0.0"; inputs.nixpkgs.follows = "nixpkgs"; };
