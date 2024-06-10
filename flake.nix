@@ -72,7 +72,7 @@
     ];
   };
 
-  description = "My life in Nix.";
+  description = "Connor Feeley's dotfiles.";
 
   inputs = {
     ##: --- nixpkgs flavours ----------------------------------------------------------
