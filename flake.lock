@@ -4020,17 +4020,18 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1717378799,
-        "narHash": "sha256-nHFVTD611o9cEK5NLAhC1N7p1QOPpGmv7gh5mp0rGO8=",
-        "owner": "nix-community",
-        "repo": "queued-build-hook",
-        "rev": "2822a059c046bcb481306c446ced1ec6fd67369e",
-        "type": "github"
+        "lastModified": 1718140879,
+        "narHash": "sha256-08I1vyJGX3czLR8wSB6yPamoeby1ulDg96zV5oA0ObM=",
+        "ref": "feat/darwin-module",
+        "rev": "6c9f8489d208f229dfd2954da495e6a868a58a42",
+        "revCount": 145,
+        "type": "git",
+        "url": "file:///Users/cfeeley/source/queued-build-hook"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "queued-build-hook",
-        "type": "github"
+        "ref": "feat/darwin-module",
+        "type": "git",
+        "url": "file:///Users/cfeeley/source/queued-build-hook"
       }
     },
     "retiolum": {
@@ -4097,10 +4098,10 @@
         "nixos-vscode-server": "nixos-vscode-server",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": [
-          "nixos-unstable"
+          "nixos-stable-darwin"
         ],
         "nixpkgs-darwin": [
-          "nixos-unstable"
+          "nixos-stable-darwin"
         ],
         "nixpkgs-doc": "nixpkgs-doc",
         "nixpkgs-update": "nixpkgs-update",
