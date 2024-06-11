@@ -16,6 +16,8 @@ in
       ccache
 
       ## === Local Development ===
+      bc # <- Arbitrary precision calculator language
+      ninja # <- Small build system with a focus on speed
       reuse # <- Tool for licensing compliance
       asciinema # <- Record and share terminal sessions
       just # <- Just a command runner
