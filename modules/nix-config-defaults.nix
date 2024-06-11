@@ -71,9 +71,9 @@ in
 
   config = {
     nix.settings = lib.mkMerge [
-      (lib.optionals cfg.always.enable always)
-      (lib.optionals cfg.recommended.enable recommended)
-      (lib.optionals cfg.developer.enable developer)
+      (lib.mkIf cfg.always.enable always)
+      (lib.mkIf cfg.recommended.enable recommended)
+      (lib.mkIf cfg.developer.enable developer)
     ];
   };
 }
