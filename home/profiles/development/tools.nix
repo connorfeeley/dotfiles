@@ -16,6 +16,7 @@ in
       ccache
 
       ## === Local Development ===
+      devcontainer # <- VSCode devcontainer generator / CLI
       bc # <- Arbitrary precision calculator language
       ninja # <- Small build system with a focus on speed
       reuse # <- Tool for licensing compliance
