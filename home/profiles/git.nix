@@ -79,6 +79,7 @@ in
       signByDefault = true;
       gpgPath = "${git-gpg-privacy}/bin/git-gpg-privacy";
     };
+
     includes =
       let
         personalIncludes = dir: {
@@ -323,6 +324,9 @@ in
         # "my own time" = 6PM - 9AM, apparently.
         limit = "18-9";
       };
+
+      # Fetch tags automitically
+      remote.origin.tagOpt = "--tags";
       ##: }}
     }
       (lib.mkIf pkgs.stdenv.isDarwin {
