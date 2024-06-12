@@ -118,7 +118,7 @@ in
               export IFS=' '
 
               # shellcheck disable=SC2086 # intentional word splitting
-              exec ${pkgs.attic}/bin/attic push --config-path ${config.age.secrets.attic-config-toml.path} workstation:cfeeley $OUT_PATHS $DRV_PATH
+              exec ${pkgs.attic}/bin/attic push --config-path ${config.age.secrets.attic-config-toml.path} workstation:cfeeley $OUT_PATHS # $DRV_PATH
             '';
           };
         in
