@@ -94,8 +94,8 @@
     agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     sops-nix = { url = "github:pogobanane/sops-nix/feat/home-manager-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    # queued-build-hook.url = "github:nix-community/queued-build-hook";
-    queued-build-hook.url = "git+file:///Users/cfeeley/source/queued-build-hook?ref=feat/darwin-module";
+    queued-build-hook.url = "github:nix-community/queued-build-hook";
+    # queued-build-hook.url = "git+file:///Users/cfeeley/source/queued-build-hook?ref=feat/darwin-module";
 
     # : ~~~ FHS compat ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     nix-alien = { url = "github:thiagokokada/nix-alien"; inputs.nixpkgs.follows = "nixpkgs"; };

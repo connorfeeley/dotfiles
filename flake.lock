@@ -4020,18 +4020,17 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1718140879,
-        "narHash": "sha256-08I1vyJGX3czLR8wSB6yPamoeby1ulDg96zV5oA0ObM=",
-        "ref": "feat/darwin-module",
-        "rev": "6c9f8489d208f229dfd2954da495e6a868a58a42",
-        "revCount": 145,
-        "type": "git",
-        "url": "file:///Users/cfeeley/source/queued-build-hook"
+        "lastModified": 1717995233,
+        "narHash": "sha256-xDrHt040Xi+cKuJjm/a6QnA5/3NTedHYHcqWP/4yrfc=",
+        "owner": "nix-community",
+        "repo": "queued-build-hook",
+        "rev": "6e3d22d49d45c3e9053ef228ff284b59ccdbeb04",
+        "type": "github"
       },
       "original": {
-        "ref": "feat/darwin-module",
-        "type": "git",
-        "url": "file:///Users/cfeeley/source/queued-build-hook"
+        "owner": "nix-community",
+        "repo": "queued-build-hook",
+        "type": "github"
       }
     },
     "retiolum": {
