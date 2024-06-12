@@ -38,7 +38,6 @@ in
               inputs.agenix.nixosModules.age # `nixosModules` is correct, even for darwin
               inputs.home-manager.darwinModules.home-manager
               inputs.nur.nixosModules.nur
-              inputs.queued-build-hook.darwinModules.queued-build-hook
 
               collective.modules.darwin.amphetamine
               collective.modules.darwin.tailscale
