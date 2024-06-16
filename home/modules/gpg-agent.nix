@@ -249,6 +249,7 @@ in
         # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
         (lib.optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
         (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid")
+        "\n" # Trailing newline is important - avoids pinentry-program being jammed with the extraConfig.
       ]) + cfg.extraConfig;
 
       home.packages = lib.optionals (cfg.pinentryFlavor != null) (
@@ -264,7 +265,9 @@ in
       '';
 
       # Trailing newlines are important
-      home.file.".gnupg/sshcontrol".text = lib.mkIf (cfg.sshKeys != null) (lib.concatMapStrings (s: '' ${s} '') cfg.sshKeys);
+      home.activation.writeGpgSshControl = lib.mkIf (cfg.sshKeys != null) (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        echo "${(lib.concatMapStrings (s: '' ${s} '') cfg.sshKeys)}" > "${homedir}/.gnupg/sshcontrol"
+      '');
     }
 
     # The systemd units below are direct translations of the
