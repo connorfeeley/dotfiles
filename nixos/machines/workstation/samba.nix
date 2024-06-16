@@ -83,6 +83,7 @@ in {
         "fruit:aapl" = "yes";
         "vfs objects" = "catia fruit streams_xattr";
       };
+      # Add as a destination on MacBook with: 'sudo tmutil setdestination -ap smb://cfeeley@workstation.elephant-vibes.ts.net/tm_share'
       tm_share = {
         path = "/mnt/zfs/backup/time_machine";
         "valid users" = "cfeeley";
