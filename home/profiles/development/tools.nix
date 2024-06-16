@@ -16,6 +16,7 @@ in
       ccache
 
       ## === Local Development ===
+      cmake # <- Cross-platform make
       devcontainer # <- VSCode devcontainer generator / CLI
       bc # <- Arbitrary precision calculator language
       ninja # <- Small build system with a focus on speed
