@@ -127,6 +127,7 @@
     ##: --- personal packages --------------------------------------------------
     nurpkgs = { url = "github:connorfeeley/nurpkgs"; inputs.nixpkgs.follows = "nixpkgs"; };
     xmonad-config = { url = "git+https://git.sr.ht/~cfeeley/xmonad-config"; };
+    # ttc-subway-font = { url = "git+ssh://git@git.sr.ht/~cfeeley/ttc-subway-font"; inputs.nixpkgs.follows = "nixpkgs"; }; # Private repo
 
     ##: --- meta packages ------------------------------------------------------
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
