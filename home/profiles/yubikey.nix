@@ -1,6 +1,6 @@
 { lib, pkgs, inputs, ... }:
 let
-  inherit (pkgs.stdenv) targetPlatform;
+  inherit (pkgs.stdenv) isLinux targetPlatform;
   inherit (inputs.flake-utils.lib.system) aarch64-darwin;
 in
 {
@@ -12,11 +12,11 @@ in
     yubikey-personalization
   ]);
 
-  programs.gpg.scdaemonSettings = {
+  programs.gpg.scdaemonSettings = lib.mkIf isLinux {
     disable-ccid = true;
     # Maybe not necessary: only mention is in DrDuh guide for Windows
     reader-port = "Yubico Yubi";
   };
 
-  services.gpg-agent.enableScDaemon = true;
+  services.gpg-agent.enableScDaemon = lib.mkIf isLinux true;
 }
