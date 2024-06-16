@@ -201,5 +201,4 @@ in {
     enableKeyMapping = true;
     remapCapsLockToControl = false;
   };
-  fonts.fontDir.enable = true;
 }
