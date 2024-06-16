@@ -76,8 +76,8 @@
 
   inputs = {
     ##: --- nixpkgs flavours ----------------------------------------------------------
-    nixpkgs.follows = "nixos-stable-darwin";
-    nixpkgs-darwin.follows = "nixos-stable-darwin";
+    nixpkgs.follows = "nixos-unstable";
+    nixpkgs-darwin.follows = "nixos-unstable";
 
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-stable-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";

@@ -4082,10 +4082,10 @@
         "nixos-vscode-server": "nixos-vscode-server",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": [
-          "nixos-stable-darwin"
+          "nixos-unstable"
         ],
         "nixpkgs-darwin": [
-          "nixos-stable-darwin"
+          "nixos-unstable"
         ],
         "nixpkgs-doc": "nixpkgs-doc",
         "nixpkgs-update": "nixpkgs-update",
