@@ -266,7 +266,7 @@ in
 
       # Trailing newlines are important
       home.activation.writeGpgSshControl = lib.mkIf (cfg.sshKeys != null) (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        echo "${(lib.concatMapStrings (s: '' ${s} '') cfg.sshKeys)}" > "${homedir}/.gnupg/sshcontrol"
+        echo "${(lib.concatMapStrings (s: '' ${s} '') cfg.sshKeys)}" > "${homedir}/sshcontrol"
       '');
     }
 
