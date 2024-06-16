@@ -23,9 +23,6 @@ in {
       # noto-fonts-cjk
       # noto-fonts-emoji
 
-      # inputs'.ttc-subway-font.packages.ttc-subway
-      # inputs'.ttc-subway-font.packages.bloor-yonge-font
-
       (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
       font-awesome

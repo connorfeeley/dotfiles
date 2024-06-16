@@ -60,7 +60,6 @@ let
         inherit (packagesFrom inputs.nix-search-cli) nix-search;
         inherit (packagesFrom inputs.nixd) nixd;
         inherit (packagesFrom inputs.xmonad-config) xmonad-config;
-        inherit (packagesFrom inputs.ttc-subway-font) ttc-subway bloor-yonge-font;
         inherit (packagesFrom inputs.attic) attic attic-server attic-client; # Using this instead of overlay for darwin compatibility
 
         nix-init = inputs.nix-init.packages.${final.system}.default;
