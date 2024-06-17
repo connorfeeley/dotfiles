@@ -20,7 +20,7 @@ let
   withCategory = category: attrset: attrset // { inherit category; };
   pkgWithCategory = category: package: { inherit package category; };
 
-  dotfield = pkgWithCategory "dotfield";
+  dotfiles = pkgWithCategory "dotfiles";
   linter = pkgWithCategory "linters";
   formatter = pkgWithCategory "formatters";
   utils = pkgWithCategory "utils";
@@ -30,7 +30,7 @@ in
 {
   _file = toString ./.;
 
-  name = "Dotfield";
+  name = "Dotfiles";
 
   commands = [
     # -- Utils --
@@ -45,27 +45,27 @@ in
     (utils cachix)
     (utils lefthook)
 
-    # -- Dotfield --
-    (dotfield scripts.dotfield-docs)
-    (withCategory "dotfield" {
+    # -- Dotfiles --
+    (dotfiles scripts.dotfiles-docs)
+    (withCategory "dotfiles" {
       name = "repl";
       help = "Launch repl";
       command = "${nix}/bin/nix repl $PRJ_ROOT/repl.nix";
     })
-    (withCategory "dotfield" {
-      category = "dotfield";
+    (withCategory "dotfiles" {
+      category = "dotfiles";
       name = nvfetcher-bin.pname;
       help = nvfetcher-bin.meta.description;
       command =
         "cd $PRJ_ROOT/packages/sources; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
     })
-    (withCategory "dotfield" {
+    (withCategory "dotfiles" {
       name = "generate-h8tsner-kexec-bundle";
       help = "Use nixos-generate to build a kexec-build for the h8tsner VM.";
       # FIXME: --show-trace causes nix to segfault
       # command = "${nixos-generators}/bin/nixos-generate  --flake .#h8tsner --format kexec-bundle";
       command =
-        "${nix-output-monitor}/bin/nom build $DOTFIELD_DIR#packages.h8tsner-kexec.x86_64-linux --impure";
+        "${nix-output-monitor}/bin/nom build $DOTFILES_DIR#packages.h8tsner-kexec.x86_64-linux --impure";
     })
     # -- CI --
     (ci {

@@ -5,7 +5,7 @@
 { config, lib, ... }:
 
 let
-  inherit (config.lib.dotfield.secrets) secretsDir;
+  inherit (config.lib.dotfiles.secrets) secretsDir;
 
   cfg = config.services.cache;
 

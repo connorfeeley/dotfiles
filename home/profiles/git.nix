@@ -1,10 +1,10 @@
 { self', config, lib, pkgs, ... }:
 let
-  inherit (config.lib.dotfield.whoami)
+  inherit (config.lib.dotfiles.whoami)
     email fullName githubUserName pgpPublicKey;
 
-  inherit (config.lib) dotfield;
-  configDir = dotfield.userConfigPath + "/git";
+  inherit (config.lib) dotfiles;
+  configDir = dotfiles.userConfigPath + "/git";
 
   enableSigning = config.programs.gpg.enable && config.services.gpg-agent.enable
     && "" != pgpPublicKey;
@@ -239,7 +239,7 @@ in
       github.user = githubUserName;
 
       # Environment variables will not be expanded -- this requires a path.
-      init.templateDir = "${dotfield.userConfigPath}/git/templates";
+      init.templateDir = "${dotfiles.userConfigPath}/git/templates";
 
       # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
       pretty.nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar";

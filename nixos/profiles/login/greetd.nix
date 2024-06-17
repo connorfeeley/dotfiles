@@ -5,13 +5,13 @@
 # loading the default session
 { config, lib, pkgs, ... }:
 let
-  inherit (config.lib.dotfield.sys) hasNvidia;
-  inherit (config.lib.dotfield.home) hasWm;
+  inherit (config.lib.dotfiles.sys) hasNvidia;
+  inherit (config.lib.dotfiles.home) hasWm;
 
   hasGnome = config.services.xserver.desktopManager.gnome.enable;
   hasSteam = config.programs.steam.enable;
   hasSway = config.programs.sway.enable or (hasWm "sway");
-  mkSession = name: pkgs.writeShellScriptBin "dotfield-session-${name}";
+  mkSession = name: pkgs.writeShellScriptBin "dotfiles-session-${name}";
 
   # TODO: Once the `nvidia-open` drivers are in a stable place, hopefully we can
   # remove this...
@@ -78,8 +78,8 @@ in
       default_session = {
         command = sway-kiosk "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l";
       };
-      # initial_session = lib.mkIf config.dotfield.guardian.enable {
-      #   user = config.dotfield.guardian.username;
+      # initial_session = lib.mkIf config.dotfiles.guardian.enable {
+      #   user = config.dotfiles.guardian.username;
       #   command =
       #     if hasSway
       #     then sway.name

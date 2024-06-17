@@ -3,10 +3,10 @@ let
   inherit (self.collective) peers;
   hostName = "workstation";
 
-  inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+  inherit (config.lib.dotfiles.secrets) secretsDir secretsGroup;
 
   inherit (self.collective) hmArgs;
-  inherit (config.lib.dotfield.sys) notVm;
+  inherit (config.lib.dotfiles.sys) notVm;
 
   hashedPassword = "$6$V/uLpKYBvGk/Eqs7$IMguTPDVu5v1B9QBkPcIi/7g17DPfE6LcSc48io8RKHUjJDOLTJob0qYEaiUCAS5AChK.YOoJrpP5Bx38XIDB0";
 
@@ -205,7 +205,7 @@ in
 
   ### === users ================================================================
 
-  dotfield.guardian = {
+  dotfiles.guardian = {
     enable = true;
     username = "cfeeley";
     autoLogin = false; # Enabling this dumped me to a TTY.
@@ -256,7 +256,7 @@ in
   };
 
   home-manager.users = {
-    "${config.dotfield.guardian.username}" = {
+    "${config.dotfiles.guardian.username}" = {
       imports = with hmArgs.roles;
         (lib.flatten [
           hmArgs.profiles.core
@@ -345,8 +345,8 @@ in
   services.x2goserver.enable = false;
 
   age.secrets = {
-    dotfield-readme-update-access-token = {
-      file = "${secretsDir}/dotfield-readme-update-access-token.txt.age";
+    dotfiles-readme-update-access-token = {
+      file = "${secretsDir}/dotfiles-readme-update-access-token.txt.age";
       group = secretsGroup;
     };
   };

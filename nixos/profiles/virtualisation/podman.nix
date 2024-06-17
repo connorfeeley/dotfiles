@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let inherit (config.dotfield) guardian;
+let inherit (config.dotfiles) guardian;
     docker-client = config.virtualisation.docker.package.override { clientOnly = true; };
 in {
   environment.systemPackages = [

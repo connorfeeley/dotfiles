@@ -7,7 +7,7 @@
 let
   cfg = config.nix.caches;
 
-  inherit (config.dotfield.guardian) username;
+  inherit (config.dotfiles.guardian) username;
   homedir = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
 in
 {

@@ -2,14 +2,14 @@ moduleArgs@{ config, lib, ... }:
 let
   inherit (config.xdg) configHome;
 
-  sysLib = moduleArgs.osConfig.lib.dotfield or { };
+  sysLib = moduleArgs.osConfig.lib.dotfiles or { };
 
-  this = config.lib.dotfield;
+  this = config.lib.dotfiles;
   defaultUsername = "cfeeley";
 in
 {
-  lib.dotfield = rec {
-    fsPath = toString "${configHome}/dotfield";
+  lib.dotfiles = rec {
+    fsPath = toString "${configHome}/dotfiles";
     srcPath = ../../.;
     userConfigPath = srcPath + "/home/users/${defaultUsername}/config";
 

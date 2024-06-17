@@ -16,7 +16,7 @@ lib.mkIf (!options.virtualisation ? qemu) {
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
-  # NOTE: The lib.dotfield.sys.hasNvidia function from lib/system/default.nix is equal to
+  # NOTE: The lib.dotfiles.sys.hasNvidia function from lib/system/default.nix is equal to
   #       'hardware.nvidia.package != null'.
   services.xserver.videoDrivers = [ "nvidia" ];
 

@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let inherit (config.dotfield) guardian;
+let inherit (config.dotfiles) guardian;
 in {
   virtualisation.oci-containers.backend = "docker";
 

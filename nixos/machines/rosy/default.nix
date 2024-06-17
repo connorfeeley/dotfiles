@@ -1,7 +1,7 @@
 { config, lib, pkgs, profiles, primaryUser, collective, ... }:
 let
   inherit (config.networking) hostName;
-  inherit (config.dotfield) guardian;
+  inherit (config.dotfiles) guardian;
 
   # Bootstrap sets up:
   # - enabling systemd-boot
@@ -104,8 +104,8 @@ in
 
   ### === users ================================================================
 
-  dotfield.guardian.enable = true;
-  dotfield.guardian.username = "cfeeley";
+  dotfiles.guardian.enable = true;
+  dotfiles.guardian.username = "cfeeley";
 
   users.mutableUsers = false;
   users.users.root.hashedPassword =

@@ -1,9 +1,9 @@
 { writeShellApplication, git, git-run }:
 writeShellApplication {
-  name = "dotfield-sync";
+  name = "dotfiles-sync";
   runtimeInputs = [ git git-run ];
   text = ''
-    # Pull dotfield and doomemacs (config) repos
-    ${git-run}/bin/gr "$DOTFIELD_DIR" "$DOOMDIR" ~/source/nurpkgs -- git pull --rebase --autostash
+    # Pull dotfiles and doomemacs (config) repos
+    ${git-run}/bin/gr "$DOTFILES_DIR" "$DOOMDIR" ~/source/nurpkgs -- git pull --rebase --autostash
   '';
 }

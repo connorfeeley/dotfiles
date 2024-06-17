@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
-let inherit (config.lib.dotfield.whoami) pgpPublicKey pgpKeygrip;
+let inherit (config.lib.dotfiles.whoami) pgpPublicKey pgpKeygrip;
 in lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [{
-  home.sessionVariables.DOTFIELD_PGP_KEY = pgpPublicKey;
+  home.sessionVariables.DOTFILES_PGP_KEY = pgpPublicKey;
 
   home.packages = with pkgs; [
     gnupg

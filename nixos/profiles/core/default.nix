@@ -60,7 +60,7 @@ in
   programs.bandwhich.enable = true;
 
   programs.git.enable = true;
-  programs.git.config = { safe.directory = [ "/etc/nixos" "/etc/dotfield" ]; };
+  programs.git.config = { safe.directory = [ "/etc/nixos" "/etc/dotfiles" ]; };
 
   programs.mtr.enable = true;
 

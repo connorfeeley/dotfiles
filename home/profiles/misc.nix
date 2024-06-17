@@ -36,10 +36,10 @@
     # (lib.hiPrio nb)
     # nixos-rebuild-remote
     # self'.packages.nomos-rebuild
-    # dotfield-sync
-    # dotfield-push
-    # dotfield-rebuild
-    # dotfield-doom
+    # dotfiles-sync
+    # dotfiles-push
+    # dotfiles-rebuild
+    # dotfiles-doom
   ] ++ (lib.optionals (pkgs.stdenv.isLinux) [
     handbrake # <- Video transcoder
     mmdoc # <- Markdown documentation generator

@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 let
   inherit (pkgs) writeScriptBin writeShellScriptBin;
-  inherit (config.lib) dotfield;
+  inherit (config.lib) dotfiles;
   # barCfg = config.services.sketchybar;
 
-  configDir = "${dotfield.userConfigPath}/yabai";
+  configDir = "${dotfiles.userConfigPath}/yabai";
   daemonPath = "/Library/LaunchDaemons/org.nixos.yabai-sa.plist";
 
   defaults = { padding = "6"; };

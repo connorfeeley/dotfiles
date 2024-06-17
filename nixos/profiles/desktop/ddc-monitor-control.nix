@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 let
-  inherit (config.dotfield) guardian;
+  inherit (config.dotfiles) guardian;
 
   monitors = {
     # Dell Ultrawide

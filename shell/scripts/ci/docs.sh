@@ -9,10 +9,10 @@
 export PATH=@path@:$PATH
 
 # Generate a personal access token and export it as PRIVATE_BEARER_TOKEN:
-if [ -e /tmp/dotfield-readme-update-access-token.txt ]; then
-   PRIVATE_BEARER_TOKEN="$(cat /tmp/dotfield-readme-update-access-token.txt)"
-elif [ -f "/run/agenix/dotfield-readme-update-access-token" ]; then
-   PRIVATE_BEARER_TOKEN="$(cat "/run/agenix/dotfield-readme-update-access-token")"
+if [ -e /tmp/dotfiles-readme-update-access-token.txt ]; then
+   PRIVATE_BEARER_TOKEN="$(cat /tmp/dotfiles-readme-update-access-token.txt)"
+elif [ -f "/run/agenix/dotfiles-readme-update-access-token" ]; then
+   PRIVATE_BEARER_TOKEN="$(cat "/run/agenix/dotfiles-readme-update-access-token")"
 fi
 
 # ############################################################ #
@@ -46,7 +46,7 @@ pandoc /tmp/README.md -f gfm -t html5 -o /tmp/README.html
 ###
 
 # And this with your repository name:
-# repo_name=dotfield
+# repo_name=dotfiles
 
 # curl --oauth2-bearer $bearer_token \
 #   -G --data-urlencode query='query { me { repository(name: "'$repo_name'") { id } } }' \

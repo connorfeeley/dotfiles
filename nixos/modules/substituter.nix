@@ -1,6 +1,6 @@
 { self, config, lib, pkgs, ... }:
 let
-  inherit (config.lib.dotfield.secrets) secretsDir;
+  inherit (config.lib.dotfiles.secrets) secretsDir;
 
   inherit (self.collective.peers) networks;
 

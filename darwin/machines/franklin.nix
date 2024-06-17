@@ -1,7 +1,7 @@
 { config, lib, profiles, collective, ... }: {
   ### === users ================================================================
 
-  dotfield.guardian = {
+  dotfiles.guardian = {
     enable = true;
     username = "cfeeley";
   };

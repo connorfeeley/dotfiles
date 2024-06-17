@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let inherit (config.lib.dotfield.sys) hasWayland;
+let inherit (config.lib.dotfiles.sys) hasWayland;
 in {
   environment.systemPackages = with pkgs; [ zoom-us ];
   home-manager.sharedModules = [{

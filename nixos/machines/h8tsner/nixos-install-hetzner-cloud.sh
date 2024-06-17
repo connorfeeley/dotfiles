@@ -28,7 +28,7 @@
 #       hcloud server poweroff h8tsner
 #       hcloud server poweron h8tsner
 #       ssh-copy-id nixos@h8tsner
-#       scp $DOTFIELD_DIR/nixos/machines/h8tsner/nixos-install-hetzner-cloud.sh nixos@h8tsner:
+#       scp $DOTFILES_DIR/nixos/machines/h8tsner/nixos-install-hetzner-cloud.sh nixos@h8tsner:
 #       ssh nixos@h8tsner 'sudo bash -c nixos-install-hetzner-cloud.sh'
 #
 #       hcloud server detach-iso h8tsner

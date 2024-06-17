@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (config.lib.dotfield.sys) hasWayland;
+  inherit (config.lib.dotfiles.sys) hasWayland;
 
   firefoxPackage = if hasWayland then pkgs.firefox-wayland else pkgs.firefox;
 in
 {
-  services.getty.autologinUser = config.dotfield.guardian.username;
+  services.getty.autologinUser = config.dotfiles.guardian.username;
 
   services.earlyoom.enable = true;
 

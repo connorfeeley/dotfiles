@@ -41,7 +41,7 @@ SUDO=""
 [ "${PLATFORM}" != "nixos" ] || SUDO="sudo"
 
 # Pretty-build flake configuration
-@nom@ build --no-link "${DOTFIELD_DIR}#${PLATFORM}Configurations.${HOSTNAME}.config.system.build.toplevel"
+@nom@ build --no-link "${DOTFILES_DIR}#${PLATFORM}Configurations.${HOSTNAME}.config.system.build.toplevel"
 
 # Forward first argument to {nixos,darwin}-rebuild (build, switch, etc)
-${SUDO} ${PLATFORM}-rebuild --flake "${DOTFIELD_DIR}#${HOSTNAME}" "${ACTION}"
+${SUDO} ${PLATFORM}-rebuild --flake "${DOTFILES_DIR}#${HOSTNAME}" "${ACTION}"

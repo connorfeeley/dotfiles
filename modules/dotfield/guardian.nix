@@ -2,10 +2,10 @@
 let
   inherit (lib.types) nullOr str;
 
-  cfg = config.dotfield.guardian;
+  cfg = config.dotfiles.guardian;
 in
 {
-  options.dotfield.guardian = {
+  options.dotfiles.guardian = {
     enable = lib.mkEnableOption
       "Whether to designate a guardian user for this system.";
     username = lib.mkOption {
@@ -20,7 +20,7 @@ in
     autoLogin = lib.mkEnableOption "Whether to log the guardian user in automatically.";
   };
   config = lib.mkIf cfg.enable {
-    dotfield.guardian.user =
+    dotfiles.guardian.user =
       lib.mkAliasDefinitions config.users.users.${cfg.username};
     users.groups."wheel".members = [ cfg.username ];
   };

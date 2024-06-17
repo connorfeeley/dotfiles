@@ -2,7 +2,7 @@
 let
   inherit (inputs) base16-kitty nix-colors;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isAarch64;
-  inherit (config.lib.dotfield.features) hasTwm hasPragPro;
+  inherit (config.lib.dotfiles.features) hasTwm hasPragPro;
 
   inherit (pkgs.stdenv) isLinux;
 

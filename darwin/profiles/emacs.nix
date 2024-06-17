@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (config.dotfield.guardian) username;
+  inherit (config.dotfiles.guardian) username;
 
   # Primary user's HM configuration
   guardianConfig = config.home-manager.users."${username}";
@@ -73,7 +73,7 @@ in
     enable = false;
     package = emacsPackage;
     additionalPath =
-      [ "/Users/${config.dotfield.guardian.username}/.config/emacs/bin" ];
+      [ "/Users/${config.dotfiles.guardian.username}/.config/emacs/bin" ];
   };
 
   environment.systemPackages = [ emacsClientPackage ];

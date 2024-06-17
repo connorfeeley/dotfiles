@@ -3,7 +3,7 @@
 #
 #====\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===\\===\\\===>
 #::   \\\
-#:: ======>      DOTFIELD PROVISIONER        ○
+#:: ======>      DOTFILES PROVISIONER        ○
 #::   ///
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 #
@@ -16,27 +16,27 @@
 
 set -eo pipefail
 
-: "${DOTFIELD_HOSTNAME:=}"
-: "${DOTFIELD_USERNAME:=}"
-: "${DOTFIELD_ID_EMAIL:=}"
-: "${DOTFIELD_USER_PASSWORD:=}"
-: "${DOTFIELD_SSH_PUBLIC_KEY:=}"
-: "${DOTFIELD_PGP_KEY:=0x135EEDD0F71934F3}"
-: "${DOTFIELD_TIMEZONE:=America/New_York}"
+: "${DOTFILES_HOSTNAME:=}"
+: "${DOTFILES_USERNAME:=}"
+: "${DOTFILES_ID_EMAIL:=}"
+: "${DOTFILES_USER_PASSWORD:=}"
+: "${DOTFILES_SSH_PUBLIC_KEY:=}"
+: "${DOTFILES_PGP_KEY:=0x135EEDD0F71934F3}"
+: "${DOTFILES_TIMEZONE:=America/New_York}"
 
 : "${USE_HTTPS:=true}"
 
-DOTFIELD_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFIELD_BRANCH:-main}}}"
-DOTFIELD_BRANCH="${DOTFIELD_BRANCH#refs/heads/}"
-readonly DOTFIELD_BRANCH
+DOTFILES_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF:-${DOTFILES_BRANCH:-main}}}"
+DOTFILES_BRANCH="${DOTFILES_BRANCH#refs/heads/}"
+readonly DOTFILES_BRANCH
 
-readonly QUERENT="${DOTFIELD_USERNAME:-montchr}"
-readonly REPO_ID="montchr/dotfield"
-readonly DOTFIELD_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFIELD_BRANCH}"
-readonly DOTFIELD_UTILS_URL="${DOTFIELD_RAW_BASE_URL}/lib/utils.sh"
-readonly DOTFIELD_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfield/dotfield.lock"
+readonly QUERENT="${DOTFILES_USERNAME:-montchr}"
+readonly REPO_ID="montchr/dotfiles"
+readonly DOTFILES_RAW_BASE_URL="https://raw.githubusercontent.com/${REPO_ID}/${DOTFILES_BRANCH}"
+readonly DOTFILES_UTILS_URL="${DOTFILES_RAW_BASE_URL}/lib/utils.sh"
+readonly DOTFILES_LOCK_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfiles/dotfiles.lock"
 
-: "${DOTFIELD_DIR:=${HOME}/dotfield}"
+: "${DOTFILES_DIR:=${HOME}/dotfiles}"
 : "${XDG_BIN_HOME:=${HOME}/.local/bin}"
 
 XDG_CONFIG_HOME="${HOME}/.config"
@@ -98,16 +98,16 @@ fi
 
 export \
   DEVELOPER \
-  DOTFIELD_BOOTSTRAP \
-  DOTFIELD_BRANCH \
-  DOTFIELD_DIR \
-  DOTFIELD_HOSTNAME \
-  DOTFIELD_ID_EMAIL \
-  DOTFIELD_PGP_KEY \
-  DOTFIELD_SSH_PUBLIC_KEY \
-  DOTFIELD_TIMEZONE \
-  DOTFIELD_USERNAME \
-  DOTFIELD_USER_PASSWORD \
+  DOTFILES_BOOTSTRAP \
+  DOTFILES_BRANCH \
+  DOTFILES_DIR \
+  DOTFILES_HOSTNAME \
+  DOTFILES_ID_EMAIL \
+  DOTFILES_PGP_KEY \
+  DOTFILES_SSH_PUBLIC_KEY \
+  DOTFILES_TIMEZONE \
+  DOTFILES_USERNAME \
+  DOTFILES_USER_PASSWORD \
   KERNEL_NAME \
   KERNEL_RELEASE \
   OS_NAME \
@@ -430,11 +430,11 @@ function guard::nixified() {
 # Delete the bootstrap lockfile.
 #
 # Globals:
-#   DOTFIELD_LOCK_FILE
+#   DOTFILES_LOCK_FILE
 #========================================
 function lock__disengage {
-  [[ -f "${DOTFIELD_LOCK_FILE}" ]] \
-    && rm -rf "${DOTFIELD_LOCK_FILE}"
+  [[ -f "${DOTFILES_LOCK_FILE}" ]] \
+    && rm -rf "${DOTFILES_LOCK_FILE}"
 }
 
 
@@ -493,11 +493,11 @@ function traceback() {
 #:
 #====///===//===///===//===///===//===///===//===///===//===///===//===///===>
 
-if [[ -f "${DOTFIELD_DIR}/lib/utils.sh" ]]
+if [[ -f "${DOTFILES_DIR}/lib/utils.sh" ]]
 then
 
 # shellcheck source=./lib/utils.sh
-. "${DOTFIELD_DIR}/lib/utils.sh"
+. "${DOTFILES_DIR}/lib/utils.sh"
 
 msg::stream::story <<END
 We arrive at a well-travelled outcropping,
@@ -508,8 +508,8 @@ END
 
 else
 
-printf "Summoning remote utilities from %s" "${DOTFIELD_UTILS_URL}"
-utils_path="$(fetch_ephemeral "${DOTFIELD_UTILS_URL}")"
+printf "Summoning remote utilities from %s" "${DOTFILES_UTILS_URL}"
+utils_path="$(fetch_ephemeral "${DOTFILES_UTILS_URL}")"
 # shellcheck source=./lib/utils.sh
 . "${utils_path}"
 
@@ -544,15 +544,15 @@ shell::has gpg || {
 }
 
 
-msg::domain "System" "Syncing dotfield"
+msg::domain "System" "Syncing dotfiles"
 msg::stream::story <<END
 One cannot simply lift oneself up by one's own bootstraps...
 END
-repo::sync "${DOTFIELD_DIR}" "gh" "${REPO_ID}" "${DOTFIELD_BRANCH}" || exit 1
+repo::sync "${DOTFILES_DIR}" "gh" "${REPO_ID}" "${DOTFILES_BRANCH}" || exit 1
 
 
-msg::domain "Travelling" "-> ${DOTFIELD_DIR}"
-cd "${DOTFIELD_DIR}" || {
+msg::domain "Travelling" "-> ${DOTFILES_DIR}"
+cd "${DOTFILES_DIR}" || {
 msg::stream::errors <<END
 We seem to be lost in '$(pwd)'.
 Something went wrong!
@@ -614,7 +614,7 @@ export ACTION
 
 msg::domain "Supporting" "Checking for lockfile"
 
-if [[ -f "${DOTFIELD_LOCK_FILE}" ]]
+if [[ -f "${DOTFILES_LOCK_FILE}" ]]
 then
 
 msg::stream::errors <<END
@@ -624,15 +624,15 @@ One must either wait patiently
 or embrace the horrors of the unknown
 and manually delete the lockfile:
 
-:: ${DOTFIELD_LOCK_FILE}
+:: ${DOTFILES_LOCK_FILE}
 END
 
 exit 1
 fi
 
 msg::domain "Supporting" "Engaging lock"
-mkdir -p "$(dirname "${DOTFIELD_LOCK_FILE}")"
-touch "${DOTFIELD_LOCK_FILE}"
+mkdir -p "$(dirname "${DOTFILES_LOCK_FILE}")"
+touch "${DOTFILES_LOCK_FILE}"
 
 trap lock__disengage INT TERM EXIT
 

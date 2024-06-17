@@ -109,9 +109,9 @@ let
   };
 
   styles = {
-    dotfield = {
+    dotfiles = {
       userChrome = ''
-        /* Load Dotfield customisations. */
+        /* Load Dotfiles customisations. */
         /* Note: the entire content of this file is copied below, so the file itself isn't imported. */
         @import url("${toString ./userChrome.css}");
 
@@ -121,7 +121,7 @@ let
         }
       '';
       userContent = ''
-        /* Load Dotfield customisations. */
+        /* Load Dotfiles customisations. */
         @import url("${toString ./userContent.css}");
       '';
     };
@@ -226,15 +226,15 @@ in
         ${styles.lepton.userChrome}
 
         :root {
-          --dotfield-tab-line-color: #5e81ac;
+          --dotfiles-tab-line-color: #5e81ac;
         }
 
-        ${styles.dotfield.userChrome}
+        ${styles.dotfiles.userChrome}
       '';
 
       userContent = ''
         ${styles.lepton.userContent}
-        ${styles.dotfield.userContent}
+        ${styles.dotfiles.userContent}
       '';
     };
   };

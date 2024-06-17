@@ -2,7 +2,7 @@
 let
   inherit (pkgs.stdenv) isLinux isDarwin;
 
-  inherit (config.lib.dotfield) fsPath;
+  inherit (config.lib.dotfiles) fsPath;
   nixPath = [
     "nixpkgs=${inputs.nixpkgs}"
     (lib.optionalString isLinux "nixos-config=${fsPath}/lib/compat/nixos")
@@ -13,10 +13,9 @@ in
   imports = [ ../../lib/system ./nix-config.nix ./system-packages.nix ];
 
   environment.variables = {
-    DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
+    DOTFILES_DIR = "$XDG_CONFIG_HOME/dotfiles";
     EDITOR = "e";
-    KERNEL_NAME =
-      if pkgs.stdenv.hostPlatform.isDarwin then "darwin" else "linux";
+    KERNEL_NAME = if pkgs.stdenv.hostPlatform.isDarwin then "darwin" else "linux";
     LANG = "en_US.UTF-8";
     # LC_ALL = "en_US.UTF-8"; # don't set; breaks distrobox and other things
     XDG_CACHE_HOME = "$HOME/.cache";

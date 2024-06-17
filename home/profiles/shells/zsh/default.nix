@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isDarwin;
-  inherit (config.lib) dotfield;
-  configDir = dotfield.userConfigPath + "/zsh";
+  inherit (config.lib) dotfiles;
+  configDir = dotfiles.userConfigPath + "/zsh";
 
   shellAliases = (import ../abbrs.nix) // (import ../aliases.nix) // {
     nix-callpackage = ''(){ nix-build -E "with import <nixpkgs> {}; callPackage ''${1:-./default.nix} {}"; }'';
@@ -70,7 +70,7 @@ in
       dev = "$HOME/dev";
       src = "$HOME/source";
       cfg = "$XDG_CONFIG_HOME";
-      dots = "$XDG_CONFIG_HOME/dotfield";
+      dots = "$XDG_CONFIG_HOME/dotfiles";
       doom = "$XDG_CONFIG_HOME/doom";
       emacs = "$XDG_CONFIG_HOME/emacs";
     };
@@ -201,7 +201,7 @@ in
           export FONTCONFIG_FILE=$NIX_LINK/etc/X11/fonts.conf
         fi
 
-        # source $DOTFIELD_DIR/lib/color.sh
+        # source $DOTFILES_DIR/lib/color.sh
         source ${configDir + "/functions.zsh"}
         source ${configDir + "/options.zsh"}
 

@@ -1,7 +1,7 @@
 moduleArgs@{ config, lib, ... }:
 let
-  inherit (config.lib.dotfield.features) hasWayland;
-  hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
+  inherit (config.lib.dotfiles.features) hasWayland;
+  hasNvidia = moduleArgs.osConfig.lib.dotfiles.sys.hasNvidia or false;
 in
 {
   programs.mpv = {

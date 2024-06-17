@@ -1,7 +1,7 @@
 { config, osConfig, lib, pkgs, ... }:
 let
   inherit (config.lib.dag) entryAfter;
-  inherit (osConfig.dotfield) guardian;
+  inherit (osConfig.dotfiles) guardian;
 in
 {
   home.activation.updateDock =

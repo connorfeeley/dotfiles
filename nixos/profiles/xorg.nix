@@ -92,8 +92,8 @@
     displayManager = {
       # Log in automatically
       autoLogin = {
-        enable = config.dotfield.guardian.autoLogin;
-        user = config.dotfield.guardian.username;
+        enable = config.dotfiles.guardian.autoLogin;
+        user = config.dotfiles.guardian.username;
       };
 
       sessionCommands = ''

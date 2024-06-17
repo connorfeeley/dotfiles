@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let inherit (config.dotfield) guardian;
+let inherit (config.dotfiles) guardian;
 in {
   # Add guardian to 'plugdev' group
   users.groups.plugdev.members = [ guardian.username ];

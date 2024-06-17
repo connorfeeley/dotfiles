@@ -3,9 +3,9 @@ let
   inherit (pkgs.stdenv) isAarch64;
 
   inherit (config.home) username;
-  inherit (config.lib) dotfield;
+  inherit (config.lib) dotfiles;
 
-  hasNvidia = moduleArgs.osConfig.lib.dotfield.sys.hasNvidia or false;
+  hasNvidia = moduleArgs.osConfig.lib.dotfiles.sys.hasNvidia or false;
 in
 {
   home.packages = with pkgs; [
@@ -168,7 +168,7 @@ in
   home.extraOutputsToInstall = [ "/share/zsh" ];
 
   home.sessionVariables = {
-    DOTFIELD_DIR = "$XDG_CONFIG_HOME/dotfield";
+    DOTFILES_DIR = "$XDG_CONFIG_HOME/dotfiles";
 
     Z_DATA = "$XDG_DATA_HOME/z";
     Z_OWNER = username;

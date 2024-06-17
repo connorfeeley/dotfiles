@@ -1,5 +1,5 @@
-# NOTE: symlink /etc/dotfield to flake dir with:
-#   sudo ln -s ~/.config/dotfield/ /etc/dotfield
+# NOTE: symlink /etc/dotfiles to flake dir with:
+#   sudo ln -s ~/.config/dotfiles/ /etc/dotfiles
 { ... }:
 let
 

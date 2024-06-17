@@ -39,7 +39,7 @@ in
     "Kagi for Safari" = 1622835804;
   };
 
-  home-manager.users.${config.dotfield.guardian.username} = hmArgs: {
+  home-manager.users.${config.dotfiles.guardian.username} = hmArgs: {
     home.file."Library/Containers/net.televator.Vimari.SafariExtension/Data/Library/Application Support/userSettings.json".source =
       pkgs.writeText "userSettings.json" (builtins.toJSON vimariUserSettings);
   };

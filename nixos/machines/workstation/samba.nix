@@ -3,7 +3,7 @@
 
 # Server setup: sudo smbpasswd -a cfeeley
 # MacOS setup: tmutil setdestination smb://cfeeley:<password>@workstation/timemachine
-let inherit (config.dotfield) guardian;
+let inherit (config.dotfiles) guardian;
 in {
   services.samba-wsdd.enable =
     true; # make shares visible for windows 10 clients

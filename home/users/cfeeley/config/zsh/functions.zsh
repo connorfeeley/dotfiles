@@ -50,7 +50,7 @@ function color::print() {
 #=====================================
 # Find all .DS_Store files under the current directory, and prompt to remove them
 #=====================================
-function dotfield::clean-ds-stores() {
+function dotfiles::clean-ds-stores() {
     local TARGET="${1:-$PWD}"
     local FILE_LIST="$(fd --no-ignore --hidden --case-sensitive '.DS_Store' "${TARGET}")"
 

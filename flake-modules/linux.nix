@@ -122,7 +122,7 @@ in
 
               collective.profiles.global.core
               collective.profiles.global.secrets
-              collective.modules.global.dotfield.guardian
+              collective.modules.global.dotfiles.guardian
               collective.modules.global.nix.caches
 
               collective.machines.nixos.workstation
@@ -152,7 +152,7 @@ in
               collective.modules.nixos.media-dl
 
               ({ config, ... }:
-                let inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+                let inherit (config.lib.dotfiles.secrets) secretsDir secretsGroup;
                 in {
                   age.secrets = {
                     openvpn-auth-file = {

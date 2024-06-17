@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let inherit (pkgs) stdenv;
 in {
-  dotfield-docs =
+  dotfiles-docs =
     let
       extraPath = lib.makeBinPath (with pkgs; [ pandoc jq curl ]);
       writeProgram = name: env: src:
@@ -13,5 +13,5 @@ in {
           isExecutable = true;
         } // env);
     in
-    writeProgram "dotfield-docs" { } ./ci/docs.sh;
+    writeProgram "dotfiles-docs" { } ./ci/docs.sh;
 }

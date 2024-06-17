@@ -21,7 +21,7 @@ channels: final: prev: {
     paths = [ prev.nixos-option ];
     buildInputs = [ prev.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/nixos-option --add-flags '-I nixpkgs="$DOTFIELD_DIR/lib/compat"'
+      wrapProgram $out/bin/nixos-option --add-flags '-I nixpkgs="$DOTFILES_DIR/lib/compat"'
     '';
   };
 }

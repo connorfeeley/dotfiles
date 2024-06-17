@@ -25,7 +25,7 @@ in lib.mkMerge [
         #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
         publicHostKey =
           "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUMrcFc1TEIrT3AySGdraUN1d0FPUTVVQjFBVEV2VHJuVjg5Q0ZvNHRvQ1MgCg==";
-        sshUser = config.dotfield.guardian.username;
+        sshUser = config.dotfiles.guardian.username;
         # "8 laptop cores times 1" seems like a reasonable relative speed factor.
         speedFactor = 8;
         supportedFeatures = [ "big-parallel" "kvm" "nixos-test" "benchmark" ];

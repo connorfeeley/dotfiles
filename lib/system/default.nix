@@ -35,8 +35,8 @@ let
   defaultUsername = "cfeeley";
 in
 {
-  lib.dotfield = rec {
-    fsPath = "/etc/dotfield";
+  lib.dotfiles = rec {
+    fsPath = "/etc/dotfiles";
     srcPath = toString ../../.;
     userConfigPath = srcPath + "/home/users/${defaultUsername}/config";
 

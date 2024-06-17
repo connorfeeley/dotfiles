@@ -2,7 +2,7 @@
 let
   inherit (config.networking) hostName;
 
-  inherit (config.lib.dotfield.secrets) secretsDir secretsGroup;
+  inherit (config.lib.dotfiles.secrets) secretsDir secretsGroup;
 
   inherit (self.collective) hmArgs;
 
@@ -11,7 +11,7 @@ in
 {
   ### === users ================================================================
 
-  dotfield.guardian = {
+  dotfiles.guardian = {
     enable = true;
     username = "cfeeley";
   };
@@ -31,7 +31,7 @@ in
   #   self.inputs.plasma-manager.homeManagerModules.plasma-manager
   # ];
   home-manager.users = {
-    "${config.dotfield.guardian.username}" = {
+    "${config.dotfiles.guardian.username}" = {
       imports =
         (lib.flatten [
           hmArgs.profiles.core
@@ -99,8 +99,8 @@ in
   };
 
   age.secrets = {
-    dotfield-readme-update-access-token = {
-      file = "${secretsDir}/dotfield-readme-update-access-token.txt.age";
+    dotfiles-readme-update-access-token = {
+      file = "${secretsDir}/dotfiles-readme-update-access-token.txt.age";
       group = secretsGroup;
     };
   };

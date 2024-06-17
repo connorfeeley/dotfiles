@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (config.lib.dotfield.whoami) domain;
-  inherit (config.lib.dotfield.secrets) mkAgeSecret;
-  inherit (config.dotfield) guardian;
+  inherit (config.lib.dotfiles.whoami) domain;
+  inherit (config.lib.dotfiles.secrets) mkAgeSecret;
+  inherit (config.dotfiles) guardian;
 in
 {
   #

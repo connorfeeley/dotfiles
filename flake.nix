@@ -50,7 +50,7 @@
         {
           packages = filterPackages mkPackages;
 
-          devshells.default = ./shell/dotfield.nix;
+          devshells.default = ./shell/dotfiles.nix;
         };
     }));
 

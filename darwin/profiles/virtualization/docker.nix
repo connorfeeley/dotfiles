@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let inherit (config.dotfield) guardian;
+let inherit (config.dotfiles) guardian;
 in {
   homebrew = {
     # Docker CLI only

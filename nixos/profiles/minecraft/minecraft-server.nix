@@ -1,6 +1,6 @@
 { config, lib, pkgs, inputs, primaryUser, ... }:
 let
-  inherit (config.lib.dotfield.secrets) mkAgeSecret;
+  inherit (config.lib.dotfiles.secrets) mkAgeSecret;
 
   # inherit (collective) peers;
   # inherit (config.networking) hostName;

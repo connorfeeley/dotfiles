@@ -11,13 +11,13 @@
 # https://github.com/paulotome/emacstool/blob/b3833e1a4eda767cf0ed28e12b1311ccf0f41cfe/ediff.sh
 #
 
-if [[ ! -f "${DOTFIELD_DIR}/lib/utils.sh" ]]; then
-  echo "Dotfield utils not found! Aborting." >&2
+if [[ ! -f "${DOTFILES_DIR}/lib/utils.sh" ]]; then
+  echo "Dotfiles utils not found! Aborting." >&2
   exit 1
 fi
 
 # shellcheck source=../../../lib/utils.sh
-. "${DOTFIELD_DIR}/lib/utils.sh"
+. "${DOTFILES_DIR}/lib/utils.sh"
 
 if [ ! ${#} -ge 2 ]
 then

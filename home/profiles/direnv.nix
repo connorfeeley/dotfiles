@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
-  inherit (config.lib) dotfield;
-  configDir = dotfield.userConfigPath + "/direnv";
+  inherit (config.lib) dotfiles;
+  configDir = dotfiles.userConfigPath + "/direnv";
 in
 {
   programs.direnv = {

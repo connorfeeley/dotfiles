@@ -4,7 +4,7 @@
 
 { self', config, lib, pkgs, ... }:
 let
-  inherit (config.dotfield.guardian) username;
+  inherit (config.dotfiles.guardian) username;
   inherit (config.home-manager.users.${username}.services.gpg-agent)
     pinentryFlavor;
 in

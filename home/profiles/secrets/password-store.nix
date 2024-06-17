@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  inherit (config.lib.dotfield.whoami) pgpPublicKey;
+  inherit (config.lib.dotfiles.whoami) pgpPublicKey;
 in
 lib.mkMerge [
   {

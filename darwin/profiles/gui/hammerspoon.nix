@@ -1,9 +1,9 @@
 { lib, config, ... }:
 let
 
-  inherit (config.lib) dotfield;
-  inherit (config.dotfield.guardian) username;
-  configDir = "${dotfield.userConfigPath}/hammerspoon";
+  inherit (config.lib) dotfiles;
+  inherit (config.dotfiles.guardian) username;
+  configDir = "${dotfiles.userConfigPath}/hammerspoon";
 in
 {
   # homebrew.casks = [{ name = "hammerspoon"; }];
