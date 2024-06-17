@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs', pkgs, ... }:
 let
   inherit (pkgs.stdenv) isLinux;
 
@@ -11,7 +11,9 @@ let
     nixos-rebuild # For remote nixos-rebuild on darwin
     ;
 
-    nix = pkgs.nixVersions.latest;
+  nvfetcherPackage = inputs'.nvfetcher.packages.default;
+
+  nix = pkgs.nixVersions.latest;
 
   inherit (pkgs.nodePackages) prettier;
 
@@ -54,10 +56,10 @@ in
     })
     (withCategory "dotfiles" {
       category = "dotfiles";
-      name = nvfetcher-bin.pname;
-      help = nvfetcher-bin.meta.description;
+      name = nvfetcherPackage.pname;
+      help = nvfetcherPackage.meta.description;
       command =
-        "cd $PRJ_ROOT/packages/sources; ${nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
+        "cd $PRJ_ROOT/packages/sources; ${nvfetcherPackage}/bin/nvfetcher -c ./sources.toml $@";
     })
     (withCategory "dotfiles" {
       name = "generate-h8tsner-kexec-bundle";

@@ -50,7 +50,7 @@
         {
           packages = filterPackages mkPackages;
 
-          devshells.default = ./shell/dotfiles.nix;
+          devshells.default = import ./shell/dotfiles.nix { inherit pkgs inputs'; };
         };
     }));
 
