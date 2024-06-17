@@ -43,7 +43,7 @@ in
       { name = "freerdp"; }
       # Broken
       # { name = "alerter"; } # like notify-send but for darwin
-      { name = "postgresql@15"; }
+      { name = "postgresql@16"; }
       { name = "wordnet"; } # for doom emacs 'lookup'
       # { name = "emacs-plus@29"; args = [ "with-dbus" "with-xwidgets"  "with-native-comp" "with-poll" ]; link = true; } # emacs-plus
       { name = "emacs-mac"; args = [ "with-starter" "with-librsvg" "with-dbus" "with-mac-metal" "with-xwidgets" "with-native-comp" ]; link = true; } # macport
