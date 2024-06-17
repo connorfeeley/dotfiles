@@ -201,7 +201,7 @@ in
         example = "gnome3";
         default =
           if isDarwin
-          then "touchid"
+          then "mac"
           else "gtk2";
         description = ''
           Which pinentry interface to use. If not
