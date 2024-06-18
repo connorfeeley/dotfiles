@@ -21,9 +21,17 @@ in lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [{
 
     enableZshIntegration = true;
 
-    # 10 hour cache timeout
-    defaultCacheTtl = 10 * 60 * 60;
-    defaultCacheTtlSsh = 10 * 60 * 60;
+    verbose = true;
+
+    grabKeyboardAndMouse = true;
+
+    allowPresetPassphrase = true;
+
+    # 16 hour cache timeout
+    defaultCacheTtl = 16 * 60 * 60;
+    defaultCacheTtlSsh = 16 * 60 * 60;
+    maxCacheTtl = 24 * 60 * 60;
+    maxCacheTtlSsh = 24 * 60 * 60;
 
     extraConfig = ''
       allow-emacs-pinentry
