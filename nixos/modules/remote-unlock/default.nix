@@ -109,18 +109,27 @@
           "xt_LOG"
           "xt_tcpudp"
         ];
-        extraUtilsCommands = ''
-          copy_bin_and_libs ${pkgs.tailscale}/bin/.tailscaled-wrapped
-          ln -sf tailscaled $out/bin/tailscale
-          ln -sf .tailscaled-wrapped $out/bin/.tailscale-wrapped
-          copy_bin_and_libs ${pkgs.tailscale}/bin/tailscale
-          copy_bin_and_libs ${pkgs.tailscale}/bin/tailscaled
-          copy_bin_and_libs ${pkgs.iproute}/bin/ip
-          copy_bin_and_libs ${iptables-static}/bin/iptables
-          copy_bin_and_libs ${iptables-static}/bin/xtables-legacy-multi
+        extraUtilsCommands =
+          let
+            tailscaleDualBinary = pkgs.tailscale.overrideAttrs (oldAttrs: {
+              postInstall = oldAttrs.postInstall + lib.optionalString pkgs.stdenv.isLinux ''
+                wrapProgram $out/bin/tailscale \
+                  --prefix PATH : ${lib.makeBinPath [ pkgs.iproute2 pkgs.iptables pkgs.getent pkgs.shadow ]} \
+                  --suffix PATH : ${lib.makeBinPath [ pkgs.procps ]}
+              '';
+            });
+          in
+          ''
+            copy_bin_and_libs ${tailscaleDualBinary}/bin/.tailscaled-wrapped
+            copy_bin_and_libs ${tailscaleDualBinary}/bin/.tailscale-wrapped
+            copy_bin_and_libs ${tailscaleDualBinary}/bin/tailscale
+            copy_bin_and_libs ${tailscaleDualBinary}/bin/tailscaled
+            copy_bin_and_libs ${pkgs.iproute}/bin/ip
+            copy_bin_and_libs ${iptables-static}/bin/iptables
+            copy_bin_and_libs ${iptables-static}/bin/xtables-legacy-multi
 
-          copy_bin_and_libs ${pkgs.strace}/bin/strace
-        '';
+            copy_bin_and_libs ${pkgs.strace}/bin/strace
+          '';
         postMountCommands = ''
           # tear down tailscale
           pkill .tailscaled-wrapped
