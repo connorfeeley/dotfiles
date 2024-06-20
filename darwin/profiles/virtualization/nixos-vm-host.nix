@@ -32,7 +32,7 @@ in
 
   nix.linux-builder = {
     enable = true;
-    package = inputs'.nixos-stable-darwin.darwin.linux-builder; # Use image from stable
+    package = inputs'.nixos-stable-darwin.legacyPackages.darwin.linux-builder; # Use image from stable
     maxJobs = 8;
     speedFactor = 8 * 2;
     ephemeral = true;
