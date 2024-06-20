@@ -1,4 +1,4 @@
-{ self, lib, inputs, pkgs, ... }:
+{ self, lib, inputs', pkgs, ... }:
 let
   builder-service = "system/org.nixos.linux-builder";
   restartBuilderScript = pkgs.writeShellScriptBin "restart-builder" ''
@@ -32,6 +32,7 @@ in
 
   nix.linux-builder = {
     enable = true;
+    package = inputs'.nixos-stable-darwin.darwin.linux-builder; # Use image from stable
     maxJobs = 8;
     speedFactor = 8 * 2;
     ephemeral = true;
