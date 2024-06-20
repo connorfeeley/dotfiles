@@ -36,7 +36,7 @@ lib.mkIf (!options.virtualisation ? qemu) {
     "zfs.zfs_arc_max=${toString (4 * 1024 * 1024 * 1024)}" # 4 GB
 
     # Target number of bytes the ARC should leave as free memory on the system
-    "zfs.zfs_arc_sys_free=${toString (24 * 1024 * 1024 * 1024)}" # 24 GiB
+    # "zfs.zfs_arc_sys_free=${toString (24 * 1024 * 1024 * 1024)}" # 24 GiB
   ];
 
   boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
