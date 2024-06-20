@@ -212,6 +212,9 @@ lib.mkMerge [
       socketActivation.enable = false;
       startWithUserSession = lib.mkDefault true; # implies socketActivitaion is disabled
       client.enable = lib.mkDefault false; # Don't generate desktop file - just use e-wrapper
+
+      # For debugging:
+      # extraOptions = [ "--debug-init" ];
     };
 
     home.packages = with pkgs;
