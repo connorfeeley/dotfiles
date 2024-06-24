@@ -47,7 +47,6 @@ lib.mkIf (!options.virtualisation ? qemu) {
     enable = true;
     extraPackages = with pkgs; [ vaapiVdpau ];
 
-    driSupport = true;
     driSupport32Bit = pkgs.stdenv.isx86_64;
   };
 
