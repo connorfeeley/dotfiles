@@ -1,4 +1,4 @@
-{ self', config, lib, pkgs, ... }:
+{ self', inputs', config, lib, pkgs, ... }:
 let
   inherit (config.lib.dotfiles.whoami)
     email fullName githubUserName pgpPublicKey;
@@ -58,7 +58,7 @@ in
     '')
 
     # Privacy
-    gitAndTools.git-privacy
+    inputs'.nixos-23-11.legacyPackages.gitAndTools.git-privacy
     git-gpg-privacy
   ] ++ lib.optionals config.programs.password-store.enable [
     pass-git-helper

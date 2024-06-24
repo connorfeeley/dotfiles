@@ -85,6 +85,7 @@
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # For docker_24
 
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     ##: --- system -------------------------------------------------------------
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
