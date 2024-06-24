@@ -16,6 +16,7 @@ in
       ccache
 
       ## === Local Development ===
+      pkg-config # <- Manage compile and link flags for libraries
       cmake # <- Cross-platform make
       devcontainer # <- VSCode devcontainer generator / CLI
       bc # <- Arbitrary precision calculator language
