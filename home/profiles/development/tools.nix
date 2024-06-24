@@ -8,6 +8,11 @@ in
   development.nix.enable = true;
   development.rust.enable = true;
 
+  services.lorri = {
+    enable = true;
+    enableNotifications = true;
+  };
+
   home.packages = with pkgs; [
     ## === Uncategorized Packages ===
     hyperfine # <- Command-line benchmarking tool
