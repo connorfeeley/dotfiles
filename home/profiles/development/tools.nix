@@ -50,7 +50,6 @@ in
     nix-diff # <- Explain why two Nix derivations differ
     nvd # <- Nix/NixOS package version diff tool
     nix-tree # <- Interactively browse dependency graphs of Nix derivations.
-    nix-top # <- 'top' for nix builds
     nixos-option # <- Search nixos options
     nix-prefetch # <- Prefetch any fetcher function call
     nix-prefetch-git # <- Prefetch git repositories

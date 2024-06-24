@@ -39,7 +39,7 @@ in
 
     # Extra config for builder.
     config = ({ pkgs, ... }: {
-      environment.systemPackages = [ pkgs.nixos-rebuild pkgs.btop pkgs.nix-top pkgs.duf ];
+      environment.systemPackages = [ pkgs.nixos-rebuild pkgs.btop pkgs.duf ];
 
       virtualisation.darwin-builder.diskSize = 60 * 1024;
       virtualisation.darwin-builder.memorySize = 4096 * 2;
