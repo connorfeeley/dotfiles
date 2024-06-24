@@ -2,14 +2,14 @@
 let
   toTOML = (pkgs.formats.toml { }).generate;
 
-  inherit (pkgs.stdenv) isLinux isAarch64;
+  inherit (pkgs.stdenv) isLinux isDarwin isAarch64;
 in
 {
   development.nix.enable = true;
   development.rust.enable = true;
 
   services.lorri = {
-    enable = true;
+    enable = isLinux;
     enableNotifications = true;
   };
 
@@ -83,6 +83,8 @@ in
     unetbootin # <- Create bootable Live USB drives for a variety of Linux distributions
   ]) ++ (lib.optionals (isLinux && !isAarch64) [
     # postman # <- GNU Make with comprehensible tracing and a debugger
+  ]) ++ (lib.optionals isDarwin [
+    lorri
   ]);
 
   fonts.fontconfig.enable = true;
