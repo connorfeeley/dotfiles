@@ -9,6 +9,7 @@
     webtorrent-cli
     inputs'.nix-search-cli.packages.nix-search
     dogdns
+    doggo
 
     ## === Data and Documents ===
     tidy-viewer # <- Pretty-print CSV files
