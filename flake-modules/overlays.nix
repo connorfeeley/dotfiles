@@ -1,16 +1,27 @@
 # SPDX-FileCopyrightText: 2023 Connor Feeley
 #
 # SPDX-License-Identifier: BSD-3-Clause
-
-{ self, lib, config, collective, inputs, flake-parts-lib, moduleWithSystem, withSystem, ... }:
-
-let
-  inherit (flake-parts-lib)
-    mkPerSystemOption;
-  inherit (lib)
+{
+  self,
+  lib,
+  config,
+  collective,
+  inputs,
+  flake-parts-lib,
+  moduleWithSystem,
+  withSystem,
+  ...
+}: let
+  inherit
+    (flake-parts-lib)
+    mkPerSystemOption
+    ;
+  inherit
+    (lib)
     mkOption
     mkPackageOption
-    types;
+    types
+    ;
 
   # FIXME: split this to shared/nixos/darwin-specific
   overlays = [
@@ -20,6 +31,7 @@ let
     inputs.gitignore.overlay
     inputs.nur.overlay
     inputs.nvfetcher.overlays.default
+    inputs.neovim-plusultra.overlays.default
 
     inputs.nix-xilinx.overlay
 
@@ -40,65 +52,70 @@ let
     # (import ../packages/sources)
   ];
 
-  packagesOverlay =
-    (final: prev:
-      let
-        packagesFrom = inputAttr: inputAttr.packages.${final.system};
-        legacyPackagesFrom = inputAttr: inputAttr.legacyPackages.${final.system};
-      in
-      {
-        # inherit (packagesFrom inputs.prefmanager) prefmanager;
-        inherit (packagesFrom self.packages) emacs-plus;
-        inherit (packagesFrom inputs.devenv) devenv;
-        inherit (packagesFrom inputs.deploy) deploy-rs;
-        inherit (packagesFrom inputs.deploy-flake) deploy-flake;
-        inherit (packagesFrom inputs.nix-nil) nil;
-        inherit (packagesFrom inputs.nix-alien) nix-alien nix-index-update;
-        inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
-        inherit (packagesFrom inputs.mmdoc) mmdoc;
-        inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
-        inherit (packagesFrom inputs.nix-search-cli) nix-search;
-        inherit (packagesFrom inputs.nixd) nixd;
-        inherit (packagesFrom inputs.xmonad-config) xmonad-config;
-        inherit (packagesFrom inputs.attic) attic attic-server attic-client; # Using this instead of overlay for darwin compatibility
+  packagesOverlay = final: prev: let
+    packagesFrom = inputAttr: inputAttr.packages.${final.system};
+    legacyPackagesFrom = inputAttr: inputAttr.legacyPackages.${final.system};
+  in {
+    # inherit (packagesFrom inputs.prefmanager) prefmanager;
+    inherit (packagesFrom self.packages) emacs-plus;
+    inherit (packagesFrom inputs.devenv) devenv;
+    inherit (packagesFrom inputs.deploy) deploy-rs;
+    inherit (packagesFrom inputs.deploy-flake) deploy-flake;
+    inherit (packagesFrom inputs.nix-nil) nil;
+    inherit (packagesFrom inputs.nix-alien) nix-alien nix-index-update;
+    inherit (packagesFrom inputs.nix-autobahn) nix-autobahn;
+    inherit (packagesFrom inputs.mmdoc) mmdoc;
+    inherit (packagesFrom inputs.nixpkgs-update) nixpkgs-update nixpkgs-update-doc;
+    inherit (packagesFrom inputs.nix-search-cli) nix-search;
+    inherit (packagesFrom inputs.nixd) nixd;
+    inherit (packagesFrom inputs.xmonad-config) xmonad-config;
+    inherit (packagesFrom inputs.attic) attic attic-server attic-client; # Using this instead of overlay for darwin compatibility
 
-        nix-init = inputs.nix-init.packages.${final.system}.default;
-        emacsGitDarwin = inputs.darwin-emacs.packages.${final.system}.default;
-        neovim-plusultra = inputs.neovim-plusultra.packages.${final.system}.neovim;
+    nix-init = inputs.nix-init.packages.${final.system}.default;
+    emacsGitDarwin = inputs.darwin-emacs.packages.${final.system}.default;
 
-        inherit (legacyPackagesFrom inputs.nixos-unstable)
-          docker_24
-          docker-compose
-          nix-du
-          nixfmt-rfc-style
-          ;
-        docker = final.docker_24;
+    inherit
+      (legacyPackagesFrom inputs.nixos-unstable)
+      docker_24
+      docker-compose
+      nix-du
+      nixfmt-rfc-style
+      ;
+    docker = final.docker_24;
 
-        # Not in nixpkgs-23.11-darwin cache
-        inherit (legacyPackagesFrom inputs.nixos-stable)
-          chromium
-          element-desktop
-          ;
+    # Not in nixpkgs-23.11-darwin cache
+    inherit
+      (legacyPackagesFrom inputs.nixos-stable)
+      chromium
+      element-desktop
+      ;
 
-        # FIXME: 2024-06-17: broken on nixos-unstable
-        inherit ((legacyPackagesFrom inputs.nixos-stable).nodePackages)
-          webtorrent-cli;
+    # FIXME: 2024-06-17: broken on nixos-unstable
+    inherit
+      ((legacyPackagesFrom inputs.nixos-stable).nodePackages)
+      webtorrent-cli
+      ;
 
-        lib = prev.lib.extend (_lfinal: _lprev: {
-          our = import ../lib { inherit collective; lib = inputs.digga.lib // prev.lib; };
-        });
+    lib = prev.lib.extend (_lfinal: _lprev: {
+      our = import ../lib {
+        inherit collective;
+        lib = inputs.digga.lib // prev.lib;
+      };
+    });
 
-        # Disable gnome keyring ssh-agent - breaks GPG agent SSH integration by setting SSH_AUTH_SOCK.
-        gnome = prev.gnome.overrideScope' (gfinal: gprev: {
-          gnome-keyring = gprev.gnome-keyring.overrideAttrs (oldAttrs: {
-            configureFlags = oldAttrs.configureFlags or [ ] ++ [
-              "--disable-ssh-agent"
-            ];
-          });
-        });
+    # Disable gnome keyring ssh-agent - breaks GPG agent SSH integration by setting SSH_AUTH_SOCK.
+    gnome = prev.gnome.overrideScope' (gfinal: gprev: {
+      gnome-keyring = gprev.gnome-keyring.overrideAttrs (oldAttrs: {
+        configureFlags =
+          oldAttrs.configureFlags
+          or []
+          ++ [
+            "--disable-ssh-agent"
+          ];
       });
-in
-{
+    });
+  };
+in {
   config = rec {
     flake.all-overlays.cfeeley-overlay = overlays;
     flake.overlays.packagesOverlay = packagesOverlay;
@@ -119,14 +136,20 @@ in
       });
     };
 
-    perSystem = { self', system, config, pkgs, ... }:
-      let pkgs' = self.pkgsets.pkgs' system;
-      in {
-        overlayAttrs = config.packages;
-        _module.args = {
-          pkgs = pkgs';
-          lib = pkgs'.lib // { hm = inputs.home-manager.lib; };
-        };
+    perSystem = {
+      self',
+      system,
+      config,
+      pkgs,
+      ...
+    }: let
+      pkgs' = self.pkgsets.pkgs' system;
+    in {
+      overlayAttrs = config.packages;
+      _module.args = {
+        pkgs = pkgs';
+        lib = pkgs'.lib // {hm = inputs.home-manager.lib;};
       };
+    };
   };
 }
