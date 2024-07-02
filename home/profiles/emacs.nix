@@ -135,8 +135,8 @@ let
     sparseCheckout = [ "modules/completion/corfu" ];
   };
 
-  llvmPackages = pkgs.llvmPackages_14;
-  clang-tools = pkgs.clang-tools.override { inherit llvmPackages; };
+  llvmPackages = pkgs.llvmPackages_16;
+  clang-tools = llvmPackages.clang-tools;
 in
 lib.mkMerge [
   {
