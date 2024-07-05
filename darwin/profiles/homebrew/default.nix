@@ -110,6 +110,8 @@ in
       { name = "notunes"; } # Prevent Apple Music from launching
 
       { name = "bartender"; }
+
+      { name = "krita"; } # Image editor that isn't GIMP
     ];
 
     homebrew.masApps = {
