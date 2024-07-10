@@ -36,6 +36,7 @@ in
     hexyl # <- a command-line hex viewer
     glow # <- a markdown cli renderer (by charmbracelet)
     patchelf # <- modify the dynamic linker and RPATH of ELF executables
+    fakeroot # <- Run a command in an environment faking root privileges for file manipulation
     poetry # <- sanest python package manager
     remake # <- GNU Make with comprehensible tracing and a debugger
     # config.nur.repos.foolnotion.cmake-init
