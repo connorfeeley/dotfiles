@@ -118,7 +118,7 @@ lib.mkIf (!options.virtualisation ? qemu) {
       "rpool/root/nixos" = { use_template = [ "hourly" ]; };
       "rpool/home" = { use_template = [ "hourly" ]; };
       "rpool/data" = { use_template = [ "hourly" ]; };
-      "rpool/data/media" = { use_template = [ "daily" ]; };
+      # "rpool/data/media" = { use_template = [ "daily" ]; };
 
       ### BACKUPS (also on 5-HDD pool)
       "rpool/backup" = {

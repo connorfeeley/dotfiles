@@ -19,8 +19,6 @@ in
   };
 
   config = {
-    sound.enable = true;
-
     services.pipewire = {
       enable = true;
       alsa = {

@@ -20,7 +20,7 @@ in
 {
   home.packages = with pkgs; [
     self'.packages.ediff-tool
-    exiftool # EXIF diff handler
+    # exiftool # EXIF diff handler # FIXME: broken 2024-08-27
     git-cliff
     git-filter-repo # Replaces git-filter-branch
     bfg-repo-cleaner # Like git-filter-repo
@@ -299,7 +299,7 @@ in
 
       diff = {
         algorithm = "minimal";
-        exif.textconv = "${pkgs.exiftool}/bin/exiftool";
+        # exif.textconv = "${pkgs.exiftool}/bin/exiftool"; # FIXME: broken 2024-08-27
         # colorMoved = "default";
         tool = "ediff";
         # `plutil` is a darwin utility

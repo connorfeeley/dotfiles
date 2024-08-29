@@ -17,12 +17,4 @@ in lib.mkIf isLinux {
   # xdg.desktopEntries = ...
   # xdg.mime = ...
   # xdg.mimeApps = ...
-
-  home.pointerCursor = {
-    package = pkgs.gnome.gnome-themes-extra; # Cursor package
-    size = 32;
-    name = "Adwaita"; # Name within package
-    gtk.enable = true;
-    x11.enable = true;
-  };
 }

@@ -73,7 +73,7 @@ in
 
       hostId = "5679a857"; # Required for ZFS, but doesn't matter otherwise.
 
-      useDHCP = false;
+      useDHCP = true;
       usePredictableInterfaceNames = lib.mkDefault true;
       # interfaces.wlo1.useDHCP = true;
 
@@ -167,6 +167,7 @@ in
     openai-whisper
     linuxptp
     tigervnc
+    virtiofsd
   ];
 
   programs.wireshark.enable = true;
@@ -436,6 +437,7 @@ in
   services.nginx.recommendedZstdSettings = true;
   services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
     forceSSL = true;
+    enableACME = true;
     # NOTE: path to certificate file - not the file itself, which we don't want added to the store
     sslCertificate = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
     sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
@@ -451,6 +453,10 @@ in
     #     "proxy_pass_header Authorization;"
     #   ;
     # };
+  };
+  security.acme = {
+    acceptTerms = true;
+    email = "admin@cfeeley.org";
   };
   # services.nginx = {
   #   enable = false;

@@ -76,12 +76,12 @@
 
     inherit
       (legacyPackagesFrom inputs.nixos-unstable)
-      docker_24
+      # docker_24
       docker-compose
       nix-du
       nixfmt-rfc-style
       ;
-    docker = final.docker_24;
+    # docker = final.docker_24;
 
     # Not in nixpkgs-23.11-darwin cache
     inherit
@@ -131,6 +131,7 @@ in {
           permittedInsecurePackages = [
             "nodejs-16.20.2"
             "nix-2.15.3"
+            "docker-24.0.9"
           ];
         };
       });

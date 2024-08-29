@@ -21,8 +21,6 @@ in {
       ];
     })
 
-    gnome3.adwaita-icon-theme
-
     # # support 32-bit only
     # wine
 

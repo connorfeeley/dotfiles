@@ -315,8 +315,6 @@ lib.mkMerge [
         terraform-ls
         #: HTML/CSS/JSON/ESLint
         nodePackages.vscode-langservers-extracted
-        #: css
-        nodePackages.vscode-css-languageserver-bin
         #: js
         nodePackages.eslint
         nodePackages.typescript-language-server
@@ -334,7 +332,6 @@ lib.mkMerge [
         #: web-mode
         nodePackages.js-beautify
         nodePackages.stylelint
-        nodePackages.vscode-html-languageserver-bin
         html-tidy
         #: yaml
         nodePackages.yaml-language-server

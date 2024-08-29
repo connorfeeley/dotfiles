@@ -34,7 +34,7 @@
   programs.gnupg.agent.pinentryFlavor = "gtk2";
 
   environment.systemPackages = with pkgs;
-    [ xmonad-config gnome.gnome-boxes ] ++ [
+    [ xmonad-config ] ++ [
       # appmenu-gtk3-module
       # popsicle
       firmware-manager
