@@ -5,7 +5,7 @@
 # - https://github.com/Infinidoge/nix-minecraft
 # - https://github.com/mkaito/nixos-modded-minecraft-servers
 # FIXME: hardware config
-{ config, lib, pkgs, primaryUser, collective, ... }:
+{ config, lib, pkgs, primaryUser, modulesPath, ... }:
 let
   inherit (config.dotfiles) guardian;
 
@@ -36,13 +36,39 @@ in
   #     Gateway = ${net.ipv4.address}
   #   '';
   # };
-  networking.dhcpcd.enable = true;
+  networking = {
+    hostName = "h8tsner";
+    domain = "";
 
-  # Ban baddies
-  services.fail2ban.enable = true;
+    nameservers = [
+      "8.8.8.8"
+    ];
+    defaultGateway = "172.31.1.1";
+    defaultGateway6 = {
+      address = "fe80::1";
+      interface = "eth0";
+    };
+    dhcpcd.enable = true;
+    usePredictableInterfaceNames = lib.mkForce false;
+    interfaces = {
+      eth0 = {
+        ipv4.addresses = [
+          { address = "5.161.248.248"; prefixLength = 32; }
+        ];
+        ipv6.addresses = [
+          { address = "2a01:4ff:f0:dc18::1"; prefixLength = 64; }
+          { address = "fe80::9400:3ff:fe84:b9d8"; prefixLength = 64; }
+        ];
+        ipv4.routes = [{ address = "172.31.1.1"; prefixLength = 32; }];
+        ipv6.routes = [{ address = "fe80::1"; prefixLength = 128; }];
+      };
 
-  # :)
-  environments.hetzner.tarpit.enable = true;
+    };
+  };
+  services.udev.extraRules = ''
+    ATTR{address}=="96:00:03:84:b9:d8", NAME="eth0"
+
+  '';
 
   ### === timezone ============================================================
 
@@ -92,16 +118,17 @@ in
   };
 
   home-manager.users = {
-    "${guardian.username}" = hmArgs: {
-      imports = with hmArgs.roles; shell;
-
+    cfeeley = hmArgs: {
+      home.stateVersion = "23.11";
       programs.termite.enable = false;
     };
   };
 
   ### === misc ================================================================
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.11";
+
+  services.openssh.enable = true;
 
   # Bluesky feed
   networking.firewall.allowedTCPPorts = [ 8000 443 3000 80 ];
@@ -121,29 +148,10 @@ in
 
   ### === hardware ================================================================
 
-  # imports = [
-  #   (modulesPath + "/profiles/qemu-guest.nix")
-  # ];
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  boot.loader.grub.device = "/dev/sda";
+  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
+  boot.initrd.kernelModules = [ "nvme" ];
+  fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
 
-  # boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
-  # boot.initrd.kernelModules = [ ];
-  # boot.kernelModules = [ ];
-  # boot.extraModulePackages = [ ];
-
-  # fileSystems."/" =
-  #   {
-  #     device = "/dev/disk/by-uuid/81817827-b655-4c17-8c18-d274ffa1a3b3";
-  #     fsType = "ext4";
-  #   };
-
-  # swapDevices = [ ];
-
-  # # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # # (the default) this is the recommended approach. When using systemd-networkd it's
-  # # still possible to use this option, but it's recommended to use it in conjunction
-  # # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  # networking.useDHCP = lib.mkDefault true;
-  # # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
-
-  # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

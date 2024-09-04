@@ -28,7 +28,7 @@ in
   };
 
   # Must copy SSH config file (created by linux-builder module) otherwise SSH complains about permissions (on the symlink).
-  environment.etc."ssh/ssh_config.d/100-linux-builder.conf".copy = true;
+  # environment.etc."ssh/ssh_config.d/100-linux-builder.conf".copy = true;
 
   nix.linux-builder = {
     enable = true;

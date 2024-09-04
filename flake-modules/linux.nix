@@ -107,6 +107,49 @@ in
               # gnome-desktop
             ]);
           });
+
+        h8tsner = withSystem "x86_64-linux" (ctx@{ self', inputs', config, ... }:
+          let
+            system = "x86_64-linux";
+          in
+          inputs.nixpkgs.lib.nixosSystem {
+            # system is not needed with freshly generated hardware-configuration.nix
+            # system = "x86_64-linux";  # or set nixpkgs.hostPlatform in a module.
+            specialArgs = rec {
+              inherit self' self inputs' inputs;
+              pkgs = self.pkgsets.pkgs' "x86_64-linux";
+              primaryUser.authorizedKeys = import ../secrets/authorized-keys.nix;
+
+              # flake-lib = import ../lib {
+              #   inherit collective;
+              #   lib = inputs.digga.lib // pkgs.lib;
+              # };
+            };
+            modules = [
+              collective.modules.global.dotfiles.guardian
+              inputs.home-manager.nixosModules.home-manager
+              collective.modules.global.fup-options
+              collective.profiles.nixos.core
+              collective.profiles.global.core
+
+              collective.machines.nixos.h8tsner
+              ({ ... }: {
+                nixpkgs.hostPlatform = system;
+                nixpkgs.config.allowUnfree = true;
+                home-manager.extraSpecialArgs = rec {
+                  inherit self self' inputs';
+
+                  pkgs = self.pkgsets.pkgs' system;
+
+                  flake-lib = self.flake-lib;
+
+                  imports = [
+                    self.inputs.nur.hmModules.nur
+                  ];
+                };
+              })
+            ];
+          });
       };
 
       nixosModules.workstation =

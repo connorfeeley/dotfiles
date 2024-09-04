@@ -58,7 +58,7 @@ in
     '')
 
     # Privacy
-    inputs'.nixos-23-11.legacyPackages.gitAndTools.git-privacy
+    git-privacy
     git-gpg-privacy
   ] ++ lib.optionals config.programs.password-store.enable [
     pass-git-helper

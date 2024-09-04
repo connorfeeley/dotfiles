@@ -3,7 +3,7 @@
 {
   home.packages = [
     pkgs.awscli2 # AWS CLI v2
-    # pkgs.wrangler # Cloudflare Workers CLI # FIXME: https://github.com/NixOS/nixpkgs/pull/322573
+    pkgs.wrangler # Cloudflare Workers CLI # FIXME: https://github.com/NixOS/nixpkgs/pull/322573
   ];
 
   # aws-cli does not work well with xdg base directories
