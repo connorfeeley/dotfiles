@@ -147,7 +147,7 @@
     # prefmanager = { url = "github:malob/prefmanager"; inputs.nixpkgs.follows = "nixpkgs"; };
     tum-dse-config = { url = "github:TUM-DSE/doctor-cluster-config"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-parts.follows = "flake-parts"; };
     neovim-plusultra = { url = "github:jakehamilton/neovim"; };
-    nix-search-cli = { url = "github:peterldowns/nix-search-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-search-cli = { url = "github:peterldowns/nix-search-cli"; };
     nvidia-patch = { url = "github:arcnmx/nvidia-patch.nix"; inputs.nixpkgs.follows = "nixpkgs"; };
     # attic = { url = "github:zhaofengli/attic"; }; #  Build fails when overriding nixpkgs
     attic = { url = "github:connorfeeley/attic/feat/client-config-path"; };

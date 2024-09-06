@@ -62,7 +62,7 @@
       ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
       cloudbrute # : automated infrastructure discovery
       p0f # : passive OS detection based on SYN packets
-      sn0int # : semi-automatic OSINT framework and package manager
+      # sn0int # : semi-automatic OSINT framework and package manager
       urlhunter # : a recon tool that allows searching on URLs that are exposed via shortener services
       # FIXME(2023-03-25): broken
       # theharvester # : E-mails, subdomains and names harvester

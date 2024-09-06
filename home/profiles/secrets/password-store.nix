@@ -5,7 +5,10 @@ let
 in
 lib.mkMerge [
   {
-    home.packages = [ pkgs.ripasso-cursive pkgs.qtpass ];
+    home.packages = [ 
+      # pkgs.ripasso-cursive
+      pkgs.qtpass 
+    ];
     programs.password-store = {
       enable = true;
       package = pkgs.pass.withExtensions (exts: [
