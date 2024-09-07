@@ -103,6 +103,13 @@
       };
     });
 
+    kitty =
+      if prev.stdenv.isDarwin
+      then (prev.kitty.overrideAttrs (oldAttrs: {
+        doCheck = false;
+      }))
+      else prev.kitty;
+
     # Disable gnome keyring ssh-agent - breaks GPG agent SSH integration by setting SSH_AUTH_SOCK.
     gnome = prev.gnome.overrideScope' (gfinal: gprev: {
       gnome-keyring = gprev.gnome-keyring.overrideAttrs (oldAttrs: {

@@ -5,7 +5,7 @@
     [
       ## === Reverse Engineering ===
       (binwalk.override { visualizationSupport = pkgs.stdenv.isLinux; })
-      quark-engine
+      # quark-engine
       jre
 
       ## === Crypto-Stego ===

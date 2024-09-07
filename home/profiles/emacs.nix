@@ -316,7 +316,7 @@ lib.mkMerge [
         #: HTML/CSS/JSON/ESLint
         nodePackages.vscode-langservers-extracted
         #: js
-        eslint
+        # eslint
         # typescript-language-server
         #: json
         nodePackages.vscode-json-languageserver
