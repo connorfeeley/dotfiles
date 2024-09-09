@@ -3999,7 +3999,7 @@
         "nixos-vscode-server": "nixos-vscode-server",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": [
-          "nixos-unstable"
+          "nixos-stable-darwin"
         ],
         "nixpkgs-darwin": [
           "nixos-unstable"
