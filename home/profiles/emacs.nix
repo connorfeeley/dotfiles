@@ -262,7 +262,7 @@ lib.mkMerge [
 
         # :lang sh
         shellcheck # <- bash doesn't have to be scary
-        bash-language-server # <- lsp client for bash that loves dividing by zero
+        nodePackages.bash-language-server # <- lsp client for bash that loves dividing by zero
         # Linux-only: bashdb # <- bash debugger
         # zshdb # <- zsh debugger (FIXME: not packaged for nix)
 

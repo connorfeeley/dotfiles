@@ -17,8 +17,9 @@ in
     home.packages = [
       pkgs.cargo
       pkgs.rust-analyzer
-      pkgs.clippy
       pkgs.rustfmt
-    ];
+    ] ++ (lib.optional pkgs.stdenv.isLinux [
+      pkgs.clippy
+    ]);
   };
 }
