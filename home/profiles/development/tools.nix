@@ -22,7 +22,7 @@ in
     ## === Local Development ===
     pkg-config # <- Manage compile and link flags for libraries
     cmake # <- Cross-platform make
-    devcontainer # <- VSCode devcontainer generator / CLI
+    # devcontainer # <- VSCode devcontainer generator / CLI
     bc # <- Arbitrary precision calculator language
     ninja # <- Small build system with a focus on speed
     reuse # <- Tool for licensing compliance
