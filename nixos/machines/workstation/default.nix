@@ -73,7 +73,7 @@ in
 
       hostId = "5679a857"; # Required for ZFS, but doesn't matter otherwise.
 
-      useDHCP = true;
+      useDHCP = false;
       usePredictableInterfaceNames = lib.mkDefault true;
       # interfaces.wlo1.useDHCP = true;
 
@@ -435,25 +435,25 @@ in
   services.nginx.recommendedGzipSettings = true;
   services.nginx.recommendedBrotliSettings = true;
   services.nginx.recommendedZstdSettings = true;
-  services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
-    forceSSL = true;
-    enableACME = true;
-    # NOTE: path to certificate file - not the file itself, which we don't want added to the store
-    sslCertificate = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
-    sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
-    kTLS = true; # TLS in the kernel.
-    # root = "/var/www/bikes.cfeeley.org";
-    # locations."/foo/" = {
-    #   proxyPass = "http://localhost:8082";
-    #   proxyWebsockets = true; # needed if you need to use WebSocket
-    #   extraConfig = "client_max_body_size 10G;" +
-    #     # required when the target is also TLS server with multiple hosts
-    #     "proxy_ssl_server_name on;" +
-    #     # required when the server wants to use HTTP Authentication
-    #     "proxy_pass_header Authorization;"
-    #   ;
-    # };
-  };
+  # services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
+  #   forceSSL = true;
+  #   enableACME = true;
+  #   # NOTE: path to certificate file - not the file itself, which we don't want added to the store
+  #   sslCertificate = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.crt";
+  #   sslCertificateKey = "/etc/secrets/tailscale/workstation.elephant-vibes.ts.net.key";
+  #   kTLS = true; # TLS in the kernel.
+  #   # root = "/var/www/bikes.cfeeley.org";
+  #   # locations."/foo/" = {
+  #   #   proxyPass = "http://localhost:8082";
+  #   #   proxyWebsockets = true; # needed if you need to use WebSocket
+  #   #   extraConfig = "client_max_body_size 10G;" +
+  #   #     # required when the target is also TLS server with multiple hosts
+  #   #     "proxy_ssl_server_name on;" +
+  #   #     # required when the server wants to use HTTP Authentication
+  #   #     "proxy_pass_header Authorization;"
+  #   #   ;
+  #   # };
+  # };
   security.acme = {
     acceptTerms = true;
     email = "admin@cfeeley.org";

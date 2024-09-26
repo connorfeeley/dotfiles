@@ -12,7 +12,11 @@
 #
 # Then add the .state file to your machine secrets and pass its path as tailscaleStatePath.
 
-{ config, options, lib, pkgs, ... }: {
+{ config, options, lib, pkgs, inputs', ... }:
+let
+  tailscale = inputs'.nixos-23-05.legacyPackages.tailscale;
+in
+{
   options = {
     remote-machine.boot.tailscaleUnlock = {
       enable = lib.mkOption {
@@ -41,7 +45,7 @@
           ++ [ "--enable-static" "--disable-shared" ];
       });
     in
-    lib.mkIf (cfg.enable && (!options.virtualisation ? qemu)) {
+    lib.mkIf (cfg.enable && !options.virtualisation ? qemu) {
       assertions = [{
         assertion =
           let
@@ -64,6 +68,8 @@
         };
         network = {
           enable = true;
+          udhcpc.enable = true;
+          udhcpc.extraArgs = [ "--tryagain 20" "--retries=20" "--timeout 60" "--background" ];
           flushBeforeStage2 = true;
           postCommands = ''
             # Bring up tailscaled and dial in
@@ -73,7 +79,7 @@
             .tailscaled-wrapped 2>/dev/null &
             sleep 5
             echo "Starting tailscale..."
-            { tailscale up; tailscale status; } &
+            { .tailscale-wrapped up; .tailscale-wrapped status; } &
 
             echo "echo 'Use cryptsetup-askpass to unlock!'" >> /root/.profile
             echo "echo 'Use \"zfs load-key -a && killall zfs\" to unlock!'" >> /root/.profile
@@ -90,6 +96,9 @@
             fi
           '';
         };
+        kernelModules = [
+          "r8169" # 2.5G NIC
+        ];
         availableKernelModules = [
           "ip6_tables"
           "ip6table_filter"
@@ -109,27 +118,15 @@
           "xt_LOG"
           "xt_tcpudp"
         ];
-        extraUtilsCommands =
-          let
-            tailscaleDualBinary = pkgs.tailscale.overrideAttrs (oldAttrs: {
-              postInstall = oldAttrs.postInstall + lib.optionalString pkgs.stdenv.isLinux ''
-                wrapProgram $out/bin/tailscale \
-                  --prefix PATH : ${lib.makeBinPath [ pkgs.iproute2 pkgs.iptables pkgs.getent pkgs.shadow ]} \
-                  --suffix PATH : ${lib.makeBinPath [ pkgs.procps ]}
-              '';
-            });
-          in
-          ''
-            copy_bin_and_libs ${tailscaleDualBinary}/bin/.tailscaled-wrapped
-            copy_bin_and_libs ${tailscaleDualBinary}/bin/.tailscale-wrapped
-            copy_bin_and_libs ${tailscaleDualBinary}/bin/tailscale
-            copy_bin_and_libs ${tailscaleDualBinary}/bin/tailscaled
-            copy_bin_and_libs ${pkgs.iproute}/bin/ip
-            copy_bin_and_libs ${iptables-static}/bin/iptables
-            copy_bin_and_libs ${iptables-static}/bin/xtables-legacy-multi
+        extraUtilsCommands = ''
+          copy_bin_and_libs ${tailscale}/bin/.tailscaled-wrapped
+          copy_bin_and_libs ${tailscale}/bin/.tailscale-wrapped
+          copy_bin_and_libs ${pkgs.iproute}/bin/ip
+          copy_bin_and_libs ${iptables-static}/bin/iptables
+          copy_bin_and_libs ${iptables-static}/bin/xtables-legacy-multi
 
-            copy_bin_and_libs ${pkgs.strace}/bin/strace
-          '';
+          copy_bin_and_libs ${pkgs.strace}/bin/strace
+        '';
         postMountCommands = ''
           # tear down tailscale
           pkill .tailscaled-wrapped
