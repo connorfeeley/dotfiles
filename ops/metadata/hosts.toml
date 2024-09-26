@@ -11,7 +11,7 @@ keys = [
 age = "age1s0ckz3rka4zuutd00cn4px4yrkrq992cpejtvljsdvn5u25pkylqkfsrd0"
 
 [workstation.ipv4]
-address = "192.168.2.5"
+address = "192.168.2.15"
 
 [workstation.users.cfeeley]
 keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCVmAx+FNqurkG9eQ7icgqS1tOzy1JyL+spWMr477mU cfeeley@cfeeley-workstation"]
