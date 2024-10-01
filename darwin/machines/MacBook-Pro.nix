@@ -22,6 +22,9 @@ in
     gid = 20;
   };
 
+  # Fix Nix with MacOS Sequoia
+  ids.gids.nixbld = 350;
+
   # home-manager.modules = [
   #   self.inputs.nix-colors.homeManagerModules.default
   #   self.inputs.sops-nix.homeManagerModules.sops
