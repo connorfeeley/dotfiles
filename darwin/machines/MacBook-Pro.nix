@@ -50,7 +50,7 @@ in
           self.inputs.nix-index-database.hmModules.nix-index
         ]
         ++ (with roles; workstation ++ macos ++ trusted ++ webdev ++ security ++ developer ++ emacs-config)
-        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc work media sync aws ]));
+        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc work media sync aws emacs ]));
 
       # imports = [ ../../home/modules/iterm2.nix ];
       _module.args.inputs = self.inputs;

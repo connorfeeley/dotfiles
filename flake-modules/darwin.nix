@@ -46,7 +46,7 @@ in
               collective.modules.darwin.terminfo
 
               collective.profiles.darwin.core
-              collective.profiles.darwin.emacs
+              # collective.profiles.darwin.emacs
               collective.profiles.darwin.pulseaudio
               collective.profiles.darwin.postgres
               collective.profiles.darwin.virtualization.nixos-vm-host

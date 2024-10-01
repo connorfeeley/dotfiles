@@ -105,7 +105,6 @@ let
       dontStrip = true;
       separateDebugInfo = true;
 
-
       # Compile native ELisp files ahead of time (emacs 29+)
       # configureFlags = old.configureFlags ++ lib.optional (lib.versionAtLeast old.version "29") [ "--with-native-compilation=aot" ];
 
@@ -185,7 +184,7 @@ lib.mkMerge [
     #     ${git} -C ${emacsDir} reset --hard ${doomRepoRev}
     #   '';
 
-    programs.emacs = lib.mkIf (!hostPlatform.isDarwin) {
+    programs.emacs = {
       enable = true;
       package = emacsPackage;
       extraPackages = epkgs:
