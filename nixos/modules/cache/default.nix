@@ -48,7 +48,7 @@ in
     # Reverse proxy port 9090 to https://workstation.elephant-vibes.ts.net/services/cache
     services.nginx = {
       enable = true;
-      virtualHosts."cache.workstation.elephant-vibes.ts.net" = {
+      virtualHosts."workstation.elephant-vibes.ts.net" = {
         locations."/cache" = {
           extraConfig = "return 302 /cache/;";
         };
