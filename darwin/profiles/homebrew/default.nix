@@ -112,6 +112,8 @@ in
       { name = "bartender"; }
 
       { name = "krita"; } # Image editor that isn't GIMP
+
+      { name = "moonlight"; } # Stream games remotely (Sunshine client)
     ];
 
     homebrew.masApps = {

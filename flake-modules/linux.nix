@@ -90,6 +90,7 @@ in
 
               desktop.common
               desktop.input-leap
+              sunshine
               xorg
               # hm-xmonad
               kde
