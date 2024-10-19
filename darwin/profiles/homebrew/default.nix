@@ -113,6 +113,8 @@ in
 
       { name = "krita"; } # Image editor that isn't GIMP
 
+      { name = "parallels@18"; }
+
       { name = "moonlight"; } # Stream games remotely (Sunshine client)
     ];
 
