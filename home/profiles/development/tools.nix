@@ -18,6 +18,7 @@ in
     hyperfine # <- Command-line benchmarking tool
     # chronologer # <- Visualize changes in benchmark timings over git history
     ccache
+    pv
 
     ## === Local Development ===
     pkg-config # <- Manage compile and link flags for libraries
