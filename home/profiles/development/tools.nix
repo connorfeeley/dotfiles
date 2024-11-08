@@ -19,7 +19,6 @@ in
     # chronologer # <- Visualize changes in benchmark timings over git history
     ccache
     pv
-    mbuffer # tool for buffering data streams
 
     ## === Local Development ===
     pkg-config # <- Manage compile and link flags for libraries
@@ -85,6 +84,7 @@ in
     strace # <- trace system calls and signals
     unetbootin # <- Create bootable Live USB drives for a variety of Linux distributions
   ]) ++ (lib.optionals (isLinux && !isAarch64) [
+    mbuffer # tool for buffering data streams
     # postman # <- GNU Make with comprehensible tracing and a debugger
   ]) ++ (lib.optionals isDarwin [
     lorri
