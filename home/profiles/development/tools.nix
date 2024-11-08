@@ -19,6 +19,7 @@ in
     # chronologer # <- Visualize changes in benchmark timings over git history
     ccache
     pv
+    mbuffer # tool for buffering data streams
 
     ## === Local Development ===
     pkg-config # <- Manage compile and link flags for libraries
