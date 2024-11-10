@@ -140,10 +140,10 @@ in
 {
   xdg.configFile."tridactyl".source = ./tridactyl;
 
-  programs.buku = {
-    enable = true;
-    enableBrowserIntegration = true;
-  };
+  # programs.buku = {
+  #   enable = true;
+  #   enableBrowserIntegration = true;
+  # };
 
   programs.firefox = {
     enable = true;
