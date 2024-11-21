@@ -116,6 +116,8 @@ in
       { name = "parallels@18"; }
 
       { name = "moonlight"; } # Stream games remotely (Sunshine client)
+
+      { name = "dbeaver"; } # Database explorer
     ];
 
     homebrew.masApps = {
