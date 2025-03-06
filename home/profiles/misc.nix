@@ -6,7 +6,7 @@
     just # <- Just a command runner
     speedtest-cli
     asciiquarium
-    webtorrent-cli
+    # webtorrent-cli # FIXME: broken
     inputs'.nix-search-cli.packages.nix-search
     dogdns
     doggo

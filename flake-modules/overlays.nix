@@ -90,12 +90,6 @@
       element-desktop
       ;
 
-    # FIXME: 2024-06-17: broken on nixos-unstable
-    inherit
-      ((legacyPackagesFrom inputs.nixos-stable).nodePackages)
-      webtorrent-cli
-      ;
-
     lib = prev.lib.extend (_lfinal: _lprev: {
       our = import ../lib {
         inherit collective;
