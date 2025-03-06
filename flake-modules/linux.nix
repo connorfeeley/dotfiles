@@ -38,7 +38,7 @@ in
             modules = [
               inputs.agenix.nixosModules.age
               inputs.home-manager.nixosModules.home-manager
-              inputs.nur.nixosModules.nur
+              inputs.nur.modules.nixos.default
               inputs.nixos-vscode-server.nixosModules.default
               inputs.nurpkgs.nixosModules.mellanox
 
@@ -62,7 +62,7 @@ in
                   flake-lib = self.flake-lib;
 
                   imports = [
-                    self.inputs.nur.hmModules.nur
+                    self.inputs.nur.modules.homeManager.default
                   ];
                 };
               })
@@ -145,7 +145,7 @@ in
                   flake-lib = self.flake-lib;
 
                   imports = [
-                    self.inputs.nur.hmModules.nur
+                    self.inputs.nur.modules.homeManager.default
                   ];
                 };
               })

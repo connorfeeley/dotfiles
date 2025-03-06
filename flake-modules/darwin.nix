@@ -37,7 +37,6 @@ in
             modules = [
               inputs.agenix.nixosModules.age # `nixosModules` is correct, even for darwin
               inputs.home-manager.darwinModules.home-manager
-              inputs.nur.nixosModules.nur
 
               collective.modules.darwin.amphetamine
               collective.modules.darwin.tailscale
@@ -65,7 +64,7 @@ in
                   flake-lib = self.flake-lib;
 
                   imports = [
-                    self.inputs.nur.hmModules.nur
+                    self.inputs.nur.modules.homeManager.default
                   ];
                 };
               })

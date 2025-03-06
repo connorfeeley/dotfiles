@@ -264,7 +264,7 @@ in
           (_: { imports = [ ../../../lib/home ]; })
           hmArgs.modules
         ] ++ [
-          self.inputs.nur.hmModules.nur
+          self.inputs.nur.modules.homeManager.default
 
           self.inputs.nix-colors.homeManagerModules.default
           self.inputs.sops-nix.homeManagerModules.sops
