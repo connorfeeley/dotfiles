@@ -71,7 +71,7 @@ in
   # Use personal caches
   nix.caches = {
     enable = true;
-    attic.enable = true;
+    attic.enable = false;
     attic.upload.enable = true;
     cachix.enable = true;
   };
