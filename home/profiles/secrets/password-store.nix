@@ -14,11 +14,10 @@ lib.mkMerge [
       package = pkgs.pass.withExtensions (exts: [
         exts.pass-otp
         exts.pass-audit
-        exts.pass-import
         exts.pass-update
         exts.pass-checkup
         exts.pass-genphrase
-      ]);
+      ] ++ (if isDarwin then [ ] else [ exts.pass-import ]));
       settings = {
         PASSWORD_STORE_DIR = "${config.xdg.dataHome}/pass";
         PASSWORD_STORE_KEY = pgpPublicKey;
