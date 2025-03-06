@@ -51,7 +51,7 @@ let
               buildInputs = old.buildInputs ++ [ pkgs.dbus ];
               patches =
                 let
-                  emacsPlusRev = "c28150477651c03b55048f9f3edc82caec861a73";
+                  emacsPlusRev = "245b6edf56fe48f3a431b7f01b3bbcc121a50f34";
                 in
                 (old.patches or [ ])
                 ++ [
@@ -60,14 +60,9 @@ let
                     url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-28/fix-window-role.patch";
                     hash = "sha256-+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=";
                   })
-                  # Use poll instead of select to get file descriptors
-                  (fetchpatch {
-                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-29/poll.patch";
-                    hash = "sha256-jN9MlD8/ZrnLuP2/HUXXEVVd6A+aRZNYFdZF8ReJGfY=";
-                  })
                   # Enable rounded window with no decoration
                   (fetchpatch {
-                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-29/round-undecorated-frame.patch";
+                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-30/round-undecorated-frame.patch";
                     hash = "sha256-uYIxNTyfbprx5mCqMNFVrBcLeo+8e21qmBE3lpcnd+4=";
                   })
                   # Make Emacs aware of OS-level light/dark mode
@@ -111,10 +106,10 @@ let
       patches = old.patches ++ [
         # Reduce wall clock latency for sweep_conses by 50%
         #   https://tdodge.consulting/blog/living-the-emacs-garbage-collection-dream
-        (pkgs.fetchpatch {
-          url = "https://github.com/tyler-dodge/emacs/commit/36d2a8d5a4f741ae99540e139fff2621bbacfbaa.patch";
-          sha256 = "sha256-/hJa8LIqaAutny6RX/x6a+VNpNET86So9xE8zdh27p8=";
-        })
+        # (pkgs.fetchpatch {
+        #   url = "https://github.com/tyler-dodge/emacs/commit/36d2a8d5a4f741ae99540e139fff2621bbacfbaa.patch";
+        #   sha256 = "sha256-/hJa8LIqaAutny6RX/x6a+VNpNET86So9xE8zdh27p8=";
+        # })
       ];
     });
 
