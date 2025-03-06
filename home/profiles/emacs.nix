@@ -38,8 +38,8 @@ let
         #       # })
         #     ];
         #   })
-        #: isLinux: emacs 29 (w/ native comp)
-          (pkgs.emacs29.override {
+        #: isLinux: emacs 30 (w/ native comp)
+          (pkgs.emacs30.override {
             withGTK3 = true;
             withPgtk = false; # Doesn't play nice with X11 - just use GTK3 instead
             withXwidgets = !pkgs.webkitgtk.meta.broken;
