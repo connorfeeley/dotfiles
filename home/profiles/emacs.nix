@@ -65,11 +65,12 @@ let
                     url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-30/round-undecorated-frame.patch";
                     hash = "sha256-uYIxNTyfbprx5mCqMNFVrBcLeo+8e21qmBE3lpcnd+4=";
                   })
+                  # FIXME: broken
                   # Make Emacs aware of OS-level light/dark mode
-                  (fetchpatch {
-                    url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-28/system-appearance.patch";
-                    hash = "sha256-oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=";
-                  })
+                  # (fetchpatch {
+                  #   url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/${emacsPlusRev}/patches/emacs-28/system-appearance.patch";
+                  #   hash = "sha256-oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=";
+                  # })
                 ];
 
             })
