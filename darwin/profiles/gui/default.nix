@@ -29,6 +29,7 @@ in
       kitty
     ];
 
-    services.karabiner-elements.enable = true;
+    # Broken module - using karabin-elementns cask instead.
+    services.karabiner-elements.enable = false;
   };
 }

@@ -118,6 +118,8 @@ in
       { name = "moonlight"; } # Stream games remotely (Sunshine client)
 
       { name = "dbeaver-community"; } # Database explorer
+
+      { name = "karabiner-elements"; }
     ];
 
     homebrew.masApps = {
