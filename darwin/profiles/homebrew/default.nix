@@ -120,6 +120,8 @@ in
       { name = "dbeaver-community"; } # Database explorer
 
       { name = "karabiner-elements"; }
+
+      { name = "pyfa"; } # Eve Online fitting tool
     ];
 
     homebrew.masApps = {
