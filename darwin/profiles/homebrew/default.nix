@@ -48,6 +48,7 @@ in
       # { name = "emacs-plus@29"; args = [ "with-dbus" "with-xwidgets"  "with-native-comp" "with-poll" ]; link = true; } # emacs-plus
       { name = "emacs-mac"; args = [ "with-starter" "with-librsvg" "with-dbus" "with-mac-metal" "with-xwidgets" "with-native-comp" ]; link = true; } # macport
       { name = "ghcup"; }
+      { name = "codex"; }
     ];
 
     homebrew.casks = [
@@ -122,6 +123,7 @@ in
       { name = "karabiner-elements"; }
 
       { name = "pyfa"; } # Eve Online fitting tool
+      { name = "claude-code"; }
     ];
 
     homebrew.masApps = {
