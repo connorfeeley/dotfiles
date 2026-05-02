@@ -215,7 +215,7 @@ lib.mkMerge [
     home.packages = with pkgs;
       [
         # Emacs LSP booster binary
-        emacs-lsp-booster
+        # emacs-lsp-booster
 
         python3Packages.pylatexenc
 
