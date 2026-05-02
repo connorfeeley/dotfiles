@@ -17,17 +17,17 @@
 
       perSystem = { config, pkgs, inputs', system, ... }:
         let
-          mkPackages =  pkgs.lib.makeScope pkgs.newScope (self:
-              let
-                commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (pkgs) callPackage; };
-                pythonPackages = pkgs.lib.recurseIntoAttrs (pkgs.python3.pkgs.callPackage ./packages/python { });
+          mkPackages = pkgs.lib.makeScope pkgs.newScope (self:
+            let
+              commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (pkgs) callPackage; };
+              pythonPackages = pkgs.lib.recurseIntoAttrs (pkgs.python3.pkgs.callPackage ./packages/python { });
 
-                installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
-                darwinPackages = builtins.mapAttrs
-                  (_n: v: pkgs.callPackage v { inherit installApplication; })
-                  (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
-              in
-              (filterSystem (commonPackages // pythonPackages // darwinPackages)));
+              installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
+              darwinPackages = builtins.mapAttrs
+                (_n: v: pkgs.callPackage v { inherit installApplication; })
+                (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
+            in
+            (filterSystem (commonPackages // pythonPackages // darwinPackages)));
 
           # Only packages available on the system.
           filterSystem = attrs: pkgs.lib.filterAttrs (n: v: pkgs.lib.meta.availableOn { inherit system; } v) attrs;
