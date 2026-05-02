@@ -17,6 +17,7 @@ in
       { name = "apple/homebrew-apple"; } # game porting toolkit
       { name = "d12frosted/emacs-plus"; }
       { name = "railwaycat/emacsmacport"; }
+      { name = "RayZolo/homebrew-tap"; }
     ];
 
     homebrew.brews = [
@@ -124,6 +125,7 @@ in
 
       { name = "pyfa"; } # Eve Online fitting tool
       { name = "claude-code"; }
+      { name = "rayzolo/tap/eveguru"; }
     ];
 
     homebrew.masApps = {
