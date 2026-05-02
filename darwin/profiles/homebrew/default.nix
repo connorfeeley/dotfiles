@@ -49,7 +49,9 @@ in
       # { name = "emacs-plus@29"; args = [ "with-dbus" "with-xwidgets"  "with-native-comp" "with-poll" ]; link = true; } # emacs-plus
       { name = "emacs-mac"; args = [ "with-starter" "with-librsvg" "with-dbus" "with-mac-metal" "with-xwidgets" "with-native-comp" ]; link = true; } # macport
       { name = "ghcup"; }
+      { name = "yarn"; }
       { name = "codex"; }
+      { name = "tesseract"; }
     ];
 
     homebrew.casks = [
