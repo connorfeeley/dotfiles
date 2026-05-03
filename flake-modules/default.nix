@@ -9,5 +9,6 @@
     ./collective.nix
     ./darwin.nix
     ./linux.nix
+    ./deploy.nix
   ];
 }
