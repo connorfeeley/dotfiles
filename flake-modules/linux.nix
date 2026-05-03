@@ -151,6 +151,43 @@ in
               })
             ];
           });
+
+        proxmox-builder = withSystem "x86_64-linux" (ctx@{ self', inputs', config, ... }:
+          let
+            system = "x86_64-linux";
+          in
+          inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = rec {
+              inherit self' self inputs' inputs;
+              pkgs = self.pkgsets.pkgs' "x86_64-linux";
+              primaryUser.authorizedKeys = import ../secrets/authorized-keys.nix;
+            };
+            modules = [
+              collective.modules.global.dotfiles.guardian
+              inputs.home-manager.nixosModules.home-manager
+              collective.modules.global.fup-options
+              collective.profiles.nixos.core
+              collective.profiles.global.core
+              collective.profiles.nixos.builder
+
+              collective.machines.nixos."proxmox-builder"
+              ({ ... }: {
+                nixpkgs.hostPlatform = system;
+                nixpkgs.config.allowUnfree = true;
+                home-manager.extraSpecialArgs = rec {
+                  inherit self self' inputs';
+
+                  pkgs = self.pkgsets.pkgs' system;
+
+                  flake-lib = self.flake-lib;
+
+                  imports = [
+                    self.inputs.nur.modules.homeManager.default
+                  ];
+                };
+              })
+            ];
+          });
       };
 
       nixosModules.workstation =

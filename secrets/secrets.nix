@@ -21,7 +21,9 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMSoMj5v8JwK4YhB8p4mrJM26TeNAO+xZgIwaxxj0Umb";
   h8tsner =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGPdaiVggrhTnMX3QmE+4UEfPAyFTdB4jJdmjNdjWFU";
-  systems = [ workstation macbook-pro franklin rosy ];
+  proxmox-builder =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGut8E3XKW3YqZG2nUTlWSqsucICcMc1Aziu+/hqd43C";
+  systems = [ workstation macbook-pro franklin rosy proxmox-builder ];
 in
 {
   # Workstation binary cache

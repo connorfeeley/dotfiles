@@ -31,6 +31,7 @@ in
     workstation-wsl = mkDeploy "workstation-wsl" "x86_64-linux";
     rosy = mkDeploy "rosy" "aarch64-linux";
     h8tsner = mkDeploy "h8tsner" "x86_64-linux";
+    proxmox-builder = mkDeploy "proxmox-builder" "x86_64-linux";
 
     # Deploy to 'cfeeley-laptop':
     # - Recommended: deploy .#cfeeley-laptop -- --print-build-logs
