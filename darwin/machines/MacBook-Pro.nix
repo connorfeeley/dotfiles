@@ -47,7 +47,7 @@ in
           self.inputs.sops-nix.homeManagerModules.sops
           self.inputs.nix-colors.homeManagerModule
           self.inputs.nixos-vscode-server.nixosModules.home
-          self.inputs.nix-index-database.hmModules.nix-index
+          self.inputs.nix-index-database.homeModules.nix-index
         ]
         ++ (with roles; workstation ++ macos ++ trusted ++ webdev ++ security ++ developer ++ emacs-config)
         ++ (with hmArgs.profiles; [ shells.fish desktop.vnc work media sync aws emacs ]));

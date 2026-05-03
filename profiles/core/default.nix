@@ -51,7 +51,7 @@ in
     enableBashCompletion = true;
   };
 
-  programs.bash = { enableCompletion = true; };
+  programs.bash = { completion.enable = true; };
 
   programs.fish.enable = lib.mkDefault true;
 

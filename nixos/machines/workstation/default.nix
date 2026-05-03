@@ -270,7 +270,7 @@ in
           self.inputs.sops-nix.homeManagerModules.sops
           self.inputs.nix-colors.homeManagerModule
           self.inputs.nixos-vscode-server.nixosModules.home
-          self.inputs.nix-index-database.hmModules.nix-index
+          self.inputs.nix-index-database.homeModules.nix-index
         ]
         ### Roles
         ++ (with hmArgs.roles; workstation ++ personalised ++ developer ++ linux ++ emacs-config)

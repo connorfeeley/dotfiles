@@ -132,7 +132,7 @@ in {
       dashboard-in-overlay = false;
       enable-spring-load-actions-on-all-items = false;
       expose-animation-duration = 0.1;
-      expose-group-by-app = false;
+      expose-group-apps = false;
       launchanim = false;
       mineffect = "genie";
       minimize-to-application = true;

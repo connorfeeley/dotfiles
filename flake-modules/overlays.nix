@@ -29,7 +29,7 @@
     inputs.emacs-overlay.overlay
     inputs.emacs-lsp-booster.overlays.default
     inputs.gitignore.overlay
-    inputs.nur.overlay
+    inputs.nur.overlays.default
     inputs.nvfetcher.overlays.default
     inputs.neovim-plusultra.overlays.default
 
@@ -45,7 +45,7 @@
 
     packagesOverlay
 
-    inputs.nur.overlay
+    inputs.nur.overlays.default
 
     # (import ../packages/fonts/common)
     # (import ../packages/common)

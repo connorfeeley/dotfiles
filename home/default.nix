@@ -17,7 +17,7 @@ in
     sops-nix.homeManagerModules.sops
     nix-colors.homeManagerModule
     nixos-vscode-server.nixosModules.home
-    nix-index-database.hmModules.nix-index
+    nix-index-database.homeModules.nix-index
     (_: { imports = [ ../lib/home ]; })
   ];
 
