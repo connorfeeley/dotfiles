@@ -435,6 +435,22 @@ in
   services.nginx.recommendedGzipSettings = true;
   services.nginx.recommendedBrotliSettings = true;
   services.nginx.recommendedZstdSettings = true;
+
+  # Reverse proxy port 9090 (atticd) to https://workstation.elephant-vibes.ts.net/cache
+  services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
+    locations."/cache" = {
+      extraConfig = "return 302 /cache/;";
+    };
+    locations."/" = {
+      proxyPass = "http://[::]:9090";
+      proxyWebsockets = true;
+      extraConfig =
+        "client_max_body_size 10G;" +
+        "proxy_ssl_server_name on;" +
+        "proxy_pass_header Authorization;"
+      ;
+    };
+  };
   # services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
   #   forceSSL = true;
   #   enableACME = true;

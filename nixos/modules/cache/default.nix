@@ -53,28 +53,6 @@ in
           ensureDBOwnership = true;
         }];
       };
-
-      # Reverse proxy port 9090 to https://workstation.elephant-vibes.ts.net/services/cache
-      services.nginx = {
-        enable = true;
-        virtualHosts."workstation.elephant-vibes.ts.net" = {
-          locations."/cache" = {
-            extraConfig = "return 302 /cache/;";
-          };
-          locations."/" = {
-            proxyPass = "http://[::]:9090";
-            proxyWebsockets = true; # needed if you need to use WebSocket
-            extraConfig =
-              # "rewrite ^/services/cache(.*) /$1 break;" + # remove the /services/cache prefix
-              "client_max_body_size 10G;" +
-              # required when the target is also TLS server with multiple hosts
-              "proxy_ssl_server_name on;" +
-              # required when the server wants to use HTTP Authentication
-              "proxy_pass_header Authorization;"
-            ;
-          };
-        };
-      };
     })
 
     # Push built paths to the workstation attic cache via queued-build-hook.
@@ -101,7 +79,7 @@ in
                 export IFS=' '
 
                 # shellcheck disable=SC2086 # intentional word splitting
-                exec ${pkgs.attic}/bin/attic push --config-path ${config.age.secrets.attic-config-toml.path} workstation:cfeeley $OUT_PATHS # $DRV_PATH
+                exec ${pkgs.attic}/bin/attic push --config-path ${config.age.secrets.attic-config-toml.path} ${uploadCfg.target} $OUT_PATHS # $DRV_PATH
               '';
             };
           in

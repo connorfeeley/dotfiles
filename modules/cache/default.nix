@@ -18,6 +18,11 @@ in
   options.services.cache = {
     enable = lib.mkEnableOption "Serve an S3-backed Nix cache using attic";
     enableCloudflareS3 = lib.mkEnableOption "Enable Cloudflare S3 storage";
+    bucket = lib.mkOption {
+      type = lib.types.str;
+      default = "cfeeley-nixpkgs-cache";
+      description = "R2 bucket name for atticd storage.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -64,7 +69,7 @@ in
         # Storage configuration
         storage = lib.mkIf cfg.enableCloudflareS3 {
           type = "s3";
-          bucket = "cfeeley-nixpkgs-cache";
+          bucket = cfg.bucket;
           region = "auto";
           endpoint = "https://58f2f5e716707689e3cf7b16c1efcf28.r2.cloudflarestorage.com";
         };

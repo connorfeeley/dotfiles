@@ -56,12 +56,21 @@
   services.openssh.enable = true;
 
   ### === nix caches ===============================================================
-  # Use the workstation attic cache as a substituter and push every locally-built
-  # path back to it via queued-build-hook (post-build-hook).
+  # Run a local atticd backed by Cloudflare R2, and push every locally-built path
+  # to it via queued-build-hook (post-build-hook). Storage lives in a
+  # builder-specific R2 bucket so metadata doesn't collide with workstation's.
   nix.caches = {
     enable = true;
     attic.enable = true;
     attic.upload.enable = true;
+    attic.upload.target = "local:cfeeley";
+  };
+
+  services.cache = {
+    enable = true;
+    enableCloudflareS3 = true;
+    bucket = "cfeeley-nixpkgs-cache-builder";
+    # enablePostgres left false → defaults to local sqlite at /var/lib/atticd/server.db
   };
 
   # cfeeley needs to be a trusted user so the Mac can substitute & build via the

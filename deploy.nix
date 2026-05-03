@@ -14,7 +14,7 @@ let
     autoRollback = true;
     magicRollback = true;
     profiles.system = {
-      user = "cfeeley";
+      user = "root";
       path = deploy.lib.${arch}.activate.nixos
         self.nixosConfigurations.${hostname};
     };
