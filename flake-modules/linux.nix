@@ -250,24 +250,12 @@ in
           }
         ));
     };
-    perSystem = { self, self', system, config, pkgs, collective, ... }:
-      let
-        pkgs' = import inputs.nixpkgs {
-          inherit system;
-          inherit (self.overlays) cfeeley-overlay;
-
-          config = {
-            nixpkgs.config.allowUnfree = true;
-
-            nixpkgs.overlays = self.overlays.cfeeley-overlay;
-          };
-        };
-      in
+    perSystem = { system, collective, ... }:
       {
         _module.args = {
           flake-lib = import ../lib {
             inherit collective;
-            lib = inputs.digga.lib // pkgs'.lib;
+            lib = inputs.digga.lib // (self.pkgsets.pkgs' system).lib;
           };
         };
       };

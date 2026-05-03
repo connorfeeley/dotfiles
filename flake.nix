@@ -15,40 +15,23 @@
         inputs.devshell.flakeModule
       ];
 
-      perSystem = { config, pkgs, inputs', system, ... }:
+      perSystem = { config, lib, pkgs, inputs', system, ... }:
         let
-          mkPackages = pkgs.lib.makeScope pkgs.newScope (self:
-            let
-              commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages; inherit (pkgs) callPackage; };
-              pythonPackages = pkgs.lib.recurseIntoAttrs (pkgs.python3.pkgs.callPackage ./packages/python { });
+          commonPackages = import ./packages/common { inherit pkgs; inherit (pkgs) nodePackages callPackage; };
 
-              installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
-              darwinPackages = builtins.mapAttrs
-                (_n: v: pkgs.callPackage v { inherit installApplication; })
-                (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
-            in
-            (filterSystem (commonPackages // pythonPackages // darwinPackages)));
+          pythonScope = pkgs.python3.pkgs.callPackage ./packages/python { };
+          pythonPackages = { inherit (pythonScope) aranet4 pwrbar; };
 
-          # Only packages available on the system.
-          filterSystem = attrs: pkgs.lib.filterAttrs (n: v: pkgs.lib.meta.availableOn { inherit system; } v) attrs;
+          installApplication = pkgs.darwin.apple_sdk_11_0.callPackage ./packages/darwin/installApplication.nix { };
+          darwinPackages = builtins.mapAttrs
+            (_: v: pkgs.callPackage v { inherit installApplication; })
+            (inputs.digga.lib.flattenTree (inputs.digga.lib.rakeLeaves ./darwin/packages));
 
-          # Filter out attributes from newScope.
-          filterPackages = attrs: pkgs.lib.filterAttrs
-            (n: v: ! pkgs.lib.elem n [
-              "packages"
-              "callPackage"
-              "default"
-              "newScope"
-              "override"
-              "overrideScope"
-              "overrideScope'"
-              "recurseForDerivations"
-              "overrideDerivation"
-            ])
-            attrs;
+          # Only packages available on the current system.
+          filterSystem = lib.filterAttrs (_: v: lib.meta.availableOn { inherit system; } v);
         in
         {
-          packages = filterPackages mkPackages;
+          packages = filterSystem (commonPackages // pythonPackages // darwinPackages);
 
           devshells.default = import ./shell/dotfiles.nix { inherit pkgs inputs'; };
         };
@@ -112,7 +95,6 @@
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     nvfetcher.url = "github:berberman/nvfetcher";
     arion = { url = "github:hercules-ci/arion"; inputs.nixpkgs.follows = "nixpkgs"; };
-    # nix-serve-ng = { url = "github:aristanetworks/nix-serve-ng"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
     nixago = { url = "github:nix-community/nixago"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-vscode-server = { url = "github:msteen/nixos-vscode-server"; inputs.nixpkgs.follows = "nixpkgs"; };
     extra-container = { url = "github:erikarvstedt/extra-container"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -134,7 +116,7 @@
     emacs-overlay = { url = "github:nix-community/emacs-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin-emacs = { url = "github:c4710n/nix-darwin-emacs"; };
     nix-xilinx = { url = "git+https://git.sr.ht/~cfeeley/nix-xilinx"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; inputs.utils.follows = "flake-utils"; };
+    nixpkgs-doc = { url = "github:aakropotkin/nixpkgs-doc"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     ##: --- packages -----------------------------------------------------------
     emacs-lsp-booster.url = "github:slotThe/emacs-lsp-booster-flake";

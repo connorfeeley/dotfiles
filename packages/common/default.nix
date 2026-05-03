@@ -36,43 +36,4 @@ in
     };
 
   ediff-tool = pkgs.writeShellScriptBin "ediff-tool" (builtins.readFile ./ediff-tool);
-
-  # openssh =
-  #   let
-  #     # Fixed ssh-copy-id for old+new dropbear compatibility
-  #     ssh-copy-id =
-  #       pkgs.stdenv.mkDerivation {
-  #         name = "ssh-copy-id";
-  #         src = ./ssh-copy-id;
-  #         installPhase = ''
-  #           mkdir -p $out/bin
-  #           cp ssh-copy-id $out/bin/ssh-copy-id
-  #           chmod +x $out/bin/ssh-copy-id
-  #         '';
-  #       };
-  #   in
-  #   pkgs.symlinkJoin {
-  #     name = "openssh";
-  #     paths = [ pkgs.openssh ssh-copy-id ];
-  #     buildInputs = [ pkgs.makeWrapper ];
-  #   };
-
-  ##: third-party scripts ------------------------------------------------------
-
-  # darwin-rebuild =
-  # let
-  #   extraPath = lib.makeBinPath [ config.nix.package pkgs.coreutils pkgs.jq pkgs.git ];
-  #   writeProgram = name: env: src:
-  #     pkgs.substituteAll ({
-  #       inherit name src;
-  #       dir = "bin";
-  #       isExecutable = true;
-  #     } // env);
-  # in writeProgram "darwin-rebuild"
-  #   {
-  #     inherit (config.system) profile;
-  #     inherit (stdenv) shell;
-  #     path = "${extraPath}:${config.environment.systemPath}";
-  #   }
-  #   ./darwin-rebuild.sh;
 }

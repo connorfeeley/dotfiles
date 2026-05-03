@@ -33,22 +33,11 @@ in
     h8tsner = mkDeploy "h8tsner" "x86_64-linux";
     proxmox-builder = mkDeploy "proxmox-builder" "x86_64-linux";
 
-    # Deploy to 'cfeeley-laptop':
-    # - Recommended: deploy .#cfeeley-laptop -- --print-build-logs
-    # If there are nix eval errors, then we can tell 'deploy' to skip the flake checks:
-    # - Not recommended: deploy --skip-checks .#cfeeley-laptop -- --print-build-logs
-    cfeeley-laptop = with (collective.peers.hosts.cfeeley-laptop); {
-      hostname = ipv4.address;
-      sshUser = "cfeeley";
-      fastConnection = true;
-      autoRollback = true;
-      magicRollback = true;
-      profilesOrder = [ "cfeeley" ];
-      profiles.cfeeley = {
-        user = "cfeeley";
-        path = deploy.lib.x86_64-linux.activate.home-manager
-          self.homeConfigurationsPortable.x86_64-linux."cfeeley@cfeeley-laptop";
-      };
-    };
+    # cfeeley-laptop deploy is disabled: depends on
+    # self.homeConfigurationsPortable.x86_64-linux."cfeeley@cfeeley-laptop",
+    # which is no longer produced by any flake-module. Re-enable by defining
+    # that output (digga used to provide homePortable wiring) before
+    # uncommenting. The user/host metadata still lives in home/default.nix
+    # and ops/metadata/hosts.toml.
   };
 }

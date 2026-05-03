@@ -17,6 +17,7 @@ stdenv.mkDerivation {
       "Simulates an ant hill and displays it in the root X11 window.";
     homepage = "https://acme.com/software/xantfarm";
     license = licenses.bsd2;
+    platforms = platforms.linux;
     maintainers = [ maintainers.cfeeley ];
   };
 }

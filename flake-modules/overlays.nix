@@ -44,19 +44,12 @@
     inputs.nurpkgs.overlays.default
 
     packagesOverlay
-
-    inputs.nur.overlays.default
-
-    # (import ../packages/fonts/common)
-    # (import ../packages/common)
-    # (import ../packages/sources)
   ];
 
   packagesOverlay = final: prev: let
     packagesFrom = inputAttr: inputAttr.packages.${final.system};
     legacyPackagesFrom = inputAttr: inputAttr.legacyPackages.${final.system};
   in {
-    # inherit (packagesFrom inputs.prefmanager) prefmanager;
     inherit (packagesFrom self.packages) emacs-plus;
     inherit (packagesFrom inputs.devenv) devenv;
     inherit (packagesFrom inputs.deploy) deploy-rs;

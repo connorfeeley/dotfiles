@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
   homeManagerPackage = inputs.home-manager.packages.${system}.default;
@@ -14,8 +14,9 @@ in
     manual.json.enable = true;
     news.display = "show";
 
-    # Necessary for home-manager to work with flakes, otherwise it will look for a nixpkgs channel.
-    home.stateVersion = "21.11"; # Version of *original* HM state.
+    # Backstop only — per-machine configs override. Was plain '=' previously,
+    # which conflicted with machine settings; mkDefault makes it a real fallback.
+    home.stateVersion = lib.mkDefault "21.11";
 
     xdg.enable = true;
   }];

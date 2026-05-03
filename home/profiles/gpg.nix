@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let inherit (config.lib.dotfiles.whoami) pgpPublicKey pgpKeygrip;
-in lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [{
+in lib.mkIf ("" != pgpPublicKey) {
   home.sessionVariables.DOTFILES_PGP_KEY = pgpPublicKey;
 
   home.packages = with pkgs; [
@@ -61,4 +61,4 @@ in lib.mkIf ("" != pgpPublicKey) (lib.mkMerge [{
       # keyserver hkps://pgp.ocf.berkeley.edu
     };
   };
-}])
+}
