@@ -34,16 +34,10 @@ in
     nix.settings = {
       extra-substituters = [
         (lib.optionalString cfg.attic.enable "https://workstation.elephant-vibes.ts.net/cfeeley")
-        # Builder atticd, reachable over Tailscale. Plain HTTP since the tailnet is trusted.
-        (lib.optionalString cfg.attic.enable "http://proxmox-builder.elephant-vibes.ts.net:9090/cfeeley")
         (lib.optionalString cfg.cachix.enable "https://cfeeley.cachix.org")
       ];
       extra-trusted-public-keys = [
         (lib.optionalString cfg.attic.enable "cfeeley:42CV0l4NnVzAhk7xGYuLUgvKY6fjwfQplH77eH+PBmI=")
-        # TODO: add the builder atticd cache's signing public key once atticadm
-        # create-cache has been run on proxmox-builder. Reuse the workstation
-        # signing key (above) by importing it via `atticadm import-key` if you
-        # want a single trusted-key entry to cover both atticd instances.
         (lib.optionalString cfg.cachix.enable "cfeeley.cachix.org-1:b+RrHsy/4WWys2o6T4YyF66OhdiZUF/R/N46JcS0HJU=")
       ];
 
