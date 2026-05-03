@@ -164,6 +164,9 @@ in
             };
             modules = [
               collective.modules.global.dotfiles.guardian
+              collective.modules.global.nix.caches
+              collective.modules.nixos.cache
+              inputs.agenix.nixosModules.age
               inputs.home-manager.nixosModules.home-manager
               collective.modules.global.fup-options
               collective.profiles.nixos.core

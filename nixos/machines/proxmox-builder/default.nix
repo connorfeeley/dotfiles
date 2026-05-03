@@ -55,6 +55,15 @@
 
   services.openssh.enable = true;
 
+  ### === nix caches ===============================================================
+  # Use the workstation attic cache as a substituter and push every locally-built
+  # path back to it via queued-build-hook (post-build-hook).
+  nix.caches = {
+    enable = true;
+    attic.enable = true;
+    attic.upload.enable = true;
+  };
+
   # cfeeley needs to be a trusted user so the Mac can substitute & build via the
   # Nix daemon over SSH. nix.sshServe handles its own key list separately
   # (see nixos/profiles/builder.nix).
