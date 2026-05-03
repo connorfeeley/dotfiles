@@ -168,6 +168,7 @@ in
               collective.modules.global.fup-options
               collective.profiles.nixos.core
               collective.profiles.global.core
+              collective.profiles.global.networking.tailscale
               collective.profiles.nixos.builder
 
               collective.machines.nixos."proxmox-builder"
