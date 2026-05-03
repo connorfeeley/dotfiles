@@ -12,20 +12,20 @@ in {
     distributedBuilds = true;
     buildMachines = [
       ### NixOS workstation
-      {
-        hostName = "workstation";
-        protocol = "ssh-ng";
-        maxJobs = 12;
-        systems = [ "x86_64-linux" "aarch64-linux" "i686-linux" ];
-        # Base64-encoded ed25519 public host key of builder:
-        #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
-        sshUser = config.dotfiles.guardian.username;
-        sshKey = "/etc/nix/workstation_ed25519";
-        # 12 desktop cores, times two (versus times 1 for a laptop)" seems like a reasonable relative speed factor.
-        speedFactor = 12;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-      }
+      # {
+      #   hostName = "workstation";
+      #   protocol = "ssh-ng";
+      #   maxJobs = 12;
+      #   systems = [ "x86_64-linux" "aarch64-linux" "i686-linux" ];
+      #   # Base64-encoded ed25519 public host key of builder:
+      #   #   base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
+      #   publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMK215amtLR0NZSVlrSTE2NXRxL2NwMDRtMGlveDhSTEViNE1TMXdqZXQgcm9vdEBjZmVlbGV5LXdvcmtzdGF0aW9uCg==";
+      #   sshUser = config.dotfiles.guardian.username;
+      #   sshKey = "/etc/nix/workstation_ed25519";
+      #   # 12 desktop cores, times two (versus times 1 for a laptop)" seems like a reasonable relative speed factor.
+      #   speedFactor = 12;
+      #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      # }
       ### NixOS proxmox-builder (local Proxmox VM, x86_64-linux only)
       {
         hostName = "proxmox-builder";
