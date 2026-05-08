@@ -11,11 +11,12 @@ in
   home.packages = with pkgs; [
     lsof
     ## === Helpful Utilities ===
-    comma # <- Runs programs without installing them
-    tealdeer # <- A very fast implementation of tldr in Rust.
+    comma              # <- Runs programs without installing them
+    tealdeer           # <- A very fast implementation of tldr in Rust.
     nix-output-monitor # <- Pretty nix { build, shell, develop }
-    thefuck # <- Corrects your previous console command
-    mtr # <- Traceroute and ping in a single tool
+    nh                 # Nix helper
+    thefuck            # <- Corrects your previous console command
+    mtr                # <- Traceroute and ping in a single tool
 
     # WARNING: conflicts with moreutils
     (lib.hiPrio parallel-full) # <- tool for executing jobs in parallel using one or more computers
