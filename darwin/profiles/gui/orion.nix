@@ -32,8 +32,8 @@ in
   ];
 
   # Post-user activation script is run directly after homebrew activation
-  system.activationScripts.postUserActivation.text = ''
+  system.activationScripts.orionDebugMenu.text = ''
     # Enable Orion debug menu
-    defaults write com.kagi.kagimacOS DebugMenu 1
+    sudo -u ${config.system.primaryUser} defaults write com.kagi.kagimacOS DebugMenu 1
   '';
 }

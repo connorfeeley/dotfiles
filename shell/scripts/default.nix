@@ -5,13 +5,17 @@ in {
     let
       extraPath = lib.makeBinPath (with pkgs; [ pandoc jq curl ]);
       writeProgram = name: env: src:
-        pkgs.substituteAll ({
-          inherit name src;
+        pkgs.runCommand name ({
+          inherit src;
           inherit (stdenv) shell;
-          path = "${extraPath}";
-          dir = "bin";
-          isExecutable = true;
-        } // env);
+          path = extraPath;
+        } // env) ''
+          mkdir -p $out/bin
+          substitute "$src" "$out/bin/${name}" \
+            --subst-var shell \
+            --subst-var path
+          chmod +x "$out/bin/${name}"
+        '';
     in
     writeProgram "dotfiles-docs" { } ./ci/docs.sh;
 }

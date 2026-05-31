@@ -42,7 +42,7 @@ let
           (pkgs.emacs30.override {
             withGTK3 = true;
             withPgtk = false; # Doesn't play nice with X11 - just use GTK3 instead
-            withXwidgets = !pkgs.webkitgtk.meta.broken;
+            withXwidgets = !pkgs.webkitgtk_4_1.meta.broken;
             withSQLite3 = true;
             withWebP = true;
           }).overrideAttrs
@@ -75,12 +75,13 @@ let
 
             })
         else
-          (pkgs.emacs29.override {
+          (pkgs.emacs30.override {
             inherit (pkgs)
               # For withGTK3:
               gtk3-x11 gsettings-desktop-schemas
               # For withXwidgets:
-              webkitgtk wrapGAppsHook3 glib-networking;
+              wrapGAppsHook3 glib-networking;
+            webkitgtk_4_1 = pkgs.webkitgtk_4_1;
 
             withGTK3 = true;
             withPgtk = false; # Doesn't play nice with X11 - just use GTK3 instead
@@ -374,7 +375,7 @@ lib.mkMerge [
         svlint
 
         # XWidgets WebKit
-        webkitgtk
+        webkitgtk_4_1
         glib
         gtk3
         glib-networking

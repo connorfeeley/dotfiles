@@ -42,22 +42,19 @@ in
       lsof
 
       # prefmanager # <- a tool for managing macOS defaults.
-      wifi-password # <- what was that password again?
 
       macfuse-stubs # <- MacOS port of FUSE
       sshfs-fuse # <- sshfs for MacOS
       darwin.iproute2mac # <- MacOS implementation of iproute2
       apple_complete # <- bash completions for MacOS
       darwinPackages.maclaunch # <- Manage your macOS startup items.
-      unixtools.nettools
+      unixtools.net-tools
     ];
 
   # Recreate /run/current-system symlink after boot
   services.nix-daemon = {
-    enable = true;
     enableSocketListener = false; # 'true' causes connection refused error
   };
-  nix.configureBuildUsers = true;
 
   homebrew = {
     enable = true;

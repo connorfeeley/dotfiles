@@ -146,16 +146,11 @@ in
   # };
 
   programs.firefox = {
-    enable = true;
-    package =
-      if isDarwin
-      # Handled by the Homebrew module
-      # This populates a dummy package to satisfy the requirement
-      then
-        pkgs.runCommand "firefox-0.0.0" { } "mkdir $out"
+    # Handled by the Homebrew module on Darwin.
+    enable = isLinux;
+    package = lib.mkIf isLinux
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/networking/browsers/firefox/wrapper.nix
-      else
-        (pkgs.firefox.overrideAttrs (oldAttrs: {
+        ((pkgs.firefox.overrideAttrs (oldAttrs: {
           patches = (oldAttrs.patches or [ ]) ++ [
             (pkgs.fetchpatch {
               name = "mozilla-kde.patch";
@@ -180,7 +175,7 @@ in
             # Gnome shell native connector
             enableGnomeExtensions = moduleArgs.osConfig.services.gnome.gnome-browser-connector.enable;
           };
-        };
+        });
 
     profiles.home = lib.mkIf isLinux {
       id = 0;

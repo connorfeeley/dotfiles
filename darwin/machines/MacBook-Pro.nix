@@ -16,6 +16,8 @@ in
     username = "cfeeley";
   };
 
+  system.primaryUser = "cfeeley";
+
   # Get user and group ID
   users.users.cfeeley = {
     uid = 501;

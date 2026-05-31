@@ -2,7 +2,6 @@
 , fetchurl
 , fetchFromGitHub
 , lib
-, darwin
 , noTitlebar ? false
 , otherIcon ? "default"
 , ...
@@ -66,9 +65,6 @@ let
 in
 emacs-unstable.overrideAttrs (o: {
   pname = "emacsPlusNativeComp";
-
-  # https://github.com/cmacrae/emacs/blob/03b4223e56e10a6d88faa151c5804d30b8680cca/flake.nix#L75
-  buildInputs = o.buildInputs ++ [ darwin.apple_sdk.frameworks.WebKit ];
 
   # https://github.com/siraben/nix-gccemacs-darwin/blob/f543cf1d30dc8afb895aaddfb73c92cb739874fe/emacs.nix#L16-L17
   configureFlags = o.configureFlags ++ [ "--with-cairo" "--with-harfbuzz" ];

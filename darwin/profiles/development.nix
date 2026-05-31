@@ -3,9 +3,8 @@
     self'.packages.mints
 
     darwin.DarwinTools
-    darwin.print-reexports
     undmg
-    darwin.ios-deploy
+    ios-deploy
   ];
 
   homebrew = {

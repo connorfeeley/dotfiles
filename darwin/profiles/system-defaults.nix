@@ -2,7 +2,7 @@
 let inherit (pkgs.stdenv) isAarch64;
 in {
   # Use touchID for authorizing sudo; but only on Apple Silicon
-  security.pam.enableSudoTouchIdAuth = isAarch64;
+  security.pam.services.sudo_local.touchIdAuth = isAarch64;
 
   system.defaults = {
     # GlobalPreferences".com.apple.sound.beep.sound = "Funk";
@@ -115,15 +115,6 @@ in {
     LaunchServices.LSQuarantine = false;
     # macOS updates frequently nuke Nix, requiring a partial reinstall.
     SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
-
-    # Firewall
-    alf = {
-      allowdownloadsignedenabled = 0;
-      allowsignedenabled = 1;
-      globalstate = 0;
-      loggingenabled = 0;
-      stealthenabled = 0;
-    };
 
     dock = {
       autohide = true;

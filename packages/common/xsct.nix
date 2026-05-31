@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, buildFHSUserEnv, writeScript, autoPatchelfHook, pkgs }:
+{ lib, stdenv, fetchurl, buildFHSEnv, writeScript, autoPatchelfHook, pkgs }:
 let
   version = "${releaseMajor}-${releaseMinor}";
   releaseMajor = "2021";
@@ -95,13 +95,12 @@ let
       xz
       llvmPackages.libclang
       libidn
-      python38
       libxcrypt
 
       xorg.libXext
       xorg.libXv
       xorg.libX11
-    ];
+    ] ++ lib.optionals (pkgs ? python38) [ pkgs.python38 ];
 
     meta = with lib; {
       homepage =
@@ -113,7 +112,7 @@ let
     };
   };
 in
-buildFHSUserEnv rec {
+buildFHSEnv rec {
   name = "xsct-wrapper"; # wrapped
 
   targetPkgs = pkgs:
@@ -124,8 +123,8 @@ buildFHSUserEnv rec {
       zlib
 
       tcl
-      tclx
-      tcllib
+      tclPackages.tclx
+      tclPackages.tcllib
 
       xorg.xlsclients
       xorg.libXft

@@ -5,6 +5,8 @@ let
   cfg = config.services.skhd;
 in
 {
+  disabledModules = [ "services/skhd.nix" ];
+
   options = {
     services.skhd.enable = mkOption {
       type = types.bool;

@@ -19,7 +19,11 @@ in
   # Nix 'aliases'
   inherit n nb;
 
+}
+// pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
   xsct = callPackage ./xsct.nix { };
+}
+// {
 
   xantfarm = callPackage ./xantfarm.nix { };
 

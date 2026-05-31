@@ -42,7 +42,6 @@ in
               collective.modules.darwin.tailscale
               collective.modules.darwin.input-leap
               collective.modules.darwin.hammerspoon
-              collective.modules.darwin.terminfo
 
               collective.profiles.darwin.core
               # collective.profiles.darwin.emacs
