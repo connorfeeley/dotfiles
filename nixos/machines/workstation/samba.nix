@@ -9,23 +9,23 @@ in {
     true; # make shares visible for windows 10 clients
   services.samba = {
     enable = true;
-    securityType = "user";
-    extraConfig = ''
-      ### GENERAL ###
-      browseable = yes
-      server string = workstation
-      netbios name = workstation
-
-      use sendfile = yes
-
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 100. 192.168.0. 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
-    '' + "";
-    shares = {
+    # 26.05: securityType, extraConfig, and shares are all merged under settings.
+    settings = {
       global = {
+        ### GENERAL ###
+        security = "user";
+        browseable = "yes";
+        "server string" = "workstation";
+        "netbios name" = "workstation";
+
+        "use sendfile" = "yes";
+
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" = "100. 192.168.0. 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+
         ### TIME MACHINE ###
         "min protocol" = "SMB2";
         "ea support" = "yes";
@@ -41,7 +41,7 @@ in {
         "fruit:nfs_aces" = "no";
         "fruit:wipe_intentionally_left_blank_rfork" = "yes";
         "fruit:delete_empty_adfiles" = "yes";
-        "spotlight" = "no";
+        spotlight = "no";
       };
       "Data" = {
         path = "/mnt/zfs/data";

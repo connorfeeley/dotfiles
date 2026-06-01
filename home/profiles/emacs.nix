@@ -131,7 +131,7 @@ let
     sparseCheckout = [ "modules/completion/corfu" ];
   };
 
-  llvmPackages = pkgs.llvmPackages_16;
+  llvmPackages = pkgs.llvmPackages;
   clang-tools = llvmPackages.clang-tools;
 in
 lib.mkMerge [
@@ -258,19 +258,19 @@ lib.mkMerge [
 
         # :lang sh
         shellcheck # <- bash doesn't have to be scary
-        nodePackages.bash-language-server # <- lsp client for bash that loves dividing by zero
+        bash-language-server # <- lsp client for bash that loves dividing by zero
         # Linux-only: bashdb # <- bash debugger
         # zshdb # <- zsh debugger (FIXME: not packaged for nix)
 
         # :lang cpp
         llvmPackages.lldb # includes lldb-vscode
         clang-tools
-        python3Packages.compiledb
+        compiledb
         # Linux-only (see conditional appends below):
         # (vscode-extensions.ms-vscode.cpptools.override { inherit clang-tools; })
 
         # :tools magit
-        gitAndTools.delta
+        delta
 
         # :tools pdf
         # Use with (package! pdf-tools :built-in 'prefer)
@@ -305,34 +305,34 @@ lib.mkMerge [
         ##: === lang/lsp ===
 
         #: docker
-        nodePackages.dockerfile-language-server-nodejs
+        dockerfile-language-server
         #: terraform
         terraform
         terraform-ls
         #: HTML/CSS/JSON/ESLint
-        nodePackages.vscode-langservers-extracted
+        vscode-langservers-extracted
         #: js
         # eslint
         # typescript-language-server
         #: json
-        nodePackages.vscode-json-languageserver
+        vscode-json-languageserver
         #: markdown
-        nodePackages.unified-language-server
+        # unified-language-server # removed from nixpkgs 26.05
         #: python
         pyright
         #: C++
         clang-tools
         # bear
         #: toml
-        taplo-lsp
+        taplo
         #: web-mode
-        nodePackages.js-beautify
-        nodePackages.stylelint
+        js-beautify
+        stylelint
         html-tidy
         #: yaml
-        nodePackages.yaml-language-server
+        yaml-language-server
         #: vimrc
-        nodePackages.vim-language-server
+        vim-language-server
 
         #: lang rescript
         # FIXME(2023-07-27): version 3e9 of dune is not supported
@@ -366,7 +366,7 @@ lib.mkMerge [
         python3Packages.debugpy
 
         #: lang graphql
-        nodePackages.graphql-language-service-cli
+        graphql-language-service-cli
 
         #: fpga (bazel builds fail on darwin)
         verible

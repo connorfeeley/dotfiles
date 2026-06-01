@@ -6,7 +6,10 @@ let
 
   allHosts = self.nixosConfigurations;
 
-  enabledExportersF = name: host: filterAttrs (k: v: (k != "unifi-poller" && k != "unpoller" && k != "minio") && lib.isBool v) host.config.services.prometheus.exporters;
+  # `rspamd` and `tor` exporters were removed in nixpkgs 26.05; reading them
+  # triggers a removal throw, so exclude them along with the others.
+  removedExporters = [ "unifi-poller" "unpoller" "minio" "rspamd" "tor" ];
+  enabledExportersF = name: host: filterAttrs (k: v: !(builtins.elem k removedExporters) && lib.isBool v) host.config.services.prometheus.exporters;
   enabledExporters = mapAttrs enabledExportersF allHosts;
 
   mkScrapeConfigExporter = hostname: ename: ecfg: {
@@ -46,6 +49,10 @@ in
       # Grafana needs to know on which domain and URL it's running:
       domain = config.networking.hostName;
     };
+    # nixpkgs 26.05 removed the old hard-coded default secret_key. Pin it to
+    # the historical value since this instance holds no encrypted secrets.
+    # If that changes, switch to a file-provider (`$__file{...}`).
+    settings.security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
     provision = {
       enable = true;
       # Set up the datasources
@@ -159,53 +166,7 @@ in
     };
   };
 
-  services.promtail = {
-    enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 28183;
-        grpc_listen_port = 0;
-        log_level = "warn";
-      };
-      positions.filename = "/tmp/positions.yaml";
-      clients = [
-        { url = "http://127.0.0.1:${toString lokiPort}/loki/api/v1/push"; }
-        { url = "http://haskbike-ec2.${peers.networks.${peers.hosts.haskbike-ec2.network}.domain}:${toString lokiPort}/loki/api/v1/push"; name = "loki-bikes"; }
-      ];
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "24h";
-            labels = {
-              job = "systemd-journal";
-              host = "127.0.0.1";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
-        }
-        {
-          job_name = "journal-bikes";
-          journal = {
-            max_age = "24h";
-            labels = {
-              job = "systemd-journal-bikes";
-              host = "haskbike-ec2.${peers.networks.${peers.hosts.haskbike-ec2.network}.domain}";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
-        }
-      ];
-    };
-  };
+  # Promtail was removed in NixOS 26.05 (EOL upstream). Migration target is
+  # grafana-alloy (`services.alloy.enable`). Disabled here until ported.
+  # services.promtail = { ... };
 }

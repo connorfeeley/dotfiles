@@ -142,7 +142,7 @@ in
   };
   security.acme = {
     acceptTerms = true;
-    email = "admin@cfeeley.org";
+    defaults.email = "admin@cfeeley.org";
   };
 
 

@@ -37,7 +37,7 @@ in
 
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false; # renamed from hardware.pulseaudio
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -56,8 +56,8 @@ in
   # services.xserver.libinput.enable = true;
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "cfeeley";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "cfeeley";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

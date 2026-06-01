@@ -19,7 +19,7 @@ in
       pkgs.nixpkgs-fmt
       pkgs.nil # ('nix-nil' from source repo)
       inputs'.nixd.packages.nixd
-      pkgs.nixfmt-rfc-style
+      pkgs.nixfmt
     ];
   };
 }

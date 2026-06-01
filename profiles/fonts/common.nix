@@ -23,7 +23,7 @@ in {
       # noto-fonts-cjk
       # noto-fonts-emoji
 
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
 
       font-awesome
 
@@ -41,7 +41,7 @@ in {
       dejavu_fonts
       bakoma_ttf
       gentium
-      ubuntu_font_family
+      ubuntu-classic
       terminus_font
     ]));
   };

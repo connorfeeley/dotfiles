@@ -77,7 +77,7 @@ in
   };
 
   # Add homebrew and macports packages to PATH
-  environment.systemPath = [ config.homebrew.brewPrefix "/opt/local/bin" ];
+  environment.systemPath = [ "${config.homebrew.prefix}/bin" "/opt/local/bin" ];
 
   environment.pathsToLink = [ "/Applications" ];
 
