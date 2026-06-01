@@ -19,20 +19,20 @@ let
         "/Users/cfeeley/.gnupg/S.gpg-agent.extra";
   };
 
-  # Creates a matchBlock for ${hostName}.
+  # Creates a settings block for ${hostName}.
   # For ${trusted} hosts, enable trusted X11 forwarding and forward the GPG agent socket.
-  mkMatchBlock = { hostName, trusted ? false }: {
-    port = self.flake-lib.peers.getSshPort hostName;
+  mkHostBlock = { hostName, trusted ? false }: {
+    Port = self.flake-lib.peers.getSshPort hostName;
 
     # Emacs vterm environment variables
-    extraOptions.SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
+    SendEnv = "INSIDE_EMACS EMACS_VTERM_PATH";
 
     # X11 forwarding
-    forwardX11 = lib.mkIf (trusted) true;
-    forwardX11Trusted = lib.mkIf (trusted) true;
+    ForwardX11 = lib.mkIf trusted true;
+    ForwardX11Trusted = lib.mkIf trusted true;
 
     # GPG agent forwarding
-    remoteForwards = lib.mkIf (trusted) [ gpgAgentForwards ];
+    RemoteForward = lib.mkIf trusted [ gpgAgentForwards ];
   };
 in
 {
@@ -43,88 +43,90 @@ in
 
   programs.ssh = {
     enable = true;
-    forwardAgent =
-      false; # SSH agent forwarding must be disabled to use gpg-agent forwarding
-    serverAliveInterval = 5;
-    serverAliveCountMax = 2;
-    compression = false; # Slow
-    controlPersist = "30s";
-    controlMaster = "auto";
+    enableDefaultConfig = false;
 
     includes = [ "~/.config/ssh/config.local" ];
 
-    matchBlocks = {
+    settings = {
       ### Physical
-      "workstation" = mkMatchBlock {
+      "workstation" = mkHostBlock {
         hostName = "workstation";
         trusted = true;
       };
-      # "workstation-luks" = { user = "root"; extraOptions.RemoteCommand = "cryptsetup-askpass"; };
+      # "workstation-luks" = { User = "root"; RemoteCommand = "cryptsetup-askpass"; };
       "workstation-luks" = {
-        user = "root";
-        extraOptions.RemoteCommand = "zfs load-key -a && killall zfs";
+        User = "root";
+        RemoteCommand = "zfs load-key -a && killall zfs";
       };
-      "macbook-pro" = mkMatchBlock {
+      "macbook-pro" = mkHostBlock {
         hostName = "MacBook-Pro";
         trusted = true;
       };
-      "cfeeley-laptop" = mkMatchBlock
+      "cfeeley-laptop" = mkHostBlock
         {
           hostName = "cfeeley-laptop";
           trusted = true;
         } // {
-        hostname = cfeeley-laptop.ipv4.address;
+        HostName = cfeeley-laptop.ipv4.address;
       };
       "assuring-redshank" = {
-        hostname = "assuring-redshank";
-        user = "ubuntu";
+        HostName = "assuring-redshank";
+        User = "ubuntu";
       };
 
       ### VMs (local)
-      "rosy" = mkMatchBlock {
+      "rosy" = mkHostBlock {
         hostName = "rosy";
         trusted = true;
       }; # NOTE: manually add entry to root's SSH config (/var/root/.ssh/config) to use as builder
 
       ### VMs (remote)
-      "h8tsner" = mkMatchBlock { hostName = "h8tsner"; };
+      "h8tsner" = mkHostBlock { hostName = "h8tsner"; };
 
       ### Other
       "github.com" = {
-        user = "git";
-        extraOptions = { ControlMaster = "no"; };
+        User = "git";
+        ControlMaster = "no";
       };
       "10.*.*.*" = {
-        extraOptions = {
-          KexAlgorithms = "+diffie-hellman-group1-sha1";
-          HostKeyAlgorithms = "+ssh-rsa";
-        };
+        KexAlgorithms = "+diffie-hellman-group1-sha1";
+        HostKeyAlgorithms = "+ssh-rsa";
       };
+
+      ### Defaults (replaces old enableDefaultConfig + matchBlocks."*")
       "*" = {
-        addressFamily = "inet";
-        forwardX11 = false;
-        forwardX11Trusted = false;
-        extraOptions = {
-          AddKeysToAgent = "yes";
-          ChallengeResponseAuthentication = "no";
-          PasswordAuthentication = "yes";
-          StrictHostKeyChecking = "ask";
-          VerifyHostKeyDNS = "yes";
-          VisualHostKey = "yes";
-          PubkeyAcceptedKeyTypes = "+ssh-rsa";
-          KexAlgorithms = "+diffie-hellman-group1-sha1";
-          HostKeyAlgorithms = "+ssh-rsa";
-          Port = "22";
+        # From old top-level programs.ssh options
+        ForwardAgent = false; # must be disabled to use gpg-agent forwarding
+        ServerAliveInterval = 5;
+        ServerAliveCountMax = 2;
+        Compression = false; # Slow
+        ControlPersist = "30s";
+        ControlMaster = "auto";
 
-          # Use 'throughput' QoS setting for non-interactive sessions
-          # default: "af21 cs1" (af21: low-latency data - interactive sessions; cs1: lower effort - non-interactive sessions)
-          IPQoS = "af21 throughput";
+        # From old matchBlocks."*"
+        AddressFamily = "inet";
+        ForwardX11 = false;
+        ForwardX11Trusted = false;
 
-          # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
-          # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
-          # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
-          # MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
-        };
+        AddKeysToAgent = "yes";
+        ChallengeResponseAuthentication = "no";
+        PasswordAuthentication = "yes";
+        StrictHostKeyChecking = "ask";
+        VerifyHostKeyDNS = "yes";
+        VisualHostKey = "yes";
+        PubkeyAcceptedKeyTypes = "+ssh-rsa";
+        KexAlgorithms = "+diffie-hellman-group1-sha1";
+        HostKeyAlgorithms = "+ssh-rsa";
+        Port = "22";
+
+        # Use 'throughput' QoS setting for non-interactive sessions
+        # default: "af21 cs1" (af21: low-latency data - interactive sessions; cs1: lower effort - non-interactive sessions)
+        IPQoS = "af21 throughput";
+
+        # Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com";
+        # HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
+        # KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
+        # MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com";
       };
     };
   };

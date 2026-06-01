@@ -5,7 +5,7 @@ in {
 
   virtualisation.docker = {
     enable = true;
-    package = pkgs.docker_24;
+    package = pkgs.docker_29; # docker_24 was dropped in nixpkgs 26.05
     daemon.settings = {
       # Default: /var/lib/docker
       data-root = "/var/lib/docker"; # "/mnt/ssd/docker";

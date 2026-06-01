@@ -46,6 +46,12 @@ in
       });
     in
     lib.mkIf (cfg.enable && !options.virtualisation ? qemu) {
+      # The legacy `extraUtilsCommands` / `boot.initrd.network.udhcpc` APIs
+      # are unsupported by systemd-stage-1 (default in NixOS 26.05). Pin
+      # this initrd to scripted stage-1 until the module is rewritten on top
+      # of `boot.initrd.systemd.*`.
+      boot.initrd.systemd.enable = lib.mkForce false;
+
       assertions = [{
         assertion =
           let
@@ -121,7 +127,7 @@ in
         extraUtilsCommands = ''
           copy_bin_and_libs ${tailscale}/bin/.tailscaled-wrapped
           copy_bin_and_libs ${tailscale}/bin/.tailscale-wrapped
-          copy_bin_and_libs ${pkgs.iproute}/bin/ip
+          copy_bin_and_libs ${pkgs.iproute2}/bin/ip
           copy_bin_and_libs ${iptables-static}/bin/iptables
           copy_bin_and_libs ${iptables-static}/bin/xtables-legacy-multi
 

@@ -43,8 +43,10 @@ in
           (_: { imports = [ ../../lib/home ]; })
           hmArgs.modules
         ] ++ [
-          self.inputs.nur.modules.homeManager.default
-
+          # NUR's homeManager module sets nixpkgs.overlays, which conflicts
+          # with home-manager.useGlobalPkgs (warns in 26.05, will error later).
+          # The overlay is already applied at the system pkgs level via
+          # flake-modules/overlays.nix (inputs.nur.overlays.default).
           self.inputs.nix-colors.homeManagerModules.default
           self.inputs.sops-nix.homeManagerModules.sops
           self.inputs.nix-colors.homeManagerModule

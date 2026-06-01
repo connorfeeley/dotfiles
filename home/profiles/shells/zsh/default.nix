@@ -41,7 +41,7 @@ in
     inherit shellAliases;
 
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     enableCompletion = true;
     # NOTE: conflicts with 'zdharma/fast-syntax-highlighting'
     syntaxHighlighting.enable = false;
@@ -106,7 +106,8 @@ in
     };
 
     # This is the top of $ZDOTDIR/.zshrc
-    initExtraFirst = ''
+    initContent = lib.mkMerge [
+      (lib.mkBefore ''
       ${
         # Optionally enable zprof module; run 'zprof' after shell startup to see profiling results
         lib.optionalString enableZprof "zmodload zsh/zprof"
@@ -126,10 +127,10 @@ in
         PS1='$ '
         return
       fi
-    '';
+    '')
 
-    # Before plugin init in $ZDOTDIR/.zshrc
-    initExtraBeforeCompInit = ''
+      # Before plugin init in $ZDOTDIR/.zshrc (was initExtraBeforeCompInit)
+      (lib.mkOrder 550 ''
       # # Init completion manually
       # autoload compinit; compinit -u
 
@@ -139,12 +140,12 @@ in
         # /opt/homebrew/completions/zsh)
         fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
       ''}
-    '';
+    '')
 
-    # After plugin init and history init in $ZDOTDIR/.zshrc
-    # Followed by zoxide, command-not-found, direnv, GPG, aliases init.
-    # Finally, followed by zsh-syntax-highlighting.
-    initExtra =
+      # After plugin init and history init in $ZDOTDIR/.zshrc (was initExtra)
+      # Followed by zoxide, command-not-found, direnv, GPG, aliases init.
+      # Finally, followed by zsh-syntax-highlighting.
+      (
       let
         pure-prompt-config = ''
           # ### Pure
@@ -208,7 +209,8 @@ in
         ${github-copilot-cli-config}
 
         ${zsh-notify-config}
-      '';
+      '')
+    ];
 
     sessionVariables = {
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";

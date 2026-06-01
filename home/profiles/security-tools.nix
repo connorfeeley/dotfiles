@@ -4,7 +4,7 @@
   home.packages = with pkgs;
     [
       ## === Reverse Engineering ===
-      (binwalk.override { visualizationSupport = pkgs.stdenv.isLinux; })
+      binwalk
       # quark-engine
       jre
 
@@ -31,7 +31,7 @@
       ## === Information Gathering === (see: https://github.com/fabaff/nix-security-box/blob/main/information-gathering.nix)
       metabigor
       socialscan # : CLI for querying username and email usage on online platforms
-      poppler_utils # pdf rendering tools
+      poppler-utils # pdf rendering tools
 
       ## === Passwords ===
       pdfcrack
@@ -42,11 +42,10 @@
       qFlipper
 
       ## === Reverse Engineering ===
-      (binwalk.override { visualizationSupport = true; })
       radare2
 
       ## === Forensics ===
-      chkrootkit
+      # chkrootkit removed from nixpkgs 26.05 (unmaintained upstream)
 
       ## === Networking ===
       aircrack-ng

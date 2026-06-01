@@ -197,7 +197,7 @@ in
       };
 
       pinentryFlavor = lib.mkOption {
-        type = lib.types.nullOr (lib.types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
+        type = lib.types.nullOr (lib.types.enum [ "curses" "emacs" "gtk2" "gnome3" "qt" "tty" "mac" "touchid" ]);
         example = "gnome3";
         default =
           if isDarwin
@@ -244,22 +244,22 @@ in
         (lib.optionalString (cfg.defaultCacheTtlSsh != null) "default-cache-ttl-ssh ${toString cfg.defaultCacheTtlSsh}")
         (lib.optionalString (cfg.maxCacheTtl != null) "max-cache-ttl ${toString cfg.maxCacheTtl}")
         (lib.optionalString (cfg.maxCacheTtlSsh != null) "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}")
-        (lib.optionalString (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid") "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
+        (lib.optionalString (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid") "pinentry-program ${pkgs."pinentry-${cfg.pinentryFlavor}"}/bin/pinentry")
 
         # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
         (lib.optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
-        (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.prefix}/pinentry-touchid")
+        (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.prefix}/bin/pinentry-touchid")
         "\n" # Trailing newline is important - avoids pinentry-program being jammed with the extraConfig.
       ]) + cfg.extraConfig;
 
       home.packages = lib.optionals (cfg.pinentryFlavor != null) (
         if isDarwin
         then [ pkgs.pinentry_mac ]
-        else [ pkgs.pinentry.${cfg.pinentryFlavor} ]
+        else [ pkgs."pinentry-${cfg.pinentryFlavor}" ]
       );
 
       programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration gpgInitStr;
-      programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration gpgInitStr;
+      programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration gpgInitStr;
       programs.fish.interactiveShellInit = lib.mkIf cfg.enableFishIntegration ''
         set -gx GPG_TTY (tty)
       '';

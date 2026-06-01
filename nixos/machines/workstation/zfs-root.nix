@@ -40,6 +40,10 @@ lib.mkIf (!options.virtualisation ? qemu) {
   ];
 
   boot.zfs.extraPools = lib.optionals (!config.nixos-vm.enable) [ "rpool" ];
+  # Default changes to `false` in 26.11; pin to the current behaviour explicitly
+  # to silence the warning. Flip to `false` once you've confirmed the pools
+  # import cleanly on this host.
+  boot.zfs.forceImportRoot = true;
 
   fileSystems."/" = {
     device = "npool/nixos/root";
