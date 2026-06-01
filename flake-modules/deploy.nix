@@ -14,7 +14,6 @@
             home.username = "cfeeley";
             home.homeDirectory = "/home/cfeeley";
             home.stateVersion = "23.11";
-            programs.termite.enable = false;
           }
         ];
       };

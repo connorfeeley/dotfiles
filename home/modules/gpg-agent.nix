@@ -248,7 +248,7 @@ in
 
         # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
         # (lib.optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
-        # (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid")
+        # (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.prefix}/pinentry-touchid")
         "\n" # Trailing newline is important - avoids pinentry-program being jammed with the extraConfig.
       ]) + cfg.extraConfig;
 

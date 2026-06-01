@@ -153,8 +153,6 @@ in
           # Systemd scripts
           nixos.work
         ]);
-
-      programs.termite.enable = false;
     };
   };
 

@@ -27,7 +27,7 @@ in
 
   programs.nix-index.enable = true;
 
-  environment.enableAllTerminfo = true;
+  environment.enableAllTerminfo = false; # FIXME: switch back to 'true' once https://github.com/NixOS/nixpkgs/pull/522784 lands on a stable branch
 
   environment.systemPackages =
     let apple_complete = (lib.lowPrio pkgs.darwinPackages.apple_complete);
@@ -77,7 +77,7 @@ in
   };
 
   # Add homebrew and macports packages to PATH
-  environment.systemPath = [ config.homebrew.brewPrefix "/opt/local/bin" ];
+  environment.systemPath = [ config.homebrew.prefix "/opt/local/bin" ];
 
   environment.pathsToLink = [ "/Applications" ];
 

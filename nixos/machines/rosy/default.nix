@@ -149,8 +149,6 @@ in
           nixos.work
         ]);
 
-      programs.termite.enable = false;
-
       xdg.userDirs.enable = lib.mkForce false;
     };
   };
