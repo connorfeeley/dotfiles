@@ -57,11 +57,11 @@ in
                 nixpkgs.config.allowUnfree = true;
                 home-manager.extraSpecialArgs = rec {
                   inherit self self' inputs';
-                
+
                   pkgs = self.pkgsets.pkgs' system;
-                
+
                   flake-lib = self.flake-lib;
-                
+
                   imports = [
                     # self.inputs.nur.modules.homeManager.default
                   ];
