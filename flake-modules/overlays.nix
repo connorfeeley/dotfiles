@@ -31,10 +31,7 @@
     inputs.gitignore.overlay
     inputs.nur.overlays.default
     inputs.nvfetcher.overlays.default
-    # FIXME: neovim-plusultra is pinned to an older nixpkgs and its tree-sitter
-    # overlay still calls `tree-sitter.override { extraGrammars = ...; }`,
-    # which was removed in nixpkgs 26.05. Re-enable once upstream is updated.
-    # inputs.neovim-plusultra.overlays.default
+    inputs.neovim-plusultra.overlays.default
 
     inputs.nix-xilinx.overlay
 
@@ -75,7 +72,7 @@
       # docker_24
       docker-compose
       nix-du
-      nixfmt
+      nixfmt-rfc-style
       ;
     # docker = final.docker_24;
 
@@ -84,10 +81,6 @@
       (legacyPackagesFrom inputs.nixos-stable)
       chromium
       element-desktop
-      # nurpkgs overlay pins an old input-leap that still uses
-      # darwin.apple_sdk.frameworks.* (removed in nixpkgs 26.05).
-      # nixpkgs 26.05 has input-leap 3.0.3 with the new SDK; use it directly.
-      input-leap
       ;
 
     lib = prev.lib.extend (_lfinal: _lprev: {
@@ -104,19 +97,8 @@
       }))
       else prev.kitty;
 
-    # Workaround: termite was removed from nixpkgs 26.05 but nix-darwin/nixos
-    # still references pkgs.termite from their enableAllTerminfo terminfo list.
-    # Alias to wezterm so `.terminfo` resolves to a valid (deduped) path.
-    termite = prev.wezterm;
-
-    # `buildFHSUserEnvBubblewrap` was renamed to `buildFHSEnvBubblewrap` in
-    # nixpkgs 26.05. Several inputs (nix-xilinx, etc.) still reference the
-    # old name; alias it back until they're updated.
-    buildFHSUserEnvBubblewrap = prev.buildFHSEnvBubblewrap;
-
     # Disable gnome keyring ssh-agent - breaks GPG agent SSH integration by setting SSH_AUTH_SOCK.
-    # nixpkgs 26.05 removed the legacy `overrideScope'` in favor of `overrideScope`.
-    gnome = prev.gnome.overrideScope (gfinal: gprev: {
+    gnome = prev.gnome.overrideScope' (gfinal: gprev: {
       gnome-keyring = gprev.gnome-keyring.overrideAttrs (oldAttrs: {
         configureFlags =
           oldAttrs.configureFlags

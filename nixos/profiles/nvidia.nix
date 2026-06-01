@@ -43,12 +43,11 @@ lib.mkIf (!options.virtualisation ? qemu) {
     font = "${pkgs.ttc-subway}/share/fonts/truetype/${pkgs.ttc-subway.passthru.regular}.hardware";
   };
 
-  # NixOS 26.05 renamed hardware.opengl.* to hardware.graphics.*.
-  hardware.graphics = {
+  hardware.opengl = {
     enable = true;
-    extraPackages = with pkgs; [ libva-vdpau-driver ];
+    extraPackages = with pkgs; [ vaapiVdpau ];
 
-    enable32Bit = pkgs.stdenv.isx86_64;
+    driSupport32Bit = pkgs.stdenv.isx86_64;
   };
 
   # Work around black screen issue on boot: https://github.com/NixOS/nixpkgs/issues/295218
@@ -59,11 +58,8 @@ lib.mkIf (!options.virtualisation ? qemu) {
     "nvidia_drm"
   ];
 
-  # virtualisation.docker.enableNvidia is deprecated; both Docker and Podman
-  # now go through hardware.nvidia-container-toolkit.
-  hardware.nvidia-container-toolkit.enable =
-    config.virtualisation.docker.enable || config.virtualisation.podman.enable;
+  virtualisation.docker.enableNvidia = config.virtualisation.docker.enable;
+  hardware.nvidia-container-toolkit.enable = config.virtualisation.podman.enable;
 
-  # nvtop was renamed to nvtopPackages.full (or .nvidia/.amd/etc. for vendor-specific)
-  environment.systemPackages = [ pkgs.nvtopPackages.nvidia pkgs.ddcutil pkgs.cudatoolkit config.boot.kernelPackages.nvidia_x11 ] ++ xorgPackages;
+  environment.systemPackages = [ pkgs.nvtop pkgs.ddcutil pkgs.cudatoolkit config.boot.kernelPackages.nvidia_x11 ] ++ xorgPackages;
 }

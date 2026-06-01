@@ -41,10 +41,7 @@ in
     poetry # <- sanest python package manager
     remake # <- GNU Make with comprehensible tracing and a debugger
     # config.nur.repos.foolnotion.cmake-init
-    # FIXME: nurpkgs's default.nix evaluates clknetsim which requires the
-    # removed top-level `lzma` package on nixpkgs 26.05. Re-enable once
-    # nurpkgs is updated.
-    # inputs'.nurpkgs.packages.sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
+    inputs'.nurpkgs.packages.sourcetrail-ng # <- Maintained fork (!!) of Sourcetrail, the best C++ exploration tool ever to live.
     terraformer # <- CLI tool to generate terraform files from existing infrastructure (reverse Terraform)
 
     ## === Nix Utilities ===
@@ -83,7 +80,7 @@ in
     treefmt
   ] ++ (lib.optionals isLinux [
     # nixpkgs-update # <- swiss-army knife for updating nix packages
-    # kgraphviewer removed from nixpkgs 26.05 (outdated KF5 deps)
+    kgraphviewer # <- KDE-flavoured Graphviz viewer
     strace # <- trace system calls and signals
     unetbootin # <- Create bootable Live USB drives for a variety of Linux distributions
   ]) ++ (lib.optionals (isLinux && !isAarch64) [

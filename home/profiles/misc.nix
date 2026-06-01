@@ -8,11 +8,12 @@
     asciiquarium
     # webtorrent-cli # FIXME: broken
     inputs'.nix-search-cli.packages.nix-search
+    dogdns
     doggo
 
     ## === Data and Documents ===
     tidy-viewer # <- Pretty-print CSV files
-    # xsv # <- removed from nixpkgs 26.05 (unmaintained); consider 'qsv' as replacement
+    xsv # <- A fast CSV command line toolkit
     python3Packages.yq # <- jq wrapper for YAML/XML/TOML documents
     htmlq # <- Like jq, but for HTML
     # FIXME(2024-05-26): broken

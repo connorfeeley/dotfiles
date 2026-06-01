@@ -90,6 +90,12 @@
     displayManager.startx.enable = false;
 
     displayManager = {
+      # Log in automatically
+      autoLogin = {
+        enable = config.dotfiles.guardian.autoLogin;
+        user = config.dotfiles.guardian.username;
+      };
+
       sessionCommands = ''
         # Fix keyring unlock
         ${
@@ -100,14 +106,10 @@
 
     # WM-only sessions usually don't handle XDG autostart files by default.
     desktopManager.runXdgAutostartIfNone = true;
-  };
 
-  # NixOS 26.05 promoted these out of services.xserver.
-  services.displayManager.autoLogin = {
-    enable = config.dotfiles.guardian.autoLogin;
-    user = config.dotfiles.guardian.username;
+    # Don't autosuspend from GDM
+    displayManager.gdm.autoSuspend = false;
   };
-  services.displayManager.gdm.autoSuspend = false;
 
   # REALLY don't autosuspend.
   security.polkit.extraConfig = ''
@@ -122,8 +124,7 @@
     });
   '';
 
-  # `programs.light` was removed in nixpkgs 26.05 (unmaintained upstream).
-  # `hardware.acpilight` is already enabled above as the replacement.
+  programs.light.enable = true; # Backlight control for users in the 'video' group
 
   # Allow pinentry-gnome3 to work on non-GNOME systems.
   services.dbus.packages = [ pkgs.gcr ];

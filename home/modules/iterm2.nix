@@ -56,7 +56,7 @@ in
 
     programs.bash.initExtra = mkIf cfg.enableBashIntegration (shellInit "bash");
 
-    programs.zsh.initContent = mkIf cfg.enableZshIntegration (lib.mkBefore (shellInit "zsh"));
+    programs.zsh.initExtraFirst = mkIf cfg.enableZshIntegration (shellInit "zsh");
 
     programs.fish.shellInit = mkIf cfg.enableFishIntegration (shellInit "fish");
   };

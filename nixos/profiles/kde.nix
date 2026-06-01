@@ -11,9 +11,11 @@
     enable = true;
   };
 
-  # Plasma 5 was removed in nixpkgs 26.05 (EOL upstream); plasma6 above is the
-  # replacement. The old plasma5 block (enable=false, useQtScaling, runUsingSystemd)
-  # had no remaining effect and is dropped.
+  services.xserver.desktopManager.plasma5 = {
+    enable = false;
+    useQtScaling = true;
+    runUsingSystemd = false;
+  };
 
   qt = {
     enable = true;

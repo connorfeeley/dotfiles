@@ -28,8 +28,7 @@ in
       pulse.enable = true;
     };
 
-    # NixOS 26.05 renamed hardware.pulseaudio -> services.pulseaudio.
-    services.pulseaudio = {
+    hardware.pulseaudio = {
       enable = false;
 
       zeroconf = {

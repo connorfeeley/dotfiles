@@ -15,7 +15,7 @@ in
     tealdeer           # <- A very fast implementation of tldr in Rust.
     nix-output-monitor # <- Pretty nix { build, shell, develop }
     nh                 # Nix helper
-    pay-respects       # <- Corrects your previous console command (replaces removed `thefuck`)
+    thefuck            # <- Corrects your previous console command
     mtr                # <- Traceroute and ping in a single tool
 
     # WARNING: conflicts with moreutils
@@ -42,7 +42,7 @@ in
     moreutils # <- Unix tools that nobody thought to write long ago when unix was young
 
     ## === Sysadmin ===
-    dust # <- Like du but more intuitive (was du-dust).
+    du-dust # <- Like du but more intuitive.
     duf # <- df with colours
     dua # <- quick disk usage
     entr # <- Run arbitrary commands when files change
@@ -51,7 +51,7 @@ in
     ldns # <- 'drill' (like dig)
     smartmontools # <- Mah boy's wicked smaht
     procs # <- pspspspsps here kitty ( ps replacement )
-    # diskonaut # <- removed from nixpkgs 26.05
+    diskonaut # <- Terminal visual disk space navigator
 
     ## === Networking Tools ===
     mosh # <- SSH-like tool for unreliable connections
@@ -80,10 +80,10 @@ in
   ]) ++ (lib.optionals (!isAarch64) [
   ]);
 
-  # Configure 'pay-respects' (replaces removed `thefuck`)
-  programs.bash.initExtra = "eval \"$(pay-respects bash --alias)\"";
-  programs.zsh.initContent = "eval \"$(pay-respects zsh --alias)\"";
-  programs.fish.interactiveShellInit = "pay-respects fish --alias | source";
+  # Configure 'thefuck'
+  programs.bash.initExtra = "eval $(thefuck --alias)";
+  programs.zsh.initExtra = "eval $(thefuck --alias)";
+  programs.fish.interactiveShellInit = "thefuck --alias | source";
 
   nix.package = lib.mkDefault pkgs.nix;
 

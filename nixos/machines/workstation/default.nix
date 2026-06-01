@@ -176,7 +176,6 @@ in
   ### === Shares ============================================================
   fileSystems."/mnt/export/cfeeley" = {
     device = "/home/cfeeley";
-    fsType = "none";
     options = [ "bind" ];
   };
 
@@ -265,10 +264,8 @@ in
           (_: { imports = [ ../../../lib/home ]; })
           hmArgs.modules
         ] ++ [
-          # NUR's homeManager module sets nixpkgs.overlays, which conflicts
-          # with home-manager.useGlobalPkgs (warns in 26.05, will error later).
-          # The overlay is already applied at the system pkgs level via
-          # flake-modules/overlays.nix (inputs.nur.overlays.default).
+          self.inputs.nur.modules.homeManager.default
+
           self.inputs.nix-colors.homeManagerModules.default
           self.inputs.sops-nix.homeManagerModules.sops
           self.inputs.nix-colors.homeManagerModule
@@ -368,7 +365,7 @@ in
 
 
   environment.shellAliases = {
-    ip = "${pkgs.iproute2} -c";
+    ip = "${pkgs.iproute} -c";
   };
 
   systemd.targets = {
@@ -437,7 +434,7 @@ in
   services.nginx.recommendedTlsSettings = true;
   services.nginx.recommendedGzipSettings = true;
   services.nginx.recommendedBrotliSettings = true;
-  # recommendedZstdSettings was removed in nixpkgs 26.05 (no-op upstream).
+  services.nginx.recommendedZstdSettings = true;
 
   # Reverse proxy port 9090 (atticd) to https://workstation.elephant-vibes.ts.net/cache
   services.nginx.virtualHosts."workstation.elephant-vibes.ts.net" = {
@@ -475,7 +472,7 @@ in
   # };
   security.acme = {
     acceptTerms = true;
-    defaults.email = "admin@cfeeley.org";
+    email = "admin@cfeeley.org";
   };
   # services.nginx = {
   #   enable = false;
@@ -530,7 +527,7 @@ in
   services.postgresql = rec {
     enable = true;
     package = pkgs.postgresql_16;
-    extensions = with package.pkgs; [ pg_partman pg_cron postgis pg_repack postgis timescaledb ];
+    extraPlugins = with package.pkgs; [ pg_partman pg_cron postgis pg_repack postgis timescaledb ];
 
     settings = {
       "cron.database_name" = "haskbike";

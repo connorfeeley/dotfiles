@@ -73,10 +73,7 @@ in
         ? config.programs.sway.enable);
 
       # Whether the system has any features indicating a Wayland session.
-      # NixOS 26.05 dropped gdm.wayland (GDM is wayland-only with GNOME 50),
-      # so any enabled GDM implies Wayland.
-      hasWayland = (config.services.xserver.displayManager.gdm.enable or false)
-        || (pkgs.stdenv.isLinux ? config.programs.sway.enable);
+      hasWayland = config.services.xserver.displayManager.gdm.wayland or (pkgs.stdenv.isLinux ? config.programs.sway.enable);
 
       isVm = options.virtualisation ? qemu;
       notVm = !options.virtualisation ? qemu;

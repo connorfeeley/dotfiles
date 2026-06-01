@@ -184,8 +184,8 @@ in
         // lepton.settings.theme.lepton // lepton.settings.recommended
         // lepton.settings.optional;
 
-      extensions.packages = with firefox-addons; [
-        # bukubrow removed from nixpkgs 26.05 (was: lib.mkIf isBukuEnabled bukubrow)
+      extensions = with firefox-addons; [
+        (lib.mkIf isBukuEnabled bukubrow)
         darkreader
         old-reddit-redirect
         org-capture

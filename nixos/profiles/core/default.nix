@@ -7,10 +7,7 @@ let
       "/etc/ssh";
 in
 {
-  # Use the built-in services.envfs (added to nixpkgs 26.05) instead of the
-  # standalone flake input. The flake module unconditionally set
-  # fileSystems."/bin" without an fsType, which is rejected in 26.05.
-  services.envfs.enable = true;
+  imports = [ inputs.envfs.nixosModules.envfs ];
 
   nix = {
     settings = {
@@ -111,7 +108,7 @@ in
     # NOTE: Cross-platform documentation options are set in 'profiles/core'.
     dev.enable = true;
     man = rec {
-      cache.enable = true;
+      generateCaches = true;
       # Mandoc isn't compatible with MANPAGER=bat: https://github.com/sharkdp/bat/issues/1145
       mandoc.enable = false;
       man-db.enable = !mandoc.enable;

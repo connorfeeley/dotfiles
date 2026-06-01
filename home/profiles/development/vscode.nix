@@ -108,8 +108,7 @@ in
 {
   programs.vscode = {
     enable = true;
-    # HM 26.05: programs.vscode.extensions -> programs.vscode.profiles.default.extensions
-    profiles.default.extensions = extensions;
+    inherit extensions;
 
     # Add extension-specific dependencies needed for rust lang server and rust-analyzer extension
     package = lib.mkIf false vscodeFhs;
