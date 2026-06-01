@@ -315,7 +315,7 @@ lib.mkMerge [
         # eslint
         # typescript-language-server
         #: json
-        vscode-json-languageserver
+        # vscode-json-languageserver
         #: markdown
         # unified-language-server # removed from nixpkgs 26.05
         #: python

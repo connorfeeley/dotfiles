@@ -35,39 +35,39 @@ in
               # };
             };
             modules = [
-              # inputs.agenix.nixosModules.age # `nixosModules` is correct, even for darwin
-              # inputs.home-manager.darwinModules.home-manager
+              inputs.agenix.nixosModules.age # `nixosModules` is correct, even for darwin
+              inputs.home-manager.darwinModules.home-manager
 
-              # collective.modules.darwin.amphetamine
-              # collective.modules.darwin.tailscale
-              # collective.modules.darwin.input-leap
-              # collective.modules.darwin.hammerspoon
+              collective.modules.darwin.amphetamine
+              collective.modules.darwin.tailscale
+              collective.modules.darwin.input-leap
+              collective.modules.darwin.hammerspoon
 
-              # collective.profiles.darwin.core
-              # # collective.profiles.darwin.emacs
-              # collective.profiles.darwin.pulseaudio
-              # collective.profiles.darwin.postgres
-              # collective.profiles.darwin.virtualization.nixos-vm-host
-              # collective.profiles.darwin.networking.tools
-              # collective.profiles.global.core
+              collective.profiles.darwin.core
+              # collective.profiles.darwin.emacs
+              collective.profiles.darwin.pulseaudio
+              collective.profiles.darwin.postgres
+              collective.profiles.darwin.virtualization.nixos-vm-host
+              collective.profiles.darwin.networking.tools
+              collective.profiles.global.core
 
-              # nixosModules.MacBook-Pro
+              nixosModules.MacBook-Pro
               ({ ... }: {
                 nixpkgs.hostPlatform = system;
                 nixpkgs.config.allowUnfree = true;
                 home-manager.extraSpecialArgs = rec {
                   inherit self self' inputs';
-
+                
                   pkgs = self.pkgsets.pkgs' system;
-
+                
                   flake-lib = self.flake-lib;
-
+                
                   imports = [
                     # self.inputs.nur.modules.homeManager.default
                   ];
                 };
               })
-            ]; # ++ collective.roles.darwin.workstation;
+            ] ++ collective.roles.darwin.workstation;
           });
       };
 

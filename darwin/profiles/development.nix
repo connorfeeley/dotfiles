@@ -4,7 +4,7 @@
 
     darwin.DarwinTools
     undmg
-    ios-deploy
+    # ios-deploy
   ];
 
   homebrew = {

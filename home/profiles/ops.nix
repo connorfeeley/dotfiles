@@ -2,7 +2,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     deploy-flake # <- Copy flake closure over SSH and switch target config
-    deploy-rs # <- Rusty Nix deployment tool
+    # deploy-rs # <- Rusty Nix deployment tool
     colmena # <- Another rusty Nix deployment tool
 
     # Hetzner Cloud management tool
