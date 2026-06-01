@@ -63,6 +63,15 @@
     "@wheel"
   ];
 
+  # Build aarch64-linux derivations via QEMU user-mode emulation. The binfmt
+  # module also adds aarch64-linux to nix.settings.extra-platforms so the daemon
+  # accepts and builds those jobs.
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  # Sign locally-built paths so MacBook-Pro can use this host as a substituter
+  # (see nixos/modules/substituter.nix; signs with the shared workstation key).
+  substituter.enable = true;
+
   ### === misc =====================================================================
 
   system.stateVersion = "23.11";

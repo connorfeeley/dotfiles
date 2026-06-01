@@ -173,6 +173,7 @@ in
               collective.profiles.global.core
               collective.profiles.global.networking.tailscale
               collective.profiles.nixos.builder
+              collective.modules.nixos.substituter
 
               collective.machines.nixos."proxmox-builder"
               ({ ... }: {
