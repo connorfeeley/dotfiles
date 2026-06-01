@@ -9,13 +9,12 @@ let
     shellcheck shfmt terraform treefmt lefthook nix-output-monitor
     nixos-generators nix-eval-jobs nix-prefetch-git nix-build-uncached
     nixos-rebuild # For remote nixos-rebuild on darwin
+    prettier
     ;
 
   nvfetcherPackage = inputs'.nvfetcher.packages.default;
 
   nix = pkgs.nixVersions.latest;
-
-  inherit (pkgs.nodePackages) prettier;
 
   scripts = pkgs.callPackage ./scripts { };
 
