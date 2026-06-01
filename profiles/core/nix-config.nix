@@ -2,17 +2,24 @@
 let
   inherit (pkgs.stdenv) isDarwin;
 
-  substituters = [
+  # Extra public binary caches. These are *appended* to the platform default
+  # (cache.nixos.org) via extra-substituters rather than replacing it, so the
+  # default survives on both nix-darwin (mkAfter) and NixOS (mkDefault).
+  # Mirrors the caches passed on the darwin-rebuild command line.
+  extraSubstituters = [
     "https://nix-community.cachix.org"
     "https://cfeeley.cachix.org"
+    "https://cuda-maintainers.cachix.org"
+    "https://riscv64-linux.cachix.org"
   ];
-  trusted-substituters = substituters;
 in
 {
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
-      inherit substituters trusted-substituters;
+      extra-substituters = extraSubstituters;
+      # Let non-root trusted users use these caches too.
+      trusted-substituters = extraSubstituters;
 
       sandbox = lib.mkDefault (!pkgs.stdenv.hostPlatform.isDarwin);
       # FIXME: dangerous
@@ -66,6 +73,8 @@ in
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cfeeley.cachix.org-1:b+RrHsy/4WWys2o6T4YyF66OhdiZUF/R/N46JcS0HJU="
+        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+        "riscv64-linux.cachix.org-1:CMYqxMxIfI34QyXnMRi4N/aqTI8C9ALYtsE1enMNGzQ="
       ];
     };
 
