@@ -15,7 +15,7 @@ in
     tealdeer           # <- A very fast implementation of tldr in Rust.
     nix-output-monitor # <- Pretty nix { build, shell, develop }
     nh                 # Nix helper
-    pay-respects       # <- Corrects your previous console command
+    thefuck            # <- Corrects your previous console command
     mtr                # <- Traceroute and ping in a single tool
 
     # WARNING: conflicts with moreutils
@@ -42,7 +42,7 @@ in
     moreutils # <- Unix tools that nobody thought to write long ago when unix was young
 
     ## === Sysadmin ===
-    dust # <- Like du but more intuitive.
+    du-dust # <- Like du but more intuitive.
     duf # <- df with colours
     dua # <- quick disk usage
     entr # <- Run arbitrary commands when files change
@@ -51,6 +51,7 @@ in
     ldns # <- 'drill' (like dig)
     smartmontools # <- Mah boy's wicked smaht
     procs # <- pspspspsps here kitty ( ps replacement )
+    diskonaut # <- Terminal visual disk space navigator
 
     ## === Networking Tools ===
     mosh # <- SSH-like tool for unreliable connections

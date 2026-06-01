@@ -36,14 +36,14 @@ in
             };
             modules = [
               # inputs.agenix.nixosModules.age # `nixosModules` is correct, even for darwin
-              inputs.home-manager.darwinModules.home-manager
+              # inputs.home-manager.darwinModules.home-manager
 
               # collective.modules.darwin.amphetamine
               # collective.modules.darwin.tailscale
               # collective.modules.darwin.input-leap
               # collective.modules.darwin.hammerspoon
 
-              collective.profiles.darwin.core
+              # collective.profiles.darwin.core
               # # collective.profiles.darwin.emacs
               # collective.profiles.darwin.pulseaudio
               # collective.profiles.darwin.postgres
@@ -51,7 +51,7 @@ in
               # collective.profiles.darwin.networking.tools
               # collective.profiles.global.core
 
-              nixosModules.MacBook-Pro
+              # nixosModules.MacBook-Pro
               ({ ... }: {
                 nixpkgs.hostPlatform = system;
                 nixpkgs.config.allowUnfree = true;
@@ -63,7 +63,7 @@ in
                   flake-lib = self.flake-lib;
 
                   imports = [
-                    self.inputs.nur.modules.homeManager.default
+                    # self.inputs.nur.modules.homeManager.default
                   ];
                 };
               })
@@ -81,16 +81,16 @@ in
               ../lib/system
 
               collective.profiles.global.core
-              # collective.profiles.global.secrets
+              collective.profiles.global.secrets
 
-              # collective.modules.global.nix-config-defaults
+              collective.modules.global.nix-config-defaults
               collective.modules.global.dotfiles.guardian
               collective.modules.global.fup-options
-              # collective.modules.global.nix.caches
+              collective.modules.global.nix.caches
 
-              # # Attic
-              # collective.modules.darwin.attic
-              # collective.modules.global.cache
+              # Attic
+              collective.modules.darwin.attic
+              collective.modules.global.cache
 
               collective.machines.darwin.MacBook-Pro
             ];
