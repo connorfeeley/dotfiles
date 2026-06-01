@@ -196,28 +196,28 @@ in
         '';
       };
 
-      pinentryFlavor = lib.mkOption {
-        type = lib.types.nullOr (lib.types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
-        example = "gnome3";
-        default =
-          if isDarwin
-          then "mac"
-          else "gtk2";
-        description = ''
-          Which pinentry interface to use. If not
-          <literal>null</literal>, it sets
-          <option>pinentry-program</option> in
-          <filename>gpg-agent.conf</filename>. Beware that
-          <literal>pinentry-gnome3</literal> may not work on non-Gnome
-          systems. You can fix it by adding the following to your
-          system configuration:
-          <programlisting language="nix">
-          services.dbus.packages = [ pkgs.gcr ];
-          </programlisting>
-          For this reason, the default is <literal>gtk2</literal> for
-          now.
-        '';
-      };
+      # pinentryFlavor = lib.mkOption {
+      #   type = lib.types.nullOr (lib.types.enum (pkgs.pinentry.flavors ++ [ "mac" "touchid" ]));
+      #   example = "gnome3";
+      #   default =
+      #     if isDarwin
+      #     then "mac"
+      #     else "gtk2";
+      #   description = ''
+      #     Which pinentry interface to use. If not
+      #     <literal>null</literal>, it sets
+      #     <option>pinentry-program</option> in
+      #     <filename>gpg-agent.conf</filename>. Beware that
+      #     <literal>pinentry-gnome3</literal> may not work on non-Gnome
+      #     systems. You can fix it by adding the following to your
+      #     system configuration:
+      #     <programlisting language="nix">
+      #     services.dbus.packages = [ pkgs.gcr ];
+      #     </programlisting>
+      #     For this reason, the default is <literal>gtk2</literal> for
+      #     now.
+      #   '';
+      # };
 
       enableBashIntegration = lib.mkEnableOption "Bash integration" // {
         default = true;
@@ -244,19 +244,19 @@ in
         (lib.optionalString (cfg.defaultCacheTtlSsh != null) "default-cache-ttl-ssh ${toString cfg.defaultCacheTtlSsh}")
         (lib.optionalString (cfg.maxCacheTtl != null) "max-cache-ttl ${toString cfg.maxCacheTtl}")
         (lib.optionalString (cfg.maxCacheTtlSsh != null) "max-cache-ttl-ssh ${toString cfg.maxCacheTtlSsh}")
-        (lib.optionalString (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid") "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
+        # (lib.optionalString (cfg.pinentryFlavor != null && cfg.pinentryFlavor != "mac" && cfg.pinentryFlavor != "touchid") "pinentry-program ${pkgs.pinentry.${cfg.pinentryFlavor}}/bin/pinentry")
 
         # NOTE: pinentry-touchid ALSO requires pinentry-program be 'pinentry-mac'
-        (lib.optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
-        (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid")
+        # (lib.optionalString (cfg.pinentryFlavor == "mac") "pinentry-program /opt/homebrew/bin/pinentry-mac")
+        # (lib.optionalString (cfg.pinentryFlavor == "touchid") "pinentry-program ${osConfig.homebrew.brewPrefix}/pinentry-touchid")
         "\n" # Trailing newline is important - avoids pinentry-program being jammed with the extraConfig.
       ]) + cfg.extraConfig;
 
-      home.packages = lib.optionals (cfg.pinentryFlavor != null) (
-        if isDarwin
-        then [ pkgs.pinentry_mac ]
-        else [ pkgs.pinentry.${cfg.pinentryFlavor} ]
-      );
+      # home.packages = lib.optionals (cfg.pinentryFlavor != null) (
+      #   if isDarwin
+      #   then [ pkgs.pinentry_mac ]
+      #   else [ pkgs.pinentry.${cfg.pinentryFlavor} ]
+      # );
 
       programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration gpgInitStr;
       programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration gpgInitStr;

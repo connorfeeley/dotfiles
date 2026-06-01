@@ -131,7 +131,7 @@ let
     sparseCheckout = [ "modules/completion/corfu" ];
   };
 
-  llvmPackages = pkgs.llvmPackages_16;
+  llvmPackages = pkgs.llvmPackages_18;
   clang-tools = llvmPackages.clang-tools;
 in
 lib.mkMerge [

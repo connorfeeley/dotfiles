@@ -50,9 +50,9 @@ in
           self.inputs.nix-colors.homeManagerModule
           self.inputs.nixos-vscode-server.nixosModules.home
           self.inputs.nix-index-database.homeModules.nix-index
-        ]
-        ++ (with roles; workstation ++ macos ++ trusted ++ webdev ++ security ++ developer ++ emacs-config)
-        ++ (with hmArgs.profiles; [ shells.fish desktop.vnc work media sync aws emacs ]));
+        ]);
+        # ++ (with roles; workstation ++ macos ++ trusted ++ webdev ++ security ++ developer ++ emacs-config)
+        # ++ (with hmArgs.profiles; [ shells.fish desktop.vnc work media sync aws emacs ]));
 
       # imports = [ ../../home/modules/iterm2.nix ];
       _module.args.inputs = self.inputs;
@@ -71,15 +71,15 @@ in
   networking.knownNetworkServices = [ "Wi-Fi" "iPhone USB" "Thunderbolt Bridge" ];
 
   # Use personal caches
-  nix.caches = {
-    enable = true;
-    attic.enable = false;
-    attic.upload.enable = true;
-    cachix.enable = true;
-  };
+  # nix.caches = {
+  #   enable = true;
+  #   attic.enable = false;
+  #   attic.upload.enable = true;
+  #   cachix.enable = true;
+  # };
 
   # Tailscale MAS App
-  programs.tailscale.enable = true;
+  # programs.tailscale.enable = true;
 
   # Tailscale (open-source, CLI-only)
   # services.tailscale.enable = true;
@@ -89,26 +89,26 @@ in
     nix-direnv.enable = true;
   };
 
-  programs.amphetamine = {
-    enable = true;
-    withEnhancer = true;
-  };
+  # programs.amphetamine = {
+  #   enable = true;
+  #   withEnhancer = true;
+  # };
 
-  services.input-leap = {
-    enable = true;
+  # services.input-leap = {
+  #   enable = true;
 
-    client = {
-      enable = true;
-      serverAddress = "workstation";
-    };
-  };
+  #   client = {
+  #     enable = true;
+  #     serverAddress = "workstation";
+  #   };
+  # };
 
-  age.secrets = {
-    dotfiles-readme-update-access-token = {
-      file = "${secretsDir}/dotfiles-readme-update-access-token.txt.age";
-      group = secretsGroup;
-    };
-  };
+  # age.secrets = {
+  #   dotfiles-readme-update-access-token = {
+  #     file = "${secretsDir}/dotfiles-readme-update-access-token.txt.age";
+  #     group = secretsGroup;
+  #   };
+  # };
 
   homebrew.casks = [
     { name = "malwarebytes"; }
